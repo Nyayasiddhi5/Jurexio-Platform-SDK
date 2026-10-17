@@ -2,6 +2,11 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-INFRA-OPTION-B-001 (2026-10-17)
+
+- `scripts/jrx-infra-apply-option-b.sh` — dry-run (default) / `--apply` provision for Option B (S3, VPC/SG, RDS Postgres 15, ElastiCache Redis, EC2 AL2023); outputs `env.production.jurexio.generated`; optional `JRX_BOOTSTRAP_SSM=1` → `jrx-ssm-bootstrap-bedrock-smoke.sh`.
+- Runbook section in `documents/working/JRX-AWS-INFRA-OPTIONS-AND-RUNBOOK.md`; gitignore for generated Jurexio env files.
+
 ### Added — JRX-PROGRAM-001 (2026-10-17)
 
 - Re-export from Nyayavigya `aeab32ff` (5837 files); `UPSTREAM-NYV-SHA.txt`.
