@@ -10,7 +10,7 @@ import React, { useMemo } from 'react';
 import { useLocation } from 'wouter';
 import { ChevronRight, Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { SECTIONS } from '@/components/NyvSidebar';
+import { SECTIONS } from '@/components/JrxConsoleSidebar';
 
 interface CrumbEntry {
   section: string;

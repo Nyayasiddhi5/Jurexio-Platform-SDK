@@ -103,7 +103,7 @@
     "eval:counsel-grade:gate": "tsx scripts/jrx-eval-counsel-grade.ts --gate",
     "eval:counsel-grade:live:ec2": "bash scripts/jrx-counsel-grade-live-ec2.sh",
     "probe:fb468:draft-profile": "tsx scripts/jrx-probe-fb468-draft-profile-contract.ts",
-    "probe:nyv": "tsx scripts/jrx-probe-nyv-validation-sse.ts",
+    "probe:nyv": "tsx scripts/legacy-nyv/jrx-probe-nyv-validation-sse.ts",
     "probe:nsp-stream:ec2": "bash scripts/jrx-nsp-stream-crosscheck-ec2.sh",
     "probe:nysapi:freshness:ec2": "bash scripts/jrx-nysapi-freshness-probe-ec2.sh",
     "probe:nys-rds:freshness:ec2": "bash scripts/jrx-nys-rds-freshness-probe-ec2.sh",

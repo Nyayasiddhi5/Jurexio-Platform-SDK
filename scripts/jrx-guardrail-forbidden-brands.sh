@@ -23,6 +23,8 @@ ALLOW_GLOBS=(
   --glob '!**/JRX-DATA-RESIDENCY.md'
   --glob '!**/JRX-SOC2-TENANT-BOUNDARY.md'
   --glob '!**/JUREXIO-ENTERPRISE-SDK.md'
+  --glob '!**/JRX-AWS-INFRA-OPTIONS-AND-RUNBOOK.md'
+  --glob '!**/JRX-LEGACY-NYV-COMPOSE.md'
   --glob '!**/JRX-SEARCH-US-CORPUS-PLAN.md'
   --glob '!scripts/jurexio-export-bootstrap.sh'
   --glob '!scripts/jrx-phase2-rename.py'

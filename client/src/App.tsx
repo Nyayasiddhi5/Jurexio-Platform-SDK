@@ -205,7 +205,7 @@ const UsStatePrivacy        = lazy(() => import('./pages/us-state-privacy'));
 const BipaConsent           = lazy(() => import('./pages/bipa-consent'));
 const AgentScorecard        = lazy(() => import('./pages/agent-scorecard'));
 
-import { NyvSidebar } from './components/NyvSidebar';
+import { JrxConsoleSidebar } from './components/JrxConsoleSidebar';
 import { NyvTopBar } from './components/NyvTopBar';
 import { NyvBreadcrumbs } from './components/NyvBreadcrumbs';
 
@@ -216,7 +216,7 @@ function WithSidebar({ user, children }: { user: unknown; children: React.ReactN
   if (noChrome) return <>{children}</>;
   return (
     <div className="flex" style={{ minHeight: '100vh' }}>
-      <NyvSidebar />
+      <JrxConsoleSidebar />
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <NyvTopBar />
         <NyvBreadcrumbs />
