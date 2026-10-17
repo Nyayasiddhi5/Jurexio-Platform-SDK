@@ -1,0 +1,85 @@
+# Jurexio Enterprise — single-host smoke/production-lite stack (NOT nysdev).
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: jurexio-enterprise-gateway
+    container_name: jrx-gateway
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - JUREXIO_PLATFORM=1
+      - NODE_OPTIONS=--max-old-space-size=1536
+      - JRX_BEDROCK_ENABLED=on
+      - JRX_ROUTER_BEDROCK_FIRST=on
+      - AWS_BEDROCK_REGION=us-east-1
+    ports:
+      - "5000:5000"
+    networks:
+      - jrx-net
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:5000/api/jrx/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+
+  console:
+    build:
+      context: .
+      dockerfile: Dockerfile.console
+    image: jurexio-enterprise-console
+    container_name: jrx-console
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - jrx-net
+    depends_on:
+      gateway:
+        condition: service_healthy
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: jrx-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: jurexio
+      POSTGRES_PASSWORD: jurexio_smoke_change_me
+      POSTGRES_DB: jurexio
+    volumes:
+      - jrx-pgdata:/var/lib/postgresql/data
+    networks:
+      - jrx-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jurexio -d jurexio"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: jrx-redis
+    restart: unless-stopped
+    networks:
+      - jrx-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+networks:
+  jrx-net:
+
+volumes:
+  jrx-pgdata:

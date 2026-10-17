@@ -1,0 +1,12 @@
+---
+description: Jurexio Enterprise — never modify Nyayavigya upstream from this workspace
+alwaysApply: true
+---
+
+# Jurexio workspace contract
+
+- All product changes happen in **Jurexio-Platform-SDK** only.
+- **Do not** edit `nyayavigya-platform-312` or deploy to nysdev `i-0df71e5ea1df8f588`.
+- Deploy: `scripts/jrx-deploy-aws-ssm.sh` with `JRX_EC2_INSTANCE_ID` set.
+- Secrets: SSM prefix `/jurexio/prod/*` only; Bedrock smoke copy via `jrx-ssm-bootstrap-bedrock-smoke.sh`.
+- Docs: `documents/working/JRX-AWS-INFRA-OPTIONS-AND-RUNBOOK.md`.

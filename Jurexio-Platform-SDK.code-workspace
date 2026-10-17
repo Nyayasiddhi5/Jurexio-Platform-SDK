@@ -1,0 +1,22 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "Jurexio Platform SDK"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "archive/upstream-nyv": false
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "archive/**": true
+    }
+  },
+  "extensions": {
+    "recommendations": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+  }
+}
