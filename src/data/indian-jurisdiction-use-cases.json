@@ -1,0 +1,1459 @@
+{
+  "version": "3.1.2",
+  "jurisdiction": "IN",
+  "jurisdictionName": "India",
+  "totalUseCases": 60,
+  "generatedAt": "2026-05-10T06:11:12.323639Z",
+  "useCases": [
+    {
+      "id": "UC-IN-001",
+      "title": "FIR Drafting & Criminal Complaint Filing",
+      "category": "Criminal Law",
+      "practiceArea": "Criminal",
+      "description": "Citizen files FIR or criminal complaint with AI-assisted drafting under BNS 2023",
+      "agents": [
+        "in-criminal-specialist",
+        "in-fir-analysis",
+        "in-bail-applications",
+        "in-criminal-research",
+        "in-translation-agent"
+      ],
+      "userFlow": "User describes incident → FIR analysis agent classifies offence under BNS sections → Criminal specialist validates → Bail application agent checks bail provisions → Translation agent provides vernacular version → Document generated with proper format for local police station",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-fir-analysis/execute",
+        "POST /api/jrx/agents/in-criminal-specialist/execute",
+        "POST /api/jrx/sdk/docs-pipeline/draft"
+      ],
+      "statutes": [
+        "Bharatiya Nyaya Sanhita 2023",
+        "Bharatiya Nagarik Suraksha Sanhita 2023"
+      ],
+      "expectedOutput": "Formatted FIR draft with correct BNS sections, jurisdiction details, and vernacular translation"
+    },
+    {
+      "id": "UC-IN-002",
+      "title": "Consumer Complaint to District Forum",
+      "category": "Consumer Protection",
+      "practiceArea": "Consumer",
+      "description": "Draft and file consumer complaint under Consumer Protection Act 2019",
+      "agents": [
+        "in-consumer-specialist",
+        "in-consumer-disputes",
+        "in-product-liability",
+        "in-unfair-trade-agent"
+      ],
+      "userFlow": "User inputs product/service issue → Consumer specialist identifies applicable provisions → Product liability agent assesses claim → Unfair trade agent checks for deceptive practices → Draft complaint generated for District/State/National Commission",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-consumer-specialist/execute",
+        "POST /api/jrx/sdk/docs-pipeline/draft",
+        "POST /api/jrx/sdk/research/statute"
+      ],
+      "statutes": [
+        "Consumer Protection Act 2019",
+        "Consumer Protection (E-Commerce) Rules 2020"
+      ],
+      "expectedOutput": "Consumer complaint petition with pecuniary jurisdiction analysis, relief sought, and supporting evidence checklist"
+    },
+    {
+      "id": "UC-IN-003",
+      "title": "GST Return Filing & Compliance Check",
+      "category": "Taxation",
+      "practiceArea": "Tax",
+      "description": "Verify GST compliance, ITC claims, and return filing accuracy",
+      "agents": [
+        "in-tax-specialist",
+        "in-gst-agent",
+        "in-tax-compliance",
+        "in-audit-agent"
+      ],
+      "userFlow": "User uploads GST data → GST agent verifies GSTIN, HSN codes, ITC eligibility → Tax compliance agent cross-checks GSTR-1/3B/9 reconciliation → Audit agent identifies discrepancies → Tax specialist provides remediation plan",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-gst-agent/execute",
+        "POST /api/jrx/agents/in-tax-compliance/execute",
+        "POST /api/jrx/sdk/docs-pipeline/analyze"
+      ],
+      "statutes": [
+        "CGST Act 2017",
+        "SGST Acts",
+        "GST Rules 2017"
+      ],
+      "expectedOutput": "GST compliance report with ITC reconciliation, discrepancy alerts, and filing timeline"
+    },
+    {
+      "id": "UC-IN-004",
+      "title": "Commercial Contract Drafting & Review",
+      "category": "Contract Law",
+      "practiceArea": "Contract",
+      "description": "Draft, review, and negotiate commercial contracts under Indian Contract Act",
+      "agents": [
+        "in-contract-specialist",
+        "in-contract-drafting",
+        "in-contract-review",
+        "in-contract-negotiation",
+        "in-contract-risk"
+      ],
+      "userFlow": "User specifies contract type → Drafting agent generates contract with jurisdiction-specific clauses → Review agent performs clause-by-clause analysis → Risk agent flags high-risk provisions → Negotiation agent suggests counterproposals → Final contract with stamp duty calculation",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-contract-drafting/execute",
+        "POST /api/jrx/agents/in-contract-review/execute",
+        "POST /api/jrx/sdk/docs-pipeline/draft"
+      ],
+      "statutes": [
+        "Indian Contract Act 1872",
+        "Sale of Goods Act 1930",
+        "Specific Relief Act 1963",
+        "Indian Stamp Act 1899"
+      ],
+      "expectedOutput": "Complete contract draft with risk analysis, stamp duty estimation, and negotiation playbook"
+    },
+    {
+      "id": "UC-IN-005",
+      "title": "RERA Complaint for Homebuyers",
+      "category": "Real Estate",
+      "practiceArea": "Real Estate",
+      "description": "File complaint with RERA authority for delayed possession or deficiency",
+      "agents": [
+        "in-realestate-specialist",
+        "in-rera-compliance",
+        "in-property-due-diligence",
+        "in-realestate-disputes"
+      ],
+      "userFlow": "Homebuyer inputs project details → RERA compliance agent verifies project registration → Due diligence agent checks builder compliance → Dispute agent drafts RERA complaint → Specialist provides relief options including interest calculation",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-rera-compliance/execute",
+        "POST /api/jrx/agents/in-realestate-disputes/execute",
+        "POST /api/jrx/sdk/docs-pipeline/draft"
+      ],
+      "statutes": [
+        "RERA 2016",
+        "Transfer of Property Act 1882"
+      ],
+      "expectedOutput": "RERA complaint with builder history, delay calculation, interest computation, and relief sought"
+    },
+    {
+      "id": "UC-IN-006",
+      "title": "Startup Incorporation & ROC Compliance",
+      "category": "Corporate Law",
+      "practiceArea": "Corporate",
+      "description": "Incorporate company and manage ROC compliance filings",
+      "agents": [
+        "in-corporate-specialist",
+        "in-corporate-governance",
+        "in-corporate-compliance",
+        "in-corporate-secretarial",
+        "in-mca21-connector"
+      ],
+      "userFlow": "Founder provides company details → Corporate specialist recommends structure (Pvt Ltd/LLP/OPC) → Secretarial agent prepares MOA/AOA → MCA21 connector validates DIN/DSC → Governance agent sets up compliance calendar → Post-incorporation filings scheduled",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-corporate-specialist/execute",
+        "POST /api/jrx/agents/in-corporate-secretarial/execute",
+        "POST /api/jrx/sdk/docs-pipeline/draft"
+      ],
+      "statutes": [
+        "Companies Act 2013",
+        "LLP Act 2008",
+        "DPIIT Startup Recognition Guidelines"
+      ],
+      "expectedOutput": "Incorporation documents, compliance calendar, director duties summary, annual filing schedule"
+    },
+    {
+      "id": "UC-IN-007",
+      "title": "Divorce Petition & Alimony Estimation",
+      "category": "Family Law",
+      "practiceArea": "Family",
+      "description": "Draft divorce petition with alimony/maintenance calculation",
+      "agents": [
+        "in-family-specialist",
+        "in-family-divorce",
+        "in-family-mediation",
+        "in-child-custody",
+        "in-succession-planning"
+      ],
+      "userFlow": "Client provides marriage details → Family specialist identifies applicable law (Hindu/Muslim/Special Marriage) → Divorce agent drafts petition → Mediation agent suggests ADR → Child custody agent assesses best interest → Maintenance calculation under relevant statute",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-family-specialist/execute",
+        "POST /api/jrx/agents/in-family-divorce/execute",
+        "POST /api/jrx/sdk/docs-pipeline/draft"
+      ],
+      "statutes": [
+        "Hindu Marriage Act 1955",
+        "Muslim Personal Law",
+        "Special Marriage Act 1954",
+        "Domestic Violence Act 2005",
+        "Hindu Adoption and Maintenance Act 1956"
+      ],
+      "expectedOutput": "Divorce petition, maintenance calculation, child custody recommendation, mediation brief"
+    },
+    {
+      "id": "UC-IN-008",
+      "title": "Patent Filing & Prosecution",
+      "category": "Intellectual Property",
+      "practiceArea": "IP",
+      "description": "Draft patent application and manage prosecution before Indian Patent Office",
+      "agents": [
+        "in-ip-specialist",
+        "in-patent-agent",
+        "in-ip-enforcement",
+        "in-copyright-agent"
+      ],
+      "userFlow": "Inventor describes invention → Patent agent conducts prior art search → IP specialist classifies patentability → Draft provisional/complete specification → File with Indian Patent Office → Track prosecution timeline",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-patent-agent/execute",
+        "POST /api/jrx/agents/in-ip-specialist/execute",
+        "POST /api/jrx/sdk/research/query"
+      ],
+      "statutes": [
+        "Patents Act 1970",
+        "Patent Rules 2003",
+        "PCT Treaty (India signatory)"
+      ],
+      "expectedOutput": "Patent specification draft, claims, prior art analysis, prosecution timeline, fee schedule"
+    },
+    {
+      "id": "UC-IN-009",
+      "title": "Labour Dispute Resolution (Industrial Dispute)",
+      "category": "Labour Law",
+      "practiceArea": "Labour",
+      "description": "Handle industrial dispute including retrenchment, closure, and layoff matters",
+      "agents": [
+        "in-labour-specialist",
+        "in-industrial-disputes",
+        "in-employment-contracts",
+        "in-labour-compliance"
+      ],
+      "userFlow": "Employee/employer describes dispute → Labour specialist identifies applicable Code → Industrial disputes agent drafts conciliation application → Employment contracts agent reviews service conditions → Compliance agent verifies standing order compliance",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-labour-specialist/execute",
+        "POST /api/jrx/agents/in-industrial-disputes/execute"
+      ],
+      "statutes": [
+        "Industrial Relations Code 2020",
+        "Code on Wages 2019",
+        "Social Security Code 2020",
+        "OSH Code 2020"
+      ],
+      "expectedOutput": "Conciliation application, dispute timeline, compliance checklist, remediation options"
+    },
+    {
+      "id": "UC-IN-010",
+      "title": "Bail Application Drafting",
+      "category": "Criminal Law",
+      "practiceArea": "Criminal",
+      "description": "Draft anticipatory or regular bail application with precedent support",
+      "agents": [
+        "in-criminal-specialist",
+        "in-bail-applications",
+        "in-criminal-research",
+        "in-supreme-court-agent"
+      ],
+      "userFlow": "Accused/lawyer provides case details → Bail agent identifies applicable provision (BNSS sections) → Criminal research agent finds relevant bail precedents → Supreme Court agent checks latest SC bail guidelines → Draft bail application with triple test analysis",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-bail-applications/execute",
+        "POST /api/jrx/agents/in-criminal-research/execute",
+        "POST /api/jrx/sdk/research/precedent"
+      ],
+      "statutes": [
+        "BNSS 2023 (Sections 480-483)",
+        "BNS 2023"
+      ],
+      "expectedOutput": "Bail application with case law citations, triple test analysis, surety requirements, and conditions checklist"
+    },
+    {
+      "id": "UC-IN-011",
+      "title": "Data Protection Compliance (DPDP Act)",
+      "category": "Data Privacy",
+      "practiceArea": "Compliance",
+      "description": "Assess organization's compliance with Digital Personal Data Protection Act 2023",
+      "agents": [
+        "in-data-protection-agent",
+        "in-cyber-gdpr",
+        "in-compliance-lead",
+        "in-pii-redaction-agent"
+      ],
+      "userFlow": "Organization provides data processing details → Data protection agent maps data flows → GDPR/DPDP agent conducts gap analysis → Compliance lead creates remediation roadmap → PII redaction agent identifies PII in existing documents → Consent mechanism review",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-data-protection-agent/execute",
+        "POST /api/jrx/agents/in-compliance-lead/execute"
+      ],
+      "statutes": [
+        "DPDP Act 2023",
+        "IT Act 2000",
+        "IT Rules 2011"
+      ],
+      "expectedOutput": "DPDP compliance assessment, data mapping report, consent framework, breach notification SOP"
+    },
+    {
+      "id": "UC-IN-012",
+      "title": "Arbitration Proceedings Management",
+      "category": "ADR",
+      "practiceArea": "Arbitration",
+      "description": "Manage domestic/international arbitration from clause to award enforcement",
+      "agents": [
+        "in-arbitration-specialist",
+        "in-arbitration-proceedings",
+        "in-arbitration-drafting",
+        "in-arbitration-research",
+        "in-arbitration-enforcement"
+      ],
+      "userFlow": "Party initiates arbitration → Specialist validates clause → Proceedings agent manages timeline → Drafting agent prepares statement of claims → Research agent finds relevant awards → Enforcement agent advises on Section 34/36 proceedings",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-arbitration-specialist/execute",
+        "POST /api/jrx/agents/in-arbitration-proceedings/execute"
+      ],
+      "statutes": [
+        "Arbitration & Conciliation Act 1996",
+        "SIAC Rules",
+        "ICC Rules"
+      ],
+      "expectedOutput": "Arbitration timeline, statement of claims, procedural orders, enforcement strategy"
+    },
+    {
+      "id": "UC-IN-013",
+      "title": "Cheque Bounce (Section 138 NI Act) Case",
+      "category": "Banking & Finance",
+      "practiceArea": "Banking",
+      "description": "Handle dishonour of cheque complaint under NI Act",
+      "agents": [
+        "in-banking-specialist",
+        "in-criminal-specialist",
+        "in-court-filing",
+        "in-litigation-specialist"
+      ],
+      "userFlow": "Payee provides dishonour details → Banking specialist verifies statutory demand notice requirements → Criminal specialist prepares Section 138 complaint → Court filing agent formats for Magistrate Court → Litigation specialist manages trial timeline",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-banking-specialist/execute",
+        "POST /api/jrx/sdk/docs-pipeline/draft"
+      ],
+      "statutes": [
+        "Negotiable Instruments Act 1881 (Section 138-142)",
+        "BNSS 2023"
+      ],
+      "expectedOutput": "Statutory demand notice, Section 138 complaint petition, evidence checklist, timeline"
+    },
+    {
+      "id": "UC-IN-014",
+      "title": "Writ Petition Drafting (Article 226/32)",
+      "category": "Constitutional Law",
+      "practiceArea": "Constitutional",
+      "description": "Draft writ petition for High Court (Art 226) or Supreme Court (Art 32)",
+      "agents": [
+        "in-constitutional-specialist",
+        "in-writ-petitions",
+        "in-pil-specialist",
+        "in-judicial-review",
+        "in-supreme-court-agent"
+      ],
+      "userFlow": "Petitioner describes fundamental rights violation → Constitutional specialist identifies applicable writ type → Writ agent drafts petition → PIL specialist checks locus standi → Supreme Court agent validates jurisdiction → Full petition with prayer and interim relief application",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-constitutional-specialist/execute",
+        "POST /api/jrx/agents/in-writ-petitions/execute"
+      ],
+      "statutes": [
+        "Constitution of India (Articles 14, 19, 21, 32, 226)",
+        "Supreme Court Rules 2013"
+      ],
+      "expectedOutput": "Writ petition, affidavit in support, interim application, list of dates and events"
+    },
+    {
+      "id": "UC-IN-015",
+      "title": "M&A Due Diligence for Indian Target",
+      "category": "Corporate M&A",
+      "practiceArea": "M&A",
+      "description": "Comprehensive legal due diligence for acquisition of Indian company",
+      "agents": [
+        "in-mergers-acquisitions",
+        "in-corporate-specialist",
+        "in-compliance-lead",
+        "in-tax-specialist",
+        "in-labour-specialist",
+        "in-ip-specialist",
+        "in-realestate-specialist"
+      ],
+      "userFlow": "Acquirer provides target details → M&A agent structures review scope → Corporate specialist reviews charter documents → Tax specialist checks contingent liabilities → Labour specialist reviews employee matters → IP specialist verifies IP portfolio → Real estate agent checks title → Consolidated DD report",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-mergers-acquisitions/execute",
+        "POST /api/jrx/agents/in-compliance-lead/execute"
+      ],
+      "statutes": [
+        "Companies Act 2013",
+        "Competition Act 2002",
+        "SEBI Takeover Code",
+        "FEMA 1999",
+        "Income Tax Act 1961"
+      ],
+      "expectedOutput": "Due diligence report, risk matrix, regulatory approval roadmap, deal structure recommendation"
+    },
+    {
+      "id": "UC-IN-016",
+      "title": "IBC Corporate Insolvency Resolution",
+      "category": "Insolvency",
+      "practiceArea": "Insolvency",
+      "description": "Initiate and manage CIRP under Insolvency and Bankruptcy Code 2016",
+      "agents": [
+        "in-insolvency-specialist",
+        "in-ibc-agent",
+        "in-liquidation-agent",
+        "in-creditor-rights",
+        "in-restructuring-plan"
+      ],
+      "userFlow": "Creditor/debtor provides default details → IBC agent verifies threshold (Rs.1 crore) → Insolvency specialist prepares Section 7/9/10 application → Creditor rights agent manages CoC proceedings → Restructuring agent evaluates resolution plans → Liquidation agent advises on waterfall mechanism",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-ibc-agent/execute",
+        "POST /api/jrx/agents/in-insolvency-specialist/execute"
+      ],
+      "statutes": [
+        "IBC 2016",
+        "IBBI Regulations",
+        "Companies Act 2013"
+      ],
+      "expectedOutput": "CIRP application, creditor claims, resolution plan evaluation, CoC voting analysis"
+    },
+    {
+      "id": "UC-IN-017",
+      "title": "POSH Complaint & ICC Proceedings",
+      "category": "Workplace",
+      "practiceArea": "Labour",
+      "description": "Handle sexual harassment complaint under POSH Act and ICC process",
+      "agents": [
+        "in-posh-compliance",
+        "in-labour-specialist",
+        "in-compliance-lead"
+      ],
+      "userFlow": "Aggrieved woman files complaint → POSH agent validates complaint format → ICC process initiated → Labour specialist guides inquiry procedure → Compliance lead ensures policy adherence → Confidentiality maintained throughout → ICC report generation",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-posh-compliance/execute",
+        "POST /api/jrx/agents/in-labour-specialist/execute"
+      ],
+      "statutes": [
+        "POSH Act 2013",
+        "POSH Rules 2013"
+      ],
+      "expectedOutput": "Complaint format, ICC inquiry procedure, confidentiality protocols, findings report template"
+    },
+    {
+      "id": "UC-IN-018",
+      "title": "Environmental Clearance & NGT Compliance",
+      "category": "Environmental",
+      "practiceArea": "Environment",
+      "description": "Obtain environmental clearance and manage NGT compliance",
+      "agents": [
+        "in-env-specialist",
+        "in-env-compliance",
+        "in-env-litigation",
+        "in-esg-agent"
+      ],
+      "userFlow": "Project proponent provides project details → Environmental specialist identifies clearance category → Compliance agent checks EIA requirements → ESG agent assesses sustainability metrics → Litigation agent handles NGT proceedings if needed",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-env-specialist/execute",
+        "POST /api/jrx/agents/in-env-compliance/execute"
+      ],
+      "statutes": [
+        "Environment Protection Act 1986",
+        "EIA Notification 2006",
+        "NGT Act 2010",
+        "Water Act 1974",
+        "Air Act 1981"
+      ],
+      "expectedOutput": "EIA screening report, clearance application, compliance checklist, NGT appearance strategy"
+    },
+    {
+      "id": "UC-IN-019",
+      "title": "Income Tax Appeal & ITAT Proceedings",
+      "category": "Taxation",
+      "practiceArea": "Tax",
+      "description": "File appeal against income tax assessment order before CIT(A) or ITAT",
+      "agents": [
+        "in-tax-specialist",
+        "in-income-tax-agent",
+        "in-transfer-pricing-agent",
+        "in-litigation-specialist"
+      ],
+      "userFlow": "Taxpayer receives assessment order → Income tax agent analyzes additions → Transfer pricing agent reviews if applicable → Tax specialist drafts grounds of appeal → Litigation specialist prepares for ITAT hearing → Written submissions and paper book prepared",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-income-tax-agent/execute",
+        "POST /api/jrx/agents/in-tax-specialist/execute"
+      ],
+      "statutes": [
+        "Income Tax Act 1961 (Sections 246A, 253)",
+        "Income Tax Rules 1962"
+      ],
+      "expectedOutput": "Grounds of appeal, written submissions, case law compilation, paper book index"
+    },
+    {
+      "id": "UC-IN-020",
+      "title": "Immigration Visa Application & Work Permit",
+      "category": "Immigration",
+      "practiceArea": "Immigration",
+      "description": "Process visa applications and work permits for foreign nationals in India",
+      "agents": [
+        "in-immigration-specialist",
+        "in-visa-applications",
+        "in-work-permits",
+        "in-immigration-compliance"
+      ],
+      "userFlow": "Employer/individual provides details → Immigration specialist identifies visa category → Visa agent prepares application → Work permit agent handles FRRO registration → Compliance agent ensures ongoing reporting requirements met",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-immigration-specialist/execute",
+        "POST /api/jrx/agents/in-visa-applications/execute"
+      ],
+      "statutes": [
+        "Foreigners Act 1946",
+        "Immigration Rules",
+        "FRRO Guidelines"
+      ],
+      "expectedOutput": "Visa application package, work permit documentation, FRRO registration guidance, compliance calendar"
+    },
+    {
+      "id": "UC-IN-021",
+      "title": "Cybercrime Complaint & IT Act Prosecution",
+      "category": "Cyber Law",
+      "practiceArea": "Cyber",
+      "description": "File cybercrime complaint and handle prosecution under IT Act",
+      "agents": [
+        "in-cyber-specialist",
+        "in-cyber-incident",
+        "in-cyber-forensics",
+        "in-cyber-risk",
+        "in-fir-analysis"
+      ],
+      "userFlow": "Victim describes cyber incident → Cyber specialist classifies offence → Incident response agent preserves evidence → Forensics agent guides technical evidence collection → FIR analysis prepares complaint for Cybercrime Police → Risk assessment for ongoing threats",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-cyber-specialist/execute",
+        "POST /api/jrx/agents/in-cyber-incident/execute"
+      ],
+      "statutes": [
+        "IT Act 2000 (Sections 43, 66, 66C, 66D, 67)",
+        "BNS 2023 (cyber fraud provisions)"
+      ],
+      "expectedOutput": "Cybercrime complaint, evidence preservation guide, FIR draft, forensics requirements checklist"
+    },
+    {
+      "id": "UC-IN-022",
+      "title": "Banking Loan Documentation & Security Creation",
+      "category": "Banking",
+      "practiceArea": "Banking",
+      "description": "Draft loan agreements and create security interests for banking transactions",
+      "agents": [
+        "in-banking-specialist",
+        "in-loan-documentation",
+        "in-regulatory-banking",
+        "in-debt-restructuring"
+      ],
+      "userFlow": "Bank/NBFC provides loan parameters → Loan documentation agent drafts facility agreement → Banking specialist reviews RBI compliance → Regulatory agent checks FEMA requirements for ECBs → Security creation (mortgage/pledge/hypothecation) documentation",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-banking-specialist/execute",
+        "POST /api/jrx/agents/in-loan-documentation/execute"
+      ],
+      "statutes": [
+        "RBI Act 1934",
+        "Banking Regulation Act 1949",
+        "SARFAESI Act 2002",
+        "Transfer of Property Act 1882",
+        "FEMA 1999"
+      ],
+      "expectedOutput": "Facility agreement, security documents, CERSAI registration, RBI compliance checklist"
+    },
+    {
+      "id": "UC-IN-023",
+      "title": "eCourts Case Status Tracking",
+      "category": "Litigation Management",
+      "practiceArea": "Litigation",
+      "description": "Track case status across Indian courts using eCourts integration",
+      "agents": [
+        "in-litigation-specialist",
+        "in-ecourts-connector",
+        "in-cause-list-parser",
+        "in-limitation-calculator"
+      ],
+      "userFlow": "Lawyer provides CNR number or case details → eCourts connector fetches real-time status → Cause list parser identifies next hearing → Limitation calculator tracks deadlines → Automated alerts for upcoming dates",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-ecourts-connector/execute",
+        "POST /api/jrx/agents/in-cause-list-parser/execute"
+      ],
+      "statutes": [
+        "CPC 1908",
+        "BNSS 2023",
+        "Limitation Act 1963"
+      ],
+      "expectedOutput": "Case status report, next hearing details, limitation alerts, cause list updates"
+    },
+    {
+      "id": "UC-IN-024",
+      "title": "SEBI Regulatory Compliance for Listed Companies",
+      "category": "Securities",
+      "practiceArea": "Corporate",
+      "description": "Ensure SEBI LODR compliance for BSE/NSE listed companies",
+      "agents": [
+        "in-corporate-specialist",
+        "in-corporate-governance",
+        "in-regulatory-monitor",
+        "in-corporate-secretarial"
+      ],
+      "userFlow": "Company secretary provides listing details → Corporate governance agent checks board composition → Regulatory monitor tracks SEBI circulars → Secretarial agent prepares quarterly filings → Insider trading compliance verification",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-corporate-governance/execute",
+        "POST /api/jrx/agents/in-regulatory-monitor/execute"
+      ],
+      "statutes": [
+        "SEBI LODR 2015",
+        "SEBI (PIT) Regulations 2015",
+        "Companies Act 2013",
+        "SEBI Act 1992"
+      ],
+      "expectedOutput": "LODR compliance checklist, board report, corporate governance report, insider trading policy"
+    },
+    {
+      "id": "UC-IN-025",
+      "title": "Anti-Money Laundering Compliance",
+      "category": "Financial Crime",
+      "practiceArea": "Compliance",
+      "description": "Implement AML/KYC compliance program under PMLA",
+      "agents": [
+        "in-aml-specialist",
+        "in-compliance-lead",
+        "in-regulatory-banking",
+        "in-sanctions-compliance"
+      ],
+      "userFlow": "Financial institution provides details → AML specialist designs compliance framework → Regulatory banking agent checks RBI Master Directions → Sanctions agent screens against OFAC/UN lists → Compliance lead creates STR/CTR reporting procedures",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-aml-specialist/execute",
+        "POST /api/jrx/agents/in-compliance-lead/execute"
+      ],
+      "statutes": [
+        "PMLA 2002",
+        "PMLA Rules 2005",
+        "RBI KYC Master Direction 2016",
+        "FEMA 1999"
+      ],
+      "expectedOutput": "AML policy manual, KYC procedures, STR/CTR templates, risk assessment matrix"
+    },
+    {
+      "id": "UC-IN-026",
+      "title": "Competition Commission (CCI) Merger Filing",
+      "category": "Competition Law",
+      "practiceArea": "Competition",
+      "description": "File merger notification with CCI under Competition Act 2002",
+      "agents": [
+        "in-competition-specialist",
+        "in-cci-compliance",
+        "in-merger-clearance",
+        "in-mergers-acquisitions"
+      ],
+      "userFlow": "Parties provide transaction details → Competition specialist checks asset/turnover thresholds → CCI compliance agent prepares Form I/II → Merger clearance agent manages Green Channel assessment → M&A agent handles remedy negotiations if needed",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-competition-specialist/execute",
+        "POST /api/jrx/agents/in-cci-compliance/execute"
+      ],
+      "statutes": [
+        "Competition Act 2002 (Sections 5, 6)",
+        "CCI Combination Regulations 2011"
+      ],
+      "expectedOutput": "Merger notification (Form I/II), market definition analysis, competition assessment, remedy proposals"
+    },
+    {
+      "id": "UC-IN-027",
+      "title": "Trademark Registration & Opposition",
+      "category": "IP",
+      "practiceArea": "IP",
+      "description": "File trademark application and handle opposition proceedings",
+      "agents": [
+        "in-ip-specialist",
+        "in-trademark-agent",
+        "in-ip-enforcement"
+      ],
+      "userFlow": "Brand owner provides mark details → Trademark agent conducts availability search → IP specialist advises on classes → Application filed with Trademark Registry → Opposition handled if published → Registration certificate tracked",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-trademark-agent/execute",
+        "POST /api/jrx/agents/in-ip-specialist/execute"
+      ],
+      "statutes": [
+        "Trademarks Act 1999",
+        "Trademark Rules 2017"
+      ],
+      "expectedOutput": "Trademark search report, application draft, opposition response, registration timeline"
+    },
+    {
+      "id": "UC-IN-028",
+      "title": "Property Title Due Diligence & Sale Deed",
+      "category": "Real Estate",
+      "practiceArea": "Real Estate",
+      "description": "Conduct property title search and draft sale/transfer documents",
+      "agents": [
+        "in-realestate-specialist",
+        "in-property-due-diligence",
+        "in-property-drafting",
+        "in-stamp-duty-calculator"
+      ],
+      "userFlow": "Buyer provides property details → Due diligence agent traces title chain (30 years) → Specialist checks encumbrances and liens → Drafting agent prepares sale deed → Stamp duty calculator computes applicable duty by state → Registration process guidance",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-property-due-diligence/execute",
+        "POST /api/jrx/agents/in-property-drafting/execute"
+      ],
+      "statutes": [
+        "Transfer of Property Act 1882",
+        "Registration Act 1908",
+        "Indian Stamp Act 1899",
+        "State Stamp Acts"
+      ],
+      "expectedOutput": "Title search report, sale deed draft, stamp duty computation, registration checklist"
+    },
+    {
+      "id": "UC-IN-029",
+      "title": "Medical Negligence Claim",
+      "category": "Healthcare",
+      "practiceArea": "Healthcare",
+      "description": "File medical negligence claim before Consumer Forum or Civil Court",
+      "agents": [
+        "in-healthcare-specialist",
+        "in-medical-negligence",
+        "in-consumer-specialist",
+        "in-litigation-specialist"
+      ],
+      "userFlow": "Patient provides treatment details → Healthcare specialist evaluates standard of care → Medical negligence agent assesses breach → Consumer specialist determines forum (Consumer/Civil) → Litigation specialist manages proceedings → Compensation estimation",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-healthcare-specialist/execute",
+        "POST /api/jrx/agents/in-medical-negligence/execute"
+      ],
+      "statutes": [
+        "Consumer Protection Act 2019",
+        "BNS 2023 (Section 106)",
+        "Clinical Establishments Act 2010"
+      ],
+      "expectedOutput": "Medical negligence claim, expert opinion requirement, compensation computation, evidence checklist"
+    },
+    {
+      "id": "UC-IN-030",
+      "title": "FDI Compliance & FEMA Reporting",
+      "category": "Foreign Investment",
+      "practiceArea": "Trade",
+      "description": "Ensure FDI compliance under FEMA and file required RBI reports",
+      "agents": [
+        "in-fdi-agent",
+        "in-trade-specialist",
+        "in-regulatory-banking",
+        "in-cross-border-transactions"
+      ],
+      "userFlow": "Company receives foreign investment → FDI agent verifies sectoral cap → Trade specialist checks entry route (automatic/approval) → Regulatory agent ensures FC-GPR filing → Cross-border agent handles downstream investment compliance → Annual return on foreign liabilities",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-fdi-agent/execute",
+        "POST /api/jrx/agents/in-trade-specialist/execute"
+      ],
+      "statutes": [
+        "FEMA 1999",
+        "FEMA Non-Debt Instruments Rules 2019",
+        "RBI FDI Circulars",
+        "FDI Policy 2020"
+      ],
+      "expectedOutput": "FDI compliance report, FC-GPR filing, sectoral analysis, downstream investment checklist"
+    },
+    {
+      "id": "UC-IN-031",
+      "title": "Motor Vehicle Accident Claim",
+      "category": "Tort/Accident",
+      "practiceArea": "Litigation",
+      "description": "File motor accident claim before Motor Accident Claims Tribunal",
+      "agents": [
+        "in-litigation-specialist",
+        "in-court-filing",
+        "in-litigation-research"
+      ],
+      "userFlow": "Accident victim provides details → Litigation specialist calculates claim under structured formula → Research agent finds MACT precedents → Court filing agent prepares petition → Compensation computed using multiplier method (Sarla Verma guidelines)",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-litigation-specialist/execute",
+        "POST /api/jrx/sdk/research/precedent"
+      ],
+      "statutes": [
+        "Motor Vehicles Act 2019 (Section 166)",
+        "BNS 2023"
+      ],
+      "expectedOutput": "MACT claim petition, compensation calculation (multiplier method), medical evidence checklist"
+    },
+    {
+      "id": "UC-IN-032",
+      "title": "Defamation Suit (Civil & Criminal)",
+      "category": "Media & Reputation",
+      "practiceArea": "Media",
+      "description": "File defamation suit under civil law or BNS provisions",
+      "agents": [
+        "in-media-specialist",
+        "in-defamation-agent",
+        "in-litigation-specialist"
+      ],
+      "userFlow": "Aggrieved person provides defamatory content → Media specialist classifies (libel/slander) → Defamation agent assesses civil vs criminal route → Litigation specialist drafts suit/complaint → Interim relief (injunction) application",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-media-specialist/execute",
+        "POST /api/jrx/agents/in-defamation-agent/execute"
+      ],
+      "statutes": [
+        "BNS 2023 (Section 356)",
+        "CPC 1908",
+        "Constitution Article 19(2)"
+      ],
+      "expectedOutput": "Defamation suit/complaint, interim injunction application, damages computation"
+    },
+    {
+      "id": "UC-IN-033",
+      "title": "OTT/Streaming Content Compliance",
+      "category": "Media & Entertainment",
+      "practiceArea": "Media",
+      "description": "Ensure OTT platform compliance with IT Rules 2021 content guidelines",
+      "agents": [
+        "in-media-specialist",
+        "in-streaming-compliance",
+        "in-content-licensing",
+        "in-regulatory-monitor"
+      ],
+      "userFlow": "OTT platform provides content catalog → Streaming compliance agent checks age classification → Content licensing agent verifies rights → Regulatory monitor tracks MeitY advisories → Self-regulatory body compliance → Grievance redressal mechanism setup",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-streaming-compliance/execute",
+        "POST /api/jrx/agents/in-content-licensing/execute"
+      ],
+      "statutes": [
+        "IT Rules 2021 (Part III)",
+        "Cinematograph Act 1952",
+        "Cable Television Networks Act 1995"
+      ],
+      "expectedOutput": "Content classification report, licensing compliance, self-regulation framework, grievance SOP"
+    },
+    {
+      "id": "UC-IN-034",
+      "title": "Sports Contract & Dispute Resolution",
+      "category": "Sports Law",
+      "practiceArea": "Sports",
+      "description": "Draft athlete contracts and handle sports disputes via arbitration",
+      "agents": [
+        "in-sports-law",
+        "in-sports-disputes",
+        "in-arbitration-specialist",
+        "in-talent-contracts"
+      ],
+      "userFlow": "Athlete/club provides engagement details → Sports law agent drafts contract → Talent contracts agent handles endorsement deals → Sports disputes agent manages anti-doping/selection disputes → Arbitration specialist handles CAS/ad hoc panel proceedings",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-sports-law/execute",
+        "POST /api/jrx/agents/in-sports-disputes/execute"
+      ],
+      "statutes": [
+        "National Sports Code",
+        "BCCI Constitution",
+        "WADA Code",
+        "CAS Arbitration Rules"
+      ],
+      "expectedOutput": "Athlete contract, endorsement agreement, dispute resolution brief, CAS application"
+    },
+    {
+      "id": "UC-IN-035",
+      "title": "Government Tender & Procurement Compliance",
+      "category": "Public Procurement",
+      "practiceArea": "Government",
+      "description": "Ensure compliance with government procurement rules and tender requirements",
+      "agents": [
+        "in-procurement-agent",
+        "in-government-contracts",
+        "in-compliance-lead"
+      ],
+      "userFlow": "Bidder provides tender details → Procurement agent checks GeM compliance → Government contracts agent reviews bid documents → Compliance lead verifies MSE/SC-ST procurement mandates → Bid preparation with all certifications → Post-award contract management",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-procurement-agent/execute",
+        "POST /api/jrx/agents/in-government-contracts/execute"
+      ],
+      "statutes": [
+        "GFR 2017",
+        "GeM Guidelines",
+        "MSME Act 2006",
+        "Integrity Pact Guidelines"
+      ],
+      "expectedOutput": "Bid document review, compliance checklist, certification requirements, contract management plan"
+    },
+    {
+      "id": "UC-IN-036",
+      "title": "Pharma Regulatory Approval (CDSCO)",
+      "category": "Healthcare Regulation",
+      "practiceArea": "Healthcare",
+      "description": "Obtain drug/medical device approval from CDSCO",
+      "agents": [
+        "in-healthcare-specialist",
+        "in-clinical-trials-agent",
+        "in-pharma-compliance"
+      ],
+      "userFlow": "Pharma company provides product details → Clinical trials agent checks CTRI registration → Pharma compliance agent prepares CDSCO application → Healthcare specialist reviews labelling/packaging compliance → Post-market surveillance requirements",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-clinical-trials-agent/execute",
+        "POST /api/jrx/agents/in-pharma-compliance/execute"
+      ],
+      "statutes": [
+        "Drugs and Cosmetics Act 1940",
+        "New Drugs and Clinical Trials Rules 2019",
+        "Medical Devices Rules 2017"
+      ],
+      "expectedOutput": "CDSCO application, clinical trial protocol, labelling compliance, pharmacovigilance plan"
+    },
+    {
+      "id": "UC-IN-037",
+      "title": "Anti-Corruption & FCPA Compliance",
+      "category": "Anti-Corruption",
+      "practiceArea": "Compliance",
+      "description": "Implement anti-corruption compliance program for MNCs operating in India",
+      "agents": [
+        "in-fcpa-agent",
+        "in-aml-specialist",
+        "in-compliance-lead",
+        "in-corporate-compliance"
+      ],
+      "userFlow": "MNC provides India operations details → FCPA agent assesses bribery risk → AML specialist checks facilitation payments → Compliance lead designs anti-corruption policy → Corporate compliance agent implements training program → Third-party due diligence framework",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-fcpa-agent/execute",
+        "POST /api/jrx/agents/in-compliance-lead/execute"
+      ],
+      "statutes": [
+        "Prevention of Corruption Act 1988",
+        "Companies Act 2013 (Section 447)",
+        "FCPA (US)",
+        "UK Bribery Act"
+      ],
+      "expectedOutput": "Anti-corruption policy, TPDD framework, gift policy, training curriculum, whistle-blower mechanism"
+    },
+    {
+      "id": "UC-IN-038",
+      "title": "Customs Duty Assessment & Import Compliance",
+      "category": "Trade & Customs",
+      "practiceArea": "Trade",
+      "description": "Assess customs duty and ensure import compliance under Customs Act",
+      "agents": [
+        "in-customs-agent",
+        "in-trade-specialist",
+        "in-trade-remedies",
+        "in-gst-agent"
+      ],
+      "userFlow": "Importer provides HS code and product details → Customs agent calculates BCD/IGST/SAD → Trade specialist checks FTA benefits → Trade remedies agent verifies anti-dumping duty applicability → GST agent handles IGST credit → Compliance with BIS/FSSAI/AERB standards",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-customs-agent/execute",
+        "POST /api/jrx/agents/in-trade-specialist/execute"
+      ],
+      "statutes": [
+        "Customs Act 1962",
+        "Customs Tariff Act 1975",
+        "Foreign Trade Policy 2023",
+        "BIS Act 2016"
+      ],
+      "expectedOutput": "Duty calculation, FTA benefit analysis, anti-dumping assessment, compliance checklist"
+    },
+    {
+      "id": "UC-IN-039",
+      "title": "Fintech Regulatory Sandbox & RBI Compliance",
+      "category": "Fintech",
+      "practiceArea": "Banking",
+      "description": "Navigate RBI regulatory sandbox and fintech compliance requirements",
+      "agents": [
+        "in-fintech-compliance",
+        "in-banking-specialist",
+        "in-data-protection-agent",
+        "in-regulatory-banking"
+      ],
+      "userFlow": "Fintech startup provides product details → Fintech compliance agent identifies applicable regulations → Banking specialist checks PA/PG guidelines → Data protection agent verifies data localization → Regulatory banking agent manages RBI sandbox application → NBFC/Payment Aggregator licensing",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-fintech-compliance/execute",
+        "POST /api/jrx/agents/in-regulatory-banking/execute"
+      ],
+      "statutes": [
+        "RBI Regulatory Sandbox Framework",
+        "Payment and Settlement Systems Act 2007",
+        "RBI PA/PG Guidelines",
+        "DPDP Act 2023"
+      ],
+      "expectedOutput": "Regulatory mapping, sandbox application, compliance roadmap, data localization assessment"
+    },
+    {
+      "id": "UC-IN-040",
+      "title": "Asylum/Refugee Status Application",
+      "category": "Immigration",
+      "practiceArea": "Immigration",
+      "description": "Process refugee/asylum claims under UNHCR mandate in India",
+      "agents": [
+        "in-immigration-specialist",
+        "in-refugee-asylum",
+        "in-immigration-compliance"
+      ],
+      "userFlow": "Asylum seeker provides background → Refugee agent assesses claim basis → Immigration specialist interfaces with UNHCR → Country of origin information compiled → Long-term visa application prepared → Integration support documentation",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-refugee-asylum/execute",
+        "POST /api/jrx/agents/in-immigration-specialist/execute"
+      ],
+      "statutes": [
+        "Foreigners Act 1946",
+        "UNHCR Mandate (India non-signatory to 1951 Convention)"
+      ],
+      "expectedOutput": "Asylum application, COI report, UNHCR referral, long-term visa petition"
+    },
+    {
+      "id": "UC-IN-041",
+      "title": "Class Action Lawsuit Management",
+      "category": "Litigation",
+      "practiceArea": "Consumer",
+      "description": "Initiate and manage class action under Companies Act/Consumer Protection Act",
+      "agents": [
+        "in-class-action",
+        "in-consumer-specialist",
+        "in-litigation-specialist",
+        "in-corporate-specialist"
+      ],
+      "userFlow": "Group of affected parties provides details → Class action agent evaluates collective claim → Consumer specialist checks CPA 2019 provisions → Corporate specialist handles Companies Act Section 245 → Litigation specialist manages NCLT/consumer forum proceedings",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-class-action/execute",
+        "POST /api/jrx/agents/in-consumer-specialist/execute"
+      ],
+      "statutes": [
+        "Companies Act 2013 (Section 245)",
+        "Consumer Protection Act 2019 (Section 35)"
+      ],
+      "expectedOutput": "Class action petition, affected party register, damages computation, representative capacity proof"
+    },
+    {
+      "id": "UC-IN-042",
+      "title": "ESG Compliance & Sustainability Reporting",
+      "category": "ESG",
+      "practiceArea": "Compliance",
+      "description": "Ensure ESG compliance and prepare BRSR/sustainability reports",
+      "agents": [
+        "in-esg-agent",
+        "in-env-compliance",
+        "in-corporate-governance",
+        "in-regulatory-monitor"
+      ],
+      "userFlow": "Company provides ESG data → ESG agent evaluates against BRSR framework → Environmental compliance verifies emission reporting → Corporate governance checks board ESG oversight → Regulatory monitor tracks SEBI ESG disclosure requirements → BRSR report generation",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-esg-agent/execute",
+        "POST /api/jrx/agents/in-env-compliance/execute"
+      ],
+      "statutes": [
+        "SEBI BRSR Framework",
+        "SEBI LODR (ESG provisions)",
+        "Companies Act 2013 (CSR)"
+      ],
+      "expectedOutput": "BRSR report, ESG scorecard, CSR compliance report, sustainability roadmap"
+    },
+    {
+      "id": "UC-IN-043",
+      "title": "Succession Planning & Will Drafting",
+      "category": "Family Law",
+      "practiceArea": "Family",
+      "description": "Draft will and manage succession planning across personal law regimes",
+      "agents": [
+        "in-succession-planning",
+        "in-family-specialist",
+        "in-tax-specialist"
+      ],
+      "userFlow": "Individual provides family and asset details → Succession agent identifies applicable personal law → Family specialist drafts will with testamentary trust provisions → Tax specialist advises on succession tax implications → Registration and attestation guidance",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-succession-planning/execute",
+        "POST /api/jrx/agents/in-family-specialist/execute"
+      ],
+      "statutes": [
+        "Indian Succession Act 1925",
+        "Hindu Succession Act 1956",
+        "Muslim Personal Law",
+        "Registration Act 1908"
+      ],
+      "expectedOutput": "Will draft, succession plan, tax advisory, trust deed (if applicable), registration guidance"
+    },
+    {
+      "id": "UC-IN-044",
+      "title": "Privacy Technology & PIA Assessment",
+      "category": "Privacy Tech",
+      "practiceArea": "Cyber",
+      "description": "Conduct Privacy Impact Assessment for technology platforms",
+      "agents": [
+        "in-privacy-technology-agent",
+        "in-data-protection-agent",
+        "in-cyber-risk"
+      ],
+      "userFlow": "Tech company provides product details → Privacy tech agent maps data flows → Data protection agent conducts PIA → Cyber risk agent assesses security posture → Privacy by design recommendations → DPIA report generation",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-privacy-technology-agent/execute",
+        "POST /api/jrx/agents/in-data-protection-agent/execute"
+      ],
+      "statutes": [
+        "DPDP Act 2023",
+        "IT Act 2000",
+        "IT Rules 2011"
+      ],
+      "expectedOutput": "PIA report, data flow map, privacy by design recommendations, DPIA documentation"
+    },
+    {
+      "id": "UC-IN-045",
+      "title": "NDPS Act Defence & Bail Strategy",
+      "category": "Criminal (Narcotics)",
+      "practiceArea": "Criminal",
+      "description": "Defence strategy for NDPS Act cases including bail (Section 37 NDPS)",
+      "agents": [
+        "in-criminal-specialist",
+        "in-bail-applications",
+        "in-criminal-research",
+        "in-litigation-specialist"
+      ],
+      "userFlow": "Accused provides case details → Criminal specialist analyzes NDPS charges → Research agent examines Section 37 twin conditions → Bail agent prepares application addressing reasonable grounds → Litigation specialist manages trial strategy → Chain of custody challenges",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-criminal-specialist/execute",
+        "POST /api/jrx/agents/in-criminal-research/execute"
+      ],
+      "statutes": [
+        "NDPS Act 1985 (Sections 20, 21, 22, 37)",
+        "BNSS 2023"
+      ],
+      "expectedOutput": "Defence strategy, bail application (Section 37 compliance), evidence analysis, trial preparation"
+    },
+    {
+      "id": "UC-IN-046",
+      "title": "Cross-Border Data Transfer Assessment",
+      "category": "Data Privacy",
+      "practiceArea": "Cyber",
+      "description": "Assess legality of cross-border data transfers under DPDP Act",
+      "agents": [
+        "in-data-protection-agent",
+        "in-multi-jurisdiction-compliance",
+        "in-cyber-gdpr",
+        "in-cross-border-transactions"
+      ],
+      "userFlow": "Organization describes data transfer scenario → Data protection agent checks DPDP transfer restrictions → Multi-jurisdiction agent identifies destination country compliance → GDPR agent compares adequacy requirements → Cross-border agent drafts transfer mechanisms → Binding corporate rules assessment",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-data-protection-agent/execute",
+        "POST /api/jrx/agents/in-multi-jurisdiction-compliance/execute"
+      ],
+      "statutes": [
+        "DPDP Act 2023 (Section 16)",
+        "IT Act 2000",
+        "EU GDPR (cross-reference)"
+      ],
+      "expectedOutput": "Transfer impact assessment, adequacy analysis, standard contractual clauses, BCR framework"
+    },
+    {
+      "id": "UC-IN-047",
+      "title": "Legal Research & Citation Compilation",
+      "category": "Research",
+      "practiceArea": "Research",
+      "description": "Deep legal research with case law compilation and citation formatting",
+      "agents": [
+        "in-legal-research",
+        "in-citation-formatter",
+        "in-litigation-research",
+        "in-mentor-agent"
+      ],
+      "userFlow": "Lawyer provides research query → Legal research agent searches databases → Litigation research verifies precedent applicability → Citation formatter standardizes references → Mentor agent provides pedagogical summary → Comprehensive research memo generated",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-legal-research/execute",
+        "POST /api/jrx/agents/in-citation-formatter/execute",
+        "POST /api/jrx/sdk/research/query"
+      ],
+      "statutes": [
+        "Various (query-dependent)"
+      ],
+      "expectedOutput": "Research memo, case law compilation, citation-formatted bibliography, key ratio analysis"
+    },
+    {
+      "id": "UC-IN-048",
+      "title": "Stamp Duty & Court Fee Calculation",
+      "category": "Ledger",
+      "practiceArea": "Finance",
+      "description": "Calculate stamp duty and court fees across Indian states",
+      "agents": [
+        "in-stamp-duty-calculator",
+        "in-court-fee-assessor",
+        "in-billing-agent"
+      ],
+      "userFlow": "User provides document type and state → Stamp duty calculator computes applicable duty → Court fee assessor calculates pecuniary/ad valorem fees → Billing agent generates fee schedule → Payment guidance including e-stamping options",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-stamp-duty-calculator/execute",
+        "POST /api/jrx/agents/in-court-fee-assessor/execute"
+      ],
+      "statutes": [
+        "Indian Stamp Act 1899",
+        "State Stamp Acts",
+        "Court Fees Act 1870",
+        "State Court Fees Acts"
+      ],
+      "expectedOutput": "Stamp duty computation, court fee schedule, e-stamping guidance, state-wise comparison"
+    },
+    {
+      "id": "UC-IN-049",
+      "title": "Vernacular Legal Document Translation",
+      "category": "Language Services",
+      "practiceArea": "Translation",
+      "description": "Translate legal documents across 22 scheduled languages + English",
+      "agents": [
+        "in-translation-agent",
+        "in-sarvam-voice-agent",
+        "in-document-intelligence-agent"
+      ],
+      "userFlow": "User uploads legal document → Document intelligence agent extracts structure → Translation agent translates preserving legal terminology → Sarvam voice agent provides audio narration → Multi-language output with legal glossary",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-translation-agent/execute",
+        "POST /api/jrx/sdk/multimodal/translate",
+        "POST /api/jrx/sdk/multimodal/voice/tts"
+      ],
+      "statutes": [
+        "Official Languages Act 1963",
+        "Constitutional Schedule VIII"
+      ],
+      "expectedOutput": "Translated document, legal glossary, audio narration, terminology mapping"
+    },
+    {
+      "id": "UC-IN-050",
+      "title": "Digital Twin for Law Firm Operations",
+      "category": "Legal Operations",
+      "practiceArea": "Operations",
+      "description": "Create digital twin of law firm for operational optimization",
+      "agents": [
+        "in-legal-ops-agent",
+        "in-analytics-agent",
+        "in-billing-agent",
+        "in-matter-management-agent"
+      ],
+      "userFlow": "Firm provides operational data → Legal ops agent creates digital twin → Analytics agent models workflow bottlenecks → Billing agent optimizes revenue realization → Matter management agent tracks WIP → Performance dashboards generated",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-legal-ops-agent/execute",
+        "POST /api/jrx/agents/in-analytics-agent/execute"
+      ],
+      "statutes": [
+        "Bar Council of India Rules (fee provisions)",
+        "Professional ethics guidelines"
+      ],
+      "expectedOutput": "Digital twin model, performance KPIs, billing optimization report, workflow recommendations"
+    },
+    {
+      "id": "UC-IN-051",
+      "title": "RTI Application Drafting",
+      "category": "Constitutional",
+      "practiceArea": "Constitutional",
+      "description": "Draft Right to Information application and appeals",
+      "agents": [
+        "in-constitutional-specialist",
+        "in-administrative-law",
+        "in-writ-petitions"
+      ],
+      "userFlow": "Citizen describes information sought → Constitutional specialist identifies PIO/SPIO → Administrative law agent drafts RTI application → First appeal to APIO → Second appeal to Information Commission → Writ petition if needed",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-constitutional-specialist/execute",
+        "POST /api/jrx/agents/in-administrative-law/execute"
+      ],
+      "statutes": [
+        "Right to Information Act 2005"
+      ],
+      "expectedOutput": "RTI application, first appeal, second appeal template, CIC complaint format"
+    },
+    {
+      "id": "UC-IN-052",
+      "title": "MSME Registration & Compliance",
+      "category": "MSME",
+      "practiceArea": "Corporate",
+      "description": "Register MSME on Udyam portal and ensure compliance",
+      "agents": [
+        "in-corporate-specialist",
+        "in-compliance-lead",
+        "in-procurement-agent"
+      ],
+      "userFlow": "Enterprise provides details → Corporate specialist classifies enterprise category → Compliance lead verifies Udyam requirements → Procurement agent identifies government tender preferences → Delayed payment provisions under MSME Act",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-corporate-specialist/execute",
+        "POST /api/jrx/agents/in-procurement-agent/execute"
+      ],
+      "statutes": [
+        "MSME Development Act 2006",
+        "Udyam Registration Guidelines"
+      ],
+      "expectedOutput": "Udyam registration guidance, compliance checklist, tender preference documentation"
+    },
+    {
+      "id": "UC-IN-053",
+      "title": "Rent Agreement & Eviction Notice",
+      "category": "Property",
+      "practiceArea": "Real Estate",
+      "description": "Draft rent agreements and eviction notices under applicable state rent control laws",
+      "agents": [
+        "in-realestate-specialist",
+        "in-property-drafting",
+        "in-stamp-duty-calculator"
+      ],
+      "userFlow": "Landlord/tenant provides details → Real estate specialist identifies applicable state rent control law → Drafting agent prepares leave & license / rent agreement → Stamp duty calculator computes e-stamp requirements → Eviction notice drafted with proper grounds",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-property-drafting/execute",
+        "POST /api/jrx/agents/in-stamp-duty-calculator/execute"
+      ],
+      "statutes": [
+        "Transfer of Property Act 1882",
+        "State Rent Control Acts",
+        "Maharashtra Rent Control Act 1999"
+      ],
+      "expectedOutput": "Rent agreement/license, stamp duty computation, eviction notice, TDS compliance guidance"
+    },
+    {
+      "id": "UC-IN-054",
+      "title": "Climate Change Litigation & Carbon Credit",
+      "category": "Climate Law",
+      "practiceArea": "Environment",
+      "description": "Handle climate litigation and carbon credit regulatory compliance",
+      "agents": [
+        "in-climate-law",
+        "in-env-specialist",
+        "in-esg-agent",
+        "in-regulatory-monitor"
+      ],
+      "userFlow": "Organization provides carbon footprint data → Climate law agent assesses regulatory obligations → ESG agent evaluates carbon credit eligibility → Environmental specialist handles PAT scheme compliance → Regulatory monitor tracks climate policy changes → Net-zero roadmap",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-climate-law/execute",
+        "POST /api/jrx/agents/in-esg-agent/execute"
+      ],
+      "statutes": [
+        "Environment Protection Act 1986",
+        "Energy Conservation Act 2001",
+        "Indian Carbon Market Framework"
+      ],
+      "expectedOutput": "Climate compliance assessment, carbon credit eligibility, PAT scheme compliance, net-zero roadmap"
+    },
+    {
+      "id": "UC-IN-055",
+      "title": "Multi-Jurisdiction Cross-Border Transaction",
+      "category": "International",
+      "practiceArea": "Cross-Border",
+      "description": "Structure cross-border transaction with India as one jurisdiction",
+      "agents": [
+        "in-cross-border-transactions",
+        "in-multi-jurisdiction-compliance",
+        "in-fdi-agent",
+        "in-tax-specialist",
+        "in-sanctions-compliance"
+      ],
+      "userFlow": "Parties describe transaction → Cross-border agent structures deal → Multi-jurisdiction agent ensures compliance across IN + other jurisdictions → FDI agent handles FEMA approvals → Tax specialist addresses DTAA benefits → Sanctions agent screens parties → Transfer pricing compliance",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-cross-border-transactions/execute",
+        "POST /api/jrx/agents/in-multi-jurisdiction-compliance/execute"
+      ],
+      "statutes": [
+        "FEMA 1999",
+        "Income Tax Act 1961 (DTAA provisions)",
+        "Companies Act 2013",
+        "Competition Act 2002"
+      ],
+      "expectedOutput": "Transaction structure, FEMA compliance roadmap, DTAA analysis, transfer pricing documentation, sanctions clearance"
+    },
+    {
+      "id": "UC-IN-056",
+      "title": "Domestic Violence Protection Order (PWDV Act 2005)",
+      "category": "Family Law",
+      "practiceArea": "Family Law",
+      "description": "Drafting and prosecuting a Domestic Incident Report and Protection Application under the Protection of Women from Domestic Violence Act, 2005 — distinct from divorce, focused on injunctive/residence/monetary reliefs.",
+      "agents": [
+        "in-family-specialist",
+        "in-family-mediation",
+        "in-criminal-specialist",
+        "in-court-filing",
+        "in-litigation-specialist"
+      ],
+      "userFlow": "Aggrieved person describes incidents and shared household → Family specialist classifies acts of domestic violence per Sec 3 → DIR (Domestic Incident Report) drafted with Protection Officer routing → Application u/s 12 prepared for Magistrate (residence/protection/monetary/custody/compensation reliefs) → Criminal specialist evaluates parallel BNS offences → Court filing agent formats for Judicial Magistrate First Class → Litigation specialist sets ex-parte interim and final hearing timeline.",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-family-specialist/execute",
+        "POST /api/jrx/sdk/docs-pipeline/draft"
+      ],
+      "statutes": [
+        "Protection of Women from Domestic Violence Act 2005 (Sections 3, 12, 17-23)",
+        "Bharatiya Nyaya Sanhita 2023 (Sections 85, 86)",
+        "Bharatiya Nagarik Suraksha Sanhita 2023"
+      ],
+      "expectedOutput": "Domestic Incident Report, Sec 12 application with itemised reliefs, supporting affidavit, evidence-collation checklist, hearing timeline"
+    },
+    {
+      "id": "UC-IN-057",
+      "title": "Senior Citizens Maintenance Petition (MWPSC Act 2007)",
+      "category": "Family Law",
+      "practiceArea": "Family Law",
+      "description": "Application under the Maintenance and Welfare of Parents and Senior Citizens Act, 2007 before the Maintenance Tribunal — including reversal of property transfers obtained by fraud or coercion.",
+      "agents": [
+        "in-family-specialist",
+        "in-property-specialist",
+        "in-court-filing",
+        "in-litigation-specialist"
+      ],
+      "userFlow": "Senior citizen / NGO describes neglect or property transfer → Family specialist verifies eligibility (age 60+, parental relationship, financial dependence) → Property specialist analyses any gift/sale deeds for Sec 23 reversal grounds → Application u/s 4-9 prepared for Maintenance Tribunal (SDM) → Court filing agent formats with state-rule annexures → Litigation specialist sets 90-day disposal timeline mandated by statute.",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-family-specialist/execute",
+        "POST /api/jrx/sdk/docs-pipeline/draft"
+      ],
+      "statutes": [
+        "Maintenance and Welfare of Parents and Senior Citizens Act 2007 (Sections 4-9, 23)",
+        "State Senior Citizen Rules (state-specific)"
+      ],
+      "expectedOutput": "Maintenance application, property-reversal prayer (where applicable), income/dependency affidavit, Tribunal-specific annexures, statutory 90-day calendar"
+    },
+    {
+      "id": "UC-IN-058",
+      "title": "GST Show-Cause Notice Reply & Adjudication",
+      "category": "Taxation",
+      "practiceArea": "Indirect Tax",
+      "description": "Reactive workflow for responding to a GST SCN under Sec 73/74 (and pre-SCN intimation in DRC-01A) — distinct from routine return-filing — covering demand quantification challenge, limitation defence, and personal-hearing strategy.",
+      "agents": [
+        "in-gst-agent",
+        "in-tax-specialist",
+        "in-litigation-specialist",
+        "in-court-filing"
+      ],
+      "userFlow": "Taxpayer uploads DRC-01 / DRC-01A / SCN → GST agent extracts demand line-items (tax + interest + penalty) and identifies Sec 73 vs 74 (fraud) classification → Tax specialist prepares limitation analysis (3-year vs 5-year window) and ITC-eligibility defence → Reply in DRC-06 drafted with annexures and case-law spine → Personal-hearing memo prepared → Litigation specialist sets adjudication-order timeline and First-Appeal (DRC-07/APL-01) contingency.",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-gst-agent/execute",
+        "POST /api/jrx/sdk/docs-pipeline/draft"
+      ],
+      "statutes": [
+        "Central Goods and Services Tax Act 2017 (Sections 73, 74, 75, 107)",
+        "CGST Rules 2017 (Rules 142, 142A)",
+        "Integrated GST Act 2017 (where cross-border)"
+      ],
+      "expectedOutput": "DRC-06 reply with annexures, limitation memo, ITC reconciliation, personal-hearing brief, First-Appeal contingency timeline"
+    },
+    {
+      "id": "UC-IN-059",
+      "title": "Insurance Claim Repudiation Dispute (IRDAI / Consumer Forum)",
+      "category": "Consumer Protection",
+      "practiceArea": "Insurance",
+      "description": "End-to-end pursuit of a wrongfully repudiated insurance claim — life, health, motor or property — through IRDAI Bima Bharosa, Insurance Ombudsman and Consumer Commission tracks chosen on quantum.",
+      "agents": [
+        "in-banking-specialist",
+        "in-consumer-specialist",
+        "in-litigation-specialist",
+        "in-court-filing"
+      ],
+      "userFlow": "Insured uploads policy + repudiation letter + claim file → Insurance/banking specialist classifies repudiation ground (non-disclosure, exclusion, delay, fraud) → Consumer specialist selects forum by claim quantum (Ombudsman ≤ ₹50L, District ≤ ₹50L, State ≤ ₹2Cr, National > ₹2Cr) → Bima Bharosa complaint and Ombudsman Form P-II drafted in parallel → If escalation, Consumer Protection Act 2019 complaint prepared → Litigation specialist sets statutory 3-month Ombudsman timeline and Consumer-Commission cause-list strategy.",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-consumer-specialist/execute",
+        "POST /api/jrx/sdk/docs-pipeline/draft"
+      ],
+      "statutes": [
+        "Insurance Act 1938 (Section 45)",
+        "IRDAI (Protection of Policyholders' Interests) Regulations 2017",
+        "Insurance Ombudsman Rules 2017",
+        "Consumer Protection Act 2019 (Sections 34, 47, 58)"
+      ],
+      "expectedOutput": "Repudiation-rebuttal memo, Bima Bharosa complaint, Form P-II, Consumer Commission complaint with quantum-based forum routing, evidence index"
+    },
+    {
+      "id": "UC-IN-060",
+      "title": "Probate & Letters of Administration Petition",
+      "category": "Family Law",
+      "practiceArea": "Succession",
+      "description": "Post-death court workflow for grant of Probate (with Will) or Letters of Administration (intestate) under the Indian Succession Act 1925 — distinct from pre-death will-drafting in UC-IN-043.",
+      "agents": [
+        "in-family-specialist",
+        "in-property-specialist",
+        "in-court-filing",
+        "in-litigation-specialist"
+      ],
+      "userFlow": "Executor/legal heir provides death certificate, Will (if any), and asset schedule → Family specialist confirms applicability of Probate jurisdiction (mandatory in Bombay/Calcutta/Madras OJ; elective elsewhere) → Property specialist enumerates immovable + movable estate and computes ad-valorem court fee → Probate / LoA petition drafted with citation list, valuation affidavit and consent affidavits of heirs → Court filing agent routes to District Judge / High Court OS as applicable → Litigation specialist sets caveat-window and citation-publication timeline.",
+      "apiCalls": [
+        "POST /api/jrx/agents/in-family-specialist/execute",
+        "POST /api/jrx/sdk/docs-pipeline/draft"
+      ],
+      "statutes": [
+        "Indian Succession Act 1925 (Sections 218, 222, 232, 276, 286)",
+        "Court Fees Act 1870 (Schedule I Article 11)",
+        "State High Court (OS) Rules"
+      ],
+      "expectedOutput": "Probate / LoA petition, valuation and assets affidavit, heirs' consent affidavits, citation publication draft, court-fee computation, caveat-window calendar"
+    }
+  ]
+}

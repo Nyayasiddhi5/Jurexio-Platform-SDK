@@ -1,0 +1,179 @@
+{
+  "$schema": "../scenario.schema.json",
+  "jurisdiction": "IN",
+  "category": "regulatory",
+  "scenarios": [
+    {
+      "id": "IN-REG-001",
+      "title": "SEBI LODR Reg. 30 disclosure trigger check (M&A signing)",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P07",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/research/query",
+        "auth": "sdk-key",
+        "body": {
+          "query": "You are a senior legal AI assistant for IN jurisdiction.\n\n  Question: SEBI LODR Reg. 30 disclosure trigger check (M&A signing)\n\n  Provide a structured legal analysis including:\n  1. The applicable statute / regulation / case law (cite specific section numbers).\n  2. The legal test or compliance threshold that triggers the rule.\n  3. Step-by-step reasoning applied to the facts implied by the question.\n  4. The specific compliance action, filing, disclosure, or remedy required.\n  5. Material risks or exceptions a practitioner should flag to the client.\n\n  Be concrete. Cite specific legal authorities. Avoid generic disclaimers.",
+          "jurisdiction": "IN",
+          "options": {}
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "Regulation 30",
+            "Schedule III",
+            "30 minutes",
+            "stock exchange"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Identifies materiality, 30-min disclosure window, both NSE/BSE filing, SAST trigger flags if >25%."
+    },
+    {
+      "id": "IN-REG-002",
+      "title": "DPDP Act DPIA scoping (cross-border health data flow)",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P07",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/research/query",
+        "auth": "sdk-key",
+        "body": {
+          "query": "You are a senior legal AI assistant for IN jurisdiction.\n\n  Question: DPDP Act DPIA scoping (cross-border health data flow)\n\n  Provide a structured legal analysis including:\n  1. The applicable statute / regulation / case law (cite specific section numbers).\n  2. The legal test or compliance threshold that triggers the rule.\n  3. Step-by-step reasoning applied to the facts implied by the question.\n  4. The specific compliance action, filing, disclosure, or remedy required.\n  5. Material risks or exceptions a practitioner should flag to the client.\n\n  Be concrete. Cite specific legal authorities. Avoid generic disclaimers.",
+          "jurisdiction": "IN",
+          "options": {}
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 3,
+          "of": [
+            "data fiduciary",
+            "data principal",
+            "Section 16",
+            "consent",
+            "cross-border"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Triggers DPIA, calls out Sec 16 cross-border restrictions (notified countries list), child-data special handling under Sec 9, retention + erasure obligations."
+    },
+    {
+      "id": "IN-REG-003",
+      "title": "RBI KYC compliance — politically exposed person onboarding",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P07",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/research/query",
+        "auth": "sdk-key",
+        "body": {
+          "query": "You are a senior legal AI assistant for IN jurisdiction.\n\n  Question: RBI KYC compliance — politically exposed person onboarding\n\n  Provide a structured legal analysis including:\n  1. The applicable statute / regulation / case law (cite specific section numbers).\n  2. The legal test or compliance threshold that triggers the rule.\n  3. Step-by-step reasoning applied to the facts implied by the question.\n  4. The specific compliance action, filing, disclosure, or remedy required.\n  5. Material risks or exceptions a practitioner should flag to the client.\n\n  Be concrete. Cite specific legal authorities. Avoid generic disclaimers.",
+          "jurisdiction": "IN",
+          "options": {}
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "enhanced due diligence",
+            "PEP",
+            "senior management approval",
+            "ongoing monitoring"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "EDD steps articulated, source-of-funds verification, senior management sign-off, periodic review obligation."
+    },
+    {
+      "id": "IN-REG-004",
+      "title": "GST advance ruling on cross-border SaaS supply (place of supply)",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P07",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/research/query",
+        "auth": "sdk-key",
+        "body": {
+          "query": "Indian SaaS company sells subscription to US enterprise customer; servers in Singapore. Place of supply for GST?",
+          "jurisdiction": "IN",
+          "options": {}
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 3,
+          "of": [
+            "IGST Act",
+            "Section 13",
+            "OIDAR",
+            "export of services",
+            "FEMA"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Distinguishes B2B vs B2C OIDAR; cites Sec 13(12) IGST Act; export-of-services conditions (5 limbs); zero-rated treatment if conditions met."
+    },
+    {
+      "id": "IN-REG-005",
+      "title": "FDI compliance for new fintech NBFC (sectoral cap + reporting)",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P07",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/research/query",
+        "auth": "sdk-key",
+        "body": {
+          "query": "You are a senior legal AI assistant for IN jurisdiction.\n\n  Question: FDI compliance for new fintech NBFC (sectoral cap + reporting)\n\n  Provide a structured legal analysis including:\n  1. The applicable statute / regulation / case law (cite specific section numbers).\n  2. The legal test or compliance threshold that triggers the rule.\n  3. Step-by-step reasoning applied to the facts implied by the question.\n  4. The specific compliance action, filing, disclosure, or remedy required.\n  5. Material risks or exceptions a practitioner should flag to the client.\n\n  Be concrete. Cite specific legal authorities. Avoid generic disclaimers.",
+          "jurisdiction": "IN",
+          "options": {}
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "sectoral cap",
+            "automatic route",
+            "FC-GPR",
+            "minimum capitalisation"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Confirms 100% under automatic route for NBFC-ICC, USD 0.5M minimum capitalisation, FC-GPR within 30 days, downstream investment rules."
+    }
+  ]
+}

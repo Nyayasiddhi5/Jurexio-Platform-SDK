@@ -1,0 +1,81 @@
+# =============================================================================
+# docker-compose.local.yml — Cursor / local dev infra only
+#
+# Brings up PostgreSQL 16 (pgvector) + Redis 7 on localhost. Does NOT run the
+# gateway or console — start those on the host with npm run dev / nv-start-console.
+#
+# Usage:
+#   docker compose -f docker-compose.local.yml --profile local up -d
+#   docker compose -f docker-compose.local.yml --profile local down
+#   npm run infra:local:up    # wrapper in package.json
+#
+# Then set in .env (see .env.local.example):
+#   DATABASE_URL=postgres://nyayavigya:nyayavigya_local_dev@127.0.0.1:5432/nyayavigya
+#   NYV_REDIS_TCP_URL=redis://127.0.0.1:6379
+#
+# Schema: apply with `npm run dev` (runs nv-migrate) or `npm run db:push`.
+# =============================================================================
+
+services:
+  postgres:
+    profiles: ["local"]
+    image: pgvector/pgvector:pg16
+    container_name: nyv-local-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nyayavigya
+      POSTGRES_PASSWORD: ${NYV_LOCAL_PG_PASSWORD:-nyayavigya_local_dev}
+      POSTGRES_DB: nyayavigya
+    ports:
+      - "${NYV_LOCAL_PG_PORT:-5432}:5432"
+    volumes:
+      - nyv_local_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nyayavigya -d nyayavigya"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - nyv-local
+
+  redis:
+    profiles: ["local"]
+    image: redis:7-alpine
+    container_name: nyv-local-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "${NYV_LOCAL_REDIS_PORT:-6379}:6379"
+    volumes:
+      - nyv_local_redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - nyv-local
+
+  pgadmin:
+    profiles: ["local", "pgadmin"]
+    image: dpage/pgadmin4:latest
+    container_name: nyv-local-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${NYV_LOCAL_PGADMIN_EMAIL:-admin@localhost}
+      PGADMIN_DEFAULT_PASSWORD: ${NYV_LOCAL_PGADMIN_PASSWORD:-admin}
+    ports:
+      - "${NYV_LOCAL_PGADMIN_PORT:-5050}:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - nyv-local
+
+volumes:
+  nyv_local_pgdata:
+  nyv_local_redisdata:
+
+networks:
+  nyv-local:
+    driver: bridge

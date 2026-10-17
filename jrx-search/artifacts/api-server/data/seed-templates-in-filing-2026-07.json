@@ -1,0 +1,166 @@
+[
+  {
+    "kind": "template",
+    "slug": "in-sha-multiparty-filing",
+    "title": "Shareholders Agreement (Multi-Party) — Filing / Execution Form",
+    "category": "corporate",
+    "jurisdiction": "IN",
+    "description": "Execution-ready Indian SHA for Company + Promoters + Investor(s), with reserved matters, transfer restrictions, and schedules. Fill brackets and execute.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "IN",
+      "corporate",
+      "agreement",
+      "SHA",
+      "shareholders",
+      "investors",
+      "companies-act"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: IN\ncategory: corporate\ninstrumentType: agreement\nparties: P1=Company; P2=Promoter / Founder; P3=Investor; P4=Additional Shareholder (optional)\ngoverningLaw: Laws of India\nforum: Courts at [CITY], India / Arbitration seat [CITY] under ACA 1996\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# SHAREHOLDERS AGREEMENT\n\n**Effective Date:** [EFFECTIVE DATE]  \n**Place of execution:** [CITY], India\n\n## Parties\n1. **Company** (P1) — capacity: company\n   - [COMPANY NAME]: ________\n   - [CIN]: ________\n   - [REGISTERED OFFICE]: ________\n\n2. **Promoter / Founder** (P2) — capacity: individual_or_entity\n   - [PROMOTER NAME]: ________\n   - [PAN / DIN]: ________\n   - [ADDRESS]: ________\n\n3. **Investor** (P3) — capacity: entity\n   - [INVESTOR NAME]: ________\n   - [INCORPORATION JURISDICTION]: ________\n   - [ADDRESS]: ________\n\n4. **Additional Shareholder (optional)** (P4) — capacity: entity_or_individual\n   - [NAME]: ________\n   - [HOLDING %]: ________\n\n(Collectively, the **Parties**; individually, a **Party**.)\n\n## Recitals\nA. The Company is incorporated under the Companies Act, 2013 with authorised share capital of ₹[AMOUNT] divided into [NUMBER] equity shares of ₹[FACE VALUE] each.\nB. The Parties wish to record the terms governing shareholding, governance, transfers, and exit.\nC. This Agreement is intended as the **final binding instrument** upon execution (and payment of stamp duty, where applicable).\n\n## 1. Definitions\n**Affiliate**, **Board**, **Business Day**, **Encumbrance**, **Equity Shares**, **Fully Diluted**, **Reserved Matters**, and **Transfer** have the meanings set out in Schedule A / clause definitions below. Words importing singular include plural.\n\n## 2. Capitalisation & shareholding\n2.1 As of the Effective Date, the Fully Diluted shareholding is as set out in **Schedule A**.\n2.2 The Company shall not issue securities except as permitted herein or with Investor consent for Reserved Matters.\n2.3 Pre-emptive rights: each Shareholder may subscribe pro rata to new Equity Shares within [15] Business Days of notice.\n\n## 3. Board & governance\n3.1 Board size: [NUMBER]. Investor nominee directors: [NUMBER]. Quorum: [NUMBER] including [Investor nominee / Promoter nominee].\n3.2 Reserved Matters (Schedule B) require prior written consent of Investor holding ≥ [X]% Fully Diluted.\n3.3 Information rights: quarterly financials within [45] days; annual audited statements; inspection on reasonable notice.\n\n## 4. Transfer restrictions\n4.1 Lock-in: Promoters shall not Transfer for [LOCK-IN PERIOD] except Permitted Transfers to Affiliates bound by a Deed of Adherence (Schedule C).\n4.2 ROFR / ROFO: [describe procedure, notice period, matching rights].\n4.3 Tag-along / drag-along: thresholds [X]% / [Y]% as detailed in Schedule A footnotes.\n\n## 5. Founder & employee matters\n5.1 Founder vesting / reverse vesting: [TERMS].\n5.2 Key Employees (Schedule D) subject to IP assignment and confidentiality.\n\n## 6. Non-compete / non-solicit (to the extent enforceable)\nDuring the Term and [12] months thereafter, Promoters shall not compete with the Business in [TERRITORY] or solicit Key Employees / material customers, subject to applicable law.\n\n## 7. Warranties\nEach Party warrants capacity and authority. Company and Promoters warrant title to shares, accuracy of Schedule A, and absence of Undisclosed Liabilities above ₹[THRESHOLD], as of the Effective Date.\n\n## 8. Term, termination & survival\nTerm continues until IPO, trade sale, or mutual written termination. Clauses on confidentiality, indemnity, and dispute resolution survive.\n\n## 9. Confidentiality & announcements\nNo public announcement without prior written consent, except as required by law / stock exchange / regulator.\n\n## 10. Governing law & dispute resolution\n10.1 Governing law: Laws of India.\n10.2 Dispute resolution: Courts at [CITY], India / Arbitration seat [CITY] under ACA 1996.\n10.3 Interim relief may be sought from competent courts at [CITY].\n\n## 11. Miscellaneous\nEntire agreement; amendments in writing; severability; counterparts (including electronic); notices to addresses above; stamp duty borne by [PARTY].\n\n## Schedules\n- Schedule A — Shareholding & capitalisation\n- Schedule B — Reserved matters\n- Schedule C — Deed of adherence form\n- Schedule D — Key employee list\n\n## Execution\nIN WITNESS WHEREOF the Parties have executed this Agreement as of the Effective Date.\n\n### Company (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Promoter / Founder (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Investor (P3)\n\nSigned for and on behalf of **[LEGAL NAME OF P3]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n*(Optional P4 signature block — attach if Additional Shareholder is party.)*\n"
+  },
+  {
+    "kind": "template",
+    "slug": "in-msa-services-multiparty-filing",
+    "title": "Master Services Agreement (Customer–Vendor–Affiliate) — Execution Form",
+    "category": "commercial",
+    "jurisdiction": "IN",
+    "description": "Fillable Indian MSA with Customer, Primary Vendor, and optional Guarantor/Affiliate for SOW-driven services. Ready to sign after filling commercial schedules.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "IN",
+      "commercial",
+      "agreement",
+      "MSA",
+      "services",
+      "SOW",
+      "contract"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: IN\ncategory: commercial\ninstrumentType: agreement\nparties: P1=Customer; P2=Service Provider; P3=Performance Guarantor (optional)\ngoverningLaw: Laws of India\nforum: Courts at [CITY] / Arbitration seat [CITY]\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# MASTER SERVICES AGREEMENT\n\n**Effective Date:** [DATE]  \n**Agreement No.:** [MSA-ID]\n\n## Parties\n1. **Customer** (P1) — capacity: company\n   - [CUSTOMER NAME]: ________\n   - [CIN]: ________\n   - [BILLING ADDRESS]: ________\n\n2. **Service Provider** (P2) — capacity: company\n   - [VENDOR NAME]: ________\n   - [CIN]: ________\n   - [REGISTERED OFFICE]: ________\n\n3. **Performance Guarantor (optional)** (P3) — capacity: company_or_individual\n   - [GUARANTOR NAME]: ________\n   - [LIMIT OF GUARANTEE]: ________\n\n## 1. Scope\n1.1 Provider shall perform Services described in each Statement of Work (**SOW**) under Schedule A.\n1.2 Affiliates of Customer may order Services by executing an SOW referencing this MSA; Customer remains jointly liable unless SOW states otherwise.\n\n## 2. Term & termination\nInitial Term: [TERM]. Either Party may terminate for convenience on [90] days' written notice, or for material breach uncured within [30] days.\n\n## 3. Fees & taxes\nFees per Schedule B. Invoices due [NET 30]. GST / taxes extra as applicable. Late interest: [RATE]% per month or maximum permitted by law.\n\n## 4. Service levels\nSLAs and service credits in Schedule C. Credits are Customer's sole monetary remedy for SLA failure unless wilful misconduct.\n\n## 5. IP & confidentiality\nPre-existing IP remains with the owning Party. Work Product vests in Customer upon full payment, subject to Provider's residual know-how. Confidentiality: [3] years post-termination (trade secrets: perpetual).\n\n## 6. Data protection\nIf personal data is processed, Schedule D (DPDPA-aligned DPA) applies. Breach notice within [72] hours of becoming aware.\n\n## 7. Indemnity & liability\nMutual IP indemnity. Cap: fees paid in prior [12] months under the applicable SOW, except fraud, death/personal injury, or confidentiality breach.\n\n## 8. Guarantee (if P3 is party)\nGuarantor irrevocably guarantees Provider's payment and performance obligations up to [LIMIT], as primary obligor.\n\n## 9. Governing law & disputes\nLaws of India. Forum: Courts at [CITY] / Arbitration seat [CITY].\n\n## Schedules\n- Schedule A — Statement(s) of Work\n- Schedule B — Fees & payment\n- Schedule C — Service levels / credits\n- Schedule D — Data processing / security\n\n## Execution\n### Customer (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Service Provider (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Performance Guarantor (if applicable) (P3)\n\nSigned for and on behalf of **[LEGAL NAME OF P3]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n"
+  },
+  {
+    "kind": "template",
+    "slug": "in-separation-settlement-multiparty-filing",
+    "title": "Employment Separation & Mutual Release (Employee–Employer–Witness) — Execution Form",
+    "category": "employment",
+    "jurisdiction": "IN",
+    "description": "Final settlement and mutual release for Indian employment exits, with optional HR witness / group company. Fill amounts and execute as binding settlement.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "IN",
+      "employment",
+      "agreement",
+      "separation",
+      "settlement",
+      "release"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: IN\ncategory: employment\ninstrumentType: agreement\nparties: P1=Employer; P2=Employee; P3=Witness / HR Authorised Signatory\ngoverningLaw: Laws of India\nforum: Labour / Civil courts at [CITY]\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# SETTLEMENT AND MUTUAL RELEASE AGREEMENT\n\n**Date:** [DATE]\n\n## Parties\n1. **Employer** (P1) — capacity: company\n   - [EMPLOYER NAME]: ________\n   - [CIN]: ________\n   - [ADDRESS]: ________\n\n2. **Employee** (P2) — capacity: individual\n   - [EMPLOYEE NAME]: ________\n   - [EMPLOYEE ID]: ________\n   - [LAST WORKING DAY]: ________\n\n3. **Witness / HR Authorised Signatory** (P3) — capacity: individual\n   - [WITNESS NAME]: ________\n   - [DESIGNATION]: ________\n\n## 1. Separation\nEmployment ends on [LAST WORKING DAY] on account of [resignation / mutual separation / redundancy]. Relieving letter to be issued within [7] Business Days of clearance.\n\n## 2. Settlement payments\nEmployer shall pay the amounts in Schedule A (subject to statutory deductions) within [15] days of execution and property return (Schedule B).\n\n## 3. Mutual release\nSubject to receipt of settlement sums, each of Employer and Employee releases the other from claims arising out of employment up to the Date, except (a) statutory claims that cannot be waived, (b) fraud, and (c) ongoing confidentiality / IP obligations (Schedule C).\n\n## 4. Non-disparagement & references\nParties shall not disparage each other. Employer will provide a factual experience letter stating designation and tenure.\n\n## 5. Governing law\nLaws of India. Disputes: Labour / Civil courts at [CITY].\n\n## Schedules\n- Schedule A — Settlement computation\n- Schedule B — Return-of-property checklist\n- Schedule C — IP / confidentiality reminder\n\n## Execution\n### Employer (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Employee (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Witness (P3)\n\nSigned for and on behalf of **[LEGAL NAME OF P3]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n"
+  },
+  {
+    "kind": "template",
+    "slug": "in-commercial-lease-tripartite-filing",
+    "title": "Commercial Lease Deed (Lessor–Lessee–Guarantor) — Execution Form",
+    "category": "property",
+    "jurisdiction": "IN",
+    "description": "Tripartite commercial lease for Indian premises with optional rent guarantor. Fill schedules and stamp/register as required by state law before possession.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "IN",
+      "property",
+      "deed",
+      "lease",
+      "rent",
+      "guarantor"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: IN\ncategory: property\ninstrumentType: deed\nparties: P1=Lessor / Landlord; P2=Lessee / Tenant; P3=Rent Guarantor (optional)\ngoverningLaw: Laws of [STATE], India\nforum: Courts at [CITY]\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# COMMERCIAL LEASE DEED\n\n**Date of Deed:** [DATE]  \n**Commencement Date:** [DATE]  \n**Term:** [YEARS / MONTHS] ending [END DATE]\n\n## Parties\n1. **Lessor / Landlord** (P1) — capacity: owner\n   - [LESSOR NAME]: ________\n   - [TITLE DOCUMENTS REF]: ________\n   - [ADDRESS]: ________\n\n2. **Lessee / Tenant** (P2) — capacity: company_or_individual\n   - [LESSEE NAME]: ________\n   - [USE OF PREMISES]: ________\n   - [ADDRESS]: ________\n\n3. **Rent Guarantor (optional)** (P3) — capacity: company_or_individual\n   - [GUARANTOR NAME]: ________\n   - [GUARANTEE CAP]: ________\n\n## 1. Demise\nLessor demises the Premises described in Schedule A to Lessee for the Term at the rent in Schedule B, together with rights of access and parking as specified.\n\n## 2. Rent, deposit & escalation\nMonthly rent, security deposit, and escalation formula are in Schedule B. Deposit is interest-free / interest-bearing as stated and refundable subject to deductions for arrears and damage beyond fair wear and tear.\n\n## 3. Use & compliance\nPremises used only for [PERMITTED USE]. Lessee shall obtain trade licences and comply with fire, municipal, and RERA (if applicable) requirements.\n\n## 4. Maintenance & alterations\nLessee maintains interior; Lessor structural. Alterations require prior written consent. Handover per Schedule C.\n\n## 5. Assignment & subletting\nNo assignment / subletting without Lessor consent (not to be unreasonably withheld for Affiliates).\n\n## 6. Default & termination\nEvents of default include rent arrears > [15] days after notice, insolvency, and unlawful use. Termination and re-entry subject to applicable rent-control / transfer-of-property rules.\n\n## 7. Guarantee\nIf P3 is party, Guarantor guarantees Lessee's monetary obligations up to [CAP] as primary obligor.\n\n## 8. Stamp duty & registration\nParties shall stamp and register this Deed as required under the [STATE] Stamp Act and Registration Act; costs borne by [PARTY].\n\n## 9. Governing law\nLaws of [STATE], India. Forum: Courts at [CITY].\n\n## Schedules\n- Schedule A — Premises description & floor plan\n- Schedule B — Rent, deposit & escalation\n- Schedule C — Fit-out & handover checklist\n\n## Execution\n### Lessor (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Lessee (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Guarantor (if applicable) (P3)\n\nSigned for and on behalf of **[LEGAL NAME OF P3]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n"
+  },
+  {
+    "kind": "template",
+    "slug": "in-arbitration-settlement-consent-award-filing",
+    "title": "Consent Terms / Settlement for Arbitral Award (Claimant–Respondent–Tribunal) — Filing Form",
+    "category": "arbitration",
+    "jurisdiction": "IN",
+    "description": "Multi-party consent terms suitable to request a consent award under the Arbitration & Conciliation Act, 1996. Fill and file with the tribunal.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "IN",
+      "arbitration",
+      "consent",
+      "consent-award",
+      "settlement",
+      "ACA"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: IN\ncategory: arbitration\ninstrumentType: consent\nparties: P1=Claimant; P2=Respondent; P3=Additional Respondent / Intervener (optional)\ngoverningLaw: Arbitration & Conciliation Act, 1996; Laws of India\nforum: Arbitral Tribunal in [CASE CAPTION]; seat [CITY]\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# CONSENT TERMS FOR SETTLEMENT / CONSENT AWARD\n\n**In the matter of arbitration between:** [CLAIMANT] and [RESPONDENT]  \n**Seat:** [CITY] | **Rules:** [UNCITRAL / ICA / ad hoc] | **Tribunal:** [ARBITRATOR NAMES]\n\n## Parties to these Consent Terms\n1. **Claimant** (P1) — capacity: party\n   - [CLAIMANT NAME]: ________\n   - [COUNSEL]: ________\n\n2. **Respondent** (P2) — capacity: party\n   - [RESPONDENT NAME]: ________\n   - [COUNSEL]: ________\n\n3. **Additional Respondent / Intervener (optional)** (P3) — capacity: party\n   - [NAME]: ________\n\n## 1. Settlement\nWithout admission of liability, the Parties settle all claims in the arbitration on the terms below and request the Tribunal to pass a **consent award** under Section 30 of the Arbitration & Conciliation Act, 1996.\n\n## 2. Payment\nRespondent shall pay Claimant ₹[AMOUNT] per Schedule A. Upon full payment, Claimant withdraws claims listed in Schedule B with prejudice.\n\n## 3. Mutual release\nSubject to performance, Parties release arbitration claims existing as of the date of the consent award, except enforcement of these terms and confidentiality (Schedule C).\n\n## 4. Costs\nEach Party bears its own costs; Tribunal fees shared [equally / as awarded].\n\n## 5. Request to Tribunal\nParties jointly request that these Consent Terms be recorded as a consent award, executable as a decree.\n\n## Governing framework\nArbitration & Conciliation Act, 1996; Laws of India. Forum / seat: Arbitral Tribunal in [CASE CAPTION]; seat [CITY].\n\n## Schedules\n- Schedule A — Payment schedule\n- Schedule B — Withdrawn claims list\n- Schedule C — Confidentiality carve-outs\n\n## Execution (for filing with Tribunal)\n### Claimant (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Respondent (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n"
+  },
+  {
+    "kind": "template",
+    "slug": "in-mutual-consent-divorce-petition-filing",
+    "title": "Mutual Consent Divorce Petition (Husband–Wife) — Court Filing Form",
+    "category": "family",
+    "jurisdiction": "IN",
+    "description": "HMA s.13B-style mutual consent petition skeleton for Family Court filing. Fill personal particulars, terms of settlement, and verification before filing.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "IN",
+      "family",
+      "pleading",
+      "divorce",
+      "mutual-consent",
+      "HMA",
+      "family-court"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: IN\ncategory: family\ninstrumentType: pleading\nparties: P1=First Petitioner (Husband / Spouse A); P2=Second Petitioner (Wife / Spouse B)\ngoverningLaw: Hindu Marriage Act, 1955 (or applicable personal law)\nforum: Family Court at [CITY]\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# PETITION UNDER SECTION 13B OF THE HINDU MARRIAGE ACT, 1955\n## (Mutual Consent Divorce)\n\n**IN THE FAMILY COURT AT [CITY]**  \n**Petition No.** ________ of [YEAR]\n\n## Parties\n1. **First Petitioner (Husband / Spouse A)** (P1) — capacity: individual\n   - [NAME]: ________\n   - [AGE]: ________\n   - [ADDRESS]: ________\n\n2. **Second Petitioner (Wife / Spouse B)** (P2) — capacity: individual\n   - [NAME]: ________\n   - [AGE]: ________\n   - [ADDRESS]: ________\n\n## Most respectfully showeth\n1. Marriage was solemnised on [DATE] at [PLACE] according to [rites].\n2. Petitioners have lived separately since [DATE] (≥ one year) and have mutually agreed that the marriage should be dissolved.\n3. Terms of settlement regarding maintenance, custody/visitation, and property are set out in Schedule A and form part of this Petition.\n4. Consent is free and voluntary; there is no collusion.\n\n## Prayer\nPetitioners pray that this Hon'ble Court be pleased to:\n(a) dissolve the marriage by a decree of divorce by mutual consent;\n(b) record and make Schedule A terms part of the decree; and\n(c) pass such other orders as are just.\n\n## Verification\nWe, the Petitioners, verify that the contents are true to our knowledge and belief.\n\n## Schedules\n- Schedule A — Terms of settlement (maintenance, custody, property)\n- Schedule B — List of dates\n- Schedule C — Document index\n\n## Governing law / forum\nHindu Marriage Act, 1955 (or applicable personal law). Family Court at [CITY].\n\n## Signatures\n### First Petitioner (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Second Petitioner (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n**Through counsel:** [ADVOCATE NAME], Enrolment No. [NUMBER]\n"
+  },
+  {
+    "kind": "template",
+    "slug": "in-loan-facility-guarantor-filing",
+    "title": "Facility Agreement (Borrower–Lender–Guarantor) — Execution Form",
+    "category": "banking",
+    "jurisdiction": "IN",
+    "description": "Indian facility agreement with borrower, lender, and personal/corporate guarantor. Fill facilities schedule; stamp before drawdown.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "IN",
+      "banking",
+      "agreement",
+      "loan",
+      "facility",
+      "guarantor"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: IN\ncategory: banking\ninstrumentType: agreement\nparties: P1=Borrower; P2=Lender; P3=Guarantor\ngoverningLaw: Laws of India\nforum: Courts / DRT at [CITY] as applicable\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# FACILITY AGREEMENT\n\n**Date:** [DATE]\n\n## Parties\n1. **Borrower** (P1) — capacity: company_or_individual\n   - [BORROWER NAME]: ________\n   - [PAN / CIN]: ________\n   - [ADDRESS]: ________\n\n2. **Lender** (P2) — capacity: bank_or_nbfc\n   - [LENDER NAME]: ________\n   - [BRANCH]: ________\n   - [FACILITY LIMIT]: ________\n\n3. **Guarantor** (P3) — capacity: company_or_individual\n   - [GUARANTOR NAME]: ________\n   - [GUARANTEE TYPE]: ________\n\n## 1. Facility\nLender agrees to make available the Facility described in Schedule A subject to Conditions Precedent in Schedule C.\n\n## 2. Interest, fees & repayment\nAs per Schedule A. Default interest: [RATE]. Prepayment: [TERMS].\n\n## 3. Security\nSecurity documents in Schedule B shall be executed and perfected before first drawdown.\n\n## 4. Representations & covenants\nBorrower represents solvency, authority, and accuracy of information. Affirmative / negative covenants as customary for this Facility class.\n\n## 5. Events of default\nNon-payment, breach, insolvency, cross-default above ₹[THRESHOLD], and repudiation. Acceleration and enforcement follow notice as required by law.\n\n## 6. Guarantee\nGuarantor unconditionally guarantees Borrower's obligations as primary obligor; waiver of defences to the extent permitted by law.\n\n## 7. Governing law\nLaws of India. Forum: Courts / DRT at [CITY] as applicable.\n\n## Schedules\n- Schedule A — Facility terms (limit, interest, tenor)\n- Schedule B — Security package\n- Schedule C — Conditions precedent\n\n## Execution\n### Borrower (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Lender (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Guarantor (P3)\n\nSigned for and on behalf of **[LEGAL NAME OF P3]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n"
+  },
+  {
+    "kind": "template",
+    "slug": "in-ip-assignment-multiparty-filing",
+    "title": "IP Assignment & Licence (Assignor–Assignee–Developer) — Execution Form",
+    "category": "ip",
+    "jurisdiction": "IN",
+    "description": "Multi-party IP assignment with developer confirmation for Indian software/content deals. Fill schedules of IP and execute.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "IN",
+      "ip",
+      "agreement",
+      "IP",
+      "assignment",
+      "licence",
+      "copyright"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: IN\ncategory: ip\ninstrumentType: agreement\nparties: P1=Assignor; P2=Assignee; P3=Developer / Creator (confirming party)\ngoverningLaw: Laws of India\nforum: Courts at [CITY]\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# INTELLECTUAL PROPERTY ASSIGNMENT AND CONFIRMATION AGREEMENT\n\n**Effective Date:** [DATE]\n\n## Parties\n1. **Assignor** (P1) — capacity: company_or_individual\n   - [ASSIGNOR NAME]: ________\n\n2. **Assignee** (P2) — capacity: company\n   - [ASSIGNEE NAME]: ________\n   - [CIN]: ________\n\n3. **Developer / Creator (confirming party)** (P3) — capacity: individual\n   - [DEVELOPER NAME]: ________\n   - [EMPLOYMENT / CONTRACT REF]: ________\n\n## 1. Assignment\nAssignor hereby assigns to Assignee all right, title, and interest in the Intellectual Property listed in Schedule A, including copyrights, patents (if any), trade secrets, and related claims, worldwide, for the full term of protection.\n\n## 2. Developer confirmation\nDeveloper confirms that the Works were created in the course of [employment / contract] and that all rights have been or are hereby vested in Assignor for onward assignment to Assignee. Moral rights waived to the maximum extent permitted (Schedule C).\n\n## 3. Licence back (optional)\nIf Schedule B so provides, Assignee grants Assignor a non-exclusive licence to use specified IP for [PURPOSE].\n\n## 4. Further assurance\nParties shall execute filings with CGPDTM / Copyright Office as reasonably requested.\n\n## 5. Governing law\nLaws of India. Courts at [CITY].\n\n## Schedules\n- Schedule A — IP schedule (works, registrations, apps)\n- Schedule B — Licence back (if any)\n- Schedule C — Moral rights waiver acknowledgement\n\n## Execution\n### Assignor (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Assignee (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Developer (P3)\n\nSigned for and on behalf of **[LEGAL NAME OF P3]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n"
+  }
+]

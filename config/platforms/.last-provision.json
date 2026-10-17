@@ -1,0 +1,38 @@
+{
+  "at": "2026-04-25T06:58:10.134Z",
+  "matrixVersion": "5.0.0",
+  "expiresAt": "2027-04-25T06:58:10.057Z",
+  "rotate": true,
+  "results": [
+    {
+      "platform": "nyayamitra",
+      "appId": "nvsdkapp-demo-nm-001",
+      "provisioned": false,
+      "rotated": true
+    },
+    {
+      "platform": "nys-professional",
+      "appId": "nvsdkapp-demo-nsp-001",
+      "provisioned": false,
+      "rotated": true
+    },
+    {
+      "platform": "nys-institutional",
+      "appId": "nvsdkapp-demo-nyi-001",
+      "provisioned": false,
+      "rotated": true
+    },
+    {
+      "platform": "nys-academy",
+      "appId": "nvsdkapp-demo-academy-001",
+      "provisioned": false,
+      "rotated": true
+    },
+    {
+      "platform": "nys-ministry",
+      "appId": "nvsdkapp-demo-ministry-001",
+      "provisioned": false,
+      "rotated": true
+    }
+  ]
+}

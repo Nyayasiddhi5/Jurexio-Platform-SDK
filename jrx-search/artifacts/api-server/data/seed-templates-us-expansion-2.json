@@ -1,0 +1,122 @@
+[
+  {
+    "kind": "checklist",
+    "slug": "us-bankruptcy-341-meeting-checklist",
+    "title": "Section 341 Meeting of Creditors Checklist (US)",
+    "category": "insolvency",
+    "jurisdiction": "US",
+    "description": "Checklist for preparing the debtor's representative for the Section 341 meeting in bankruptcy cases.",
+    "tags": ["bankruptcy", "341", "creditors-meeting", "checklist"],
+    "body": "# Section 341 Meeting Checklist\n\n- [ ] Confirm 341 date, time, and remote appearance instructions (Zoom/telephonic) with counsel and the noticing agent\n- [ ] Review the petition, schedules, SOFA, and recent monthly operating reports for consistency\n- [ ] Prepare the debtor representative to testify under oath about accuracy of schedules and ongoing business operations\n- [ ] Gather photo ID and social security verification documents required by the trustee\n- [ ] Compile a binder of bank statements, tax returns, insurance policies, and major contracts referenced in schedules\n- [ ] Anticipate trustee questions on insider payments, preferences (90-day/1-year), and unrecorded liens\n- [ ] Coordinate with counsel on objections to claims or stay violations to raise before or after the 341\n- [ ] Confirm all required post-petition filings (CRE, insurance, tax returns) are current\n- [ ] Brief officers on prohibitions against unauthorized post-petition transfers\n- [ ] Calendar plan filing deadline (Ch. 11) or discharge objection deadline (Ch. 7/13) following the 341\n\n**Practical notes:**\n- Inconsistencies between testimony and schedules invite investigation and surcharge motions.\n- Bring corrected schedules if material errors are discovered before the meeting.\n- Treat every 341 as public and transcribed — avoid informal commentary after testimony."
+  },
+  {
+    "kind": "template",
+    "slug": "us-ccpa-privacy-policy-notice",
+    "title": "CCPA/CPRA Privacy Policy Notice (US)",
+    "category": "privacy",
+    "jurisdiction": "US",
+    "description": "Consumer-facing privacy notice skeleton addressing California CCPA/CPRA categories, rights, and sale/share disclosures.",
+    "tags": ["privacy", "ccpa", "cpra", "california"],
+    "body": "# CALIFORNIA PRIVACY NOTICE (CCPA / CPRA)\n\nLast updated: [DATE]\n\n[BUSINESS NAME] (\"we,\" \"us\") provides this notice to California residents under the California Consumer Privacy Act as amended by the CPRA.\n\n## Categories of personal information collected (last 12 months)\n| Category (Cal. Civ. Code § 1798.140) | Examples | Collected |\n|---|---|---|\n| Identifiers | name, email, IP | Yes |\n| Customer records | payment, account history | Yes |\n| Internet activity | browsing, device data | [Yes/No] |\n| Geolocation | coarse location | [Yes/No] |\n| Inferences | preferences | [Yes/No] |\n\n## Sources, purposes, and retention\nWe collect information from [customers, websites, service providers] to [provide services, security, analytics, marketing]. Retention periods: [describe by category].\n\n## Sale / sharing\nWe [do / do not] sell or share personal information for cross-context behavioral advertising. [If yes, identify categories and opt-out link \"Do Not Sell or Share My Personal Information\".]\n\n## Sensitive personal information\nWe use sensitive personal information only for permitted purposes under § 1798.121; [link to Limit Use of My Sensitive Personal Information if required].\n\n## Your rights\nCalifornia residents may request access, deletion, correction, and portability; opt out of sale/share; limit use of sensitive PI; and not receive discriminatory treatment for exercising rights. Submit requests at [EMAIL/WEB FORM]; we verify identity per regulations.\n\n## Authorized agents and contact\n[privacy@[domain]] | [toll-free number if required]\n\n**Drafting notes:**\n- Map data inventory to CPRA categories and update when new processing activities launch.\n- Provide a separate notice at collection for offline/employee contexts if applicable.\n- Coordinate with vendor DPAs and service-provider contracts before claiming no \"sale/share.\""
+  },
+  {
+    "kind": "template",
+    "slug": "us-severance-and-release-agreement",
+    "title": "Severance and General Release Agreement (US)",
+    "category": "employment",
+    "jurisdiction": "US",
+    "description": "Separation agreement with wage payment, benefits continuation, and ADEA-compliant release for employees age 40+.",
+    "tags": ["employment", "severance", "release", "owbpa"],
+    "body": "# SEVERANCE AND GENERAL RELEASE AGREEMENT\n\nThis Agreement is between [EMPLOYER] (\"Employer\") and [EMPLOYEE] (\"Employee\") regarding cessation of employment effective [DATE].\n\n1. **Separation.** Employee's employment ends on the Separation Date; Employee will [resign / be terminated without cause].\n2. **Severance.** Employer will pay $[AMOUNT] (less withholdings) within [DAYS] after the Effective Date, subject to Employee's compliance with this Agreement.\n3. **Benefits.** COBRA subsidies for [MONTHS]; unused PTO paid per policy; equity treated per plan documents (no modification unless stated).\n4. **Release.** Employee releases Employer and affiliates from claims arising out of employment through the Separation Date, excluding [workers' compensation, vested benefits, indemnity, non-waivable rights].\n5. **ADEA compliance (if 40+).** Employee has [21/45] days to consider this Agreement and [7/45] days to revoke after signing; Employee is advised to consult counsel (OWBPA).\n6. **Confidentiality and non-disparagement.** [Mutual / one-way] non-disparagement and confidentiality of trade secrets; protected concerted activity and whistleblower rights preserved.\n7. **Return of property.** Employee will return devices, files, and credentials by [DATE].\n8. **Governing law.** [STATE] law; exclusive venue [COUNTY, STATE].\n\nEmployee: __________  Employer: __________\n\n**Drafting notes:**\n- For group reductions, use a formal OWBPA disclosure exhibit with job titles and ages.\n- Do not condition payment on releases of non-waivable claims; carve out government-agency complaints (SEC, NLRB).\n- Check state limits on non-competes and non-disparagement (e.g., California, Minnesota developments)."
+  },
+  {
+    "kind": "checklist",
+    "slug": "us-eeoc-charge-response-checklist",
+    "title": "EEOC Position Statement Checklist (US)",
+    "category": "employment",
+    "jurisdiction": "US",
+    "description": "Checklist for responding to an EEOC charge of discrimination with a position statement and supporting exhibits.",
+    "tags": ["employment", "eeoc", "discrimination", "checklist"],
+    "body": "# EEOC Position Statement Checklist\n\n- [ ] Calendar the EEOC response deadline (typically 20 days from notice; request extension in writing if needed)\n- [ ] Identify the charging party, protected class theory, and alleged adverse action dates\n- [ ] Collect the personnel file, performance reviews, disciplinary records, and comparator data\n- [ ] Preserve emails, texts, and manager notes under litigation hold; notify IT custodians\n- [ ] Draft position statement: company description, policies, anti-harassment training, investigation steps\n- [ ] Address each allegation with chronology and legitimate, non-discriminatory reasons (McDonnell Douglas framework)\n- [ ] Attach key exhibits (policy excerpts, investigation report, comparator chart) without excessive volume\n- [ ] Coordinate with HR and decision-makers; avoid conclusory denials unsupported by documents\n- [ ] Evaluate early mediation; confirm authority and settlement parameters before the conference\n- [ ] Calendar right-to-sue issuance and parallel state agency deadlines\n\n**Practical notes:**\n- Position statements may be shared with the charging party — avoid privileged strategy and admission of liability.\n- If asserting privilege, prepare a log and redacted attachments.\n- Consistent comparator analysis is critical for disparate treatment defenses."
+  },
+  {
+    "kind": "template",
+    "slug": "us-delaware-stock-purchase-agreement",
+    "title": "Stock Purchase Agreement (Delaware Corp.) (US)",
+    "category": "corporate",
+    "jurisdiction": "US",
+    "description": "Private company stock purchase agreement skeleton with reps, indemnities, and closing deliverables.",
+    "tags": ["corporate", "spa", "m&a", "delaware"],
+    "body": "# STOCK PURCHASE AGREEMENT\n\nThis Stock Purchase Agreement (\"Agreement\") is dated [DATE] among [SELLER], [BUYER], and [COMPANY], a Delaware corporation (the \"Company\").\n\n1. **Purchase and sale.** Seller shall sell and Buyer shall purchase [100]% of the issued and outstanding shares of the Company for $[PRICE] (the \"Purchase Price\"), subject to adjustments in Section 2.\n2. **Purchase price adjustment.** Closing net working capital compared to a target of $[TARGET] with a [dollar-for-dollar] collar; dispute resolution by [independent accountant].\n3. **Closing.** Closing shall occur on [DATE] at [LOCATION] upon delivery of: (a) stock certificates and assignments; (b) secretary's certificate; (c) bring-down certificate; (d) FIRPTA certificate; (e) payoff letters and lien releases.\n4. **Representations and warranties.** Mutual organization authority; Seller title to shares; Company capitalization; material contracts; litigation; compliance; tax; IP; ERISA; environmental; data privacy — each qualified by schedules and knowledge/materiality thresholds.\n5. **Covenants.** Interim operating covenants; no-shop; access; HSR/other filings; employee communications.\n6. **Indemnification.** Survival [18] months (general), [36] months (tax, fundamental); basket $[AMOUNT] (tipping / true deductible); cap [purchase price %]; fraud carve-out.\n7. **Conditions.** Mutual closing conditions include approvals, no injunction, HSR clearance, and accuracy of reps at closing.\n8. **Governing law.** Delaware law; exclusive jurisdiction in [Delaware / specified] courts.\n\n**Drafting notes:**\n- Attach disclosure schedules early; inconsistencies between schedules and data room create indemnity exposure.\n- Align R&W insurance flow-down if a policy is bound — sandbagging and materiality scrape provisions matter.\n- Confirm 409A, golden parachute, and change-of-control consents for key employees."
+  },
+  {
+    "kind": "checklist",
+    "slug": "us-annual-stockholder-meeting-checklist",
+    "title": "Annual Stockholder Meeting Checklist (US)",
+    "category": "corporate",
+    "jurisdiction": "US",
+    "description": "Checklist for preparing a Delaware corporation's annual stockholder meeting and minutes.",
+    "tags": ["corporate", "stockholder", "governance", "checklist"],
+    "body": "# Annual Stockholder Meeting Checklist\n\n- [ ] Confirm record date, notice period (10–60 days under DGCL § 213/222), and quorum requirements for outstanding shares\n- [ ] Prepare proxy statement or information statement if required (public company / large holder thresholds)\n- [ ] Draft board resolutions setting record date, meeting date, agenda (director elections, auditor ratification, equity plan votes)\n- [ ] Circulate notice and proxy materials; document electronic notice consents if using e-delivery\n- [ ] Tabulate proxies and prepare inspector of election appointment if contested or required by bylaws\n- [ ] Prepare script and slide deck for management presentations; coordinate Q&A ground rules\n- [ ] Draft minutes reflecting attendance, quorum, votes, and inspector's report; attach final vote tallies\n- [ ] File any required state annual reports and update cap table/officer lists post-meeting\n- [ ] Calendar director consent actions for committees elected at the meeting\n- [ ] Archive recordings, ballots, and proxy revocations with the minute book\n\n**Practical notes:**\n- Defective notice can void actions taken — verify record date and delivery method meticulously.\n- For written consent in lieu of meeting, confirm DGCL § 228 thresholds and unanimous vs. majority requirements.\n- Coordinate 10-K/10-Q disclosure of meeting outcomes if material votes occur."
+  },
+  {
+    "kind": "template",
+    "slug": "us-anti-money-laundering-policy",
+    "title": "Anti-Money Laundering Compliance Policy (US)",
+    "category": "compliance",
+    "jurisdiction": "US",
+    "description": "AML policy skeleton for a U.S. financial institution or MSB covering BSA/FinCEN program elements.",
+    "tags": ["compliance", "aml", "bsa", "fincen"],
+    "body": "# ANTI-MONEY LAUNDERING (AML) COMPLIANCE POLICY\n\nEffective: [DATE] | Owner: [BSA OFFICER]\n\n## 1. Purpose and scope\nThis policy establishes [FIRM]'s Bank Secrecy Act (BSA) compliance program pursuant to 31 U.S.C. § 5318(h) and FinCEN regulations.\n\n## 2. Program pillars\n1. **Internal controls** — risk-based CDD, EDD for high-risk customers, transaction monitoring, and independent testing.\n2. **BSA Officer** — [NAME/TITLE] appointed with authority and resources; reports to the Board quarterly.\n3. **Training** — annual role-based training with completion tracking; new-hire training within [30] days.\n4. **Independent testing** — conducted at least every [12–18] months by internal audit or qualified external party.\n\n## 3. Customer identification (CIP/CDD)\nVerify identity, beneficial owners (25% / control prong), and understand the nature and purpose of relationships; update on trigger events.\n\n## 4. Suspicious activity reporting\nEscalate red flags to the BSA Officer within [24] hours; file SARs within 30 days of initial detection when required; no tipping-off.\n\n## 5. Recordkeeping and CTRs**\nMaintain records for [5] years; file CTRs for cash transactions over $10,000 aggregating across the business day.\n\n## 6. Sanctions screening\nScreen customers and transactions against OFAC SDN lists; block and reject prohibited transactions; file reports as required.\n\n## 7. Retention and audit trail\nMaintain policy versions, training logs, SAR decision memos (confidential), and testing reports.\n\n**Drafting notes:**\n- Tailor risk assessment to products (wire, crypto, trade finance) and customer types (PEP, MSB, NGO).\n- Map policy to exam manuals (OCC/FINRA/FinCEN) and board approval requirements.\n- Never disclose SAR filings in this policy or to customers — use separate internal SAR procedures."
+  },
+  {
+    "kind": "checklist",
+    "slug": "us-sec-10k-filing-checklist",
+    "title": "Form 10-K Annual Report Filing Checklist (US)",
+    "category": "compliance",
+    "jurisdiction": "US",
+    "description": "Checklist for preparing and filing an SEC Form 10-K for a U.S. public reporting company.",
+    "tags": ["compliance", "sec", "10-k", "checklist"],
+    "body": "# Form 10-K Filing Checklist\n\n- [ ] Confirm fiscal year-end and filing deadline (60/75/90-day rule based on filer status)\n- [ ] Update business, risk factors, MD&A, and cybersecurity disclosures (Reg S-K / recent SEC guidance)\n- [ ] Reconcile financial statements with audit committee and independent auditor; obtain signed audit report\n- [ ] Refresh executive compensation tables (Summary Comp, Grants, Options, Pension, Pay vs. Performance)\n- [ ] Update controls disclosure (SOX 302/404); document material weaknesses and remediation\n- [ ] Verify exhibits: material contracts, subsidiary list, consents, powers of attorney, certifications\n- [ ] Run EDGAR tagging (iXBRL) for financial statements and cover page metadata\n- [ ] Obtain CEO/CFO Section 302 certifications and (if accelerated/large accelerated) Section 906\n- [ ] Board/comp committee approvals for compensation disclosure and governance sections\n- [ ] File via EDGAR, monitor acceptance, and calendar Form 11-K / proxy season dependencies\n\n**Practical notes:**\n- Risk factors should reflect current macro, cyber, and litigation developments — boilerplate invites comment letters.\n- Coordinate 8-K items (auditor changes, officer departures) that must precede or accompany the 10-K.\n- Preserve drafting versions and disclosure committee minutes for Rule 10b-5 diligence."
+  },
+  {
+    "kind": "template",
+    "slug": "us-patent-assignment-agreement",
+    "title": "Patent Assignment Agreement (US)",
+    "category": "ip",
+    "jurisdiction": "US",
+    "description": "Assignment of U.S. patent rights with representations, recordation, and further-assurances clause.",
+    "tags": ["ip", "patent", "assignment", "uspto"],
+    "body": "# PATENT ASSIGNMENT AGREEMENT\n\nThis Patent Assignment Agreement (\"Agreement\") is dated [DATE] between [ASSIGNOR] (\"Assignor\") and [ASSIGNEE] (\"Assignee\").\n\n1. **Assignment.** Assignor irrevocably assigns to Assignee all right, title, and interest in and to the Patents listed in Exhibit A, including all continuations, divisions, reissues, and foreign counterparts, and all rights to sue for past infringement.\n2. **Consideration.** In consideration of $[AMOUNT] and other good and valuable consideration, Assignor executes this Assignment.\n3. **Representations.** Assignor represents it is the sole owner, the Patents are free of liens except as listed in Exhibit B, and Assignor has not granted conflicting licenses.\n4. **Further assurances.** Assignor shall execute oaths, declarations, and USPTO forms (including Recordation Cover Sheet PTO-1595) reasonably requested to perfect title.\n5. **Moral rights / employee inventors.** If Assignor is an employee/contractor, confirm invention assignment obligations and prior employer waivers are addressed.\n6. **Governing law.** [STATE] law governs; assignment recordable with the USPTO.\n\nIN WITNESS WHEREOF, the parties execute this Agreement.\n\nASSIGNOR: __________  ASSIGNEE: __________\n\nExhibit A — Patents (application/serial numbers, filing dates, titles)\n\n**Drafting notes:**\n- Record promptly with USPTO Assignment Recordation Branch; chain-of-title affects enforcement and financing.\n- For employee inventors, confirm obligation to assign and compensation statutes (e.g., certain state inventor rules).\n- Address government funding march-in and Bayh-Dole disclosures if federally funded inventions are included."
+  },
+  {
+    "kind": "template",
+    "slug": "us-commercial-eviction-complaint",
+    "title": "Commercial Eviction Complaint (US)",
+    "category": "property",
+    "jurisdiction": "US",
+    "description": "Landlord complaint skeleton for unlawful detainer or commercial lease termination for nonpayment.",
+    "tags": ["property", "eviction", "commercial", "lease"],
+    "body": "# COMMERCIAL UNLAWFUL DETAINER COMPLAINT\n\n[COURT NAME]\n\n[LANDLORD], Plaintiff,\nv.\n[TENANT], Defendant.\nCase No. __________\n\n## COMPLAINT FOR UNLAWFUL DETAINER (COMMERCIAL)\n\nPlaintiff alleges:\n\n1. **Premises.** Defendant occupies commercial premises at [ADDRESS] under a lease dated [DATE] (the \"Lease\").\n2. **Rent due.** Rent of $[AMOUNT] for [MONTH] was due on [DATE]; Defendant failed to pay despite demand on [DATE].\n3. **Notice.** Plaintiff served a [3/5/10]-day notice to pay rent or quit on [DATE] in compliance with [STATE/CITY] law and the Lease.\n4. **Holdover.** Defendant remains in possession without right after lease termination / notice expiration.\n5. **Damages.** Plaintiff seeks possession, unpaid rent of $[AMOUNT], holdover damages at $[RATE]/day, and costs.\n\n## PRAYER\nFor restitution of premises, judgment for rent and damages, and attorney's fees if provided in the Lease.\n\n**Drafting notes:**\n- Commercial evictions are often less regulated than residential but local moratoria and self-help prohibitions still apply.\n- Verify notice period, service method, and whether rent acceleration clauses are enforceable in the jurisdiction.\n- Attach lease, rent ledger, notice, and proof of service; avoid lockout or utility shutoff before judgment."
+  },
+  {
+    "kind": "template",
+    "slug": "us-revocable-living-trust",
+    "title": "Revocable Living Trust (US)",
+    "category": "estate",
+    "jurisdiction": "US",
+    "description": "Inter vivos revocable trust agreement skeleton with pour-over will coordination notes for U.S. estate planning.",
+    "tags": ["estate", "trust", "revocable", "planning"],
+    "body": "# REVOCABLE LIVING TRUST AGREEMENT\n\nThis Revocable Living Trust Agreement (\"Trust\") is made [DATE] by [GRANTOR] (\"Grantor\") of [STATE].\n\n1. **Trust estate.** Grantor transfers to Trustee the property listed in Schedule A; additional property may be added by assignment or beneficiary designation.\n2. **Revocability.** Grantor may amend or revoke this Trust in writing during Grantor's lifetime.\n3. **Trustee.** Grantor serves as initial Trustee; successor Trustees are [NAME(S)] in order listed.\n4. **During incapacity.** If Grantor is incapacitated, Successor Trustee manages assets for Grantor's benefit and pays health, maintenance, and support expenses.\n5. **Upon death.** Trustee shall pay debts, taxes, and expenses, then distribute remaining assets: [PERCENTAGES / SPECIFIC GIFTS / STAGED DISTRIBUTIONS TO BENEFICIARIES].\n6. **Spendthrift.** Beneficiaries' interests are protected from creditors to the extent permitted by [STATE] law.\n7. **Governing law.** [STATE] law governs construction and administration.\n8. **Pour-over coordination.** This Trust is designed to receive assets via pour-over will; fund the Trust during life to avoid probate for titled assets.\n\nGRANTOR: __________  TRUSTEE: __________\n\nSchedule A — Initial Trust Property\n\n**Drafting notes:**\n- Funding is critical — record deeds, assign accounts, and update beneficiary designations to avoid a non-probate plan that only exists on paper.\n- Pair with durable power of attorney, healthcare directive, and pour-over will.\n- Review state rules on homestead, community property, and trustee compensation."
+  },
+  {
+    "kind": "template",
+    "slug": "us-marital-settlement-agreement",
+    "title": "Marital Settlement Agreement (US)",
+    "category": "family",
+    "jurisdiction": "US",
+    "description": "Marital settlement agreement skeleton for divorce resolving property division, support, and custody references.",
+    "tags": ["family", "divorce", "msa", "settlement"],
+    "body": "# MARITAL SETTLEMENT AGREEMENT\n\nThis Marital Settlement Agreement (\"Agreement\") is entered into by [PARTY A] and [PARTY B] (together, the \"Parties\") in connection with Case No. [CASE] pending in [COURT, COUNTY, STATE].\n\n1. **Status.** The Parties are married and agree to live separate and apart; a divorce action is pending or will be filed.\n2. **Property division.** Each Party receives the assets listed in Exhibit A; joint property shall be divided as specified; each Party transfers documents necessary to effectuate division.\n3. **Debts.** Each Party assumes debts listed in Exhibit B and shall hold the other harmless from those obligations.\n4. **Spousal support.** [Waiver / amount $X per month for Y months / modifiable per state law].\n5. **Child-related provisions.** If applicable, custody and parenting time are addressed in a separate Parenting Plan attached as Exhibit C; child support per state guidelines worksheet.\n6. **Taxes.** Parties shall file [jointly / separately] for [YEAR]; dependency exemptions allocated as stated; 26 U.S.C. § 1041 treatment acknowledged for qualifying transfers.\n7. **Retirement accounts.** QDROs shall be prepared for [PLAN NAMES] per Exhibit D within [60] days of entry of judgment.\n8. **Entire agreement / merger.** This Agreement survives entry of judgment; integration clause applies except for fraud or duress.\n9. **Governing law.** [STATE] family law governs interpretation and enforcement.\n\nPARTY A: __________  PARTY B: __________\n\n**Drafting notes:**\n- Confirm whether the court must approve child-related terms — parental agreements cannot waive child support below guidelines in many states.\n- Use QDRO specialists for retirement divisions; improper orders are costly to fix post-judgment.\n- Address life insurance, health coverage COBRA, and sale of the marital residence timelines explicitly."
+  }
+]

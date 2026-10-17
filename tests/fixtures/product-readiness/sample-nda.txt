@@ -1,0 +1,43 @@
+NON-DISCLOSURE AGREEMENT (Sample for Product Readiness UAT)
+
+This Non-Disclosure Agreement ("Agreement") is entered into as of 15 March 2026
+between:
+
+Party A: Nyayasiddhi Demo Law Firm LLP, having its registered office at
+New Delhi, India ("Disclosing Party")
+
+Party B: Acme Corporate Services Inc., a company incorporated under the laws
+of Delaware, USA ("Receiving Party")
+
+1. PURPOSE
+The parties wish to explore a potential commercial engagement relating to
+legal technology services and document automation.
+
+2. CONFIDENTIAL INFORMATION
+"Confidential Information" means all non-public information disclosed by either
+party, including business plans, client lists, pricing, source code, and
+legal opinions.
+
+3. OBLIGATIONS
+The Receiving Party shall (a) hold Confidential Information in strict confidence,
+(b) not disclose it to third parties without prior written consent, and
+(c) use it solely for the Purpose.
+
+4. TERM
+This Agreement shall remain in force for a period of three (3) years from the
+Effective Date.
+
+5. GOVERNING LAW
+This Agreement shall be governed by the laws of India. Courts at New Delhi
+shall have exclusive jurisdiction.
+
+6. STATUTES REFERENCED
+Indian Contract Act, 1872; Information Technology Act, 2000.
+
+IN WITNESS WHEREOF the parties have executed this Agreement.
+
+Signed: Rajesh Kumar (Disclosing Party)
+Signed: Jane Smith (Receiving Party)
+Court: High Court of Delhi (for dispute resolution clause reference)
+Case Number: WP(C) 1234/2026 (illustrative only)
+Filing Date: 2026-03-15

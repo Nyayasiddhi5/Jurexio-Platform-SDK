@@ -1,0 +1,21 @@
+{
+  "version": "5.0.0",
+  "tiers": {
+    "L1": { "name": "Context",        "store": "in-memory",   "ttlSeconds": 1800,    "maxEntriesPerSession": 200,  "evictionPolicy": "LRU" },
+    "L2": { "name": "Matter",         "store": "postgres",    "table": "nv_matter_memory",       "ttlDays": 365,  "embed": true, "dedupe": true },
+    "L3": { "name": "Client",         "store": "postgres",    "table": "nv_client_memory",       "ttlDays": 1825, "embed": true, "dedupe": true, "encryption": "AES-256-GCM" },
+    "L4": { "name": "Jurisdictional", "store": "postgres",    "table": "nv_jurisdictional_memory","ttlDays": null, "embed": true, "shared": true },
+    "L5": { "name": "Precedent",      "store": "postgres",    "table": "nv_precedent_memory",    "ttlDays": null, "embed": true, "shared": true }
+  },
+  "vectorStore": { "primary": "pgvector", "secondary": "qdrant", "endpointEnvVar": "QDRANT_URL", "collection": "nyv_memory_v5" },
+  "rightToErasure": { "enabled": true, "cascade": ["L1","L2","L3","L4","L5"], "endpoint": "DELETE /api/nv/memory/user/:id" },
+  "semanticDedupe": { "enabled": true, "thresholdCosine": 0.93 },
+  "consolidationJob": { "cron": "0 3 * * *", "scope": ["L2","L3"] },
+  "perPlatformAllowed": {
+    "nyayamitra":      ["L1","L2","L3"],
+    "nys-professional":["L1","L2","L3","L4","L5"],
+    "nys-institutional":["L1","L2","L3","L4","L5"],
+    "nys-academy":     ["L1","L2","L3"],
+    "nys-ministry":    ["L1","L2","L3","L4","L5"]
+  }
+}

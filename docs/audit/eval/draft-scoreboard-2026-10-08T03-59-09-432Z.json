@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-10-08T03:54:27.136Z",
+  "mode": "live+ab",
+  "fixture": "nv-indian-draft-sme-cases.json",
+  "routing": [
+    {
+      "caseId": "IN-IA-001",
+      "documentType": "interlocutory_application",
+      "fastMedium": {
+        "taskType": "legal-draft-fast",
+        "draftLength": "medium",
+        "registryTokens": 6144,
+        "partnerMaxTokens": 6144,
+        "slaFast": true,
+        "explicitFastAlias": true
+      },
+      "counselComprehensive": {
+        "taskType": "legal-draft",
+        "draftLength": "comprehensive",
+        "registryTokens": 20480,
+        "partnerMaxTokens": 20480,
+        "queenPath": true
+      },
+      "pass": true,
+      "notes": []
+    }
+  ],
+  "lanes": {
+    "counsel_comprehensive": {
+      "avgRubricPct": 70,
+      "runs": [
+        {
+          "caseId": "IN-IA-001",
+          "http": 200,
+          "ms": 282287,
+          "contentLen": 13874,
+          "model": "global.anthropic.claude-opus-4-8",
+          "path": "specialist",
+          "rubricPct": 70,
+          "rubric": {
+            "total": 70,
+            "maxTotal": 100,
+            "pct": 70,
+            "structure": 100,
+            "completion": 50,
+            "length": 40,
+            "voice": 100,
+            "placeholders": 40,
+            "markers": {
+              "prayer": true,
+              "verification": true,
+              "causeTitle": true,
+              "numberedParas": true,
+              "limitationChecked": true
+            },
+            "completionDetail": {
+              "complete": false,
+              "abruptEnding": true,
+              "missingSections": [],
+              "truncatedPrayer": false,
+              "incompleteNumberedPara": true,
+              "hasPrayerOrRelief": true,
+              "hasVerification": true,
+              "hasSignatureBlock": true,
+              "hasDisclosureClause": false,
+              "unresolvedPlaceholders": 37,
+              "reviewRecommended": true
+            },
+            "lengthWarning": "Draft shorter than expected for interlocutory_application (medium): 13874 chars < ~22118",
+            "voiceHits": []
+          }
+        }
+      ]
+    }
+  },
+  "laneMode": "counsel"
+}

@@ -1,0 +1,50 @@
+# Jurexio-local infra — isolated Postgres + Redis (does not use nyayavigya DB name/port).
+# Usage: npm run infra:jurexio:up
+
+services:
+  postgres:
+    profiles: ["local"]
+    image: pgvector/pgvector:pg16
+    container_name: jrx-local-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: jurexio
+      POSTGRES_PASSWORD: ${JRX_LOCAL_PG_PASSWORD:-jurexio_local_dev}
+      POSTGRES_DB: jurexio
+    ports:
+      - "${JRX_LOCAL_PG_PORT:-5433}:5432"
+    volumes:
+      - jrx_local_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jurexio -d jurexio"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - jrx-local
+
+  redis:
+    profiles: ["local"]
+    image: redis:7-alpine
+    container_name: jrx-local-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "${JRX_LOCAL_REDIS_PORT:-6380}:6379"
+    volumes:
+      - jrx_local_redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - jrx-local
+
+volumes:
+  jrx_local_pgdata:
+  jrx_local_redisdata:
+
+networks:
+  jrx-local:
+    driver: bridge

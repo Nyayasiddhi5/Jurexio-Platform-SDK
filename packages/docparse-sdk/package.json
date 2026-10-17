@@ -1,0 +1,57 @@
+{
+  "name": "@jurexio/docparse-sdk",
+  "version": "1.0.0-alpha.8",
+  "description": "Jurexio DocParse Platform SDK — legal & PII-first document understanding (local-first, AI assist optional). Parallel to @jurexio/docparse until NYV/NSP/JRX cutover.",
+  "license": "UNLICENSED",
+  "private": true,
+  "files": [
+    "dist",
+    "domain-packs"
+  ],
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./legal-in": {
+      "import": "./dist/domain/packs/legal-in.js",
+      "types": "./dist/domain/packs/legal-in.d.ts"
+    },
+    "./client": {
+      "import": "./dist/client/docparse-client.js",
+      "types": "./dist/client/docparse-client.d.ts"
+    }
+  },
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "benchmark:smoke": "node ../../scripts/nv-docparse-sdk-benchmark-smoke.mjs"
+  },
+  "dependencies": {
+    "zod": "4.4.3"
+  },
+  "optionalDependencies": {
+    "mammoth": "1.12.1",
+    "node-poppler": "10.0.1",
+    "pdfjs-dist": "^6.2.108",
+    "ppu-paddle-ocr": "6.4.2",
+    "sharp": "^0.35.4",
+    "tesseract.js": "7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.13.1",
+    "typescript": "5.9.2",
+    "vitest": "3.2.4"
+  }
+}

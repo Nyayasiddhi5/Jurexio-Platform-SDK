@@ -1,0 +1,51 @@
+---
+# Gateway Service (internal)
+apiVersion: v1
+kind: Service
+metadata:
+  name: nyayavigya-gateway-svc
+  namespace: nyayavigya
+  labels:
+    app: nyayavigya-gateway
+    app.kubernetes.io/name: nyayavigya-gateway
+    app.kubernetes.io/component: service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+spec:
+  type: ClusterIP
+  selector:
+    app: nyayavigya-gateway
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5000
+      protocol: TCP
+    - name: ws
+      port: 8080
+      targetPort: 5000
+      protocol: TCP
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+
+---
+# Console Service (internal)
+apiVersion: v1
+kind: Service
+metadata:
+  name: nyayavigya-console-svc
+  namespace: nyayavigya
+  labels:
+    app: nyayavigya-console
+    app.kubernetes.io/component: service
+spec:
+  type: ClusterIP
+  selector:
+    app: nyayavigya-console
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3004
+      protocol: TCP

@@ -1,0 +1,130 @@
+# Nyayavigya Document Management Storage Deployment Config
+# ─────────────────────────────────────────────────────────────────────────────
+# Source of truth for storage backend selection + DMS knobs.
+# Loaded once at boot by src/config/nyv-dms-config.ts.
+# Env vars (NYV_*) override anything declared here at runtime.
+#
+# Cursor / AWS EC2 development and production: backend.active = s3
+# Local dev without S3:                        backend.active = local
+#
+# DECISION LOCKED 2026-05-06 — see docs/v5.0.0/DOC-MGMT-PHASE2-ARCHITECTURE-PLAN-2026-05-06.md §10
+# ─────────────────────────────────────────────────────────────────────────────
+
+version: "5.0.1"
+last_reviewed: "2026-07-23"
+
+backend:
+  # active backend selection — s3 for all AWS/Cursor Cloud stacks; local for dev-only
+  active: s3                          # one of: s3 | local
+  shared_bucket: nyv-shared-documents   # Nyayavigya-mediated cross-platform doc bucket
+  fallback: local                       # used only if active backend init fails
+
+# Per-platform upload caps (MB). Hard ceiling; per-tier limits in nv-sdk-variants.ts
+# also apply (whichever is smaller wins).
+uploads:
+  per_platform_max_mb:
+    NSA:  10
+    NYM:  25
+    NSP:  100
+    NSPM: 100
+    NSI:  500
+    NSM:  1024
+    JRX:  100
+  streamed_upload_enabled: true        # busboy streaming path (D5)
+  presigned_upload_enabled: true       # client → object-storage direct PUT (D6)
+  av_scan_enabled: true                # ClamAV / stub adapter (D4)
+  magic_bytes_validation_enabled: true # file-type sniff before AV (D4)
+  multipart_threshold_mb: 50           # above this → multipart upload to S3
+  presigned_url_ttl_sec: 3600
+
+# BullMQ queue concurrency — every value also overridable by NYV_* env vars
+# (see src/services/queue/queue-workers.ts for the env override mapping).
+queues:
+  doc_parse:
+    worker_count: 4
+    jobs_per_worker: 2
+    timeout_ms: 600000      # 10 min
+    retry_attempts: 3
+  doc_summarize:
+    worker_count: 3
+    jobs_per_worker: 2
+    timeout_ms: 600000
+    retry_attempts: 3
+  embedding:
+    worker_count: 2
+    jobs_per_worker: 4
+    timeout_ms: 300000
+    retry_attempts: 3
+  av_scan:
+    worker_count: 2
+    jobs_per_worker: 2
+    timeout_ms: 120000
+    retry_attempts: 2
+  webhook_delivery:
+    worker_count: 1
+    jobs_per_worker: 10
+    timeout_ms: 30000
+    retry_attempts: 5
+  ocr:
+    worker_count: 4
+    jobs_per_worker: 2
+    timeout_ms: 600000
+    retry_attempts: 3
+
+# Cross-platform sharing — Nyayavigya-mediated, NOT peer-to-peer.
+# Default = private (uploader-platform-only).
+# Documents above auto_share_threshold_mb are auto-promoted to ecosystem-shared
+# (Nyayavigya issues read grants to all 7 platforms via nv_doc_share_grants),
+# eliminating per-platform duplication for large documents.
+sharing:
+  default_policy: private              # private | org-shared | ecosystem-shared
+  auto_share_large_docs: true
+  auto_share_threshold_mb: 50          # ≥ this size → auto ecosystem-grant
+  ecosystem_platforms:
+    - NSP
+    - NSPM
+    - NSI
+    - NSM
+    - NSA
+    - NYM
+    - JRX
+  audit_every_grant: true              # write to nv_audit_logs on grant issue
+  audit_every_cross_platform_read: true
+
+# Retention / TTL (D11). Per-platform overrides supported.
+retention:
+  default_days: 365
+  per_platform_days:
+    NSA: 30                            # citizen quick-help — short retention
+    NYM: 180                           # legal aid — 6 months
+    NSP: 2555                          # 7 years (legal practice standard)
+    NSI: 2555
+    NSM: 3650                          # 10 years (govt)
+  archive_before_delete: true
+  archive_storage_class: GLACIER_IR    # S3 only; Replit OS ignores
+
+# OCR engine selection
+ocr:
+  primary_engine: tesseract            # tesseract | got-ocr | enhanced
+  fallback_engine: enhanced
+  languages:
+    - eng
+    - hin
+    - tam
+    - tel
+    - kan
+    - mar
+    - ben
+    - guj
+
+# Document → agent routing (which ROMA L5 pattern handles which intake)
+agent_routing:
+  default_pattern: P09_router          # Router pattern picks the specialist
+  patterns_by_doc_class:
+    contract:        P05_plan_exec     # Plan & Execute for contract analysis
+    case_law:        P12_graph_rag     # GraphRAG for precedent
+    statute:         P11_nyaya_rag     # NyayaRAG for statute lookup
+    evidence:        P02_cot           # Chain-of-Thought for evidence chain
+    correspondence:  P01_react         # ReAct for general comm
+    filing:          P07_maker_checker # Maker-Checker for filings
+    compliance:      P09_router        # Router → jurisdiction-specific SLM

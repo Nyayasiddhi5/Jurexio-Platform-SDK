@@ -1,0 +1,280 @@
+/**
+ * Mood Lighting CSS Styles
+ * Atmospheric lighting effects for creative workflows
+ */
+
+/* Base mood lighting variables */
+:root {
+  --mood-primary: #152448;
+  --mood-secondary: #152448;
+  --mood-accent: #C7B15B;
+  --mood-background: #081F4D;
+  --mood-primary-hsl: 220, 82%, 23%;
+  --mood-secondary-hsl: 250, 55%, 17%;
+  --mood-accent-hsl: 42, 83%, 46%;
+  --mood-background-hsl: 220, 80%, 17%;
+  --mood-brightness: 80%;
+  --mood-saturation: 70%;
+  --mood-warmth: 50%;
+}
+
+/* Mood lighting active state */
+.mood-lighting-active {
+  position: relative;
+}
+
+.mood-lighting-active::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(
+    135deg,
+    hsla(var(--mood-primary-hsl), calc(var(--mood-brightness) * 0.1)),
+    hsla(var(--mood-secondary-hsl), calc(var(--mood-brightness) * 0.05)),
+    hsla(var(--mood-accent-hsl), calc(var(--mood-brightness) * 0.08))
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.3;
+}
+
+/* Enhanced interface elements during mood lighting */
+.mood-lighting-active .bg-white {
+  background-color: hsla(0, 0%, 100%, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.mood-lighting-active .dark\\:bg-gray-900 {
+  background-color: hsla(220, 26%, 14%, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.mood-lighting-active .border {
+  border-color: hsla(var(--mood-accent-hsl), 0.3);
+}
+
+.mood-lighting-active .shadow-lg {
+  box-shadow: 
+    0 10px 15px -3px hsla(var(--mood-primary-hsl), 0.1),
+    0 4px 6px -2px hsla(var(--mood-secondary-hsl), 0.05),
+    0 0 20px hsla(var(--mood-accent-hsl), 0.1);
+}
+
+/* Animation: Pulse */
+@keyframes mood-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+}
+
+.mood-animation-pulse::before {
+  animation: mood-pulse 3s ease-in-out infinite;
+}
+
+/* Animation: Breathe */
+@keyframes mood-breathe {
+  0%, 100% { 
+    opacity: 0.2; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.4; 
+    transform: scale(1.01);
+  }
+}
+
+.mood-animation-breathe::before {
+  animation: mood-breathe 4s ease-in-out infinite;
+}
+
+/* Animation: Wave */
+@keyframes mood-wave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.mood-animation-wave::before {
+  background: linear-gradient(
+    270deg,
+    hsla(var(--mood-primary-hsl), calc(var(--mood-brightness) * 0.1)),
+    hsla(var(--mood-secondary-hsl), calc(var(--mood-brightness) * 0.15)),
+    hsla(var(--mood-accent-hsl), calc(var(--mood-brightness) * 0.08)),
+    hsla(var(--mood-primary-hsl), calc(var(--mood-brightness) * 0.1))
+  );
+  background-size: 200% 200%;
+  animation: mood-wave 2s ease infinite;
+}
+
+/* Animation: Sparkle */
+@keyframes mood-sparkle {
+  0%, 100% { opacity: 0.3; }
+  25% { opacity: 0.6; }
+  50% { opacity: 0.2; }
+  75% { opacity: 0.5; }
+}
+
+.mood-animation-sparkle::before {
+  background: radial-gradient(
+    circle at 20% 30%,
+    hsla(var(--mood-primary-hsl), calc(var(--mood-brightness) * 0.2)) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    circle at 80% 70%,
+    hsla(var(--mood-accent-hsl), calc(var(--mood-brightness) * 0.15)) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    circle at 50% 50%,
+    hsla(var(--mood-secondary-hsl), calc(var(--mood-brightness) * 0.1)) 0%,
+    transparent 70%
+  );
+  animation: mood-sparkle 1.5s ease-in-out infinite;
+}
+
+/* Enhanced button interactions with mood lighting */
+.mood-lighting-active button:hover {
+  box-shadow: 
+    0 0 15px hsla(var(--mood-accent-hsl), 0.3),
+    0 4px 8px hsla(var(--mood-primary-hsl), 0.1);
+  transition: all 0.3s ease;
+}
+
+.mood-lighting-active .bg-blue-500 {
+  background: linear-gradient(
+    135deg,
+    var(--mood-primary),
+    var(--mood-accent)
+  );
+}
+
+.mood-lighting-active .text-blue-500 {
+  color: var(--mood-primary);
+}
+
+.mood-lighting-active .border-blue-500 {
+  border-color: var(--mood-primary);
+}
+
+/* Card enhancements with mood lighting */
+.mood-lighting-active .card {
+  background: hsla(0, 0%, 100%, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid hsla(var(--mood-accent-hsl), 0.3);
+}
+
+.mood-lighting-active .dark .card {
+  background: hsla(220, 26%, 14%, 0.85);
+  backdrop-filter: blur(12px);
+}
+
+/* Scrollbar enhancements */
+.mood-lighting-active ::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--mood-primary),
+    var(--mood-secondary)
+  );
+  border-radius: 4px;
+}
+
+.mood-lighting-active ::-webkit-scrollbar-track {
+  background: hsla(var(--mood-background-hsl), 0.1);
+}
+
+/* Input field enhancements */
+.mood-lighting-active input:focus,
+.mood-lighting-active textarea:focus {
+  box-shadow: 
+    0 0 0 2px var(--mood-accent),
+    0 0 10px hsla(var(--mood-primary-hsl), 0.2);
+  border-color: var(--mood-primary);
+}
+
+/* Modal and overlay enhancements */
+.mood-lighting-active .modal-overlay {
+  background: hsla(var(--mood-background-hsl), 0.4);
+  backdrop-filter: blur(8px);
+}
+
+/* Tab enhancements */
+.mood-lighting-active .tabs-trigger[data-state="active"] {
+  background: linear-gradient(
+    135deg,
+    hsla(var(--mood-primary-hsl), 0.1),
+    hsla(var(--mood-accent-hsl), 0.05)
+  );
+  border-color: var(--mood-primary);
+  color: var(--mood-primary);
+}
+
+/* Progress bar enhancements */
+.mood-lighting-active .progress-bar {
+  background: linear-gradient(
+    90deg,
+    var(--mood-primary),
+    var(--mood-accent),
+    var(--mood-secondary)
+  );
+  background-size: 200% 100%;
+  animation: mood-progress 2s linear infinite;
+}
+
+@keyframes mood-progress {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Notification enhancements */
+.mood-lighting-active .toast {
+  background: hsla(0, 0%, 100%, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid hsla(var(--mood-accent-hsl), 0.3);
+  box-shadow: 
+    0 10px 25px hsla(var(--mood-primary-hsl), 0.15),
+    0 0 20px hsla(var(--mood-accent-hsl), 0.1);
+}
+
+.mood-lighting-active .dark .toast {
+  background: hsla(220, 26%, 14%, 0.95);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mood-lighting-active::before {
+    opacity: 0.2;
+  }
+  
+  .mood-animation-pulse::before,
+  .mood-animation-breathe::before,
+  .mood-animation-wave::before,
+  .mood-animation-sparkle::before {
+    opacity: 0.15;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .mood-animation-pulse::before,
+  .mood-animation-breathe::before,
+  .mood-animation-wave::before,
+  .mood-animation-sparkle::before {
+    animation: none;
+    opacity: 0.25;
+  }
+}
+
+/* High contrast mode compatibility */
+@media (prefers-contrast: high) {
+  .mood-lighting-active::before {
+    opacity: 0.1;
+  }
+  
+  .mood-lighting-active .border {
+    border-width: 2px;
+  }
+}

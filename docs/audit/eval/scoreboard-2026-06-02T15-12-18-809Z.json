@@ -1,0 +1,687 @@
+{
+  "generatedAt": "2026-06-02T15:12:18.809Z",
+  "mode": "seed",
+  "note": "SEED/DRY-RUN: scored against golden reference answers (no live model). Accuracy on seed answers reflects the reference text, not live model output. Citation-faithfulness, hallucination-rate and adversarial-detection are REAL signals from the jurisdiction authority verifiers.",
+  "gate": {
+    "minAccuracy": 95,
+    "minCitationFaithful": 0.95,
+    "maxHallucinationPct": 0,
+    "minAdversarialDetectPct": 90
+  },
+  "releaseGatePassed": true,
+  "jurisdictions": [
+    {
+      "jurisdiction": "EU",
+      "adapter": "EUR-Lex",
+      "authoritySources": [
+        "EUR-Lex (eur-lex.europa.eu)",
+        "CJEU case-law (CURIA)"
+      ],
+      "liveApiEnabled": false,
+      "itemsEvaluated": 4,
+      "accuracyPct": 86.528,
+      "citationFaithfulness": 1,
+      "hallucinationRatePct": 0,
+      "unverifiedSurfaced": 0,
+      "adversarialDetectionPct": 100,
+      "gatePassed": true,
+      "gateFailures": [],
+      "infoOnly": [
+        "accuracy 86.528% < 95%"
+      ],
+      "items": [
+        {
+          "id": "EU-001",
+          "domain": "data-protection",
+          "citationRecall": 1,
+          "keywordCoverage": 0.667,
+          "judgeScore": 8.15,
+          "accuracyPct": 82.722,
+          "citationsFound": 3,
+          "verified": 3,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "EU-002",
+          "domain": "ai-regulation",
+          "citationRecall": 1,
+          "keywordCoverage": 1,
+          "judgeScore": 7.55,
+          "accuracyPct": 91.833,
+          "citationsFound": 2,
+          "verified": 2,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "EU-003",
+          "domain": "platform-regulation",
+          "citationRecall": 1,
+          "keywordCoverage": 0.667,
+          "judgeScore": 7.55,
+          "accuracyPct": 80.722,
+          "citationsFound": 2,
+          "verified": 2,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "EU-004",
+          "domain": "fundamental-rights",
+          "citationRecall": 1,
+          "keywordCoverage": 1,
+          "judgeScore": 7.25,
+          "accuracyPct": 90.833,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        }
+      ],
+      "adversarial": [
+        {
+          "id": "EU-001",
+          "detected": true,
+          "invalid": 0,
+          "unverified": 1
+        },
+        {
+          "id": "EU-002",
+          "detected": true,
+          "invalid": 0,
+          "unverified": 1
+        },
+        {
+          "id": "EU-003",
+          "detected": true,
+          "invalid": 0,
+          "unverified": 1
+        },
+        {
+          "id": "EU-004",
+          "detected": true,
+          "invalid": 0,
+          "unverified": 1
+        }
+      ]
+    },
+    {
+      "jurisdiction": "GC",
+      "adapter": "UAE Federal / DIFC / ADGM legislation",
+      "authoritySources": [
+        "UAE Federal Legislation portal",
+        "DIFC Laws & Regulations",
+        "ADGM Legislation"
+      ],
+      "liveApiEnabled": false,
+      "itemsEvaluated": 4,
+      "accuracyPct": 78.556,
+      "citationFaithfulness": 1,
+      "hallucinationRatePct": 0,
+      "unverifiedSurfaced": 0,
+      "adversarialDetectionPct": 100,
+      "gatePassed": true,
+      "gateFailures": [],
+      "infoOnly": [
+        "accuracy 78.556% < 95%"
+      ],
+      "items": [
+        {
+          "id": "GC-001",
+          "domain": "civil",
+          "citationRecall": 1,
+          "keywordCoverage": 0.667,
+          "judgeScore": 7.05,
+          "accuracyPct": 79.056,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "GC-002",
+          "domain": "data-protection",
+          "citationRecall": 1,
+          "keywordCoverage": 0.667,
+          "judgeScore": 6.65,
+          "accuracyPct": 77.722,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "GC-003",
+          "domain": "common-law-zone",
+          "citationRecall": 1,
+          "keywordCoverage": 0.667,
+          "judgeScore": 7.25,
+          "accuracyPct": 79.722,
+          "citationsFound": 0,
+          "verified": 0,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "GC-004",
+          "domain": "employment",
+          "citationRecall": 1,
+          "keywordCoverage": 0.667,
+          "judgeScore": 6.65,
+          "accuracyPct": 77.722,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        }
+      ],
+      "adversarial": [
+        {
+          "id": "GC-001",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        },
+        {
+          "id": "GC-002",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        },
+        {
+          "id": "GC-003",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        },
+        {
+          "id": "GC-004",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        }
+      ]
+    },
+    {
+      "jurisdiction": "IN",
+      "adapter": "India Code",
+      "authoritySources": [
+        "India Code (indiacode.nic.in)",
+        "Constitution of India"
+      ],
+      "liveApiEnabled": false,
+      "itemsEvaluated": 4,
+      "accuracyPct": 83.056,
+      "citationFaithfulness": 1,
+      "hallucinationRatePct": 0,
+      "unverifiedSurfaced": 0,
+      "adversarialDetectionPct": 100,
+      "gatePassed": true,
+      "gateFailures": [],
+      "infoOnly": [
+        "accuracy 83.056% < 95%"
+      ],
+      "items": [
+        {
+          "id": "IN-001",
+          "domain": "criminal",
+          "citationRecall": 1,
+          "keywordCoverage": 0.75,
+          "judgeScore": 8.15,
+          "accuracyPct": 85.5,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "IN-002",
+          "domain": "constitutional",
+          "citationRecall": 1,
+          "keywordCoverage": 1,
+          "judgeScore": 7.55,
+          "accuracyPct": 91.833,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "IN-003",
+          "domain": "data-protection",
+          "citationRecall": 1,
+          "keywordCoverage": 0.667,
+          "judgeScore": 7.25,
+          "accuracyPct": 79.722,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "IN-004",
+          "domain": "evidence",
+          "citationRecall": 1,
+          "keywordCoverage": 0.5,
+          "judgeScore": 7.55,
+          "accuracyPct": 75.167,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        }
+      ],
+      "adversarial": [
+        {
+          "id": "IN-001",
+          "detected": true,
+          "invalid": 2,
+          "unverified": 0
+        },
+        {
+          "id": "IN-002",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        },
+        {
+          "id": "IN-003",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        },
+        {
+          "id": "IN-004",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        }
+      ]
+    },
+    {
+      "jurisdiction": "SG",
+      "adapter": "Singapore Statutes Online",
+      "authoritySources": [
+        "Singapore Statutes Online (sso.agc.gov.sg)",
+        "SG Supreme Court neutral citations"
+      ],
+      "liveApiEnabled": false,
+      "itemsEvaluated": 4,
+      "accuracyPct": 76.5,
+      "citationFaithfulness": 1,
+      "hallucinationRatePct": 0,
+      "unverifiedSurfaced": 0,
+      "adversarialDetectionPct": 100,
+      "gatePassed": true,
+      "gateFailures": [],
+      "infoOnly": [
+        "accuracy 76.5% < 95%"
+      ],
+      "items": [
+        {
+          "id": "SG-001",
+          "domain": "data-protection",
+          "citationRecall": 1,
+          "keywordCoverage": 1,
+          "judgeScore": 8.35,
+          "accuracyPct": 94.5,
+          "citationsFound": 2,
+          "verified": 2,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "SG-002",
+          "domain": "criminal",
+          "citationRecall": 1,
+          "keywordCoverage": 0,
+          "judgeScore": 8.35,
+          "accuracyPct": 61.167,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "SG-003",
+          "domain": "corporate",
+          "citationRecall": 1,
+          "keywordCoverage": 0.333,
+          "judgeScore": 7.55,
+          "accuracyPct": 69.611,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "SG-004",
+          "domain": "arbitration",
+          "citationRecall": 1,
+          "keywordCoverage": 0.667,
+          "judgeScore": 7.55,
+          "accuracyPct": 80.722,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        }
+      ],
+      "adversarial": [
+        {
+          "id": "SG-001",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        },
+        {
+          "id": "SG-002",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        },
+        {
+          "id": "SG-003",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        },
+        {
+          "id": "SG-004",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        }
+      ]
+    },
+    {
+      "jurisdiction": "UK",
+      "adapter": "legislation.gov.uk",
+      "authoritySources": [
+        "legislation.gov.uk",
+        "The National Archives (case neutral citations)"
+      ],
+      "liveApiEnabled": false,
+      "itemsEvaluated": 4,
+      "accuracyPct": 89.972,
+      "citationFaithfulness": 1,
+      "hallucinationRatePct": 0,
+      "unverifiedSurfaced": 0,
+      "adversarialDetectionPct": 100,
+      "gatePassed": true,
+      "gateFailures": [],
+      "infoOnly": [
+        "accuracy 89.972% < 95%"
+      ],
+      "items": [
+        {
+          "id": "UK-001",
+          "domain": "corporate",
+          "citationRecall": 1,
+          "keywordCoverage": 0.667,
+          "judgeScore": 7.75,
+          "accuracyPct": 81.389,
+          "citationsFound": 2,
+          "verified": 2,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "UK-002",
+          "domain": "equality",
+          "citationRecall": 1,
+          "keywordCoverage": 1,
+          "judgeScore": 8.35,
+          "accuracyPct": 94.5,
+          "citationsFound": 2,
+          "verified": 2,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "UK-003",
+          "domain": "civil-procedure",
+          "citationRecall": 1,
+          "keywordCoverage": 1,
+          "judgeScore": 7.65,
+          "accuracyPct": 92.167,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "UK-004",
+          "domain": "criminal",
+          "citationRecall": 1,
+          "keywordCoverage": 1,
+          "judgeScore": 7.55,
+          "accuracyPct": 91.833,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        }
+      ],
+      "adversarial": [
+        {
+          "id": "UK-001",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        },
+        {
+          "id": "UK-002",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        },
+        {
+          "id": "UK-003",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        },
+        {
+          "id": "UK-004",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        }
+      ]
+    },
+    {
+      "jurisdiction": "US",
+      "adapter": "US Code / CourtListener",
+      "authoritySources": [
+        "United States Code (uscode.house.gov)",
+        "CourtListener (Free Law Project)"
+      ],
+      "liveApiEnabled": false,
+      "itemsEvaluated": 4,
+      "accuracyPct": 85.361,
+      "citationFaithfulness": 1,
+      "hallucinationRatePct": 0,
+      "unverifiedSurfaced": 0,
+      "adversarialDetectionPct": 100,
+      "gatePassed": true,
+      "gateFailures": [],
+      "infoOnly": [
+        "accuracy 85.361% < 95%"
+      ],
+      "items": [
+        {
+          "id": "US-001",
+          "domain": "civil-rights",
+          "citationRecall": 1,
+          "keywordCoverage": 0.333,
+          "judgeScore": 7.35,
+          "accuracyPct": 68.944,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "US-002",
+          "domain": "civil-procedure",
+          "citationRecall": 1,
+          "keywordCoverage": 1,
+          "judgeScore": 7.25,
+          "accuracyPct": 90.833,
+          "citationsFound": 1,
+          "verified": 1,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "US-003",
+          "domain": "constitutional",
+          "citationRecall": 1,
+          "keywordCoverage": 1,
+          "judgeScore": 7.25,
+          "accuracyPct": 90.833,
+          "citationsFound": 0,
+          "verified": 0,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        },
+        {
+          "id": "US-004",
+          "domain": "privacy",
+          "citationRecall": 1,
+          "keywordCoverage": 1,
+          "judgeScore": 7.25,
+          "accuracyPct": 90.833,
+          "citationsFound": 0,
+          "verified": 0,
+          "unverified": 0,
+          "invalid": 0,
+          "unsupported": 0,
+          "verifiedRatio": 1,
+          "liveApiConsulted": false,
+          "flagged": false
+        }
+      ],
+      "adversarial": [
+        {
+          "id": "US-001",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        },
+        {
+          "id": "US-002",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        },
+        {
+          "id": "US-003",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        },
+        {
+          "id": "US-004",
+          "detected": true,
+          "invalid": 1,
+          "unverified": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# NYV secret guard — blocks commits containing live credential material.
+# Install: git config core.hooksPath scripts/git-hooks
+# Bypass (verified false positive only): git commit --no-verify
+set -uo pipefail
+
+PATTERNS='AKIA[0-9A-Z]{16}|ASIA[0-9A-Z]{16}|sk-ant-api03-[A-Za-z0-9_-]{20,}|sk-proj-[A-Za-z0-9_-]{20,}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{50,}|AIza[0-9A-Za-z_-]{30,}|xox[baprs]-[A-Za-z0-9-]{10,}|tvly-[A-Za-z0-9_-]{16,}|npm_[A-Za-z0-9]{30,}|-----BEGIN (RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----|(postgres(ql)?|redis|mongodb(\+srv)?|amqp)://[A-Za-z0-9_.-]+:[^@/[:space:]]{6,}@'
+
+# Lines that look like credentials but are local dev / templates / docs placeholders.
+ALLOW='localhost|127\.0\.0\.1|host\.docker\.internal|@<|:<[A-Za-z_-]+>@|\$\{|example|EXAMPLE|placeholder|PLACEHOLDER|YOUR_|xxxx|XXXX|REDACTED|_local_dev|change-in-production'
+
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --staged --redact --no-banner || {
+    echo "pre-commit: gitleaks found secrets in staged changes. Commit blocked." >&2
+    exit 1
+  }
+fi
+
+FOUND=0
+while IFS= read -r f; do
+  [ -f "$f" ] || continue
+  case "$f" in *.lock|package-lock.json|pnpm-lock.yaml|*.min.js|*.map) continue ;; esac
+  HITS=$(git show ":$f" 2>/dev/null | grep -InE "$PATTERNS" | grep -viE "$ALLOW" || true)
+  if [ -n "$HITS" ]; then
+    echo "pre-commit: possible secret in $f" >&2
+    printf '%s\n' "$HITS" | cut -c1-14 | sed 's/$/…[redacted]/' | head -3 >&2
+    FOUND=1
+  fi
+done < <(git diff --cached --name-only --diff-filter=ACM)
+
+if [ "$FOUND" -ne 0 ]; then
+  cat >&2 <<'MSG'
+
+Commit blocked: credential-shaped content detected in staged changes.
+Move the value to AWS Secrets Manager (see scripts/secrets-sync.sh).
+Override only if this is a verified false positive:  git commit --no-verify
+MSG
+  exit 1
+fi
+exit 0

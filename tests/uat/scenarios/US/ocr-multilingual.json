@@ -1,0 +1,159 @@
+{
+  "$schema": "../scenario.schema.json",
+  "jurisdiction": "US",
+  "category": "ocr-multilingual",
+  "scenarios": [
+    {
+      "id": "US-OCR-001",
+      "title": "Scanned deposition transcript — 200 page OCR + Q/A indexing",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/ocr/process",
+        "auth": "sdk-key",
+        "body": {
+          "imageUrl": "https://example.com/sample-doc.png",
+          "fileName": "document.png",
+          "options": {
+            "language": "en",
+            "extractText": true,
+            "detectLayout": true
+          }
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success",
+          "data.text",
+          "data.confidence"
+        ]
+      },
+      "passCriteria": ">=0.95 confidence on printed transcript; Q/A pairs indexed with line:page anchors; speaker labels preserved.",
+      "costSensitive": true
+    },
+    {
+      "id": "US-OCR-002",
+      "title": "Spanish-language declaration — translate + extract entities",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/ocr/process",
+        "auth": "sdk-key",
+        "body": {
+          "imageUrl": "https://example.com/sample-doc.png",
+          "fileName": "document.png",
+          "options": {
+            "language": "en",
+            "extractText": true,
+            "detectLayout": true
+          }
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success",
+          "data.text",
+          "data.confidence"
+        ]
+      },
+      "passCriteria": "ES → EN translation legally usable; declarant + caption + monetary amounts extracted accurately."
+    },
+    {
+      "id": "US-OCR-003",
+      "title": "Multi-column statute PDF (US Code annotated) — preserve column layout",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/ocr/process",
+        "auth": "sdk-key",
+        "body": {
+          "imageUrl": "https://example.com/sample-doc.png",
+          "fileName": "document.png",
+          "options": {
+            "language": "en",
+            "extractText": true,
+            "detectLayout": true
+          }
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success",
+          "data.text",
+          "data.confidence"
+        ]
+      },
+      "passCriteria": "Reading order preserved across columns; section headers retained as MD H2; footnotes captured.",
+      "costSensitive": true
+    },
+    {
+      "id": "US-OCR-004",
+      "title": "Discovery production — 1000-page mixed-quality scan, async OCR + Bates stamping",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/ocr/process",
+        "auth": "sdk-key",
+        "body": {
+          "imageUrl": "https://example.com/sample-doc.png",
+          "fileName": "document.png",
+          "options": {
+            "language": "en",
+            "extractText": true,
+            "detectLayout": true
+          }
+        }
+      },
+      "expected": {
+        "httpStatus": 202,
+        "mustHaveFields": [
+          "success",
+          "data.text",
+          "data.confidence"
+        ]
+      },
+      "passCriteria": "Async accepted; Bates numbers contiguous ABC-100001..ABC-101000; per-page confidence reported; low-confidence pages re-OCR'd via GPT-4o vision."
+    },
+    {
+      "id": "US-OCR-005",
+      "title": "Handwritten notes (witness statement) — 3 pages, infer + flag uncertainty",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/ocr/process",
+        "auth": "sdk-key",
+        "body": {
+          "imageUrl": "https://example.com/sample-doc.png",
+          "fileName": "document.png",
+          "options": {
+            "language": "en",
+            "extractText": true,
+            "detectLayout": true
+          }
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success",
+          "data.text",
+          "data.confidence"
+        ]
+      },
+      "passCriteria": "Low-confidence regions returned as ranges with [???] markers; never silently fabricates; suggests human review queue."
+    }
+  ]
+}

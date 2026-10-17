@@ -1,0 +1,49 @@
+{
+  "_doc": "NV-WIRING-BUDGET-001 Slice-6 (2026-05-10) — files intentionally orphan from src/index.ts BFS reachability. The orphan budget guardrail subtracts the count of files in this allowlist from the 'effective orphan' count. Adding a file here requires a dispositionReason that maps to one of: KEEP-BARREL | KEEP-CLI | KEEP-CONTRACT | KEEP-TEST | KEEP-DYNAMIC-IMPORT. Re-audit and re-classify before adding KEEP-DEAD-CODE entries — those should be archived, not allowlisted.",
+  "_schema": "v1",
+  "_lastReview": "2026-08-17 — NV-WIRING-AUDIT-DYNAMIC-001: auditor now follows dynamic import(); 17 entries became provably wired and were removed.",
+  "_validCategories": [
+    "KEEP-BARREL",
+    "KEEP-CLI",
+    "KEEP-CONTRACT",
+    "KEEP-TEST",
+    "KEEP-DYNAMIC-IMPORT"
+  ],
+  "entries": [
+    {
+      "file": "src/packages/tools/code/index.ts",
+      "category": "KEEP-BARREL",
+      "reason": "pure re-export barrel"
+    },
+    {
+      "file": "src/packages/tools/database/index.ts",
+      "category": "KEEP-BARREL",
+      "reason": "pure re-export barrel"
+    },
+    {
+      "file": "src/services/orchestration/index.ts",
+      "category": "KEEP-BARREL",
+      "reason": "pure re-export barrel"
+    },
+    {
+      "file": "src/orchestration/nv-queen-lifecycle-events.types-test.ts",
+      "category": "KEEP-CLI",
+      "reason": "type-test file; runtime-no-op compile-time-only check"
+    },
+    {
+      "file": "src/services/microservice-contracts/nv-agent-service-contract.ts",
+      "category": "KEEP-CONTRACT",
+      "reason": "type contract for east-west microservice — published surface, no runtime consumer in monolith"
+    },
+    {
+      "file": "src/services/microservice-contracts/nv-doc-service-contract.ts",
+      "category": "KEEP-CONTRACT",
+      "reason": "type contract for east-west microservice — published surface"
+    },
+    {
+      "file": "src/services/microservice-contracts/nv-rag-service-contract.ts",
+      "category": "KEEP-CONTRACT",
+      "reason": "type contract for east-west microservice — published surface"
+    }
+  ]
+}

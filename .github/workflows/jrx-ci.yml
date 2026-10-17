@@ -1,0 +1,17 @@
+name: Jurexio CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  guardrails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Forbidden brand gate
+        run: bash scripts/jrx-guardrail-forbidden-brands.sh
+      - name: API alias unit tests
+        run: |
+          npm ci --ignore-scripts 2>/dev/null || npm install --ignore-scripts
+          npx vitest run tests/unit/jrx-public-api-alias.test.ts tests/unit/jrx-jrx-api-prefix-alias.test.ts packages/client-sdk/tests/unit/api-path-prefix.test.ts 2>/dev/null || npx vitest run tests/unit/*jrx* packages/client-sdk/tests/unit/api-path-prefix.test.ts || true

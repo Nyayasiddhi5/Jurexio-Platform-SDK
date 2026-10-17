@@ -1,0 +1,70 @@
+---
+# ServiceAccount for Gateway pods
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nyayavigya-gateway-sa
+  namespace: nyayavigya
+  labels:
+    app: nyayavigya-gateway
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::ACCOUNT_ID:role/nyayavigya-gateway-role"
+
+---
+# Role — minimal permissions for gateway pods
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: nyayavigya-gateway-role
+  namespace: nyayavigya
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "watch", "list"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["nyayavigya-secrets"]
+    verbs: ["get"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: nyayavigya-gateway-rolebinding
+  namespace: nyayavigya
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: nyayavigya-gateway-role
+subjects:
+  - kind: ServiceAccount
+    name: nyayavigya-gateway-sa
+    namespace: nyayavigya
+
+---
+# NetworkPolicy — restrict ingress to known paths
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: nyayavigya-netpol
+  namespace: nyayavigya
+spec:
+  podSelector:
+    matchLabels:
+      app: nyayavigya-gateway
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+        - podSelector:
+            matchLabels:
+              app: nyayavigya-console
+      ports:
+        - protocol: TCP
+          port: 5000
+  egress:
+    - {} # Allow all egress (LLM APIs, S3, Neon, etc.)

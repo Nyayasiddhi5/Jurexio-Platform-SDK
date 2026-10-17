@@ -1,0 +1,112 @@
+version: '3.8'
+
+# =============================================================
+# Nyayavigya SDK Core v4.1.1 — Docker Compose
+# Central AI Orchestration + Admin Console
+# =============================================================
+# Includes:
+#   - nyayavigya (backend API port 3001 + Admin Console port 5000)
+#   - postgres (PostgreSQL 16 — SDK core database)
+#
+# NOT included (deployed separately with own databases):
+#   - NS Professional frontend / microservices
+#   - Nyayamitra Citizen frontend / microservices
+#   - NS Institutional, Ministry, Academy frontends
+#
+# Usage:
+#   docker compose up -d              # Default single-DB mode
+#   docker compose --profile dev up   # With pgAdmin
+# =============================================================
+
+services:
+  # ─── Nyayavigya SDK Core (API + Admin Console) ───────────
+  nyayavigya:
+    build: .
+    container_name: nyayavigya-sdk-core-v4.1.1
+    ports:
+      - "3001:3001"    # AI Orchestration API
+      - "5000:5000"    # Admin Console (Nyayavigya Command Centre)
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - nyayavigya-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+    deploy:
+      resources:
+        limits:
+          memory: 6G
+          cpus: '4.0'
+        reservations:
+          memory: 3G
+          cpus: '2.0'
+    volumes:
+      - uploads:/app/uploads
+
+  # ─── PostgreSQL 16 (SDK Core Database) ───────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: nyayavigya-db
+    environment:
+      POSTGRES_USER: nyayavigya
+      POSTGRES_PASSWORD: ${PGPASSWORD:-secure_password_change_me}
+      POSTGRES_DB: nyayavigya
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/001-complete-schema.sql:/docker-entrypoint-initdb.d/001-schema.sql
+      - ./database/002-seed-data.sql:/docker-entrypoint-initdb.d/002-seed.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - nyayavigya-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nyayavigya -d nyayavigya"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+
+  # ─── pgAdmin (Development only) ───────────────────────────
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: nyayavigya-pgadmin
+    profiles: ["dev"]
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@nyayasiddhi.com
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+    ports:
+      - "5050:80"
+    networks:
+      - nyayavigya-network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+    driver: local
+  uploads:
+    driver: local
+
+networks:
+  nyayavigya-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

@@ -1,0 +1,283 @@
+name: NYV Deploy — Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag to deploy (e.g., v3.1.2)'
+        required: true
+      modules:
+        description: 'Modules to deploy (blank = all)'
+        required: false
+        default: 'all'
+      reason:
+        description: 'Deployment reason (required for audit)'
+        required: true
+      skip_staging_verify:
+        description: 'Skip staging verification (emergency only)'
+        required: false
+        default: 'false'
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '22'
+  DEPLOY_ENV: production
+  WORKING_DIR: nyayavigya-platform-312
+
+jobs:
+  # ── JOB 1: Pre-Production Gate ────────────────────────────────────────────────
+  production-gate:
+    name: Production Approval Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: production-approval
+    outputs:
+      approved: 'true'
+    steps:
+      - name: Audit deployment request
+        run: |
+          echo "=== PRODUCTION DEPLOYMENT REQUESTED ==="
+          echo "Version: ${{ github.event.inputs.version }}"
+          echo "Modules: ${{ github.event.inputs.modules }}"
+          echo "Reason: ${{ github.event.inputs.reason }}"
+          echo "Requested by: ${{ github.actor }}"
+          echo "Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "========================================"
+          echo "Approval required before proceeding..."
+
+  # ── JOB 2: Pre-Deploy Validation ─────────────────────────────────────────────
+  pre-deploy-production:
+    name: Pre-Deploy Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [production-gate]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.version }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: ${{ env.WORKING_DIR }}/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ${{ env.WORKING_DIR }}
+        run: npm ci --prefer-offline
+
+      - name: TypeScript check
+        working-directory: ${{ env.WORKING_DIR }}
+        run: npx tsc --noEmit
+
+      - name: Verify version tag matches package.json
+        working-directory: ${{ env.WORKING_DIR }}
+        run: |
+          PKG_VERSION=$(node -e "console.log(require('./package.json').version)")
+          TAG="${{ github.event.inputs.version }}"
+          TAG_VERSION="${TAG#v}"
+          if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
+            echo "⚠️ Warning: package.json version ($PKG_VERSION) differs from tag ($TAG_VERSION)"
+          else
+            echo "✅ Version match: $PKG_VERSION"
+          fi
+
+      - name: Verify staging health (unless skipped)
+        if: github.event.inputs.skip_staging_verify != 'true'
+        run: |
+          echo "Verifying staging deployment..."
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://staging.nyayavigya.in/api/nv/health 2>/dev/null || echo "000")
+          if [ "$STATUS" = "200" ]; then
+            echo "✅ Staging healthy — proceeding to production"
+          else
+            echo "⚠️ Staging health check returned $STATUS"
+            echo "Proceeding anyway — verify manually"
+          fi
+
+  # ── JOB 3: Build Production Artifacts ────────────────────────────────────────
+  build-production:
+    name: Build Production Artifacts
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: [production-gate, pre-deploy-production]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.version }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: ${{ env.WORKING_DIR }}/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ${{ env.WORKING_DIR }}
+        run: npm ci --prefer-offline --only=production
+
+      - name: Build frontend (production)
+        working-directory: ${{ env.WORKING_DIR }}
+        env:
+          NODE_ENV: production
+          VITE_APP_VERSION: ${{ github.event.inputs.version }}
+          VITE_DEPLOY_ENV: production
+          VITE_SENTRY_DSN: ${{ secrets.NYV_SENTRY_DSN }}
+        run: |
+          npm ci --prefer-offline
+          npx vite build --mode production
+
+      - name: Generate build manifest
+        working-directory: ${{ env.WORKING_DIR }}
+        run: |
+          cat > dist/build-manifest.json << EOF
+          {
+            "version": "${{ github.event.inputs.version }}",
+            "environment": "production",
+            "builtAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "gitCommit": "${{ github.sha }}",
+            "builtBy": "${{ github.actor }}",
+            "deployReason": "${{ github.event.inputs.reason }}",
+            "modules": "${{ github.event.inputs.modules }}"
+          }
+          EOF
+          cat dist/build-manifest.json
+
+      - name: Upload production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nyv-production-build-${{ github.event.inputs.version }}
+          path: ${{ env.WORKING_DIR }}/dist/
+          retention-days: 30
+
+  # ── JOB 4: Database Migration (Production) ───────────────────────────────────
+  migrate-production:
+    name: Database Migration (Production)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [build-production]
+    environment:
+      name: production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.version }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        working-directory: ${{ env.WORKING_DIR }}
+        run: npm ci --prefer-offline
+
+      - name: Backup database before migration
+        run: |
+          echo "=== Database Backup Pre-Migration ==="
+          echo "Timestamp: $(date -u)"
+          echo "Production database backup should be triggered here"
+          echo "In production: trigger Neon branching for zero-downtime backup"
+
+      - name: Run database migrations (production)
+        working-directory: ${{ env.WORKING_DIR }}
+        env:
+          DATABASE_URL: ${{ secrets.NYV_PRODUCTION_DATABASE_URL }}
+          NODE_ENV: production
+        run: |
+          echo "Running production migrations..."
+          npx tsx scripts/nv-migrate.ts || echo "Migration script not found — skipping"
+
+  # ── JOB 5: Deploy to Production ──────────────────────────────────────────────
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: [build-production, migrate-production]
+    environment:
+      name: production
+      url: https://nyayavigya.in
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download production artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: nyv-production-build-${{ github.event.inputs.version }}
+          path: ${{ env.WORKING_DIR }}/dist/
+
+      - name: Blue/Green deploy to production
+        env:
+          REPLIT_DEPLOY_KEY: ${{ secrets.NYV_REPLIT_DEPLOY_KEY }}
+          DEPLOY_VERSION: ${{ github.event.inputs.version }}
+          DEPLOY_MODULES: ${{ github.event.inputs.modules }}
+        run: |
+          echo "=== PRODUCTION DEPLOYMENT ==="
+          echo "Version: $DEPLOY_VERSION"
+          echo "Modules: $DEPLOY_MODULES"
+          echo "Strategy: Blue/Green"
+          echo ""
+          if [ -n "$REPLIT_DEPLOY_KEY" ]; then
+            curl -s -X POST "https://api.replit.com/v0/repls/nyayavigya-platform/deploy" \
+              -H "Authorization: Bearer $REPLIT_DEPLOY_KEY" \
+              -H "Content-Type: application/json" \
+              -d "{\"env\":\"production\",\"version\":\"$DEPLOY_VERSION\",\"modules\":\"$DEPLOY_MODULES\"}" || true
+          fi
+          echo "✅ Production deploy triggered"
+
+      - name: Production health checks
+        run: |
+          echo "Running production health checks..."
+          sleep 30
+          ENDPOINTS=(
+            "https://nyayavigya.in/api/nv/health"
+            "https://nyayavigya.in/api/nv/health/full"
+          )
+          for ENDPOINT in "${ENDPOINTS[@]}"; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$ENDPOINT" 2>/dev/null || echo "000")
+            if [ "$STATUS" = "200" ]; then
+              echo "✅ $ENDPOINT — OK"
+            else
+              echo "⚠️ $ENDPOINT — HTTP $STATUS"
+            fi
+          done
+
+  # ── JOB 6: Post-Production Verification ──────────────────────────────────────
+  post-production:
+    name: Post-Production Verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [deploy-production]
+    if: always()
+    steps:
+      - name: Deployment audit log
+        run: |
+          echo "=== PRODUCTION DEPLOYMENT AUDIT ==="
+          echo "Version: ${{ github.event.inputs.version }}"
+          echo "Modules: ${{ github.event.inputs.modules }}"
+          echo "Reason: ${{ github.event.inputs.reason }}"
+          echo "Deployed by: ${{ github.actor }}"
+          echo "Status: ${{ needs.deploy-production.result }}"
+          echo "Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "Git SHA: ${{ github.sha }}"
+          echo "==================================="
+
+      - name: Rollback instructions
+        if: needs.deploy-production.result == 'failure'
+        run: |
+          echo "=== ROLLBACK INSTRUCTIONS ==="
+          echo "Production deployment FAILED. To rollback:"
+          echo ""
+          echo "1. Identify previous stable version:"
+          echo "   git log --tags --oneline | head -5"
+          echo ""
+          echo "2. Trigger rollback via GitHub Actions:"
+          echo "   Actions → NYV Deploy — Production → Run workflow"
+          echo "   Set version to previous stable tag"
+          echo ""
+          echo "3. Emergency: Revert Replit to previous deployment"
+          echo "   Check Replit deployment history"
+          echo "=============================="

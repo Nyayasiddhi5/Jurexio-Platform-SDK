@@ -1,0 +1,268 @@
+{
+  "generatedAt": "2026-05-11T01:29:02.892Z",
+  "tally": {
+    "WIRE-ROUTE": 0,
+    "WIRE-CHAIN": 0,
+    "WIRE-INTERNAL": 0,
+    "MERGE-DUPLICATE": 0,
+    "KEEP-BARREL": 15,
+    "KEEP-CLI": 3,
+    "KEEP-CONTRACT": 3,
+    "KEEP-TEST": 0,
+    "KEEP-DYNAMIC-IMPORT": 3,
+    "REVIEW-DELETE": 0,
+    "REVIEW-MANUAL": 0
+  },
+  "records": [
+    {
+      "file": "src/packages/analytics/index.ts",
+      "area": "packages",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: pure re-export barrel; no src/index.ts consumer yet but intentional package surface",
+      "exports": [
+        "analyticsPackageInfo"
+      ],
+      "lines": 39,
+      "bytes": 1128
+    },
+    {
+      "file": "src/packages/i18n/index.ts",
+      "area": "packages",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: pure re-export barrel",
+      "exports": [
+        "i18nPackageInfo"
+      ],
+      "lines": 25,
+      "bytes": 969
+    },
+    {
+      "file": "src/packages/multimodal/index.ts",
+      "area": "packages",
+      "disposition": "KEEP-DYNAMIC-IMPORT",
+      "reason": "allowlisted: Session-11 (2026-05-10): top-level await import('./chatdollkit-avatar-service.js') for lazy ChatDollKit loader + metadata-only re-export. Heavy multimodal impls are wired directly via /api/nv5/multimodal/* in Batch B; this barrel intentionally exposes only metadata + lazy hook",
+      "exports": [
+        "ChatDollKitAvatarService",
+        "multimodalPackageInfo"
+      ],
+      "lines": 52,
+      "bytes": 1716
+    },
+    {
+      "file": "src/packages/protocols/index.ts",
+      "area": "packages",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: pure re-export barrel",
+      "exports": [],
+      "lines": 29,
+      "bytes": 842
+    },
+    {
+      "file": "src/packages/security/index.ts",
+      "area": "packages",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: pure re-export barrel",
+      "exports": [
+        "securityPackageInfo"
+      ],
+      "lines": 50,
+      "bytes": 1579
+    },
+    {
+      "file": "src/packages/tools/code/index.ts",
+      "area": "packages",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: pure re-export barrel",
+      "exports": [],
+      "lines": 7,
+      "bytes": 111
+    },
+    {
+      "file": "src/packages/tools/database/index.ts",
+      "area": "packages",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: pure re-export barrel",
+      "exports": [],
+      "lines": 7,
+      "bytes": 108
+    },
+    {
+      "file": "src/packages/tools/index.ts",
+      "area": "packages",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: pure re-export barrel",
+      "exports": [
+        "NYAYAVIGYA_TOOLS_VERSION",
+        "TOOL_COUNT"
+      ],
+      "lines": 29,
+      "bytes": 649
+    },
+    {
+      "file": "src/packages/voice/index.ts",
+      "area": "packages",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: Session-11 (2026-05-10): metadata-only re-export (voicePackageInfo). Voice impls are wired via /api/nv5/voice/* in Batch B + canonical /api/nv/voice/* — this barrel intentionally exposes no runtime services",
+      "exports": [
+        "voicePackageInfo"
+      ],
+      "lines": 20,
+      "bytes": 633
+    },
+    {
+      "file": "src/packages/workflows/index.ts",
+      "area": "packages",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: pure re-export barrel",
+      "exports": [
+        "NYAYAVIGYA_WORKFLOWS_VERSION"
+      ],
+      "lines": 11,
+      "bytes": 352
+    },
+    {
+      "file": "src/services/document-pipeline/index.ts",
+      "area": "services",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: pure re-export barrel",
+      "exports": [],
+      "lines": 71,
+      "bytes": 1786
+    },
+    {
+      "file": "src/services/enterprise-platform/index.ts",
+      "area": "services",
+      "disposition": "KEEP-DYNAMIC-IMPORT",
+      "reason": "allowlisted: consumed via await import('./enterprise-platform/index.js') in src/services/index.ts:196 (lazy capability loader); static BFS auditor cannot follow dynamic import() — Session-9 architect catch 2026-05-10",
+      "exports": [
+        "enterprisePlatform"
+      ],
+      "lines": 3,
+      "bytes": 112
+    },
+    {
+      "file": "src/services/memory/index.ts",
+      "area": "services",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: pure re-export barrel",
+      "exports": [],
+      "lines": 82,
+      "bytes": 1901
+    },
+    {
+      "file": "src/services/microservice-contracts/nv-agent-service-contract.ts",
+      "area": "services",
+      "disposition": "KEEP-CONTRACT",
+      "reason": "allowlisted: type contract for east-west microservice — published surface, no runtime consumer in monolith",
+      "exports": [
+        "NvAgentServiceContract",
+        "NvAgentServiceAdapter"
+      ],
+      "lines": 116,
+      "bytes": 3356
+    },
+    {
+      "file": "src/services/microservice-contracts/nv-doc-service-contract.ts",
+      "area": "services",
+      "disposition": "KEEP-CONTRACT",
+      "reason": "allowlisted: type contract for east-west microservice — published surface",
+      "exports": [
+        "NvDocServiceContract",
+        "NvDocServiceAdapter"
+      ],
+      "lines": 138,
+      "bytes": 4069
+    },
+    {
+      "file": "src/services/microservice-contracts/nv-rag-service-contract.ts",
+      "area": "services",
+      "disposition": "KEEP-CONTRACT",
+      "reason": "allowlisted: type contract for east-west microservice — published surface",
+      "exports": [
+        "NvRagServiceContract",
+        "NvRagServiceAdapter"
+      ],
+      "lines": 118,
+      "bytes": 3549
+    },
+    {
+      "file": "src/services/multi-org/index.ts",
+      "area": "services",
+      "disposition": "KEEP-DYNAMIC-IMPORT",
+      "reason": "allowlisted: consumed via await import('./multi-org/index.js') in src/services/index.ts:207 + import('../services/multi-org/index.js') in src/orchestration/capability-manifest.ts:1578 — Session-9 architect catch 2026-05-10",
+      "exports": [
+        "multiOrg"
+      ],
+      "lines": 3,
+      "bytes": 82
+    },
+    {
+      "file": "src/services/nv-model-catalog-seeding-service.ts",
+      "area": "services",
+      "disposition": "KEEP-CLI",
+      "reason": "allowlisted: standalone seeding script invoked manually / by deploy job",
+      "exports": [
+        "seedModelCatalog"
+      ],
+      "lines": 89,
+      "bytes": 8084
+    },
+    {
+      "file": "src/services/nv-statute-seeding-service.ts",
+      "area": "services",
+      "disposition": "KEEP-CLI",
+      "reason": "allowlisted: standalone seeding script invoked manually / by deploy job",
+      "exports": [],
+      "lines": 673,
+      "bytes": 136087
+    },
+    {
+      "file": "src/services/orchestration/index.ts",
+      "area": "services",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: pure re-export barrel",
+      "exports": [],
+      "lines": 81,
+      "bytes": 3117
+    },
+    {
+      "file": "src/services/rag/index.ts",
+      "area": "services",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: Session-11 (2026-05-10): pure re-export barrel for adaptiveRAG/correctiveRAG/selfRAG/ragService/lightRAG/entityMerger — every named export is wired-internal via direct file imports from nv-queen-orchestrator/rag-service consumers; barrel itself has no runtime consumer",
+      "exports": [],
+      "lines": 61,
+      "bytes": 1398
+    },
+    {
+      "file": "src/services/redis-client.ts",
+      "area": "services",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: Session-11 (2026-05-10): NYV-ORCH-SEAM-007 back-compat seam re-exporting nvRedisCache + redisClient + ensureRedis from canonical nv-redis-cache-service.js + redis.js (both wired). Kept as a compat surface for legacy importers but has no current src/index.ts consumer; the canonical primitive is nvRedisCache directly",
+      "exports": [
+        "redisClient",
+        "ensureRedis"
+      ],
+      "lines": 29,
+      "bytes": 1245
+    },
+    {
+      "file": "src/orchestration/index.ts",
+      "area": "orchestration",
+      "disposition": "KEEP-BARREL",
+      "reason": "allowlisted: pure re-export barrel",
+      "exports": [],
+      "lines": 2,
+      "bytes": 31
+    },
+    {
+      "file": "src/orchestration/nv-queen-lifecycle-events.types-test.ts",
+      "area": "orchestration",
+      "disposition": "KEEP-CLI",
+      "reason": "allowlisted: type-test file; runtime-no-op compile-time-only check",
+      "exports": [],
+      "lines": 205,
+      "bytes": 6827
+    }
+  ]
+}

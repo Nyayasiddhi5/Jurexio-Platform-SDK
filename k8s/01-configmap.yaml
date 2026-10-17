@@ -1,0 +1,42 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nyayavigya-config
+  namespace: nyayavigya
+  labels:
+    app.kubernetes.io/name: nyayavigya
+    app.kubernetes.io/component: config
+data:
+  NODE_ENV: "production"
+  NYV_PORT_GATEWAY: "5000"
+  NYV_PORT_CONSOLE: "3004"
+  NYV_PLATFORM_VERSION: "3.1.2"
+  NYV_SDK_VERSION: "5.0.0"
+  NYV_JURISDICTION: "IN,UK,GC,EU,US,SG"
+  NYV_LOG_LEVEL: "info"
+  NYV_LOG_FORMAT: "json"
+  NYV_MAX_AGENTS: "148"
+  NYV_AGENT_REGISTRY: "jurisdiction-registries/Nyayavigya-Legal-registry-Default.json"
+  NYV_LLM_PRIMARY: "openrouter"
+  NYV_LLM_FALLBACK: "openai,anthropic,google,groq"
+  NYV_JOB_QUEUE_POLL_MS: "2000"
+  NYV_JOB_QUEUES: "nv-ai,nv-documents,nv-compliance,default"
+  NYV_RATE_LIMIT_DEFAULT_RPM: "60"
+  NYV_STATUTE_SEED_ON_STARTUP: "true"
+  NYV_PII_CLEANUP_INTERVAL_MS: "300000"
+  NYV_REGULATORY_POLL_INTERVAL_MS: "3600000"
+  NYV_LLM_HEALTH_CHECK_MS: "30000"
+  NYV_MEMORY_TIERING: "hot:5min,warm:1h,cold:7d"
+  NYV_VECTOR_DB_DIMENSIONS: "1536"
+  NYV_GRPO_EPISODES: "100"
+  NYV_GRPO_MIN_SCORE: "7"
+  NYV_QUANTUM_ALGORITHM: "ML-KEM-512"
+  NYV_ZKP_CIRCUIT: "PLONK"
+  NYV_SUPPORTED_LANGUAGES: "22"
+  NYV_OCR_PRIMARY: "gpt4v"
+  NYV_OCR_FALLBACK: "tesseract"
+  NYV_DOCUMENT_MAX_SIZE_MB: "100"
+  NYV_DOCUMENT_FORMATS: "pdf,docx,xlsx,pptx,txt,md,rtf,csv,html"
+  NYV_MCP_TOOLS_COUNT: "53"
+  NYV_AGENTIC_PATTERNS: "22"

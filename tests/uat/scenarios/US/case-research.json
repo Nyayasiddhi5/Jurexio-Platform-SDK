@@ -1,0 +1,151 @@
+{
+  "$schema": "../scenario.schema.json",
+  "jurisdiction": "US",
+  "category": "case-research",
+  "scenarios": [
+    {
+      "id": "US-RES-001",
+      "title": "SCOTUS authorities on personal jurisdiction post-Ford Motor (2021)",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P02",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/research/query",
+        "auth": "sdk-key",
+        "body": {
+          "query": "Specific personal jurisdiction over a non-resident defendant after Ford Motor v. Mont. Eighth Jud. Dist. — minimum contacts framework today",
+          "jurisdiction": "US",
+          "options": {}
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "Ford Motor",
+            "Daimler",
+            "International Shoe",
+            "Bristol-Myers"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": ">=6 verifiable Bluebook cites; ratio articulated; circuit split (if any) flagged.",
+      "costSensitive": true
+    },
+    {
+      "id": "US-RES-002",
+      "title": "Cite-check 30-page appellate brief (Bluebook compliance + signal usage)",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P02",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/agents/cite-checker/execute",
+        "auth": "sdk-key",
+        "body": {
+          "prompt": "You are a senior legal AI assistant for US jurisdiction.\n\n  Question: Cite-check 30-page appellate brief (Bluebook compliance + signal usage)\n\n  Provide a structured legal analysis including:\n  1. The applicable statute / regulation / case law (cite specific section numbers).\n  2. The legal test or compliance threshold that triggers the rule.\n  3. Step-by-step reasoning applied to the facts implied by the question.\n  4. The specific compliance action, filing, disclosure, or remedy required.\n  5. Material risks or exceptions a practitioner should flag to the client.\n\n  Be concrete. Cite specific legal authorities. Avoid generic disclaimers.",
+          "jurisdiction": "IN",
+          "options": {}
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Every cite verified or flagged; signal misuse (e.g. 'see' vs 'see, e.g.,') called out; short-form vs full-form errors flagged."
+    },
+    {
+      "id": "US-RES-003",
+      "title": "Statutory interpretation — does new SECURE 2.0 §603 apply retroactively?",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P02",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/research/query",
+        "auth": "sdk-key",
+        "body": {
+          "query": "Retroactivity analysis for SECURE 2.0 Act §603 — Roth catch-up requirement, IRS notices through 2025",
+          "jurisdiction": "US",
+          "options": {}
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "SECURE 2.0",
+            "Notice 2023-62",
+            "administrative transition",
+            "Roth"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Cites IRS Notice 2023-62 + later guidance; distinguishes statutory effective date vs administrative transition relief; conservative answer."
+    },
+    {
+      "id": "US-RES-004",
+      "title": "Westlaw-style headnote synthesis from a 5000-word 2nd Cir. opinion",
+      "userRole": "paralegal",
+      "sdkVariant": "nsp-web",
+      "pattern": "P09",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/agents/headnote-generator/execute",
+        "auth": "sdk-key",
+        "body": {
+          "prompt": "{\"judgmentText\":\"<<paste 5000 word 2nd Cir opinion from fixtures/US/2nd-cir-2025-002.txt>>\",\"format\":\"westlaw-style\",\"topicCount\":5}",
+          "jurisdiction": "IN",
+          "options": {}
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "5 topical headnotes; West-style key-number-style topic tags; ratio vs obiter cleanly split.",
+      "costSensitive": true
+    },
+    {
+      "id": "US-RES-005",
+      "title": "Compare circuit split — qualified immunity 'clearly established law' standard",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P09",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/compare",
+        "auth": "sdk-key",
+        "body": {
+          "document1": "Compare circuit split — qualified immunity 'clearly established law' standard",
+          "document2": "Compare circuit split — qualified immunity 'clearly established law' standard"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Per-circuit summary with cite + posture; identifies divergence triggers; flags pending cert petitions if any."
+    }
+  ]
+}

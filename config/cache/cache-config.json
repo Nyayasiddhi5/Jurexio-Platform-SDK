@@ -1,0 +1,24 @@
+{
+  "version": "5.0.0",
+  "primary": {
+    "provider": "redis",
+    "envVar": "NYV_REDIS_TCP_URL",
+    "mode": "cluster",
+    "nodes": 6,
+    "tls": true,
+    "keyPrefix": "nyv:",
+    "defaultTtlSec": 600
+  },
+  "fallback": { "provider": "in-memory-lru", "maxItems": 5000 },
+  "namespaces": {
+    "session":   { "prefix": "nyv:sess:",  "ttlSec": 1800 },
+    "rateLimit": { "prefix": "nyv:rl:",    "ttlSec": 60 },
+    "lmCache":   { "prefix": "nyv:lm:",    "ttlSec": 900,  "semantic": true, "thresholdCosine": 0.92 },
+    "agentList": { "prefix": "nyv:agent:", "ttlSec": 300 },
+    "ragHits":   { "prefix": "nyv:rag:",   "ttlSec": 600 },
+    "tokens":    { "prefix": "nyv:tok:",   "ttlSec": 300 },
+    "feature":   { "prefix": "nyv:flag:",  "ttlSec": 60 },
+    "webhook":   { "prefix": "nyv:wh:",    "ttlSec": 86400 }
+  },
+  "monitoring": { "latencyAlertMs": 50, "memoryAlertPct": 80 }
+}

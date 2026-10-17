@@ -1,0 +1,209 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MCP tool input schemas vs OpenAPI-derived Zod schemas > snapshots every MCP tool input schema to catch any structural drift 1`] = `
+[
+  {
+    "inputSchema": {
+      "properties": {
+        "action": {
+          "description": "Which chat action mode to run",
+          "enum": [
+            "chat",
+            "summary",
+            "extract",
+            "case_details",
+            "draft",
+            "intelligence",
+            "predictions",
+          ],
+          "type": "string",
+        },
+        "documentName": {
+          "default": "document.txt",
+          "type": "string",
+        },
+        "documentText": {
+          "description": "Optional inline document text to analyze",
+          "type": "string",
+        },
+        "format": {
+          "default": "detailed",
+          "enum": [
+            "brief",
+            "detailed",
+          ],
+          "type": "string",
+        },
+        "jurisdiction": {
+          "default": "IN",
+          "enum": [
+            "IN",
+            "US",
+          ],
+          "type": "string",
+        },
+        "prompt": {
+          "description": "The user ask; may be empty for document-driven actions",
+          "type": "string",
+        },
+      },
+      "required": [
+        "action",
+      ],
+      "type": "object",
+    },
+    "name": "chat_action",
+  },
+  {
+    "inputSchema": {
+      "properties": {
+        "text": {
+          "type": "string",
+        },
+      },
+      "required": [
+        "text",
+      ],
+      "type": "object",
+    },
+    "name": "check_citations",
+  },
+  {
+    "inputSchema": {
+      "properties": {
+        "ipcSection": {
+          "description": "IPC section number, e.g. 302",
+          "type": "string",
+        },
+      },
+      "required": [
+        "ipcSection",
+      ],
+      "type": "object",
+    },
+    "name": "compare_ipc_bns",
+  },
+  {
+    "inputSchema": {
+      "properties": {
+        "code": {
+          "description": "Statute code: BNS, BNSS, BSA, IPC, USC",
+          "type": "string",
+        },
+        "section": {
+          "type": "string",
+        },
+      },
+      "required": [
+        "code",
+        "section",
+      ],
+      "type": "object",
+    },
+    "name": "get_statute",
+  },
+  {
+    "inputSchema": {
+      "properties": {
+        "context": {
+          "type": "string",
+        },
+        "instruction": {
+          "type": "string",
+        },
+        "jurisdiction": {
+          "default": "IN",
+          "enum": [
+            "IN",
+            "US",
+          ],
+          "type": "string",
+        },
+      },
+      "required": [
+        "instruction",
+      ],
+      "type": "object",
+    },
+    "name": "perform_legal_work",
+  },
+  {
+    "inputSchema": {
+      "properties": {
+        "jurisdiction": {
+          "default": "IN",
+          "enum": [
+            "IN",
+            "US",
+          ],
+          "type": "string",
+        },
+        "query": {
+          "type": "string",
+        },
+      },
+      "required": [
+        "query",
+      ],
+      "type": "object",
+    },
+    "name": "retrieve",
+  },
+  {
+    "inputSchema": {
+      "properties": {
+        "jurisdiction": {
+          "default": "IN",
+          "enum": [
+            "IN",
+            "US",
+          ],
+          "type": "string",
+        },
+        "limit": {
+          "default": 10,
+          "type": "number",
+        },
+        "query": {
+          "description": "Search query (websearch syntax supported for IN)",
+          "type": "string",
+        },
+      },
+      "required": [
+        "query",
+      ],
+      "type": "object",
+    },
+    "name": "search_caselaw",
+  },
+  {
+    "inputSchema": {
+      "properties": {
+        "code": {
+          "description": "Optional statute code filter, e.g. BNS, IPC",
+          "type": "string",
+        },
+        "jurisdiction": {
+          "enum": [
+            "IN",
+            "US",
+          ],
+          "type": "string",
+        },
+        "limit": {
+          "default": 10,
+          "type": "number",
+        },
+        "query": {
+          "type": "string",
+        },
+      },
+      "required": [
+        "query",
+      ],
+      "type": "object",
+    },
+    "name": "search_statutes",
+  },
+]
+`;

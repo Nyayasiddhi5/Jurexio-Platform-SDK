@@ -1,0 +1,8 @@
+This file is the snapshot of the 2026-05-02 canonical endpoint map.
+It has been SUPERSEDED by:
+  docs/v3.1.2/SDK-ENDPOINTS-CANONICAL-2026-05-05.md
+
+The 2026-05-05 version reflects the audit fixes F6..F12 applied between
+2026-05-04 and 2026-05-05 and was probed live against all 7 SDK keys
+(NSP, NSPM, NSI, NSM, NSA, NYM, JRX). Use the 2026-05-05 file for any
+integration work.

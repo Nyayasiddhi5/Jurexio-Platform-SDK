@@ -1,0 +1,366 @@
+# =============================================================================
+#  Nyayavigya — Caddy edge config (production behind AWS ALB)
+#
+#  TLS terminates at the AWS ALB upstream of this Caddy.  Caddy listens on :80
+#  ONLY and host-routes by `Host` header.  We still emit HSTS / CSP / etc on
+#  every response because the ALB preserves them.
+#
+#  Production subdomain map (all ALIAS to the prod ALB):
+#    api.nyayasiddhi.online        -> nyv-gateway pool (gateway-a + gateway-b)
+#    console.nyayasiddhi.online    -> nyv-console
+#    docs.nyayasiddhi.online       -> nyv-console (placeholder; swap to mintlify)
+#    status.nyayasiddhi.online     -> nyv-gateway /health + /metrics
+#    pro.nyayasiddhi.online        -> nyv-nsp-app:5102
+#    nym.nyayasiddhi.online        -> nyv-nym-app:5101
+#    ins.nyayasiddhi.online        -> nyv-nsi-app:5103
+#    ace.nyayasiddhi.online        -> nyv-nsa-app:5104
+#    min.nyayasiddhi.online        -> nyv-nsm-app:5105
+#
+#  Staging subdomain map (all ALIAS to the staging ALB):
+#    staging.nyayasiddhi.online        -> nyv-gateway-staging:5500
+#    staging-pro.nyayasiddhi.online    -> nyv-nsp-staging:5102
+#    staging-nym.nyayasiddhi.online    -> nyv-nym-staging:5101
+#    staging-ins.nyayasiddhi.online    -> nyv-nsi-staging:5103
+#    staging-ace.nyayasiddhi.online    -> nyv-nsa-staging:5104
+#    staging-min.nyayasiddhi.online    -> nyv-nsm-staging:5105
+#
+#  Apex `nyayasiddhi.online` 301s to console.nyayasiddhi.online (no bare-domain
+#  content for now; handled at Route53 with a CloudFront-less S3 redirect bucket
+#  documented in `docs/v3.1.2/completed_docs/NYV-DNS-AND-EDGE.md`).
+# =============================================================================
+
+{
+        admin off
+        auto_https off
+        servers {
+                # Trust the ALB's X-Forwarded-* headers.  We only accept these
+                # from the ALB's private subnet CIDRs (set explicitly below).
+                trusted_proxies static 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16
+                protocols h1 h2c
+        }
+}
+
+# ── Reusable snippets ────────────────────────────────────────────────────────
+(common_headers) {
+        header {
+                Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+                X-Frame-Options "SAMEORIGIN"
+                X-Content-Type-Options "nosniff"
+                Referrer-Policy "strict-origin-when-cross-origin"
+                Permissions-Policy "geolocation=(), camera=(), microphone=(), payment=(self)"
+                Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://*.nyayasiddhi.online wss://*.nyayasiddhi.online; frame-ancestors 'none'"
+                X-Robots-Tag "noindex, nofollow"
+                -Server
+        }
+}
+
+(json_log) {
+        log {
+                output file /var/log/caddy/access.log {
+                        roll_size 50mb
+                        roll_keep 7
+                }
+                format json
+        }
+}
+
+(proxy_headers) {
+        header_up X-Real-IP {http.request.header.X-Forwarded-For}
+        header_up X-Forwarded-For {http.request.header.X-Forwarded-For}
+        header_up X-Forwarded-Proto {http.request.header.X-Forwarded-Proto}
+        header_up X-Forwarded-Host {host}
+}
+
+# =============================================================================
+# Rate-limit responsibility model — defense in depth
+# =============================================================================
+# Three layers of per-IP throttling, each cheaper than the next when traffic
+# is malicious:
+#   1. AWS WAF (priority 30 PerIpRateLimit, modules/waf/main.tf):
+#      hard cut at the edge for >2k req/5min from a single IP.
+#   2. Caddy (this file, snippets below): per-IP token bucket as defense in
+#      depth — kicks in if WAF is misconfigured or temporarily disassociated.
+#      Requires the caddy-ratelimit plugin baked into the image (see
+#      `infra/caddy/Dockerfile` which runs xcaddy with that module).
+#   3. Application layer in `src/middleware/nv-rate-limiters.ts`
+#      (Redis-backed, tenant-aware) for per-route business limits.
+(rate_limit_strict) {
+        rate_limit {
+                zone strict {
+                        key {http.request.remote.host}
+                        events 60
+                        window 1m
+                }
+        }
+}
+(rate_limit_loose) {
+        rate_limit {
+                zone loose {
+                        key {http.request.remote.host}
+                        events 600
+                        window 1m
+                }
+        }
+}
+
+# Gateway upstream pool — both replicas with health-aware load balancing.
+(gateway_upstream) {
+        reverse_proxy nyv-gateway-a:5000 nyv-gateway-b:5000 {
+                lb_policy least_conn
+                lb_try_duration 5s
+                health_uri /health
+                health_interval 10s
+                health_timeout 3s
+                fail_duration 30s
+                max_fails 3
+                import proxy_headers
+                transport http {
+                        read_timeout 5m
+                        write_timeout 5m
+                        response_header_timeout 5m
+                }
+        }
+}
+
+# Long-running LLM / Queen orchestration routes (partner /orchestrate, research).
+# NV-EDGE-ORCH-TIMEOUT-001 (2026-06-15): Queen runs can exceed 300s; ALB+Caddy
+# must stay open through multi-agent synthesis. SDK keys unchanged.
+(gateway_upstream_long) {
+        reverse_proxy nyv-gateway-a:5000 nyv-gateway-b:5000 {
+                lb_policy least_conn
+                lb_try_duration 5s
+                health_uri /health
+                health_interval 10s
+                health_timeout 3s
+                fail_duration 30s
+                max_fails 3
+                import proxy_headers
+                transport http {
+                        read_timeout 10m
+                        write_timeout 10m
+                        response_header_timeout 10m
+                }
+        }
+}
+
+(gateway_staging_upstream) {
+        reverse_proxy nyv-gateway-staging:5500 {
+                lb_try_duration 5s
+                health_uri /health
+                health_interval 10s
+                health_timeout 3s
+                import proxy_headers
+        }
+}
+
+# =============================================================================
+#  PRODUCTION HOSTS
+# =============================================================================
+
+# Apex + www: 301 redirect to console.<domain>. Route53 ALIASes apex/www to
+# the ALB; the ALB forwards both names here (HTTPS terminated at the ALB
+# using the wildcard ACM cert that also covers the apex).
+nyayasiddhi.online:80, www.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        redir https://console.nyayasiddhi.online{uri} 301
+}
+
+api.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        import rate_limit_strict
+        encode zstd gzip
+        handle /api/nv/orchestrate* {
+                import gateway_upstream_long
+        }
+        handle /api/nv/gateway/research/* {
+                import gateway_upstream_long
+        }
+        handle /api/nv/completions/* {
+                import gateway_upstream_long
+        }
+        # SME / Pro Legal Chat streams forced maker-checker + Opus over SSE and
+        # can exceed the default 5m edge window during multi-agent synthesis.
+        # NV-EDGE-ORCH-TIMEOUT-001: keep the stream open through the 10m window
+        # so heavy modes (document_qa, statute_lookup, litigation_strategy) are
+        # not "terminated" at the edge.
+        handle /api/nv/legal-chat/* {
+                import gateway_upstream_long
+        }
+        handle {
+                import gateway_upstream
+        }
+}
+
+console.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        import rate_limit_loose
+        encode zstd gzip
+        reverse_proxy nyv-console:80 {
+                import proxy_headers
+        }
+}
+
+docs.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        encode zstd gzip
+        reverse_proxy nyv-console:80 {
+                import proxy_headers
+        }
+}
+
+status.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        handle /health* {
+                reverse_proxy nyv-gateway-a:5000 nyv-gateway-b:5000 {
+                        import proxy_headers
+                }
+        }
+        handle /metrics* {
+                reverse_proxy nyv-gateway-a:5000 nyv-gateway-b:5000 {
+                        import proxy_headers
+                }
+        }
+        handle {
+                respond 302 {
+                        body ""
+                }
+        }
+}
+
+pro.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        import rate_limit_loose
+        encode zstd gzip
+        reverse_proxy nyv-nsp-app:5102 {
+                import proxy_headers
+        }
+}
+
+nym.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        import rate_limit_loose
+        encode zstd gzip
+        reverse_proxy nyv-nym-app:5101 {
+                import proxy_headers
+        }
+}
+
+ins.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        import rate_limit_loose
+        encode zstd gzip
+        reverse_proxy nyv-nsi-app:5103 {
+                import proxy_headers
+        }
+}
+
+ace.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        import rate_limit_loose
+        encode zstd gzip
+        reverse_proxy nyv-nsa-app:5104 {
+                import proxy_headers
+        }
+}
+
+min.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        import rate_limit_loose
+        encode zstd gzip
+        reverse_proxy nyv-nsm-app:5105 {
+                import proxy_headers
+        }
+}
+
+# =============================================================================
+#  STAGING HOSTS
+# =============================================================================
+
+staging.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        encode zstd gzip
+        handle /api/nv/orchestrate* {
+                reverse_proxy nyv-gateway-staging:5500 {
+                        lb_try_duration 5s
+                        health_uri /health
+                        health_interval 10s
+                        health_timeout 3s
+                        import proxy_headers
+                        transport http {
+                                read_timeout 10m
+                                write_timeout 10m
+                                response_header_timeout 10m
+                        }
+                }
+        }
+        handle {
+                import gateway_staging_upstream
+        }
+}
+
+staging-pro.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        encode zstd gzip
+        reverse_proxy nyv-nsp-staging:5102 {
+                import proxy_headers
+        }
+}
+staging-nym.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        encode zstd gzip
+        reverse_proxy nyv-nym-staging:5101 {
+                import proxy_headers
+        }
+}
+staging-ins.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        encode zstd gzip
+        reverse_proxy nyv-nsi-staging:5103 {
+                import proxy_headers
+        }
+}
+staging-ace.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        encode zstd gzip
+        reverse_proxy nyv-nsa-staging:5104 {
+                import proxy_headers
+        }
+}
+staging-min.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        encode zstd gzip
+        reverse_proxy nyv-nsm-staging:5105 {
+                import proxy_headers
+        }
+}
+
+# =============================================================================
+#  Catch-all on :80 — return 421 Misdirected Request for unknown Host headers
+#  so we never leak content from one subdomain through a wrong-Host probe.
+# =============================================================================
+:80 {
+        import common_headers
+        @health path /health
+        respond @health 200 {
+                body "ok-edge"
+        }
+        respond 421 {
+                body "Misdirected request"
+        }
+}

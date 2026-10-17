@@ -1,0 +1,9 @@
+# node_modules/  (intentionally tracked - 2026-08-26)
+.next/
+out/
+build/
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local
+.DS_Store

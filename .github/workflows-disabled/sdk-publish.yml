@@ -1,0 +1,157 @@
+name: NYV SDK — Publish to npm
+
+# Triggered by tags like `sdk-v6.0.0`. The tag itself is just a release-train
+# marker — the actual versions that get published come from each package.json.
+# Re-running on the same tag is safe: npm rejects duplicate version uploads,
+# so any package whose version is already on the registry is skipped.
+
+on:
+  push:
+    tags:
+      - 'sdk-v*'
+  workflow_dispatch:
+    inputs:
+      dist_tag:
+        description: 'npm dist-tag to publish under (latest|beta|next)'
+        required: true
+        default: 'latest'
+        type: choice
+        options:
+          - latest
+          - beta
+          - next
+
+concurrency:
+  group: sdk-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '22'
+  WORKING_DIR: nyayavigya-platform-312
+  DIST_TAG: ${{ github.event.inputs.dist_tag || 'latest' }}
+
+jobs:
+  publish:
+    name: Build, test & publish ${{ matrix.package.name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write   # required for npm provenance (sigstore OIDC)
+
+    strategy:
+      fail-fast: false
+      # Order matters: client-sdk must publish before its dependents so that
+      # `npm install` from a fresh registry can resolve the workspace deps.
+      max-parallel: 1
+      matrix:
+        package:
+          - name: '@nyayavigya/client-sdk'
+            dir: packages/client-sdk
+          - name: '@nyayavigya/client-sdk-react-native'
+            dir: packages/client-sdk-react-native
+          - name: '@nyayavigya/nyayamitra-sdk'
+            dir: packages/nyayamitra-sdk
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: 'https://registry.npmjs.org'
+          always-auth: true
+
+      - name: Read package version
+        id: pkg
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          NAME=$(node -p "require('./package.json').name")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+          echo "Package: $NAME@$VERSION"
+
+      - name: Check whether this version is already on npm
+        id: check
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: |
+          set +e
+          npm view "${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}" version >/dev/null 2>&1
+          STATUS=$?
+          set -e
+          if [ "$STATUS" -eq 0 ]; then
+            echo "already_published=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }} is already on npm — skipping publish."
+          else
+            echo "already_published=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install dependencies (with lockfile when present)
+        if: steps.check.outputs.already_published == 'false'
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --prefer-offline
+          else
+            npm install --no-audit --no-fund
+          fi
+
+      - name: Type check
+        if: steps.check.outputs.already_published == 'false'
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: npx --no-install tsc --noEmit
+
+      - name: Build
+        if: steps.check.outputs.already_published == 'false'
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: npm run build
+
+      - name: Run tests (if defined)
+        if: steps.check.outputs.already_published == 'false'
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: |
+          if node -e "process.exit(require('./package.json').scripts && require('./package.json').scripts.test ? 0 : 1)"; then
+            npm test --if-present
+          else
+            echo "No test script — skipping."
+          fi
+
+      - name: Verify publish contents (dry-run)
+        if: steps.check.outputs.already_published == 'false'
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: npm publish --dry-run --access public --provenance
+
+      - name: Publish to npm with provenance
+        if: steps.check.outputs.already_published == 'false'
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public --provenance --tag "$DIST_TAG"
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### ${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}"
+            if [ "${{ steps.check.outputs.already_published }}" = "true" ]; then
+              echo "- Status: **skipped** (already on npm)"
+            else
+              echo "- Status: **published** under dist-tag \`$DIST_TAG\` with provenance"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  release-status:
+    name: Release status
+    needs: publish
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Report
+        run: |
+          echo "SDK publish workflow finished for tag ${GITHUB_REF#refs/tags/}"
+          echo "Result: ${{ needs.publish.result }}"
+          if [ "${{ needs.publish.result }}" != "success" ]; then
+            exit 1
+          fi

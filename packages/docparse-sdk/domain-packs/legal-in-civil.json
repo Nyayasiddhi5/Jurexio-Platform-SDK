@@ -1,0 +1,35 @@
+{
+  "id": "legal-in-civil",
+  "label": "India Legal + Government + Civil registration & company",
+  "version": "1.0.0-alpha.1",
+  "jurisdiction": "IN",
+  "docTypes": [
+    {
+      "code": "STATE_COMPANY_REGISTRATION",
+      "label": "State registration / Mee Seva certificate",
+      "family": "OTHER",
+      "anchorProfile": "COMPANY_REGISTRATION",
+      "cues": [
+        { "re": "mee\\s*seva", "w": 14 },
+        { "re": "registration", "w": 10 },
+        { "re": "certificate\\s+of\\s+registration", "w": 12 },
+        { "re": "government\\s+of", "w": 6 }
+      ],
+      "expectedFields": ["company.name", "ids.cin", "registration.number", "registered.address", "dates"]
+    },
+    {
+      "code": "MCA_CERTIFICATE",
+      "label": "MCA certificate of incorporation",
+      "family": "OTHER",
+      "anchorProfile": "COMPANY_REGISTRATION",
+      "cues": [
+        { "re": "certificate\\s+of\\s+incorporation", "w": 14 },
+        { "re": "corporate\\s+identity\\s+number|\\bCIN\\b", "w": 12 }
+      ],
+      "expectedFields": ["company.name", "ids.cin", "registration.number", "registered.address"]
+    }
+  ],
+  "configOverrides": {
+    "ocr": { "dpi": 300 }
+  }
+}

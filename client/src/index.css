@@ -1,0 +1,1442 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:wght@400;700;900&display=swap');
+@import './styles/mood-lighting.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom animations for voice chat */
+@keyframes slow-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.animate-slow-pulse {
+  animation: slow-pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-gentle-bounce {
+  animation: bounce 2s infinite;
+}
+
+/* Typing indicator animations */
+@keyframes typing-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1.0; }
+}
+
+.typing-dot {
+  animation: typing-pulse 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+:root {
+  /* ═══════════════════════════════════════════════════════════════════════════
+     NYAYASIDDHI BRAND DESIGN SYSTEM
+     "Justice. Powered by Precision."
+     
+     PRIMARY COLORS (Vedic-aligned):
+     - Royal Blue (#152448) → Jupiter (wisdom, authority)
+     - Gold (#C7B15B) → Venus/Sun (value, trust, premium)
+     
+     SECONDARY COLORS (Brand guidelines Color Guide — NYS):
+     - White (#FFFFFF) · Cream (#F7F3EA) · Page (#F9FAFB)
+     - Sidebar Dark (#2B384C) — always dark left nav
+     - Success #158E54 · Warning #DE8E19 · Error #CC2C2C · Info #2174D3
+     
+     Typography: Merriweather (headings) · Inter (body). Border-first cards; no heavy shadows.
+  ═══════════════════════════════════════════════════════════════════════════ */
+  
+  /* Jurexio Brand Colors — Brand guidelines/ Color Guide */
+  --royal-blue: #152448;
+  --royal-blue-light: #2B384C;
+  --royal-blue-dark: #0E1830;
+  --gold: #C7B15B;
+  --gold-light: #D4C28F;
+  --gold-dark: #A39247;
+  --deep-indigo: #152448;
+  --emerald-green: #158E54;
+  --nyaya-cream: #F7F3EA;
+  --nyaya-white: #FFFFFF;
+  --font-heading: Merriweather, Georgia, serif;
+  --font-body: Inter, system-ui, -apple-system, sans-serif;
+
+  /* Brand Gradients */
+  --gradient-primary-from: #152448;
+  --gradient-primary-to: #2B384C;
+  --gradient-accent-from: #C7B15B;
+  --gradient-accent-to: #D4C28F;
+  --gradient-success-from: #158E54;
+  --gradient-success-to: #1C7A4F;
+
+  /* Light Mode Backgrounds */
+  --background: #F9FAFB;
+  --background-elevated: #FFFFFF;
+  --background-subtle: #F3F4F7;
+
+  /* Light Mode Text */
+  --foreground: #152448;
+  --foreground-secondary: #61697D;
+  --foreground-tertiary: #8A93A6;
+
+  /* Primary — Brand Navy */
+  --primary: #152448;
+  --primary-foreground: #FFFFFF;
+  --primary-hover: #2B384C;
+
+  /* Secondary — Brand Gold */
+  --secondary: #C7B15B;
+  --secondary-foreground: #152448;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(21, 36, 72, 0.15);
+  --glass-shadow: rgba(21, 36, 72, 0.1);
+
+  /* Semantic — Color Guide */
+  --success: #158E54;
+  --success-foreground: #FFFFFF;
+  --warning: #DE8E19;
+  --warning-foreground: #152448;
+  --destructive: #CC2C2C;
+  --destructive-foreground: #FFFFFF;
+  --info: #2174D3;
+  --info-foreground: #FFFFFF;
+
+  /* UI Elements */
+  --card: #FFFFFF;
+  --card-foreground: #152448;
+  --popover: #FFFFFF;
+  --popover-foreground: #152448;
+  --muted: #F3F4F7;
+  --muted-foreground: #61697D;
+  --accent: #C7B15B;
+  --accent-foreground: #152448;
+  --border: #E4E7EC;
+  --input: #E4E7EC;
+  --ring: #152448;
+
+  /* Charts */
+  --chart-1: #152448;
+  --chart-2: #C7B15B;
+  --chart-3: #158E54;
+  --chart-4: #2B384C;
+  --chart-5: #61697D;
+
+  /* Sidebar — Brand Sidebar Dark */
+  --sidebar-background: #2B384C;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #C7B15B;
+  --sidebar-primary-foreground: #152448;
+  --sidebar-accent: #C7B15B;
+  --sidebar-accent-foreground: #152448;
+  --sidebar-border: rgba(255, 255, 255, 0.12);
+  --sidebar-ring: #C7B15B;
+
+  /* Animation */
+  --pulse-glow: rgba(199, 177, 91, 0.4);
+  --hover-lift: 0 10px 30px -10px rgba(21, 36, 72, 0.3);
+  
+  /* Radius */
+  --radius: 0.75rem; /* Slightly smaller for professional legal feel */
+}
+
+.dark {
+  /* ═══════════════════════════════════════════════════════════════════════════
+     NYAYASIDDHI DARK MODE - Deep Indigo Foundation
+     Uses Deep Indigo (#152448) as base with Royal Blue and Gold accents
+  ═══════════════════════════════════════════════════════════════════════════ */
+  
+  /* Dark Mode — Brand Navy foundation */
+  --background: #152448;
+  --background-elevated: #1B2C56;
+  --background-subtle: #223364;
+  --foreground: #FFFFFF;
+  --foreground-secondary: rgba(255, 255, 255, 0.78);
+  --foreground-tertiary: rgba(255, 255, 255, 0.6);
+
+  --primary: #C7B15B;
+  --primary-foreground: #152448;
+  --primary-hover: #D4C28F;
+
+  --secondary: #C7B15B;
+  --secondary-foreground: #152448;
+
+  --glass-bg: rgba(21, 36, 72, 0.8);
+  --glass-border: rgba(199, 177, 91, 0.2);
+  --glass-shadow: rgba(199, 177, 91, 0.15);
+
+  --success: #2C9A6F;
+  --success-foreground: #FFFFFF;
+  --warning: #D4C28F;
+  --warning-foreground: #152448;
+  --destructive: #CC2C2C;
+  --destructive-foreground: #FFFFFF;
+  --info: #C7B15B;
+  --info-foreground: #152448;
+
+  --card: #1B2C56;
+  --card-foreground: #FFFFFF;
+  --popover: #1B2C56;
+  --popover-foreground: #FFFFFF;
+  --muted: #223364;
+  --muted-foreground: rgba(255, 255, 255, 0.7);
+  --accent: #C7B15B;
+  --accent-foreground: #152448;
+  --border: rgba(255, 255, 255, 0.12);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: #C7B15B;
+
+  --chart-1: #C7B15B;
+  --chart-2: #D4C28F;
+  --chart-3: #2C9A6F;
+  --chart-4: #FFFFFF;
+  --chart-5: #61697D;
+
+  --sidebar-background: #2B384C;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #C7B15B;
+  --sidebar-primary-foreground: #152448;
+  --sidebar-accent: #C7B15B;
+  --sidebar-accent-foreground: #152448;
+  --sidebar-border: rgba(255, 255, 255, 0.12);
+  --sidebar-ring: #C7B15B;
+
+  --pulse-glow: rgba(199, 177, 91, 0.5);
+  --hover-lift: 0 20px 40px -15px rgba(199, 177, 91, 0.3);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+    /* Crisp text rendering on dark backgrounds + Retina (2026-05-12) */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /*
+   * NV-CONSOLE-CONTRAST-001 — light mode safety net.
+   * Several Console pages were authored for a dark canvas and kept
+   * `text-white` on light slate/white surfaces (inputs, selects, cards).
+   * Prefer navy foreground when both light-bg and text-white are present.
+   * Does not touch navy/emerald/gold buttons that intentionally use white text.
+   */
+  html:not(.dark) .bg-slate-50.text-white,
+  html:not(.dark) .bg-slate-100.text-white,
+  html:not(.dark) .bg-slate-200.text-white,
+  html:not(.dark) .bg-white.text-white,
+  html:not(.dark) .bg-background.text-white,
+  html:not(.dark) .bg-card.text-white {
+    color: var(--foreground) !important;
+  }
+  
+  html {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Jurexio Typography - Merriweather for Headings.
+   * Display serifs (Merriweather) need extra hinting on dark backgrounds — without
+   * it h1/h2 ghost into the gradient. Force greyscale smoothing + legibility. */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', Georgia, serif;
+    font-weight: 600;
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  .font-heading {
+    font-family: 'Merriweather', Georgia, serif;
+  }
+  
+  .font-body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NYAYASIDDHI BRAND UTILITIES
+   "Justice. Powered by Precision."
+═══════════════════════════════════════════════════════════════════════════ */
+@layer components {
+  /* Jurexio Brand Colors */
+  .bg-royal-blue { background-color: var(--royal-blue); }
+  .bg-royal-blue-light { background-color: var(--royal-blue-light); }
+  .bg-gold { background-color: var(--gold); }
+  .bg-gold-light { background-color: var(--gold-light); }
+  .bg-deep-indigo { background-color: var(--deep-indigo); }
+  .bg-emerald-green { background-color: var(--emerald-green); }
+  
+  .text-royal-blue { color: var(--royal-blue); }
+  .text-gold { color: var(--gold); }
+  .text-deep-indigo { color: var(--deep-indigo); }
+  .text-emerald-green { color: var(--emerald-green); }
+  
+  .border-royal-blue { border-color: var(--royal-blue); }
+  .border-gold { border-color: var(--gold); }
+  
+  /* Gradient Backgrounds - Royal Blue to Gold */
+  .gradient-primary {
+    background: linear-gradient(135deg, var(--gradient-primary-from) 0%, var(--gradient-primary-to) 100%);
+  }
+  
+  .gradient-accent {
+    background: linear-gradient(135deg, var(--gradient-accent-from) 0%, var(--gradient-accent-to) 100%);
+  }
+  
+  .gradient-success {
+    background: linear-gradient(135deg, var(--gradient-success-from) 0%, var(--gradient-success-to) 100%);
+  }
+  
+  /* Jurexio Royal Blue to Gold gradient */
+  .gradient-nyaya {
+    background: linear-gradient(135deg, #152448 0%, #2B384C 50%, #C7B15B 100%);
+  }
+  
+  .gradient-nyaya-horizontal {
+    background: linear-gradient(90deg, #152448 0%, #C7B15B 100%);
+  }
+  
+  /* Brand Text - Solid Royal Blue */
+  .gradient-text {
+    color: #152448;
+    -webkit-text-fill-color: #152448;
+  }
+  
+  .gradient-text-gold {
+    color: #C7B15B;
+    -webkit-text-fill-color: #C7B15B;
+  }
+  
+  /* Jurexio Button Styles */
+  .btn-nyaya-primary {
+    background-color: var(--royal-blue);
+    color: white;
+    transition: all 0.3s ease;
+  }
+  .btn-nyaya-primary:hover {
+    background-color: var(--royal-blue-light);
+    box-shadow: 0 4px 12px rgba(10, 42, 102, 0.3);
+  }
+  
+  .btn-nyaya-gold {
+    background-color: var(--gold);
+    color: var(--royal-blue);
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  .btn-nyaya-gold:hover {
+    background-color: var(--gold-light);
+    box-shadow: 0 4px 12px rgba(212, 160, 23, 0.3);
+  }
+  
+  /* Jurexio Card Styles */
+  .card-nyaya {
+    background: white;
+    border: 1px solid rgba(10, 42, 102, 0.15);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(10, 42, 102, 0.1);
+  }
+  .card-nyaya:hover {
+    box-shadow: 0 10px 20px -5px rgba(10, 42, 102, 0.15);
+    border-color: var(--gold);
+  }
+  
+  /* Jurexio Tagline Style */
+  .tagline-nyaya {
+    color: var(--gold);
+    font-family: 'Merriweather', Georgia, serif;
+    font-style: italic;
+    text-align: center;
+  }
+  
+  /* Glassmorphism - Modern Glass Effects */
+  .glass {
+    backdrop-filter: blur(16px) saturate(180%);
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px var(--glass-shadow);
+  }
+  
+  .glass-card {
+    @apply glass rounded-2xl p-6 transition-all duration-300;
+  }
+  
+  .glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--hover-lift);
+    border-color: rgba(212, 160, 23, 0.3);
+  }
+  
+  /* Animated Gradient Border */
+  .gradient-border {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--gradient-primary-from), var(--gradient-primary-to));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    border-radius: inherit;
+  }
+  
+  /* Pulse Glow Animation */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px var(--pulse-glow);
+    }
+    50% {
+      box-shadow: 0 0 40px var(--pulse-glow);
+    }
+  }
+  
+  /* Status Indicators with Pulse */
+  .status-dot {
+    @apply w-2 h-2 rounded-full;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-dot {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.2);
+    }
+  }
+  
+  .font-inter {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  .surface-900 {
+    background-color: #030A1A;
+  }
+  
+  .surface-800 {
+    background-color: #061534;
+  }
+  
+  .surface-700 {
+    background-color: #081F4D;
+  }
+  
+  .surface-600 {
+    background-color: #152448;
+  }
+  
+  .text-surface-400 {
+    color: #4E78B8;
+  }
+  
+  .border-surface-700 {
+    border-color: #081F4D;
+  }
+  
+  .border-surface-600 {
+    border-color: #152448;
+  }
+  
+  /* Agent Status Colors */
+  .bg-primary-500\/10 {
+    background-color: rgba(10, 42, 102, 0.1);
+  }
+  
+  .bg-primary-500\/20 {
+    background-color: rgba(10, 42, 102, 0.2);
+  }
+  
+  .border-primary-500\/20 {
+    border-color: rgba(10, 42, 102, 0.2);
+  }
+  
+  .border-primary-500\/30 {
+    border-color: rgba(10, 42, 102, 0.3);
+  }
+  
+  .border-primary-500\/50 {
+    border-color: rgba(10, 42, 102, 0.5);
+  }
+  
+  .bg-secondary-500\/10 {
+    background-color: rgba(212, 160, 23, 0.1);
+  }
+  
+  .border-secondary-500\/20 {
+    border-color: rgba(212, 160, 23, 0.2);
+  }
+  
+  .bg-accent-500\/10 {
+    background-color: rgba(212, 160, 23, 0.1);
+  }
+  
+  .bg-accent-500\/20 {
+    background-color: rgba(212, 160, 23, 0.2);
+  }
+  
+  .border-accent-500\/20 {
+    border-color: rgba(212, 160, 23, 0.2);
+  }
+  
+  .bg-blue-500\/10 {
+    background-color: rgba(10, 42, 102, 0.1);
+  }
+  
+  .border-blue-500\/20 {
+    border-color: rgba(10, 42, 102, 0.2);
+  }
+  
+  .bg-purple-500\/10 {
+    background-color: rgba(10, 42, 102, 0.1);
+  }
+  
+  .border-purple-500\/20 {
+    border-color: rgba(10, 42, 102, 0.2);
+  }
+  
+  .bg-green-500\/10 {
+    background-color: rgba(28, 122, 79, 0.1);
+  }
+  
+  .border-green-500\/20 {
+    border-color: rgba(28, 122, 79, 0.2);
+  }
+  
+  .bg-red-500\/10 {
+    background-color: rgba(139, 90, 43, 0.1);
+  }
+  
+  .border-red-500\/20 {
+    border-color: rgba(139, 90, 43, 0.2);
+  }
+  
+  .bg-orange-500\/10 {
+    background-color: rgba(212, 160, 23, 0.1);
+  }
+  
+  .border-orange-500\/20 {
+    border-color: rgba(212, 160, 23, 0.2);
+  }
+  
+  .bg-yellow-500\/10 {
+    background-color: rgba(212, 160, 23, 0.1);
+  }
+  
+  .border-yellow-500\/20 {
+    border-color: rgba(212, 160, 23, 0.2);
+  }
+  
+  .bg-cyan-500\/10 {
+    background-color: rgba(10, 42, 102, 0.1);
+  }
+  
+  .border-cyan-500\/20 {
+    border-color: rgba(10, 42, 102, 0.2);
+  }
+  
+  .bg-gray-500\/10 {
+    background-color: rgba(10, 42, 102, 0.1);
+  }
+  
+  .border-gray-500\/20 {
+    border-color: rgba(10, 42, 102, 0.2);
+  }
+  
+  /* Text Colors - Jurexio Brand Aligned */
+  .text-primary-400 {
+    color: #4E78B8;
+  }
+  
+  .text-primary-600 {
+    color: #152448;
+  }
+  
+  .text-secondary-400 {
+    color: #E3B749;
+  }
+  
+  .text-accent-400 {
+    color: #C7B15B;
+  }
+  
+  .text-blue-300 {
+    color: #7596C8;
+  }
+  
+  .text-blue-400 {
+    color: #4E78B8;
+  }
+  
+  .text-purple-300 {
+    color: #7596C8;
+  }
+  
+  .text-purple-400 {
+    color: #4E78B8;
+  }
+  
+  .text-green-300 {
+    color: #5BCA96;
+  }
+  
+  .text-green-400 {
+    color: #2BBB77;
+  }
+  
+  .text-red-400 {
+    color: #B87A49;
+  }
+  
+  .text-orange-400 {
+    color: #E3B749;
+  }
+  
+  .text-yellow-400 {
+    color: #C7B15B;
+  }
+  
+  .text-cyan-400 {
+    color: #4E78B8;
+  }
+  
+  .text-gray-400 {
+    color: #4E78B8;
+  }
+}
+
+/* Custom Animations */
+@layer utilities {
+  @keyframes fadeIn {
+    from { 
+      opacity: 0; 
+    }
+    to { 
+      opacity: 1; 
+    }
+  }
+  
+  @keyframes slideUp {
+    from { 
+      transform: translateY(20px); 
+      opacity: 0; 
+    }
+    to { 
+      transform: translateY(0); 
+      opacity: 1; 
+    }
+  }
+  
+  @keyframes bounceGentle {
+    0%, 100% { 
+      transform: translateY(0); 
+    }
+    50% { 
+      transform: translateY(-5px); 
+    }
+  }
+  
+  @keyframes blink {
+    0%, 50% { 
+      opacity: 1; 
+    }
+    51%, 100% { 
+      opacity: 0; 
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+  
+  .animate-bounce-gentle {
+    animation: bounceGentle 2s infinite;
+  }
+  
+  .animate-blink {
+    animation: blink 1s infinite;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  /* Status Indicator Animation */
+  .status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  
+  /* Typing Indicator */
+  .typing-indicator::after {
+    content: '|';
+    animation: blink 1s infinite;
+  }
+  
+  /* Agent Card Hover Effect */
+  .agent-card:hover {
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+  }
+  
+  /* Brand Text - Solid Royal Blue */
+  .gradient-text {
+    color: #152448;
+    -webkit-text-fill-color: #152448;
+  }
+  
+  /* Loading Spinner */
+  .spinner {
+    border: 4px solid rgba(10, 42, 102, 0.1);
+    border-left: 4px solid #152448;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Glow Effects */
+  .glow-primary {
+    box-shadow: 0 0 20px rgba(10, 42, 102, 0.3);
+  }
+  
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(212, 160, 23, 0.3);
+  }
+  
+  /* Interactive Elements */
+  .interactive-hover {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .interactive-hover:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(10, 42, 102, 0.15);
+  }
+  
+  /* Focus States */
+  .focus-ring {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  
+  .focus-ring:focus-visible {
+    outline: 2px solid #152448;
+    outline-offset: 2px;
+  }
+  
+  /* Backdrop Blur Utilities */
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+  }
+  
+  .backdrop-blur-md {
+    backdrop-filter: blur(12px);
+  }
+  
+  .backdrop-blur-lg {
+    backdrop-filter: blur(16px);
+  }
+  
+  /* Progress Bar Enhancements */
+  .progress-glow {
+    box-shadow: 0 0 10px currentColor;
+  }
+  
+  /* Card Variants */
+  .card-elevated {
+    box-shadow: 0 4px 6px -1px rgba(10, 42, 102, 0.1), 0 2px 4px -1px rgba(10, 42, 102, 0.06);
+  }
+  
+  .card-elevated:hover {
+    box-shadow: 0 10px 15px -3px rgba(10, 42, 102, 0.1), 0 4px 6px -2px rgba(10, 42, 102, 0.05);
+  }
+  
+  /* Scrollbar Styling */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #081F4D;
+    border-radius: 3px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #4E78B8;
+    border-radius: 3px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #C7B15B;
+  }
+}
+
+/* Font Improvements */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+  
+  .text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+  
+  .text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  
+  .text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+  
+  .text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+/* Performance Optimizations */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  button, input, select, textarea {
+    font-family: inherit;
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NYAYASIDDHI PROFESSIONAL LIGHT THEME
+   "Justice. Powered by Precision."
+   Brand: Royal Blue (#152448) · Gold (#C7B15B) · White (#FFFFFF)
+   Main content: clean white/light grey; Sidebar: Royal Blue
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Global body & layout — driven by CSS variables, not hardcoded ────────
+ * (task-180/B5: brand uniformity pass — let the variables in :root cascade
+ *  so dark-mode and dark surfaces inside #main-content render correctly.) */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* #main-content acts as the canonical light surface for sidebar-layout pages
+ * but should NOT force-flatten standalone dark hero/login pages that also
+ * use this id. The only thing we set unconditionally is the page-bg variable;
+ * dark backgrounds on direct children win via specificity. */
+#main-content:not(:has(> [style*="linear-gradient"])):not(:has(> .min-h-screen[style*="linear-gradient"])) {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Ensure page wrapper whites show properly */
+#main-content .bg-\[\#F9FAFB\],
+#main-content .bg-white {
+  background-color: #FFFFFF !important;
+}
+
+/* ── Cards — white, soft border, professional shadow ─────────────────────── */
+#main-content .card,
+.card {
+  background-color: #FFFFFF !important;
+  border-color: #E4E7EC !important;
+  box-shadow: 0 1px 3px rgba(10, 42, 102, 0.06), 0 1px 2px rgba(10, 42, 102, 0.04) !important;
+}
+
+/* Force all dark card backgrounds to white */
+#main-content [class*="bg-slate-900"],
+#main-content [class*="bg-slate-800"],
+#main-content [class*="bg-slate-950"] {
+  background-color: #FFFFFF !important;
+}
+
+/* Slightly elevated panels */
+#main-content [class*="bg-slate-800\/50"],
+#main-content [class*="bg-slate-900\/50"] {
+  background-color: #F3F4F7 !important;
+}
+
+/* ── Borders: dark borders → soft professional ───────────────────────────── */
+#main-content [class*="border-slate-700"],
+#main-content [class*="border-slate-800"],
+#main-content [class*="border-slate-600"] {
+  border-color: #E4E7EC !important;
+}
+
+/* ── Text: white/light text on light pages.
+ * (task-180: removed the blanket `#main-content .text-white { navy !important }`
+ *  rule — it was making headings invisible on standalone dark hero pages like
+ *  /console/login that also use id="main-content". Tailwind's text-white now
+ *  wins by default; if a stray .text-white needs darkening on a card, do it
+ *  inline in that page rather than globally.) */
+
+/* ── Typography: slate text remapped to Royal Blue spectrum ─────────────── */
+#main-content .text-slate-100,
+#main-content .text-slate-200 {
+  color: #152448 !important;
+}
+
+#main-content .text-slate-300 {
+  color: #152448 !important;
+}
+
+#main-content .text-slate-400 {
+  color: #2A5080 !important;
+}
+
+#main-content .text-slate-500 {
+  color: #4A6A90 !important;
+}
+
+/* ── Inputs: dark inputs → clean light professional ─────────────────────── */
+#main-content input,
+#main-content textarea,
+#main-content select {
+  background-color: #FFFFFF !important;
+  border-color: #E4E7EC !important;
+  color: #152448 !important;
+}
+
+#main-content input::placeholder,
+#main-content textarea::placeholder {
+  color: #6B8BB0 !important;
+}
+
+/* ── Tabs: dark tab backgrounds → professional light ────────────────────── */
+#main-content [role="tablist"] {
+  background-color: #F3F4F7 !important;
+}
+
+/* ── Badges on light bg — ensure readability ────────────────────────────── */
+#main-content .badge,
+#main-content [class*="badge"] {
+  border-width: 1px;
+}
+
+/* ── Tables: professional light styling ──────────────────────────────────── */
+#main-content table {
+  background-color: #FFFFFF;
+}
+
+#main-content thead tr {
+  background-color: #F3F4F7 !important;
+  border-color: #E4E7EC !important;
+}
+
+#main-content tbody tr {
+  border-color: #F3F4F7 !important;
+}
+
+#main-content tbody tr:hover {
+  background-color: #F8FAFF !important;
+}
+
+/* ── Dividers ────────────────────────────────────────────────────────────── */
+#main-content hr,
+#main-content .separator {
+  border-color: #E4E7EC !important;
+}
+
+/* ── Scrollbars: brand-aligned subtle scrollbar ─────────────────────────── */
+#main-content ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+#main-content ::-webkit-scrollbar-track {
+  background: #F3F4F7;
+}
+
+#main-content ::-webkit-scrollbar-thumb {
+  background: #E4E7EC;
+  border-radius: 3px;
+}
+
+#main-content ::-webkit-scrollbar-thumb:hover {
+  background: #6B8BB0;
+}
+
+/* ── Stat/metric cards: keep brand color fills ───────────────────────────── */
+#main-content .bg-\[\#152448\]\/10,
+#main-content .bg-\[\#152448\]\/5 {
+  background-color: rgba(10, 42, 102, 0.07) !important;
+}
+
+/* ── Code blocks: preserve terminal dark look ────────────────────────────── */
+#main-content pre,
+#main-content code,
+#main-content .font-mono {
+  background-color: #152448 !important;
+  color: #E8EEF8 !important;
+  border-color: #2B384C !important;
+}
+
+/* Inline code */
+#main-content p code,
+#main-content li code {
+  background-color: #F3F4F7 !important;
+  color: #152448 !important;
+  border-color: #E4E7EC !important;
+}
+
+/* ── Page headings: Merriweather + Royal Blue ──────────────────────────
+ * (task-180: scoped via :not(.text-white|.text-gold|.text-inherit) so a page
+ *  that intentionally sets a brand-color heading on a dark hero card keeps it.) */
+#main-content h1:not(.text-white):not([class*="text-["]):not(.text-inherit),
+#main-content h2:not(.text-white):not([class*="text-["]):not(.text-inherit) {
+  font-family: 'Merriweather', Georgia, serif;
+  color: #152448;
+}
+
+#main-content h3:not(.text-white):not([class*="text-["]):not(.text-inherit),
+#main-content h4:not(.text-white):not([class*="text-["]):not(.text-inherit) {
+  color: #152448;
+}
+
+/* ── Dashboard stat cards: elegant light cards ───────────────────────────── */
+#main-content .card .text-2xl:not(.text-white):not([class*="text-["]),
+#main-content .card .text-3xl:not(.text-white):not([class*="text-["]),
+#main-content .card .text-4xl:not(.text-white):not([class*="text-["]) {
+  color: #152448;
+  font-weight: 700;
+}
+
+/* ── Hover states for interactive rows/items ─────────────────────────────── */
+#main-content .hover\:bg-slate-800:hover,
+#main-content .hover\:bg-slate-900:hover,
+#main-content .hover\:bg-slate-700:hover {
+  background-color: #F3F4F7 !important;
+}
+
+/* ── Sidebar: Royal Blue preserved (NOT remapped via slate) ──────────────── */
+.flex.bg-\[\#152448\],
+[class*="bg-[#152448]"] {
+  background-color: #152448 !important;
+}
+
+/* Sidebar active item highlight */
+[class*="bg-[#152448]"] .text-\[\#C7B15B\] {
+  color: #C7B15B !important;
+}
+
+/* ── Gold CTA buttons: prominent and professional ────────────────────────── */
+button.bg-\[\#C7B15B\],
+.btn-gold,
+[class*="bg-gold"] {
+  background-color: #C7B15B !important;
+  color: #152448 !important;
+  font-weight: 600 !important;
+}
+
+button.bg-\[\#C7B15B\]:hover {
+  background-color: #B48907 !important;
+}
+
+/* Primary Royal Blue buttons */
+button.bg-\[\#152448\],
+.btn-primary {
+  background-color: #152448 !important;
+  color: #FFFFFF !important;
+}
+
+/* ── Focus rings: brand-aligned ──────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #C7B15B;
+  outline-offset: 2px;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   NV-LIGHT-SCOPE — task-163: light theme for ten Agents pages
+   Wraps each page's outer div with `nv-light-scope` to convert hard-coded
+   dark backgrounds, white-on-dark text, and brand-navy gradient heroes
+   to a clean white surface with dark slate text + brand navy/gold accents.
+
+   NOTE (task-166 rebase): the 10 Agents pages originally targeted by this
+   overlay have been migrated to native light JSX styling and no longer
+   carry the `nv-light-scope` wrapper. The block is kept because other
+   pages added on main (nyayavigya-sdk-hub, orchestration/{Policy,Memory,
+   Lineage,GRPO} consoles, platform-v5/_shared) still depend on it.
+   ════════════════════════════════════════════════════════════════════════ */
+.nv-light-scope {
+  --nv-page-bg: #F8FAFC;
+  --nv-card-bg: #FFFFFF;
+  --nv-card-bg-soft: #F1F5F9;
+  --nv-border: #E2E8F0;
+  --nv-text-primary: #0F172A;
+  --nv-text-secondary: #475569;
+  --nv-text-muted: #64748B;
+  --nv-brand: #152448;
+  --nv-accent: #C7B15B;
+  background-color: var(--nv-page-bg) !important;
+  color: var(--nv-text-primary) !important;
+  background-image: none !important;
+}
+
+/* ─── Page / panel surfaces ──────────────────────────────────────────────── */
+.nv-light-scope [class*="bg-[hsl(222"],
+.nv-light-scope [class*="bg-[#0a0b0f]"],
+.nv-light-scope [class*="bg-[#0d0f14]"],
+.nv-light-scope [class*="bg-[#12141a]"],
+.nv-light-scope [class*="bg-[#0E1830]"],
+.nv-light-scope .bg-background,
+.nv-light-scope .bg-card,
+.nv-light-scope .bg-card\/50,
+.nv-light-scope .bg-muted,
+.nv-light-scope .bg-muted\/30,
+.nv-light-scope .bg-muted\/50,
+.nv-light-scope .bg-slate-900 {
+  background-color: var(--nv-card-bg) !important;
+  background-image: none !important;
+}
+
+/* Translucent overlays — soften rather than darken */
+.nv-light-scope [class*="bg-white/"],
+.nv-light-scope [class*="bg-white\\/"] {
+  background-color: var(--nv-card-bg-soft) !important;
+}
+.nv-light-scope [class*="bg-black/"],
+.nv-light-scope [class*="bg-black\\/"] {
+  background-color: var(--nv-card-bg-soft) !important;
+}
+
+/* ─── Borders ────────────────────────────────────────────────────────────── */
+.nv-light-scope [class*="border-white/"],
+.nv-light-scope [class*="border-white\\/"],
+.nv-light-scope .border-border,
+.nv-light-scope .border-input {
+  border-color: var(--nv-border) !important;
+}
+
+/* ─── Text ───────────────────────────────────────────────────────────────── */
+.nv-light-scope .text-white {
+  color: var(--nv-text-primary) !important;
+}
+.nv-light-scope [class*="text-white/"],
+.nv-light-scope [class*="text-white\\/"] {
+  color: var(--nv-text-secondary) !important;
+}
+.nv-light-scope .text-gray-400,
+.nv-light-scope .text-gray-300,
+.nv-light-scope .text-slate-400,
+.nv-light-scope .text-slate-300,
+.nv-light-scope .text-muted-foreground {
+  color: var(--nv-text-muted) !important;
+}
+
+/* ─── Headings + brand accents ───────────────────────────────────────────── */
+.nv-light-scope h1,
+.nv-light-scope h2 {
+  color: var(--nv-brand) !important;
+}
+
+/* ─── Inline-style overrides (orchestration pages use brand-navy gradients
+       and rgba(255,255,255,…) translucent panels via inline `style`) ─────── */
+.nv-light-scope [style*="linear-gradient(135deg, #0E1830"],
+.nv-light-scope [style*="linear-gradient(135deg,#0E1830"] {
+  background: var(--nv-page-bg) !important;
+}
+.nv-light-scope [style*="rgba(255,255,255,0.04)"],
+.nv-light-scope [style*="rgba(255, 255, 255, 0.04)"],
+.nv-light-scope [style*="rgba(255,255,255,0.05)"],
+.nv-light-scope [style*="rgba(255,255,255,0.03)"] {
+  background: var(--nv-card-bg) !important;
+}
+.nv-light-scope [style*="rgba(255,255,255,0.08)"],
+.nv-light-scope [style*="rgba(255, 255, 255, 0.08)"],
+.nv-light-scope [style*="rgba(255,255,255,0.1)"],
+.nv-light-scope [style*="rgba(255,255,255,0.10)"] {
+  border-color: var(--nv-border) !important;
+}
+/* Inline white-ish text colors -> dark slate */
+.nv-light-scope [style*="color: #fff"],
+.nv-light-scope [style*="color:#fff"],
+.nv-light-scope [style*="color: white"],
+.nv-light-scope [style*="color: rgba(255,255,255"],
+.nv-light-scope [style*="color: rgba(255, 255, 255"],
+.nv-light-scope [style*="color:rgba(255,255,255"] {
+  color: var(--nv-text-secondary) !important;
+}
+/* But keep the brand-gold inline color readable against white */
+.nv-light-scope [style*="#C7B15B"],
+.nv-light-scope [style*="color: #C7B15B"] {
+  color: #B48907 !important;
+}
+
+/* ─── Inputs / textareas / selects ───────────────────────────────────────── */
+.nv-light-scope input,
+.nv-light-scope textarea,
+.nv-light-scope select,
+.nv-light-scope [role="combobox"] {
+  background-color: var(--nv-card-bg) !important;
+  color: var(--nv-text-primary) !important;
+  border-color: var(--nv-border) !important;
+}
+.nv-light-scope input::placeholder,
+.nv-light-scope textarea::placeholder {
+  color: var(--nv-text-muted) !important;
+  opacity: 1;
+}
+
+/* ─── Code chips inside light cards ──────────────────────────────────────── */
+.nv-light-scope code {
+  background-color: var(--nv-card-bg-soft) !important;
+}
+
+/* ─── Skeleton / loading shells ──────────────────────────────────────────── */
+.nv-light-scope .animate-pulse .bg-muted,
+.nv-light-scope .animate-pulse [class*="bg-muted"] {
+  background-color: var(--nv-card-bg-soft) !important;
+}
+
+/* ─── Backdrop modals stay dark for contrast ─────────────────────────────── */
+.nv-light-scope .fixed.inset-0[class*="bg-black/"] {
+  background-color: rgba(15, 23, 42, 0.55) !important;
+}
+
+/* ─── task-165: SDK-Hub inline brand-navy surfaces ────────────────────────
+   nyayavigya-sdk-hub.tsx uses inline `rgba(6,27,70,…)` for its header /
+   sidebar / nav surfaces and `rgba(10,42,102,…)` for hover/active chrome.
+   Map these to the same light card surface used by everything else.
+   ──────────────────────────────────────────────────────────────────────── */
+.nv-light-scope [style*="rgba(6,27,70"],
+.nv-light-scope [style*="rgba(6, 27, 70"],
+.nv-light-scope [style*="rgba(10,42,102"],
+.nv-light-scope [style*="rgba(10, 42, 102"],
+.nv-light-scope [style*="rgba(26,20,70"],
+.nv-light-scope [style*="rgba(26, 20, 70"] {
+  background: var(--nv-card-bg) !important;
+  border-color: var(--nv-border) !important;
+}
+/* Inline gold-glass chips already render their text in --nv-accent (gold).
+   Keep their translucent gold panel readable against white surfaces. */
+.nv-light-scope [style*="rgba(212,160,23"],
+.nv-light-scope [style*="rgba(212, 160, 23"] {
+  background: rgba(212, 160, 23, 0.12) !important;
+  border-color: rgba(180, 137, 7, 0.35) !important;
+}
+/* SDK-Hub nav items pass `color: rgba(255,255,255,0.5/0.65)` inline for
+   the inactive label colour — already covered by the generic white-text
+   override above, but add explicit rules in case the browser dedup
+   bucket misses them. */
+.nv-light-scope [style*="color: rgba(255,255,255,0.5"],
+.nv-light-scope [style*="color: rgba(255, 255, 255, 0.5"],
+.nv-light-scope [style*="color: rgba(255,255,255,0.65"],
+.nv-light-scope [style*="color: rgba(255, 255, 255, 0.65"],
+.nv-light-scope [style*="color: rgba(255,255,255,0.6"],
+.nv-light-scope [style*="color: rgba(255, 255, 255, 0.6"] {
+  color: var(--nv-text-secondary) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NYAYASIDDHI BRAND — GLOBAL OVERRIDE LAYER (task-180 / B5)
+   Catches inline `style={{ background: '#152448' }}` / `color: '#C7B15B'` and
+   similar legacy hex literals across 200+ pages and remaps them to the
+   brand-PDF tokens. This is how the entire console adopts the brand without
+   touching every page individually. New pages should use Tailwind utilities
+   or CSS variables (--primary, --secondary, --background) directly.
+   Brand: Navy #152448 · Gold #C7B15B · Sidebar Dark #2B384C
+          Page Bg #F9FAFB · Text #61697D · Border #E4E7EC · Error #CC2C2C
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Legacy navy → brand navy */
+[style*="#152448"], [style*="#152448"],
+[style*="rgb(10, 42, 102)"], [style*="rgb(10,42,102)"] {
+  --__nv_legacy: 1;
+}
+[style*="background: #152448"],
+[style*="background:#152448"],
+[style*="background-color: #152448"],
+[style*="background-color:#152448"],
+[style*="background: #152448"],
+[style*="background:#152448"] {
+  background-color: #152448 !important;
+}
+[style*="color: #152448"],
+[style*="color:#152448"],
+[style*="color: #152448"],
+[style*="color:#152448"] {
+  color: #152448 !important;
+}
+[style*="border-color: #152448"],
+[style*="border-color:#152448"],
+[style*="border: 1px solid #152448"],
+[style*="border-color: #152448"] {
+  border-color: #152448 !important;
+}
+
+/* Legacy gold → brand gold */
+[style*="background: #C7B15B"],
+[style*="background:#C7B15B"],
+[style*="background-color: #C7B15B"],
+[style*="background-color:#C7B15B"],
+[style*="background: #C7B15B"],
+[style*="background:#C7B15B"] {
+  background-color: #C7B15B !important;
+}
+[style*="color: #C7B15B"],
+[style*="color:#C7B15B"],
+[style*="color: #C7B15B"],
+[style*="color:#C7B15B"] {
+  color: #C7B15B !important;
+}
+[style*="border-color: #C7B15B"],
+[style*="border:1px solid #C7B15B"],
+[style*="border: 1px solid #C7B15B"] {
+  border-color: #C7B15B !important;
+}
+
+/* Legacy lighter navy → sidebar-dark */
+[style*="#2B384C"], [style*="#2B384C"] {
+  /* mostly used as hover/border accent on navy buttons */
+}
+[style*="background: #2B384C"],
+[style*="background-color: #2B384C"] {
+  background-color: #2B384C !important;
+}
+[style*="color: #2B384C"] { color: #2B384C !important; }
+
+/* Legacy deep-indigo → brand navy */
+[style*="background: #152448"],
+[style*="background-color: #152448"],
+[style*="background:#152448"] {
+  background-color: #152448 !important;
+}
+[style*="color: #152448"] { color: #152448 !important; }
+
+/* Legacy royal-blue-dark gradient stop */
+[style*="#0E1830"] {
+  /* used in linear-gradient — captured via gradient overrides below */
+}
+
+/* Linear-gradient remaps for Login/landing/hero shells */
+[style*="linear-gradient(135deg, #0E1830 0%, #152448"],
+[style*="linear-gradient(135deg,#0E1830 0%,#152448"],
+[style*="linear-gradient(135deg, #152448"],
+[style*="linear-gradient(135deg,#152448"] {
+  background: linear-gradient(135deg, #0E1830 0%, #152448 50%, #2B384C 100%) !important;
+}
+
+/* Page-bg helpers used in many list/dashboard pages */
+[style*="background: #fafbfc"],
+[style*="background:#fafbfc"],
+[style*="background: #FAFBFC"] {
+  background-color: #F9FAFB !important;
+}
+[style*="background: #F9FAFB"],
+[style*="background:#F9FAFB"],
+[style*="background: #F9FAFB"],
+[style*="background-color: #F9FAFB"] {
+  background-color: #F9FAFB !important;
+}
+
+/* Common text-muted hex literals → brand text-secondary */
+[style*="color: #666"],
+[style*="color:#666"] {
+  color: #61697D !important;
+}
+
+/* Borders */
+[style*="border: 1px solid #E4E7EC"],
+[style*="border-color: #E4E7EC"],
+[style*="border-color: #E4E7EC"] {
+  border-color: #E4E7EC !important;
+}
+
+/* Override legacy #main-content overrides that pinned old palette */
+#main-content,
+body {
+  background-color: #F9FAFB !important;
+  color: #152448 !important;
+}
+#main-content .text-white,
+#main-content [style*="color: #fff"],
+#main-content [style*="color:#fff"],
+#main-content [style*="color: white"] {
+  /* keep white text only inside dark surfaces (sidebar, hero gradients) */
+}
+
+/* task-2026-09-02: light content area — enforce readable foreground on tables/cards */
+.nv-light-scope table thead th,
+#main-content table thead th {
+  color: var(--nv-text-muted, #64748B) !important;
+  background-color: var(--nv-card-bg-soft, #F1F5F9) !important;
+}
+.nv-light-scope table tbody td,
+#main-content table tbody td {
+  color: var(--nv-text-primary, #0F172A) !important;
+}
+.nv-light-scope .text-foreground,
+#main-content .text-foreground {
+  color: #152448 !important;
+}
+/* Preserve white text on brand-navy buttons and sidebar only */
+aside .text-white,
+button.bg-\[\#152448\] .text-white,
+.bg-\[\#152448\].text-white {
+  color: #FFFFFF !important;
+}

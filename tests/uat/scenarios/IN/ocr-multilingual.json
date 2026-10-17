@@ -1,0 +1,157 @@
+{
+  "$schema": "../scenario.schema.json",
+  "jurisdiction": "IN",
+  "category": "ocr-multilingual",
+  "scenarios": [
+    {
+      "id": "IN-OCR-001",
+      "title": "Hindi handwritten affidavit — 5 page OCR + summary",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/ocr/process",
+        "auth": "sdk-key",
+        "body": {
+          "imageUrl": "https://example.com/sample-doc.png",
+          "fileName": "document.png",
+          "options": {
+            "language": "en",
+            "extractText": true,
+            "detectLayout": true
+          }
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success",
+          "data.text",
+          "data.confidence"
+        ]
+      },
+      "passCriteria": "Confidence >= 0.75; engine cascades from GOT-OCR → GPT-4o vision on degraded pages; summary in EN + HI; PII redacted in summary.",
+      "costSensitive": true
+    },
+    {
+      "id": "IN-OCR-002",
+      "title": "Tamil scanned cause-list — 50 page batch OCR",
+      "userRole": "paralegal",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/ocr/process",
+        "auth": "sdk-key",
+        "body": {
+          "imageUrl": "https://example.com/sample-doc.png",
+          "fileName": "document.png",
+          "options": {
+            "language": "en",
+            "extractText": true,
+            "detectLayout": true
+          }
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success",
+          "data.text",
+          "data.confidence"
+        ]
+      },
+      "passCriteria": "Tamil unicode preserved; case numbers + dates extracted into structured rows; table layout retained.",
+      "costSensitive": true
+    },
+    {
+      "id": "IN-OCR-003",
+      "title": "Marathi printed FIR — translate to EN + extract entities",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/ocr/process",
+        "auth": "sdk-key",
+        "body": {
+          "imageUrl": "https://example.com/sample-doc.png",
+          "fileName": "document.png",
+          "options": {
+            "language": "en",
+            "extractText": true,
+            "detectLayout": true
+          }
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success",
+          "data.text",
+          "data.confidence"
+        ]
+      },
+      "passCriteria": "Marathi → English translation legally accurate (Sarvam path); all 6 entities extracted; FIR number format validated."
+    },
+    {
+      "id": "IN-OCR-004",
+      "title": "Mixed-script (Hindi + English) — 500 page lease bundle",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/ocr/process",
+        "auth": "sdk-key",
+        "body": {
+          "imageUrl": "https://example.com/sample-doc.png",
+          "fileName": "document.png",
+          "options": {
+            "language": "en",
+            "extractText": true,
+            "detectLayout": true
+          }
+        }
+      },
+      "expected": {
+        "httpStatus": [200, 202],
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Sync (200) for ≤5MB or async-accept (202) for larger bundles; per-page language auto-detected; final JSON has scriptDistribution map."
+    },
+    {
+      "id": "IN-OCR-005",
+      "title": "Sanskrit cause-title + Devanagari preamble — 1 page",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/ocr/process",
+        "auth": "sdk-key",
+        "body": {
+          "imageUrl": "https://example.com/sample-doc.png",
+          "fileName": "document.png",
+          "options": {
+            "language": "en",
+            "extractText": true,
+            "detectLayout": true
+          }
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success",
+          "data.text",
+          "data.confidence"
+        ]
+      },
+      "passCriteria": "Devanagari preserved; transliteration to IAST optional; quality >= 0.7 (acknowledged-rare-script)."
+    }
+  ]
+}

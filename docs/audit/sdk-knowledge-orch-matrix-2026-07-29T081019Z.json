@@ -1,0 +1,210 @@
+{
+  "generatedAt": "2026-07-29T08:10:21.807819Z",
+  "baseUrl": "https://api.nyayasiddhi.online",
+  "platform": "NSP",
+  "summary": {
+    "pass": 0,
+    "fail": 22,
+    "total": 22
+  },
+  "results": [
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 220,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "knowledge.planeHealth",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/plane/health"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 112,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "knowledge.getStats",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/stats"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 133,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "knowledge.search",
+      "httpMethod": "POST",
+      "path": "/api/nv/knowledge/search"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 105,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "knowledge.retrieve",
+      "httpMethod": "POST",
+      "path": "/api/nv/knowledge/retrieve"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 105,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "knowledge.searchCaselaw",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/caselaw/search"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 96,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "knowledge.caselawStats",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/caselaw/stats"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 96,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "knowledge.caselawEmbeddingCoverage",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/caselaw/embedding/coverage"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 100,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "knowledge.verifyCitation",
+      "httpMethod": "POST",
+      "path": "/api/nv/knowledge/caselaw/verify-citation"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 96,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "knowledge.searchStatutes",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/statutes/search"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 105,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "knowledge.listStatuteActs",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/statutes/acts"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 100,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "knowledge.statutesEmbeddingCoverage",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/statutes/embedding/coverage"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 103,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "knowledge.extractCitations",
+      "httpMethod": "POST",
+      "path": "/api/nv/knowledge/citations/extract"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 101,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "knowledge.searchArchive",
+      "httpMethod": "POST",
+      "path": "/api/nv/knowledge/documents/search"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 104,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "knowledge.listTemplates",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/templates"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 98,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "orchestrate.run",
+      "httpMethod": "POST",
+      "path": "/api/nv/orchestrate"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 109,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "gateway.research.query",
+      "httpMethod": "POST",
+      "path": "/api/nv/gateway/research/query"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 97,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "templates.list",
+      "httpMethod": "GET",
+      "path": "/api/nv/templates"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 108,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "templates.approved",
+      "httpMethod": "GET",
+      "path": "/api/nv/templates/approved"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 98,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "templates.reviewStats",
+      "httpMethod": "GET",
+      "path": "/api/nv/templates/reviews/stats"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 100,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "templates.reviewQueue",
+      "httpMethod": "GET",
+      "path": "/api/nv/templates/reviews/queue"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 104,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "templates.catalog",
+      "httpMethod": "GET",
+      "path": "/api/nv/templates/catalog"
+    },
+    {
+      "ok": false,
+      "http": 401,
+      "ms": 103,
+      "error": "{\"success\":false,\"data\":null,\"error\":{\"code\":\"API_KEY_INVALID\",\"message\":\"Invalid API key.\"}}",
+      "sdkMethod": "templates.gateway",
+      "httpMethod": "GET",
+      "path": "/api/nv/gateway/templates"
+    }
+  ]
+}

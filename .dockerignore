@@ -1,0 +1,86 @@
+# NV-ROUTER-001 follow-up: Make EC2 docker compose builds reproducible.
+#
+# Without this file the entire repo (including node_modules, dist, .env*,
+# logs, and the .git directory) was being tarred into the build context.
+# That:
+#   1. ballooned the context to ~1GB+, slowed builds, and pushed past the
+#      BuildKit context-size cache key;
+#   2. caused stale layers because content-addressed cache hashes computed
+#      against the uploaded context were unstable run-to-run;
+#   3. risked baking secrets from .env into image layers.
+#
+# After adding this file, `docker compose build gateway` produces an image
+# that always reflects the on-disk source tree.
+
+# Dependencies — installed inside the container by `npm install`
+node_modules
+**/node_modules
+
+# Build outputs — the Dockerfile rebuilds these via `npm run build`
+dist
+build
+**/dist
+**/build
+.next
+.nuxt
+out
+
+# Secrets & local environment — must NEVER be baked into image layers
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+# task-365 (2026-05-13): the AWS RDS root CA bundle is the ONE pem file we
+# DO want in the image — nv-pg-ssl.ts loads it from /app/certs/rds-global-bundle.pem
+# at boot for verify-full TLS to RDS. Mirrors the .gitignore negation.
+!certs/rds-global-bundle.pem
+.local/
+.replit
+replit.nix
+
+# VCS metadata
+.git
+.gitignore
+.gitattributes
+.github
+
+# Editor / OS noise
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Logs and runtime state
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+uploads
+tmp
+temp
+
+# Testing & coverage
+coverage
+.nyc_output
+.cache
+.turbo
+
+# Docker itself
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Documentation snapshots not needed at runtime
+docs/v3.1.2/superseded
+docs/v3.1.2/completed_docs
+*.md
+!README.md
+
+# CI artifacts
+test-results
+playwright-report

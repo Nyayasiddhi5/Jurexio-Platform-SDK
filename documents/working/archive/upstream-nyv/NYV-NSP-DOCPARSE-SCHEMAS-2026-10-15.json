@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nyayasiddhi.online/schemas/nsp-docparse/2026-10-15",
+  "title": "NSP Docparse bind objects (NYV-04)",
+  "definitions": {
+    "NspUserProfileFields": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fullName": { "type": "string" },
+        "address": { "type": "string" },
+        "pan": { "type": "string", "pattern": "^[A-Z]{5}[0-9]{4}[A-Z]$" },
+        "aadhaarLast4": { "type": "string", "pattern": "^[0-9]{4}$" },
+        "dob": { "type": "string" },
+        "passport": { "type": "string" },
+        "dl": { "type": "string" },
+        "epic": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string", "format": "email" }
+      }
+    },
+    "NspUserOnboardingPayload": {
+      "type": "object",
+      "required": ["userProfile", "fields", "resolved", "absent", "withheld", "docTypes"],
+      "properties": {
+        "userProfile": { "$ref": "#/definitions/NspUserProfileFields" },
+        "fields": { "type": "object", "additionalProperties": true },
+        "autofill": { "type": "object" },
+        "resolved": { "type": "array", "items": { "type": "string" } },
+        "absent": { "type": "array", "items": { "type": "string" } },
+        "conflicts": { "type": "array", "items": { "type": "string" } },
+        "lowConfidence": { "type": "array", "items": { "type": "string" } },
+        "withheld": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Sensitive field paths never emitted in clear (e.g. ids.aadhaar full)"
+        },
+        "completenessRatio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "provenance": { "type": "array", "items": { "type": "object" } },
+        "docTypes": { "type": "array", "items": { "type": "string" } },
+        "primaryDocType": { "type": "string" }
+      }
+    },
+    "NspEvidenceDepiction": {
+      "type": "object",
+      "required": ["text", "limitations"],
+      "properties": {
+        "text": { "type": "string", "maxLength": 2000 },
+        "limitations": { "type": "string", "maxLength": 800 },
+        "suggestedTags": { "type": "array", "items": { "type": "string", "maxLength": 64 }, "maxItems": 12 },
+        "piiFlags": { "type": "array", "items": { "type": "string", "maxLength": 64 }, "maxItems": 8 },
+        "visibleText": { "type": "string" },
+        "cached": { "type": "boolean" },
+        "model": { "type": "string" }
+      }
+    },
+    "NspEvidencePayload": {
+      "type": "object",
+      "required": ["docTypes", "tags", "visibleText", "extractiveSummary", "unparsedPageNos", "needsDepiction"],
+      "properties": {
+        "docTypes": { "type": "array", "items": { "type": "string" } },
+        "primaryDocType": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "visibleText": { "type": "string", "maxLength": 12000 },
+        "extractiveSummary": { "type": "array", "items": { "type": "string" }, "maxItems": 6 },
+        "unparsedPageNos": { "type": "array", "items": { "type": "integer", "minimum": 1 } },
+        "needsDepiction": { "type": "boolean" },
+        "depiction": { "$ref": "#/definitions/NspEvidenceDepiction" }
+      }
+    },
+    "NspAttachContextInput": {
+      "type": "object",
+      "properties": {
+        "visibleText": { "type": "string" },
+        "visualSummary": { "type": "string" },
+        "parseQuality": { "type": "string", "enum": ["high", "medium", "low", "partial"] },
+        "docTypes": { "type": "array", "items": { "type": "string" } },
+        "fields": { "type": "object", "additionalProperties": true },
+        "extractiveSummary": { "type": "array", "items": { "type": "string" } },
+        "ingestRole": {
+          "type": "string",
+          "enum": [
+            "onboarding_kyc",
+            "company_kyc",
+            "case_intake",
+            "case_evidence",
+            "chat_attachment",
+            "draft_attachment"
+          ]
+        }
+      }
+    },
+    "NspAttachUnderstandResponse": {
+      "type": "object",
+      "required": ["mode", "understanding", "limitations", "suggestedFields", "followUpQuestions", "promptVersion"],
+      "properties": {
+        "mode": { "const": "nsp-attach-understand" },
+        "understanding": { "type": "string", "maxLength": 4000 },
+        "limitations": { "type": "string", "maxLength": 1000 },
+        "suggestedFields": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "followUpQuestions": {
+          "type": "array",
+          "items": { "type": "string", "maxLength": 200 },
+          "maxItems": 5
+        },
+        "promptVersion": { "type": "string", "example": "attach-understand-v1" },
+        "model": { "type": "string" }
+      }
+    },
+    "NspEvidenceDepictApiData": {
+      "type": "object",
+      "required": ["mode", "contentSha256", "depiction", "promptVersion"],
+      "properties": {
+        "mode": { "const": "nsp-evidence-depict" },
+        "contentSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "promptVersion": { "type": "string", "example": "evidence-depict-v1" },
+        "depiction": {
+          "type": "object",
+          "required": ["text", "limitations", "suggestedTags", "piiFlags"],
+          "properties": {
+            "text": { "type": "string" },
+            "limitations": { "type": "string" },
+            "suggestedTags": { "type": "array", "items": { "type": "string" } },
+            "piiFlags": { "type": "array", "items": { "type": "string" } },
+            "visibleText": { "type": "string" }
+          }
+        },
+        "model": { "type": "string" }
+      }
+    }
+  }
+}

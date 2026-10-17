@@ -1,0 +1,49 @@
+{
+  "$comment_schema":   "Per-failure resolution overlay consumed by scripts/nv-run-uat.ts. kind∈{fixed-in-pr,deferred-to-task,env-setup,open}. Only deferred-to-task moves status from fail→deferred; the rest annotate the row in the COMPREHENSIVE.md report. Use byScenarioId for stable mapping (bug ticket IDs reshuffle as failures resolve).",
+  "$comment_methodology": "Each remaining open fail is classified as: (a) fixed-in-pr — addressed in this same task's commit, (b) deferred-to-task — real bug tracked in a follow-up task, (c) env-setup — environment gap (no SDK key bound to live app), or (d) open — needs investigation.",
+
+  "byScenarioId": {
+    "VOICE-TTS-001": { "kind": "env-setup", "ref": "follow-up #49", "notes": "TTS endpoint correctly enforces X-API-Key auth on the multimodal voice surface; no live SDK app/key is bound in dev." },
+    "VOICE-TTS-002": { "kind": "env-setup", "ref": "follow-up #49", "notes": "Same as VOICE-TTS-001 — different jurisdiction (US English voice)." },
+    "VOICE-TTS-003": { "kind": "env-setup", "ref": "follow-up #49", "notes": "Same as VOICE-TTS-001 — Indic voice (Hindi)." },
+    "VOICE-TTS-004": { "kind": "env-setup", "ref": "follow-up #49", "notes": "Same as VOICE-TTS-001 — UK English voice." },
+    "VOICE-TTS-005": { "kind": "env-setup", "ref": "follow-up #49", "notes": "Same as VOICE-TTS-001 — Singapore English voice." },
+    "VOICE-TTS-006": { "kind": "env-setup", "ref": "follow-up #49", "notes": "Same as VOICE-TTS-001 — UAE Arabic voice." },
+    "VOICE-TTS-007": { "kind": "env-setup", "ref": "follow-up #49", "notes": "Same as VOICE-TTS-001 — Australian English voice." },
+
+    "VOICE-STT-001": { "kind": "env-setup", "ref": "follow-up #49", "notes": "STT endpoint requires JWT + service-to-service auth; no SDK key bound to dev app." },
+    "VOICE-STT-002": { "kind": "env-setup", "ref": "follow-up #49", "notes": "Same as VOICE-STT-001 — Indic STT." },
+    "VOICE-STT-003": { "kind": "env-setup", "ref": "follow-up #49", "notes": "Same as VOICE-STT-001 — UK English STT." },
+
+    "SDK-RATE-FREE-001": { "kind": "env-setup", "ref": "follow-up #49", "notes": "SDK rate-limiter middleware is wired correctly; without a live X-API-Key the request never reaches the per-tier counter (returns 401 API_KEY_MISSING)." },
+    "SDK-RATE-PRO-001":  { "kind": "env-setup", "ref": "follow-up #49", "notes": "Same as SDK-RATE-FREE-001 — Pro tier." },
+    "SDK-RATE-ENT-001":  { "kind": "env-setup", "ref": "follow-up #49", "notes": "Same as SDK-RATE-FREE-001 — Enterprise tier." },
+
+    "COMP-DPDPA-001":    { "kind": "deferred-to-task", "ref": "follow-up #48", "notes": "Raw SQL syntax error 'syntax error at or near AND' leaks through sanitiser. Root cause: bad WHERE concatenation in services/job-queue.ts:244. Real bug." },
+    "COMP-CONSENT-001":  { "kind": "deferred-to-task", "ref": "follow-up #48", "notes": "Raw SQL syntax error 'syntax error at or near comma' — JSONB array build in services/nv-rag-live-service.ts:117. Real bug." },
+    "COMP-INC-001":      { "kind": "deferred-to-task", "ref": "follow-up #48", "notes": "AI-incident pipeline 500 — same family as COMP-DPDPA SQL bug; likely cascading from compliance evidence join." },
+    "COMP-MODGOV-001":   { "kind": "deferred-to-task", "ref": "follow-up #48", "notes": "Model-governance route 500 — depends on the same broken compliance evidence join chain." },
+    "COMP-EVID-001":     { "kind": "deferred-to-task", "ref": "follow-up #48", "notes": "Compliance evidence package generation 500 — JSONB column shape mismatch in INSERT body." },
+    "COMP-RLS-001":      { "kind": "deferred-to-task", "ref": "follow-up #48", "notes": "RLS smoke test fails with 'invalid input syntax for type integer NaN' — services/nv-statute-seeding-service.ts:533 passes Number(undefined) to a SUM column." },
+
+    "MEM-HEALTH-015": {
+      "kind": "env-setup",
+      "ref":  "n/a",
+      "notes": "Returns HTTP 503 only when Node heap pressure crosses the 'elevated' threshold (heapPct >= 95). The endpoint correctly reports degraded health under the dev container's memory pressure when migrations + seed-runs + UAT load run in parallel. Body confirms status='healthy', pressure='elevated', heapPct=96 — i.e. the alert is genuine and the service is doing the right thing. Not a code defect; would pass on a fresh boot or in a sized prod container."
+    },
+    "HITL-REVIEW-001": {
+      "kind": "open",
+      "ref":  "n/a",
+      "notes": "Blocked status (timeout >30s). The review endpoint runs a long-haul LLM call (citation re-grounding + counter-argument generation). Need to either raise UAT timeout to 60s for this single scenario or split into a fast structural check + a slow LLM check. Low priority — not a service bug, just an SLA tuning question."
+    },
+    "IN-TEN-001": {
+      "kind": "open",
+      "ref":  "n/a",
+      "notes": "Blocked at 30s timeout on the very first scenario in the previous full-run baseline (cold-start LLM warm-up). Subsequent re-runs of the IN-* category pass; treat as a transient cold-start artefact. Tracked alongside HITL-REVIEW-001 for SLA tuning."
+    }
+  },
+
+  "byBugTicket": {
+    "$comment": "byBugTicket overlays are intentionally empty — bug ticket IDs reshuffle as failures get resolved (assignBugTickets walks the failure list in order). Use byScenarioId above for stable per-scenario mapping; the bugTicketId column in COMPREHENSIVE.md groups identical signatures purely for human readability."
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "schema": "./jrx-indian-draft-sme-cases/v1",
+  "description": "Ten SME-grade Indian drafting prompts for NYV eval (Haiku-medium vs Queen-comprehensive). Facts are synthetic; no real parties.",
+  "cases": [
+    {
+      "id": "IN-BAIL-001",
+      "documentType": "bail_application",
+      "label": "Anticipatory bail — Sessions Court Delhi (BNSS)",
+      "parameters": {
+        "documentType": "bail_application",
+        "highCourt": "High Court of Delhi",
+        "district": "South West Delhi",
+        "courtName": "Court of Sessions, Dwarka",
+        "state": "Delhi"
+      },
+      "prompt": "Draft a complete anticipatory bail application under BNSS before the Sessions Court, Dwarka. Applicant: synthetic party A, FIR 245/2025 PS Dwarka South, offences BNS 318/319/320 equivalents to cheating/forgery pattern. Co-accused in custody; applicant sole breadwinner; undertakes cooperation. Include cause title, showeth, grounds, prayer (no pre-grant surety schedule), verification."
+    },
+    {
+      "id": "IN-WS-001",
+      "documentType": "written_statement",
+      "label": "Written statement — money recovery suit",
+      "parameters": {
+        "documentType": "written_statement",
+        "courtName": "City Civil Court, Bengaluru",
+        "district": "Bengaluru Urban",
+        "state": "Karnataka",
+        "cnrFacts": {
+          "caseNumber": "OS 412/2024",
+          "petitioner": "ABC Traders Pvt Ltd",
+          "respondent": "Synthetic Defendant Co",
+          "courtName": "City Civil Court, Bengaluru"
+        }
+      },
+      "prompt": "Draft written statement on behalf of defendant in OS 412/2024 money recovery suit. Plaintiff claims unpaid invoices ₹18,50,000; defendant denies liability — partial delivery, set-off for defective goods. Para-wise reply to a 12-paragraph plaint (summarise plaint paras in placeholders). Preliminary objections: limitation, valuation. Order VIII pattern."
+    },
+    {
+      "id": "IN-NOTICE-001",
+      "documentType": "legal_notice",
+      "label": "NI Act s.138 demand notice",
+      "parameters": {
+        "documentType": "legal_notice",
+        "district": "Pune",
+        "state": "Maharashtra"
+      },
+      "prompt": "Draft legal notice under NI Act Section 138 for dishonour of cheque ₹4,25,000 drawn on [BANK], return memo dated [DATE]. 15-day statutory timeline. Demand payment with costs; consequence of prosecution."
+    },
+    {
+      "id": "IN-SLP-001",
+      "documentType": "writ_petition",
+      "label": "SLP skeleton — Article 136",
+      "parameters": {
+        "documentType": "writ_petition",
+        "courtName": "Supreme Court of India"
+      },
+      "prompt": "Draft skeleton Special Leave Petition (Civil) under Article 136. Impugned: High Court judgment dismissing service termination writ. Include SC cause title, synopsis, list of dates, questions of law, grounds, limitation, prayer, certificate paragraphs — no invented AOR name."
+    },
+    {
+      "id": "IN-WP-001",
+      "documentType": "writ_petition",
+      "label": "Writ petition — HC Madras",
+      "parameters": {
+        "documentType": "writ_petition",
+        "highCourt": "High Court of Judicature at Madras",
+        "seat": "Chennai",
+        "state": "Tamil Nadu",
+        "matterRecall": {
+          "summary": "Government employee challenging arbitrary transfer order dated 2025-03-01",
+          "stage": "writ admitted; interim stay pending",
+          "parties": "Petitioner employee vs State of Tamil Nadu"
+        }
+      },
+      "prompt": "Draft writ petition (WP) challenging arbitrary transfer order of government employee. Article 226. Maintainability, locus, facts, grounds (violation of service rules, bias), interim stay prayer, main prayer, verification."
+    },
+    {
+      "id": "IN-CA-001",
+      "documentType": "counter_affidavit",
+      "label": "Counter-affidavit in writ",
+      "parameters": {
+        "documentType": "counter_affidavit",
+        "highCourt": "High Court of Judicature at Bombay",
+        "seat": "Mumbai"
+      },
+      "prompt": "Draft counter-affidavit for respondent State in WP 8842/2025 challenging tender cancellation. Preliminary objections: alternate remedy, laches. Para-wise reply to petition. Official record defence."
+    },
+    {
+      "id": "IN-IA-001",
+      "documentType": "interlocutory_application",
+      "label": "Interim injunction IA in pending suit",
+      "parameters": {
+        "documentType": "interlocutory_application",
+        "courtName": "District Court, Gurugram",
+        "state": "Haryana"
+      },
+      "prompt": "Draft interlocutory application for temporary injunction in pending CS 119/2025 breach of franchise agreement. Prima facie, balance of convenience, irreparable injury. Ad-interim prayer."
+    },
+    {
+      "id": "IN-REVIEW-001",
+      "documentType": "review_petition",
+      "label": "Review petition — narrow scope",
+      "parameters": {
+        "documentType": "review_petition",
+        "highCourt": "High Court of Judicature at Calcutta",
+        "matterRecall": {
+          "summary": "Review against judgment in CS 55/2023 — sole ground error apparent in paragraph 42",
+          "lastOrder": "Judgment dated 2024-01-12 dismissing suit",
+          "stage": "review under Order XLVII CPC"
+        },
+        "cnrFacts": {
+          "caseNumber": "CS 55/2023",
+          "courtName": "High Court of Judicature at Calcutta"
+        }
+      },
+      "prompt": "Draft review petition under Order XLVII CPC against judgment dated [DATE] in CS 55/2023. Ground: error apparent on face of record in paragraph 42 — do not re-argue merits. Include cause title, memo of parties, review is not appeal, grounds confined to O.XLVII R.1, prayer, verification."
+    },
+    {
+      "id": "IN-EXEC-001",
+      "documentType": "execution_petition",
+      "label": "Execution petition — money decree",
+      "parameters": {
+        "documentType": "execution_petition",
+        "district": "Hyderabad",
+        "state": "Telangana"
+      },
+      "prompt": "Draft execution petition for money decree CS 901/2022 principal ₹22,00,000 plus interest. Order XXI particulars, limitation Article 136, mode: attachment of bank account."
+    },
+    {
+      "id": "IN-AGREE-001",
+      "documentType": "simple_agreement",
+      "label": "MSA — IT services (commercial)",
+      "parameters": {
+        "documentType": "simple_agreement",
+        "state": "Karnataka"
+      },
+      "prompt": "Draft Master Services Agreement between two Indian private limited companies for software development services. Indian law, Bengaluru courts, IP assignment, confidentiality, limitation of liability cap, SLA, termination, DPDP compliance clause."
+    }
+  ]
+}

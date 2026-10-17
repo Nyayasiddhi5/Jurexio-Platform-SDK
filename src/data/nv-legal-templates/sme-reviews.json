@@ -1,0 +1,4743 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-17T02:39:08.581Z",
+  "reviews": {
+    "civil_suit_plaint": {
+      "templateId": "civil_suit_plaint",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NYV curated India court/practice form — SME attestation still recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "nyv-document-curated",
+      "rubric": {
+        "legalAccuracy": 0.85,
+        "proceduralCompleteness": 0.85,
+        "citationGrounding": 0.8,
+        "draftingQuality": 0.85,
+        "overall": 0.84
+      }
+    },
+    "cheque_bounce_complaint": {
+      "templateId": "cheque_bounce_complaint",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NYV curated India court/practice form — SME attestation still recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "nyv-document-curated",
+      "rubric": {
+        "legalAccuracy": 0.85,
+        "proceduralCompleteness": 0.85,
+        "citationGrounding": 0.8,
+        "draftingQuality": 0.85,
+        "overall": 0.84
+      }
+    },
+    "consumer_complaint": {
+      "templateId": "consumer_complaint",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NYV curated India court/practice form — SME attestation still recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "nyv-document-curated",
+      "rubric": {
+        "legalAccuracy": 0.85,
+        "proceduralCompleteness": 0.85,
+        "citationGrounding": 0.8,
+        "draftingQuality": 0.85,
+        "overall": 0.84
+      }
+    },
+    "divorce_petition_mutual": {
+      "templateId": "divorce_petition_mutual",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NYV curated India court/practice form — SME attestation still recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "nyv-document-curated",
+      "rubric": {
+        "legalAccuracy": 0.85,
+        "proceduralCompleteness": 0.85,
+        "citationGrounding": 0.8,
+        "draftingQuality": 0.85,
+        "overall": 0.84
+      }
+    },
+    "power_of_attorney": {
+      "templateId": "power_of_attorney",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NYV curated India court/practice form — SME attestation still recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "nyv-document-curated",
+      "rubric": {
+        "legalAccuracy": 0.85,
+        "proceduralCompleteness": 0.85,
+        "citationGrounding": 0.8,
+        "draftingQuality": 0.85,
+        "overall": 0.84
+      }
+    },
+    "partnership_deed": {
+      "templateId": "partnership_deed",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NYV curated India court/practice form — SME attestation still recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "nyv-document-curated",
+      "rubric": {
+        "legalAccuracy": 0.85,
+        "proceduralCompleteness": 0.85,
+        "citationGrounding": 0.8,
+        "draftingQuality": 0.85,
+        "overall": 0.84
+      }
+    },
+    "rent_agreement": {
+      "templateId": "rent_agreement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NYV curated India court/practice form — SME attestation still recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "nyv-document-curated",
+      "rubric": {
+        "legalAccuracy": 0.85,
+        "proceduralCompleteness": 0.85,
+        "citationGrounding": 0.8,
+        "draftingQuality": 0.85,
+        "overall": 0.84
+      }
+    },
+    "writ_petition_art226": {
+      "templateId": "writ_petition_art226",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NYV curated India court/practice form — SME attestation still recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "nyv-document-curated",
+      "rubric": {
+        "legalAccuracy": 0.85,
+        "proceduralCompleteness": 0.85,
+        "citationGrounding": 0.8,
+        "draftingQuality": 0.85,
+        "overall": 0.84
+      }
+    },
+    "nys-in-arbitration-invocation-notice": {
+      "templateId": "nys-in-arbitration-invocation-notice",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:arbitration",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-complaint-138-ni-act": {
+      "templateId": "nys-in-complaint-138-ni-act",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:banking",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-civil-plaint-order-vii": {
+      "templateId": "nys-in-civil-plaint-order-vii",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-master-services-agreement": {
+      "templateId": "nys-in-master-services-agreement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-posh-icc-inquiry-checklist": {
+      "templateId": "nys-in-posh-icc-inquiry-checklist",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:compliance",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-slp-civil-136": {
+      "templateId": "nys-in-slp-civil-136",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-consumer-appeal-state-commission": {
+      "templateId": "nys-in-consumer-appeal-state-commission",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:consumer",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-sha-multiparty-filing": {
+      "templateId": "nys-in-sha-multiparty-filing",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-anticipatory-bail-482": {
+      "templateId": "nys-in-anticipatory-bail-482",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-employment-agreement": {
+      "templateId": "nys-in-employment-agreement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:employment",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-last-will-testament": {
+      "templateId": "nys-in-last-will-testament",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:estate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-mutual-consent-divorce-13b": {
+      "templateId": "nys-in-mutual-consent-divorce-13b",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ibc-section-9-demand-notice": {
+      "templateId": "nys-in-ibc-section-9-demand-notice",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:insolvency",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ip-assignment-multiparty-filing": {
+      "templateId": "nys-in-ip-assignment-multiparty-filing",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:ip",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-cross-examination-prep-checklist": {
+      "templateId": "nys-in-cross-examination-prep-checklist",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:litigation",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-dpdpa-privacy-notice": {
+      "templateId": "nys-in-dpdpa-privacy-notice",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:privacy",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-commercial-lease-deed": {
+      "templateId": "nys-in-commercial-lease-deed",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T07:53:48.547Z",
+      "bootstrapReason": "category:property",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-sale-agreement-immovable": {
+      "templateId": "nys-in-sale-agreement-immovable",
+      "status": "sme_approved",
+      "reviewerId": "sme-test-1",
+      "reviewerRole": "sme",
+      "notes": "Local pipeline test attestation",
+      "rubric": {
+        "legalAccuracy": 0.9,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.86,
+        "draftingQuality": 0.9,
+        "overall": 0.885
+      },
+      "jurisdiction_code": "IN",
+      "reviewedAt": "2026-07-29T07:53:48.549Z",
+      "updatedAt": "2026-07-29T07:53:48.549Z"
+    },
+    "nys-in-arbitration-statement-of-claim": {
+      "templateId": "nys-in-arbitration-statement-of-claim",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:arbitration",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-loan-facility-guarantor-filing": {
+      "templateId": "nys-in-loan-facility-guarantor-filing",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:banking",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-general-power-of-attorney": {
+      "templateId": "nys-in-general-power-of-attorney",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-mutual-nda": {
+      "templateId": "nys-in-mutual-nda",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-rti-application": {
+      "templateId": "nys-in-rti-application",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:compliance",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-sc-t3-writ-art32-comprehensive": {
+      "templateId": "nys-in-sc-t3-writ-art32-comprehensive",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-consumer-complaint": {
+      "templateId": "nys-in-consumer-complaint",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:consumer",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-shareholders-agreement": {
+      "templateId": "nys-in-shareholders-agreement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-criminal-appeal-415": {
+      "templateId": "nys-in-criminal-appeal-415",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-separation-settlement-multiparty-filing": {
+      "templateId": "nys-in-separation-settlement-multiparty-filing",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:employment",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-estate-draft-letters-of-administration": {
+      "templateId": "nys-in-estate-draft-letters-of-administration",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:estate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-domestic-violence-application-12": {
+      "templateId": "nys-in-domestic-violence-application-12",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-insolvency-draft-section-7-9-application": {
+      "templateId": "nys-in-insolvency-draft-section-7-9-application",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:insolvency",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ip-draft-infringement-suit": {
+      "templateId": "nys-in-ip-draft-infringement-suit",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:ip",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-litigation-draft-settlement-memo": {
+      "templateId": "nys-in-litigation-draft-settlement-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:litigation",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-privacy-draft-data-principal-request": {
+      "templateId": "nys-in-privacy-draft-data-principal-request",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:privacy",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-commercial-lease-tripartite-filing": {
+      "templateId": "nys-in-commercial-lease-tripartite-filing",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:09:03.121Z",
+      "bootstrapReason": "category:property",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-arbitration-settlement-consent-award-filing": {
+      "templateId": "nys-in-arbitration-settlement-consent-award-filing",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:arbitration",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-cheque-demand-notice-138": {
+      "templateId": "nys-in-cheque-demand-notice-138",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:banking",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-temporary-injunction-order-xxxix": {
+      "templateId": "nys-in-temporary-injunction-order-xxxix",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-msa-services-multiparty-filing": {
+      "templateId": "nys-in-msa-services-multiparty-filing",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-compliance-draft-internal-investigation": {
+      "templateId": "nys-in-compliance-draft-internal-investigation",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:compliance",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-habeas-corpus-226": {
+      "templateId": "nys-in-habeas-corpus-226",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-dc-t3-consumer-complaint-comprehensive": {
+      "templateId": "nys-in-dc-t3-consumer-complaint-comprehensive",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:consumer",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-llp-agreement": {
+      "templateId": "nys-in-llp-agreement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-private-complaint-223": {
+      "templateId": "nys-in-private-complaint-223",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-employment-draft-termination-challenge": {
+      "templateId": "nys-in-employment-draft-termination-challenge",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:employment",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-estate-draft-family-settlement": {
+      "templateId": "nys-in-estate-draft-family-settlement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:estate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-maintenance-application-144": {
+      "templateId": "nys-in-maintenance-application-144",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-insolvency-draft-resolution-plan-review": {
+      "templateId": "nys-in-insolvency-draft-resolution-plan-review",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:insolvency",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ip-draft-copyright-notice": {
+      "templateId": "nys-in-ip-draft-copyright-notice",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:ip",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-litigation-draft-discovery-plan": {
+      "templateId": "nys-in-litigation-draft-discovery-plan",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:litigation",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-privacy-draft-cross-border-transfer": {
+      "templateId": "nys-in-privacy-draft-cross-border-transfer",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:privacy",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-gift-deed": {
+      "templateId": "nys-in-gift-deed",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:12.452Z",
+      "bootstrapReason": "category:property",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-arbitration-draft-section-11-appointment": {
+      "templateId": "nys-in-arbitration-draft-section-11-appointment",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:arbitration",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-banking-draft-cheque-bounce-s-138": {
+      "templateId": "nys-in-banking-draft-cheque-bounce-s-138",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:banking",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-written-statement-order-viii": {
+      "templateId": "nys-in-written-statement-order-viii",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-mou-services": {
+      "templateId": "nys-in-mou-services",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-compliance-draft-policy-gap-assessment": {
+      "templateId": "nys-in-compliance-draft-policy-gap-assessment",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:compliance",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-pil-petition-226": {
+      "templateId": "nys-in-pil-petition-226",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-consumer-draft-district-commission-complaint": {
+      "templateId": "nys-in-consumer-draft-district-commission-complaint",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:consumer",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-founders-agreement": {
+      "templateId": "nys-in-founders-agreement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-reply-police-notice-35": {
+      "templateId": "nys-in-reply-police-notice-35",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-employment-draft-settlement-agreement": {
+      "templateId": "nys-in-employment-draft-settlement-agreement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:employment",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-estate-draft-probate-petition": {
+      "templateId": "nys-in-estate-draft-probate-petition",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:estate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-mutual-consent-divorce-petition-filing": {
+      "templateId": "nys-in-mutual-consent-divorce-petition-filing",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-insolvency-draft-avoidance-actions": {
+      "templateId": "nys-in-insolvency-draft-avoidance-actions",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:insolvency",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ip-draft-tm-opposition": {
+      "templateId": "nys-in-ip-draft-tm-opposition",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:ip",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-litigation-draft-case-strategy": {
+      "templateId": "nys-in-litigation-draft-case-strategy",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:litigation",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-privacy-draft-breach-response": {
+      "templateId": "nys-in-privacy-draft-breach-response",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:privacy",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-property-draft-specific-performance": {
+      "templateId": "nys-in-property-draft-specific-performance",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:11:32.763Z",
+      "bootstrapReason": "category:property",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-arbitration-draft-notice-of-arbitration": {
+      "templateId": "nys-in-arbitration-draft-notice-of-arbitration",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:arbitration",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-banking-draft-sarfaesi-challenge": {
+      "templateId": "nys-in-banking-draft-sarfaesi-challenge",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:banking",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-dc-t3-plaint-specific-performance": {
+      "templateId": "nys-in-dc-t3-plaint-specific-performance",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-commercial-draft-guarantee-enforcement": {
+      "templateId": "nys-in-commercial-draft-guarantee-enforcement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-compliance-draft-dawn-raid-response": {
+      "templateId": "nys-in-compliance-draft-dawn-raid-response",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:compliance",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-sc-t2-slp-art136-aligned": {
+      "templateId": "nys-in-sc-t2-slp-art136-aligned",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-consumer-draft-unfair-trade-practice": {
+      "templateId": "nys-in-consumer-draft-unfair-trade-practice",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:consumer",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ctr-t3-shareholders-agreement": {
+      "templateId": "nys-in-ctr-t3-shareholders-agreement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-quashing-petition-528": {
+      "templateId": "nys-in-quashing-petition-528",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-employment-draft-labour-audit": {
+      "templateId": "nys-in-employment-draft-labour-audit",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:employment",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-estate-draft-will-drafting": {
+      "templateId": "nys-in-estate-draft-will-drafting",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:estate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-family-draft-divorce-petition": {
+      "templateId": "nys-in-family-draft-divorce-petition",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-insolvency-draft-cirp-checklist": {
+      "templateId": "nys-in-insolvency-draft-cirp-checklist",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:insolvency",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ip-draft-patent-fto": {
+      "templateId": "nys-in-ip-draft-patent-fto",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:ip",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-litigation-draft-hearing-brief": {
+      "templateId": "nys-in-litigation-draft-hearing-brief",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:litigation",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-privacy-draft-consent-notice": {
+      "templateId": "nys-in-privacy-draft-consent-notice",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:privacy",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-property-draft-title-diligence": {
+      "templateId": "nys-in-property-draft-title-diligence",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:16:43.183Z",
+      "bootstrapReason": "category:property",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-arbitration-draft-section-34-challenge": {
+      "templateId": "nys-in-arbitration-draft-section-34-challenge",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:arbitration",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-banking-draft-guarantee-claim": {
+      "templateId": "nys-in-banking-draft-guarantee-claim",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:banking",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-dc-t2-plaint-cpc-aligned": {
+      "templateId": "nys-in-dc-t2-plaint-cpc-aligned",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-commercial-draft-supply-chain-claim": {
+      "templateId": "nys-in-commercial-draft-supply-chain-claim",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-compliance-draft-board-briefing": {
+      "templateId": "nys-in-compliance-draft-board-briefing",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:compliance",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-writ-petition-226": {
+      "templateId": "nys-in-writ-petition-226",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-consumer-draft-product-liability": {
+      "templateId": "nys-in-consumer-draft-product-liability",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:consumer",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-due-diligence-checklist": {
+      "templateId": "nys-in-due-diligence-checklist",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-discharge-application-250": {
+      "templateId": "nys-in-discharge-application-250",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-employment-draft-posh-enquiry": {
+      "templateId": "nys-in-employment-draft-posh-enquiry",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:employment",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-estate-draft-trust-deed": {
+      "templateId": "nys-in-estate-draft-trust-deed",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:estate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-family-draft-dv-protection": {
+      "templateId": "nys-in-family-draft-dv-protection",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-insolvency-draft-liquidation": {
+      "templateId": "nys-in-insolvency-draft-liquidation",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:insolvency",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ip-draft-licensing": {
+      "templateId": "nys-in-ip-draft-licensing",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:ip",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-litigation-draft-witness-prep": {
+      "templateId": "nys-in-litigation-draft-witness-prep",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:litigation",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-privacy-draft-dpia": {
+      "templateId": "nys-in-privacy-draft-dpia",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:privacy",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-property-draft-rera-complaint": {
+      "templateId": "nys-in-property-draft-rera-complaint",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:01.603Z",
+      "bootstrapReason": "category:property",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-arbitration-draft-section-9-interim": {
+      "templateId": "nys-in-arbitration-draft-section-9-interim",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:arbitration",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-banking-draft-loan-recovery": {
+      "templateId": "nys-in-banking-draft-loan-recovery",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:banking",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-civil-draft-plaint-written-statement": {
+      "templateId": "nys-in-civil-draft-plaint-written-statement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-commercial-draft-contract-dispute": {
+      "templateId": "nys-in-commercial-draft-contract-dispute",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-compliance-draft-leniency": {
+      "templateId": "nys-in-compliance-draft-leniency",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:compliance",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-hc-t2-writ-226-aligned": {
+      "templateId": "nys-in-hc-t2-writ-226-aligned",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-consumer-draft-mediation": {
+      "templateId": "nys-in-consumer-draft-mediation",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:consumer",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-corporate-draft-oppression-mismanagement": {
+      "templateId": "nys-in-corporate-draft-oppression-mismanagement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-bail-application": {
+      "templateId": "nys-in-bail-application",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-employment-draft-wage-claim": {
+      "templateId": "nys-in-employment-draft-wage-claim",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:employment",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-estate-research-memo": {
+      "templateId": "nys-in-estate-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:estate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-family-draft-maintenance": {
+      "templateId": "nys-in-family-draft-maintenance",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-insolvency-research-memo": {
+      "templateId": "nys-in-insolvency-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:insolvency",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ip-research-memo": {
+      "templateId": "nys-in-ip-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:ip",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-litigation-research-memo": {
+      "templateId": "nys-in-litigation-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:litigation",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-privacy-research-memo": {
+      "templateId": "nys-in-privacy-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:privacy",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-property-draft-lease-dispute": {
+      "templateId": "nys-in-property-draft-lease-dispute",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:18:50.384Z",
+      "bootstrapReason": "category:property",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-arbitration-draft-enforcement": {
+      "templateId": "nys-in-arbitration-draft-enforcement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:arbitration",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-banking-draft-drt-appeal": {
+      "templateId": "nys-in-banking-draft-drt-appeal",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:banking",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-civil-draft-interim-injunction": {
+      "templateId": "nys-in-civil-draft-interim-injunction",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-commercial-draft-damages-memo": {
+      "templateId": "nys-in-commercial-draft-damages-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-compliance-research-memo": {
+      "templateId": "nys-in-compliance-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:compliance",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-sc-t1-slp-art136-simple": {
+      "templateId": "nys-in-sc-t1-slp-art136-simple",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-consumer-draft-appeal": {
+      "templateId": "nys-in-consumer-draft-appeal",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:consumer",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-corporate-draft-shareholder-dispute": {
+      "templateId": "nys-in-corporate-draft-shareholder-dispute",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-criminal-first-hearing-checklist": {
+      "templateId": "nys-in-criminal-first-hearing-checklist",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-employment-research-memo": {
+      "templateId": "nys-in-employment-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:employment",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-estate-checklist-letters-of-administration": {
+      "templateId": "nys-in-estate-checklist-letters-of-administration",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:estate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-family-draft-succession": {
+      "templateId": "nys-in-family-draft-succession",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-insolvency-checklist-section-7-9-application": {
+      "templateId": "nys-in-insolvency-checklist-section-7-9-application",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:insolvency",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ip-checklist-infringement-suit": {
+      "templateId": "nys-in-ip-checklist-infringement-suit",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:ip",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-sc-t2-transfer-petition": {
+      "templateId": "nys-in-sc-t2-transfer-petition",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:litigation",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-privacy-checklist-data-principal-request": {
+      "templateId": "nys-in-privacy-checklist-data-principal-request",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:privacy",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-property-draft-partition": {
+      "templateId": "nys-in-property-draft-partition",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:20:03.481Z",
+      "bootstrapReason": "category:property",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-arbitration-research-memo": {
+      "templateId": "nys-in-arbitration-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:arbitration",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-banking-research-memo": {
+      "templateId": "nys-in-banking-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:banking",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-civil-draft-execution": {
+      "templateId": "nys-in-civil-draft-execution",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-commercial-draft-settlement": {
+      "templateId": "nys-in-commercial-draft-settlement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-compliance-checklist-internal-investigation": {
+      "templateId": "nys-in-compliance-checklist-internal-investigation",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:compliance",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-constitutional-draft-fundamental-rights": {
+      "templateId": "nys-in-constitutional-draft-fundamental-rights",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-consumer-research-memo": {
+      "templateId": "nys-in-consumer-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:consumer",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-corporate-draft-board-resolutions": {
+      "templateId": "nys-in-corporate-draft-board-resolutions",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-hc-t3-criminal-appeal-comprehensive": {
+      "templateId": "nys-in-hc-t3-criminal-appeal-comprehensive",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-employment-checklist-termination-challenge": {
+      "templateId": "nys-in-employment-checklist-termination-challenge",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:employment",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-estate-checklist-family-settlement": {
+      "templateId": "nys-in-estate-checklist-family-settlement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:estate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-family-draft-custody": {
+      "templateId": "nys-in-family-draft-custody",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-insolvency-checklist-resolution-plan-review": {
+      "templateId": "nys-in-insolvency-checklist-resolution-plan-review",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:insolvency",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ip-checklist-copyright-notice": {
+      "templateId": "nys-in-ip-checklist-copyright-notice",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:ip",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-sc-t2-contempt-petition": {
+      "templateId": "nys-in-sc-t2-contempt-petition",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:litigation",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-privacy-checklist-cross-border-transfer": {
+      "templateId": "nys-in-privacy-checklist-cross-border-transfer",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:privacy",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-property-research-memo": {
+      "templateId": "nys-in-property-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:23:56.484Z",
+      "bootstrapReason": "category:property",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-arbitration-checklist-section-11-appointment": {
+      "templateId": "nys-in-arbitration-checklist-section-11-appointment",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:arbitration",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-banking-checklist-cheque-bounce-s-138": {
+      "templateId": "nys-in-banking-checklist-cheque-bounce-s-138",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:banking",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-civil-draft-appeal": {
+      "templateId": "nys-in-civil-draft-appeal",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-commercial-research-memo": {
+      "templateId": "nys-in-commercial-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-compliance-checklist-policy-gap-assessment": {
+      "templateId": "nys-in-compliance-checklist-policy-gap-assessment",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:compliance",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-constitutional-draft-federal-disputes": {
+      "templateId": "nys-in-constitutional-draft-federal-disputes",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-consumer-checklist-district-commission-complaint": {
+      "templateId": "nys-in-consumer-checklist-district-commission-complaint",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:consumer",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-corporate-draft-regulatory-filing": {
+      "templateId": "nys-in-corporate-draft-regulatory-filing",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-criminal-draft-charge-sheet-defence": {
+      "templateId": "nys-in-criminal-draft-charge-sheet-defence",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-employment-checklist-settlement-agreement": {
+      "templateId": "nys-in-employment-checklist-settlement-agreement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:employment",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-estate-checklist-probate-petition": {
+      "templateId": "nys-in-estate-checklist-probate-petition",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:estate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-family-research-memo": {
+      "templateId": "nys-in-family-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-insolvency-checklist-avoidance-actions": {
+      "templateId": "nys-in-insolvency-checklist-avoidance-actions",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:insolvency",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ip-checklist-tm-opposition": {
+      "templateId": "nys-in-ip-checklist-tm-opposition",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:ip",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-litigation-checklist-settlement-memo": {
+      "templateId": "nys-in-litigation-checklist-settlement-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:litigation",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-privacy-checklist-breach-response": {
+      "templateId": "nys-in-privacy-checklist-breach-response",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:privacy",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-property-checklist-specific-performance": {
+      "templateId": "nys-in-property-checklist-specific-performance",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:24:22.287Z",
+      "bootstrapReason": "category:property",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-arbitration-checklist-notice-of-arbitration": {
+      "templateId": "nys-in-arbitration-checklist-notice-of-arbitration",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:arbitration",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-banking-checklist-sarfaesi-challenge": {
+      "templateId": "nys-in-banking-checklist-sarfaesi-challenge",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:banking",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-civil-draft-review": {
+      "templateId": "nys-in-civil-draft-review",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-commercial-checklist-guarantee-enforcement": {
+      "templateId": "nys-in-commercial-checklist-guarantee-enforcement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-compliance-checklist-dawn-raid-response": {
+      "templateId": "nys-in-compliance-checklist-dawn-raid-response",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:compliance",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-constitutional-draft-service-matters": {
+      "templateId": "nys-in-constitutional-draft-service-matters",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-consumer-checklist-unfair-trade-practice": {
+      "templateId": "nys-in-consumer-checklist-unfair-trade-practice",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:consumer",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-corporate-draft-m-a-diligence": {
+      "templateId": "nys-in-corporate-draft-m-a-diligence",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-criminal-draft-fir-investigation": {
+      "templateId": "nys-in-criminal-draft-fir-investigation",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-employment-checklist-labour-audit": {
+      "templateId": "nys-in-employment-checklist-labour-audit",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:employment",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-estate-checklist-will-drafting": {
+      "templateId": "nys-in-estate-checklist-will-drafting",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:estate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-family-checklist-divorce-petition": {
+      "templateId": "nys-in-family-checklist-divorce-petition",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-insolvency-checklist-cirp-checklist": {
+      "templateId": "nys-in-insolvency-checklist-cirp-checklist",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:insolvency",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ip-checklist-patent-fto": {
+      "templateId": "nys-in-ip-checklist-patent-fto",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:ip",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-litigation-checklist-discovery-plan": {
+      "templateId": "nys-in-litigation-checklist-discovery-plan",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:litigation",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-privacy-checklist-consent-notice": {
+      "templateId": "nys-in-privacy-checklist-consent-notice",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:privacy",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-property-checklist-title-diligence": {
+      "templateId": "nys-in-property-checklist-title-diligence",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:26:52.371Z",
+      "bootstrapReason": "category:property",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-arbitration-checklist-section-34-challenge": {
+      "templateId": "nys-in-arbitration-checklist-section-34-challenge",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:arbitration",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-banking-checklist-guarantee-claim": {
+      "templateId": "nys-in-banking-checklist-guarantee-claim",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:banking",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-legal-notice-payment": {
+      "templateId": "nys-in-legal-notice-payment",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-commercial-checklist-supply-chain-claim": {
+      "templateId": "nys-in-commercial-checklist-supply-chain-claim",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-compliance-checklist-board-briefing": {
+      "templateId": "nys-in-compliance-checklist-board-briefing",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:compliance",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-constitutional-draft-writ-petition": {
+      "templateId": "nys-in-constitutional-draft-writ-petition",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-consumer-checklist-product-liability": {
+      "templateId": "nys-in-consumer-checklist-product-liability",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:consumer",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-corporate-research-memo": {
+      "templateId": "nys-in-corporate-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-criminal-draft-appeal-revision": {
+      "templateId": "nys-in-criminal-draft-appeal-revision",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-employment-checklist-posh-enquiry": {
+      "templateId": "nys-in-employment-checklist-posh-enquiry",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:employment",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-estate-checklist-trust-deed": {
+      "templateId": "nys-in-estate-checklist-trust-deed",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:estate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-family-checklist-dv-protection": {
+      "templateId": "nys-in-family-checklist-dv-protection",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-insolvency-checklist-liquidation": {
+      "templateId": "nys-in-insolvency-checklist-liquidation",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:insolvency",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ip-checklist-licensing": {
+      "templateId": "nys-in-ip-checklist-licensing",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:ip",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-litigation-checklist-case-strategy": {
+      "templateId": "nys-in-litigation-checklist-case-strategy",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:litigation",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-privacy-checklist-dpia": {
+      "templateId": "nys-in-privacy-checklist-dpia",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:privacy",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-property-checklist-rera-complaint": {
+      "templateId": "nys-in-property-checklist-rera-complaint",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:27:50.289Z",
+      "bootstrapReason": "category:property",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-arbitration-checklist-section-9-interim": {
+      "templateId": "nys-in-arbitration-checklist-section-9-interim",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:28:10.615Z",
+      "bootstrapReason": "category:arbitration",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-banking-checklist-loan-recovery": {
+      "templateId": "nys-in-banking-checklist-loan-recovery",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:28:10.615Z",
+      "bootstrapReason": "category:banking",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-civil-research-memo": {
+      "templateId": "nys-in-civil-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:28:10.615Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-commercial-checklist-contract-dispute": {
+      "templateId": "nys-in-commercial-checklist-contract-dispute",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:28:10.615Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-compliance-checklist-leniency": {
+      "templateId": "nys-in-compliance-checklist-leniency",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:28:10.615Z",
+      "bootstrapReason": "category:compliance",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-constitutional-draft-pil": {
+      "templateId": "nys-in-constitutional-draft-pil",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:28:10.615Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-consumer-checklist-mediation": {
+      "templateId": "nys-in-consumer-checklist-mediation",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:28:10.615Z",
+      "bootstrapReason": "category:consumer",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-corporate-checklist-oppression-mismanagement": {
+      "templateId": "nys-in-corporate-checklist-oppression-mismanagement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:28:10.615Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-criminal-draft-trial-arguments": {
+      "templateId": "nys-in-criminal-draft-trial-arguments",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:28:10.615Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-employment-checklist-wage-claim": {
+      "templateId": "nys-in-employment-checklist-wage-claim",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:28:10.615Z",
+      "bootstrapReason": "category:employment",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-family-checklist-maintenance": {
+      "templateId": "nys-in-family-checklist-maintenance",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:28:10.615Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-litigation-checklist-hearing-brief": {
+      "templateId": "nys-in-litigation-checklist-hearing-brief",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:28:10.615Z",
+      "bootstrapReason": "category:litigation",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-property-checklist-lease-dispute": {
+      "templateId": "nys-in-property-checklist-lease-dispute",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:28:10.615Z",
+      "bootstrapReason": "category:property",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-arbitration-checklist-enforcement": {
+      "templateId": "nys-in-arbitration-checklist-enforcement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:06.665Z",
+      "bootstrapReason": "category:arbitration",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-banking-checklist-drt-appeal": {
+      "templateId": "nys-in-banking-checklist-drt-appeal",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:06.665Z",
+      "bootstrapReason": "category:banking",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-civil-suit-filing-checklist": {
+      "templateId": "nys-in-civil-suit-filing-checklist",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:06.665Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-commercial-checklist-damages-memo": {
+      "templateId": "nys-in-commercial-checklist-damages-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:06.665Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-constitutional-research-memo": {
+      "templateId": "nys-in-constitutional-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:06.665Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-consumer-checklist-appeal": {
+      "templateId": "nys-in-consumer-checklist-appeal",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:06.665Z",
+      "bootstrapReason": "category:consumer",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-corporate-checklist-shareholder-dispute": {
+      "templateId": "nys-in-corporate-checklist-shareholder-dispute",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:06.665Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-criminal-draft-bail-remand": {
+      "templateId": "nys-in-criminal-draft-bail-remand",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:06.665Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-family-checklist-succession": {
+      "templateId": "nys-in-family-checklist-succession",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:06.665Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-litigation-checklist-witness-prep": {
+      "templateId": "nys-in-litigation-checklist-witness-prep",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:06.665Z",
+      "bootstrapReason": "category:litigation",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-property-checklist-partition": {
+      "templateId": "nys-in-property-checklist-partition",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:06.665Z",
+      "bootstrapReason": "category:property",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-civil-checklist-plaint-written-statement": {
+      "templateId": "nys-in-civil-checklist-plaint-written-statement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:20.930Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-commercial-checklist-settlement": {
+      "templateId": "nys-in-commercial-checklist-settlement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:20.930Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-constitutional-checklist-fundamental-rights": {
+      "templateId": "nys-in-constitutional-checklist-fundamental-rights",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:20.930Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-corporate-checklist-board-resolutions": {
+      "templateId": "nys-in-corporate-checklist-board-resolutions",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:20.930Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-hc-t2-bail-anticipatory": {
+      "templateId": "nys-in-hc-t2-bail-anticipatory",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:20.930Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-family-checklist-custody": {
+      "templateId": "nys-in-family-checklist-custody",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:29:20.930Z",
+      "bootstrapReason": "category:family",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-hc-t2-civil-first-appeal": {
+      "templateId": "nys-in-hc-t2-civil-first-appeal",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:30:06.390Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-ctr-t3-msa-services": {
+      "templateId": "nys-in-ctr-t3-msa-services",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:30:06.390Z",
+      "bootstrapReason": "category:commercial",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-constitutional-checklist-federal-disputes": {
+      "templateId": "nys-in-constitutional-checklist-federal-disputes",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:30:06.390Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-corporate-checklist-regulatory-filing": {
+      "templateId": "nys-in-corporate-checklist-regulatory-filing",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:30:06.390Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-bail-hearing-checklist": {
+      "templateId": "nys-in-bail-hearing-checklist",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:30:06.390Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-civil-checklist-interim-injunction": {
+      "templateId": "nys-in-civil-checklist-interim-injunction",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:31:55.504Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-constitutional-checklist-service-matters": {
+      "templateId": "nys-in-constitutional-checklist-service-matters",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:31:55.504Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-corporate-checklist-m-a-diligence": {
+      "templateId": "nys-in-corporate-checklist-m-a-diligence",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:31:55.504Z",
+      "bootstrapReason": "category:corporate",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-criminal-research-memo": {
+      "templateId": "nys-in-criminal-research-memo",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:31:55.504Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-civil-checklist-execution": {
+      "templateId": "nys-in-civil-checklist-execution",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:32:18.713Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-constitutional-checklist-writ-petition": {
+      "templateId": "nys-in-constitutional-checklist-writ-petition",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:32:18.713Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-dc-t2-bail-sessions-bnss": {
+      "templateId": "nys-in-dc-t2-bail-sessions-bnss",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:32:18.713Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-civil-checklist-appeal": {
+      "templateId": "nys-in-civil-checklist-appeal",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:34:11.836Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-constitutional-checklist-pil": {
+      "templateId": "nys-in-constitutional-checklist-pil",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:34:11.836Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-criminal-checklist-charge-sheet-defence": {
+      "templateId": "nys-in-criminal-checklist-charge-sheet-defence",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:34:11.836Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-civil-checklist-review": {
+      "templateId": "nys-in-civil-checklist-review",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:36:04.783Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-hc-t1-writ-226-simple": {
+      "templateId": "nys-in-hc-t1-writ-226-simple",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:36:04.783Z",
+      "bootstrapReason": "category:constitutional",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-criminal-checklist-fir-investigation": {
+      "templateId": "nys-in-criminal-checklist-fir-investigation",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:36:04.783Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-dc-t2-written-statement": {
+      "templateId": "nys-in-dc-t2-written-statement",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:36:10.394Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-criminal-checklist-appeal-revision": {
+      "templateId": "nys-in-criminal-checklist-appeal-revision",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:36:10.394Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-dc-t2-injunction-application": {
+      "templateId": "nys-in-dc-t2-injunction-application",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:45:29.899Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-criminal-checklist-trial-arguments": {
+      "templateId": "nys-in-criminal-checklist-trial-arguments",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:45:29.899Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-dc-t2-execution-petition": {
+      "templateId": "nys-in-dc-t2-execution-petition",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:46:00.312Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-criminal-checklist-bail-remand": {
+      "templateId": "nys-in-criminal-checklist-bail-remand",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T10:46:00.312Z",
+      "bootstrapReason": "category:criminal",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-dc-t1-plaint-simple": {
+      "templateId": "nys-in-dc-t1-plaint-simple",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "Bootstrap curated from longest IN seed in category — pending SME re-attestation.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-07-29T12:11:52.488Z",
+      "bootstrapReason": "category:civil",
+      "rubric": {
+        "legalAccuracy": 0.8,
+        "proceduralCompleteness": 0.78,
+        "citationGrounding": 0.75,
+        "draftingQuality": 0.8,
+        "overall": 0.78
+      }
+    },
+    "nys-in-bnss-anticipatory-bail-482": {
+      "templateId": "nys-in-bnss-anticipatory-bail-482",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-regular-bail-480-483": {
+      "templateId": "nys-in-bnss-regular-bail-480-483",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-default-bail-1873": {
+      "templateId": "nys-in-bnss-default-bail-1873",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-cancellation-bail-492": {
+      "templateId": "nys-in-bnss-cancellation-bail-492",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-discharge-sessions-250": {
+      "templateId": "nys-in-bnss-discharge-sessions-250",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-discharge-warrant-262": {
+      "templateId": "nys-in-bnss-discharge-warrant-262",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-discharge-complaint-268": {
+      "templateId": "nys-in-bnss-discharge-complaint-268",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-alteration-charge-239": {
+      "templateId": "nys-in-bnss-alteration-charge-239",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-recall-witness-240": {
+      "templateId": "nys-in-bnss-recall-witness-240",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-summon-additional-accused-358": {
+      "templateId": "nys-in-bnss-summon-additional-accused-358",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-compounding-359": {
+      "templateId": "nys-in-bnss-compounding-359",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-withdrawal-prosecution-360": {
+      "templateId": "nys-in-bnss-withdrawal-prosecution-360",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-remand-187": {
+      "templateId": "nys-in-bnss-remand-187",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-production-documents-94": {
+      "templateId": "nys-in-bnss-production-documents-94",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-medical-examination-51-53": {
+      "templateId": "nys-in-bnss-medical-examination-51-53",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-plea-bargaining-289-300": {
+      "templateId": "nys-in-bnss-plea-bargaining-289-300",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-adjournment-346": {
+      "templateId": "nys-in-bnss-adjournment-346",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-summon-material-witness-348": {
+      "templateId": "nys-in-bnss-summon-material-witness-348",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-revision-438-445": {
+      "templateId": "nys-in-bnss-revision-438-445",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-transfer-hc-447": {
+      "templateId": "nys-in-bnss-transfer-hc-447",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-transfer-sessions-448": {
+      "templateId": "nys-in-bnss-transfer-sessions-448",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-suspension-sentence-430": {
+      "templateId": "nys-in-bnss-suspension-sentence-430",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-custody-property-497": {
+      "templateId": "nys-in-bnss-custody-property-497",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-disposal-property-498": {
+      "templateId": "nys-in-bnss-disposal-property-498",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-proclamation-attachment-84-89": {
+      "templateId": "nys-in-bnss-proclamation-attachment-84-89",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "nys-in-bnss-25-court-applications-checklist": {
+      "templateId": "nys-in-bnss-25-court-applications-checklist",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NV-BNSS-COURT-APPS-001 — 25 essential BNSS court applications pack. Section map corrected vs common list aliases. SME re-attestation recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-03T12:54:03.563Z",
+      "bootstrapReason": "bnss-court-apps-2026-08",
+      "rubric": {
+        "legalAccuracy": 0.86,
+        "proceduralCompleteness": 0.88,
+        "citationGrounding": 0.84,
+        "draftingQuality": 0.87,
+        "overall": 0.86
+      }
+    },
+    "domain-general-change-policy": {
+      "templateId": "domain-general-change-policy",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NYV curated India court/practice form — SME attestation still recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-16T07:45:53.430Z",
+      "bootstrapReason": "nyv-document-curated",
+      "rubric": {
+        "legalAccuracy": 0.85,
+        "proceduralCompleteness": 0.85,
+        "citationGrounding": 0.8,
+        "draftingQuality": 0.85,
+        "overall": 0.84
+      }
+    },
+    "domain-healthcare-incident-intake": {
+      "templateId": "domain-healthcare-incident-intake",
+      "status": "platform_curated",
+      "reviewerRole": "platform",
+      "notes": "NYV curated India court/practice form — SME attestation still recommended.",
+      "jurisdiction_code": "IN",
+      "updatedAt": "2026-08-16T07:45:53.430Z",
+      "bootstrapReason": "nyv-document-curated",
+      "rubric": {
+        "legalAccuracy": 0.85,
+        "proceduralCompleteness": 0.85,
+        "citationGrounding": 0.8,
+        "draftingQuality": 0.85,
+        "overall": 0.84
+      }
+    }
+  }
+}

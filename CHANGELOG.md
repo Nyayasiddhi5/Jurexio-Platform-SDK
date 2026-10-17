@@ -1,0 +1,21 @@
+# Jurexio Platform SDK — Changelog
+
+## [1.0.0] — Unreleased
+
+### Added — JRX-PROGRAM-001 (2026-10-17)
+
+- Re-export from Nyayavigya `aeab32ff` (5837 files); `UPSTREAM-NYV-SHA.txt`.
+- Mechanical rename: `nv-*` → `jrx-*` (879 files), `/api/nv/` → `/api/jrx/` in product paths.
+- `NYS-Agentic-AI/` → `jrx-search/` (JRX Search API).
+- `@jurexio/client-sdk@1.0.0` with `JrxClient` export alias.
+- `jrx-env-bootstrap.ts`, `guardrail:jrx-brands`, GitHub Actions `jrx-ci.yml`.
+- Docs: `JRX-NAMING-AND-BOUNDARY-RFC.md`, `JRX-OPERATING-MODEL.md`, `JUREXIO-ENTERPRISE-SDK.md`, `JRX-SEARCH-US-CORPUS-PLAN.md`, residency/SOC2 boundary.
+- NYV/NSP handoffs moved to `documents/working/archive/upstream-nyv/`.
+
+### Tooling
+
+- `scripts/jurexio-reapply-patches.sh`, `jrx-phase2-rename.py`, `jrx-phase2-brand-scrub.py`.
+
+### Earlier scaffold
+
+- JRX-ENV-LOCAL-001, JRX-PHASE2-001 alias patches (`patches/jurexio/`).

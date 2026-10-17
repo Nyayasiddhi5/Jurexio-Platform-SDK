@@ -1,0 +1,304 @@
+[
+  {
+    "kind": "template",
+    "slug": "in-sc-interim-stay-order",
+    "title": "IN — Supreme Court Interim Stay Order (template)",
+    "category": "constitutional",
+    "jurisdiction": "IN",
+    "description": "IN — Supreme Court Interim Stay Order (template)",
+    "tags": [
+      "IN",
+      "order",
+      "filing-ready",
+      "supreme-court",
+      "interim"
+    ],
+    "body": "# INTERIM STAY ORDER — SUPREME COURT OF INDIA\n\n**Petition No.** ________ / ________  \n**Petitioner:** ________  \n**Respondent:** ________  \n\nUpon hearing counsel and perusing the record, IT IS ORDERED that:\n\n1. Operation of the Impugned Order / Notice dated ________ is stayed pending further orders.\n2. Parties shall maintain status quo as on ________ regarding ________.\n3. Respondent shall file counter-affidavit within ________ weeks; rejoinder within ________ weeks thereafter.\n4. List on ________.\n\n**Place:** New Delhi  \n**Date:** ________  \n\n*(Judge / Bench)*  \n*Jurexio India parity pack — filing-ready order*"
+  },
+  {
+    "kind": "template",
+    "slug": "in-hc-writ-admission-order",
+    "title": "IN — High Court Writ Admission / Rule Nisi Order",
+    "category": "constitutional",
+    "jurisdiction": "IN",
+    "description": "IN — High Court Writ Admission / Rule Nisi Order",
+    "tags": [
+      "IN",
+      "order",
+      "filing-ready",
+      "high-court",
+      "writ"
+    ],
+    "body": "# ADMISSION ORDER — HIGH COURT OF ________\n\n**W.P. (C) No.** ________  \nAdmit. Issue notice to respondents returnable on ________.  \nInterim relief as prayed in para ________ is granted / refused as under: ________.  \nDasti permitted.  \n\n**Date:** ________"
+  },
+  {
+    "kind": "template",
+    "slug": "in-district-injunction-order",
+    "title": "IN — Temporary Injunction Order (Order XXXIX CPC)",
+    "category": "civil",
+    "jurisdiction": "IN",
+    "description": "IN — Temporary Injunction Order (Order XXXIX CPC)",
+    "tags": [
+      "IN",
+      "order",
+      "filing-ready",
+      "cpc",
+      "injunction"
+    ],
+    "body": "# TEMPORARY INJUNCTION ORDER\n\n**Suit No.** ________ — Court of ________  \nPlaintiff ________ vs Defendant ________  \n\nHeard. Prima facie case / balance of convenience / irreparable injury considered.  \nIT IS ORDERED that defendants are restrained from ________ until further orders.  \nBond / undertaking as directed. Next date: ________."
+  },
+  {
+    "kind": "template",
+    "slug": "in-nclt-admission-order",
+    "title": "IN — NCLT Admission Order (IBC outline)",
+    "category": "insolvency",
+    "jurisdiction": "IN",
+    "description": "IN — NCLT Admission Order (IBC outline)",
+    "tags": [
+      "IN",
+      "order",
+      "filing-ready",
+      "ibc",
+      "nclt"
+    ],
+    "body": "# NCLT — ADMISSION ORDER (CP (IB) No. ________)\n\nApplication under Section ________ of the IBC is admitted.  \nIRP ________ is appointed. Moratorium under Section 14 operates.  \nIRP to make public announcement; file progress as directed."
+  },
+  {
+    "kind": "template",
+    "slug": "in-consumer-commission-order",
+    "title": "IN — Consumer Commission Final Order (outline)",
+    "category": "consumer",
+    "jurisdiction": "IN",
+    "description": "IN — Consumer Commission Final Order (outline)",
+    "tags": [
+      "IN",
+      "order",
+      "filing-ready",
+      "consumer"
+    ],
+    "body": "# FINAL ORDER — ________ CONSUMER DISPUTES REDRESSAL COMMISSION\n\nComplaint No. ________  \nOpposite parties directed to ________ within ________ days.  \nCompensation ₹________; costs ₹________. Appeal rights noted."
+  },
+  {
+    "kind": "template",
+    "slug": "in-labour-award-order",
+    "title": "IN — Labour / Industrial Award Order (outline)",
+    "category": "employment",
+    "jurisdiction": "IN",
+    "description": "IN — Labour / Industrial Award Order (outline)",
+    "tags": [
+      "IN",
+      "order",
+      "filing-ready",
+      "labour"
+    ],
+    "body": "# AWARD / ORDER — ________  \n\nReference / ID No. ________  \nWorkman ________ vs Management ________  \nRelief: reinstatement / compensation / continuity as under: ________."
+  },
+  {
+    "kind": "template",
+    "slug": "in-family-interim-maintenance-order",
+    "title": "IN — Family Court Interim Maintenance Order",
+    "category": "family",
+    "jurisdiction": "IN",
+    "description": "IN — Family Court Interim Maintenance Order",
+    "tags": [
+      "IN",
+      "order",
+      "filing-ready",
+      "family",
+      "maintenance"
+    ],
+    "body": "# INTERIM MAINTENANCE ORDER — FAMILY COURT ________\n\nPetition No. ________  \nRespondent to pay ₹________ per month from ________. Arrears by ________.  \nNext date: ________."
+  },
+  {
+    "kind": "template",
+    "slug": "in-arbitration-section-17-order",
+    "title": "IN — Arbitral Tribunal Interim Measure Order (S.17)",
+    "category": "arbitration",
+    "jurisdiction": "IN",
+    "description": "IN — Arbitral Tribunal Interim Measure Order (S.17)",
+    "tags": [
+      "IN",
+      "order",
+      "filing-ready",
+      "arbitration"
+    ],
+    "body": "# INTERIM MEASURES ORDER — ARBITRAL TRIBUNAL\n\nArbitration between ________ and ________  \nUnder Section 17 of the Arbitration & Conciliation Act, 1996:  \nParties directed to ________. Security / bank guarantee as: ________."
+  },
+  {
+    "kind": "checklist",
+    "slug": "in-bns-fir-investigation-checklist",
+    "title": "IN Checklist — FIR to Charge-sheet (BNS/BNSS)",
+    "category": "criminal",
+    "jurisdiction": "IN",
+    "description": "IN Checklist — FIR to Charge-sheet (BNS/BNSS)",
+    "tags": [
+      "IN",
+      "checklist",
+      "bns",
+      "bnss",
+      "fir"
+    ],
+    "body": "# Checklist — FIR → Investigation → Charge-sheet (India)\n\n- [ ] FIR particulars / zero FIR if applicable\n- [ ] Sections under BNS mapped; prior IPC equivalents noted if needed\n- [ ] Seizure memos / 161/183 statements plan (BNSS)\n- [ ] Medical / FSL / CDR requests logged\n- [ ] Default bail calendar tracked\n- [ ] Charge-sheet annexures index complete\n- [ ] Victim / witness protection notes\n*Parity pack 2026-07*"
+  },
+  {
+    "kind": "checklist",
+    "slug": "in-writ-petition-filing-checklist",
+    "title": "IN Checklist — Article 226/32 Writ Filing",
+    "category": "constitutional",
+    "jurisdiction": "IN",
+    "description": "IN Checklist — Article 226/32 Writ Filing",
+    "tags": [
+      "IN",
+      "checklist",
+      "writ",
+      "filing-ready"
+    ],
+    "body": "# Checklist — Writ Petition Filing\n\n- [ ] Cause title & jurisdiction (HC/SC)\n- [ ] Facts chronology with dates\n- [ ] Grounds mapped to Articles / statutes\n- [ ] Interim relief prayers precise\n- [ ] Annexures & vakalatnama\n- [ ] Caveat / listing urgency note\n- [ ] Service plan"
+  },
+  {
+    "kind": "checklist",
+    "slug": "in-commercial-suit-checklist",
+    "title": "IN Checklist — Commercial Suit (CCA)",
+    "category": "commercial",
+    "jurisdiction": "IN",
+    "description": "IN Checklist — Commercial Suit (CCA)",
+    "tags": [
+      "IN",
+      "checklist",
+      "commercial-courts"
+    ],
+    "body": "# Checklist — Commercial Suit\n\n- [ ] Specified value / CCA applicability\n- [ ] Pre-institution mediation (where required)\n- [ ] Plaint + documents under Order XI\n- [ ] Urgent interim applications\n- [ ] Case management timeline"
+  },
+  {
+    "kind": "checklist",
+    "slug": "in-ibc-section-7-checklist",
+    "title": "IN Checklist — IBC Section 7 / 9 Filing",
+    "category": "insolvency",
+    "jurisdiction": "IN",
+    "description": "IN Checklist — IBC Section 7 / 9 Filing",
+    "tags": [
+      "IN",
+      "checklist",
+      "ibc",
+      "nclt"
+    ],
+    "body": "# Checklist — IBC Application\n\n- [ ] Debt & default evidence\n- [ ] Limitation check\n- [ ] Form & fee\n- [ ] Proposed IRP consent\n- [ ] Advance service / e-filing"
+  },
+  {
+    "kind": "checklist",
+    "slug": "in-dpdpa-compliance-checklist",
+    "title": "IN Checklist — DPDPA Compliance Readiness",
+    "category": "privacy",
+    "jurisdiction": "IN",
+    "description": "IN Checklist — DPDPA Compliance Readiness",
+    "tags": [
+      "IN",
+      "checklist",
+      "dpdpa",
+      "compliance"
+    ],
+    "body": "# Checklist — DPDPA\n\n- [ ] Data principal notice & consent records\n- [ ] Purpose limitation map\n- [ ] Cross-border transfer basis\n- [ ] Significant Data Fiduciary triggers\n- [ ] Breach notification playbook\n- [ ] Retention & deletion schedule"
+  },
+  {
+    "kind": "checklist",
+    "slug": "in-sebi-lodr-disclosure-checklist",
+    "title": "IN Checklist — SEBI LODR Material Disclosure",
+    "category": "corporate",
+    "jurisdiction": "IN",
+    "description": "IN Checklist — SEBI LODR Material Disclosure",
+    "tags": [
+      "IN",
+      "checklist",
+      "sebi",
+      "lodr"
+    ],
+    "body": "# Checklist — LODR Disclosure\n\n- [ ] Event classification (Reg. 30)\n- [ ] Timeline (immediate / 24h)\n- [ ] Board / committee minutes\n- [ ] Stock exchange filing pack\n- [ ] Insider trading window check"
+  },
+  {
+    "kind": "checklist",
+    "slug": "in-sarfaesi-enforcement-checklist",
+    "title": "IN Checklist — SARFAESI Enforcement Steps",
+    "category": "banking",
+    "jurisdiction": "IN",
+    "description": "IN Checklist — SARFAESI Enforcement Steps",
+    "tags": [
+      "IN",
+      "checklist",
+      "sarfaesi",
+      "banking"
+    ],
+    "body": "# Checklist — SARFAESI\n\n- [ ] NPA classification evidence\n- [ ] 13(2) notice\n- [ ] Representation disposal\n- [ ] 13(4) measures / symbolic possession\n- [ ] DM / CMM application if needed\n- [ ] Auction / sale compliance"
+  },
+  {
+    "kind": "checklist",
+    "slug": "in-arbitration-section-11-checklist",
+    "title": "IN Checklist — Section 11 Appointment Petition",
+    "category": "arbitration",
+    "jurisdiction": "IN",
+    "description": "IN Checklist — Section 11 Appointment Petition",
+    "tags": [
+      "IN",
+      "checklist",
+      "arbitration",
+      "section-11"
+    ],
+    "body": "# Checklist — Section 11\n\n- [ ] Arbitration agreement extract\n- [ ] Notice invoking arbitration\n- [ ] Seat / venue / rules\n- [ ] Impasse evidence\n- [ ] Proposed arbitrator disclosures"
+  },
+  {
+    "kind": "template",
+    "slug": "in-bail-application-bnss",
+    "title": "IN Filing — Bail Application (BNSS)",
+    "category": "criminal",
+    "jurisdiction": "IN",
+    "description": "IN Filing — Bail Application (BNSS)",
+    "tags": [
+      "IN",
+      "filing-ready",
+      "bail",
+      "bnss"
+    ],
+    "body": "# BAIL APPLICATION\n\nIn the Court of ________  \nApplicant / Accused: ________  \nFIR No. ________ P.S. ________ Sections: ________ (BNS)\n\nMost respectfully showeth…  \nPrayer for regular / anticipatory bail with conditions as the Court may deem fit."
+  },
+  {
+    "kind": "template",
+    "slug": "in-specific-performance-plaint",
+    "title": "IN Filing — Suit for Specific Performance (outline)",
+    "category": "civil",
+    "jurisdiction": "IN",
+    "description": "IN Filing — Suit for Specific Performance (outline)",
+    "tags": [
+      "IN",
+      "filing-ready",
+      "specific-relief"
+    ],
+    "body": "# PLAINT — SPECIFIC PERFORMANCE\n\nPlaintiff ________ vs Defendant ________  \nAgreement dated ________; breach particulars; readiness & willingness; prayer for decree + injunction + costs."
+  },
+  {
+    "kind": "template",
+    "slug": "in-rti-first-appeal",
+    "title": "IN Filing — RTI First Appeal",
+    "category": "compliance",
+    "jurisdiction": "IN",
+    "description": "IN Filing — RTI First Appeal",
+    "tags": [
+      "IN",
+      "filing-ready",
+      "rti"
+    ],
+    "body": "# FIRST APPEAL UNDER RTI ACT\n\nTo: First Appellate Authority, ________  \nAgainst CPIO reply dated ________ to RTI Application No. ________  \nGrounds & prayer for disclosure."
+  },
+  {
+    "kind": "template",
+    "slug": "in-gst-appeal-outline",
+    "title": "IN Filing — GST Appeal Outline",
+    "category": "compliance",
+    "jurisdiction": "IN",
+    "description": "IN Filing — GST Appeal Outline",
+    "tags": [
+      "IN",
+      "filing-ready",
+      "gst"
+    ],
+    "body": "# GST APPEAL OUTLINE\n\nAppeal against Order-in-Original / Order-in-Appeal No. ________  \nQuestions of law/fact; pre-deposit; prayer."
+  }
+]

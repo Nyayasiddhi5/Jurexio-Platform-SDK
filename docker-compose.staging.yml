@@ -1,0 +1,205 @@
+# =============================================================================
+# Nyayavigya 3.1.2 — Staging compose (mandatory gate before prod)
+#
+# Runs on the same EC2 as production but with:
+#   - separate ports (5500-5605 instead of 5000-5105)
+#   - separate DB schema (nyv_staging on the same RDS multi-AZ instance)
+#   - separate Redis db index (db 1 instead of db 0)
+#   - separate AWS Secrets Manager prefix: nyayavigya/staging/<service>
+#   - own Caddy + ALB target group (`staging.nyayasiddhi.online` and the five
+#     `staging-<plat>.nyayasiddhi.online` subdomains)
+#   - weekly reseed via cron: scripts/staging-reseed.sh
+#
+# Promotion: bash scripts/promote-staging-to-prod.sh <image-sha>
+# =============================================================================
+
+x-eco-staging-healthcheck: &eco-staging-healthcheck
+  interval: 30s
+  timeout: 5s
+  retries: 3
+
+services:
+
+  gateway-staging:
+    image: ${NYV_IMAGE_GATEWAY_STAGING:-789925699169.dkr.ecr.ap-south-1.amazonaws.com/nyv-gateway:staging}
+    container_name: nyv-gateway-staging
+    entrypoint: ["/app/scripts/secrets-entrypoint.sh"]
+    command: ["node", "dist/index.js"]
+    env_file: .env.staging
+    environment:
+      NODE_ENV: production
+      PORT: "5500"
+      NYV_PORT_GATEWAY: "5500"
+      NYV_ENV: staging
+      NYV_LOG_FORMAT: json
+      NYV_LOG_LEVEL: ${NYV_STAGING_LOG_LEVEL:-debug}
+      NYV_QUEUE_WORKERS: "on"
+      NYV_TENANT_ENFORCE: "1"
+      NYV_DB_SCHEMA: nyv_staging
+      NYV_REDIS_DB: "1"
+      NYV_SECRETS_BACKEND: "aws-secrets-manager"
+      NYV_SECRETS_PREFIX: "nyayavigya/staging/gateway"
+      AWS_REGION: ${AWS_REGION:-ap-south-1}
+    ports:
+      - "5500:5500"
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:5500/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 4
+      start_period: 60s
+    restart: unless-stopped
+    volumes:
+      - ./scripts/secrets-entrypoint.sh:/app/scripts/secrets-entrypoint.sh:ro
+    networks: [nyv-staging-net]
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: "${AWS_REGION:-ap-south-1}"
+        awslogs-group: "/aws/nyayavigya/staging/gateway"
+        awslogs-stream: "gateway-staging"
+        awslogs-create-group: "true"
+
+  console-staging:
+    image: ${NYV_IMAGE_CONSOLE_STAGING:-789925699169.dkr.ecr.ap-south-1.amazonaws.com/nyv-console:staging}
+    container_name: nyv-console-staging
+    depends_on: [gateway-staging]
+    environment:
+      NYV_API_BASE: http://nyv-gateway-staging:5500
+    ports:
+      - "5504:80"
+    restart: unless-stopped
+    networks: [nyv-staging-net]
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: "${AWS_REGION:-ap-south-1}"
+        awslogs-group: "/aws/nyayavigya/staging/console"
+        awslogs-stream: "console-staging"
+        awslogs-create-group: "true"
+
+  nym-staging:
+    image: ${NYV_IMAGE_NYM_STAGING:-789925699169.dkr.ecr.ap-south-1.amazonaws.com/nyv-nym-app:staging}
+    container_name: nyv-nym-staging
+    environment:
+      NYV_TENANT_ID: nym
+      NYV_SDK_BASE: http://nyv-gateway-staging:5500
+      NYV_SDK_API_KEY_REF: secret://nyayavigya/staging/nym/sdk_api_key
+    ports: ["5601:5101"]
+    restart: unless-stopped
+    networks: [nyv-staging-net]
+    healthcheck:
+      <<: *eco-staging-healthcheck
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:5101/health"]
+
+  nsp-staging:
+    image: ${NYV_IMAGE_NSP_STAGING:-789925699169.dkr.ecr.ap-south-1.amazonaws.com/nyv-nsp-app:staging}
+    container_name: nyv-nsp-staging
+    environment:
+      NYV_TENANT_ID: nsp
+      NYV_SDK_BASE: http://nyv-gateway-staging:5500
+      NYV_SDK_API_KEY_REF: secret://nyayavigya/staging/nsp/sdk_api_key
+    ports: ["5602:5102"]
+    restart: unless-stopped
+    networks: [nyv-staging-net]
+    healthcheck:
+      <<: *eco-staging-healthcheck
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:5102/health"]
+
+  nsi-staging:
+    image: ${NYV_IMAGE_NSI_STAGING:-789925699169.dkr.ecr.ap-south-1.amazonaws.com/nyv-nsi-app:staging}
+    container_name: nyv-nsi-staging
+    environment:
+      NYV_TENANT_ID: nsi
+      NYV_SDK_BASE: http://nyv-gateway-staging:5500
+      NYV_SDK_API_KEY_REF: secret://nyayavigya/staging/nsi/sdk_api_key
+    ports: ["5603:5103"]
+    restart: unless-stopped
+    networks: [nyv-staging-net]
+    healthcheck:
+      <<: *eco-staging-healthcheck
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:5103/health"]
+
+  nsa-staging:
+    image: ${NYV_IMAGE_NSA_STAGING:-789925699169.dkr.ecr.ap-south-1.amazonaws.com/nyv-nsa-app:staging}
+    container_name: nyv-nsa-staging
+    environment:
+      NYV_TENANT_ID: nsa
+      NYV_SDK_BASE: http://nyv-gateway-staging:5500
+      NYV_SDK_API_KEY_REF: secret://nyayavigya/staging/nsa/sdk_api_key
+    ports: ["5604:5104"]
+    restart: unless-stopped
+    networks: [nyv-staging-net]
+    healthcheck:
+      <<: *eco-staging-healthcheck
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:5104/health"]
+
+  nsm-staging:
+    image: ${NYV_IMAGE_NSM_STAGING:-789925699169.dkr.ecr.ap-south-1.amazonaws.com/nyv-nsm-app:staging}
+    container_name: nyv-nsm-staging
+    environment:
+      NYV_TENANT_ID: nsm
+      NYV_SDK_BASE: http://nyv-gateway-staging:5500
+      NYV_SDK_API_KEY_REF: secret://nyayavigya/staging/nsm/sdk_api_key
+    ports: ["5605:5105"]
+    restart: unless-stopped
+    networks: [nyv-staging-net]
+    healthcheck:
+      <<: *eco-staging-healthcheck
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:5105/health"]
+
+  # ── Edge — Caddy on :80 so the staging ALB target-group health-check passes ──
+  # Uses the same custom-built nyv-caddy:2.8-ratelimit image as prod (xcaddy +
+  # caddy-ratelimit). The staging Caddyfile only wires the staging hosts plus a
+  # `/health -> 200` catch-all that the ALB hits at GET http://EC2:80/health.
+  #
+  # OPERATOR NOTE — :80 conflict with prod compose:
+  #   docker-compose.ecosystem.yml ALSO publishes :80 (its own caddy service).
+  #   Running both compose files on the SAME EC2 box at the same time will fail
+  #   with a "port already allocated" error. The supported topologies are:
+  #     (a) Separate EC2 hosts: one for prod, one for staging (recommended;
+  #         each gets its own ALB target group). This is the prod plan.
+  #     (b) Same box, time-multiplexed: bring one stack down before bringing
+  #         the other up (only used during DR drills / recovery rehearsals).
+  #     (c) Same box, port-remapped staging: override `ports: ["8080:80"]`
+  #         here and point the staging ALB target group at port 8080. Only
+  #         useful for short-lived experiments.
+  #   See `docs/v3.1.2/completed_docs/NYV-INCIDENT-RUNBOOK.md` → "edge port conflict".
+  caddy-staging:
+    build:
+      context: ./infra/caddy
+      dockerfile: Dockerfile
+    image: nyv-caddy:2.8-ratelimit
+    container_name: nyv-caddy-staging
+    depends_on:
+      - gateway-staging
+      - console-staging
+    ports:
+      - "80:80"
+    volumes:
+      - ./infra/caddy/Caddyfile.staging:/etc/caddy/Caddyfile:ro
+      - caddy-staging-data:/data
+      - caddy-staging-config:/config
+    restart: unless-stopped
+    networks: [nyv-staging-net]
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:80/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 4
+      start_period: 30s
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: "${AWS_REGION:-ap-south-1}"
+        awslogs-group: "/aws/nyayavigya/staging/caddy"
+        awslogs-stream: "caddy-staging"
+        awslogs-create-group: "true"
+
+networks:
+  nyv-staging-net:
+    driver: bridge
+
+volumes:
+  caddy-staging-data:
+  caddy-staging-config:

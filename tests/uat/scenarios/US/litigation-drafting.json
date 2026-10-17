@@ -1,0 +1,228 @@
+{
+  "$schema": "../scenario.schema.json",
+  "jurisdiction": "US",
+  "category": "litigation-drafting",
+  "scenarios": [
+    {
+      "id": "US-LIT-001",
+      "title": "Federal complaint under FRCP Rule 8 (diversity, breach of contract)",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P03",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/draft",
+        "auth": "sdk-key",
+        "body": {
+          "template": "federal_complaint",
+          "parameters": {
+            "jurisdiction": "US",
+            "court": "U.S. District Court, S.D.N.Y.",
+            "basis": "diversity",
+            "plaintiff": {
+              "name": "Acme Corp.",
+              "state": "Delaware"
+            },
+            "defendant": {
+              "name": "Vendor LLC",
+              "state": "California"
+            },
+            "amountInControversy": 250000,
+            "claims": [
+              "breach of contract",
+              "promissory estoppel",
+              "unjust enrichment"
+            ],
+            "facts": "You are a senior legal AI assistant for US jurisdiction.\n\n  Question: Federal complaint under FRCP Rule 8 (diversity, breach of contract)\n\n  Provide a structured legal analysis including:\n  1. The applicable statute / regulation / case law (cite specific section numbers).\n  2. The legal test or compliance threshold that triggers the rule.\n  3. Step-by-step reasoning applied to the facts implied by the question.\n  4. The specific compliance action, filing, disclosure, or remedy required.\n  5. Material risks or exceptions a practitioner should flag to the client.\n\n  Be concrete. Cite specific legal authorities. Avoid generic disclaimers."
+          },
+          "jurisdiction": "US"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "28 U.S.C. § 1332",
+            "FRCP",
+            "Rule 8",
+            "demand for jury trial"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Diversity + amount-in-controversy pleaded; numbered paragraphs; jury demand under Rule 38; venue under § 1391."
+    },
+    {
+      "id": "US-LIT-002",
+      "title": "Motion to Dismiss under FRCP 12(b)(6) (Twombly/Iqbal)",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P03",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/draft",
+        "auth": "sdk-key",
+        "body": {
+          "template": "motion_to_dismiss",
+          "parameters": {
+            "jurisdiction": "US",
+            "rule": "12(b)(6)",
+            "againstClaim": "negligent misrepresentation",
+            "complaintRef": "fixtures/US/complaint-001.pdf",
+            "facts": "You are a senior legal AI assistant for US jurisdiction.\n\n  Question: Motion to Dismiss under FRCP 12(b)(6) (Twombly/Iqbal)\n\n  Provide a structured legal analysis including:\n  1. The applicable statute / regulation / case law (cite specific section numbers).\n  2. The legal test or compliance threshold that triggers the rule.\n  3. Step-by-step reasoning applied to the facts implied by the question.\n  4. The specific compliance action, filing, disclosure, or remedy required.\n  5. Material risks or exceptions a practitioner should flag to the client.\n\n  Be concrete. Cite specific legal authorities. Avoid generic disclaimers."
+          },
+          "jurisdiction": "US"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "Twombly",
+            "Iqbal",
+            "plausibility",
+            "Rule 12(b)(6)"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Cites 550 U.S. 544 + 556 U.S. 662; argues factual insufficiency; alternative — Rule 9(b) heightened pleading if fraud-adjacent."
+    },
+    {
+      "id": "US-LIT-003",
+      "title": "Discovery requests — 25 RFPs + 10 Interrogatories (commercial dispute)",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P03",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/draft",
+        "auth": "sdk-key",
+        "body": {
+          "template": "discovery_requests",
+          "parameters": {
+            "jurisdiction": "US",
+            "subTypes": [
+              "RFP",
+              "interrogatories"
+            ],
+            "rfpCount": 25,
+            "rogCount": 10,
+            "matterContext": "Software licensing dispute; allegations of overcharging and unauthorised use audit",
+            "facts": "You are a senior legal AI assistant for US jurisdiction.\n\n  Question: Discovery requests — 25 RFPs + 10 Interrogatories (commercial dispute)\n\n  Provide a structured legal analysis including:\n  1. The applicable statute / regulation / case law (cite specific section numbers).\n  2. The legal test or compliance threshold that triggers the rule.\n  3. Step-by-step reasoning applied to the facts implied by the question.\n  4. The specific compliance action, filing, disclosure, or remedy required.\n  5. Material risks or exceptions a practitioner should flag to the client.\n\n  Be concrete. Cite specific legal authorities. Avoid generic disclaimers."
+          },
+          "jurisdiction": "US"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "FRCP 33",
+            "FRCP 34",
+            "ESI",
+            "proportional"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Definitions section; ESI protocol; proportionality (Rule 26(b)(1)) anchored in scope; numbered + topically grouped."
+    },
+    {
+      "id": "US-LIT-004",
+      "title": "Appellate brief — Statement of the Case + Argument (Bluebook citing)",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P03",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/draft",
+        "auth": "sdk-key",
+        "body": {
+          "template": "appellate_brief",
+          "parameters": {
+            "jurisdiction": "US",
+            "court": "U.S. Court of Appeals, 9th Circuit",
+            "issueOnAppeal": "Whether the district court abused its discretion in denying class certification under FRCP 23(b)(3)",
+            "wordLimit": 14000,
+            "facts": "You are a senior legal AI assistant for US jurisdiction.\n\n  Question: Appellate brief — Statement of the Case + Argument (Bluebook citing)\n\n  Provide a structured legal analysis including:\n  1. The applicable statute / regulation / case law (cite specific section numbers).\n  2. The legal test or compliance threshold that triggers the rule.\n  3. Step-by-step reasoning applied to the facts implied by the question.\n  4. The specific compliance action, filing, disclosure, or remedy required.\n  5. Material risks or exceptions a practitioner should flag to the client.\n\n  Be concrete. Cite specific legal authorities. Avoid generic disclaimers."
+          },
+          "jurisdiction": "US"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 3,
+          "of": [
+            "abuse of discretion",
+            "Comcast",
+            "Wal-Mart v. Dukes",
+            "Rule 23(b)(3)",
+            "predominance"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Bluebook 21st-edition cite form; standard of review section; addresses Comcast / Dukes line; word count under limit."
+    },
+    {
+      "id": "US-LIT-005",
+      "title": "Settlement demand letter (PI, soft-tissue, MVA in CA)",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P03",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/draft",
+        "auth": "sdk-key",
+        "body": {
+          "template": "demand_letter",
+          "parameters": {
+            "jurisdiction": "US",
+            "state": "CA",
+            "matterType": "personal_injury_mva",
+            "specials": 18500,
+            "policyLimit": 100000,
+            "liabilityFacts": "Defendant rear-ended client at red light; police report attributes 100% fault to defendant.",
+            "facts": "You are a senior legal AI assistant for US jurisdiction.\n\n  Question: Settlement demand letter (PI, soft-tissue, MVA in CA)\n\n  Provide a structured legal analysis including:\n  1. The applicable statute / regulation / case law (cite specific section numbers).\n  2. The legal test or compliance threshold that triggers the rule.\n  3. Step-by-step reasoning applied to the facts implied by the question.\n  4. The specific compliance action, filing, disclosure, or remedy required.\n  5. Material risks or exceptions a practitioner should flag to the client.\n\n  Be concrete. Cite specific legal authorities. Avoid generic disclaimers."
+          },
+          "jurisdiction": "US"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "CCP § 998",
+            "policy limits",
+            "general damages",
+            "liability is clear"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Specials + generals broken out; CCP 998 offer hooks; policy-limits demand framed within Comunale/Crisci timeframe.",
+      "costSensitive": true
+    }
+  ]
+}

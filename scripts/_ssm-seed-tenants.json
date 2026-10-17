@@ -1,0 +1,16 @@
+{
+  "commands": [
+    "set -e",
+    "REPO=$(ls -dt /opt/nyayavigya/repo/*/ 2>/dev/null | head -1)",
+    "echo REPO=$REPO",
+    "test -n \"$REPO\"",
+    "test -f \"$REPO/.env\"",
+    "aws s3 cp s3://nyayavigya-sdk-devapp/product-readiness/jrx-seed-demo-tenants.ts /tmp/jrx-seed-demo-tenants.ts --region ap-south-1",
+    "cp /tmp/jrx-seed-demo-tenants.ts \"$REPO/scripts/jrx-seed-demo-tenants.ts\"",
+    "ADMIN_URL=$(grep -E '^DATABASE_URL_ADMIN=' \"$REPO/.env\" | head -1 | sed -E 's/^DATABASE_URL_ADMIN=//; s/^\"(.*)\"$/\\1/; s/^'\\''(.*)'\\''$/\\1/')",
+    "DB_URL=$(grep -E '^DATABASE_URL=' \"$REPO/.env\" | head -1 | sed -E 's/^DATABASE_URL=//; s/^\"(.*)\"$/\\1/; s/^'\\''(.*)'\\''$/\\1/')",
+    "if [ -z \"$ADMIN_URL\" ]; then echo 'WARN: DATABASE_URL_ADMIN missing'; ADMIN_URL=$DB_URL; fi",
+    "echo \"using_admin=$([ -n \"$ADMIN_URL\" ] && echo yes)\"",
+    "docker run --rm --network host -v \"$REPO:/work\" -w /work -e DATABASE_URL_ADMIN=\"$ADMIN_URL\" -e DATABASE_URL=\"$DB_URL\" node:22-bookworm-slim bash -lc 'npm install bcrypt pg tsx --no-save >/tmp/npm.log 2>&1; npx tsx scripts/jrx-seed-demo-tenants.ts'"
+  ]
+}

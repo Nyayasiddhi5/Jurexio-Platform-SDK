@@ -1,0 +1,30 @@
+{
+  "version": "5.0.0",
+  "primary": {
+    "provider": "s3",
+    "envVars": ["AWS_REGION","S3_BUCKET","AWS_ACCESS_KEY_ID","AWS_SECRET_ACCESS_KEY"],
+    "bucket": "nyayavigya-prod-docs",
+    "region": "ap-south-1",
+    "kmsKeyArn": "arn:aws:kms:ap-south-1:000000000000:key/REPLACE-ME",
+    "encryption": "SSE-KMS",
+    "lifecycle": [
+      { "prefix": "uploads/",   "transitionDays": 30,  "storageClass": "STANDARD_IA" },
+      { "prefix": "processed/", "transitionDays": 90,  "storageClass": "GLACIER_IR" },
+      { "prefix": "audit/",     "expirationDays": 2555, "storageClass": "DEEP_ARCHIVE" }
+    ]
+  },
+  "secondary": { "provider": "replit-object-storage", "use": "dev-only" },
+  "paths": {
+    "uploads":     "uploads/{org_id}/{yyyy}/{mm}/{dd}/{doc_id}",
+    "processed":   "processed/{org_id}/{doc_id}",
+    "embeddings":  "embeddings/{org_id}/{collection}/{doc_id}",
+    "audit":       "audit/{yyyy}/{mm}/{dd}/{request_id}.jsonl",
+    "voiceClips":  "voice/{org_id}/{session_id}/{ts}.{ext}",
+    "exports":     "exports/{org_id}/{user_id}/{ts}.zip",
+    "watermarked": "watermarked/{doc_id}.pdf",
+    "agentRegistry": "agents/{jurisdiction}/{agent_id}.json"
+  },
+  "limits": { "maxUploadMb": 200, "maxBatchUploadCount": 50, "preSignedUrlTtlSec": 3600 },
+  "antivirus": { "enabled": true, "engine": "clamav-sidecar" },
+  "cdn": { "provider": "cloudfront", "domain": "cdn.nyayavigya.in", "cacheTtlSec": 3600 }
+}

@@ -1,0 +1,52 @@
+{
+  "timestamp": "2026-06-15T06:20:24.544964Z",
+  "base": "https://api.nyayasiddhi.online",
+  "healthVersion": "5.1.0",
+  "registryVersion": "5.1.0",
+  "totalAgents": 164,
+  "fix": "NYV-SDK-AUTO-ORCH-001 (fa5155072, b4ab13476, 856c74737)",
+  "ssmCommandId": "9450461c-47fd-4b2a-a276-3afe7286f5b7",
+  "verdict": "PARTIAL",
+  "passCount": "2/3",
+  "beforeAfterNote": "Before fix: partner /orchestrate without orchestrationMode fell to single-shot ring at tier default. After fix: complex prompts auto-engage Queen with full metadata.",
+  "results": [
+    {
+      "id": "simple",
+      "httpStatus": 200,
+      "elapsedMs": 15394,
+      "queenEngaged": false,
+      "pass": true,
+      "meta": {
+        "tier": "pro",
+        "model": "anthropic/claude-opus-4-7",
+        "complexity": "simple",
+        "contentLength": 1264
+      }
+    },
+    {
+      "id": "complex-contract",
+      "httpStatus": 200,
+      "elapsedMs": 134368,
+      "queenEngaged": true,
+      "pass": true,
+      "meta": {
+        "autoOrchestrated": true,
+        "orchestrationMode": "auto",
+        "orchestrationPattern": "swarm",
+        "tier": "pro",
+        "model": "claude-opus-4-6",
+        "provider": "queen-orchestrator",
+        "executionsCount": 5,
+        "contentLength": 9343,
+        "totalTokens": { "input": 34695.75, "output": 5176.75 }
+      }
+    },
+    {
+      "id": "complex-multi-domain",
+      "httpStatus": 504,
+      "elapsedMs": 300010,
+      "pass": false,
+      "error": "504 Gateway Time-out (edge/ALB limit on long Queen run)"
+    }
+  ]
+}

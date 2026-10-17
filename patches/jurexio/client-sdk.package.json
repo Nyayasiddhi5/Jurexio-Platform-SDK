@@ -1,0 +1,67 @@
+{
+  "name": "@jurexio/client-sdk",
+  "version": "1.0.0",
+  "description": "Jurexio Platform — Official TypeScript Client SDK (Legal AI gateway `/api/jrx/`).",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./patterns": {
+      "import": "./dist/api/PatternsApi.js",
+      "require": "./dist/api/PatternsApi.js",
+      "types": "./dist/api/PatternsApi.d.ts"
+    },
+    "./streaming": {
+      "import": "./dist/NyvStreamReader.js",
+      "require": "./dist/NyvStreamReader.js",
+      "types": "./dist/NyvStreamReader.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc && echo 'Jurexio Client SDK built'",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "npm run build",
+    "publish:beta": "npm publish --tag beta --access public",
+    "publish:latest": "npm publish --tag latest --access public"
+  },
+  "keywords": [
+    "jurexio",
+    "legal-ai",
+    "india",
+    "sdk",
+    "typescript",
+    "llm",
+    "grpo",
+    "rag"
+  ],
+  "author": "Jurexio",
+  "license": "PROPRIETARY",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jurexio/platform-sdk"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^4.1.2",
+    "typescript": "^5.4.5",
+    "vitest": "^4.1.2"
+  },
+  "sideEffects": false
+}

@@ -1,0 +1,3177 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: catalog
+    description: Legal practice areas and task library
+  - name: runs
+    description: Agentic legal work runs
+  - name: dashboard
+    description: Dashboard aggregates
+  - name: caselaw
+    description: Real caselaw corpus search, citations, and verification
+  - name: chat
+    description: Legal Chat workspace — conversations, documents, and AI action modes
+  - name: statutes
+    description: Statutes corpora (BNS, BNSS, BSA, IPC, CrPC, Evidence Act, US Code) and IPC-BNS comparison
+  - name: retrieval
+    description: Retrieval-first answer planning over local legal corpora
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /categories:
+    get:
+      operationId: listCategories
+      tags: [catalog]
+      summary: List legal practice areas
+      parameters:
+        - name: jurisdiction
+          in: query
+          required: false
+          description: >-
+            Scope practice-area counts to a jurisdiction. Jurisdiction-neutral
+            (GLOBAL) tasks are always included alongside jurisdiction-specific ones.
+          schema:
+            $ref: "#/components/schemas/JurisdictionFilter"
+      responses:
+        "200":
+          description: Practice areas with task counts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+
+  /tasks:
+    get:
+      operationId: listTasks
+      tags: [catalog]
+      summary: List legal tasks from the benchmark library
+      parameters:
+        - name: jurisdiction
+          in: query
+          required: false
+          description: >-
+            Scope tasks to a jurisdiction. Returns tasks tagged for that
+            jurisdiction plus jurisdiction-neutral (GLOBAL) tasks.
+          schema:
+            $ref: "#/components/schemas/JurisdictionFilter"
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: workType
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Matching tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LegalTask"
+
+  /tasks/{id}:
+    get:
+      operationId: getTask
+      tags: [catalog]
+      summary: Get a single legal task with its grading rubric
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Task detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LegalTaskDetail"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /runs:
+    get:
+      operationId: listRuns
+      tags: [runs]
+      summary: List agentic work runs
+      parameters:
+        - name: jurisdiction
+          in: query
+          required: false
+          schema:
+            $ref: "#/components/schemas/JurisdictionFilter"
+          description: >-
+            Filter runs by recorded jurisdiction. Use ALL (default when omitted
+            in the dashboard) for any live jurisdiction plus legacy unscoped
+            rows. Concrete codes (IN, US, …) exact-match only.
+      responses:
+        "200":
+          description: Runs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Run"
+    post:
+      operationId: createRun
+      tags: [runs]
+      summary: Run the AI legal agent to perform a task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RunInput"
+      responses:
+        "201":
+          description: Completed run with generated work product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RunDetail"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /runs/stream:
+    post:
+      operationId: createRunStream
+      tags: [runs]
+      summary: Run the AI legal agent with live SSE streaming (events — status, delta, done, error)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RunInput"
+      responses:
+        "200":
+          description: Server-sent event stream. Events — status (phase updates), delta ({"text"} chunks), done (final RunDetail JSON), error ({"error"}).
+          content:
+            text/event-stream:
+              schema:
+                type: string
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /runs/{id}:
+    get:
+      operationId: getRun
+      tags: [runs]
+      summary: Get a single run with its work product and evaluation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Run detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RunDetail"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      operationId: deleteRun
+      tags: [runs]
+      summary: Delete a run
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /runs/{id}/evaluate:
+    post:
+      operationId: evaluateRun
+      tags: [runs]
+      summary: Grade a run's work product against the task rubric using an AI judge
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Evaluation result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Evaluation"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /caselaw/search:
+    get:
+      operationId: searchCaselaw
+      tags: [caselaw]
+      summary: Search real caselaw (Indian SC corpus or live US CourtListener)
+      parameters:
+        - name: jurisdiction
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/Jurisdiction"
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 2
+        - name: year
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: yearFrom
+          in: query
+          required: false
+          description: Inclusive lower year bound (counsel corpus 1950–2026)
+          schema:
+            type: integer
+        - name: yearTo
+          in: query
+          required: false
+          description: Inclusive upper year bound
+          schema:
+            type: integer
+        - name: court
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: courtType
+          in: query
+          required: false
+          description: Indian court level filter (sc = Supreme Court, hc = High Courts)
+          schema:
+            type: string
+            enum: [sc, hc]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: mode
+          in: query
+          required: false
+          description: >-
+            Indian RDS backend only. hybrid (default) = FTS + pgvector RRF;
+            fts = keyword-only full-text search.
+          schema:
+            type: string
+            enum: [hybrid, fts]
+            default: hybrid
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaselawSearchResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "502":
+          description: Upstream data source failure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /caselaw/documents/{id}:
+    get:
+      operationId: getCaselawDocument
+      tags: [caselaw]
+      summary: Get a single caselaw document from the local corpus
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Document
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaselawDoc"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /caselaw/documents/{id}/pdf-url:
+    get:
+      operationId: getCaselawDocumentPdfUrl
+      tags: [caselaw]
+      summary: Resolve a working judgment PDF URL (absolute, public bucket, or presigned)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Resolved PDF URL
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaselawPdfUrl"
+        "404":
+          description: No PDF available for this document
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /caselaw/verify-citation:
+    post:
+      operationId: verifyCitation
+      tags: [caselaw]
+      summary: Verify a citation or case name against real legal databases
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerifyCitationInput"
+      responses:
+        "200":
+          description: Verification result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifyCitationResult"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /caselaw/stats:
+    get:
+      operationId: getCaselawStats
+      tags: [caselaw]
+      summary: Corpus status and coverage statistics
+      responses:
+        "200":
+          description: Corpus stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaselawStats"
+
+  /chat/conversations:
+    get:
+      operationId: listChatConversations
+      tags: [chat]
+      summary: List chat conversations (most recent first)
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Conversations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ChatConversation"
+    post:
+      operationId: createChatConversation
+      tags: [chat]
+      summary: Create a new chat conversation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatConversationInput"
+      responses:
+        "201":
+          description: Created conversation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatConversation"
+
+  /chat/conversations/{id}:
+    get:
+      operationId: getChatConversation
+      tags: [chat]
+      summary: Get a conversation with its messages and documents
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Conversation detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatConversationDetail"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      operationId: updateChatConversation
+      tags: [chat]
+      summary: Update conversation settings (title, output format)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatConversationUpdate"
+      responses:
+        "200":
+          description: Updated conversation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatConversation"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      operationId: deleteChatConversation
+      tags: [chat]
+      summary: Delete a conversation and its messages/documents
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /chat/conversations/{id}/documents:
+    post:
+      operationId: uploadChatDocument
+      tags: [chat]
+      summary: Upload a document (PDF/DOCX/TXT, base64) — text is extracted server-side
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatDocumentInput"
+      responses:
+        "201":
+          description: Uploaded document with extracted text metadata
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatDocument"
+        "400":
+          description: Bad request (unsupported type or no extractable text)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /chat/conversations/{id}/messages:
+    post:
+      operationId: sendChatMessage
+      tags: [chat]
+      summary: Send a message or trigger one of the six AI action modes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatMessageInput"
+      responses:
+        "201":
+          description: The user message and the assistant response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatExchange"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /chat/conversations/{id}/messages/stream:
+    post:
+      operationId: sendChatMessageStream
+      tags: [chat]
+      summary: Send a chat message with live SSE streaming (events — status, delta, done, error)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatMessageInput"
+      responses:
+        "200":
+          description: Server-sent event stream. Events — status, delta ({"text"} chunks), done (final ChatExchange JSON), error ({"error"}).
+          content:
+            text/event-stream:
+              schema:
+                type: string
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /caselaw/documents/{id}/similar:
+    get:
+      operationId: getSimilarCases
+      tags: [caselaw]
+      summary: Find similar cases via pgvector embeddings (FTS fallback)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 20
+            default: 5
+      responses:
+        "200":
+          description: Similar cases
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SimilarCasesResult"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /citations/extract:
+    post:
+      operationId: extractCitations
+      tags: [caselaw]
+      summary: Deterministically extract, normalize and corpus-link legal citations from text (no LLM)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExtractCitationsInput"
+      responses:
+        "200":
+          description: Extracted citations
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExtractCitationsResult"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /statutes:
+    get:
+      operationId: listStatutes
+      tags: [statutes]
+      summary: Browse the statutes corpus (BNS, BNSS, BSA, IPC, CrPC, Evidence Act, US Code)
+      parameters:
+        - name: code
+          in: query
+          required: false
+          schema:
+            $ref: "#/components/schemas/StatuteCode"
+        - name: jurisdiction
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [IN, US]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Statutes
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListStatutesResponse"
+
+  /statutes/acts:
+    get:
+      operationId: listStatuteActs
+      tags: [statutes]
+      summary: Act-level browse — every act/code in the corpus with true section counts and metadata
+      parameters:
+        - name: practiceArea
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: jurisdiction
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [IN, US]
+        - name: q
+          in: query
+          required: false
+          description: Case-insensitive act-name filter
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: Max acts to return (clamped to 1-1000); totals still reflect the full filtered set
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+      responses:
+        "200":
+          description: Acts with section counts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatuteActsResponse"
+
+  /statutes/search:
+    get:
+      operationId: searchStatutes
+      tags: [statutes]
+      summary: Hybrid search over the statutes corpus (FTS + vector with RRF fusion; falls back to pure FTS when embeddings are unavailable)
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 2
+        - name: code
+          in: query
+          required: false
+          schema:
+            $ref: "#/components/schemas/StatuteCode"
+        - name: jurisdiction
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [IN, US]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Matching statutes
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatuteSearchResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /statutes/retrieve:
+    get:
+      operationId: retrieveStatutesHybrid
+      tags: [statutes]
+      summary: Hybrid statute retrieval — FTS and vector KNN fused with Reciprocal Rank Fusion
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 2
+        - name: code
+          in: query
+          required: false
+          schema:
+            $ref: "#/components/schemas/StatuteCode"
+        - name: jurisdiction
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [IN, US]
+        - name: practiceArea
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: RRF-fused statute hits with per-leg ranks
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HybridStatuteSearchResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /statutes/{id}/similar:
+    get:
+      operationId: findSimilarStatutes
+      tags: [statutes]
+      summary: Similar-provision lookup — pgvector cosine KNN over statute embeddings with explicit FTS fallback
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Similar provisions (method says whether vector or FTS ran)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SimilarStatutesResponse"
+        "404":
+          description: Statute not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /statutes/compare/ipc-bns:
+    get:
+      operationId: compareIpcBns
+      tags: [statutes]
+      summary: IPC to BNS comparator — corresponding section(s) with side-by-side text and change notes
+      parameters:
+        - name: section
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Comparison
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IpcBnsComparison"
+        "404":
+          description: IPC section not in corpus
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /statutes/compare/old-new:
+    get:
+      operationId: compareOldNew
+      tags: [statutes]
+      summary: Old-code to new-code comparator — CrPC 1973 to BNSS, or Indian Evidence Act 1872 to BSA
+      parameters:
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [CrPC, IEA]
+        - name: section
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Comparison
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OldNewComparison"
+        "404":
+          description: Old-code section has no mapping in the corpus
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /statutes/compare/new-old:
+    get:
+      operationId: compareNewOld
+      tags: [statutes]
+      summary: New-code to old-code reverse comparator — BNSS to CrPC 1973, BSA to Indian Evidence Act 1872, or BNS to IPC
+      parameters:
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [BNSS, BSA, BNS]
+        - name: section
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Comparison
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewOldComparison"
+        "404":
+          description: New-code section has no old-code mapping in the corpus
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /retrieve:
+    post:
+      operationId: retrieve
+      tags: [retrieval]
+      summary: Retrieval-first answer planner — satisfies queries from local corpora, flags the LLM only when generation is required
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RetrieveInput"
+      responses:
+        "200":
+          description: Retrieval plan and results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RetrievalPlan"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /dashboard/summary:
+    get:
+      operationId: getDashboardSummary
+      tags: [dashboard]
+      summary: Aggregate metrics for the dashboard
+      parameters:
+        - name: jurisdiction
+          in: query
+          required: false
+          description: >-
+            Scope run metrics to runs created under this jurisdiction (legacy
+            runs without a recorded jurisdiction are excluded) and task counts
+            to that jurisdiction plus GLOBAL tasks.
+          schema:
+            $ref: "#/components/schemas/JurisdictionFilter"
+      responses:
+        "200":
+          description: Dashboard summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSummary"
+
+  /templates:
+    get:
+      operationId: listTemplates
+      tags: [templates]
+      summary: Browse drafting templates and procedural checklists
+      parameters:
+        - name: kind
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [template, checklist]
+        - name: jurisdiction
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Templates (without bodies)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TemplateSummary"
+    post:
+      operationId: createTemplate
+      tags: [templates]
+      summary: Create a custom template or checklist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TemplateInput"
+      responses:
+        "201":
+          description: Created template
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TemplateDetail"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /templates/extract:
+    post:
+      operationId: extractTemplateText
+      tags: [templates]
+      summary: Extract text from an uploaded document (PDF/DOCX/MD/TXT, base64) to draft a template
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TemplateExtractInput"
+      responses:
+        "200":
+          description: Extracted text ready for review
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TemplateExtractResult"
+        "400":
+          description: Bad request (unsupported type or no extractable text)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "422":
+          description: OCR fallback failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /templates/{id}:
+    get:
+      operationId: getTemplate
+      tags: [templates]
+      summary: Fetch a template with its full body
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: The template
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TemplateDetail"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      operationId: updateTemplate
+      tags: [templates]
+      summary: Update a custom template (seeded templates are read-only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TemplateUpdate"
+      responses:
+        "200":
+          description: Updated template
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TemplateDetail"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Seeded templates cannot be modified
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      operationId: deleteTemplate
+      tags: [templates]
+      summary: Delete a custom template (seeded templates are read-only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "403":
+          description: Seeded templates cannot be deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /analytics/citations:
+    get:
+      operationId: getCitationAnalytics
+      tags: [analytics]
+      summary: Citation treatment stats — aggregates grounded authorities from completed runs (read-only)
+      responses:
+        "200":
+          description: Citation aggregates (empty arrays when no grounded runs exist yet)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CitationAnalytics"
+
+  /analytics/litigation:
+    get:
+      operationId: getLitigationAnalytics
+      tags: [analytics]
+      summary: Litigation analytics scaffold — run counts by work type, practice area, and jurisdiction
+      responses:
+        "200":
+          description: Litigation run aggregates (honest empty state when no runs exist)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LitigationAnalytics"
+
+  /analytics/usage:
+    get:
+      operationId: getUsageAnalytics
+      tags: [analytics]
+      summary: API usage analytics — volumes, latency, features, jurisdictions, and score trends
+      parameters:
+        - name: days
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 365
+            default: 30
+        - name: jurisdiction
+          in: query
+          required: false
+          schema:
+            $ref: "#/components/schemas/JurisdictionFilter"
+          description: >-
+            Scope usage + run-score trends. ALL (default) = live jurisdictions;
+            IN/US filter to that jurisdiction.
+      responses:
+        "200":
+          description: Usage analytics for the window
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsageAnalytics"
+
+  /advise:
+    post:
+      operationId: advise
+      tags: [analytics]
+      summary: Grounded case-strategy advisory — retrieves real authorities and statutes, then returns a structured strategic assessment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdviseInput"
+      responses:
+        "200":
+          description: Structured strategy advisory
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdviseResult"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /athena/status:
+    get:
+      operationId: getAthenaStatus
+      tags: [athena]
+      summary: Athena document-search configuration status
+      responses:
+        "200":
+          description: Whether Athena search is configured, and with which database/table
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AthenaStatus"
+
+  /athena/search:
+    post:
+      operationId: athenaSearch
+      tags: [athena]
+      summary: Search full judgment archives via Athena (SELECT-only, scan-budget capped; queries are cancelled on budget/timeout breach)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AthenaSearchInput"
+      responses:
+        "200":
+          description: Matching rows plus scan statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AthenaSearchResult"
+        "413":
+          description: Scan budget exceeded (query cancelled)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "503":
+          description: Athena not configured
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /athena/document:
+    get:
+      operationId: getAthenaDocument
+      tags: [athena]
+      summary: Get a short-lived presigned URL for a judgment PDF referenced by an Athena search hit (allowlisted owned buckets only)
+      parameters:
+        - name: s3Path
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 6
+            maxLength: 1024
+          description: The s3://bucket/key path returned by /athena/search (must be within an allowed document bucket)
+      responses:
+        "200":
+          description: Presigned GET URL (short TTL)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AthenaDocumentUrl"
+        "400":
+          description: Invalid or disallowed s3Path
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Document not found in any allowed archive bucket
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "502":
+          description: Failed to generate the presigned URL
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /athena/extract:
+    post:
+      operationId: athenaExtract
+      tags: [athena]
+      summary: On-demand PDF-to-text extraction for an archived judgment (cached; OCR fallback for scanned files; size- and page-capped; allowlisted owned buckets only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AthenaExtractInput"
+      responses:
+        "200":
+          description: Extracted document text with provenance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AthenaExtractResult"
+        "400":
+          description: Invalid or disallowed s3Path
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Document not found in any allowed archive bucket
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "413":
+          description: PDF exceeds the extraction size limit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "422":
+          description: No extractable text, even after OCR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "502":
+          description: Failed to fetch the document from the archive
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "503":
+          description: Too many large extractions in flight; retry after the Retry-After interval (the result is cached once extracted)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /chat/conversations/{id}/documents/from-archive:
+    post:
+      operationId: attachArchiveDocument
+      tags: [chat]
+      summary: Attach an archived judgment PDF to a conversation as a reference document (fetched from the owned S3 archive, text-extracted with OCR fallback, provenance kept in sourceRef)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ArchiveReferenceInput"
+      responses:
+        "201":
+          description: The attached document
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatDocument"
+        "400":
+          description: Invalid or disallowed s3Path
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Conversation or archive document not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "413":
+          description: PDF exceeds the extraction size limit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "422":
+          description: No extractable text, even after OCR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "502":
+          description: Failed to fetch the document from the archive
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /mcp:
+    post:
+      operationId: mcpRpc
+      tags: [mcp]
+      summary: MCP (Model Context Protocol) JSON-RPC 2.0 endpoint — initialize, tools/list, tools/call. Bearer MCP_TOKEN auth when configured.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/McpRequest"
+      responses:
+        "200":
+          description: JSON-RPC 2.0 response envelope
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        "401":
+          description: Invalid or missing MCP bearer token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    WorkTypeCount:
+      type: object
+      required: [workType, count]
+      properties:
+        workType:
+          type: string
+        count:
+          type: integer
+
+    CategoryCount:
+      type: object
+      required: [category, categoryName, count]
+      properties:
+        category:
+          type: string
+        categoryName:
+          type: string
+        count:
+          type: integer
+
+    Category:
+      type: object
+      required: [slug, name, taskCount, workTypes]
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+        taskCount:
+          type: integer
+        workTypes:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkTypeCount"
+
+    LegalTask:
+      type: object
+      required: [id, category, categoryName, slug, title, workType, jurisdiction, tags, instructions, deliverables, documents, criteriaCount]
+      properties:
+        id:
+          type: integer
+        category:
+          type: string
+        categoryName:
+          type: string
+        slug:
+          type: string
+        title:
+          type: string
+        workType:
+          type: string
+        jurisdiction:
+          type: string
+          description: '"IN" | "US" for jurisdiction-specific tasks; "GLOBAL" for jurisdiction-neutral tasks'
+        tags:
+          type: array
+          items:
+            type: string
+        instructions:
+          type: string
+        deliverables:
+          type: array
+          items:
+            type: string
+        documents:
+          type: array
+          items:
+            type: string
+        criteriaCount:
+          type: integer
+
+    Criterion:
+      type: object
+      required: [id, title, matchCriteria]
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        matchCriteria:
+          type: string
+
+    LegalTaskDetail:
+      type: object
+      required: [id, category, categoryName, slug, title, workType, jurisdiction, tags, instructions, deliverables, documents, criteria]
+      properties:
+        id:
+          type: integer
+        category:
+          type: string
+        categoryName:
+          type: string
+        slug:
+          type: string
+        title:
+          type: string
+        workType:
+          type: string
+        jurisdiction:
+          type: string
+          description: '"IN" | "US" for jurisdiction-specific tasks; "GLOBAL" for jurisdiction-neutral tasks'
+        tags:
+          type: array
+          items:
+            type: string
+        instructions:
+          type: string
+        deliverables:
+          type: array
+          items:
+            type: string
+        documents:
+          type: array
+          items:
+            type: string
+        criteria:
+          type: array
+          items:
+            $ref: "#/components/schemas/Criterion"
+
+    Run:
+      type: object
+      required: [id, title, category, categoryName, workType, instruction, status, createdAt]
+      properties:
+        id:
+          type: integer
+        taskId:
+          type: ["integer", "null"]
+        title:
+          type: string
+        category:
+          type: string
+        categoryName:
+          type: string
+        workType:
+          type: string
+        jurisdiction:
+          type: ["string", "null"]
+          description: Jurisdiction the run was scoped to at creation; null for legacy runs
+        instruction:
+          type: string
+        context:
+          type: ["string", "null"]
+        status:
+          type: string
+        output:
+          type: ["string", "null"]
+        score:
+          type: ["number", "null"]
+        createdAt:
+          type: string
+
+    RunDetail:
+      type: object
+      required: [id, title, category, categoryName, workType, instruction, status, createdAt]
+      properties:
+        id:
+          type: integer
+        taskId:
+          type: ["integer", "null"]
+        title:
+          type: string
+        category:
+          type: string
+        categoryName:
+          type: string
+        workType:
+          type: string
+        jurisdiction:
+          type: ["string", "null"]
+          description: Jurisdiction the run was scoped to at creation; null for legacy runs
+        instruction:
+          type: string
+        context:
+          type: ["string", "null"]
+        status:
+          type: string
+        output:
+          type: ["string", "null"]
+        score:
+          type: ["number", "null"]
+        createdAt:
+          type: string
+        criteria:
+          type: array
+          items:
+            $ref: "#/components/schemas/Criterion"
+        evaluation:
+          oneOf:
+            - $ref: "#/components/schemas/Evaluation"
+            - type: "null"
+        authorities:
+          type: array
+          items:
+            $ref: "#/components/schemas/Authority"
+
+    RunInput:
+      type: object
+      required: [title, category, workType, instruction]
+      properties:
+        taskId:
+          type: ["integer", "null"]
+        title:
+          type: string
+          minLength: 1
+        category:
+          type: string
+        workType:
+          type: string
+        instruction:
+          type: string
+          minLength: 1
+        context:
+          type: string
+        jurisdiction:
+          allOf:
+            - $ref: "#/components/schemas/Jurisdiction"
+          description: >-
+            Jurisdiction used for authority grounding. IN and US retrieve real
+            authorities before drafting; reserved jurisdictions (GCC, UK, EU, SG)
+            intentionally run without grounding (no authorities attached) until
+            their corpora are live.
+        archiveReferences:
+          type: array
+          maxItems: 3
+          description: >-
+            Archived judgment PDFs to use as grounding reference documents.
+            Each is fetched from the owned S3 archive, text-extracted (cached,
+            OCR fallback), passed to the agent as a citable source document,
+            and recorded on the run's authorities with s3:// provenance.
+          items:
+            $ref: "#/components/schemas/ArchiveReferenceInput"
+        locale:
+          type: string
+          maxLength: 16
+          description: >-
+            Optional BCP-47 locale hint (e.g. en-IN, hi-IN). Passed through to
+            prompts so the model may respond in that language. No separate
+            translation engine — the LLM writes directly. Alias: language.
+        language:
+          type: string
+          maxLength: 16
+          description: >-
+            Alias for locale — same pass-through behaviour. If both are sent,
+            locale wins.
+
+    EvaluationResult:
+      type: object
+      required: [criterionId, title, passed, rationale]
+      properties:
+        criterionId:
+          type: string
+        title:
+          type: string
+        passed:
+          type: boolean
+        rationale:
+          type: string
+
+    Evaluation:
+      type: object
+      required: [runId, score, passCount, totalCount, results]
+      properties:
+        runId:
+          type: integer
+        score:
+          type: number
+        passCount:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/EvaluationResult"
+
+    CaselawDoc:
+      type: object
+      required: [jurisdiction, source, title]
+      properties:
+        id:
+          type: ["integer", "null"]
+        jurisdiction:
+          type: string
+        source:
+          type: string
+        title:
+          type: string
+        petitioner:
+          type: ["string", "null"]
+        respondent:
+          type: ["string", "null"]
+        judges:
+          type: ["string", "null"]
+        authorJudge:
+          type: ["string", "null"]
+        citation:
+          type: ["string", "null"]
+        cnr:
+          type: ["string", "null"]
+        decisionDate:
+          type: ["string", "null"]
+        disposalNature:
+          type: ["string", "null"]
+        court:
+          type: ["string", "null"]
+        year:
+          type: ["integer", "null"]
+        languages:
+          type: array
+          items:
+            type: string
+        description:
+          type: ["string", "null"]
+        url:
+          type: ["string", "null"]
+        courtType:
+          type: ["string", "null"]
+          description: sc or hc for Indian documents
+        caseType:
+          type: ["string", "null"]
+        caseNo:
+          type: ["string", "null"]
+        benchName:
+          type: ["string", "null"]
+        judicialSection:
+          type: ["string", "null"]
+        pdfLink:
+          type: ["string", "null"]
+        s3Path:
+          type: ["string", "null"]
+          description: Owned-archive s3://bucket/key of the judgment PDF (High Court RDS rows only) — usable with /athena/document and /athena/extract
+
+    Jurisdiction:
+      type: string
+      enum: [IN, US, GCC, UK, EU, SG]
+      description: Legal jurisdiction. IN and US are live; GCC, UK, EU, SG are reserved (coming soon).
+
+    JurisdictionFilter:
+      type: string
+      enum: [ALL, IN, US, GCC, UK, EU, SG]
+      description: >-
+        Query filter. ALL = any/all live jurisdictions (IN+US) plus GLOBAL
+        where applicable. Concrete codes behave as before.
+
+    CaselawSearchResponse:
+      type: object
+      required: [jurisdiction, total, results]
+      properties:
+        jurisdiction:
+          type: string
+        total:
+          type: integer
+        totalCapped:
+          type: boolean
+          description: >-
+            True when `total` is a capped lower bound (the corpus backend
+            stops counting at its cap, currently 10,000) rather than an
+            exact match count.
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaselawDoc"
+        comingSoon:
+          type: boolean
+          description: True when the requested jurisdiction is not yet live
+        message:
+          type: string
+        method:
+          type: string
+          enum: [hybrid_rrf, fts]
+          description: Indian RDS search method used (omitted for US CourtListener)
+        embeddingCoverage:
+          $ref: "#/components/schemas/CaselawEmbeddingCoverage"
+
+    VerifyCitationInput:
+      type: object
+      required: [citation]
+      properties:
+        citation:
+          type: string
+          minLength: 3
+        jurisdiction:
+          type: string
+          enum: [IN, US, ALL]
+
+    VerifyCitationResult:
+      type: object
+      required: [status, matches]
+      properties:
+        status:
+          type: string
+          enum: [verified, not_found, uncertain]
+        note:
+          type: ["string", "null"]
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaselawDoc"
+
+    CaselawSourceStat:
+      type: object
+      required: [source, jurisdiction, documentCount]
+      properties:
+        source:
+          type: string
+        jurisdiction:
+          type: string
+        documentCount:
+          type: integer
+        minYear:
+          type: ["integer", "null"]
+        maxYear:
+          type: ["integer", "null"]
+
+    CaselawStats:
+      type: object
+      required: [totalDocuments, sources, usLive]
+      properties:
+        totalDocuments:
+          type: integer
+        sources:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaselawSourceStat"
+        usLive:
+          type: boolean
+        backend:
+          type: string
+          description: Active Indian corpus backend (local or rds)
+        embedding:
+          type: array
+          description: Embedding backfill progress checkpoints (RDS backend)
+          items:
+            $ref: "#/components/schemas/EmbeddingProgress"
+
+    EmbeddingProgress:
+      type: object
+      required: [scope, embeddedInRun, lastId, updatedAt]
+      properties:
+        scope:
+          type: string
+          description: Backfill scope (all, sc, or hc)
+        embeddedInRun:
+          type: integer
+          description: Rows embedded during the currently checkpointed run
+        totalEmbedded:
+          type: ["integer", "null"]
+          description: Cumulative rows with embeddings as of the last checkpoint
+        lastId:
+          type: integer
+          description: Highest judgment id embedded in this scope
+        updatedAt:
+          type: string
+          description: Last checkpoint time (ISO)
+
+    CaselawPdfUrl:
+      type: object
+      required: [url, kind]
+      properties:
+        url:
+          type: string
+          description: A URL that serves the judgment PDF right now
+        kind:
+          type: string
+          enum: [absolute, public, presigned]
+          description: absolute source link, public open-data bucket, or presigned owned-bucket URL
+        expiresIn:
+          type: ["integer", "null"]
+          description: Seconds until a presigned URL expires (null for stable URLs)
+
+    Authority:
+      type: object
+      required: [title, source]
+      properties:
+        title:
+          type: string
+        citation:
+          type: ["string", "null"]
+        court:
+          type: ["string", "null"]
+        date:
+          type: ["string", "null"]
+        url:
+          type: ["string", "null"]
+        source:
+          type: string
+
+    StatuteCode:
+      type: string
+      description: >-
+        Statute code tag. Core codes: BNS, BNSS, BSA, IPC, CRPC, IEA, USC, COI
+        (Constitution of India). Central Acts from India Code use act-title
+        slugs (e.g. COMPANIES-ACT-2013).
+
+    Statute:
+      type: object
+      required: [id, code, jurisdiction, section, heading, text, mappedSections]
+      properties:
+        id:
+          type: integer
+        code:
+          type: string
+        jurisdiction:
+          type: string
+        section:
+          type: string
+        uscTitle:
+          type: ["string", "null"]
+        heading:
+          type: string
+        chapter:
+          type: ["string", "null"]
+        text:
+          type: string
+        mappedCode:
+          type: ["string", "null"]
+        mappedSections:
+          type: array
+          items:
+            type: string
+        changeNotes:
+          type: ["string", "null"]
+        actName:
+          type: ["string", "null"]
+        actYear:
+          type: ["string", "null"]
+        actNo:
+          type: ["string", "null"]
+        ministry:
+          type: ["string", "null"]
+        practiceArea:
+          type: ["string", "null"]
+        provisionType:
+          type: string
+        enactmentDate:
+          type: ["string", "null"]
+
+    ListStatutesResponse:
+      type: object
+      required: [total, results]
+      properties:
+        total:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Statute"
+
+    StatuteEmbeddingCoverage:
+      type: object
+      required: [total, embedded, unembedded, coveragePct]
+      description: Corpus-wide embedding coverage — unembedded rows are invisible to the vector (meaning-based) leg until the embedder is re-run.
+      properties:
+        total:
+          type: integer
+          description: Total rows in the statutes corpus
+        embedded:
+          type: integer
+          description: Rows with an embedding (participate in vector search)
+        unembedded:
+          type: integer
+          description: Rows the vector leg silently skips (run embed:statutes to fix)
+        coveragePct:
+          type: number
+          description: embedded / total as a 0-100 percentage
+
+    CaselawEmbeddingCoverage:
+      type: object
+      required: [total, embedded, unembedded, coveragePct]
+      description: India judgment corpus embedding coverage (RDS backend).
+      properties:
+        total:
+          type: integer
+        embedded:
+          type: integer
+        unembedded:
+          type: integer
+        coveragePct:
+          type: number
+        approx:
+          type: boolean
+          description: True when total is estimated from pg_class rather than exact COUNT
+
+    CitationAnalytics:
+      type: object
+      required: [totalRuns, runsWithAuthorities, totalAuthorityRefs, bySource, note]
+      properties:
+        totalRuns:
+          type: integer
+        runsWithAuthorities:
+          type: integer
+          description: Runs that attached at least one grounded authority
+        totalAuthorityRefs:
+          type: integer
+          description: Total authority objects across all runs
+        bySource:
+          type: array
+          items:
+            type: object
+            required: [source, count]
+            properties:
+              source:
+                type: string
+              count:
+                type: integer
+        topCourts:
+          type: array
+          items:
+            type: object
+            required: [court, count]
+            properties:
+              court:
+                type: string
+              count:
+                type: integer
+        note:
+          type: string
+          description: Human-readable status when aggregates are empty or partial
+
+    LitigationAnalytics:
+      type: object
+      required: [totalRuns, byWorkType, byJurisdiction, byCategory, note]
+      properties:
+        totalRuns:
+          type: integer
+        byWorkType:
+          type: array
+          items:
+            type: object
+            required: [workType, count]
+            properties:
+              workType:
+                type: string
+              count:
+                type: integer
+        byJurisdiction:
+          type: array
+          items:
+            type: object
+            required: [jurisdiction, count]
+            properties:
+              jurisdiction:
+                type: string
+              count:
+                type: integer
+        byCategory:
+          type: array
+          items:
+            type: object
+            required: [category, categoryName, count]
+            properties:
+              category:
+                type: string
+              categoryName:
+                type: string
+              count:
+                type: integer
+        avgScore:
+          type: number
+          nullable: true
+        note:
+          type: string
+
+    StatuteSearchResponse:
+      type: object
+      required: [total, results, method, embeddingCoverage]
+      properties:
+        total:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Statute"
+        method:
+          type: string
+          enum: [hybrid_rrf, fts]
+          description: How results were produced — hybrid FTS+vector with RRF fusion, or pure FTS fallback.
+        embeddingCoverage:
+          $ref: "#/components/schemas/StatuteEmbeddingCoverage"
+
+    HybridStatuteHit:
+      allOf:
+        - $ref: "#/components/schemas/Statute"
+        - type: object
+          required: [ftsRank, vectorRank, rrfScore]
+          properties:
+            ftsRank:
+              type: ["integer", "null"]
+              description: 1-based rank in the FTS leg (null when only the vector leg matched)
+            vectorRank:
+              type: ["integer", "null"]
+              description: 1-based rank in the vector KNN leg (null when only FTS matched)
+            rrfScore:
+              type: number
+              description: Reciprocal Rank Fusion score (higher = better)
+
+    HybridStatuteSearchResponse:
+      type: object
+      required: [method, provider, total, results, embeddingCoverage]
+      properties:
+        method:
+          type: string
+          enum: [hybrid, fts]
+          description: hybrid = FTS ∪ vector RRF-fused; fts = vector leg unavailable
+        provider:
+          type: string
+          description: Embedding provider (bedrock | hash)
+        total:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/HybridStatuteHit"
+        embeddingCoverage:
+          $ref: "#/components/schemas/StatuteEmbeddingCoverage"
+
+    SimilarStatutesResponse:
+      type: object
+      required: [statuteId, method, provider, statute, results]
+      properties:
+        statuteId:
+          type: integer
+        method:
+          type: string
+          enum: [vector, fts]
+        provider:
+          type: string
+        statute:
+          $ref: "#/components/schemas/Statute"
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Statute"
+
+    StatuteAct:
+      type: object
+      required: [code, actName, jurisdiction, sectionCount]
+      properties:
+        code:
+          type: string
+        actName:
+          type: string
+        jurisdiction:
+          type: string
+        actYear:
+          type: ["string", "null"]
+        actNo:
+          type: ["string", "null"]
+        ministry:
+          type: ["string", "null"]
+        practiceArea:
+          type: ["string", "null"]
+        enactmentDate:
+          type: ["string", "null"]
+        sectionCount:
+          type: integer
+
+    StatuteActsResponse:
+      type: object
+      required: [total, totalSections, practiceAreas, results]
+      properties:
+        total:
+          type: integer
+          description: Number of acts matching the filter
+        totalSections:
+          type: integer
+          description: Total provisions across matching acts
+        practiceAreas:
+          type: array
+          items:
+            type: string
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatuteAct"
+
+    IpcBnsComparison:
+      type: object
+      required: [ipcSection, found, bnsMatches]
+      properties:
+        ipcSection:
+          type: string
+        found:
+          type: boolean
+        ipc:
+          oneOf:
+            - $ref: "#/components/schemas/Statute"
+            - type: "null"
+        bnsMatches:
+          type: array
+          items:
+            $ref: "#/components/schemas/Statute"
+        changeNotes:
+          type: ["string", "null"]
+
+    OldNewComparison:
+      type: object
+      required: [oldCode, newCode, oldSection, found, matches]
+      properties:
+        oldCode:
+          type: string
+        newCode:
+          type: string
+        oldSection:
+          type: string
+        found:
+          type: boolean
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/Statute"
+
+    NewOldComparison:
+      type: object
+      required: [newCode, oldCode, newSection, found, statute, oldSections, matches]
+      properties:
+        newCode:
+          type: string
+        oldCode:
+          type: string
+        newSection:
+          type: string
+        found:
+          type: boolean
+        statute:
+          oneOf:
+            - $ref: "#/components/schemas/Statute"
+            - type: "null"
+        oldSections:
+          type: array
+          items:
+            type: string
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/Statute"
+
+    ExtractCitationsInput:
+      type: object
+      required: [text]
+      properties:
+        text:
+          type: string
+          minLength: 3
+        link:
+          type: boolean
+          description: Whether to link citations to corpus documents (default true)
+
+    ExtractedCitation:
+      type: object
+      required: [raw, normalized, jurisdiction, reporter, matches]
+      properties:
+        raw:
+          type: string
+        normalized:
+          type: string
+        jurisdiction:
+          type: string
+          enum: [IN, US]
+        reporter:
+          type: string
+        volume:
+          type: ["string", "null"]
+        year:
+          type: ["integer", "null"]
+        page:
+          type: ["string", "null"]
+        court:
+          type: ["string", "null"]
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaselawDoc"
+
+    ExtractCitationsResult:
+      type: object
+      required: [total, citations]
+      properties:
+        total:
+          type: integer
+        citations:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExtractedCitation"
+
+    SimilarCasesResult:
+      type: object
+      required: [documentId, method, provider, results]
+      properties:
+        documentId:
+          type: integer
+        method:
+          type: string
+          enum: [vector, fts]
+          description: vector = pgvector cosine similarity; fts = deterministic full-text fallback
+        provider:
+          type: string
+          description: Embedding provider in use (bedrock or hash)
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaselawDoc"
+
+    RetrieveInput:
+      type: object
+      required: [query]
+      properties:
+        query:
+          type: string
+          minLength: 2
+        jurisdiction:
+          type: string
+          enum: [IN, US]
+        limit:
+          type: integer
+
+    RetrievalStep:
+      type: object
+      required: [tool]
+      properties:
+        tool:
+          type: string
+          enum: [citation-lookup, statute-lookup, ipc-bns-compare, old-new-compare, new-old-compare, case-search]
+        citations:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExtractedCitation"
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaselawDoc"
+        statutes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Statute"
+        comparison:
+          $ref: "#/components/schemas/IpcBnsComparison"
+        oldNew:
+          $ref: "#/components/schemas/OldNewComparison"
+        newOld:
+          $ref: "#/components/schemas/NewOldComparison"
+        jurisdiction:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaselawDoc"
+
+    RetrievalPlan:
+      type: object
+      required: [query, intent, steps, llmRequired, reason]
+      properties:
+        query:
+          type: string
+        intent:
+          type: string
+          enum: [citation, statute, ipc-bns-compare, old-new-compare, new-old-compare, case-search, generate]
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/RetrievalStep"
+        llmRequired:
+          type: boolean
+        reason:
+          type: string
+
+    DashboardSummary:
+      type: object
+      required: [totalRuns, totalTasks, totalCategories, byWorkType, topCategories, recentRuns]
+      properties:
+        totalRuns:
+          type: integer
+        totalTasks:
+          type: integer
+        totalCategories:
+          type: integer
+        avgScore:
+          type: ["number", "null"]
+        byWorkType:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkTypeCount"
+        topCategories:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryCount"
+        recentRuns:
+          type: array
+          items:
+            $ref: "#/components/schemas/Run"
+        byJurisdiction:
+          type: array
+          description: Run counts grouped by jurisdiction (present when jurisdiction=ALL or omitted)
+          items:
+            type: object
+            required: [jurisdiction, count]
+            properties:
+              jurisdiction:
+                type: string
+              count:
+                type: integer
+
+    ChatAction:
+      type: string
+      enum: [chat, summary, extract, case_details, draft, intelligence, predictions]
+      description: >-
+        Action mode. "chat" is a plain conversational turn; the six AI action
+        modes are summary, extract, case_details, draft, intelligence, and
+        predictions.
+
+    ChatConversation:
+      type: object
+      required: [id, title, outputFormat, messageCount, documentCount, createdAt, updatedAt]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        outputFormat:
+          type: string
+          enum: [brief, detailed]
+        messageCount:
+          type: integer
+        documentCount:
+          type: integer
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        matchedSnippet:
+          type: string
+          nullable: true
+          description: When a search matched inside a message body (not the title), a short excerpt of the matching message with surrounding context. Null for title matches or when not searching.
+
+    ChatConversationInput:
+      type: object
+      properties:
+        title:
+          type: string
+        outputFormat:
+          type: string
+          enum: [brief, detailed]
+
+    ChatConversationUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+        outputFormat:
+          type: string
+          enum: [brief, detailed]
+
+    ChatDocument:
+      type: object
+      required: [id, conversationId, filename, mimeType, byteSize, textLength, preview, createdAt]
+      properties:
+        id:
+          type: integer
+        conversationId:
+          type: integer
+        filename:
+          type: string
+        mimeType:
+          type: string
+        byteSize:
+          type: integer
+        textLength:
+          type: integer
+        preview:
+          type: string
+          description: First ~300 characters of the extracted text
+        ocrUsed:
+          type: boolean
+          description: >-
+            True when the text was recovered via OCR fallback (image-only /
+            scanned PDF). Present only on the upload response.
+        sourceRef:
+          type: string
+          nullable: true
+          description: >-
+            Provenance for documents pulled from the judgment archive — the
+            s3://bucket/key of the original PDF. Null for direct uploads.
+        createdAt:
+          type: string
+
+    ChatDocumentInput:
+      type: object
+      required: [filename, contentBase64]
+      properties:
+        filename:
+          type: string
+          minLength: 1
+        contentBase64:
+          type: string
+          minLength: 1
+          description: Base64-encoded file bytes (PDF, DOCX, or TXT)
+
+    ChatMessage:
+      type: object
+      required: [id, conversationId, role, action, content, createdAt]
+      properties:
+        id:
+          type: integer
+        conversationId:
+          type: integer
+        role:
+          type: string
+          enum: [user, assistant]
+        action:
+          $ref: "#/components/schemas/ChatAction"
+        content:
+          type: string
+        structured:
+          type: ["object", "null"]
+          description: Structured JSON payload for extract/case_details/intelligence/predictions
+        createdAt:
+          type: string
+
+    ChatMessageInput:
+      type: object
+      required: [content]
+      properties:
+        content:
+          type: string
+          description: The prompt / instruction. May be empty for document-driven actions.
+        action:
+          $ref: "#/components/schemas/ChatAction"
+        outputFormat:
+          type: string
+          enum: [brief, detailed]
+          description: Overrides the conversation's saved output format for this turn
+        templateId:
+          type: integer
+          description: Optional drafting template id — the draft action uses its body as a structural skeleton
+        jurisdiction:
+          allOf:
+            - $ref: "#/components/schemas/Jurisdiction"
+          description: >-
+            Scopes retrieval grounding for this turn. IN and US retrieve real
+            authorities; reserved jurisdictions run without grounding. When
+            omitted, the server infers from document content.
+        locale:
+          type: string
+          maxLength: 16
+          description: >-
+            Optional BCP-47 locale hint for this turn. Passed through to prompts;
+            no separate translation engine. Alias: language.
+        language:
+          type: string
+          maxLength: 16
+          description: Alias for locale. If both are sent, locale wins.
+
+    ChatExchange:
+      type: object
+      required: [userMessage, assistantMessage]
+      properties:
+        userMessage:
+          $ref: "#/components/schemas/ChatMessage"
+        assistantMessage:
+          $ref: "#/components/schemas/ChatMessage"
+
+    ChatConversationDetail:
+      type: object
+      required: [id, title, outputFormat, messages, documents, createdAt, updatedAt]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        outputFormat:
+          type: string
+          enum: [brief, detailed]
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChatMessage"
+        documents:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChatDocument"
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+
+    TemplateSummary:
+      type: object
+      required: [id, kind, slug, title, category, jurisdiction, description, tags, isCustom, source]
+      properties:
+        id:
+          type: integer
+        kind:
+          type: string
+          enum: [template, checklist]
+        slug:
+          type: string
+        title:
+          type: string
+        category:
+          type: string
+        jurisdiction:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        isCustom:
+          type: boolean
+          description: True for user-created/uploaded templates; false for seeded library entries
+        source:
+          type: string
+          enum: [seeded, created, uploaded]
+        sourceFilename:
+          type: ["string", "null"]
+          description: Original filename when the template was created from an upload
+
+    TemplateDetail:
+      allOf:
+        - $ref: "#/components/schemas/TemplateSummary"
+        - type: object
+          required: [body]
+          properties:
+            body:
+              type: string
+
+    TemplateInput:
+      type: object
+      required: [kind, title, category, jurisdiction, description, body]
+      properties:
+        kind:
+          type: string
+          enum: [template, checklist]
+        title:
+          type: string
+          minLength: 3
+          maxLength: 200
+        category:
+          type: string
+          minLength: 2
+          maxLength: 100
+        jurisdiction:
+          type: string
+          enum: [IN, US]
+        description:
+          type: string
+          minLength: 3
+          maxLength: 500
+        body:
+          type: string
+          minLength: 20
+        tags:
+          type: array
+          maxItems: 10
+          items:
+            type: string
+            minLength: 1
+            maxLength: 40
+        sourceFilename:
+          type: string
+          description: Set when the body came from an uploaded document
+
+    TemplateUpdate:
+      type: object
+      properties:
+        kind:
+          type: string
+          enum: [template, checklist]
+        title:
+          type: string
+          minLength: 3
+          maxLength: 200
+        category:
+          type: string
+          minLength: 2
+          maxLength: 100
+        jurisdiction:
+          type: string
+          enum: [IN, US]
+        description:
+          type: string
+          minLength: 3
+          maxLength: 500
+        body:
+          type: string
+          minLength: 20
+        tags:
+          type: array
+          maxItems: 10
+          items:
+            type: string
+            minLength: 1
+            maxLength: 40
+
+    TemplateExtractInput:
+      type: object
+      required: [filename, contentBase64]
+      properties:
+        filename:
+          type: string
+          minLength: 1
+        contentBase64:
+          type: string
+          minLength: 1
+          description: Base64-encoded file bytes (PDF, DOCX, MD, or TXT)
+
+    TemplateExtractResult:
+      type: object
+      required: [filename, text, ocrUsed]
+      properties:
+        filename:
+          type: string
+        text:
+          type: string
+          description: Normalized extracted text, ready for review/editing
+        ocrUsed:
+          type: boolean
+
+    UsageTotals:
+      type: object
+      required: [totalRequests, errorCount]
+      properties:
+        totalRequests:
+          type: integer
+        avgLatencyMs:
+          type: integer
+          nullable: true
+        p95LatencyMs:
+          type: integer
+          nullable: true
+        errorCount:
+          type: integer
+
+    UsageByFeature:
+      type: object
+      required: [feature, count]
+      properties:
+        feature:
+          type: string
+        count:
+          type: integer
+        avgLatencyMs:
+          type: integer
+          nullable: true
+
+    UsageByJurisdiction:
+      type: object
+      required: [jurisdiction, count]
+      properties:
+        jurisdiction:
+          type: string
+        count:
+          type: integer
+
+    UsageByDay:
+      type: object
+      required: [day, count]
+      properties:
+        day:
+          type: string
+        count:
+          type: integer
+        avgLatencyMs:
+          type: integer
+          nullable: true
+
+    ScoreByDay:
+      type: object
+      required: [day, runCount]
+      properties:
+        day:
+          type: string
+        avgScore:
+          type: integer
+          nullable: true
+        runCount:
+          type: integer
+
+    AthenaStatus:
+      type: object
+      required: [configured]
+      properties:
+        configured:
+          type: boolean
+        database:
+          type: string
+          nullable: true
+        table:
+          type: string
+          nullable: true
+        hcTable:
+          type: string
+          nullable: true
+          description: High Court archive table, when configured
+        workgroup:
+          type: string
+          nullable: true
+        maxScanBytes:
+          type: number
+          nullable: true
+
+    AthenaSearchInput:
+      type: object
+      required: [q]
+      properties:
+        q:
+          type: string
+          minLength: 2
+          maxLength: 200
+          description: Search text matched against title and description
+        year:
+          type: integer
+          minimum: 1900
+          maximum: 2100
+        court:
+          type: string
+          maxLength: 100
+        archive:
+          type: string
+          enum: [sc, hc, all]
+          description: >
+            Archive scope — Supreme Court (sc), High Courts (hc), or both (all).
+            Server defaults to sc when omitted (SC-first; avoids multi-GB HC scans).
+            Matching is title/description metadata only, not full PDF text.
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 50
+
+    AthenaSearchResult:
+      type: object
+      required: [query, results, bytesScanned, estimatedCostUsd]
+      properties:
+        query:
+          type: string
+        results:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
+              nullable: true
+        bytesScanned:
+          type: number
+        estimatedCostUsd:
+          type: number
+
+    AthenaDocumentUrl:
+      type: object
+      required: [url, bucket, key, expiresIn]
+      properties:
+        url:
+          type: string
+          description: Presigned HTTPS GET URL for the document
+        bucket:
+          type: string
+        key:
+          type: string
+        expiresIn:
+          type: integer
+          description: URL lifetime in seconds
+
+    ArchiveReferenceInput:
+      type: object
+      required: [s3Path]
+      properties:
+        s3Path:
+          type: string
+          minLength: 6
+          maxLength: 1024
+          description: The s3://bucket/key path of the judgment PDF (must be within an allowed document bucket)
+        title:
+          type: string
+          maxLength: 500
+          description: Display title for the document (used for provenance)
+
+    AthenaExtractInput:
+      type: object
+      required: [s3Path]
+      properties:
+        s3Path:
+          type: string
+          minLength: 6
+          maxLength: 1024
+          description: The s3://bucket/key path returned by /athena/search (must be within an allowed document bucket)
+        title:
+          type: string
+          maxLength: 500
+
+    AthenaExtractResult:
+      type: object
+      required: [s3Path, requestedPath, byteSize, textLength, text, ocrUsed, cached]
+      properties:
+        s3Path:
+          type: string
+          description: The resolved s3://bucket/key that was actually fetched (may differ from the request when the sibling High Court bucket held the file)
+        requestedPath:
+          type: string
+        title:
+          type: string
+          nullable: true
+        byteSize:
+          type: integer
+        textLength:
+          type: integer
+        text:
+          type: string
+          description: Extracted (and normalized) document text, capped at 4,000,000 characters
+        ocrUsed:
+          type: boolean
+        cached:
+          type: boolean
+          description: True when served from the extraction cache
+        truncated:
+          type: boolean
+          description: True when a page, time, or character budget stopped extraction short of the whole PDF (the text carries an explicit [Note: ...] marker). Landmark Supreme Court judgments are whole reporter-volume PDFs of up to ~1,000 pages, so this can be true for very large volumes.
+
+    McpRequest:
+      type: object
+      required: [jsonrpc, method]
+      properties:
+        jsonrpc:
+          type: string
+          enum: ["2.0"]
+        id:
+          type: integer
+          nullable: true
+        method:
+          type: string
+          description: JSON-RPC method — initialize, ping, tools/list, or tools/call
+        params:
+          type: object
+          additionalProperties: true
+
+    UsageByModel:
+      type: object
+      required: [model, count]
+      properties:
+        model:
+          type: string
+          nullable: true
+        count:
+          type: integer
+        avgLatencyMs:
+          type: integer
+          nullable: true
+
+    UsageAnalytics:
+      type: object
+      required: [windowDays, totals, byFeature, byJurisdiction, byModel, byDay, scoresOverTime]
+      properties:
+        windowDays:
+          type: integer
+        jurisdiction:
+          $ref: "#/components/schemas/JurisdictionFilter"
+          description: Scope applied to this response (ALL when unfiltered)
+        totals:
+          $ref: "#/components/schemas/UsageTotals"
+        byFeature:
+          type: array
+          items:
+            $ref: "#/components/schemas/UsageByFeature"
+        byJurisdiction:
+          type: array
+          items:
+            $ref: "#/components/schemas/UsageByJurisdiction"
+        byModel:
+          type: array
+          items:
+            $ref: "#/components/schemas/UsageByModel"
+        byDay:
+          type: array
+          items:
+            $ref: "#/components/schemas/UsageByDay"
+        scoresOverTime:
+          type: array
+          items:
+            $ref: "#/components/schemas/ScoreByDay"
+
+    AdviseInput:
+      type: object
+      required: [question]
+      properties:
+        question:
+          type: string
+          minLength: 10
+          description: The strategic question or case situation to assess
+        jurisdiction:
+          type: string
+          enum: [IN, US]
+        context:
+          type: string
+          description: Optional background facts
+
+    AdviseResult:
+      type: object
+      required: [jurisdiction, assessment, keyIssues, strategy, risks, recommendedActions, authorities, statutes, disclaimer]
+      properties:
+        jurisdiction:
+          type: string
+        assessment:
+          type: string
+        keyIssues:
+          type: array
+          items:
+            type: string
+        strategy:
+          type: string
+        risks:
+          type: array
+          items:
+            type: string
+        recommendedActions:
+          type: array
+          items:
+            type: string
+        authorities:
+          type: array
+          items:
+            $ref: "#/components/schemas/Authority"
+        statutes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Statute"
+        disclaimer:
+          type: string

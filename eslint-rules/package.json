@@ -1,0 +1,6 @@
+{
+  "name": "./jrx-eslint-local-rules",
+  "private": true,
+  "type": "commonjs",
+  "description": "Local ESLint rules for the Nyayavigya Console. Loaded by `eslint --rulesdir eslint-rules`. The `type: commonjs` here overrides the parent package.json's `type: module` so these CJS rule files load correctly under ESLint v8."
+}

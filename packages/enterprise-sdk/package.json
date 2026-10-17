@@ -1,0 +1,67 @@
+{
+  "name": "@jurexio/enterprise-sdk",
+  "version": "5.0.0",
+  "description": "Jurexio Enterprise Platform 1.0.0 — Enterprise TypeScript SDK for legal AI automation, multi-org management, compliance, and white-label deployment.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./compliance": {
+      "import": "./dist/compliance/index.mjs",
+      "require": "./dist/compliance/index.js",
+      "types": "./dist/compliance/index.d.ts"
+    },
+    "./billing": {
+      "import": "./dist/billing/index.mjs",
+      "require": "./dist/billing/index.js",
+      "types": "./dist/billing/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --out-dir dist",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "nyayavigya",
+    "legal-ai",
+    "enterprise",
+    "compliance",
+    "iso-42001",
+    "dpdpa",
+    "eu-ai-act",
+    "soc2",
+    "multi-tenant",
+    "white-label",
+    "india"
+  ],
+  "license": "UNLICENSED",
+  "author": "Jurexio Legal AI Pvt. Ltd.",
+  "peerDependencies": {
+    "@jurexio/client-sdk": "^5.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^2.0.0",
+    "@vitest/coverage-v8": "^2.0.0"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
+}

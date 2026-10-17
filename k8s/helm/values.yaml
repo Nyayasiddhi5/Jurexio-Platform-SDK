@@ -1,0 +1,179 @@
+# Nyayavigya Platform 3.1.2 — Helm Chart Values
+# Production Kubernetes deployment configuration
+# Cluster: EKS/GKE/AKS | Namespace: nyayavigya
+
+global:
+  imageRegistry: "registry.nyayavigya.in"
+  imagePullSecrets:
+    - name: nyayavigya-registry-secret
+  platformVersion: "3.1.2"
+  sdkVersion: "5.0.0"
+  environment: production
+
+# ── Gateway Service ──────────────────────────────────────────────────────────
+gateway:
+  enabled: true
+  name: nyayavigya-gateway
+  image:
+    repository: registry.nyayavigya.in/nyayavigya-gateway
+    tag: "3.1.2"
+    pullPolicy: IfNotPresent
+  replicaCount: 3
+  port: 5000
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "1Gi"
+    limits:
+      cpu: "2000m"
+      memory: "4Gi"
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 20
+    targetCPUUtilizationPercentage: 70
+    targetMemoryUtilizationPercentage: 80
+  disruption:
+    maxUnavailable: 1
+    minAvailable: 2
+  env:
+    NODE_ENV: production
+    NYV_PORT_GATEWAY: "5000"
+    NYV_PLATFORM_VERSION: "3.1.2"
+    NYV_SDK_VERSION: "5.0.0"
+    NYV_LOG_LEVEL: info
+    NYV_LOG_FORMAT: json
+    NYV_JURISDICTION: "IN,UK,GC,EU,US,SG"
+    NYV_MAX_AGENTS: "149"
+  secrets:
+    - JWT_SECRET
+    - NYV_JWT_SECRET
+    - NYV_JWT_REFRESH_SECRET
+    - OPENROUTER_API_KEY
+    - NYV_REDIS_TCP_URL
+    - DATABASE_URL
+  healthCheck:
+    path: /api/nv/health
+    initialDelaySeconds: 30
+    periodSeconds: 15
+    timeoutSeconds: 5
+    failureThreshold: 3
+
+# ── Console (Vite Frontend) ──────────────────────────────────────────────────
+console:
+  enabled: true
+  name: nyayavigya-console
+  image:
+    repository: registry.nyayavigya.in/nyayavigya-console
+    tag: "3.1.2"
+    pullPolicy: IfNotPresent
+  replicaCount: 2
+  port: 3004
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "512Mi"
+    limits:
+      cpu: "1000m"
+      memory: "2Gi"
+
+# ── Ingress ──────────────────────────────────────────────────────────────────
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/websocket-services: nyayavigya-gateway
+  hosts:
+    - host: app.nyayavigya.in
+      paths:
+        - path: /api/
+          pathType: Prefix
+          service: gateway
+          port: 5000
+        - path: /
+          pathType: Prefix
+          service: console
+          port: 3004
+  tls:
+    - secretName: nyayavigya-tls
+      hosts:
+        - app.nyayavigya.in
+        - api.nyayavigya.in
+
+# ── Redis ────────────────────────────────────────────────────────────────────
+redis:
+  enabled: false  # Using Upstash managed Redis
+  externalUrl:
+    secretName: nyayavigya-secrets
+    secretKey: NYV_REDIS_TCP_URL
+
+# ── PostgreSQL ───────────────────────────────────────────────────────────────
+postgresql:
+  enabled: false  # Using Neon serverless PostgreSQL
+  externalUrl:
+    secretName: nyayavigya-secrets
+    secretKey: DATABASE_URL
+
+# ── Monitoring & Observability ───────────────────────────────────────────────
+monitoring:
+  enabled: true
+  prometheus:
+    scrape: true
+    port: 9090
+    path: /api/nv/metrics
+  sentry:
+    enabled: false  # Set SENTRY_DSN in secrets to enable
+    dsn:
+      secretName: nyayavigya-secrets
+      secretKey: SENTRY_DSN
+
+# ── Security ─────────────────────────────────────────────────────────────────
+security:
+  networkPolicy:
+    enabled: true
+    ingressAllowCIDR: "0.0.0.0/0"
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1001
+    fsGroup: 1001
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: false
+    capabilities:
+      drop:
+        - ALL
+
+# ── RBAC ─────────────────────────────────────────────────────────────────────
+serviceAccount:
+  create: true
+  name: nyayavigya-sa
+  annotations: {}
+
+# ── Feature Flags ─────────────────────────────────────────────────────────────
+features:
+  quantumSecurity: false
+  aiCreditEnforcer: true
+  dpdpaConsent: true
+  iso42001Aims: true
+  euAiActCompliance: true
+  soc2Evidence: true
+  websocketSTT: true
+  grpoOptimizer: true
+  nyayaRAGEnhanced: true
+  gstInvoicePDF: true
+
+# ── Jurisdiction Config ───────────────────────────────────────────────────────
+jurisdictions:
+  primary: IN
+  enabled:
+    - IN   # India (Primary)
+    - UK   # United Kingdom
+    - EU   # European Union
+    - US   # United States
+    - GC   # Gulf Cooperation Council
+    - SG   # Singapore

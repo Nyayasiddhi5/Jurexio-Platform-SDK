@@ -1,0 +1,36 @@
+{
+  "version": "5.0.1-dev-unlimited",
+  "_doc": "DEV/UAT mode (2026-05-11 → revisit at 2026-06-30 per user mandate). Ecosystem partners (NSP, NSPM, NYM, NSI, NSA, NSM, JRX) are running effectively unlimited via `internal` tier so we can complete feature testing without artificial back-pressure. Production tiers below remain ACCURATE — flip ecosystem partners back to their natural tier (nyayamitra→pro, nys-professional→pro, nys-institutional→enterprise, nys-academy→plus, nys-ministry→government) before any production cutover. Owner: Replit Agent (autonomous, gated on user GO). NV-DOC-001 compliant: change history in CHANGELOG.md Session-15 v17 entry.",
+  "default": {
+    "rpm": 60, "rph": 2000, "rpd": 20000, "burst": 30,
+    "concurrentStreams": 4, "uploadsPerHour": 100, "maxUploadMb": 25
+  },
+  "tiers": {
+    "free":       { "rpm": 10,    "rph": 100,    "rpd": 500,     "burst": 5,    "concurrentStreams": 1, "uploadsPerHour": 5,    "maxUploadMb": 5,   "creditsMonthly": 100 },
+    "solo":       { "rpm": 20,    "rph": 500,    "rpd": 2000,    "burst": 10,   "concurrentStreams": 2, "uploadsPerHour": 20,   "maxUploadMb": 10,  "creditsMonthly": 1500 },
+    "plus":       { "rpm": 40,    "rph": 1500,   "rpd": 5000,    "burst": 20,   "concurrentStreams": 3, "uploadsPerHour": 50,   "maxUploadMb": 25,  "creditsMonthly": 7500 },
+    "pro":        { "rpm": 60,    "rph": 5000,   "rpd": 20000,   "burst": 30,   "concurrentStreams": 4, "uploadsPerHour": 100,  "maxUploadMb": 50,  "creditsMonthly": 30000 },
+    "enterprise": { "rpm": 600,   "rph": 50000,  "rpd": 200000,  "burst": 300,  "concurrentStreams": 16,"uploadsPerHour": 1000, "maxUploadMb": 200, "creditsMonthly": -1 },
+    "government": { "rpm": 600,   "rph": 50000,  "rpd": 200000,  "burst": 300,  "concurrentStreams": 16,"uploadsPerHour": 1000, "maxUploadMb": 200, "creditsMonthly": -1 },
+    "internal":   { "rpm": 9999,  "rph": 999999, "rpd": 9999999, "burst": 9999, "concurrentStreams": 64,"uploadsPerHour": 9999, "maxUploadMb": 500, "creditsMonthly": -1 }
+  },
+  "platformOverrides": {
+    "nyayamitra":       { "tier": "internal", "_prod_tier": "pro",        "rpm": 9999, "rph": 999999, "rpd": 9999999, "concurrentStreams": 64, "voiceMinutesPerDay": 999999, "notes": "DEV-LIFTED 2026-05-11 — citizen-facing, production target = pro tier (rpm:200, rph:8000, rpd:50000)" },
+    "nys-professional": { "tier": "internal", "_prod_tier": "pro",        "rpm": 9999, "rph": 999999, "rpd": 9999999, "concurrentStreams": 64, "notes": "DEV-LIFTED 2026-05-11 — production target = pro tier (rpm:120, rph:6000, rpd:30000)" },
+    "nys-institutional":{ "tier": "internal", "_prod_tier": "enterprise", "rpm": 9999, "rph": 999999, "rpd": 9999999, "concurrentStreams": 64, "perOrgRpm": 9999, "notes": "DEV-LIFTED 2026-05-11 — production target = enterprise tier (rpm:600, rph:50000, rpd:200000)" },
+    "nys-academy":      { "tier": "internal", "_prod_tier": "plus",       "rpm": 9999, "rph": 999999, "rpd": 9999999, "concurrentStreams": 64, "notes": "DEV-LIFTED 2026-05-11 — production target = plus tier (rpm:40, rph:1500, rpd:5000)" },
+    "nys-ministry":     { "tier": "internal", "_prod_tier": "government", "rpm": 9999, "rph": 999999, "rpd": 9999999, "concurrentStreams": 64, "pqcRequired": true, "notes": "DEV-LIFTED 2026-05-11 — production target = government tier (rpm:600, rph:50000, rpd:200000)" },
+    "nys":              { "tier": "internal", "rpm": 9999, "rph": 999999, "rpd": 9999999, "concurrentStreams": 64, "notes": "NV-NYS-CNR-SSOT-001 — NyayaSearch caselaw-worker BFF (X-NYV-Platform: nys)" }
+  },
+  "endpointOverrides": {
+    "/api/nv/orchestrate":            { "weight": 1 },
+    "/api/nv/patterns/digital-twin":  { "weight": 5 },
+    "/api/nv/patterns/swarm":         { "weight": 4 },
+    "/api/nv/voice/tts":              { "weight": 2 },
+    "/api/nv/voice/stt":              { "weight": 2 },
+    "/api/nv/documents/upload":       { "weight": 3 },
+    "/api/nv/intelligence/litigation-risk-v2": { "weight": 4 },
+    "/api/nv/v1/sdk/cnr/resolve": { "weight": 0.25 },
+    "/api/nv/v1/sdk/cnr/search": { "weight": 0.25 }
+  }
+}

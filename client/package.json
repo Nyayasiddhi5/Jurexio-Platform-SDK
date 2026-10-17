@@ -1,0 +1,10 @@
+{
+  "name": "nyayavigya-console-client",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Lint scope for the Nyayavigya Console UI. The actual build is driven from the parent (root vite.config.ts).",
+  "scripts": {
+    "lint": "eslint src/ --ext .ts,.tsx,.js,.jsx --rulesdir ../eslint-rules",
+    "lint:fix": "eslint src/ --ext .ts,.tsx,.js,.jsx --rulesdir ../eslint-rules --fix"
+  }
+}

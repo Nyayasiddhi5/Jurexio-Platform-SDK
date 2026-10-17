@@ -1,0 +1,22 @@
+# Jurexio Platform SDK — Project Tracker
+
+> Jurexio Enterprise Platform — separate from Nyayavigya (upstream lineage: `UPSTREAM-NYV-SHA.txt`).
+
+## Change log (newest first)
+
+| Timestamp | Status | Owner | Area | Summary | Evidence |
+|-----------|--------|-------|------|---------|----------|
+| 2026-10-17T12:55:00Z | DONE | Cursor Agent | JRX-PROGRAM-001 | Phases 0–2 core: re-export NYV aeab32ff, mechanical rename (879 files), brand scrub, `jrx-search/`, `@jurexio/client-sdk`, forbidden-brand CI, docs RFC/ops/SDK/search corpus. | `scripts/jrx-phase2-rename.py`; `guardrail:jrx-brands` PASS |
+| 2026-10-17T07:30:00Z | DONE | Cursor Agent | JRX-EXPORT-002 | Fresh export 5837 files from NYV aeab32ff + patch reapply. | `UPSTREAM-NYV-SHA.txt` |
+| 2026-10-06T05:20:00Z | DONE | Cursor Agent | JRX-ENV-LOCAL-001 | Jurexio-local env + RDS script. | `JUREXIO-ENV-AND-DATABASE-2026-10.md` |
+| 2026-10-05T09:15:00Z | DONE | Cursor Agent | JRX-PHASE2-001 | Initial `/api/jrx/` alias + client-sdk npm scope. | patches/jurexio/ |
+| 2026-10-05T08:49:30Z | DONE | Cursor Agent | JRX-EXPORT-001 | Initial curated export. | bootstrap script |
+
+## Pending (ops)
+
+| Phase | Item |
+|-------|------|
+| 3 | Production RDS `jurexio` + SSM `/jurexio/prod/*` |
+| 5 | Console staging on Jurexio domain |
+| 6 | US corpus ingest (legal GO) |
+| 8 | EC2/ECS deploy + smoke |

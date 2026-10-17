@@ -1,0 +1,56 @@
+{
+  "name": "@jurexio/react-hooks",
+  "version": "5.0.0",
+  "description": "Jurexio Enterprise Platform — React hooks (v6 GA) for legal AI integration, pattern streaming, credit management, and jurisdiction-aware UI.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "nyayavigya",
+    "legal-ai",
+    "react-hooks",
+    "india",
+    "legaltech"
+  ],
+  "author": "Jurexio Technologies Pvt. Ltd.",
+  "license": "UNLICENSED",
+  "private": false,
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^14.0.0",
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^2.0.0",
+    "jsdom": "^24.0.0",
+    "@vitest/coverage-v8": "^2.0.0"
+  },
+  "dependencies": {
+    "@jurexio/client-sdk": "^5.0.0",
+    "@jurexio/types": "^5.0.0"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
+}

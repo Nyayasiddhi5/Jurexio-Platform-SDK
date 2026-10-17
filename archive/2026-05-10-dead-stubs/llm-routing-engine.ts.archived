@@ -1,0 +1,7 @@
+export class LLMRoutingEngine {
+  async route(_request: any): Promise<{ provider: string; model: string }> {
+    return { provider: process.env.NV_DEFAULT_PROVIDER || 'openai', model: process.env.NV_DEFAULT_MODEL || 'gpt-4o-mini' };
+  }
+}
+export const llmRoutingEngine = new LLMRoutingEngine();
+export default llmRoutingEngine;

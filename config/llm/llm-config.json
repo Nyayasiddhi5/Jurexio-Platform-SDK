@@ -1,0 +1,56 @@
+{
+  "version": "5.0.0",
+  "router": { "type": "ns-lrm", "cascade": true, "tierShare": { "tier1": 0.80, "tier2": 0.15, "tier3": 0.05 } },
+  "budgetMode": "balanced",
+  "tokenBudget": { "perRequestMaxTokens": 8000, "perDayMaxTokens": 50000000, "perOrgMaxTokensDaily": 5000000 },
+  "tiers": {
+    "tier1": {
+      "use": "high-volume cost-optimized",
+      "providers": [
+        { "id": "groq",       "model": "llama-3.3-70b-versatile",     "envVar": "GROQ_API_KEY",       "priority": 1, "costPer1kTok": 0.00059 },
+        { "id": "deepseek",   "model": "deepseek-chat-v3",            "envVar": "DEEPSEEK_API_KEY",   "priority": 2, "costPer1kTok": 0.00027 },
+        { "id": "openai",     "model": "gpt-4.1-mini",                "envVar": "OPENAI_API_KEY",     "priority": 3, "costPer1kTok": 0.00040 }
+      ]
+    },
+    "tier2": {
+      "use": "balanced quality",
+      "providers": [
+        { "id": "google",     "model": "gemini-2.5-flash",            "envVar": "GOOGLE_AI_API_KEY",  "priority": 1, "costPer1kTok": 0.00075 },
+        { "id": "mistral",    "model": "mistral-medium",              "envVar": "MISTRAL_API_KEY",    "priority": 2, "costPer1kTok": 0.00270 },
+        { "id": "perplexity", "model": "sonar-pro",                   "envVar": "PERPLEXITY_API_KEY", "priority": 3, "costPer1kTok": 0.00100 },
+        { "id": "cohere",     "model": "command-r-plus",              "envVar": "COHERE_API_KEY",     "priority": 4, "costPer1kTok": 0.00250 }
+      ]
+    },
+    "tier3": {
+      "use": "premium / high-stakes legal reasoning",
+      "providers": [
+        { "id": "anthropic",  "model": "claude-sonnet-4-5",           "envVar": "ANTHROPIC_API_KEY",  "priority": 1, "costPer1kTok": 0.00300 },
+        { "id": "openai",     "model": "gpt-4o",                      "envVar": "OPENAI_API_KEY",     "priority": 2, "costPer1kTok": 0.00500 },
+        { "id": "google",     "model": "gemini-2.5-pro",              "envVar": "GOOGLE_AI_API_KEY",  "priority": 3, "costPer1kTok": 0.00350 },
+        { "id": "anthropic",  "model": "claude-3-5-sonnet-20241022",  "envVar": "ANTHROPIC_API_KEY",  "priority": 4, "costPer1kTok": 0.00300 }
+      ]
+    }
+  },
+  "gateway":   { "primary": "openrouter", "envVar": "OPENROUTER_API_KEY" },
+  "embeddings":{ "primary": "openai/text-embedding-3-large", "fallback": "cohere/embed-multilingual-v3", "envVar": "OPENAI_API_KEY", "dim": 3072 },
+  "voice": {
+    "tts":  { "premium": "elevenlabs/eleven_multilingual_v2",   "indian": "sarvam/saaras-v1",   "envVars": ["ELEVENLABS_API_KEY","SARVAM_API_KEY"] },
+    "stt":  { "premium": "deepgram/nova-2-legal",               "indian": "sarvam/saarika-v1",  "envVars": ["DEEPGRAM_API_KEY","SARVAM_API_KEY"] }
+  },
+  "ocr":     { "primary": "got-ocr-2.0", "fallback": "openai/gpt-4o-vision", "endpointEnvVar": "GOT_OCR_URL" },
+  "ner":     { "primary": "inlegal-bert", "fallback": "regex+spacy", "endpointEnvVar": "INLEGAL_BERT_URL" },
+  "rerank":  { "primary": "cohere/rerank-3", "fallback": "rrf-mmr-local" },
+  "circuitBreaker": { "failureThreshold": 5, "resetTimeoutMs": 30000, "healthCheckIntervalMs": 30000 },
+  "costOptimization": {
+    "enabled": true,
+    "strategies": ["tiered-cascade","semantic-cache","prompt-compression","response-truncation","batch","token-budget","slm-route"],
+    "targetSavingsPct": 70
+  },
+  "perPlatformOverride": {
+    "nyayamitra":      { "preferTier": 1 },
+    "nys-professional":{ "preferTier": 2 },
+    "nys-institutional":{ "preferTier": 2, "premiumAllowedFor": ["litigation-risk-v2","digital-twin","grpo"] },
+    "nys-academy":     { "preferTier": 1 },
+    "nys-ministry":    { "preferTier": 3, "sovereignOnly": true, "allowedProviders": ["anthropic","openai","google","sarvam"] }
+  }
+}

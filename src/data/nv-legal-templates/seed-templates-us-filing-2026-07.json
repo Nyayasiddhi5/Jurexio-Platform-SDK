@@ -1,0 +1,163 @@
+[
+  {
+    "kind": "template",
+    "slug": "us-stockholders-agreement-multiparty-filing",
+    "title": "Stockholders Agreement (Company–Founders–Investor) — Execution Form",
+    "category": "corporate",
+    "jurisdiction": "US",
+    "description": "Delaware-style multiparty stockholders agreement ready for signature with voting, transfer, and drag/tag provisions. Fill schedules before closing.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "US",
+      "corporate",
+      "agreement",
+      "stockholders",
+      "delaware",
+      "venture",
+      "SPA-side"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: US\ncategory: corporate\ninstrumentType: agreement\nparties: P1=Company; P2=Founder; P3=Investor; P4=Additional Holder (optional)\ngoverningLaw: Laws of the State of Delaware\nforum: State or federal courts in [COUNTY], Delaware\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# STOCKHOLDERS AGREEMENT\n\n**Effective Date:** [DATE]\n\n## Parties\n1. **Company** (P1) — capacity: delaware_corporation\n   - [COMPANY NAME]: ________\n   - [STATE OF INCORPORATION]: ________\n   - [EIN]: ________\n\n2. **Founder** (P2) — capacity: individual\n   - [FOUNDER NAME]: ________\n   - [ADDRESS]: ________\n\n3. **Investor** (P3) — capacity: entity\n   - [INVESTOR NAME]: ________\n   - [STATE]: ________\n   - [ADDRESS]: ________\n\n4. **Additional Holder (optional)** (P4) — capacity: entity_or_individual\n   - [NAME]: ________\n   - [SHARES]: ________\n\n## Recitals\nThe Parties enter this Agreement in connection with [Series __ financing / reorganization] to govern voting, transfers, and certain governance rights. This document is intended as the **final binding agreement** upon execution.\n\n## 1. Definitions\nCapitalized terms have meanings in Exhibit A / Schedule A capitalization footnotes.\n\n## 2. Voting & board\nBoard composition: [NUMBER]. Investor Designated Directors: [NUMBER]. Protective provisions in Schedule B.\n\n## 3. Transfer restrictions\nLock-up, ROFR, co-sale, and drag-along as set forth herein; Joinder required for Permitted Transferees (Schedule C).\n\n## 4. Information rights\nQuarterly and annual financial statements; inspection rights for Major Investors (≥ [X]%).\n\n## 5. Representations\nEach Party represents due authorization and enforceability.\n\n## 6. Governing law & venue\nLaws of the State of Delaware. Exclusive venue: State or federal courts in [COUNTY], Delaware.\n\n## Schedules / Exhibits\n- Schedule A — Capitalization table\n- Schedule B — Reserved matters / protective provisions\n- Schedule C — Joinder agreement\n\n## Counterparts; electronic signatures\nThis Agreement may be executed in counterparts (including DocuSign / Adobe Sign).\n\n## Execution\n### Company (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Founder (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Investor (P3)\n\nSigned for and on behalf of **[LEGAL NAME OF P3]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n"
+  },
+  {
+    "kind": "template",
+    "slug": "us-msa-customer-vendor-affiliate-filing",
+    "title": "Master Services Agreement (Customer–Vendor–Affiliate) — Execution Form",
+    "category": "commercial",
+    "jurisdiction": "US",
+    "description": "US MSA with optional affiliate joinder and order forms. Fill commercial exhibits; execute as binding contract.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "US",
+      "commercial",
+      "agreement",
+      "MSA",
+      "SOW",
+      "SaaS",
+      "services"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: US\ncategory: commercial\ninstrumentType: agreement\nparties: P1=Customer; P2=Vendor; P3=Customer Affiliate (optional joinder)\ngoverningLaw: Laws of the State of [STATE]\nforum: State or federal courts in [COUNTY], [STATE]\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# MASTER SERVICES AGREEMENT\n\n**Effective Date:** [DATE]\n\n## Parties\n1. **Customer** (P1) — capacity: entity\n   - [CUSTOMER LEGAL NAME]: ________\n   - [STATE]: ________\n   - [NOTICE ADDRESS]: ________\n\n2. **Vendor** (P2) — capacity: entity\n   - [VENDOR LEGAL NAME]: ________\n   - [STATE]: ________\n   - [NOTICE ADDRESS]: ________\n\n3. **Customer Affiliate (optional joinder)** (P3) — capacity: entity\n   - [AFFILIATE NAME]: ________\n\n## 1. Services\nVendor will provide Services under Order Forms / SOWs (Schedule A). Affiliates may purchase under a joinder or separate Order Form.\n\n## 2. Fees; taxes\nPer Schedule B. Late fees [1.5%]/R] or maximum allowed by law.\n\n## 3. Warranties; disclaimer\nServices performed in a professional manner. EXCEPT AS EXPRESSLY STATED, WARRANTIES OF MERCHANTABILITY AND FITNESS ARE DISCLAIMED TO THE EXTENT PERMITTED BY LAW.\n\n## 4. Limitation of liability\nAggregate cap: fees paid in the [12] months preceding the claim, excluding confidentiality, IP indemnity, and data breach obligations to the extent negotiated in Schedule D.\n\n## 5. Term; termination\nAs stated in the applicable Order Form; survival of confidentiality, IP, and liability clauses.\n\n## 6. Governing law\nLaws of the State of [STATE]. Venue: State or federal courts in [COUNTY], [STATE]. EACH PARTY WAIVES JURY TRIAL TO THE EXTENT PERMITTED.\n\n## Schedules\n- Schedule A — Order Form / SOW\n- Schedule B — Fees\n- Schedule C — SLA\n- Schedule D — DPA / security exhibit\n\n## Execution\n### Customer (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Vendor (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n"
+  },
+  {
+    "kind": "template",
+    "slug": "us-separation-release-multiparty-filing",
+    "title": "Separation Agreement & General Release (Employee–Company–Benefit Plan) — Execution Form",
+    "category": "employment",
+    "jurisdiction": "US",
+    "description": "US employment separation with ADEA-compliant release language placeholders and optional plan administrator acknowledgement.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "US",
+      "employment",
+      "agreement",
+      "separation",
+      "release",
+      "ADEA"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: US\ncategory: employment\ninstrumentType: agreement\nparties: P1=Company; P2=Employee; P3=Plan Administrator (optional)\ngoverningLaw: Laws of the State of [STATE]\nforum: Courts in [COUNTY], [STATE]\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# SEPARATION AGREEMENT AND GENERAL RELEASE\n\n**Date:** [DATE]\n\n## Parties\n1. **Company** (P1) — capacity: employer\n   - [COMPANY NAME]: ________\n   - [STATE]: ________\n\n2. **Employee** (P2) — capacity: individual\n   - [EMPLOYEE NAME]: ________\n   - [TERMINATION DATE]: ________\n\n3. **Plan Administrator (optional)** (P3) — capacity: fiduciary\n   - [PLAN NAME]: ________\n\n## 1. Separation\nEmployment ends on [TERMINATION DATE]. Final wages paid per applicable law.\n\n## 2. Consideration\nCompany pays severance per Schedule A in exchange for the releases herein. Employee acknowledges adequacy of consideration.\n\n## 3. Release\nEmployee releases Company and Related Parties from Claims through the Effective Date, excluding non-waivable rights, unemployment/workers' compensation as applicable, and vested ERISA benefits. **ADEA:** Employee has [21/45] days to consider and [7] days to revoke (Schedule C).\n\n## 4. Restrictive covenants\nConfidentiality, non-solicit, and return-of-property (Schedule B) survive as stated.\n\n## 5. Governing law\nLaws of the State of [STATE]. Courts in [COUNTY], [STATE].\n\n## Schedules\n- Schedule A — Severance & COBRA\n- Schedule B — Return of property\n- Schedule C — ADEA disclosure (40+)\n\n## Execution\n### Company (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Employee (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n"
+  },
+  {
+    "kind": "template",
+    "slug": "us-commercial-lease-guarantor-filing",
+    "title": "Commercial Lease (Landlord–Tenant–Guarantor) — Execution Form",
+    "category": "property",
+    "jurisdiction": "US",
+    "description": "US commercial lease with optional lease guarantor. Fill rent exhibits; execute before possession.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "US",
+      "property",
+      "agreement",
+      "lease",
+      "guarantor",
+      "real-estate"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: US\ncategory: property\ninstrumentType: agreement\nparties: P1=Landlord; P2=Tenant; P3=Guarantor\ngoverningLaw: Laws of the State of [STATE]\nforum: Courts of [COUNTY], [STATE]\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# COMMERCIAL LEASE AGREEMENT\n\n**Lease Date:** [DATE] | **Commencement:** [DATE] | **Expiration:** [DATE]\n\n## Parties\n1. **Landlord** (P1) — capacity: owner\n   - [LANDLORD NAME]: ________\n   - [PREMISES ADDRESS]: ________\n\n2. **Tenant** (P2) — capacity: entity_or_individual\n   - [TENANT NAME]: ________\n   - [DBA]: ________\n\n3. **Guarantor** (P3) — capacity: entity_or_individual\n   - [GUARANTOR NAME]: ________\n\n## 1. Premises\nLandlord leases Premises in Schedule A to Tenant for Permitted Use.\n\n## 2. Rent\nBase Rent, Additional Rent, and security deposit per Schedule B.\n\n## 3. Maintenance; alterations\nAs allocated herein; Landlord consent required for alterations.\n\n## 4. Default; remedies\nIncluding late fees, interest, and re-entry subject to applicable law and notice requirements.\n\n## 5. Guaranty\nGuarantor absolutely guarantees Tenant's obligations; primary liability.\n\n## 6. Governing law\nLaws of the State of [STATE]. Courts of [COUNTY], [STATE].\n\n## Schedules\n- Schedule A — Premises & permitted use\n- Schedule B — Rent & operating expenses\n- Schedule C — Rules & regulations\n\n## Execution\n### Landlord (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Tenant (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Guarantor (P3)\n\nSigned for and on behalf of **[LEGAL NAME OF P3]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n"
+  },
+  {
+    "kind": "template",
+    "slug": "us-settlement-consent-award-filing",
+    "title": "Arbitration Settlement Stipulation (Claimant–Respondent) — Award Filing Form",
+    "category": "arbitration",
+    "jurisdiction": "US",
+    "description": "Stipulation suitable for consent award under FAA / AAA rules. Fill payment terms and submit to arbitrator.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "US",
+      "arbitration",
+      "consent",
+      "FAA",
+      "settlement",
+      "consent-award"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: US\ncategory: arbitration\ninstrumentType: consent\nparties: P1=Claimant; P2=Respondent\ngoverningLaw: Federal Arbitration Act; Laws of [STATE]\nforum: Arbitration seated in [CITY], [STATE]\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# STIPULATION FOR CONSENT AWARD\n\n**Case caption:** [CAPTION] | **Forum:** [AAA / JAMS / ad hoc]\n\n## Parties\n1. **Claimant** (P1) — capacity: party\n   - [CLAIMANT]: ________\n   - [COUNSEL]: ________\n\n2. **Respondent** (P2) — capacity: party\n   - [RESPONDENT]: ________\n   - [COUNSEL]: ________\n\n## 1. Settlement\nParties settle all claims in the arbitration on the terms below and request a consent award.\n\n## 2. Payment\nPer Schedule A. Upon payment, claims in Schedule B are dismissed with prejudice.\n\n## 3. Release & confidentiality\nMutual release of arbitrated claims; confidentiality per Schedule C.\n\n## 4. Request\nArbitrator is requested to enter these terms as a final consent award, confirmable under the FAA.\n\n## Governing law / seat\nFederal Arbitration Act; Laws of [STATE]. Arbitration seated in [CITY], [STATE].\n\n## Schedules\n- Schedule A — Payment schedule\n- Schedule B — Dismissed claims\n- Schedule C — Confidentiality\n\n## Execution\n### Claimant (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Respondent (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n"
+  },
+  {
+    "kind": "template",
+    "slug": "us-credit-agreement-guarantor-filing",
+    "title": "Credit Agreement (Borrower–Lender–Guarantor) — Execution Form",
+    "category": "banking",
+    "jurisdiction": "US",
+    "description": "US bilateral credit agreement with guarantor. Fill facility exhibit; execute before funding.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "US",
+      "banking",
+      "agreement",
+      "credit",
+      "loan",
+      "guarantor"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: US\ncategory: banking\ninstrumentType: agreement\nparties: P1=Borrower; P2=Lender; P3=Guarantor\ngoverningLaw: Laws of the State of New York (or [STATE])\nforum: Courts of New York County / [COUNTY]\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# CREDIT AGREEMENT\n\n**Dated as of:** [DATE]\n\n## Parties\n1. **Borrower** (P1) — capacity: entity\n   - [BORROWER]: ________\n   - [STATE]: ________\n   - [EIN]: ________\n\n2. **Lender** (P2) — capacity: bank\n   - [LENDER]: ________\n   - [FACILITY COMMITMENT]: ________\n\n3. **Guarantor** (P3) — capacity: entity_or_individual\n   - [GUARANTOR]: ________\n\n## 1. Commitments\nLender agrees to make Loans per Schedule A subject to Schedule C conditions.\n\n## 2. Interest; fees; repayment\nAs set forth in Schedule A.\n\n## 3. Collateral\nSecurity interests described in Schedule B.\n\n## 4. Guaranty\nGuarantor absolutely and unconditionally guarantees the Obligations.\n\n## 5. Events of default; remedies\nCustomary defaults; acceleration upon notice as required.\n\n## 6. Governing law\nLaws of the State of New York (or [STATE]). Courts of New York County / [COUNTY]. WAIVER OF JURY TRIAL.\n\n## Schedules\n- Schedule A — Commitments & pricing\n- Schedule B — Collateral\n- Schedule C — Conditions precedent\n\n## Execution\n### Borrower (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Lender (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Guarantor (P3)\n\nSigned for and on behalf of **[LEGAL NAME OF P3]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n"
+  },
+  {
+    "kind": "template",
+    "slug": "us-dpa-controller-processor-subprocessor-filing",
+    "title": "Data Processing Agreement (Controller–Processor–Subprocessor) — Execution Form",
+    "category": "privacy",
+    "jurisdiction": "US",
+    "description": "Multi-party DPA for CCPA/CPRA / state privacy + GDPR-style transfers. Fill processing schedules and execute with MSA.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "US",
+      "privacy",
+      "agreement",
+      "DPA",
+      "CCPA",
+      "GDPR"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: US\ncategory: privacy\ninstrumentType: agreement\nparties: P1=Controller / Business; P2=Processor / Service Provider; P3=Subprocessor (optional)\ngoverningLaw: Laws of the State of [STATE]\nforum: Courts of [COUNTY], [STATE]\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# DATA PROCESSING AGREEMENT\n\n**Effective Date:** [DATE]  \n**(Annex to MSA dated [MSA DATE])**\n\n## Parties\n1. **Controller / Business** (P1) — capacity: entity\n   - [CONTROLLER NAME]: ________\n\n2. **Processor / Service Provider** (P2) — capacity: entity\n   - [PROCESSOR NAME]: ________\n\n3. **Subprocessor (optional)** (P3) — capacity: entity\n   - [SUBPROCESSOR NAME]: ________\n   - [SERVICE]: ________\n\n## 1. Roles\nController determines purposes; Processor processes Personal Information only on documented instructions. Subprocessor (if party) processes solely for the services in Schedule C.\n\n## 2. Processing details\nCategories, purposes, and retention in Schedule A.\n\n## 3. Security\nTechnical and organizational measures in Schedule B; breach notice within [72] hours.\n\n## 4. Assistance\nProcessor assists with DSAR / consumer requests, DPIAs, and regulator inquiries as reasonably required.\n\n## 5. International transfers\nSCCs / state transfer mechanisms attached if applicable.\n\n## 6. Governing law\nLaws of the State of [STATE]. Courts of [COUNTY], [STATE].\n\n## Schedules\n- Schedule A — Processing details\n- Schedule B — Security measures\n- Schedule C — Subprocessor list\n\n## Execution\n### Controller (P1)\n\nSigned for and on behalf of **[LEGAL NAME OF P1]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Processor (P2)\n\nSigned for and on behalf of **[LEGAL NAME OF P2]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n\n### Subprocessor (if applicable) (P3)\n\nSigned for and on behalf of **[LEGAL NAME OF P3]**\n\nSignature: ____________________    Name: ____________________  \nTitle / capacity: ____________________    Date: ____________________  \nWitness (if required): ____________________\n"
+  },
+  {
+    "kind": "template",
+    "slug": "us-complaint-civil-multiparty-filing",
+    "title": "Civil Complaint (Plaintiff–Defendant–Relief Defendants) — Court Filing Form",
+    "category": "litigation",
+    "jurisdiction": "US",
+    "description": "Federal/state civil complaint caption with multiple defendants. Fill facts, counts, and prayer before filing; verify local rules.",
+    "tags": [
+      "filing-ready",
+      "multi-party",
+      "fillable",
+      "US",
+      "litigation",
+      "pleading",
+      "complaint",
+      "FRCP"
+    ],
+    "body": "<!--\nnys-instrument: filing-ready\njurisdiction: US\ncategory: litigation\ninstrumentType: pleading\nparties: P1=Plaintiff; P2=Defendant; P3=Additional Defendant / Relief Defendant\ngoverningLaw: Laws of [STATE] / United States\nforum: [DISTRICT COURT / STATE COURT] at [VENUE]\nusage: Fill every ________ / [BRACKET] field; delete unused optional clauses; counsel must verify stamps, filings, and capacity before execution or court filing.\n-->\n\n# COMPLAINT\n\n**[DISTRICT COURT / STATE COURT] at [VENUE]**  \n**Civil Action No.** ________\n\n## Parties\n1. **Plaintiff** (P1) — capacity: party\n   - [PLAINTIFF NAME]: ________\n   - [CITIZENSHIP / RESIDENCE]: ________\n\n2. **Defendant** (P2) — capacity: party\n   - [DEFENDANT NAME]: ________\n   - [CITIZENSHIP / RESIDENCE]: ________\n\n3. **Additional Defendant / Relief Defendant** (P3) — capacity: party\n   - [NAME]: ________\n\n## Jurisdiction & venue\n1. This Court has jurisdiction under [statute / diversity / federal question].\n2. Venue is proper under [statute] because [FACTS].\n\n## Facts common to all counts\n3–[N]. [NUMBERED FACTUAL ALLEGATIONS — fill chronologically; attach exhibits per Schedule A.]\n\n## Count I — [CAUSE OF ACTION]\n[Elements pleaded with supporting facts.]\n\n## Count II — [CAUSE OF ACTION]\n[Optional additional count.]\n\n## Prayer for relief\nWHEREFORE, Plaintiff requests judgment for:\n(a) damages of $[AMOUNT] or as proven;\n(b) interest, costs, and attorneys' fees as allowed;\n(c) injunctive / declaratory relief as specified; and\n(d) such other relief as the Court deems just.\n\n## Jury demand\nPlaintiff [demands / waives] trial by jury.\n\n## Governing law\nLaws of [STATE] / United States.\n\n## Schedules\n- Schedule A — List of exhibits\n- Schedule B — Damages computation (optional)\n\n## Signature block (counsel)\nRespectfully submitted,\n\n_______________________________  \n[ATTORNEY NAME], Esq.  \n[BAR NO.] | [FIRM] | [ADDRESS] | [EMAIL] | [PHONE]  \n*Attorney for Plaintiff*\n\n## Verification (if required)\n[PARTY VERIFICATION UNDER PENALTY OF PERJURY]\n"
+  }
+]

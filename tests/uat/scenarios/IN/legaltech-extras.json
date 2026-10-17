@@ -1,0 +1,660 @@
+{
+  "$schema": "../scenario.schema.json",
+  "jurisdiction": "IN",
+  "category": "legaltech-extras",
+  "scenarios": [
+    {
+      "id": "IN-SUM-001",
+      "title": "Summarize 1500-word judgment text into 200-word headnote",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P03",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/summarize",
+        "auth": "sdk-key",
+        "body": {
+          "content": "The Supreme Court of India in Civil Appeal No. 1234 of 2024 considered whether a foreign arbitral award rendered in Singapore against an Indian party can be enforced under Part II of the Arbitration and Conciliation Act 1996. The Court held that under Section 48, refusal of enforcement is permissible only on narrow grounds — incapacity, invalidity of the agreement under the chosen law, lack of due notice, award beyond submission, irregular composition of tribunal, award not yet binding, public policy violation, or non-arbitrability. The Court reaffirmed Renusagar v. General Electric (1994) for the narrow construction of public policy in foreign-award enforcement, distinguishing it from the wider Bhatia International standard for domestic awards. The Court also emphasised that mere errors of law do not justify refusal. Applying the test, the Court enforced the Singapore SIAC award since the Indian respondent failed to demonstrate any Section 48 ground.",
+          "type": "judgment",
+          "jurisdiction": "IN",
+          "targetLength": 200
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ],
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "arbitration",
+            "Section 48",
+            "foreign award",
+            "public policy",
+            "Renusagar",
+            "enforcement",
+            "Singapore"
+          ]
+        }
+      },
+      "passCriteria": "Summary preserves the holding (Section 48 narrow grounds, Renusagar reaffirmed) and the disposition (award enforced)."
+    },
+    {
+      "id": "IN-SUM-002",
+      "title": "Summarize a 50-page contract bundle into executive summary (legal-grade)",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P03",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/summarize",
+        "auth": "sdk-key",
+        "body": {
+          "content": "Master Services Agreement between AlphaSoft Pvt Ltd (Vendor) and BetaCorp India Ltd (Customer) dated 1 April 2024. Term: 3 years, auto-renewing for successive 1-year periods unless 90-day notice. Service Levels: 99.5% uptime, RPO 4h, RTO 24h. Liability cap: 12 months of fees paid. Indemnity: mutual for IP infringement, one-way (Vendor) for breach of confidentiality. Data fiduciary obligations under DPDP Act 2023 — consent management, data principal rights, breach notification within 72h. Termination for convenience: 60 days notice with transition assistance. Governing law: India. Dispute resolution: arbitration under Arbitration Act 1996, seat Mumbai, 3-arbitrator panel. Force majeure includes pandemic. Audit rights: annual SOC2 + on-demand for security incidents.",
+          "type": "contract",
+          "jurisdiction": "IN",
+          "targetLength": 300
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ],
+        "mustContainAtLeast": {
+          "count": 3,
+          "of": [
+            "MSA",
+            "term",
+            "liability",
+            "indemnity",
+            "DPDP",
+            "arbitration",
+            "termination",
+            "uptime",
+            "data fiduciary"
+          ]
+        }
+      },
+      "passCriteria": "Captures key commercial terms (term, SLA, liability cap, indemnity asymmetry) + DPDPA compliance posture + dispute resolution."
+    },
+    {
+      "id": "IN-EXT-001",
+      "title": "Extract entities from a Section 138 NI Act demand notice",
+      "userRole": "paralegal",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/extract-entities",
+        "auth": "sdk-key",
+        "body": {
+          "content": "DEMAND NOTICE under Section 138 of the Negotiable Instruments Act 1881. To: Mr Rajesh Kumar, S/o Late Mr Suresh Kumar, R/o Flat 402, Tower B, Lotus Apartments, Andheri West, Mumbai 400053. Cheque No. 245781 dated 15.03.2024 drawn on HDFC Bank, Bandra branch, for INR 4,50,000 in favour of M/s Sharma Enterprises Pvt Ltd was dishonoured on presentation on 22.03.2024 with the remark 'insufficient funds'. You are called upon to make payment of INR 4,50,000 within 15 days from receipt of this notice failing which criminal proceedings under Section 138 NI Act will be initiated. Issued at Mumbai on 25.03.2024 by Adv. Priya Mehta (Bar Council MH/12345/2018), Counsel for M/s Sharma Enterprises Pvt Ltd.",
+          "jurisdiction": "IN",
+          "entityTypes": [
+            "person",
+            "organization",
+            "amount",
+            "date",
+            "cheque_number",
+            "section"
+          ]
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Extracts: drawer (Rajesh Kumar), payee (Sharma Enterprises), bank (HDFC Bandra), cheque number 245781, amount INR 4,50,000, dishonour date, demand date, Section 138 NI Act, advocate name + bar number."
+    },
+    {
+      "id": "IN-EXT-002",
+      "title": "Extract entities from a multi-party SHA term sheet (parties, equity %, board seats)",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/extract-entities",
+        "auth": "sdk-key",
+        "body": {
+          "content": "Series A Term Sheet for InnovateAI Technologies Pvt Ltd. Lead Investor: Sequoia Capital India IV LP investing INR 100 crore for 22% post-money equity at INR 4,545 per share (post-money valuation INR 454.5 crore). Co-Investor: Accel India Growth Fund VI investing INR 30 crore for 6.6%. Founders: Mr Arjun Verma (CEO, retains 35%), Ms Priya Sharma (CTO, retains 25%). ESOP: 8% post-money. Board composition: 5 seats — 2 founders, 1 Sequoia, 1 Accel, 1 independent (mutually agreed). Liquidation preference: 1x non-participating preferred. Anti-dilution: broad-based weighted average. Drag-along: triggered at 67% shareholder consent.",
+          "jurisdiction": "IN",
+          "entityTypes": [
+            "organization",
+            "person",
+            "amount",
+            "percentage",
+            "valuation"
+          ]
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Extracts all 4 entity classes (parties × 5, amounts × 3, percentages × 6, valuation INR 454.5cr); identifies role tags (Lead Investor, Co-Investor, Founder)."
+    },
+    {
+      "id": "IN-CLF-001",
+      "title": "Classify clauses in an enterprise SaaS MSA into 12 standard clause categories",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P05",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/classify-clauses",
+        "auth": "sdk-key",
+        "body": {
+          "content": "10. LIMITATION OF LIABILITY. Each party's aggregate liability under this Agreement shall not exceed the fees paid in the 12 months preceding the claim. Neither party shall be liable for indirect, consequential, special, or punitive damages. 11. INDEMNIFICATION. Vendor shall indemnify, defend, and hold harmless Customer from any third-party claim that the Services infringe IP rights. 12. CONFIDENTIALITY. Each party shall hold the other's Confidential Information in strict confidence for 5 years post-termination. 13. TERM AND TERMINATION. Either party may terminate for material breach with 30 days cure period. 14. GOVERNING LAW. This Agreement is governed by the laws of India; courts at Mumbai shall have exclusive jurisdiction.",
+          "jurisdiction": "IN",
+          "schema": "iso-clause-taxonomy-v2"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Returns ≥4 clause classifications mapping to: limitation_of_liability, indemnification, confidentiality, term_termination, governing_law."
+    },
+    {
+      "id": "IN-CMP-001",
+      "title": "Compare two versions of a privacy policy for material changes (DPDPA pre vs post-amendment)",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P05",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/compare",
+        "auth": "sdk-key",
+        "body": {
+          "document1": "Version 1 of the privacy policy applies the IT Rules 2011 (SPDI Rules) framework: sensitive personal data is defined narrowly (passwords, financial info, health, biometrics, sexual orientation), consent is implied for non-sensitive, and there is no breach-notification timeline.",
+          "document2": "Version 2 applies the DPDP Act 2023 framework: 'personal data' is broader, consent must be free, specific, informed, unconditional, and unambiguous; data fiduciary must notify the Data Protection Board within 72 hours of breach; data principals have rights of access, correction, erasure, and grievance redressal."
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success",
+          "data.differences",
+          "data.similarityScore"
+        ]
+      },
+      "passCriteria": "Identifies the regulatory shift (SPDI → DPDPA), broader personal-data scope, stricter consent standard, 72h breach notification, new principal rights."
+    },
+    {
+      "id": "IN-QA-001",
+      "title": "Document Q&A — answer specific compliance question over an uploaded GST filing",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P02",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/qa",
+        "auth": "sdk-key",
+        "body": {
+          "document": "GSTR-3B return for August 2024 filed by ABC Traders Pvt Ltd, GSTIN 27ABCDE1234F1Z5. Total outward taxable supplies INR 12,40,000; IGST output INR 2,23,200; CGST INR 1,11,600; SGST INR 1,11,600. Input tax credit availed INR 3,80,000. Net tax payable INR 66,400 paid via electronic cash ledger on 18.09.2024. Late fee INR 0; interest INR 0. Self-assessment under Section 39 CGST Act 2017.",
+          "question": "What is the late-fee exposure if this return had been filed on 22.09.2024 instead of 18.09.2024?",
+          "jurisdiction": "IN"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ],
+        "mustContainAtLeast": {
+          "count": 1,
+          "of": [
+            "Section 47",
+            "late fee",
+            "INR 50",
+            "INR 20",
+            "GSTR-3B",
+            "due date",
+            "20th",
+            "no late fee",
+            "filed on time"
+          ]
+        }
+      },
+      "passCriteria": "Recognises GSTR-3B due date is 20th of following month; computes late fee per Section 47 CGST + applicable notifications; flags interest exposure under Section 50."
+    },
+    {
+      "id": "IN-EMB-001",
+      "title": "Generate embeddings for a statute paragraph (RAG ingestion smoke)",
+      "userRole": "paralegal",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/embeddings",
+        "auth": "sdk-key",
+        "body": {
+          "texts": [
+            "Section 138 of the Negotiable Instruments Act 1881 makes dishonour of cheque for insufficiency of funds a criminal offence punishable with imprisonment up to 2 years or fine up to twice the cheque amount.",
+            "Section 142 prescribes the manner of taking cognizance — only on written complaint by the payee within one month of cause of action arising under Section 138."
+          ],
+          "model": "auto"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Returns 2 embedding vectors of consistent dimension; metadata records model + token count."
+    },
+    {
+      "id": "IN-TRN-001",
+      "title": "Translate a Section 482 CrPC quashing petition Hindi → English",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/translate",
+        "auth": "sdk-key",
+        "body": {
+          "text": "माननीय न्यायालय के समक्ष धारा 482 दंड प्रक्रिया संहिता के अंतर्गत यह याचिका दायर की जा रही है। प्राथमिकी संख्या 245/2024 में दर्ज मामले को रद्द करने की प्रार्थना की जाती है क्योंकि कोई संज्ञेय अपराध प्रथम दृष्टया नहीं बनता है।",
+          "sourceLanguage": "hi",
+          "targetLanguage": "en",
+          "domain": "legal"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ],
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "Section 482",
+            "CrPC",
+            "Code of Criminal Procedure",
+            "quash",
+            "FIR",
+            "cognizable",
+            "petition",
+            "first information",
+            "245"
+          ]
+        }
+      },
+      "passCriteria": "Preserves legal terms-of-art (Section 482, FIR, cognizable offence), case number reference; legal-domain translation, not literal."
+    },
+    {
+      "id": "IN-TRN-002",
+      "title": "Detect language of a mixed Tamil + English cause-list paragraph",
+      "userRole": "paralegal",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/translate/detect-language",
+        "auth": "sdk-key",
+        "body": {
+          "input": "Crl. M.P. No. 1234/2024 — மனுதாரர் ABC Industries Pvt Ltd — Section 138 NI Act வழக்கு — அடுத்த தேதி 15.10.2024"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Detects Tamil as the primary language with English secondary; returns confidence ≥0.7."
+    },
+    {
+      "id": "IN-TRN-003",
+      "title": "List supported translation languages",
+      "userRole": "paralegal",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "GET",
+        "path": "/api/jrx/gateway/translate/languages",
+        "auth": "sdk-key"
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Returns supported language codes including hi, ta, mr, kn, te, bn, pa, gu — i.e. major Indian languages."
+    },
+    {
+      "id": "IN-OCR-EXT-001",
+      "title": "OCR — small synthetic image (sanity smoke)",
+      "userRole": "paralegal",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/ocr/process",
+        "auth": "sdk-key",
+        "body": {
+          "imageUrl": "https://example.com/sample-doc.png",
+          "fileName": "smoke.png",
+          "options": {
+            "language": "en",
+            "extractText": true
+          }
+        }
+      },
+      "expected": {
+        "timeoutMs": 60000,
+        "httpStatus": [
+          200,
+          202
+        ],
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Sync 200 with text+confidence OR async 202 with jobId; either way the contract is honoured."
+    },
+    {
+      "id": "IN-SAM-COT-001",
+      "title": "Sampling: chain-of-thought reasoning trace exposure for a statute interpretation",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P02",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/sampling/chain-of-thought",
+        "auth": "sdk-key",
+        "body": {
+          "prompt": "Does Section 65B of the Indian Evidence Act 1872 require a separate certificate even when the original electronic record is produced? Reason step-by-step.",
+          "jurisdiction": "IN",
+          "options": {
+            "maxSteps": 5
+          }
+        }
+      },
+      "expected": {
+        "timeoutMs": 90000,
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ],
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "Section 65B",
+            "Anvar",
+            "Arjun Panditrao",
+            "Shafhi Mohammad",
+            "certificate",
+            "secondary evidence",
+            "electronic record"
+          ]
+        }
+      },
+      "passCriteria": "Surfaces an explicit step-by-step reasoning trace; references Anvar P.V. (2014) + Arjun Panditrao (2020) line of authority on Section 65B certificate requirement."
+    },
+    {
+      "id": "IN-MEM-001",
+      "title": "Memory: store a matter context entry (L2 matter-memory tier)",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P14",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/memory/store",
+        "auth": "sdk-key",
+        "body": {
+          "tier": "matter",
+          "matterId": "uat-matter-2026-05-09",
+          "key": "client-objective",
+          "metadata": {
+            "jurisdiction": "IN",
+            "practiceArea": "criminal"
+          },
+          "agentId": "legal-research",
+          "content": "Defend Section 138 NI Act prosecution; primary defence: payment was towards a time-barred debt, not legally enforceable."
+        }
+      },
+      "expected": {
+        "httpStatus": [
+          200,
+          201
+        ],
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Memory entry persisted with tenant + matter scoping; returns memoryId."
+    },
+    {
+      "id": "IN-MEM-002",
+      "title": "Memory: recall the entry just stored",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P14",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/memory/recall",
+        "auth": "sdk-key",
+        "body": {
+          "tier": "matter",
+          "matterId": "uat-matter-2026-05-09",
+          "query": "client objective",
+          "agentId": "legal-research"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Returns ≥1 entry whose value mentions Section 138 + time-barred debt."
+    },
+    {
+      "id": "IN-AGT-CMP-001",
+      "title": "Agent compliance posture for an active legal-research agent",
+      "userRole": "super-admin",
+      "sdkVariant": "nsp-web",
+      "pattern": "P22",
+      "request": {
+        "method": "GET",
+        "path": "/api/jrx/gateway/agents/legal-research/compliance",
+        "auth": "sdk-key"
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Returns the agent's compliance posture: section coverage of the 22-section Parlant prompt, hallucination/citation gate config, jurisdiction binding."
+    },
+    {
+      "id": "IN-PA-001",
+      "title": "List supported practice areas",
+      "userRole": "paralegal",
+      "sdkVariant": "nsp-web",
+      "pattern": "P22",
+      "request": {
+        "method": "GET",
+        "path": "/api/jrx/gateway/practice-areas",
+        "auth": "sdk-key"
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Returns the catalog of practice areas covered by the 1042-agent registry (corporate, criminal, tax, IP, labour, arbitration, etc)."
+    },
+    {
+      "id": "IN-INFO-001",
+      "title": "Gateway /info exposes platform metadata",
+      "userRole": "super-admin",
+      "sdkVariant": "nsp-web",
+      "pattern": "P22",
+      "request": {
+        "method": "GET",
+        "path": "/api/jrx/gateway/info",
+        "auth": "sdk-key"
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Returns platform name, version, registry counts, jurisdiction list."
+    },
+    {
+      "id": "IN-USE-TOK-001",
+      "title": "Token usage report for the calling SDK app",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P22",
+      "request": {
+        "method": "GET",
+        "path": "/api/jrx/gateway/usage/tokens",
+        "auth": "sdk-key"
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Returns token totals (in/out/total), cost USD, period — scoped to the requesting application by middleware."
+    },
+    {
+      "id": "IN-USE-001",
+      "title": "Usage summary endpoint",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P22",
+      "request": {
+        "method": "GET",
+        "path": "/api/jrx/gateway/usage",
+        "auth": "sdk-key"
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Returns request count, success/error breakdown, tier limits remaining."
+    },
+    {
+      "id": "IN-CACHE-001",
+      "title": "Cache stats endpoint (token-optimization observability)",
+      "userRole": "super-admin",
+      "sdkVariant": "nsp-web",
+      "pattern": "P22",
+      "request": {
+        "method": "GET",
+        "path": "/api/jrx/gateway/cache/stats",
+        "auth": "sdk-key"
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Returns hit/miss/eviction counters; semantic-cache hit-rate is the headline token-optimization metric."
+    },
+    {
+      "id": "IN-GRD-001",
+      "title": "Guardrails stats — hit counts on PII / hallucination / banned-content gates",
+      "userRole": "super-admin",
+      "sdkVariant": "nsp-web",
+      "pattern": "P22",
+      "request": {
+        "method": "GET",
+        "path": "/api/jrx/gateway/guardrails/stats",
+        "auth": "sdk-key"
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Returns counters for each guardrail category."
+    },
+    {
+      "id": "IN-OCR-JOBS-001",
+      "title": "OCR jobs list — paged",
+      "userRole": "paralegal",
+      "sdkVariant": "nsp-web",
+      "pattern": "P11",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/ocr/jobs",
+        "auth": "sdk-key",
+        "body": {
+          "imageData": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+          "language": "eng",
+          "jurisdiction": "IN"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Returns ≤5 OCR jobs (including async ones from IN-OCR-004)."
+    },
+    {
+      "id": "IN-AGT-LIST-001",
+      "title": "List 148 agents available for IN jurisdiction",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P22",
+      "request": {
+        "method": "GET",
+        "path": "/api/jrx/gateway/agents",
+        "auth": "sdk-key"
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Returns 148 agents for default registry (the canonical 1042-agent endpoint)."
+    },
+    {
+      "id": "IN-AGT-REG-001",
+      "title": "Registry version endpoint — 1042 agents v5.0.0 across 7 registries",
+      "userRole": "super-admin",
+      "sdkVariant": "nsp-web",
+      "pattern": "P22",
+      "request": {
+        "method": "GET",
+        "path": "/api/jrx/gateway/agents/registry-version",
+        "auth": "sdk-key"
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success"
+        ]
+      },
+      "passCriteria": "Returns total=1042 + 7 registries with sha256 fingerprints."
+    }
+  ]
+}

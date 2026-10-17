@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nyayavigya
+  labels:
+    app.kubernetes.io/name: nyayavigya
+    app.kubernetes.io/version: "3.1.2"
+    app.kubernetes.io/managed-by: helm
+    environment: production
+    legal-platform: "true"
+    compliance: "iso27001"
+  annotations:
+    description: "Nyayavigya Platform 3.1.2 — India's Sovereign Legal AI Operating System"
+    contact: "platform-team@nyayavigya.in"

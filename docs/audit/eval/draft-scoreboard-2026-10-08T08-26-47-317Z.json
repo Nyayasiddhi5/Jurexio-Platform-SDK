@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-10-08T08:22:07.157Z",
+  "mode": "live+ab",
+  "fixture": "nv-indian-draft-sme-cases.json",
+  "routing": [
+    {
+      "caseId": "IN-WP-001",
+      "documentType": "writ_petition",
+      "fastMedium": {
+        "taskType": "legal-draft-fast",
+        "draftLength": "medium",
+        "registryTokens": 8192,
+        "partnerMaxTokens": 8192,
+        "slaFast": true,
+        "explicitFastAlias": true
+      },
+      "counselComprehensive": {
+        "taskType": "legal-draft-agentic",
+        "draftLength": "comprehensive",
+        "registryTokens": 32768,
+        "partnerMaxTokens": 32768,
+        "queenPath": true
+      },
+      "pass": true,
+      "notes": []
+    }
+  ],
+  "lanes": {
+    "counsel_comprehensive": {
+      "avgRubricPct": 69,
+      "runs": [
+        {
+          "caseId": "IN-WP-001",
+          "http": 200,
+          "ms": 280148,
+          "contentLen": 13118,
+          "model": "global.anthropic.claude-opus-4-8",
+          "path": "specialist",
+          "rubricPct": 69,
+          "rubric": {
+            "total": 69,
+            "maxTotal": 100,
+            "pct": 69,
+            "structure": 100,
+            "completion": 50,
+            "length": 40,
+            "voice": 100,
+            "placeholders": 30,
+            "markers": {
+              "prayer": true,
+              "verification": true,
+              "causeTitle": true,
+              "numberedParas": true,
+              "limitationChecked": true
+            },
+            "completionDetail": {
+              "complete": false,
+              "abruptEnding": true,
+              "missingSections": [],
+              "truncatedPrayer": false,
+              "incompleteNumberedPara": true,
+              "hasPrayerOrRelief": true,
+              "hasVerification": true,
+              "hasSignatureBlock": true,
+              "hasDisclosureClause": true,
+              "unresolvedPlaceholders": 33,
+              "reviewRecommended": true
+            },
+            "lengthWarning": "Draft shorter than expected for writ_petition (medium): 13118 chars < ~29491",
+            "voiceHits": []
+          }
+        }
+      ]
+    }
+  },
+  "laneMode": "counsel"
+}

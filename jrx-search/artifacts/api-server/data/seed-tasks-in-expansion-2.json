@@ -1,0 +1,230 @@
+[
+  {
+    "category": "bankruptcy-restructuring",
+    "slug": "analyze-india-ibc-cirp-eligibility",
+    "title": "Analyze IBC CIRP Eligibility and Filing Strategy (India)",
+    "work_type": "analyze",
+    "tags": ["IBC", "CIRP", "insolvency", "NCLT", "India"],
+    "instructions": "Review the default notice, financial statements, and security documents. Prepare a memo on whether a CIRP petition under the Insolvency and Bankruptcy Code, 2016 is maintainable and strategic considerations for operational vs financial creditor. Output: `ibc-cirp-memo.docx`.",
+    "deliverables": { "ibc-cirp-memo.docx": "ibc-cirp-memo.docx" },
+    "documents": ["default-notice.pdf", "audited-bs.pdf", "debenture-trust-deed.pdf"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "IBC CIRP memo produced", "match_criteria": "PASS if ibc-cirp-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Tests default threshold and debt existence", "match_criteria": "PASS if the memo confirms undisputed debt above threshold and default date. FAIL if default not analyzed." },
+      { "id": "C-003", "title": "Classifies creditor category", "match_criteria": "PASS if financial vs operational creditor status is analyzed with supporting documents. FAIL if creditor class assumed." },
+      { "id": "C-004", "title": "Addresses limitation and prior withdrawals", "match_criteria": "PASS if limitation and any prior Section 7/9 filing history is discussed. FAIL if procedural bars ignored." },
+      { "id": "C-005", "title": "Notes moratorium and RP appointment effects", "match_criteria": "PASS if moratorium impact and interim RP role are summarized. FAIL if CIRP effects omitted." },
+      { "id": "C-006", "title": "Recommends forum and filing timeline", "match_criteria": "PASS if NCLT bench selection and filing steps are recommended. FAIL if no action plan." }
+    ]
+  },
+  {
+    "category": "capital-markets",
+    "slug": "review-india-sebi-lodr-disclosure",
+    "title": "Review SEBI LODR Disclosure Obligations for Listed Entity (India)",
+    "work_type": "review",
+    "tags": ["SEBI", "LODR", "disclosure", "listed company", "India"],
+    "instructions": "Review the draft board outcome, material event email chain, and trading data. Prepare a disclosure memo on Reg 30/33 obligations under SEBI (LODR) Regulations, 2015. Output: `lodr-disclosure-memo.docx`.",
+    "deliverables": { "lodr-disclosure-memo.docx": "lodr-disclosure-memo.docx" },
+    "documents": ["board-outcome-draft.docx", "material-event-emails.pdf", "stock-price-chart.pdf"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "LODR disclosure memo produced", "match_criteria": "PASS if lodr-disclosure-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Identifies material event category", "match_criteria": "PASS if the memo maps facts to Schedule III / Reg 30 event categories. FAIL if event type not classified." },
+      { "id": "C-003", "title": "Assesses trading window and UPSI controls", "match_criteria": "PASS if UPSI and trading window restrictions are discussed. FAIL if insider trading controls omitted." },
+      { "id": "C-004", "title": "Recommends exchange filing timeline", "match_criteria": "PASS if timeline for stock exchange intimation and website disclosure is stated. FAIL if timeline missing." },
+      { "id": "C-005", "title": "Notes price movement disclosure triggers", "match_criteria": "PASS if continuous disclosure vs immediate disclosure analysis included when price movement present. FAIL if market reaction ignored." },
+      { "id": "C-006", "title": "Draft disclosure text suggested", "match_criteria": "PASS if sample exchange filing language is proposed. FAIL if no draft disclosure." }
+    ]
+  },
+  {
+    "category": "insurance",
+    "slug": "analyze-india-irdai-claim-repudiation",
+    "title": "Analyze IRDAI-Regulated Insurance Claim Repudiation (India)",
+    "work_type": "analyze",
+    "tags": ["insurance", "IRDAI", "repudiation", "India", "consumer"],
+    "instructions": "Review the policy, claim intimation, surveyor report, and repudiation letter. Prepare a memo on repudiation grounds and remedies (ombudsman/court). Output: `insurance-repudiation-memo.docx`.",
+    "deliverables": { "insurance-repudiation-memo.docx": "insurance-repudiation-memo.docx" },
+    "documents": ["policy-schedule.pdf", "claim-form.pdf", "surveyor-report.pdf", "repudiation-letter.pdf"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "Insurance repudiation memo produced", "match_criteria": "PASS if insurance-repudiation-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Summarizes policy coverage and exclusions", "match_criteria": "PASS if covered peril and cited exclusions are summarized. FAIL if coverage scope missing." },
+      { "id": "C-003", "title": "Tests repudiation ground against facts", "match_criteria": "PASS if each repudiation reason is tested against claim documents. FAIL if grounds not itemized." },
+      { "id": "C-004", "title": "Notes disclosure/UBERIMA FIDES duties", "match_criteria": "PASS if insurer's duty of good faith and disclosure doctrines are discussed. FAIL if insurer duties omitted." },
+      { "id": "C-005", "title": "Identifies ombudsman vs court route", "match_criteria": "PASS if Insurance Ombudsman eligibility and court alternative are compared. FAIL if remedies not outlined." },
+      { "id": "C-006", "title": "Recommends next steps and limitation", "match_criteria": "PASS if recommended filing steps and limitation caution included. FAIL if no action plan." }
+    ]
+  },
+  {
+    "category": "healthcare-life-sciences",
+    "slug": "analyze-india-cdsco-drug-recall-notice",
+    "title": "Analyze CDSCO Drug Recall Notice Response (India)",
+    "work_type": "analyze",
+    "tags": ["CDSCO", "pharma", "recall", "India", "healthcare"],
+    "instructions": "Review the CDSCO recall communication, batch manufacturing records, and distribution list. Prepare a regulatory response and remediation memo. Output: `cdsco-recall-memo.docx`.",
+    "deliverables": { "cdsco-recall-memo.docx": "cdsco-recall-memo.docx" },
+    "documents": ["cdsco-recall-letter.pdf", "batch-records.pdf", "distribution-list.xlsx"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "CDSCO recall memo produced", "match_criteria": "PASS if cdsco-recall-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Identifies affected batches and scope", "match_criteria": "PASS if batch numbers and distribution scope are stated. FAIL if scope missing." },
+      { "id": "C-003", "title": "Root cause and CAPA outline", "match_criteria": "PASS if root cause hypothesis and corrective/preventive actions outlined. FAIL if CAPA absent." },
+      { "id": "C-004", "title": "Customer/regulator notification plan", "match_criteria": "PASS if notification to stockists, hospitals, and CDSCO timeline included. FAIL if notification plan missing." },
+      { "id": "C-005", "title": "Product liability exposure flagged", "match_criteria": "PASS if potential civil/criminal exposure under Drugs Act themes noted. FAIL if liability risk ignored." },
+      { "id": "C-006", "title": "Document retention and hold", "match_criteria": "PASS if litigation hold on manufacturing and QC records recommended. FAIL if preservation not mentioned." }
+    ]
+  },
+  {
+    "category": "immigration",
+    "slug": "analyze-india-oci-revocation-representation",
+    "title": "Analyze OCI Card Revocation Representation Strategy (India)",
+    "work_type": "analyze",
+    "tags": ["OCI", "immigration", "FRRO", "India", "citizenship"],
+    "instructions": "Review the OCI revocation order, passport history, and residence records. Prepare a representation strategy memo under the OCI Scheme and Citizenship Act framework. Output: `oci-revocation-memo.docx`.",
+    "deliverables": { "oci-revocation-memo.docx": "oci-revocation-memo.docx" },
+    "documents": ["oci-revocation-order.pdf", "passport-history.pdf", "residence-records.pdf"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "OCI revocation memo produced", "match_criteria": "PASS if oci-revocation-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "States stated grounds for revocation", "match_criteria": "PASS if revocation grounds from the order are summarized. FAIL if grounds not stated." },
+      { "id": "C-003", "title": "Tests factual basis against records", "match_criteria": "PASS if each ground is tested against residence/passport evidence. FAIL if facts not analyzed." },
+      { "id": "C-004", "title": "Outlines representation/appeal forum", "match_criteria": "PASS if appropriate ministry/FRRO representation or judicial remedy discussed. FAIL if remedies absent." },
+      { "id": "C-005", "title": "Addresses travel and compliance interim steps", "match_criteria": "PASS if interim travel/document compliance steps listed. FAIL if interim guidance missing." },
+      { "id": "C-006", "title": "Recommends evidence bundle", "match_criteria": "PASS if recommended annexures for representation listed. FAIL if evidence list absent." }
+    ]
+  },
+  {
+    "category": "international-trade-sanctions",
+    "slug": "analyze-india-dgft-export-control-notice",
+    "title": "Analyze DGFT Export Control Notice Response (India)",
+    "work_type": "analyze",
+    "tags": ["DGFT", "export control", "SCOMET", "India", "trade"],
+    "instructions": "Review the DGFT show cause notice, shipping documents, and SCOMET classification notes. Prepare a reply strategy memo under FTP and SCOMET policy. Output: `dgft-notice-memo.docx`.",
+    "deliverables": { "dgft-notice-memo.docx": "dgft-notice-memo.docx" },
+    "documents": ["dgft-scn.pdf", "shipping-docs.pdf", "scomet-classification.docx"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "DGFT notice memo produced", "match_criteria": "PASS if dgft-notice-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Identifies alleged export control breach", "match_criteria": "PASS if alleged unauthorized export/SCOMET violation described. FAIL if breach theory missing." },
+      { "id": "C-003", "title": "Reviews classification and license status", "match_criteria": "PASS if product classification and license/end-user documents reviewed. FAIL if licensing not analyzed." },
+      { "id": "C-004", "title": "Maps documentary defenses", "match_criteria": "PASS if defenses tied to shipping, end-user certificates, and classification opinions. FAIL if defenses not mapped." },
+      { "id": "C-005", "title": "Notes penalty and authorization impact", "match_criteria": "PASS if penalty ranges and IEC/authorization suspension risk noted. FAIL if sanctions impact omitted." },
+      { "id": "C-006", "title": "Reply timeline and hearing plan", "match_criteria": "PASS if reply deadline and personal hearing preparation outlined. FAIL if timeline missing." }
+    ]
+  },
+  {
+    "category": "structured-finance-securitization",
+    "slug": "review-india-rbi-securitization-compliance",
+    "title": "Review RBI Securitisation Framework Compliance (India)",
+    "work_type": "review",
+    "tags": ["RBI", "securitization", "structured finance", "India"],
+    "instructions": "Review the proposed securitization term sheet, pool cut report, and servicing agreement. Prepare a compliance checklist memo against RBI securitisation directions. Output: `rbi-securitization-memo.docx`.",
+    "deliverables": { "rbi-securitization-memo.docx": "rbi-securitization-memo.docx" },
+    "documents": ["term-sheet-securitization.docx", "pool-cut-report.xlsx", "servicing-agreement.pdf"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "RBI securitization memo produced", "match_criteria": "PASS if rbi-securitization-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Checks retention and MHP requirements", "match_criteria": "PASS if originator retention/minimum holding period themes addressed. FAIL if retention omitted." },
+      { "id": "C-003", "title": "Reviews pool eligibility criteria", "match_criteria": "PASS if asset eligibility, concentration, and seasoning criteria reviewed. FAIL if pool criteria not discussed." },
+      { "id": "C-004", "title": "Servicing and trustee roles", "match_criteria": "PASS if servicing continuity and trustee/security trustee duties noted. FAIL if servicing structure ignored." },
+      { "id": "C-005", "title": "Rating and disclosure requirements", "match_criteria": "PASS if rating dependency and investor disclosure obligations flagged. FAIL if disclosure omitted." },
+      { "id": "C-006", "title": "Lists closing deliverables gap", "match_criteria": "PASS if gap list for final structuring documents provided. FAIL if no gap analysis." }
+    ]
+  },
+  {
+    "category": "trusts-estates-private-client",
+    "slug": "draft-india-will-huf-estate-plan",
+    "title": "Draft Indian Will with HUF Estate Planning Notes (India)",
+    "work_type": "draft",
+    "tags": ["will", "estate", "HUF", "succession", "India"],
+    "instructions": "Review the family asset schedule, HUF deed, and prior nominations. Draft a testamentary will under the Indian Succession Act with HUF/partition coordination notes. Output: `indian-will-draft.docx`.",
+    "deliverables": { "indian-will-draft.docx": "indian-will-draft.docx" },
+    "documents": ["asset-schedule.xlsx", "huf-deed.pdf", "nomination-forms.pdf"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "Indian will draft produced", "match_criteria": "PASS if indian-will-draft.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Identifies testator and executors", "match_criteria": "PASS if testator details and executor appointments included. FAIL if executors missing." },
+      { "id": "C-003", "title": "Bequests self-acquired vs HUF property separated", "match_criteria": "PASS if the draft distinguishes self-acquired property bequests from HUF coparcenary property. FAIL if HUF separation absent." },
+      { "id": "C-004", "title": "Includes attestation instructions", "match_criteria": "PASS if attestation by two witnesses per Succession Act requirements noted. FAIL if attestation omitted." },
+      { "id": "C-005", "title": "Coordinates nominations and will", "match_criteria": "PASS if interaction between will and financial account nominations addressed. FAIL if nomination conflict ignored." },
+      { "id": "C-006", "title": "Notes probate vs succession certificate", "match_criteria": "PASS if post-death probate/certificate pathway for relevant assets noted. FAIL if administration route omitted." }
+    ]
+  },
+  {
+    "category": "emerging-companies-venture-capital",
+    "slug": "review-india-sha-drag-along",
+    "title": "Review SHA Drag-Along Clause for Indian VC Round (India)",
+    "work_type": "review",
+    "tags": ["SHA", "drag-along", "venture capital", "India", "startup"],
+    "instructions": "Review the draft shareholders agreement, term sheet, and Companies Act compliance memo. Prepare a markup memo on drag-along mechanics and minority protections. Output: `sha-drag-along-memo.docx`.",
+    "deliverables": { "sha-drag-along-memo.docx": "sha-drag-along-memo.docx" },
+    "documents": ["sha-draft.docx", "term-sheet-series-a.pdf", "roc-cap-table.xlsx"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "SHA drag-along memo produced", "match_criteria": "PASS if sha-drag-along-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Explains trigger thresholds", "match_criteria": "PASS if drag trigger (board + investor % + founder %) explained. FAIL if triggers missing." },
+      { "id": "C-003", "title": "Reviews valuation and consideration mechanics", "match_criteria": "PASS if sale process, consideration distribution, and escrow/holdback noted. FAIL if economics omitted." },
+      { "id": "C-004", "title": "Flags FEMA and ROC transfer compliance", "match_criteria": "PASS if foreign holder pricing and share transfer form compliance flagged. FAIL if regulatory compliance omitted." },
+      { "id": "C-005", "title": "Minority protection carve-outs", "match_criteria": "PASS if tag-along, founder vesting, and dissenting shareholder protections reviewed. FAIL if protections not discussed." },
+      { "id": "C-006", "title": "Suggested clause revisions listed", "match_criteria": "PASS if concrete revision suggestions provided. FAIL if only summary without recommendations." }
+    ]
+  },
+  {
+    "category": "funds-asset-management",
+    "slug": "analyze-india-sebi-aif-compliance-report",
+    "title": "Analyze SEBI AIF Compliance Reporting Gaps (India)",
+    "work_type": "analyze",
+    "tags": ["SEBI", "AIF", "fund compliance", "India", "asset management"],
+    "instructions": "Review the AIF compliance calendar, Form A filings, and PPM. Prepare a gap analysis memo against SEBI AIF Regulations. Output: `aif-compliance-memo.docx`.",
+    "deliverables": { "aif-compliance-memo.docx": "aif-compliance-memo.docx" },
+    "documents": ["compliance-calendar.xlsx", "form-a-filings.pdf", "ppm-excerpt.docx"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "AIF compliance memo produced", "match_criteria": "PASS if aif-compliance-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Maps periodic filing obligations", "match_criteria": "PASS if quarterly/annual SEBI filings and timelines mapped. FAIL if filing calendar missing." },
+      { "id": "C-003", "title": "Identifies investment restriction breaches", "match_criteria": "PASS if concentration, leverage, and related-party investment rules tested. FAIL if investment limits not reviewed." },
+      { "id": "C-004", "title": "Reviews valuation and disclosure practices", "match_criteria": "PASS if valuation policy vs actual practices compared. FAIL if valuation omitted." },
+      { "id": "C-005", "title": "Flags KYC/AML gaps", "match_criteria": "PASS if investor KYC and AML program gaps noted. FAIL if AML not mentioned." },
+      { "id": "C-006", "title": "Remediation plan with owners", "match_criteria": "PASS if remediation steps with responsible owners listed. FAIL if no remediation plan." }
+    ]
+  },
+  {
+    "category": "energy-natural-resources",
+    "slug": "analyze-india-pngrb-pipeline-tariff-order",
+    "title": "Analyze PNGRB Pipeline Tariff Order Impact (India)",
+    "work_type": "analyze",
+    "tags": ["PNGRB", "pipeline", "tariff", "energy", "India"],
+    "instructions": "Review the PNGRB tariff order, gas supply agreements, and shipping history. Prepare a client memo on tariff applicability and pass-through clauses. Output: `pngrb-tariff-memo.docx`.",
+    "deliverables": { "pngrb-tariff-memo.docx": "pngrb-tariff-memo.docx" },
+    "documents": ["pngrb-order.pdf", "gsa-contracts.pdf", "shipping-history.xlsx"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "PNGRB tariff memo produced", "match_criteria": "PASS if pngrb-tariff-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Summarizes ordered tariff methodology", "match_criteria": "PASS if new tariff methodology and effective date summarized. FAIL if order not summarized." },
+      { "id": "C-003", "title": "Maps GSA pass-through clauses", "match_criteria": "PASS if contractual pass-through and dispute clauses analyzed. FAIL if contracts not mapped." },
+      { "id": "C-004", "title": "Quantifies revenue/cost impact", "match_criteria": "PASS if directional quantification on shippers/pipeline provided. FAIL if impact not discussed." },
+      { "id": "C-005", "title": "Notes appellate/review options", "match_criteria": "PASS if judicial review or PNGRB representation options noted. FAIL if remedies omitted." },
+      { "id": "C-006", "title": "Operational billing changes listed", "match_criteria": "PASS if billing/invoicing change checklist provided. FAIL if implementation steps absent." }
+    ]
+  },
+  {
+    "category": "environmental-esg",
+    "slug": "analyze-india-ngt-compensation-order",
+    "title": "Analyze NGT Environmental Compensation Order (India)",
+    "work_type": "analyze",
+    "tags": ["NGT", "environmental", "compensation", "ESG", "India"],
+    "instructions": "Review the NGT order, environmental impact assessment, and remediation invoices. Prepare a compliance and challenge strategy memo. Output: `ngt-order-memo.docx`.",
+    "deliverables": { "ngt-order-memo.docx": "ngt-order-memo.docx" },
+    "documents": ["ngt-order.pdf", "eia-summary.pdf", "remediation-invoices.pdf"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "NGT order memo produced", "match_criteria": "PASS if ngt-order-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Summarizes compensation and remediation directions", "match_criteria": "PASS if compensation amount and remediation directions stated. FAIL if directions missing." },
+      { "id": "C-003", "title": "Reviews basis in EPA/Water Act violations", "match_criteria": "PASS if statutory basis for liability identified. FAIL if legal basis omitted." },
+      { "id": "C-004", "title": "Assesses compliance timeline and penalties", "match_criteria": "PASS if compliance dates and continuing penalty themes noted. FAIL if timeline ignored." },
+      { "id": "C-005", "title": "Appeal/review forum analysis", "match_criteria": "PASS if Supreme Court appeal route and limitation discussed. FAIL if remedies absent." },
+      { "id": "C-006", "title": "ESG disclosure implications flagged", "match_criteria": "PASS if listed entity BRSR/ESG disclosure implications noted where applicable. FAIL if disclosure angle omitted without reason." }
+    ]
+  }
+]

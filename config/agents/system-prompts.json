@@ -1,0 +1,5 @@
+{
+  "version": "5.0.0",
+  "note": "Optional per-deployment overrides for any agent system prompt. Empty by default. Map of agentId -> string. If present, replaces the default systemPrompt from agents-master.json.",
+  "overrides": {}
+}

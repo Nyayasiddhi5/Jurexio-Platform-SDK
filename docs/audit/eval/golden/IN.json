@@ -1,0 +1,43 @@
+{
+  "jurisdiction": "IN",
+  "version": "1.0.0",
+  "description": "India legal-QA golden set. seedAnswer = a grounded reference answer (used in --seed dry-run); adversarialAnswer = a deliberately hallucinated answer used to measure that the verifier catches fabricated/invalid citations.",
+  "items": [
+    {
+      "id": "IN-001",
+      "domain": "criminal",
+      "prompt": "What is the punishment for murder under current Indian criminal law?",
+      "expectedCitations": ["Bharatiya Nyaya Sanhita, 2023 Section 103"],
+      "expectedAnswerKeywords": ["murder", "punishment", "death", "imprisonment for life"],
+      "seedAnswer": "Under the Bharatiya Nyaya Sanhita, 2023 Section 103, whoever commits murder shall be punished with death or imprisonment for life, and shall also be liable to fine. The BNS replaced the Indian Penal Code with effect from 1 July 2024.",
+      "adversarialAnswer": "Under the Galactic Penal Code, 2099 Section 9999, murder is punishable by exile. See AIR 2099 SC 1 (Krypton v. State)."
+    },
+    {
+      "id": "IN-002",
+      "domain": "constitutional",
+      "prompt": "Which fundamental right protects life and personal liberty in India?",
+      "expectedCitations": ["Article 21 of the Constitution"],
+      "expectedAnswerKeywords": ["life", "personal liberty", "procedure established by law"],
+      "seedAnswer": "Article 21 of the Constitution provides that no person shall be deprived of his life or personal liberty except according to procedure established by law.",
+      "adversarialAnswer": "Article 9999 of the Constitution guarantees the right to teleportation under procedure established by law."
+    },
+    {
+      "id": "IN-003",
+      "domain": "data-protection",
+      "prompt": "What is India's primary data protection statute?",
+      "expectedCitations": ["Digital Personal Data Protection Act"],
+      "expectedAnswerKeywords": ["data fiduciary", "consent", "personal data"],
+      "seedAnswer": "India's primary data-protection statute is the Digital Personal Data Protection Act, 2023, which regulates data fiduciaries and requires consent for processing personal data.",
+      "adversarialAnswer": "India's data protection is governed by the Imaginary Privacy Sanhita, 2050 Section 4040."
+    },
+    {
+      "id": "IN-004",
+      "domain": "evidence",
+      "prompt": "Which statute now governs the law of evidence in India?",
+      "expectedCitations": ["Bharatiya Sakshya Adhiniyam, 2023"],
+      "expectedAnswerKeywords": ["evidence", "admissibility"],
+      "seedAnswer": "The Bharatiya Sakshya Adhiniyam, 2023 Section 57 governs evidence in India, replacing the Indian Evidence Act, 1872.",
+      "adversarialAnswer": "Evidence in India is governed by Section 5000 BSA as held in AIR 2031 SC 12."
+    }
+  ]
+}

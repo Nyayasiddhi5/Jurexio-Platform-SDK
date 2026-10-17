@@ -1,0 +1,230 @@
+[
+  {
+    "category": "litigation-dispute-resolution",
+    "slug": "draft-india-written-statement-cpc",
+    "title": "Draft Written Statement under Order VIII CPC (India)",
+    "work_type": "draft",
+    "tags": ["Litigation", "CPC", "Order VIII", "written statement", "India"],
+    "instructions": "Review the attached plaint, supporting documents, and cause list. Draft a written statement for the defendant under Order VIII of the Code of Civil Procedure, 1908, responding to each material allegation and raising appropriate preliminary objections. Output: `written-statement.docx`.",
+    "deliverables": { "written-statement.docx": "written-statement.docx" },
+    "documents": ["plaint-breach-contract.docx", "invoice-bundle.pdf", "legal-notice-reply.pdf", "vakalatnama.pdf"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "Written statement deliverable produced", "match_criteria": "PASS if a written statement document (written-statement.docx or equivalent) is produced. FAIL if no written statement is drafted." },
+      { "id": "C-002", "title": "Responds to material allegations paragraph-wise", "match_criteria": "PASS if the draft responds to the plaint's material allegations in a paragraph-wise or issue-wise structure consistent with Order VIII CPC. FAIL if major paragraphs of the plaint are unaddressed." },
+      { "id": "C-003", "title": "Raises limitation preliminary objection where applicable", "match_criteria": "PASS if the draft raises a preliminary objection on limitation under the Limitation Act, 1963 when the plaint shows a stale cause of action. FAIL if a clear limitation defect visible in the plaint is ignored." },
+      { "id": "C-004", "title": "Addresses jurisdiction (pecuniary/territorial)", "match_criteria": "PASS if the draft addresses territorial or pecuniary jurisdiction where facts in the plaint create a triable issue. FAIL if an obvious jurisdiction defect pleaded in the documents is not addressed." },
+      { "id": "C-005", "title": "Includes verification as required", "match_criteria": "PASS if the draft includes or flags a verification clause consistent with Order VI Rule 15 and Order VIII CPC practice. FAIL if verification is entirely omitted without comment." },
+      { "id": "C-006", "title": "Sets out specific denial vs evasive denial", "match_criteria": "PASS if denials distinguish specific denials from evasive denials and do not blanket-deny paragraphs that admit documentary facts. FAIL if the draft uses only conclusory blanket denials." }
+    ]
+  },
+  {
+    "category": "arbitration-international-dispute-resolution",
+    "slug": "draft-india-arbitration-notice-aca",
+    "title": "Draft Arbitration Notice under Arbitration and Conciliation Act, 1996 (India)",
+    "work_type": "draft",
+    "tags": ["Arbitration", "ACA 1996", "Section 21", "India", "notice"],
+    "instructions": "Review the contract, correspondence, and breach chronology. Draft a Section 21 notice invoking arbitration under the Arbitration and Conciliation Act, 1996, nominating an arbitrator or proposing a tribunal as per the clause. Output: `arbitration-notice.docx`.",
+    "deliverables": { "arbitration-notice.docx": "arbitration-notice.docx" },
+    "documents": ["msa-arbitration-clause.docx", "breach-email-chain.pdf", "invoice-schedule.xlsx"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "Arbitration notice deliverable produced", "match_criteria": "PASS if an arbitration notice (arbitration-notice.docx or equivalent) is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Identifies arbitration agreement and seat", "match_criteria": "PASS if the notice quotes or identifies the arbitration clause, institution/rules, and seat/venue in India. FAIL if the clause is not identified." },
+      { "id": "C-003", "title": "States dispute and relief claimed", "match_criteria": "PASS if the notice summarizes the dispute, breach dates, and relief sought (damages/specific performance). FAIL if relief is not stated." },
+      { "id": "C-004", "title": "Proposes arbitrator or procedure", "match_criteria": "PASS if the notice proposes a sole arbitrator or tribunal appointment consistent with the clause (party-nominated / institutional). FAIL if appointment procedure is omitted." },
+      { "id": "C-005", "title": "Compliance window for response", "match_criteria": "PASS if the notice sets a reasonable response period for counterparty nomination or consent. FAIL if no timeline for next steps is provided." },
+      { "id": "C-006", "title": "Reservation of rights and governing law", "match_criteria": "PASS if the notice reserves rights and references governing law of India / contract law. FAIL if governing framework is absent." }
+    ]
+  },
+  {
+    "category": "banking-finance",
+    "slug": "analyze-india-sarfaesi-notice-response",
+    "title": "Analyze SARFAESI Section 13(2) Notice and Borrower Response Strategy (India)",
+    "work_type": "analyze",
+    "tags": ["SARFAESI", "secured creditor", "Section 13", "India", "banking"],
+    "instructions": "Review the Section 13(2) demand notice, loan documents, and account statements. Prepare a memo on enforceability, procedural defects, and borrower response options including representation under Section 13(3A). Output: `sarfaesi-response-memo.docx`.",
+    "deliverables": { "sarfaesi-response-memo.docx": "sarfaesi-response-memo.docx" },
+    "documents": ["sarfaesi-13-2-notice.pdf", "loan-agreement.pdf", "account-statement.pdf", "title-deed-copy.pdf"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "SARFAESI response memo produced", "match_criteria": "PASS if sarfaesi-response-memo.docx or equivalent analysis memo is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Quantifies outstanding as per notice", "match_criteria": "PASS if the memo states the demanded amount and reconciles it with loan statements. FAIL if amounts are not discussed." },
+      { "id": "C-003", "title": "Reviews security interest and possession stage", "match_criteria": "PASS if the memo identifies secured asset, charge registration, and whether action is pre-13(4) symbolic/physical possession. FAIL if security stage is ignored." },
+      { "id": "C-004", "title": "Identifies procedural defects if any", "match_criteria": "PASS if the memo tests notice service, authorized officer certification, and six-month limitation themes. FAIL if procedural compliance is not analyzed." },
+      { "id": "C-005", "title": "Sets out Section 13(3A) representation option", "match_criteria": "PASS if the memo explains borrower representation/objection avenue and 60-day creditor reply obligation. FAIL if 13(3A) is omitted." },
+      { "id": "C-006", "title": "Notes DRT appeal / injunction routes", "match_criteria": "PASS if the memo references appeal to DRT under Section 17 and practical stay/injunction considerations. FAIL if remedies are not outlined." }
+    ]
+  },
+  {
+    "category": "corporate-ma",
+    "slug": "analyze-india-cci-combination-filing",
+    "title": "Analyze CCI Combination Filing Requirement for Indian Acquisition (India)",
+    "work_type": "analyze",
+    "tags": ["CCI", "Competition Act", "combination", "India", "M&A"],
+    "instructions": "Review the share purchase term sheet, target and acquirer group turnover/asset data, and market share slides. Prepare a CCI filing necessity memo under the Competition Act, 2002 and Combination Regulations. Output: `cci-filing-memo.docx`.",
+    "deliverables": { "cci-filing-memo.docx": "cci-filing-memo.docx" },
+    "documents": ["term-sheet-spa.docx", "target-audited-accounts.pdf", "acquirer-group-revenue.xlsx", "market-share-deck.pptx"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "CCI filing memo produced", "match_criteria": "PASS if cci-filing-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Applies assets/turnover thresholds", "match_criteria": "PASS if the memo applies current Combination Regulations thresholds in India and group attribution logic. FAIL if thresholds are not discussed." },
+      { "id": "C-003", "title": "Assesses trigger events and timing", "match_criteria": "PASS if the memo identifies whether the transaction is a notifiable combination and the filing trigger (execution vs closing per chosen test). FAIL if timing is ignored." },
+      { "id": "C-004", "title": "Discusses gun-jumping risk", "match_criteria": "PASS if the memo warns against implementation before approval and notes standstill obligations. FAIL if gun-jumping is not mentioned." },
+      { "id": "C-005", "title": "Outlines Form I vs Form II factors", "match_criteria": "PASS if the memo discusses whether a short Form I or detailed Form II is likely based on overlaps. FAIL if form strategy is absent." },
+      { "id": "C-006", "title": "Recommends filing timeline and next steps", "match_criteria": "PASS if the memo recommends filing timeline, data requests, and closing condition linkage. FAIL if no actionable recommendation." }
+    ]
+  },
+  {
+    "category": "data-privacy-cybersecurity",
+    "slug": "draft-india-dpdp-consent-notice",
+    "title": "Draft DPDP Act Consent and Notice Framework (India)",
+    "work_type": "draft",
+    "tags": ["DPDP", "consent", "privacy", "India", "notice"],
+    "instructions": "Review the product data flow diagram, existing privacy policy, and vendor list. Draft a consent and notice pack aligned with the Digital Personal Data Protection Act, 2023 for a B2C mobile application. Output: `dpdp-notice-consent.docx`.",
+    "deliverables": { "dpdp-notice-consent.docx": "dpdp-notice-consent.docx" },
+    "documents": ["data-flow-diagram.pdf", "legacy-privacy-policy.docx", "vendor-dpa-list.xlsx"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "DPDP notice/consent pack produced", "match_criteria": "PASS if dpdp-notice-consent.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Lists personal data categories and purposes", "match_criteria": "PASS if the draft lists data categories collected and specific purposes of processing. FAIL if purposes are vague or missing." },
+      { "id": "C-003", "title": "Addresses consent and withdrawal mechanics", "match_criteria": "PASS if the draft explains how consent is obtained, is free/specific/informed, and how withdrawal works. FAIL if consent mechanics are omitted." },
+      { "id": "C-004", "title": "Includes data principal rights section", "match_criteria": "PASS if the draft covers access, correction, erasure, grievance redressal, and nomination concepts under DPDP. FAIL if rights section is absent." },
+      { "id": "C-005", "title": "Grievance officer and contact details", "match_criteria": "PASS if a grievance officer / DPO contact and response timeline are specified. FAIL if grievance channel is missing." },
+      { "id": "C-006", "title": "Children's data flag if applicable", "match_criteria": "PASS if the draft flags verifiable parental consent where children's data may be processed, or states age-gating approach. FAIL if children's processing risk is ignored when product is consumer-facing." }
+    ]
+  },
+  {
+    "category": "employment-labor",
+    "slug": "analyze-india-wrongful-termination-id-act",
+    "title": "Analyze Wrongful Termination under Industrial Disputes Act (India)",
+    "work_type": "analyze",
+    "tags": ["employment", "Industrial Disputes Act", "termination", "India"],
+    "instructions": "Review the employment contract, termination letter, disciplinary inquiry papers, and POSH records. Prepare a memo on legality of termination and forum options (labour court / industrial tribunal). Output: `termination-legality-memo.docx`.",
+    "deliverables": { "termination-legality-memo.docx": "termination-legality-memo.docx" },
+    "documents": ["appointment-letter.pdf", "termination-letter.pdf", "inquiry-report.pdf", "posh-complaint-summary.docx"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "Termination legality memo produced", "match_criteria": "PASS if termination-legality-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Classifies workman vs managerial status", "match_criteria": "PASS if the memo analyzes whether the employee is a 'workman' under ID Act based on duties. FAIL if status is assumed without analysis." },
+      { "id": "C-003", "title": "Tests domestic inquiry fairness", "match_criteria": "PASS if the memo reviews charge sheet, enquiry notice, cross-examination opportunity, and enquiry officer independence. FAIL if inquiry steps are not reviewed." },
+      { "id": "C-004", "title": "Addresses Section 25F / retrenchment compensation", "match_criteria": "PASS if retrenchment compensation and notice pay themes are discussed when retrenchment is alleged. FAIL if statutory payment obligations are ignored." },
+      { "id": "C-005", "title": "Identifies appropriate forum and limitation", "match_criteria": "PASS if the memo identifies labour court/industrial tribunal route and applicable limitation themes. FAIL if forum advice is absent." },
+      { "id": "C-006", "title": "Recommends settlement vs litigation posture", "match_criteria": "PASS if the memo recommends a practical employer response (reinstatement, compensation, settlement). FAIL if no recommendation." }
+    ]
+  },
+  {
+    "category": "intellectual-property",
+    "slug": "draft-india-trademark-opposition-reply",
+    "title": "Draft Trademark Opposition Reply under Trade Marks Act, 1999 (India)",
+    "work_type": "draft",
+    "tags": ["trademark", "opposition", "IPAB", "India", "TM Act"],
+    "instructions": "Review the opposition notice, applicant's mark usage evidence, and search report. Draft a reply to the opposition before the Registrar under the Trade Marks Act, 1999. Output: `tm-opposition-reply.docx`.",
+    "deliverables": { "tm-opposition-reply.docx": "tm-opposition-reply.docx" },
+    "documents": ["opposition-notice.pdf", "usage-invoices.pdf", "tm-search-report.pdf", "advertisement-samples.pdf"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "Opposition reply produced", "match_criteria": "PASS if tm-opposition-reply.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Responds to grounds in opposition", "match_criteria": "PASS if the reply addresses each ground (similarity, confusion, prior use, bad faith). FAIL if major grounds are unanswered." },
+      { "id": "C-003", "title": "Pleads prior use/acquired distinctiveness", "match_criteria": "PASS if the reply pleads prior use with dates and documentary references where available. FAIL if use evidence is not leveraged." },
+      { "id": "C-004", "title": "Distinguishes goods/services and class", "match_criteria": "PASS if the reply distinguishes classes and trade channels to rebut confusion. FAIL if distinction argument is absent." },
+      { "id": "C-005", "title": "Includes verification and annexures", "match_criteria": "PASS if verification and annexure list are included or flagged. FAIL if procedural completeness is ignored." },
+      { "id": "C-006", "title": "Notes evidence stage and timeline", "match_criteria": "PASS if the reply notes affidavit/evidence stage deadlines under Trademark Rules. FAIL if next procedural steps are omitted." }
+    ]
+  },
+  {
+    "category": "real-estate",
+    "slug": "analyze-india-rera-delay-claim",
+    "title": "Analyze RERA Delay Compensation Claim against Builder (India)",
+    "work_type": "analyze",
+    "tags": ["RERA", "real estate", "delay", "homebuyer", "India"],
+    "instructions": "Review the allotment letter, RERA registration, possession timeline, and delay notices. Prepare a homebuyer claim memo under the Real Estate (Regulation and Development) Act, 2016. Output: `rera-claim-memo.docx`.",
+    "deliverables": { "rera-claim-memo.docx": "rera-claim-memo.docx" },
+    "documents": ["allotment-letter.pdf", "rera-registration.pdf", "payment-schedule.pdf", "delay-notices.pdf"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "RERA claim memo produced", "match_criteria": "PASS if rera-claim-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "States promised vs actual possession dates", "match_criteria": "PASS if promised possession and actual/expected delay months are stated. FAIL if timeline is missing." },
+      { "id": "C-003", "title": "Calculates interest/compensation approach", "match_criteria": "PASS if the memo proposes compensation methodology under RERA (interest/refund options). FAIL if relief math is absent." },
+      { "id": "C-004", "title": "Checks project registration and advertisements", "match_criteria": "PASS if RERA registration validity and marketing representations are reviewed. FAIL if registration status ignored." },
+      { "id": "C-005", "title": "Addresses forum (RERA authority vs consumer commission)", "match_criteria": "PASS if the memo compares RERA authority and Consumer Commission routes with a recommendation. FAIL if forum analysis missing." },
+      { "id": "C-006", "title": "Lists documentary annexures for filing", "match_criteria": "PASS if the memo lists required annexures (allotment, receipts, correspondence). FAIL if filing checklist absent." }
+    ]
+  },
+  {
+    "category": "tax",
+    "slug": "analyze-india-gst-show-cause-reply",
+    "title": "Analyze GST Show Cause Notice Reply Strategy (India)",
+    "work_type": "analyze",
+    "tags": ["GST", "show cause notice", "tax", "India", "reply"],
+    "instructions": "Review the GST show cause notice, GSTR filings, e-way bills, and contracts. Prepare a reply strategy memo addressing tax, interest, and penalty sections. Output: `gst-scn-reply-memo.docx`.",
+    "deliverables": { "gst-scn-reply-memo.docx": "gst-scn-reply-memo.docx" },
+    "documents": ["gst-scn.pdf", "gstr-3b-summary.xlsx", "eway-bills.pdf", "supply-contracts.pdf"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "GST SCN reply memo produced", "match_criteria": "PASS if gst-scn-reply-memo.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Identifies allegations period and sections", "match_criteria": "PASS if the memo states SCN period, sections invoked, and demand breakup (tax/interest/penalty). FAIL if demand not summarized." },
+      { "id": "C-003", "title": "Maps documentary defense to each allegation", "match_criteria": "PASS if each major allegation is matched to supporting documents or legal arguments. FAIL if allegations are not itemized." },
+      { "id": "C-004", "title": "Addresses ITC eligibility / valuation themes", "match_criteria": "PASS if ITC denial or valuation mismatch arguments are analyzed on merits. FAIL if core tax issue ignored." },
+      { "id": "C-005", "title": "Notes limitation and personal liability", "match_criteria": "PASS if the memo flags limitation under CGST Act and personal penalty on officers if alleged. FAIL if procedural defenses omitted." },
+      { "id": "C-006", "title": "Recommends reply timeline and hearing preparation", "match_criteria": "PASS if the memo sets a reply calendar and hearing strategy. FAIL if no timeline." }
+    ]
+  },
+  {
+    "category": "white-collar-defense-investigations",
+    "slug": "analyze-india-ed-pmla-summons-response",
+    "title": "Analyze ED PMLA Summons and Statement Strategy (India)",
+    "work_type": "analyze",
+    "tags": ["PMLA", "ED", "summons", "India", "white collar"],
+    "instructions": "Review the ED summons, predicate offence FIR, and transaction trail. Prepare a client advisory on appearance, document production, and statement rights under PMLA. Output: `ed-pmla-advisory.docx`.",
+    "deliverables": { "ed-pmla-advisory.docx": "ed-pmla-advisory.docx" },
+    "documents": ["ed-summons.pdf", "predicate-fir.pdf", "bank-transaction-chart.xlsx"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "ED/PMLA advisory produced", "match_criteria": "PASS if ed-pmla-advisory.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Explains scheduled appearance obligations", "match_criteria": "PASS if the advisory explains summons compliance and consequences of non-appearance. FAIL if attendance obligations not discussed." },
+      { "id": "C-003", "title": "Maps predicate scheduled offence linkage", "match_criteria": "PASS if the advisory connects alleged proceeds to a scheduled offence narrative in the FIR/material. FAIL if predicate linkage ignored." },
+      { "id": "C-004", "title": "Document production and privilege plan", "match_criteria": "PASS if the advisory lists documents in scope and flags privilege/limitation on voluntary production. FAIL if production plan absent." },
+      { "id": "C-005", "title": "Statement under PMLA cautions", "match_criteria": "PASS if the advisory notes statement recording implications and right to counsel approach. FAIL if statement risks not addressed." },
+      { "id": "C-006", "title": "Bail/attachment parallel track noted", "match_criteria": "PASS if the advisory notes possible attachment orders and bail forums (PMLA special provisions). FAIL if parallel remedies omitted." }
+    ]
+  },
+  {
+    "category": "antitrust-competition",
+    "slug": "analyze-india-cci-leniency-outline",
+    "title": "Outline CCI Leniency Application Strategy (India)",
+    "work_type": "analyze",
+    "tags": ["CCI", "leniency", "cartel", "India", "competition"],
+    "instructions": "Review internal emails, pricing sheets, and industry association meeting notes. Prepare a confidential leniency strategy outline under the CCI (Lesser Penalty) Regulations. Output: `cci-leniency-outline.docx`.",
+    "deliverables": { "cci-leniency-outline.docx": "cci-leniency-outline.docx" },
+    "documents": ["pricing-emails.pdf", "association-minutes.pdf", "competitor-market-share.xlsx"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "Leniency outline produced", "match_criteria": "PASS if cci-leniency-outline.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Identifies alleged cartel conduct and participants", "match_criteria": "PASS if the outline describes conduct (price fixing/bid rigging) and participants at high level. FAIL if conduct not described." },
+      { "id": "C-003", "title": "Assesses marker/ranking benefits", "match_criteria": "PASS if the outline explains first-in marker advantages and cooperation duties. FAIL if leniency benefits not explained." },
+      { "id": "C-004", "title": "Lists evidence to be proffered", "match_criteria": "PASS if the outline lists documentary and witness evidence available to CCI. FAIL if evidence plan missing." },
+      { "id": "C-005", "title": "Flags dawn raid and document hold", "match_criteria": "PASS if immediate litigation hold and dawn raid readiness steps are noted. FAIL if preservation steps absent." },
+      { "id": "C-006", "title": "Recommends counsel engagement and timeline", "match_criteria": "PASS if the outline recommends urgent counsel engagement before contacting CCI. FAIL if no timeline." }
+    ]
+  },
+  {
+    "category": "corporate-governance",
+    "slug": "draft-india-companies-act-board-resolution",
+    "title": "Draft Board Resolution under Companies Act, 2013 (India)",
+    "work_type": "draft",
+    "tags": ["Companies Act", "board resolution", "corporate governance", "India"],
+    "instructions": "Review the transaction term sheet and charter documents. Draft a board resolution approving the transaction, authorized signatories, and filings (PAS-3/MGT-14 as applicable). Output: `board-resolution.docx`.",
+    "deliverables": { "board-resolution.docx": "board-resolution.docx" },
+    "documents": ["term-sheet.docx", "moa-aoa.pdf", "board-meeting-notice.pdf"],
+    "jurisdiction": "IN",
+    "criteria": [
+      { "id": "C-001", "title": "Board resolution produced", "match_criteria": "PASS if board-resolution.docx or equivalent is produced. FAIL if missing." },
+      { "id": "C-002", "title": "Recites meeting compliance", "match_criteria": "PASS if the resolution recites notice, quorum, and authority under AoA/Companies Act. FAIL if meeting compliance omitted." },
+      { "id": "C-003", "title": "Approves specified transaction", "match_criteria": "PASS if the resolution clearly approves the transaction described in the term sheet. FAIL if approval object is vague." },
+      { "id": "C-004", "title": "Authorizes signatories and filings", "match_criteria": "PASS if directors/officers are authorized to sign and file ROC forms. FAIL if authorization missing." },
+      { "id": "C-005", "title": "Notes Section 180/188 approvals if needed", "match_criteria": "PASS if borrowing, guarantee, related party or other special resolutions are flagged when triggers appear. FAIL if obvious Section 180/188 needs ignored." },
+      { "id": "C-006", "title": "Includes certification block", "match_criteria": "PASS if director/CS certification block is included. FAIL if execution block absent." }
+    ]
+  }
+]

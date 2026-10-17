@@ -1,0 +1,125 @@
+# =============================================================================
+#  Nyayavigya — Caddy edge config for STAGING (behind the staging ALB)
+#
+#  Same shape as the prod Caddyfile, but only the staging hosts are wired.
+#  The ALB target group health-checks GET /health on EC2:80 — the catch-all
+#  `:80 { /health -> 200 }` block at the bottom satisfies that.
+# =============================================================================
+
+{
+        admin off
+        auto_https off
+        servers {
+                trusted_proxies static 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16
+                protocols h1 h2c
+        }
+}
+
+(common_headers) {
+        header {
+                Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+                X-Frame-Options "SAMEORIGIN"
+                X-Content-Type-Options "nosniff"
+                Referrer-Policy "strict-origin-when-cross-origin"
+                Permissions-Policy "geolocation=(), camera=(), microphone=(), payment=(self)"
+                Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://*.nyayasiddhi.online wss://*.nyayasiddhi.online; frame-ancestors 'none'"
+                X-Robots-Tag "noindex, nofollow"
+                -Server
+        }
+}
+
+(json_log) {
+        log {
+                output file /var/log/caddy/access.log {
+                        roll_size 50mb
+                        roll_keep 7
+                }
+                format json
+        }
+}
+
+(proxy_headers) {
+        header_up X-Real-IP {http.request.header.X-Forwarded-For}
+        header_up X-Forwarded-For {http.request.header.X-Forwarded-For}
+        header_up X-Forwarded-Proto {http.request.header.X-Forwarded-Proto}
+        header_up X-Forwarded-Host {host}
+}
+
+(rate_limit_loose) {
+        rate_limit {
+                zone loose {
+                        key {http.request.remote.host}
+                        events 600
+                        window 1m
+                }
+        }
+}
+
+# =============================================================================
+#  STAGING HOSTS
+# =============================================================================
+staging.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        import rate_limit_loose
+        encode zstd gzip
+        reverse_proxy nyv-gateway-staging:5500 {
+                import proxy_headers
+        }
+}
+staging-pro.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        encode zstd gzip
+        reverse_proxy nyv-nsp-staging:5102 {
+                import proxy_headers
+        }
+}
+staging-nym.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        encode zstd gzip
+        reverse_proxy nyv-nym-staging:5101 {
+                import proxy_headers
+        }
+}
+staging-ins.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        encode zstd gzip
+        reverse_proxy nyv-nsi-staging:5103 {
+                import proxy_headers
+        }
+}
+staging-ace.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        encode zstd gzip
+        reverse_proxy nyv-nsa-staging:5104 {
+                import proxy_headers
+        }
+}
+staging-min.nyayasiddhi.online:80 {
+        import common_headers
+        import json_log
+        encode zstd gzip
+        reverse_proxy nyv-nsm-staging:5105 {
+                import proxy_headers
+        }
+}
+
+# Catch-all on :80 — also serves /health for the ALB target-group probe.
+:80 {
+        import common_headers
+        @health path /health
+        respond @health 200 {
+                body "ok-edge-staging"
+        }
+        @apihealth path /api/nv/health
+        reverse_proxy @apihealth nyv-gateway-staging:5500 {
+                import proxy_headers
+        }
+        respond 421 {
+                body "Misdirected request"
+        }
+}

@@ -1,0 +1,315 @@
+{
+  "generatedAt": "2026-07-29T08:14:37.624982Z",
+  "baseUrl": "https://api.nyayasiddhi.online",
+  "platform": "NSP",
+  "summary": {
+    "pass": 21,
+    "fail": 1,
+    "total": 22
+  },
+  "results": [
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 127,
+      "success": true,
+      "keys": [
+        "success",
+        "flag",
+        "client",
+        "upstream"
+      ],
+      "sdkMethod": "knowledge.planeHealth",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/plane/health"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 140,
+      "success": true,
+      "keys": [
+        "success",
+        "plane",
+        "caselaw",
+        "flag"
+      ],
+      "sdkMethod": "knowledge.getStats",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/stats"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 4637,
+      "success": true,
+      "keys": [
+        "success",
+        "query",
+        "jurisdiction",
+        "chunks",
+        "contextBlock",
+        "intent",
+        "layersUsed",
+        "retrievalMethods"
+      ],
+      "sdkMethod": "knowledge.search",
+      "httpMethod": "POST",
+      "path": "/api/nv/knowledge/search"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 109,
+      "success": true,
+      "keys": [
+        "success",
+        "source",
+        "data"
+      ],
+      "sdkMethod": "knowledge.retrieve",
+      "httpMethod": "POST",
+      "path": "/api/nv/knowledge/retrieve"
+    },
+    {
+      "ok": false,
+      "http": 503,
+      "ms": 16125,
+      "error": "{\"success\":false,\"error\":{\"code\":\"NYS_UPSTREAM\",\"message\":\"The caselaw corpus is busy (likely ingesting). Please retry shortly.\"}}",
+      "sdkMethod": "knowledge.searchCaselaw",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/caselaw/search"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 113,
+      "success": true,
+      "keys": [
+        "success",
+        "source",
+        "data"
+      ],
+      "sdkMethod": "knowledge.caselawStats",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/caselaw/stats"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 114,
+      "success": true,
+      "keys": [
+        "success",
+        "source",
+        "data"
+      ],
+      "sdkMethod": "knowledge.caselawEmbeddingCoverage",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/caselaw/embedding/coverage"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 118,
+      "success": true,
+      "keys": [
+        "success",
+        "source",
+        "data"
+      ],
+      "sdkMethod": "knowledge.verifyCitation",
+      "httpMethod": "POST",
+      "path": "/api/nv/knowledge/caselaw/verify-citation"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 1784,
+      "success": true,
+      "keys": [
+        "success",
+        "source",
+        "data"
+      ],
+      "sdkMethod": "knowledge.searchStatutes",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/statutes/search"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 304,
+      "success": true,
+      "keys": [
+        "success",
+        "source",
+        "data"
+      ],
+      "sdkMethod": "knowledge.listStatuteActs",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/statutes/acts"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 115,
+      "success": true,
+      "keys": [
+        "success",
+        "source",
+        "data"
+      ],
+      "sdkMethod": "knowledge.statutesEmbeddingCoverage",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/statutes/embedding/coverage"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 127,
+      "success": true,
+      "keys": [
+        "success",
+        "source",
+        "data"
+      ],
+      "sdkMethod": "knowledge.extractCitations",
+      "httpMethod": "POST",
+      "path": "/api/nv/knowledge/citations/extract"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 1086,
+      "success": true,
+      "keys": [
+        "success",
+        "source",
+        "data"
+      ],
+      "sdkMethod": "knowledge.searchArchive",
+      "httpMethod": "POST",
+      "path": "/api/nv/knowledge/documents/search"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 217,
+      "success": true,
+      "keys": [
+        "success",
+        "source",
+        "data"
+      ],
+      "sdkMethod": "knowledge.listTemplates",
+      "httpMethod": "GET",
+      "path": "/api/nv/knowledge/templates"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 11462,
+      "success": true,
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sdkMethod": "orchestrate.run",
+      "httpMethod": "POST",
+      "path": "/api/nv/orchestrate"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 23561,
+      "success": true,
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sdkMethod": "gateway.research.query",
+      "httpMethod": "POST",
+      "path": "/api/nv/gateway/research/query"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 182,
+      "success": true,
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sdkMethod": "templates.list",
+      "httpMethod": "GET",
+      "path": "/api/nv/templates"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 149,
+      "success": true,
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sdkMethod": "templates.approved",
+      "httpMethod": "GET",
+      "path": "/api/nv/templates/approved"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 103,
+      "success": true,
+      "keys": [
+        "success",
+        "data",
+        "generatedAt"
+      ],
+      "sdkMethod": "templates.reviewStats",
+      "httpMethod": "GET",
+      "path": "/api/nv/templates/reviews/stats"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 105,
+      "success": true,
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sdkMethod": "templates.reviewQueue",
+      "httpMethod": "GET",
+      "path": "/api/nv/templates/reviews/queue"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 137,
+      "success": true,
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sdkMethod": "templates.catalog",
+      "httpMethod": "GET",
+      "path": "/api/nv/templates/catalog"
+    },
+    {
+      "ok": true,
+      "http": 200,
+      "ms": 144,
+      "success": true,
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sdkMethod": "templates.gateway",
+      "httpMethod": "GET",
+      "path": "/api/nv/gateway/templates"
+    }
+  ]
+}

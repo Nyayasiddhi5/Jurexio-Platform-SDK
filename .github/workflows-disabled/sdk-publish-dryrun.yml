@@ -1,0 +1,118 @@
+name: NYV SDK — Publish Dry-Run (PR)
+
+# Runs `npm publish --dry-run` on every PR that touches one of the SDK packages
+# so that we know publishing will succeed before we cut a release tag. Catches
+# missing files, broken `prepublishOnly` hooks, type errors, and accidentally
+# trying to re-publish a version that is already on npm.
+
+on:
+  pull_request:
+    branches: [main, staging, release/*]
+    paths:
+      - 'nyayavigya-platform-312/packages/client-sdk/**'
+      - 'nyayavigya-platform-312/packages/client-sdk-react-native/**'
+      - 'nyayavigya-platform-312/packages/nyayamitra-sdk/**'
+      - 'nyayavigya-platform-312/packages/types/**'
+      - 'nyayavigya-platform-312/.github/workflows/sdk-publish.yml'
+      - 'nyayavigya-platform-312/.github/workflows/sdk-publish-dryrun.yml'
+
+concurrency:
+  group: sdk-publish-dryrun-${{ github.head_ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '22'
+  WORKING_DIR: nyayavigya-platform-312
+
+jobs:
+  dry-run:
+    name: Dry-run publish ${{ matrix.package.name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write   # provenance dry-run still requires the OIDC token
+
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - name: '@nyayavigya/client-sdk'
+            dir: packages/client-sdk
+          - name: '@nyayavigya/client-sdk-react-native'
+            dir: packages/client-sdk-react-native
+          - name: '@nyayavigya/nyayamitra-sdk'
+            dir: packages/nyayamitra-sdk
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Read package version
+        id: pkg
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          NAME=$(node -p "require('./package.json').name")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Warn if version is already published
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: |
+          set +e
+          npm view "${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}" version >/dev/null 2>&1
+          STATUS=$?
+          set -e
+          if [ "$STATUS" -eq 0 ]; then
+            echo "::warning::${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }} is already on npm. Bump the version in package.json before tagging a release."
+          fi
+
+      - name: Install dependencies
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --prefer-offline
+          else
+            npm install --no-audit --no-fund
+          fi
+
+      - name: Type check
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: npx --no-install tsc --noEmit
+
+      - name: Build
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: npm run build
+
+      - name: Run tests (if defined)
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: npm test --if-present
+
+      - name: npm publish --dry-run
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: npm publish --dry-run --access public --provenance
+
+      - name: List tarball contents
+        working-directory: ${{ env.WORKING_DIR }}/${{ matrix.package.dir }}
+        run: |
+          echo "### ${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }} — packed contents" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          npm pack --dry-run --json | node -e "
+            let raw='';
+            process.stdin.on('data', c => raw += c);
+            process.stdin.on('end', () => {
+              const j = JSON.parse(raw);
+              const p = Array.isArray(j) ? j[0] : j;
+              console.log('Tarball:', p.filename);
+              console.log('Unpacked size:', p.unpackedSize, 'bytes');
+              console.log('File count:', p.entryCount);
+              (p.files || []).forEach(f => console.log(' -', f.path, '(' + f.size + 'B)'));
+            });
+          " >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"

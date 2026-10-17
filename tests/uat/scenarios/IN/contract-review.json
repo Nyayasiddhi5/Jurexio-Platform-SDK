@@ -1,0 +1,194 @@
+{
+  "$schema": "../scenario.schema.json",
+  "jurisdiction": "IN",
+  "category": "contract-review",
+  "scenarios": [
+    {
+      "id": "IN-CON-001",
+      "title": "Review IT/ITES MSA + SOW for an Indian SaaS vendor (red-flag + clause suggestions)",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P05",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/analyze",
+        "auth": "sdk-key",
+        "body": {
+          "content": "{\"jurisdiction\":\"IN\",\"contractType\":\"msa_sow_combined\",\"documentRef\":\"fixtures/IN/msa-saas-template.pdf\",\"reviewMode\":\"red-flag\",\"applicableLaws\":[\"Indian Contract Act 1872\",\"IT Act 2000\",\"DPDP Act 2023\"]}",
+          "type": "contract-review",
+          "jurisdiction": "IN"
+        }
+      },
+      "expected": {
+        "timeoutMs": 120000,
+        "httpStatus": 200,
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ],
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "limitation of liability",
+            "indemnity",
+            "DPDP",
+            "data fiduciary"
+          ]
+        }
+      },
+      "passCriteria": "Identifies missing/weak LoL cap, asymmetric indemnity, DPDP Act compliance gaps; suggests redrafts with citation to ICA + DPDP."
+    },
+    {
+      "id": "IN-CON-002",
+      "title": "NDA review under Indian Contract Act (mutual, 5-year term)",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P05",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/analyze",
+        "auth": "sdk-key",
+        "body": {
+          "content": "{\"jurisdiction\":\"IN\",\"contractType\":\"mutual_nda\",\"documentRef\":\"fixtures/IN/nda-mutual-5y.pdf\",\"reviewMode\":\"comprehensive\"}",
+          "type": "contract-review",
+          "jurisdiction": "IN"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "confidential",
+            "Section 27",
+            "non-solicit",
+            "carve-out",
+            "Indian Contract Act",
+            "restraint of trade",
+            "exception",
+            "term"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Flags overbroad non-solicit (Section 27 ICA risk), validates standard exceptions (public domain, independently developed).",
+      "costSensitive": true
+    },
+    {
+      "id": "IN-CON-003",
+      "title": "Employment agreement review under Industrial Relations Code 2020",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P05",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/analyze",
+        "auth": "sdk-key",
+        "body": {
+          "content": "{\"jurisdiction\":\"IN\",\"contractType\":\"employment_agreement\",\"documentRef\":\"fixtures/IN/employment-mid-senior.pdf\",\"employeeRole\":\"Senior Engineer\",\"annualCTC\":4500000}",
+          "type": "contract-review",
+          "jurisdiction": "IN"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "IR Code",
+            "Industrial Relations",
+            "non-compete",
+            "garden leave",
+            "PF",
+            "Provident Fund",
+            "gratuity",
+            "notice period",
+            "termination"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Validates IR Code applicability thresholds, flags unenforceable post-termination non-compete, confirms statutory minima (PF/gratuity/leave)."
+    },
+    {
+      "id": "IN-CON-004",
+      "title": "Lease deed review (commercial lease, 9-year, escalation 15% triennial)",
+      "userRole": "lawyer-pro",
+      "sdkVariant": "nsp-web",
+      "pattern": "P05",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/analyze",
+        "auth": "sdk-key",
+        "body": {
+          "content": "Commercial lease deed dated 01-Apr-2026 between Acme Holdings Pvt Ltd (Lessor, Mumbai) and Beta Tech Pvt Ltd (Lessee, Mumbai) for 9 years at ground-floor office premises, 1200 sqft, Bandra Kurla Complex, Maharashtra. Monthly rent INR 2,50,000 with 10% escalation every 36 months. Security deposit INR 15,00,000.\n\nPlease analyse for: (a) registrability under Section 17 of the Transfer of Property Act 1882 / Indian Registration Act 1908 given the 9-year term; (b) Maharashtra Stamp Act stamp duty obligation; (c) any clauses on lock-in, sub-lease, indemnity, and dispute resolution. Flag any non-compliance risks.",
+          "type": "contract-review",
+          "jurisdiction": "IN"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "registration",
+            "stamp duty",
+            "Transfer of Property Act",
+            "Section 17"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ],
+        "timeoutMs": 120000
+      },
+      "passCriteria": "Triggers compulsory registration under Sec 17 Registration Act for >12-month lease; flags MH stamp duty rate; lock-in vs notice asymmetry called out."
+    },
+    {
+      "id": "IN-CON-005",
+      "title": "Shareholders Agreement (early-stage SaaS, drag-along + tag-along)",
+      "userRole": "enterprise-counsel",
+      "sdkVariant": "nspm-enterprise",
+      "pattern": "P05",
+      "request": {
+        "method": "POST",
+        "path": "/api/jrx/gateway/documents/analyze",
+        "auth": "sdk-key",
+        "body": {
+          "content": "{\"jurisdiction\":\"IN\",\"contractType\":\"shareholders_agreement\",\"documentRef\":\"fixtures/IN/sha-series-a.pdf\"}",
+          "type": "contract-review",
+          "jurisdiction": "IN"
+        }
+      },
+      "expected": {
+        "httpStatus": 200,
+        "mustContainAtLeast": {
+          "count": 2,
+          "of": [
+            "Companies Act",
+            "drag-along",
+            "tag-along",
+            "ROFO",
+            "ROFR",
+            "AOA",
+            "Articles of Association",
+            "shareholders",
+            "transfer restriction"
+          ]
+        },
+        "mustHaveFields": [
+          "success",
+          "data.requestId"
+        ]
+      },
+      "passCriteria": "Validates SHA vs AOA precedence, transfer restriction enforceability under Sec 58 Companies Act 2013, dispute-resolution seat (preferably arbitration in Mumbai/Delhi)."
+    }
+  ]
+}

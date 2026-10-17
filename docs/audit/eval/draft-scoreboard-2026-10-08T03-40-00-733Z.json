@@ -1,0 +1,79 @@
+{
+  "generatedAt": "2026-10-08T03:36:13.686Z",
+  "mode": "live+ab",
+  "fixture": "nv-indian-draft-sme-cases.json",
+  "routing": [
+    {
+      "caseId": "IN-WS-001",
+      "documentType": "written_statement",
+      "fastMedium": {
+        "taskType": "legal-draft-fast",
+        "draftLength": "medium",
+        "registryTokens": 8192,
+        "partnerMaxTokens": 8192,
+        "slaFast": true,
+        "explicitFastAlias": true
+      },
+      "counselComprehensive": {
+        "taskType": "legal-draft-agentic",
+        "draftLength": "comprehensive",
+        "registryTokens": 32768,
+        "partnerMaxTokens": 32768,
+        "queenPath": true
+      },
+      "pass": true,
+      "notes": []
+    }
+  ],
+  "lanes": {
+    "counsel_comprehensive": {
+      "avgRubricPct": 67,
+      "runs": [
+        {
+          "caseId": "IN-WS-001",
+          "http": 200,
+          "ms": 227019,
+          "contentLen": 11834,
+          "model": "",
+          "path": "queen",
+          "rubricPct": 67,
+          "rubric": {
+            "total": 66.6,
+            "maxTotal": 100,
+            "pct": 67,
+            "structure": 100,
+            "completion": 42,
+            "length": 40,
+            "voice": 100,
+            "placeholders": 30,
+            "markers": {
+              "prayer": true,
+              "verification": true,
+              "causeTitle": true,
+              "numberedParas": true,
+              "limitationChecked": true
+            },
+            "completionDetail": {
+              "complete": false,
+              "abruptEnding": true,
+              "missingSections": [
+                "signature_block"
+              ],
+              "truncatedPrayer": false,
+              "incompleteNumberedPara": true,
+              "hasPrayerOrRelief": true,
+              "hasVerification": true,
+              "hasSignatureBlock": false,
+              "hasDisclosureClause": false,
+              "unresolvedPlaceholders": 4,
+              "reviewRecommended": true
+            },
+            "lengthWarning": "Draft shorter than expected for written_statement (medium): 11834 chars < ~29491",
+            "voiceHits": []
+          }
+        }
+      ]
+    }
+  },
+  "laneMode": "counsel"
+}

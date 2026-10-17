@@ -1,0 +1,82 @@
+{
+  "mergedAt": "2026-10-07T17:57:03.219Z",
+  "fastScoreboard": "draft-scoreboard-2026-10-07T12-04-27-496Z.json",
+  "counselScoreboards": [
+    "draft-scoreboard-2026-10-07T17-00-10-468Z.json",
+    "draft-scoreboard-2026-10-07T17-10-13-507Z.json",
+    "draft-scoreboard-2026-10-07T17-12-19-996Z.json",
+    "draft-scoreboard-2026-10-07T17-18-08-113Z.json",
+    "draft-scoreboard-2026-10-07T17-22-33-373Z.json",
+    "draft-scoreboard-2026-10-07T17-32-38-035Z.json",
+    "draft-scoreboard-2026-10-07T17-37-14-128Z.json",
+    "draft-scoreboard-2026-10-07T17-40-20-172Z.json",
+    "draft-scoreboard-2026-10-07T17-44-49-151Z.json",
+    "draft-scoreboard-2026-10-07T17-54-51-478Z.json"
+  ],
+  "fastAvg": 71,
+  "counselAvg": 70,
+  "gateNeed": 76,
+  "gatePass": false,
+  "perCase": [
+    {
+      "caseId": "IN-BAIL-001",
+      "fast": 69,
+      "counsel": 75,
+      "delta": 6
+    },
+    {
+      "caseId": "IN-WS-001",
+      "fast": 69,
+      "counsel": 69,
+      "delta": 0
+    },
+    {
+      "caseId": "IN-NOTICE-001",
+      "fast": 77,
+      "counsel": 69,
+      "delta": -8
+    },
+    {
+      "caseId": "IN-SLP-001",
+      "fast": 67,
+      "counsel": 82,
+      "delta": 15
+    },
+    {
+      "caseId": "IN-WP-001",
+      "fast": 67,
+      "counsel": 69,
+      "delta": 2
+    },
+    {
+      "caseId": "IN-CA-001",
+      "fast": 68,
+      "counsel": 68,
+      "delta": 0
+    },
+    {
+      "caseId": "IN-IA-001",
+      "fast": 75,
+      "counsel": 70,
+      "delta": -5
+    },
+    {
+      "caseId": "IN-REVIEW-001",
+      "fast": 72,
+      "counsel": 70,
+      "delta": -2
+    },
+    {
+      "caseId": "IN-EXEC-001",
+      "fast": 70,
+      "counsel": 70,
+      "delta": 0
+    },
+    {
+      "caseId": "IN-AGREE-001",
+      "fast": 76,
+      "counsel": 54,
+      "delta": -22
+    }
+  ]
+}

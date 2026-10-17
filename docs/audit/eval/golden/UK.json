@@ -1,0 +1,43 @@
+{
+  "jurisdiction": "UK",
+  "version": "1.0.0",
+  "description": "United Kingdom legal-QA golden set.",
+  "items": [
+    {
+      "id": "UK-001",
+      "domain": "corporate",
+      "prompt": "Which statute sets out directors' general duties in the UK?",
+      "expectedCitations": ["Companies Act 2006"],
+      "expectedAnswerKeywords": ["director", "duties", "promote the success"],
+      "seedAnswer": "Section 172 of the Companies Act 2006 sets out a director's duty to promote the success of the company for the benefit of its members as a whole.",
+      "adversarialAnswer": "Directors' duties are governed by the Companies Act 1066 and confirmed in [2099] UKSC 500."
+    },
+    {
+      "id": "UK-002",
+      "domain": "equality",
+      "prompt": "What is the principal UK anti-discrimination statute?",
+      "expectedCitations": ["Equality Act 2010"],
+      "expectedAnswerKeywords": ["protected characteristic", "discrimination"],
+      "seedAnswer": "Section 13 of the Equality Act 2010 prohibits direct discrimination because of a protected characteristic.",
+      "adversarialAnswer": "Discrimination is prohibited by the Fairness Act 3000 as held in [2098] EWCA Civ 9999."
+    },
+    {
+      "id": "UK-003",
+      "domain": "civil-procedure",
+      "prompt": "What is the standard limitation period for a contract claim in England and Wales?",
+      "expectedCitations": ["Limitation Act 1980"],
+      "expectedAnswerKeywords": ["six years", "limitation", "cause of action"],
+      "seedAnswer": "Under the Limitation Act 1980, an action founded on simple contract must be brought within six years from the date on which the cause of action accrued.",
+      "adversarialAnswer": "Contract claims must be brought within 600 years per [2099] UKSC 9999."
+    },
+    {
+      "id": "UK-004",
+      "domain": "criminal",
+      "prompt": "Which Act governs police powers of arrest and detention in England and Wales?",
+      "expectedCitations": ["Police and Criminal Evidence Act 1984"],
+      "expectedAnswerKeywords": ["arrest", "detention", "police powers"],
+      "seedAnswer": "The Police and Criminal Evidence Act 1984 governs police powers of arrest, detention, and questioning in England and Wales.",
+      "adversarialAnswer": "Arrests are governed by the Robocop Act 2200 as decided in [2099] EWHC 7777 (Admin)."
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: nyayavigya-platform
+  annotations:
+    description: "Nyayavigya Platform 3.1.2 — Kustomize base for all environments"
+
+namespace: nyayavigya
+
+commonLabels:
+  app.kubernetes.io/name: nyayavigya
+  app.kubernetes.io/version: "3.1.2"
+  app.kubernetes.io/managed-by: kustomize
+
+resources:
+  - 00-namespace.yaml
+  - 01-configmap.yaml
+  - 02-secret.yaml
+  - 03-deployment-gateway.yaml
+  - 04-deployment-console.yaml
+  - 05-services.yaml
+  - 06-ingress.yaml
+  - 07-hpa.yaml
+  - 08-pdb.yaml
+  - 09-redis.yaml
+  - 10-rbac.yaml
+  - 11-network-policy.yaml
+  - 12-pod-monitor.yaml
+
+images:
+  - name: nyayavigya-gateway
+    newName: gcr.io/nyayavigya/gateway
+    newTag: "3.1.2"
+  - name: nyayavigya-console
+    newName: gcr.io/nyayavigya/console
+    newTag: "3.1.2"
+
+configMapGenerator:
+  - name: nyayavigya-build-info
+    literals:
+      - VERSION=3.1.2
+      - BUILD_DATE=2026-04-07
+      - PLATFORM=nyayavigya
+      - AGENTS=149
+      - PATTERNS=22
+      - JURISDICTIONS=6
+      - LANGUAGES=47
+      - MCP_TOOLS=530

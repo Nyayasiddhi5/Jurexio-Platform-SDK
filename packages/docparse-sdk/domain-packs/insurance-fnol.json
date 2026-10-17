@@ -1,0 +1,42 @@
+{
+  "id": "insurance-fnol",
+  "label": "Insurance — First Notice of Loss (POC)",
+  "version": "1.0.0-poc",
+  "jurisdiction": "IN",
+  "docTypes": [
+    {
+      "code": "INSURANCE_FNOL",
+      "label": "First Notice of Loss / Claim Intimation",
+      "family": "OTHER",
+      "cues": [
+        { "re": "first\\s+notice\\s+of\\s+loss|\\bFNOL\\b", "w": 12 },
+        { "re": "claim\\s+intimation|intimation\\s+of\\s+loss", "w": 10 },
+        { "re": "policy\\s+(?:no|number)", "w": 8 },
+        { "re": "date\\s+of\\s+loss|loss\\s+date", "w": 7 },
+        { "re": "insured\\s+name|name\\s+of\\s+insured", "w": 6 }
+      ],
+      "expectedFields": [
+        "policy.number",
+        "loss.date",
+        "loss.location",
+        "parties",
+        "claim.amount"
+      ]
+    },
+    {
+      "code": "INSURANCE_CLAIM_FORM",
+      "label": "Motor / Health claim form",
+      "family": "OTHER",
+      "cues": [
+        { "re": "claim\\s+form", "w": 9 },
+        { "re": "motor\\s+insurance|health\\s+insurance", "w": 8 },
+        { "re": "vehicle\\s+registration|\\bRC\\b", "w": 7 },
+        { "re": "hospital\\s+name|treatment\\s+date", "w": 6 }
+      ],
+      "expectedFields": ["policy.number", "parties", "dates", "claim.amount"]
+    }
+  ],
+  "configOverrides": {
+    "ocr": { "dpi": 300, "maxConcurrency": 2 }
+  }
+}

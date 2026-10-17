@@ -1,0 +1,85 @@
+{
+  "version": "1.0.0",
+  "languages": [
+    "hi",
+    "bn",
+    "te",
+    "mr",
+    "ta",
+    "gu",
+    "kn",
+    "ml",
+    "or",
+    "pa",
+    "as",
+    "ur"
+  ],
+  "tokenization": {
+    "indicTokenizer": "ai4bharat/indic-bert",
+    "multilingualSupport": true,
+    "codeSwitch": true
+  },
+  "asr": {
+    "providers": [
+      "google-speech",
+      "azure-speech",
+      "whisper-indic"
+    ],
+    "languages": [
+      "hi-IN",
+      "bn-IN",
+      "te-IN",
+      "mr-IN",
+      "ta-IN",
+      "gu-IN"
+    ]
+  },
+  "tts": {
+    "providers": [
+      "google-tts",
+      "azure-tts",
+      "eleven-labs"
+    ],
+    "voices": {
+      "hi": [
+        "aditi",
+        "ravi"
+      ],
+      "bn": [
+        "bn-female",
+        "bn-male"
+      ],
+      "te": [
+        "te-female",
+        "te-male"
+      ],
+      "ta": [
+        "ta-female",
+        "ta-male"
+      ]
+    }
+  },
+  "whatsapp": {
+    "enabled": true,
+    "apiProvider": "twilio",
+    "businessApiKey": "WHATSAPP_BUSINESS_API_KEY",
+    "webhookUrl": "/api/whatsapp/webhook"
+  },
+  "upi": {
+    "enabled": true,
+    "providers": [
+      "razorpay",
+      "payu",
+      "cashfree"
+    ],
+    "defaultProvider": "razorpay",
+    "supportedBanks": [
+      "sbi",
+      "hdfc",
+      "icici",
+      "axis",
+      "kotak",
+      "paytm"
+    ]
+  }
+}

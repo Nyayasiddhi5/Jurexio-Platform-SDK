@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist/server",
+    "rootDir": ".",
+    "noEmit": false,
+    "noEmitOnError": false,
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false
+  },
+  "include": ["src/**/*", "shared/**/*", "server/**/*"],
+  "exclude": ["node_modules", "dist", "client", "tests", "**/*.test.ts", "**/*.spec.ts", "src/__tests__/**"]
+}

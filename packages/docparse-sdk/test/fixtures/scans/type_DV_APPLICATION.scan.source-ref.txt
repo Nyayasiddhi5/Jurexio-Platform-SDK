@@ -1,0 +1,1 @@
+/Users/vamsit/Desktop/cursor-workspace/nyayavigya-platform-5.0.0-CURSOR-CLOUD/nyayavigya-platform-5.0.0/nyayavigya-platform-312/packages/docparse-sdk/test/fixtures/scans/type_DV_APPLICATION.scan.p1-1.png

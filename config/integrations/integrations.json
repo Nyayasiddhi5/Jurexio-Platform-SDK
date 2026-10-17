@@ -1,0 +1,53 @@
+{
+  "version": "5.0.0",
+  "llmProviders": [
+    { "id":"openrouter","required":true,  "envVar":"OPENROUTER_API_KEY" },
+    { "id":"openai",    "required":true,  "envVar":"OPENAI_API_KEY",     "use":["embeddings","gpt-4o-vision","tier-3"] },
+    { "id":"anthropic", "required":true,  "envVar":"ANTHROPIC_API_KEY",  "use":["tier-3"] },
+    { "id":"google",    "required":false, "envVar":"GOOGLE_AI_API_KEY" },
+    { "id":"deepseek",  "required":false, "envVar":"DEEPSEEK_API_KEY" },
+    { "id":"groq",      "required":false, "envVar":"GROQ_API_KEY" },
+    { "id":"mistral",   "required":false, "envVar":"MISTRAL_API_KEY" },
+    { "id":"cohere",    "required":false, "envVar":"COHERE_API_KEY" },
+    { "id":"perplexity","required":false, "envVar":"PERPLEXITY_API_KEY" },
+    { "id":"xai",       "required":false, "envVar":"XAI_API_KEY" },
+    { "id":"sarvam",    "required":true,  "envVar":"SARVAM_API_KEY",     "use":["voice-IN","translation-IN"] },
+    { "id":"elevenlabs","required":true,  "envVar":"ELEVENLABS_API_KEY", "use":["voice-global"] },
+    { "id":"deepgram",  "required":false, "envVar":"DEEPGRAM_API_KEY" },
+    { "id":"together",  "required":false, "envVar":"TOGETHER_API_KEY" },
+    { "id":"fireworks", "required":false, "envVar":"FIREWORKS_API_KEY" },
+    { "id":"bedrock",   "required":false, "envVars":["AWS_BEDROCK_REGION","AWS_BEDROCK_KEY"] }
+  ],
+  "infrastructure": [
+    { "id":"postgres",   "required":true, "envVar":"DATABASE_URL",       "provider":"neon|rds-aurora-postgres" },
+    { "id":"redis",      "required":true, "envVar":"NYV_REDIS_TCP_URL",  "provider":"elasticache" },
+    { "id":"s3",         "required":true, "envVars":["AWS_REGION","S3_BUCKET","AWS_ACCESS_KEY_ID","AWS_SECRET_ACCESS_KEY"] },
+    { "id":"qdrant",     "required":false,"envVar":"QDRANT_URL",         "fallback":"pgvector" },
+    { "id":"neo4j",      "required":false,"envVar":"NEO4J_URL",          "use":"NyayaGraph" }
+  ],
+  "payments": [
+    { "id":"razorpay", "required":true,  "envVars":["NYV_RAZORPAY_KEY_ID","NYV_RAZORPAY_KEY_SECRET","NYV_RAZORPAY_WEBHOOK_SECRET"] },
+    { "id":"stripe",   "required":false, "envVars":["STRIPE_SECRET_KEY","STRIPE_WEBHOOK_SECRET"] }
+  ],
+  "messaging": [
+    { "id":"whatsapp",  "required":true,  "envVars":["WHATSAPP_TOKEN","WHATSAPP_PHONE_ID","WHATSAPP_VERIFY_TOKEN"] },
+    { "id":"telegram",  "required":false, "envVar":"TELEGRAM_BOT_TOKEN" },
+    { "id":"slack",     "required":false, "envVars":["SLACK_BOT_TOKEN","SLACK_SIGNING_SECRET"] },
+    { "id":"teams",     "required":false, "envVars":["TEAMS_APP_ID","TEAMS_APP_PASSWORD"] },
+    { "id":"twilio",    "required":false, "envVars":["TWILIO_SID","TWILIO_AUTH_TOKEN"] }
+  ],
+  "email": [
+    { "id":"ses",  "required":true, "envVars":["AWS_SES_REGION","SES_FROM_EMAIL"] },
+    { "id":"smtp", "required":false,"envVars":["SMTP_HOST","SMTP_PORT","SMTP_USER","SMTP_PASS"] }
+  ],
+  "observability": [
+    { "id":"sentry",     "required":true, "envVar":"SENTRY_DSN" },
+    { "id":"cloudwatch", "required":true, "envVars":["AWS_REGION","CLOUDWATCH_LOG_GROUP"] },
+    { "id":"otel",       "required":false,"envVar":"OTEL_EXPORTER_OTLP_ENDPOINT" }
+  ],
+  "legal": [
+    { "id":"ecourts",    "required":false, "envVar":"ECOURTS_API_KEY" },
+    { "id":"njdg",       "required":false, "envVar":"NJDG_API_KEY" },
+    { "id":"esign",      "required":false, "envVars":["ESIGN_PROVIDER","ESIGN_API_KEY"] }
+  ]
+}

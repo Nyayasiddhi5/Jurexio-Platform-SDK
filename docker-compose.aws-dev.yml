@@ -1,0 +1,207 @@
+# =============================================================================
+# docker-compose.aws-dev.yml
+# Reconstructed 2026-04-25T14:30Z from running container metadata after the
+# Replit deploy rsync --delete'd the original (it was hand-crafted on EC2 only,
+# never in the source tree). Matches existing names, ports, volumes, network.
+# =============================================================================
+
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nyayavigya-platform-312-gateway
+    container_name: nyv-gateway
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      # NYV-NS-019 (post-architect 2026-05-05): explicit Node heap ceiling
+      # so v8 GCs aggressively before the kernel OOM-killer steps in. v5
+      # registry payload (1042 prompts × ~17 KB) pushes RSS to ~560 MB
+      # under load; we headroom to 1.5 GB to absorb spikes from concurrent
+      # orchestrate() runs and AG-UI streaming.
+      - NODE_OPTIONS=--max-old-space-size=1536
+      - NYV_PG_JOB_WORKER=on
+      - NYV_QUEUE_WORKERS=on
+      - NYV_DOC_PROCESSOR_ENABLED=off
+      - NYV_BEDROCK_ENABLED=on
+      - NYV_ROUTER_BEDROCK_FIRST=on
+      - AWS_BEDROCK_REGION=us-east-1
+      # NV-NSP-UNLIMITED-001 — any NSP user skips product RPM/credits (default ON in code too)
+      - NYV_NSP_UNLIMITED=1
+      - NYV_PARTNER_DEMO_UNLIMITED=1
+      - NYV_PARTNER_MAX_TOKENS_FLOOR=16384
+      - NYV_ECOSYSTEM_BEST_OUTCOME=1
+      # NV-CITE-GROUND-001 — Auto-RAG extras (NYS caselaw/statutes, LightRAG,
+      # GraphRAG) deadline. Was set only in the host's .env, so a rebuilt stack
+      # silently reverted to the in-code default and lost the caselaw layer again.
+      # 2,500 ms was starving retrieval: NYS /retrieve measures 285-464 ms from
+      # inside the gateway, but a retry lands at ~3.7 s and a live orchestrate
+      # runs 55-65 s, so the old cap discarded completed caselaw retrieval to
+      # protect ~4% of the request. Pinned here as well as in code so the two
+      # cannot drift.
+      - NYV_AUTO_RAG_EXTRAS_DEADLINE_MS=8000
+      - NV_PLATFORM_UAT_BYPASS=1
+      # NV-NSP-503-PERMANENCE-006 — the NYS knowledge plane gates /api/nv/knowledge/*,
+      # /api/nv/legal-work/* and the caselaw surfaces. It was ON in the live container's
+      # .env only, which is exactly the drift NYV_AUTO_RAG_EXTRAS_DEADLINE_MS above was
+      # pinned here to prevent: a rebuilt stack would have reverted to the in-code
+      # non-dev default and NSP's 503s would have returned with no code change.
+      - NYV_F_NYS_KNOWLEDGE_PLANE=1
+      # Circuit breaker for the NYS upstream. Raised from the in-code default of 5
+      # because the breaker is process-global across every NYS surface: five slow
+      # `mode=hybrid` calls (which run 0.5-3.5 s normally but stall under embed load)
+      # opened it and then failed `mode=fts` too, for the full 30 s cooldown. That is
+      # how NSP saw `fts` — the mode we told them was the safe interim — return 503.
+      # Reproduced live: hybrid-1 took 48.8 s, and the next five calls of BOTH modes
+      # returned "NYS knowledge circuit open" in under 11 ms without touching NYS.
+      - NYS_KNOWLEDGE_CB_FAILURES=12
+      - NYS_KNOWLEDGE_CB_COOLDOWN_MS=10000
+    ports:
+      - "5000:5000"
+    networks:
+      - nyv-net
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - gateway-uploads:/app/uploads
+      - gateway-logs:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:5000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    # NV-DEPLOY-DRAIN-001 (added 2026-08-19) — SIGKILL was truncating the drain.
+    #
+    # src/index.ts installs a SIGTERM handler that flips readiness to draining,
+    # stops accepting new connections, and lets in-flight partner requests finish
+    # for up to NYV_SHUTDOWN_DRAIN_MS (default 15000 ms, clamped to 60 s) before
+    # calling closeAllConnections(). With stop_grace_period unset, docker used its
+    # 10 s default and SIGKILLed the process ~5 s INTO that drain — so the graceful
+    # shutdown we shipped could never actually complete, and in-flight requests
+    # were still truncated mid-response.
+    #
+    # The three timeouts must satisfy:
+    #   NYV_SHUTDOWN_DRAIN_MS (15 s)
+    #     < NYV_DEPLOY_STOP_TIMEOUT / `docker stop -t` in deploy-aws-ssm.sh (25 s)
+    #     < stop_grace_period here (30 s)
+    # i.e. the app always finishes first, the deploy's explicit `docker stop -t`
+    # is the next bound, and docker's own grace period is the outermost backstop
+    # so a plain `docker stop nyv-gateway` (no -t) still drains cleanly.
+    stop_grace_period: 30s
+    # NYV-NS-019: hard memory cap for the gateway container. Without this
+    # the container can balloon and starve postgres / redis on the same EC2
+    # host. 2 GB is comfortably above the 1.5 GB Node heap ceiling above so
+    # v8 always wins the OOM race over docker.
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 768M
+    mem_limit: 2g
+    mem_reservation: 768m
+
+  console:
+    build:
+      context: .
+      dockerfile: Dockerfile.console
+    image: nyayavigya-platform-312-console
+    container_name: nyv-console
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+    networks:
+      - nyv-net
+    depends_on:
+      - gateway
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: nyv-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nyayavigya
+      POSTGRES_PASSWORD: ${PGPASSWORD:-secure_password_change_me}
+      POSTGRES_DB: nyayavigya
+    networks:
+      - nyv-net
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nyayavigya -d nyayavigya"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: nyv-redis
+    restart: unless-stopped
+    networks:
+      - nyv-net
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep -q PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  # NV-DEPLOY-NET-PROJECT-001 (hardened 2026-08-19 after the 15:55:18Z–16:46:46Z
+  # 502 outage, 511 nginx 502s). Before this line the network was project-scoped:
+  # compose names a non-external network "<project>_<key>", and the project name
+  # defaults to the *working directory* when COMPOSE_PROJECT_NAME is unset. A
+  # manual `docker compose -f docker-compose.aws-dev.yml up -d --no-deps gateway`
+  # run from a release dir (/opt/Nyayavigya/repo/2026-08-19T1146Z-aws-ssm-7c5b1ff2)
+  # therefore created a SECOND network:
+  #   nyayavigya-platform-312_nyv-net            → console 172.18.0.5, redis, postgres
+  #   2026-08-19t1146z-aws-ssm-7c5b1ff2_nyv-net  → gateway 172.21.0.2  (alone)
+  # nyv-console's nginx proxies `proxy_pass http://gateway:5000` and could no
+  # longer resolve `gateway` (NXDOMAIN from `getent hosts gateway`), so every
+  # ingress request became "113: Host is unreachable ... upstream 172.18.0.4:5000".
+  #
+  # Pinning `name:` (rather than `external: true`) makes the fork impossible while
+  # staying idempotent and self-creating: compose creates the network on a clean
+  # first bring-up. `external: true` would abort a first deploy on a fresh host
+  # ("network ... declared as external, but could not be found") because neither
+  # scripts/deploy-aws-ssm.sh nor any bootstrap does `docker network create` —
+  # verified by grep, there is no such call anywhere in the repo.
+  #
+  # DO NOT remove `name:` and DO NOT rename the value: nyv-console's nginx and the
+  # persisted `nyv-gateway-bridge.service` unit both hard-code this exact string.
+  # (Note the spelling: nya…, not naya… — an old typo'd network cost ~5 min in a
+  # previous incident.)
+  nyv-net:
+    name: nyayavigya-platform-312_nyv-net
+    driver: bridge
+
+# Volumes are project-scoped for the same reason the network was. A manual compose
+# invocation from a release dir would have created EMPTY `<dirname>_pgdata` /
+# `_redisdata` volumes had it touched postgres/redis instead of just the gateway —
+# i.e. the same footgun with data-loss blast radius. Pinned for the same reason.
+volumes:
+  pgdata:
+    name: nyayavigya-platform-312_pgdata
+  redisdata:
+    name: nyayavigya-platform-312_redisdata
+  gateway-uploads:
+    name: nyayavigya-platform-312_gateway-uploads
+  gateway-logs:
+    name: nyayavigya-platform-312_gateway-logs

@@ -1,0 +1,70 @@
+export { DocumentParsingService, documentParsingService } from './document-parsing-service.js';
+
+export {
+  DocumentIntelligenceService,
+  documentIntelligenceService,
+  type DocumentMetadata,
+  type DocumentContent,
+  type StructuredContent,
+  type DocumentSection,
+  type TableOfContents,
+  type TocEntry,
+  type ExtractedTable,
+  type ExtractedImage,
+  type ExtractedForm,
+  type BoundingBox,
+  type EntityExtraction,
+  type ExtractedEntity,
+  type SentimentAnalysis,
+  type AspectSentiment,
+  type DocumentChunk as IntelligenceDocumentChunk,
+  type ProcessingResult,
+  type DocumentClassification,
+} from './document-intelligence-service.js';
+
+export {
+  DocumentProcessor,
+  type NyayavignyaDatabaseSystem,
+  type DocumentProcessingRequest,
+  type DocumentProcessingOptions,
+  type DocumentType,
+  type ProcessedDocument,
+  type DocumentChunk,
+  type DocumentMetadata as ProcessorDocumentMetadata,
+  type DocumentStatistics,
+} from './document-processor.js';
+
+export {
+  EmbeddingService,
+  nyayavignyaEmbeddingService,
+  defaultEmbeddingConfig,
+  chunkText,
+  cosineSimilarity,
+  type EmbeddingRequest,
+  type EmbeddingResponse,
+  type BatchEmbeddingRequest,
+  type BatchEmbeddingResponse,
+  type EmbeddingError,
+  type EmbeddingProvider,
+  type EmbeddingProviderConfig,
+  type EmbeddingServiceConfig,
+  type EmbeddingMetrics,
+  type EmbeddingCache,
+} from './embedding-service.js';
+
+export {
+  VectorDatabase,
+  createNyayavignyaVectorDatabase,
+  defaultVectorConfig,
+  type VectorBackend,
+  type EmbeddingModel,
+  type DistanceMetric,
+  type VectorDatabaseConfig,
+  type Vector,
+  type VectorSearchRequest,
+  type VectorSearchResult,
+  type VectorCollection,
+  type VectorEmbeddingRequest,
+  type VectorEmbeddingResponse,
+  type VectorIndexStats,
+} from './vector-database.js';

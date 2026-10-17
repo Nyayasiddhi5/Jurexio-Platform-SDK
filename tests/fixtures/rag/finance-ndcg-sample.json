@@ -1,0 +1,13 @@
+[
+  {
+    "query": "Vendor due diligence checklist for a payment processor",
+    "relevantIds": ["f1", "f2"],
+    "candidates": [
+      { "id": "f1", "content": "Payment processor due diligence: licensing, PCI-DSS, SOC reports, settlement flows, chargeback policy, beneficial ownership.", "score": 0.4 },
+      { "id": "f2", "content": "KYC/AML checklist covers customer identification, PEP screening, and ongoing monitoring cadence.", "score": 0.52 },
+      { "id": "f3", "content": "Board risk memo sections: risk appetite, top risks, mitigations, KRIs, incidents, outlook.", "score": 0.48 },
+      { "id": "f4", "content": "Retail shelf planograms optimize SKU placement for seasonal demand.", "score": 0.33 },
+      { "id": "f5", "content": "A soccer league standings table ranks clubs by points.", "score": 0.15 }
+    ]
+  }
+]

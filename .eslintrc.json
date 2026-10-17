@@ -1,0 +1,69 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "no-console": ["error", { "allow": [] }],
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "no-debugger": "error",
+    "no-alert": "error",
+    "prefer-const": "error",
+    "no-var": "error",
+    "eqeqeq": ["error", "always"]
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/guardrails/**/*.ts",
+        "src/data/**/*.ts",
+        "scripts/**/*.ts",
+        "scripts/**/*.js"
+      ],
+      "rules": {
+        "no-console": "off"
+      }
+    },
+    {
+      "files": ["client/src/pages/**/*.{ts,tsx,js,jsx}"],
+      "rules": {
+        "no-restricted-syntax": [
+          "error",
+          {
+            "selector": "VariableDeclarator[id.name=/^(MockData|MOCK_DATA|fakeData|FAKE_|sampleData)/]",
+            "message": "Mock/fake/sample data identifiers are banned in client/src/pages/** — pages must call real APIs. See eslint-rules/no-mock-data.js."
+          },
+          {
+            "selector": "FunctionDeclaration[id.name=/^(MockData|MOCK_DATA|fakeData|FAKE_|sampleData)/]",
+            "message": "Mock/fake/sample data identifiers are banned in client/src/pages/**."
+          },
+          {
+            "selector": "ClassDeclaration[id.name=/^(MockData|MOCK_DATA|fakeData|FAKE_|sampleData)/]",
+            "message": "Mock/fake/sample data identifiers are banned in client/src/pages/**."
+          },
+          {
+            "selector": "Property[key.name=/^(MockData|MOCK_DATA|fakeData|FAKE_|sampleData)/]",
+            "message": "Mock/fake/sample data property names are banned in client/src/pages/**."
+          }
+        ]
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "node_modules/",
+    "dist/",
+    "packages/",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}

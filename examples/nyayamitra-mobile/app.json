@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "Nyayamitra (sample)",
+    "slug": "nyayamitra-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "splash": { "backgroundColor": "#ffffff", "resizeMode": "contain" },
+    "ios": {
+      "bundleIdentifier": "in.nyayamitra.examples.consumer",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Used to capture document photos for clause analysis.",
+        "NSMicrophoneUsageDescription": "Used to record your question in your own language.",
+        "NSPhotoLibraryUsageDescription": "Used to attach existing documents to your case."
+      }
+    },
+    "android": {
+      "package": "in.nyayamitra.examples.consumer",
+      "adaptiveIcon": { "backgroundColor": "#ffffff" },
+      "permissions": ["CAMERA", "RECORD_AUDIO", "READ_MEDIA_IMAGES", "POST_NOTIFICATIONS"]
+    },
+    "extra": { "NYV_BASE_URL": "https://api.nyayavigya.com" },
+    "plugins": ["expo-secure-store", "expo-av", "expo-image-picker"]
+  }
+}

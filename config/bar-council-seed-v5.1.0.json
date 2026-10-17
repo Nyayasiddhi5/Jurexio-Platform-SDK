@@ -1,0 +1,108 @@
+{
+  "_comment": "Seed data for jrx.bar_council_config table — apply via SQL migration before activating A-149 to A-160",
+  "tableSchema": "CREATE TABLE jrx.bar_council_config (config_id UUID PRIMARY KEY DEFAULT gen_random_uuid(), jurisdiction VARCHAR(10) NOT NULL, rule_id VARCHAR(50) NOT NULL, rule_text TEXT NOT NULL, enforcement VARCHAR(20) DEFAULT 'WARN', active BOOLEAN DEFAULT TRUE, effective_from DATE, effective_to DATE, last_updated TIMESTAMPTZ DEFAULT NOW());",
+  "seedRules": [
+    {
+      "jurisdiction": "JCN-IN",
+      "rule_id": "BCI_RULE_33",
+      "rule_text": "AI outputs must carry mandatory disclaimer that they do not constitute legal advice from an enrolled Advocate.",
+      "enforcement": "BLOCK"
+    },
+    {
+      "jurisdiction": "JCN-IN",
+      "rule_id": "BCI_RULE_36",
+      "rule_text": "Agents must not generate content that solicits legal work or advertises services in a manner constituting touting.",
+      "enforcement": "BLOCK"
+    },
+    {
+      "jurisdiction": "JCN-IN",
+      "rule_id": "BCI_RULE_46",
+      "rule_text": "AI-assisted billing estimates must be clearly marked as estimates, not fee agreements.",
+      "enforcement": "WARN"
+    },
+    {
+      "jurisdiction": "JCN-IN",
+      "rule_id": "BCI_RULE_17",
+      "rule_text": "Agent must trigger conflict check before any matter-specific output. Conflict check result must be in IronLedger before first output.",
+      "enforcement": "BLOCK"
+    },
+    {
+      "jurisdiction": "JCN-IN",
+      "rule_id": "BCI_CITATION_BNS",
+      "rule_text": "References to IPC 1860, CrPC 1973, or IEA for post-July 2024 matters are prohibited — must use BNS/BNSS/BSA 2023.",
+      "enforcement": "BLOCK"
+    },
+    {
+      "jurisdiction": "JCN-UK",
+      "rule_id": "SRA_AI_GUIDANCE_2024",
+      "rule_text": "AI outputs must be reviewed by a responsible solicitor before delivery to clients.",
+      "enforcement": "MANDATORY_HITL"
+    },
+    {
+      "jurisdiction": "JCN-UK",
+      "rule_id": "SRA_CODE_6_3",
+      "rule_text": "Agents assisting in litigation must not knowingly advance false contentions. Citation verification mandatory.",
+      "enforcement": "BLOCK"
+    },
+    {
+      "jurisdiction": "JCN-UK",
+      "rule_id": "BSB_RULE_C9",
+      "rule_text": "Agents assisting barrister advocacy must not mislead court or tribunal.",
+      "enforcement": "BLOCK"
+    },
+    {
+      "jurisdiction": "JCN-US",
+      "rule_id": "ABA_MRPC_3_3",
+      "rule_text": "Agents assisting in court submissions must verify all cited cases exist — Mata v Avianca compliance mandatory.",
+      "enforcement": "BLOCK"
+    },
+    {
+      "jurisdiction": "JCN-US",
+      "rule_id": "ABA_OPINION_512",
+      "rule_text": "Supervising attorney must review and take responsibility for all AI-generated work product.",
+      "enforcement": "MANDATORY_HITL"
+    },
+    {
+      "jurisdiction": "JCN-US",
+      "rule_id": "ABA_MRPC_1_6",
+      "rule_text": "Client data may not be input to third-party LLMs without client consent.",
+      "enforcement": "BLOCK"
+    },
+    {
+      "jurisdiction": "JCN-GCC",
+      "rule_id": "UAE_PDPL_SOVEREIGNTY",
+      "rule_text": "Client data must remain within UAE territory. CloudVault JCN-GCC routing to me-south-1 is a legal obligation. HTTP 451 on cross-region violation.",
+      "enforcement": "BLOCK"
+    },
+    {
+      "jurisdiction": "JCN-GCC",
+      "rule_id": "SHARIA_DISCLOSURE",
+      "rule_text": "Outputs touching Sharia-governed matters must include mandatory disclosure of AI limitations in Sharia jurisprudence.",
+      "enforcement": "MANDATORY_HITL"
+    },
+    {
+      "jurisdiction": "JCN-EU",
+      "rule_id": "GDPR_ART_22",
+      "rule_text": "Clients have the right not to be subject to purely automated legal decisions with significant effect. HITL mandatory.",
+      "enforcement": "MANDATORY_HITL"
+    },
+    {
+      "jurisdiction": "JCN-EU",
+      "rule_id": "EU_AI_ACT_ART_14",
+      "rule_text": "Mandatory human oversight for high-risk AI systems. HITL is a legal requirement under EU AI Act — cannot be disabled.",
+      "enforcement": "MANDATORY_HITL"
+    },
+    {
+      "jurisdiction": "JCN-SG",
+      "rule_id": "PCR_RULE_23",
+      "rule_text": "Agents assisting in Singapore court matters must not make misleading statements or present unverified citations.",
+      "enforcement": "BLOCK"
+    },
+    {
+      "jurisdiction": "JCN-SG",
+      "rule_id": "LSS_AI_GUIDELINES_2023",
+      "rule_text": "Supervising lawyer must review AI outputs before delivery to client or court.",
+      "enforcement": "MANDATORY_HITL"
+    }
+  ]
+}

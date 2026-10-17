@@ -1,0 +1,29 @@
+[
+  {
+    "id": "domain-general-change-policy",
+    "source": "nyv-document",
+    "jurisdiction_code": "GLOBAL",
+    "document_type": "policy",
+    "category": "ops",
+    "title": "Change Management Policy Outline",
+    "content": "# Change Management Policy (Outline)\n\n**Domain:** general enterprise ops — not legal advice.\n\n## 1. Purpose\nDefine how production changes are proposed, reviewed, approved, and rolled back.\n\n## 2. Scope\nAll production systems, including SaaS configuration and infrastructure-as-code.\n\n## 3. Roles (RACI)\n| Activity | R | A | C | I |\n|---|---|---|---|---|\n| Raise change | Requester | Service owner | CAB | Stakeholders |\n| Approve standard change | Change manager | CAB chair | Security | Ops |\n| Execute | Implementer | Service owner | On-call | Status page |\n\n## 4. Change classes\n- Standard (pre-approved)\n- Normal (CAB)\n- Emergency (expedited + post-review)\n\n## 5. Required artefacts\nRequest, risk assessment, test evidence, rollback plan, communication plan.\n\n## 6. Post-implementation review\nSuccess criteria, incidents linked, lessons learned.\n"
+  },
+  {
+    "id": "domain-finance-vendor-dd",
+    "source": "nyv-document",
+    "jurisdiction_code": "GLOBAL",
+    "document_type": "checklist",
+    "category": "finance",
+    "title": "Payment Vendor Due Diligence Checklist",
+    "content": "# Payment Vendor Due Diligence Checklist\n\n**Domain:** finance ops — not investment or legal advice. Engage counsel for regulated products.\n\n## A. Corporate & licensing\n- [ ] Legal entity, UBOs, jurisdictions of operation\n- [ ] Relevant payment / money-transmission licences\n- [ ] Material regulatory actions (5y)\n\n## B. Security & assurance\n- [ ] PCI-DSS AoC / ROC (as applicable)\n- [ ] SOC 2 / ISO 27001 reports\n- [ ] Penetration test summary + remediations\n\n## C. Operations\n- [ ] Settlement timelines & currencies\n- [ ] Chargeback / dispute workflow\n- [ ] Incident notification SLA\n\n## D. Commercial\n- [ ] Fee schedule & FX markups\n- [ ] Data residency / subprocessors\n- [ ] Termination & transition assistance\n"
+  },
+  {
+    "id": "domain-healthcare-incident-intake",
+    "source": "nyv-document",
+    "jurisdiction_code": "GLOBAL",
+    "document_type": "form",
+    "category": "healthcare",
+    "title": "Patient Data Incident Intake Outline",
+    "content": "# Patient Data Incident Intake (Outline)\n\n**Domain:** healthcare operations / privacy ops — not clinical advice. Follow applicable privacy law with counsel.\n\n## Intake fields\n1. Discovery datetime (UTC + local)\n2. Reporter name / role / contact\n3. Systems / vendors involved\n4. Data categories (identifiers, health data, financial)\n5. Estimated individuals impacted (range)\n6. Containment actions already taken\n7. Evidence preserved (logs, screenshots)\n8. Notification owners (privacy, security, legal, PR)\n\n## Immediate triage\n- Isolate affected accounts/systems\n- Preserve logs (do not wipe)\n- Open incident ticket + severity\n- Schedule counsel + privacy lead huddle\n\n## Follow-ups\n- Root cause\n- Regulatory notification assessment\n- Individual notification assessment\n- Lessons learned within 14 days\n"
+  }
+]

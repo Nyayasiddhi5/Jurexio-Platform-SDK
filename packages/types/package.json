@@ -1,0 +1,45 @@
+{
+  "name": "@jurexio/types",
+  "version": "5.0.0",
+  "description": "Jurexio Enterprise Platform — Shared TypeScript types for the NYV Gateway API, SDK v5.0.0, and all 5 Jurexio platforms.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "publish:beta": "npm publish --tag beta --access public",
+    "publish:latest": "npm publish --tag latest --access public"
+  },
+  "keywords": [
+    "nyayavigya",
+    "legal-ai",
+    "types",
+    "typescript",
+    "sdk"
+  ],
+  "author": "Jurexio Technology Pvt Ltd",
+  "license": "PROPRIETARY",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "sideEffects": false
+}

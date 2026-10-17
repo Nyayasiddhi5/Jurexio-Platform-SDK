@@ -1,0 +1,78 @@
+{
+  "schema": "./jrx-nsp-ai-task-eval-matrix/v1",
+  "description": "Per task-class probes for Option B Phase 4/5 (offline command or npm script id).",
+  "taskClasses": [
+    {
+      "id": "legal-chat-fast",
+      "tier": "medium",
+      "release95Metric": "counsel-grade + citation density (future)",
+      "offlineProbe": "npm run eval:counsel-grade:self-test",
+      "liveProbe": "npm run eval:counsel-grade -- --gateway https://api.nyayasiddhi.online",
+      "mergeGate": null
+    },
+    {
+      "id": "legal-draft-fast-medium",
+      "tier": "medium",
+      "release95Metric": "indian-draft SME rubric avg",
+      "offlineProbe": "npm run eval:draft:india",
+      "liveProbe": "npm run eval:draft:india:live -- --lane=fast",
+      "mergeGate": "./jrx-indian-draft-eval-merge-gate --stage=merge"
+    },
+    {
+      "id": "legal-draft-comprehensive",
+      "tier": "comprehensive",
+      "release95Metric": "indian-draft SME rubric avg",
+      "offlineProbe": "npm run eval:counsel-grade:self-test",
+      "liveProbe": "npm run eval:draft:india:live -- --lane=counsel",
+      "mergeGate": "./jrx-indian-draft-eval-merge-gate --stage=merge"
+    },
+    {
+      "id": "legal_research",
+      "tier": "counsel",
+      "release95Metric": "eval:legal-accuracy IN set",
+      "offlineProbe": "npm run eval:quality-trend",
+      "liveProbe": "npm run eval:legal-accuracy -- --live",
+      "mergeGate": null
+    },
+    {
+      "id": "web-search",
+      "tier": "medium",
+      "release95Metric": "SERP + legal overlay smoke",
+      "offlineProbe": "npm run smoke:nsp-nspm-nym",
+      "liveProbe": "npm run nsp:ai:matrix:ec2",
+      "mergeGate": null
+    },
+    {
+      "id": "caselaw-knowledge",
+      "tier": "medium",
+      "release95Metric": "hybrid/FTS positive control",
+      "offlineProbe": "npm run smoke:nsp-nspm-nym",
+      "liveProbe": "npm run probe:nsp-stream:ec2",
+      "mergeGate": null
+    },
+    {
+      "id": "templates-generate",
+      "tier": "medium",
+      "release95Metric": "catalog fill + draft rubric with templateId",
+      "offlineProbe": "npx vitest run tests/unit/jrx-template-draft-prompt-overlay.test.ts",
+      "liveProbe": null,
+      "mergeGate": null
+    },
+    {
+      "id": "docparse-analyzeDocument",
+      "tier": "medium",
+      "release95Metric": "docparse legal gate corpus",
+      "offlineProbe": "npm run docparse-sdk:benchmark:smoke",
+      "liveProbe": "npm run docparse-sdk:gate:legal:ec2",
+      "mergeGate": null
+    },
+    {
+      "id": "cnr-resolve",
+      "tier": "sync",
+      "release95Metric": "resolve positive control",
+      "offlineProbe": "npm run partner:smoke:ec2",
+      "liveProbe": "npm run demo:probe:ec2",
+      "mergeGate": null
+    }
+  ]
+}

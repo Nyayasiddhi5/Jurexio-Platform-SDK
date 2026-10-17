@@ -1,0 +1,27 @@
+{
+  "name": "@workspace/scripts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "hello": "tsx ./src/hello.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "tsx": "catalog:"
+  },
+  "dependencies": {
+    "@aws-sdk/client-athena": "^3.1080.0",
+    "@aws-sdk/client-bedrock": "^3.1080.0",
+    "@aws-sdk/client-bedrock-runtime": "^3.1080.0",
+    "@aws-sdk/client-ec2": "^3.1080.0",
+    "@aws-sdk/client-elastic-load-balancing-v2": "^3.1080.0",
+    "@aws-sdk/client-glue": "^3.1080.0",
+    "@aws-sdk/client-iam": "^3.1080.0",
+    "@aws-sdk/client-rds": "^3.1080.0",
+    "@aws-sdk/client-route-53": "^3.1080.0",
+    "@aws-sdk/client-s3": "^3.1080.0",
+    "@aws-sdk/client-ssm": "^3.1080.0"
+  }
+}

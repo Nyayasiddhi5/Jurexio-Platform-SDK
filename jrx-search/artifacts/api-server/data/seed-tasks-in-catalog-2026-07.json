@@ -1,0 +1,1178 @@
+[
+  {
+    "category": "antitrust-competition",
+    "slug": "in-catalog-antitrust-competition-workup-1",
+    "title": "IN Matter Workup — antitrust competition (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "antitrust-competition",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for antitrust competition. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "arbitration-international-dispute-resolution",
+    "slug": "in-catalog-arbitration-international-dispute-resolution-workup-1",
+    "title": "IN Matter Workup — arbitration international dispute resolution (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "arbitration-international-dispute-resolution",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for arbitration international dispute resolution. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "banking-finance",
+    "slug": "in-catalog-banking-finance-workup-1",
+    "title": "IN Matter Workup — banking finance (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "banking-finance",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for banking finance. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "bankruptcy-restructuring",
+    "slug": "in-catalog-bankruptcy-restructuring-workup-1",
+    "title": "IN Matter Workup — bankruptcy restructuring (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "bankruptcy-restructuring",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for bankruptcy restructuring. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "capital-markets",
+    "slug": "in-catalog-capital-markets-workup-1",
+    "title": "IN Matter Workup — capital markets (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "capital-markets",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for capital markets. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "corporate-governance",
+    "slug": "in-catalog-corporate-governance-workup-1",
+    "title": "IN Matter Workup — corporate governance (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "corporate-governance",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for corporate governance. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "corporate-ma",
+    "slug": "in-catalog-corporate-ma-workup-1",
+    "title": "IN Matter Workup — corporate ma (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "corporate-ma",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for corporate ma. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "data-privacy-cybersecurity",
+    "slug": "in-catalog-data-privacy-cybersecurity-workup-1",
+    "title": "IN Matter Workup — data privacy cybersecurity (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "data-privacy-cybersecurity",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for data privacy cybersecurity. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "emerging-companies-venture-capital",
+    "slug": "in-catalog-emerging-companies-venture-capital-workup-1",
+    "title": "IN Matter Workup — emerging companies venture capital (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "emerging-companies-venture-capital",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for emerging companies venture capital. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "employment-labor",
+    "slug": "in-catalog-employment-labor-workup-1",
+    "title": "IN Matter Workup — employment labor (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "employment-labor",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for employment labor. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "energy-natural-resources",
+    "slug": "in-catalog-energy-natural-resources-workup-1",
+    "title": "IN Matter Workup — energy natural resources (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "energy-natural-resources",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for energy natural resources. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "environmental-esg",
+    "slug": "in-catalog-environmental-esg-workup-1",
+    "title": "IN Matter Workup — environmental esg (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "environmental-esg",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for environmental esg. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "funds-asset-management",
+    "slug": "in-catalog-funds-asset-management-workup-1",
+    "title": "IN Matter Workup — funds asset management (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "funds-asset-management",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for funds asset management. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "healthcare-life-sciences",
+    "slug": "in-catalog-healthcare-life-sciences-workup-1",
+    "title": "IN Matter Workup — healthcare life sciences (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "healthcare-life-sciences",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for healthcare life sciences. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "immigration",
+    "slug": "in-catalog-immigration-workup-1",
+    "title": "IN Matter Workup — immigration (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "immigration",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for immigration. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "insurance",
+    "slug": "in-catalog-insurance-workup-1",
+    "title": "IN Matter Workup — insurance (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "insurance",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for insurance. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "intellectual-property",
+    "slug": "in-catalog-intellectual-property-workup-1",
+    "title": "IN Matter Workup — intellectual property (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "intellectual-property",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for intellectual property. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "international-trade-sanctions",
+    "slug": "in-catalog-international-trade-sanctions-workup-1",
+    "title": "IN Matter Workup — international trade sanctions (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "international-trade-sanctions",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for international trade sanctions. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "litigation-dispute-resolution",
+    "slug": "in-catalog-litigation-dispute-resolution-workup-1",
+    "title": "IN Matter Workup — litigation dispute resolution (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "litigation-dispute-resolution",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for litigation dispute resolution. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "real-estate",
+    "slug": "in-catalog-real-estate-workup-1",
+    "title": "IN Matter Workup — real estate (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "real-estate",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for real estate. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "structured-finance-securitization",
+    "slug": "in-catalog-structured-finance-securitization-workup-1",
+    "title": "IN Matter Workup — structured finance securitization (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "structured-finance-securitization",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for structured finance securitization. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "tax",
+    "slug": "in-catalog-tax-workup-1",
+    "title": "IN Matter Workup — tax (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "tax",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for tax. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "trusts-estates-private-client",
+    "slug": "in-catalog-trusts-estates-private-client-workup-1",
+    "title": "IN Matter Workup — trusts estates private client (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "trusts-estates-private-client",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for trusts estates private client. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  },
+  {
+    "category": "white-collar-defense-investigations",
+    "slug": "in-catalog-white-collar-defense-investigations-workup-1",
+    "title": "IN Matter Workup — white collar defense investigations (Pack 1)",
+    "work_type": "analyze",
+    "tags": [
+      "IN",
+      "white-collar-defense-investigations",
+      "catalog",
+      "checklist",
+      "research"
+    ],
+    "instructions": "Prepare a jurisdiction-specific (IN) matter workup for white collar defense investigations. Use Knowledge Plane statutes and caselaw for IN only. Deliver: (1) issues list mapped to Acts/Titles, (2) draft outline, (3) evidence checklist, (4) risk rating. Output: `workup-memo.docx`. Do not invent citations.",
+    "deliverables": {
+      "workup-memo.docx": "workup-memo.docx"
+    },
+    "documents": [
+      "client-intake.docx",
+      "key-exhibits-index.xlsx"
+    ],
+    "jurisdiction": "IN",
+    "criteria": [
+      {
+        "id": "C-001",
+        "title": "Jurisdiction locked to IN",
+        "match_criteria": "PASS if the memo expressly states governing jurisdiction IN and does not rely on the other jurisdiction's primary statutes as controlling. FAIL if US statutes are treated as controlling without comparative framing."
+      },
+      {
+        "id": "C-002",
+        "title": "Issues mapped to primary authorities",
+        "match_criteria": "PASS if at least three discrete legal issues are listed with corresponding Act/Title or Code references. FAIL if issues lack statutory anchors."
+      },
+      {
+        "id": "C-003",
+        "title": "Evidence checklist present",
+        "match_criteria": "PASS if the memo includes a numbered evidence or document checklist with at least five items. FAIL if no checklist or fewer than five items."
+      },
+      {
+        "id": "C-004",
+        "title": "Risk rating with rationale",
+        "match_criteria": "PASS if the memo assigns High/Medium/Low (or equivalent) risk with a one-paragraph rationale. FAIL if risk is missing or unexplained."
+      },
+      {
+        "id": "C-005",
+        "title": "Cite-check / no fabricated authorities",
+        "match_criteria": "PASS if the memo warns that authorities must be verified via Knowledge Plane retrieve/search and does not invent case citations. FAIL if clearly fabricated case names or section numbers appear."
+      }
+    ]
+  }
+]

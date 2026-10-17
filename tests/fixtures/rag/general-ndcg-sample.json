@@ -1,0 +1,13 @@
+[
+  {
+    "query": "What is an RACI matrix used for in change management?",
+    "relevantIds": ["g1", "g2"],
+    "candidates": [
+      { "id": "g1", "content": "RACI defines Responsible Accountable Consulted Informed roles for each deliverable in a change programme.", "score": 0.42 },
+      { "id": "g2", "content": "Change management policy requires a CAB review for production changes with rollback plans.", "score": 0.55 },
+      { "id": "g3", "content": "Kubernetes rolling updates reduce downtime for microservices.", "score": 0.61 },
+      { "id": "g4", "content": "A SWOT analysis lists strengths weaknesses opportunities threats.", "score": 0.38 },
+      { "id": "g5", "content": "Office coffee inventory is managed weekly by facilities.", "score": 0.2 }
+    ]
+  }
+]

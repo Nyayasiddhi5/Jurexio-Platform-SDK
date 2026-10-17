@@ -1,0 +1,49 @@
+{
+  "name": "@jurexio/mcp-server",
+  "version": "5.0.0",
+  "description": "Standalone MCP server (stdio + optional SSE) for Jurexio ecosystem platforms — wraps NyvClient and gateway MCP invoke.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "nyayavigya-mcp-server": "./dist/bin.js",
+    "@jurexio/mcp-server": "./dist/bin.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && echo 'NYV MCP Server built'",
+    "dev": "tsc --watch",
+    "start": "node dist/bin.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "nyayavigya",
+    "mcp",
+    "model-context-protocol",
+    "legal-ai",
+    "sdk"
+  ],
+  "author": "Jurexio Technology Pvt Ltd",
+  "license": "PROPRIETARY",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.2",
+    "@jurexio/client-sdk": "file:../client-sdk"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^4.1.2"
+  },
+  "sideEffects": false
+}

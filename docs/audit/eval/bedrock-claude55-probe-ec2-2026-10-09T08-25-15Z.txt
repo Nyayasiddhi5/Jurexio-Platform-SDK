@@ -1,0 +1,72 @@
+Success	=== BEDROCK CLAUDE 5.5 PROBE (EC2) ===
+gateway_container=40d8c616bf39_nyv-gateway
+{
+  "probe": "NV-BEDROCK-CLAUDE55-PROBE-001",
+  "results": [
+    {
+      "region": "us-east-1",
+      "modelId": "global.anthropic.claude-haiku-5-5",
+      "http": "200",
+      "ms": 1501,
+      "tokensIn": 31,
+      "tokensOut": 19,
+      "textPreviewLen": 19
+    },
+    {
+      "region": "us-east-1",
+      "modelId": "global.anthropic.claude-sonnet-5-5",
+      "http": "200",
+      "ms": 1415,
+      "tokensIn": 33,
+      "tokensOut": 19,
+      "textPreviewLen": 19
+    },
+    {
+      "region": "us-east-1",
+      "modelId": "us.anthropic.claude-opus-5-5",
+      "http": "200",
+      "ms": 5451,
+      "tokensIn": 33,
+      "tokensOut": 19,
+      "textPreviewLen": 19
+    },
+    {
+      "region": "us-east-1",
+      "modelId": "global.anthropic.claude-opus-5-5",
+      "http": "200",
+      "ms": 2897,
+      "tokensIn": 33,
+      "tokensOut": 19,
+      "textPreviewLen": 19
+    },
+    {
+      "region": "ap-south-1",
+      "modelId": "global.anthropic.claude-haiku-5-5",
+      "http": "ERR",
+      "ms": 266,
+      "err": "AccessDeniedException"
+    },
+    {
+      "region": "ap-south-1",
+      "modelId": "global.anthropic.claude-sonnet-5-5",
+      "http": "ERR",
+      "ms": 215,
+      "err": "AccessDeniedException"
+    },
+    {
+      "region": "ap-south-1",
+      "modelId": "us.anthropic.claude-opus-5-5",
+      "http": "ERR",
+      "ms": 143,
+      "err": "ValidationException"
+    },
+    {
+      "region": "ap-south-1",
+      "modelId": "global.anthropic.claude-opus-5-5",
+      "http": "ERR",
+      "ms": 216,
+      "err": "AccessDeniedException"
+    }
+  ]
+}
+	

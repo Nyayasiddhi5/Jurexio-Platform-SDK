@@ -1,0 +1,125 @@
+{
+  "generatedAt": "2026-10-07T07:24:26.006Z",
+  "entries": [
+    {
+      "file": "type_AADHAAR_CARD.scan.pdf",
+      "source": "type_AADHAAR_CARD.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_ACT.scan.pdf",
+      "source": "type_ACT.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_AFFIDAVIT.scan.pdf",
+      "source": "type_AFFIDAVIT.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_AGREEMENT.scan.pdf",
+      "source": "type_AGREEMENT.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_AGREEMENT_TO_SELL.scan.pdf",
+      "source": "type_AGREEMENT_TO_SELL.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_ARBITRAL_AWARD.scan.pdf",
+      "source": "type_ARBITRAL_AWARD.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_ARREST_MEMO.scan.pdf",
+      "source": "type_ARREST_MEMO.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_BAIL_BOND.scan.pdf",
+      "source": "type_BAIL_BOND.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_BANK_STATEMENT.scan.pdf",
+      "source": "type_BANK_STATEMENT.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_BOARD_RESOLUTION.scan.pdf",
+      "source": "type_BOARD_RESOLUTION.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_CASE_DIARY.scan.pdf",
+      "source": "type_CASE_DIARY.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_CAUSE_LIST.scan.pdf",
+      "source": "type_CAUSE_LIST.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_CAVEAT.scan.pdf",
+      "source": "type_CAVEAT.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_CHARGESHEET.scan.pdf",
+      "source": "type_CHARGESHEET.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_CHEQUE.scan.pdf",
+      "source": "type_CHEQUE.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_CIVIL_APPEAL.scan.pdf",
+      "source": "type_CIVIL_APPEAL.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_COMPLAINT_138.scan.pdf",
+      "source": "type_COMPLAINT_138.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_CONSUMER_COMPLAINT.scan.pdf",
+      "source": "type_CONSUMER_COMPLAINT.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_CRIMINAL_APPEAL.scan.pdf",
+      "source": "type_CRIMINAL_APPEAL.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_DECREE.scan.pdf",
+      "source": "type_DECREE.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_DEMAND_NOTICE_SARFAESI.scan.pdf",
+      "source": "type_DEMAND_NOTICE_SARFAESI.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_DIVORCE_PETITION.scan.pdf",
+      "source": "type_DIVORCE_PETITION.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_DV_APPLICATION.scan.pdf",
+      "source": "type_DV_APPLICATION.pdf",
+      "kind": "raster-sim"
+    },
+    {
+      "file": "type_EXECUTION_PETITION.scan.pdf",
+      "source": "type_EXECUTION_PETITION.pdf",
+      "kind": "raster-sim"
+    }
+  ]
+}

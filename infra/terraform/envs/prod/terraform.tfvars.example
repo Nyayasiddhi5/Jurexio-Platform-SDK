@@ -1,0 +1,28 @@
+# Copy to terraform.tfvars and fill in.  terraform.tfvars is gitignored.
+
+aws_region     = "ap-south-1"
+aws_account_id = "789925699169"
+domain         = "nyayasiddhi.online"
+ssh_key_name   = "nysdev"
+
+# Operator IPs allowed to SSH to the application host.
+# Leave empty to disable SSH and use SSM Session Manager only.
+operator_ssh_cidrs = []
+
+# alarm_email = "ops@nyayavigya.in"
+
+# create_rds_replica = false   # flip to true once read traffic justifies $27/mo
+# waf_action         = "count" # flip to "block" only after >= 1 week observation
+
+# ── Partner IAM trust (REQUIRED in prod: GitHub OIDC, no fallback) ──────────
+# Production requires every partner to have a GitHub OIDC trust configured.
+# `terraform plan` will fail unless ALL FIVE partners are listed here.
+# Each entry makes the partner deploy role assumable ONLY by GitHub Actions
+# running in that exact repo (sub claim is restricted to repo:<owner>/<repo>:*).
+partner_github_repos = {
+  nym = "nyayasiddhi/nyayamitra"
+  nsp = "nyayasiddhi/nyaya-pravarsamuha"
+  nsi = "nyayasiddhi/nyayasiddhi-india"
+  nsa = "nyayasiddhi/nyayasiddhi-app"
+  nsm = "nyayasiddhi/nyayamatrika"
+}

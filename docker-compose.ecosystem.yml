@@ -1,0 +1,270 @@
+# =============================================================================
+# Nyayavigya 3.1.2 — Production ecosystem compose
+#
+# Single EC2 host runs the full ecosystem behind an AWS ALB.  TLS terminates at
+# the ALB; Caddy listens on :80 only and host-routes by `Host` header to the
+# right container.  Datastores (Postgres, Redis) come from RDS / ElastiCache in
+# production — they are NOT defined here.  The local `postgres` / `redis`
+# services in the legacy `docker-compose.aws-dev.yml` (now archived) were dev
+# conveniences only.
+#
+# Container layout:
+#   nyv-gateway-a / nyv-gateway-b    — Two replicas of the Nyayavigya gateway
+#                                       (zero-downtime rolling restart pool).
+#   nyv-console                       — Admin/console UI for SDK key + tenant
+#                                       management.
+#   nym-app, nsp-app, nsi-app,        — The five ecosystem partner platforms.
+#   nsa-app, nsm-app                    Each is a thin static-frontend container
+#                                       that proxies /api/sdk/* to the gateway
+#                                       using its own NYV_SDK_API_KEY.
+#   caddy                             — Edge HTTP router on :80 (no TLS).
+#
+# Bring-up:
+#   bash scripts/ecosystem-up.sh           # boots the whole stack + waits
+#   bash scripts/deploy-replit-direct.sh   # deploys new gateway image
+#   bash scripts/promote-staging-to-prod.sh <sha>  # zero-downtime promotion
+#
+# Image source: ECR by default. To boot from locally-built images, override
+# NYV_IMAGE_GATEWAY / NYV_IMAGE_CONSOLE in `.env`.
+# =============================================================================
+
+x-gateway-base: &gateway-base
+  image: ${NYV_IMAGE_GATEWAY:-789925699169.dkr.ecr.ap-south-1.amazonaws.com/nyv-gateway:latest}
+  entrypoint: ["/app/scripts/secrets-entrypoint.sh"]
+  command: ["node", "dist/index.js"]
+  env_file: .env
+  healthcheck:
+    test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:5000/health"]
+    interval: 15s
+    timeout: 5s
+    retries: 4
+    start_period: 60s
+  restart: unless-stopped
+  deploy:
+    resources:
+      limits:
+        memory: 3G
+      reservations:
+        memory: 1500M
+  volumes:
+    - gateway-logs:/app/logs
+    - gateway-uploads:/app/uploads
+    - ./scripts/secrets-entrypoint.sh:/app/scripts/secrets-entrypoint.sh:ro
+  networks: [nyv-net]
+
+x-eco-app-healthcheck: &eco-healthcheck
+  interval: 30s
+  timeout: 5s
+  retries: 3
+
+services:
+
+  gateway-a:
+    <<: *gateway-base
+    container_name: nyv-gateway-a
+    environment:
+      NODE_ENV: production
+      PORT: "5000"
+      NYV_PORT_GATEWAY: "5000"
+      NYV_REPLICA_ID: "a"
+      NYV_LOG_FORMAT: json
+      NYV_LOG_LEVEL: ${NYV_LOG_LEVEL:-info}
+      NYV_QUEUE_WORKERS: "on"
+      NYV_TENANT_ENFORCE: "1"
+      NYV_SECRETS_BACKEND: "aws-secrets-manager"
+      NYV_SECRETS_PREFIX: "nyayavigya/${NYV_ENV:-prod}/gateway"
+      AWS_REGION: ${AWS_REGION:-ap-south-1}
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: "${AWS_REGION:-ap-south-1}"
+        awslogs-group: "/aws/nyayavigya/${NYV_ENV:-prod}/gateway"
+        awslogs-stream: "gateway-a"
+        awslogs-create-group: "true"
+
+  gateway-b:
+    <<: *gateway-base
+    container_name: nyv-gateway-b
+    environment:
+      NODE_ENV: production
+      PORT: "5000"
+      NYV_PORT_GATEWAY: "5000"
+      NYV_REPLICA_ID: "b"
+      NYV_LOG_FORMAT: json
+      NYV_LOG_LEVEL: ${NYV_LOG_LEVEL:-info}
+      NYV_QUEUE_WORKERS: "off"
+      NYV_TENANT_ENFORCE: "1"
+      NYV_SECRETS_BACKEND: "aws-secrets-manager"
+      NYV_SECRETS_PREFIX: "nyayavigya/${NYV_ENV:-prod}/gateway"
+      AWS_REGION: ${AWS_REGION:-ap-south-1}
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: "${AWS_REGION:-ap-south-1}"
+        awslogs-group: "/aws/nyayavigya/${NYV_ENV:-prod}/gateway"
+        awslogs-stream: "gateway-b"
+        awslogs-create-group: "true"
+
+  console:
+    image: ${NYV_IMAGE_CONSOLE:-789925699169.dkr.ecr.ap-south-1.amazonaws.com/nyv-console:latest}
+    container_name: nyv-console
+    depends_on: [gateway-a]
+    environment:
+      NYV_API_BASE: http://nyv-gateway-a:5000
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:80/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+    networks: [nyv-net]
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: "${AWS_REGION:-ap-south-1}"
+        awslogs-group: "/aws/nyayavigya/${NYV_ENV:-prod}/console"
+        awslogs-stream: "console"
+        awslogs-create-group: "true"
+
+  nym-app:
+    image: ${NYV_IMAGE_NYM:-789925699169.dkr.ecr.ap-south-1.amazonaws.com/nyv-nym-app:latest}
+    container_name: nyv-nym-app
+    environment:
+      NYV_TENANT_ID: nym
+      NYV_SDK_BASE: http://nyv-gateway-a:5000
+      NYV_SDK_API_KEY_REF: secret://nyayavigya/${NYV_ENV:-prod}/nym/sdk_api_key
+      NYV_PLATFORM_CODE: NYM
+    healthcheck:
+      <<: *eco-healthcheck
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:5101/health"]
+    restart: unless-stopped
+    networks: [nyv-net, nyv-public-net]
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: "${AWS_REGION:-ap-south-1}"
+        awslogs-group: "/aws/nyayavigya/${NYV_ENV:-prod}/nym"
+        awslogs-stream: "nym-app"
+        awslogs-create-group: "true"
+
+  nsp-app:
+    image: ${NYV_IMAGE_NSP:-789925699169.dkr.ecr.ap-south-1.amazonaws.com/nyv-nsp-app:latest}
+    container_name: nyv-nsp-app
+    environment:
+      NYV_TENANT_ID: nsp
+      NYV_SDK_BASE: http://nyv-gateway-a:5000
+      NYV_SDK_API_KEY_REF: secret://nyayavigya/${NYV_ENV:-prod}/nsp/sdk_api_key
+      NYV_PLATFORM_CODE: NYS-PRO
+    healthcheck:
+      <<: *eco-healthcheck
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:5102/health"]
+    restart: unless-stopped
+    networks: [nyv-net, nyv-public-net]
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: "${AWS_REGION:-ap-south-1}"
+        awslogs-group: "/aws/nyayavigya/${NYV_ENV:-prod}/nsp"
+        awslogs-stream: "nsp-app"
+        awslogs-create-group: "true"
+
+  nsi-app:
+    image: ${NYV_IMAGE_NSI:-789925699169.dkr.ecr.ap-south-1.amazonaws.com/nyv-nsi-app:latest}
+    container_name: nyv-nsi-app
+    environment:
+      NYV_TENANT_ID: nsi
+      NYV_SDK_BASE: http://nyv-gateway-a:5000
+      NYV_SDK_API_KEY_REF: secret://nyayavigya/${NYV_ENV:-prod}/nsi/sdk_api_key
+      NYV_PLATFORM_CODE: NYS-INS
+    healthcheck:
+      <<: *eco-healthcheck
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:5103/health"]
+    restart: unless-stopped
+    networks: [nyv-net, nyv-public-net]
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: "${AWS_REGION:-ap-south-1}"
+        awslogs-group: "/aws/nyayavigya/${NYV_ENV:-prod}/nsi"
+        awslogs-stream: "nsi-app"
+        awslogs-create-group: "true"
+
+  nsa-app:
+    image: ${NYV_IMAGE_NSA:-789925699169.dkr.ecr.ap-south-1.amazonaws.com/nyv-nsa-app:latest}
+    container_name: nyv-nsa-app
+    environment:
+      NYV_TENANT_ID: nsa
+      NYV_SDK_BASE: http://nyv-gateway-a:5000
+      NYV_SDK_API_KEY_REF: secret://nyayavigya/${NYV_ENV:-prod}/nsa/sdk_api_key
+      NYV_PLATFORM_CODE: NYS-ACE
+    healthcheck:
+      <<: *eco-healthcheck
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:5104/health"]
+    restart: unless-stopped
+    networks: [nyv-net, nyv-public-net]
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: "${AWS_REGION:-ap-south-1}"
+        awslogs-group: "/aws/nyayavigya/${NYV_ENV:-prod}/nsa"
+        awslogs-stream: "nsa-app"
+        awslogs-create-group: "true"
+
+  nsm-app:
+    image: ${NYV_IMAGE_NSM:-789925699169.dkr.ecr.ap-south-1.amazonaws.com/nyv-nsm-app:latest}
+    container_name: nyv-nsm-app
+    environment:
+      NYV_TENANT_ID: nsm
+      NYV_SDK_BASE: http://nyv-gateway-a:5000
+      NYV_SDK_API_KEY_REF: secret://nyayavigya/${NYV_ENV:-prod}/nsm/sdk_api_key
+      NYV_PLATFORM_CODE: NYS-MIN
+    healthcheck:
+      <<: *eco-healthcheck
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:5105/health"]
+    restart: unless-stopped
+    networks: [nyv-net, nyv-public-net]
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: "${AWS_REGION:-ap-south-1}"
+        awslogs-group: "/aws/nyayavigya/${NYV_ENV:-prod}/nsm"
+        awslogs-stream: "nsm-app"
+        awslogs-create-group: "true"
+
+  caddy:
+    # Custom build of Caddy 2.8 with the caddy-ratelimit plugin baked in.
+    # See infra/caddy/Dockerfile and the rate_limit_strict / rate_limit_loose
+    # snippets in infra/caddy/Caddyfile.
+    build:
+      context: ./infra/caddy
+      dockerfile: Dockerfile
+    image: nyv-caddy:2.8-ratelimit
+    container_name: nyv-caddy
+    depends_on: [gateway-a, gateway-b, console, nym-app, nsp-app, nsi-app, nsa-app, nsm-app]
+    ports:
+      - "80:80"
+    volumes:
+      - ./infra/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-logs:/var/log/caddy
+    restart: unless-stopped
+    networks: [nyv-net, nyv-public-net]
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: "${AWS_REGION:-ap-south-1}"
+        awslogs-group: "/aws/nyayavigya/${NYV_ENV:-prod}/caddy"
+        awslogs-stream: "caddy"
+        awslogs-create-group: "true"
+
+volumes:
+  gateway-logs:
+  gateway-uploads:
+  caddy-data:
+  caddy-logs:
+
+networks:
+  nyv-net:
+    driver: bridge
+  nyv-public-net:
+    driver: bridge

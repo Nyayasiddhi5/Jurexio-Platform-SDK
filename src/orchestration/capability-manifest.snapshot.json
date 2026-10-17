@@ -1,0 +1,4609 @@
+{
+  "generatedAt": "2026-07-29T12:06:13.154Z",
+  "total": 142,
+  "byCategory": {
+    "memory": [
+      "memory.tiered.recall",
+      "memory.tiered.store",
+      "memory.graph.add",
+      "memory.project.store",
+      "memory.5tier.episodic",
+      "memory.social.context",
+      "memory.mem0.store",
+      "memory.mem0.recall",
+      "memory.mem0.consolidate"
+    ],
+    "rag": [
+      "rag.search",
+      "rag.adaptive",
+      "rag.corrective",
+      "rag.self",
+      "rag.graph",
+      "rag.lightrag",
+      "rag.reranker",
+      "rag.embedding"
+    ],
+    "skills": [
+      "skills.activate"
+    ],
+    "safety": [
+      "safety.hallucination-check",
+      "safety.bias-check",
+      "safety.pii-vault",
+      "safety.citation-verify",
+      "safety.explainability"
+    ],
+    "hitl": [
+      "hitl.queue",
+      "hitl.workflow"
+    ],
+    "metering": [
+      "metering.usage-log",
+      "sdk.usage-metering"
+    ],
+    "audit": [
+      "audit.safety-verdict",
+      "feedback.submit"
+    ],
+    "tools": [
+      "tools.execute",
+      "templates.catalog",
+      "templates.generate",
+      "nyaya-tools.amend",
+      "nyaya-tools.compare",
+      "nyaya-tools.forensic",
+      "nyaya-tools.graph",
+      "nyaya-tools.template",
+      "nyaya-tools.timeline",
+      "nyaya-tools.trail",
+      "nyaya-tools.watch",
+      "nyaya-tools.agent-lifecycle",
+      "clawdbot.crawl",
+      "enterprise.financial-data",
+      "enterprise.web-search"
+    ],
+    "document-pipeline": [
+      "docs.process",
+      "docs.parse-legal",
+      "docs.chunk-legal",
+      "docs.ocr",
+      "docs.esign",
+      "docs.pdfa",
+      "enterprise.ocr-pipeline",
+      "docs.embed",
+      "docs.parse",
+      "docs.intelligence",
+      "docs.watermark",
+      "docs.identity-extract",
+      "sdk.document-pipeline"
+    ],
+    "vector": [
+      "vector.search",
+      "vector.qdrant.search",
+      "vector.qdrant.upsert"
+    ],
+    "streaming": [
+      "streaming.session"
+    ],
+    "protocol": [
+      "protocol.registry",
+      "protocol.mcp.invoke",
+      "sdk.application",
+      "queue.webhook.dispatch"
+    ],
+    "intelligence": [
+      "intelligence.precedent-similarity",
+      "intelligence.litigation-risk",
+      "intelligence.amendment-impact",
+      "intelligence.conflict-check",
+      "intelligence.regulatory-watch",
+      "intelligence.precedent",
+      "digital-twin.simulate",
+      "enterprise.investment-research",
+      "enterprise.domain-research",
+      "intelligence.secure-collaboration",
+      "intelligence.regulatory-digest",
+      "intelligence.compliance-calendar",
+      "intelligence.summarize",
+      "intelligence.ner",
+      "intelligence.statute-verify",
+      "intelligence.doc-analyze",
+      "intelligence.legal-feed"
+    ],
+    "compliance": [
+      "compliance.consent",
+      "compliance.export",
+      "compliance.incident",
+      "governance.model-policy",
+      "multi-org.federate",
+      "enterprise.code-quality",
+      "compliance.eu-ai-act",
+      "compliance.bipa-consent",
+      "compliance.breach-notice"
+    ],
+    "workflow": [
+      "workflow.contract-playbook",
+      "workflow.calendar-extract",
+      "workflow.bulk-analysis",
+      "workflow.email-classify",
+      "clm.playbook",
+      "efiling.steps",
+      "clm.lifecycle",
+      "e-filing.submit",
+      "automateai.workflow",
+      "enterprise.notebook-studio",
+      "enterprise.content-asset",
+      "enterprise.visual-analytics",
+      "workflow.maker-checker",
+      "sdk.workflow-protocol",
+      "workflow.matter-vault"
+    ],
+    "simulation": [
+      "digital_twin.simulate",
+      "twindesk.simulate",
+      "twindesk.chat",
+      "testing.judge",
+      "testing.oracle",
+      "testing.adversarial",
+      "testing.scorecard",
+      "simulation.grpo",
+      "simulation.verbalized-sampling"
+    ],
+    "agent-orchestration": [
+      "agent.auto-select",
+      "agent.metrics",
+      "agent.custom-create",
+      "jurisdiction.overlay",
+      "jurisdiction.sync",
+      "agent.chain.execute",
+      "agent.bmad.orchestrate",
+      "agent.parlant.govern",
+      "orchestration.dag.execute",
+      "orchestration.swarm.topology",
+      "orchestration.cot.reason",
+      "agent.persona"
+    ],
+    "multimodal": [
+      "enterprise.multimedia",
+      "sdk.multimodal-voice"
+    ],
+    "omnichannel": [
+      "openbot.receive",
+      "openbot.send"
+    ],
+    "monitoring": [
+      "regulatory-monitor.events",
+      "regulatory-monitor.subscribe"
+    ],
+    "white-label": [
+      "white-label.config",
+      "white-label.feature-toggle"
+    ],
+    "security": [
+      "security.federated-privacy.session",
+      "security.federated-privacy.aggregate",
+      "security.federated-privacy.dp-noise",
+      "security.pqc.kem-keygen",
+      "security.pqc.dsa-sign",
+      "security.pqc.dsa-verify",
+      "security.rbac.check"
+    ]
+  },
+  "byTier": {
+    "lite": [
+      "memory.tiered.recall",
+      "memory.tiered.store",
+      "rag.search",
+      "skills.activate",
+      "safety.hallucination-check",
+      "metering.usage-log",
+      "audit.safety-verdict",
+      "tools.execute",
+      "compliance.consent",
+      "safety.citation-verify",
+      "feedback.submit",
+      "templates.catalog",
+      "templates.generate",
+      "agent.auto-select",
+      "governance.model-policy",
+      "nyaya-tools.compare",
+      "nyaya-tools.template",
+      "docs.parse",
+      "intelligence.summarize",
+      "agent.persona"
+    ],
+    "mitra": [
+      "memory.tiered.recall",
+      "memory.tiered.store",
+      "rag.search",
+      "skills.activate",
+      "safety.hallucination-check",
+      "safety.bias-check",
+      "safety.pii-vault",
+      "hitl.queue",
+      "metering.usage-log",
+      "audit.safety-verdict",
+      "tools.execute",
+      "docs.process",
+      "vector.search",
+      "streaming.session",
+      "intelligence.precedent-similarity",
+      "intelligence.amendment-impact",
+      "intelligence.conflict-check",
+      "compliance.consent",
+      "compliance.incident",
+      "safety.citation-verify",
+      "safety.explainability",
+      "feedback.submit",
+      "workflow.contract-playbook",
+      "workflow.calendar-extract",
+      "workflow.email-classify",
+      "templates.catalog",
+      "templates.generate",
+      "clm.playbook",
+      "efiling.steps",
+      "intelligence.precedent",
+      "agent.auto-select",
+      "agent.metrics",
+      "governance.model-policy",
+      "docs.parse-legal",
+      "docs.chunk-legal",
+      "docs.esign",
+      "nyaya-tools.amend",
+      "nyaya-tools.compare",
+      "nyaya-tools.graph",
+      "nyaya-tools.template",
+      "nyaya-tools.timeline",
+      "nyaya-tools.trail",
+      "nyaya-tools.watch",
+      "jurisdiction.overlay",
+      "clm.lifecycle",
+      "e-filing.submit",
+      "enterprise.web-search",
+      "openbot.receive",
+      "openbot.send",
+      "regulatory-monitor.events",
+      "memory.graph.add",
+      "memory.project.store",
+      "memory.social.context",
+      "memory.mem0.store",
+      "memory.mem0.recall",
+      "rag.adaptive",
+      "rag.corrective",
+      "rag.lightrag",
+      "rag.reranker",
+      "vector.qdrant.search",
+      "intelligence.regulatory-digest",
+      "intelligence.compliance-calendar",
+      "compliance.eu-ai-act",
+      "security.pqc.dsa-verify",
+      "agent.chain.execute",
+      "agent.parlant.govern",
+      "docs.embed",
+      "docs.parse",
+      "docs.intelligence",
+      "docs.identity-extract",
+      "rag.embedding",
+      "orchestration.dag.execute",
+      "orchestration.cot.reason",
+      "intelligence.summarize",
+      "intelligence.ner",
+      "intelligence.statute-verify",
+      "intelligence.doc-analyze",
+      "security.rbac.check",
+      "hitl.workflow",
+      "sdk.application",
+      "sdk.document-pipeline",
+      "sdk.usage-metering",
+      "agent.persona"
+    ],
+    "enterprise": [
+      "memory.tiered.recall",
+      "memory.tiered.store",
+      "rag.search",
+      "skills.activate",
+      "safety.hallucination-check",
+      "safety.bias-check",
+      "safety.pii-vault",
+      "hitl.queue",
+      "metering.usage-log",
+      "audit.safety-verdict",
+      "tools.execute",
+      "docs.process",
+      "vector.search",
+      "streaming.session",
+      "protocol.registry",
+      "intelligence.precedent-similarity",
+      "intelligence.litigation-risk",
+      "intelligence.amendment-impact",
+      "intelligence.conflict-check",
+      "intelligence.regulatory-watch",
+      "compliance.consent",
+      "compliance.export",
+      "compliance.incident",
+      "safety.citation-verify",
+      "safety.explainability",
+      "feedback.submit",
+      "workflow.contract-playbook",
+      "workflow.calendar-extract",
+      "workflow.bulk-analysis",
+      "workflow.email-classify",
+      "templates.catalog",
+      "templates.generate",
+      "digital_twin.simulate",
+      "clm.playbook",
+      "efiling.steps",
+      "intelligence.precedent",
+      "agent.auto-select",
+      "agent.metrics",
+      "agent.custom-create",
+      "governance.model-policy",
+      "docs.parse-legal",
+      "docs.chunk-legal",
+      "docs.ocr",
+      "docs.esign",
+      "docs.pdfa",
+      "nyaya-tools.amend",
+      "nyaya-tools.compare",
+      "nyaya-tools.forensic",
+      "nyaya-tools.graph",
+      "nyaya-tools.template",
+      "nyaya-tools.timeline",
+      "nyaya-tools.trail",
+      "nyaya-tools.watch",
+      "nyaya-tools.agent-lifecycle",
+      "jurisdiction.overlay",
+      "jurisdiction.sync",
+      "clm.lifecycle",
+      "digital-twin.simulate",
+      "e-filing.submit",
+      "automateai.workflow",
+      "clawdbot.crawl",
+      "multi-org.federate",
+      "enterprise.financial-data",
+      "enterprise.investment-research",
+      "enterprise.web-search",
+      "enterprise.ocr-pipeline",
+      "enterprise.multimedia",
+      "enterprise.notebook-studio",
+      "enterprise.code-quality",
+      "enterprise.content-asset",
+      "enterprise.visual-analytics",
+      "enterprise.domain-research",
+      "openbot.receive",
+      "openbot.send",
+      "twindesk.simulate",
+      "twindesk.chat",
+      "regulatory-monitor.events",
+      "regulatory-monitor.subscribe",
+      "white-label.config",
+      "white-label.feature-toggle",
+      "memory.graph.add",
+      "memory.project.store",
+      "memory.5tier.episodic",
+      "memory.social.context",
+      "memory.mem0.store",
+      "memory.mem0.recall",
+      "memory.mem0.consolidate",
+      "rag.adaptive",
+      "rag.corrective",
+      "rag.self",
+      "rag.graph",
+      "rag.lightrag",
+      "rag.reranker",
+      "vector.qdrant.search",
+      "vector.qdrant.upsert",
+      "intelligence.secure-collaboration",
+      "intelligence.regulatory-digest",
+      "intelligence.compliance-calendar",
+      "compliance.eu-ai-act",
+      "security.federated-privacy.session",
+      "security.federated-privacy.aggregate",
+      "security.federated-privacy.dp-noise",
+      "security.pqc.dsa-verify",
+      "agent.chain.execute",
+      "agent.bmad.orchestrate",
+      "agent.parlant.govern",
+      "docs.embed",
+      "docs.parse",
+      "docs.intelligence",
+      "docs.watermark",
+      "docs.identity-extract",
+      "rag.embedding",
+      "testing.judge",
+      "testing.oracle",
+      "testing.adversarial",
+      "testing.scorecard",
+      "compliance.bipa-consent",
+      "compliance.breach-notice",
+      "orchestration.dag.execute",
+      "orchestration.swarm.topology",
+      "orchestration.cot.reason",
+      "intelligence.summarize",
+      "intelligence.ner",
+      "intelligence.statute-verify",
+      "intelligence.doc-analyze",
+      "intelligence.legal-feed",
+      "security.rbac.check",
+      "workflow.maker-checker",
+      "hitl.workflow",
+      "protocol.mcp.invoke",
+      "sdk.application",
+      "sdk.document-pipeline",
+      "sdk.multimodal-voice",
+      "sdk.workflow-protocol",
+      "sdk.usage-metering",
+      "simulation.verbalized-sampling",
+      "agent.persona",
+      "workflow.matter-vault",
+      "queue.webhook.dispatch"
+    ],
+    "sovereign": [
+      "memory.tiered.recall",
+      "memory.tiered.store",
+      "rag.search",
+      "skills.activate",
+      "safety.hallucination-check",
+      "safety.bias-check",
+      "safety.pii-vault",
+      "hitl.queue",
+      "metering.usage-log",
+      "audit.safety-verdict",
+      "tools.execute",
+      "docs.process",
+      "vector.search",
+      "streaming.session",
+      "protocol.registry",
+      "intelligence.precedent-similarity",
+      "intelligence.litigation-risk",
+      "intelligence.amendment-impact",
+      "intelligence.conflict-check",
+      "intelligence.regulatory-watch",
+      "compliance.consent",
+      "compliance.export",
+      "compliance.incident",
+      "safety.citation-verify",
+      "safety.explainability",
+      "feedback.submit",
+      "workflow.contract-playbook",
+      "workflow.calendar-extract",
+      "workflow.bulk-analysis",
+      "workflow.email-classify",
+      "templates.catalog",
+      "templates.generate",
+      "digital_twin.simulate",
+      "clm.playbook",
+      "efiling.steps",
+      "intelligence.precedent",
+      "agent.auto-select",
+      "agent.metrics",
+      "agent.custom-create",
+      "governance.model-policy",
+      "docs.parse-legal",
+      "docs.chunk-legal",
+      "docs.ocr",
+      "docs.esign",
+      "docs.pdfa",
+      "nyaya-tools.amend",
+      "nyaya-tools.compare",
+      "nyaya-tools.forensic",
+      "nyaya-tools.graph",
+      "nyaya-tools.template",
+      "nyaya-tools.timeline",
+      "nyaya-tools.trail",
+      "nyaya-tools.watch",
+      "nyaya-tools.agent-lifecycle",
+      "jurisdiction.overlay",
+      "jurisdiction.sync",
+      "clm.lifecycle",
+      "digital-twin.simulate",
+      "e-filing.submit",
+      "automateai.workflow",
+      "clawdbot.crawl",
+      "multi-org.federate",
+      "enterprise.financial-data",
+      "enterprise.investment-research",
+      "enterprise.web-search",
+      "enterprise.ocr-pipeline",
+      "enterprise.multimedia",
+      "enterprise.notebook-studio",
+      "enterprise.code-quality",
+      "enterprise.content-asset",
+      "enterprise.visual-analytics",
+      "enterprise.domain-research",
+      "openbot.receive",
+      "openbot.send",
+      "twindesk.simulate",
+      "twindesk.chat",
+      "regulatory-monitor.events",
+      "regulatory-monitor.subscribe",
+      "white-label.config",
+      "white-label.feature-toggle",
+      "memory.graph.add",
+      "memory.project.store",
+      "memory.5tier.episodic",
+      "memory.social.context",
+      "memory.mem0.store",
+      "memory.mem0.recall",
+      "memory.mem0.consolidate",
+      "rag.adaptive",
+      "rag.corrective",
+      "rag.self",
+      "rag.graph",
+      "rag.lightrag",
+      "rag.reranker",
+      "vector.qdrant.search",
+      "vector.qdrant.upsert",
+      "intelligence.secure-collaboration",
+      "intelligence.regulatory-digest",
+      "intelligence.compliance-calendar",
+      "compliance.eu-ai-act",
+      "security.federated-privacy.session",
+      "security.federated-privacy.aggregate",
+      "security.federated-privacy.dp-noise",
+      "security.pqc.kem-keygen",
+      "security.pqc.dsa-sign",
+      "security.pqc.dsa-verify",
+      "agent.chain.execute",
+      "agent.bmad.orchestrate",
+      "agent.parlant.govern",
+      "docs.embed",
+      "docs.parse",
+      "docs.intelligence",
+      "docs.watermark",
+      "docs.identity-extract",
+      "rag.embedding",
+      "testing.judge",
+      "testing.oracle",
+      "testing.adversarial",
+      "testing.scorecard",
+      "compliance.bipa-consent",
+      "compliance.breach-notice",
+      "orchestration.dag.execute",
+      "orchestration.swarm.topology",
+      "orchestration.cot.reason",
+      "intelligence.summarize",
+      "intelligence.ner",
+      "intelligence.statute-verify",
+      "intelligence.doc-analyze",
+      "intelligence.legal-feed",
+      "security.rbac.check",
+      "workflow.maker-checker",
+      "hitl.workflow",
+      "protocol.mcp.invoke",
+      "sdk.application",
+      "sdk.document-pipeline",
+      "sdk.multimodal-voice",
+      "sdk.workflow-protocol",
+      "sdk.usage-metering",
+      "simulation.grpo",
+      "simulation.verbalized-sampling",
+      "agent.persona",
+      "workflow.matter-vault",
+      "queue.webhook.dispatch"
+    ],
+    "white-label": [
+      "memory.tiered.recall",
+      "memory.tiered.store",
+      "rag.search",
+      "skills.activate",
+      "safety.hallucination-check",
+      "safety.bias-check",
+      "safety.pii-vault",
+      "hitl.queue",
+      "metering.usage-log",
+      "audit.safety-verdict",
+      "tools.execute",
+      "docs.process",
+      "vector.search",
+      "streaming.session",
+      "protocol.registry",
+      "intelligence.precedent-similarity",
+      "intelligence.litigation-risk",
+      "intelligence.amendment-impact",
+      "intelligence.conflict-check",
+      "intelligence.regulatory-watch",
+      "compliance.consent",
+      "compliance.export",
+      "compliance.incident",
+      "safety.citation-verify",
+      "safety.explainability",
+      "feedback.submit",
+      "workflow.contract-playbook",
+      "workflow.calendar-extract",
+      "workflow.bulk-analysis",
+      "workflow.email-classify",
+      "templates.catalog",
+      "templates.generate",
+      "digital_twin.simulate",
+      "clm.playbook",
+      "efiling.steps",
+      "intelligence.precedent",
+      "agent.auto-select",
+      "agent.metrics",
+      "agent.custom-create",
+      "governance.model-policy",
+      "docs.parse-legal",
+      "docs.chunk-legal",
+      "docs.ocr",
+      "docs.esign",
+      "docs.pdfa",
+      "nyaya-tools.amend",
+      "nyaya-tools.compare",
+      "nyaya-tools.forensic",
+      "nyaya-tools.graph",
+      "nyaya-tools.template",
+      "nyaya-tools.timeline",
+      "nyaya-tools.trail",
+      "nyaya-tools.watch",
+      "nyaya-tools.agent-lifecycle",
+      "jurisdiction.overlay",
+      "jurisdiction.sync",
+      "clm.lifecycle",
+      "digital-twin.simulate",
+      "e-filing.submit",
+      "automateai.workflow",
+      "clawdbot.crawl",
+      "multi-org.federate",
+      "enterprise.financial-data",
+      "enterprise.investment-research",
+      "enterprise.web-search",
+      "enterprise.ocr-pipeline",
+      "enterprise.multimedia",
+      "enterprise.notebook-studio",
+      "enterprise.code-quality",
+      "enterprise.content-asset",
+      "enterprise.visual-analytics",
+      "enterprise.domain-research",
+      "openbot.receive",
+      "openbot.send",
+      "twindesk.simulate",
+      "twindesk.chat",
+      "regulatory-monitor.events",
+      "regulatory-monitor.subscribe",
+      "white-label.config",
+      "white-label.feature-toggle",
+      "memory.graph.add",
+      "memory.project.store",
+      "memory.5tier.episodic",
+      "memory.social.context",
+      "memory.mem0.store",
+      "memory.mem0.recall",
+      "memory.mem0.consolidate",
+      "rag.adaptive",
+      "rag.corrective",
+      "rag.self",
+      "rag.graph",
+      "rag.lightrag",
+      "rag.reranker",
+      "vector.qdrant.search",
+      "vector.qdrant.upsert",
+      "intelligence.secure-collaboration",
+      "intelligence.regulatory-digest",
+      "intelligence.compliance-calendar",
+      "compliance.eu-ai-act",
+      "security.federated-privacy.session",
+      "security.federated-privacy.aggregate",
+      "security.federated-privacy.dp-noise",
+      "security.pqc.kem-keygen",
+      "security.pqc.dsa-sign",
+      "security.pqc.dsa-verify",
+      "agent.chain.execute",
+      "agent.bmad.orchestrate",
+      "agent.parlant.govern",
+      "docs.embed",
+      "docs.parse",
+      "docs.intelligence",
+      "docs.watermark",
+      "docs.identity-extract",
+      "rag.embedding",
+      "testing.judge",
+      "testing.oracle",
+      "testing.adversarial",
+      "testing.scorecard",
+      "compliance.bipa-consent",
+      "compliance.breach-notice",
+      "orchestration.dag.execute",
+      "orchestration.swarm.topology",
+      "orchestration.cot.reason",
+      "intelligence.summarize",
+      "intelligence.ner",
+      "intelligence.statute-verify",
+      "intelligence.doc-analyze",
+      "intelligence.legal-feed",
+      "security.rbac.check",
+      "workflow.maker-checker",
+      "hitl.workflow",
+      "protocol.mcp.invoke",
+      "sdk.application",
+      "sdk.document-pipeline",
+      "sdk.multimodal-voice",
+      "sdk.workflow-protocol",
+      "sdk.usage-metering",
+      "simulation.grpo",
+      "simulation.verbalized-sampling",
+      "agent.persona",
+      "workflow.matter-vault",
+      "queue.webhook.dispatch"
+    ]
+  },
+  "capabilities": [
+    {
+      "id": "memory.tiered.recall",
+      "displayName": "Tiered Memory Recall",
+      "category": "memory",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag",
+        "simple"
+      ],
+      "tags": [
+        "memory",
+        "recall",
+        "episodic",
+        "semantic"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvMemoryService",
+      "inputs": [
+        {
+          "name": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "limit",
+          "type": "number"
+        }
+      ],
+      "output": "Array<{ id, content, score, tier }>"
+    },
+    {
+      "id": "memory.tiered.store",
+      "displayName": "Tiered Memory Store",
+      "category": "memory",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag",
+        "simple",
+        "cot-with-tools",
+        "collective-debate"
+      ],
+      "tags": [
+        "memory",
+        "store",
+        "persist"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvMemoryService",
+      "inputs": [
+        {
+          "name": "content",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "tier",
+          "type": "string"
+        }
+      ],
+      "output": "{ id, stored: true }"
+    },
+    {
+      "id": "rag.search",
+      "displayName": "RAG Search",
+      "category": "rag",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "rag",
+        "retrieval",
+        "context",
+        "nys_global"
+      ],
+      "source": "src/services/jrx-auto-rag-router.ts:autoRagRetrieve",
+      "inputs": [
+        {
+          "name": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "topK",
+          "type": "number"
+        }
+      ],
+      "output": "Array<{ doc, score, snippet }>"
+    },
+    {
+      "id": "skills.activate",
+      "displayName": "Activate Legal Skills for Context",
+      "category": "skills",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag",
+        "simple"
+      ],
+      "tags": [
+        "skills",
+        "prompt-enhancement"
+      ],
+      "source": "src/services/skills/skills-system-service.ts",
+      "inputs": [
+        {
+          "name": "practiceArea",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "taskType",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "output": "{ activatedSkills, composedPromptDelta, requiredTools }"
+    },
+    {
+      "id": "safety.hallucination-check",
+      "displayName": "Hallucination + Citation Grounding Check",
+      "category": "safety",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag",
+        "simple"
+      ],
+      "tags": [
+        "safety",
+        "hallucination",
+        "grounding"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvHallucinationDetector",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "safety.bias-check",
+      "displayName": "Bias / Fairness Check",
+      "category": "safety",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "safety",
+        "bias",
+        "fairness"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvBiasDetector",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "safety.pii-vault",
+      "displayName": "PII Vault Tokenize/Detokenize",
+      "category": "safety",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple",
+        "cot-with-tools"
+      ],
+      "tags": [
+        "pii",
+        "privacy",
+        "redaction"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvPIIVaultService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "hitl.queue",
+      "displayName": "Queue Output for Human Review",
+      "category": "hitl",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple",
+        "cot-with-tools",
+        "collective-debate"
+      ],
+      "tags": [
+        "hitl",
+        "review",
+        "governance"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvHITLService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "metering.usage-log",
+      "displayName": "Usage / Cost Log",
+      "category": "metering",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag",
+        "simple",
+        "cot-with-tools",
+        "collective-debate"
+      ],
+      "tags": [
+        "metering",
+        "billing",
+        "usage"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvUsageService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "audit.safety-verdict",
+      "displayName": "Orchestration Safety Verdict (audit log)",
+      "category": "audit",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag",
+        "simple",
+        "cot-with-tools",
+        "collective-debate"
+      ],
+      "tags": [
+        "audit",
+        "safety",
+        "verdict",
+        "governance"
+      ],
+      "source": "src/middleware/jrx-sdk-tracking-middleware.ts:appendAuditRecord",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "tools.execute",
+      "displayName": "Sandboxed Tool Execution",
+      "category": "tools",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag",
+        "simple"
+      ],
+      "tags": [
+        "tools",
+        "sandbox"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvToolExecutionService",
+      "inputs": [
+        {
+          "name": "toolName",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "toolCategory",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "inputParams",
+          "type": "object"
+        }
+      ],
+      "output": "{ result, executionTimeMs }"
+    },
+    {
+      "id": "docs.process",
+      "displayName": "Document Pipeline Processor",
+      "category": "document-pipeline",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "documents",
+        "parsing",
+        "chunking"
+      ],
+      "source": "src/services/document-pipeline/document-processor.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "vector.search",
+      "displayName": "Vector Database Search",
+      "category": "vector",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "vector",
+        "embedding",
+        "similarity"
+      ],
+      "source": "src/services/document-pipeline/vector-database.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "streaming.session",
+      "displayName": "Streaming Session",
+      "category": "streaming",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "streaming",
+        "sse"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvStreamingService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "protocol.registry",
+      "displayName": "Protocol Registry (ROMA / MCP / A2A)",
+      "category": "protocol",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "protocol",
+        "roma",
+        "governance"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvProtocolRegistryService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "intelligence.precedent-similarity",
+      "displayName": "Precedent Similarity (semantic case match)",
+      "category": "intelligence",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "precedent",
+        "similarity",
+        "semantic",
+        "case-law"
+      ],
+      "source": "src/services/intelligence/jrx-precedent-similarity-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "intelligence.litigation-risk",
+      "displayName": "Litigation Risk Scoring",
+      "category": "intelligence",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "litigation",
+        "risk",
+        "scoring"
+      ],
+      "source": "src/services/intelligence/jrx-litigation-risk-v2-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "intelligence.amendment-impact",
+      "displayName": "Amendment Impact Analysis",
+      "category": "intelligence",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "amendment",
+        "impact",
+        "regulatory"
+      ],
+      "source": "src/services/intelligence/jrx-amendment-impact-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "intelligence.conflict-check",
+      "displayName": "Conflict-of-Interest Detection",
+      "category": "intelligence",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "conflict",
+        "compliance",
+        "ethics"
+      ],
+      "source": "src/services/intelligence/jrx-conflict-detector-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "intelligence.regulatory-watch",
+      "displayName": "Regulatory Intelligence Watch",
+      "category": "intelligence",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "regulatory",
+        "compliance",
+        "watch"
+      ],
+      "source": "src/services/intelligence/jrx-regulatory-intelligence-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "compliance.consent",
+      "displayName": "User Consent Check / Record",
+      "category": "compliance",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple",
+        "cot-with-tools",
+        "collective-debate"
+      ],
+      "tags": [
+        "consent",
+        "privacy",
+        "gdpr",
+        "dpdp"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvConsentService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "compliance.export",
+      "displayName": "Compliance Audit Export (DPDP/GDPR/SOX/HIPAA)",
+      "category": "compliance",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "compliance",
+        "audit",
+        "export"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvComplianceExportService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "compliance.incident",
+      "displayName": "Incident Reporting / Logging",
+      "category": "compliance",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "incident",
+        "audit",
+        "governance"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvIncidentService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "safety.citation-verify",
+      "displayName": "Citation Verification (legal source grounding)",
+      "category": "safety",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag",
+        "simple"
+      ],
+      "tags": [
+        "citation",
+        "verification",
+        "grounding"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvCitationVerifier",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "safety.explainability",
+      "displayName": "Explainability / Reasoning Trace",
+      "category": "safety",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "explainability",
+        "reasoning",
+        "xai"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvExplainabilityService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "feedback.submit",
+      "displayName": "User Feedback Submission",
+      "category": "audit",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "feedback",
+        "rlhf",
+        "quality"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvFeedbackService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "workflow.contract-playbook",
+      "displayName": "Contract Playbook Analysis",
+      "category": "workflow",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "contract",
+        "playbook",
+        "review"
+      ],
+      "source": "src/services/jrx-contract-playbook-service.ts:NvContractPlaybookService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "workflow.calendar-extract",
+      "displayName": "Calendar / Deadline Extraction",
+      "category": "workflow",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "calendar",
+        "deadline",
+        "extraction"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvCalendarExtractionService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "workflow.bulk-analysis",
+      "displayName": "Bulk Document Analysis",
+      "category": "workflow",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "bulk",
+        "batch",
+        "analysis"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvBulkAnalysisService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "workflow.email-classify",
+      "displayName": "Email Classification (intake/triage)",
+      "category": "workflow",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "email",
+        "classification",
+        "triage"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvEmailClassificationService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "templates.catalog",
+      "displayName": "Templates Catalog (NSP / ecosystem)",
+      "category": "tools",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "template",
+        "templates",
+        "catalog",
+        "browse",
+        "list",
+        "drafting"
+      ],
+      "source": "src/services/jrx-templates-catalog-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "templates.generate",
+      "displayName": "Templates Generator (NSP / ecosystem)",
+      "category": "tools",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "template",
+        "templates",
+        "generate",
+        "draft",
+        "drafting",
+        "fill"
+      ],
+      "source": "src/services/jrx-templates-catalog-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "digital_twin.simulate",
+      "displayName": "Digital Twin Simulation (alias)",
+      "category": "simulation",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "digital-twin",
+        "digital_twin",
+        "twin",
+        "simulation",
+        "modeling",
+        "scenario"
+      ],
+      "source": "src/services/digital-twin/digital-twin-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "clm.playbook",
+      "displayName": "Contract Lifecycle Playbook Analysis",
+      "category": "workflow",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "contract",
+        "playbook",
+        "clm",
+        "review",
+        "lifecycle",
+        "contract-lifecycle"
+      ],
+      "source": "src/services/jrx-contract-playbook-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "efiling.steps",
+      "displayName": "E-Filing Steps / Submission Prep",
+      "category": "workflow",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "e-filing",
+        "efiling",
+        "filing",
+        "steps",
+        "court",
+        "submission"
+      ],
+      "source": "src/services/e-filing/e-filing-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "intelligence.precedent",
+      "displayName": "Precedent Research (semantic match)",
+      "category": "intelligence",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "precedent",
+        "case-law",
+        "caselaw",
+        "research",
+        "semantic",
+        "similarity"
+      ],
+      "source": "src/services/intelligence/jrx-precedent-similarity-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "agent.auto-select",
+      "displayName": "Agent Auto-Selection (capability-driven routing)",
+      "category": "agent-orchestration",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag",
+        "hierarchical",
+        "cot-with-tools",
+        "collective-debate"
+      ],
+      "tags": [
+        "agent",
+        "routing",
+        "selection",
+        "debate"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvAgentAutoSelector",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "agent.metrics",
+      "displayName": "Agent Performance Metrics",
+      "category": "agent-orchestration",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "metrics",
+        "performance",
+        "monitoring"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvAgentMetricsService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "agent.custom-create",
+      "displayName": "Create Custom Agent",
+      "category": "agent-orchestration",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "simple"
+      ],
+      "tags": [
+        "agent",
+        "custom",
+        "create"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvCustomAgentService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "governance.model-policy",
+      "displayName": "Model Governance Policy Check",
+      "category": "compliance",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple",
+        "cot-with-tools",
+        "collective-debate"
+      ],
+      "tags": [
+        "governance",
+        "policy",
+        "model"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvModelGovernanceService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "docs.parse-legal",
+      "displayName": "Legal Document Parser (clause + heading detection)",
+      "category": "document-pipeline",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "parsing",
+        "legal",
+        "clauses"
+      ],
+      "source": "src/services/document-pipeline/jrx-legal-parser-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "docs.chunk-legal",
+      "displayName": "Legal-Aware Chunker (jurisdictional segmentation)",
+      "category": "document-pipeline",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "chunking",
+        "segmentation"
+      ],
+      "source": "src/services/document-pipeline/jrx-legal-chunker-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "docs.ocr",
+      "displayName": "GOT-OCR Document Recognition",
+      "category": "document-pipeline",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "ocr",
+        "vision",
+        "extraction"
+      ],
+      "source": "src/services/document-pipeline/jrx-got-ocr-adapter-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "docs.esign",
+      "displayName": "E-Signature Adapter",
+      "category": "document-pipeline",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "esign",
+        "signature",
+        "docusign"
+      ],
+      "source": "src/services/document-pipeline/jrx-esign-adapter-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "docs.pdfa",
+      "displayName": "PDF/A Archival Generation",
+      "category": "document-pipeline",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "pdfa",
+        "archival",
+        "compliance"
+      ],
+      "source": "src/services/document-pipeline/jrx-pdfa-generator-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "nyaya-tools.amend",
+      "displayName": "NyayaAmend — Statute Amendment Tracker",
+      "category": "tools",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "amendment",
+        "statute",
+        "tracking"
+      ],
+      "source": "../services/nyaya-tools/jrx-nyayaamend-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "nyaya-tools.compare",
+      "displayName": "NyayaCompare — Document Diff & Compare",
+      "category": "tools",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag",
+        "simple"
+      ],
+      "tags": [
+        "compare",
+        "diff",
+        "documents"
+      ],
+      "source": "../services/nyaya-tools/jrx-nyayacompare-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "nyaya-tools.forensic",
+      "displayName": "NyayaForensic — Document Forensics",
+      "category": "tools",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "forensic",
+        "integrity",
+        "audit"
+      ],
+      "source": "../services/nyaya-tools/jrx-nyayaforensic-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "nyaya-tools.graph",
+      "displayName": "NyayaGraph — Citation / Entity Graph",
+      "category": "tools",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "graph",
+        "citation",
+        "entities"
+      ],
+      "source": "../services/nyaya-tools/jrx-nyayagraph-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "nyaya-tools.template",
+      "displayName": "NyayaTemplate — Legal Template Generator",
+      "category": "tools",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "template",
+        "generation",
+        "drafting"
+      ],
+      "source": "../services/nyaya-tools/jrx-nyayatemplate-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "nyaya-tools.timeline",
+      "displayName": "NyayaTimeline — Case Timeline Builder",
+      "category": "tools",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "timeline",
+        "chronology",
+        "case"
+      ],
+      "source": "../services/nyaya-tools/jrx-nyayatimeline-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "nyaya-tools.trail",
+      "displayName": "NyayaTrail — Audit Trail",
+      "category": "tools",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "audit",
+        "trail",
+        "evidence"
+      ],
+      "source": "../services/nyaya-tools/jrx-nyayatrail-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "nyaya-tools.watch",
+      "displayName": "NyayaWatch — Regulatory & Case Watch",
+      "category": "tools",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "watch",
+        "monitor",
+        "alerts",
+        "regulatory"
+      ],
+      "source": "../services/nyaya-tools/jrx-nyayawatch-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "nyaya-tools.agent-lifecycle",
+      "displayName": "Nyaya Agent Lifecycle Manager",
+      "category": "tools",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "agent",
+        "lifecycle",
+        "governance"
+      ],
+      "source": "../services/nyaya-tools/jrx-agent-lifecycle-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "jurisdiction.overlay",
+      "displayName": "Jurisdictional Overlay (per-region prompt + rule layering)",
+      "category": "agent-orchestration",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "jurisdiction",
+        "overlay",
+        "localization"
+      ],
+      "source": "src/services/jurisdiction-agents/jrx-jurisdiction-overlay-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "jurisdiction.sync",
+      "displayName": "Unified Jurisdiction Sync",
+      "category": "agent-orchestration",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "jurisdiction",
+        "sync",
+        "governance"
+      ],
+      "source": "src/services/jurisdiction-agents/unified-jurisdiction-sync.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "clm.lifecycle",
+      "displayName": "Contract Lifecycle Management (CLM)",
+      "category": "workflow",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "contract",
+        "lifecycle",
+        "clm",
+        "workflow",
+        "contract-lifecycle",
+        "playbook"
+      ],
+      "source": "src/services/contract-lifecycle/contract-lifecycle-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "digital-twin.simulate",
+      "displayName": "Digital Twin Simulation",
+      "category": "intelligence",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "digital-twin",
+        "twin",
+        "simulation",
+        "modeling",
+        "scenario"
+      ],
+      "source": "src/services/digital-twin/digital-twin-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "e-filing.submit",
+      "displayName": "Court E-Filing Submission",
+      "category": "workflow",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "e-filing",
+        "court",
+        "submission",
+        "filing"
+      ],
+      "source": "src/services/e-filing/e-filing-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "automateai.workflow",
+      "displayName": "AutomateAI Workflow Engine",
+      "category": "workflow",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag",
+        "parallel"
+      ],
+      "tags": [
+        "automation",
+        "workflow",
+        "rpa"
+      ],
+      "source": "src/services/automateai/automateai-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "clawdbot.crawl",
+      "displayName": "ClawdBot Legal Web Crawl",
+      "category": "tools",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "crawl",
+        "scrape",
+        "case-law",
+        "harvest"
+      ],
+      "source": "src/services/clawdbot/clawdbot-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "multi-org.federate",
+      "displayName": "Multi-Organization Federation",
+      "category": "compliance",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "multi-org",
+        "federation",
+        "tenancy"
+      ],
+      "source": "src/services/multi-org/index.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "enterprise.financial-data",
+      "displayName": "Real Financial Data",
+      "category": "tools",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "finance",
+        "market",
+        "data"
+      ],
+      "source": "../services/enterprise-platform/real-financial-data-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "enterprise.investment-research",
+      "displayName": "Investment Research",
+      "category": "intelligence",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "investment",
+        "research",
+        "finance"
+      ],
+      "source": "../services/enterprise-platform/investment-research-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "enterprise.web-search",
+      "displayName": "Real Web Search",
+      "category": "tools",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "web",
+        "search",
+        "retrieval"
+      ],
+      "source": "../services/enterprise-platform/real-web-search-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "enterprise.ocr-pipeline",
+      "displayName": "Real OCR Pipeline",
+      "category": "document-pipeline",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "ocr",
+        "extraction",
+        "vision"
+      ],
+      "source": "../services/enterprise-platform/real-ocr-pipeline-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "enterprise.multimedia",
+      "displayName": "Real Multimedia Processing",
+      "category": "multimodal",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "multimedia",
+        "audio",
+        "video"
+      ],
+      "source": "../services/enterprise-platform/real-multimedia-api-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "enterprise.notebook-studio",
+      "displayName": "Notebook Document Studio",
+      "category": "workflow",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "notebook",
+        "authoring",
+        "studio"
+      ],
+      "source": "../services/enterprise-platform/notebook-document-studio-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "enterprise.code-quality",
+      "displayName": "Code-Quality Gateway",
+      "category": "compliance",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "code-quality",
+        "static-analysis",
+        "security"
+      ],
+      "source": "../services/enterprise-platform/code-quality-gateway-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "enterprise.content-asset",
+      "displayName": "Content Asset Management",
+      "category": "workflow",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "content",
+        "assets",
+        "cms"
+      ],
+      "source": "../services/enterprise-platform/content-asset-management-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "enterprise.visual-analytics",
+      "displayName": "Visual Analytics Dashboard",
+      "category": "workflow",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "analytics",
+        "dashboard",
+        "visualization"
+      ],
+      "source": "../services/enterprise-platform/visual-analytics-dashboard-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "enterprise.domain-research",
+      "displayName": "Domain Research API",
+      "category": "intelligence",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "domain",
+        "research",
+        "discovery"
+      ],
+      "source": "../services/enterprise-platform/domain-research-api-service.js",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "openbot.receive",
+      "displayName": "OpenBot — Inbound Channel Message",
+      "category": "omnichannel",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "simple",
+        "sequential"
+      ],
+      "tags": [
+        "openbot",
+        "channel",
+        "inbound",
+        "whatsapp",
+        "slack",
+        "teams",
+        "telegram"
+      ],
+      "source": "src/services/openbot/openbot-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "openbot.send",
+      "displayName": "OpenBot — Outbound Channel Message",
+      "category": "omnichannel",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "simple",
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "openbot",
+        "channel",
+        "outbound",
+        "notification"
+      ],
+      "source": "src/services/openbot/openbot-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "twindesk.simulate",
+      "displayName": "TwinDesk — Persona Simulation",
+      "category": "simulation",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "simple",
+        "sequential"
+      ],
+      "tags": [
+        "twindesk",
+        "simulation",
+        "persona",
+        "digital-twin",
+        "scenario"
+      ],
+      "source": "src/services/twindesk/twindesk-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "twindesk.chat",
+      "displayName": "TwinDesk — Persona Chat",
+      "category": "simulation",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "simple",
+        "sequential"
+      ],
+      "tags": [
+        "twindesk",
+        "chat",
+        "persona"
+      ],
+      "source": "src/services/twindesk/twindesk-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "regulatory-monitor.events",
+      "displayName": "Regulatory Monitor — Events Feed",
+      "category": "monitoring",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple",
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "regulatory",
+        "monitor",
+        "compliance",
+        "events",
+        "feed"
+      ],
+      "source": "src/services/regulatory-monitor/regulatory-monitor-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "regulatory-monitor.subscribe",
+      "displayName": "Regulatory Monitor — Subscribe",
+      "category": "monitoring",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple"
+      ],
+      "tags": [
+        "regulatory",
+        "monitor",
+        "subscribe",
+        "alert"
+      ],
+      "source": "src/services/regulatory-monitor/regulatory-monitor-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "white-label.config",
+      "displayName": "White-Label — Partner Configuration",
+      "category": "white-label",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "simple"
+      ],
+      "tags": [
+        "white-label",
+        "partner",
+        "config",
+        "branding"
+      ],
+      "source": "src/services/white-label/white-label-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "white-label.feature-toggle",
+      "displayName": "White-Label — Feature Toggle Check",
+      "category": "white-label",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple"
+      ],
+      "tags": [
+        "white-label",
+        "feature",
+        "toggle",
+        "gating"
+      ],
+      "source": "src/services/white-label/white-label-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "memory.graph.add",
+      "displayName": "Graph Memory — Add Node",
+      "category": "memory",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple",
+        "sequential"
+      ],
+      "tags": [
+        "memory",
+        "graph",
+        "knowledge"
+      ],
+      "source": "src/services/memory/graph-memory-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "memory.project.store",
+      "displayName": "Project Memory — Store Entry",
+      "category": "memory",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple",
+        "sequential"
+      ],
+      "tags": [
+        "memory",
+        "project",
+        "persist"
+      ],
+      "source": "src/services/memory/project-memory-manager.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "memory.5tier.episodic",
+      "displayName": "5-Tier Memory — Episodic Read",
+      "category": "memory",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple",
+        "sequential"
+      ],
+      "tags": [
+        "memory",
+        "5tier",
+        "episodic",
+        "session"
+      ],
+      "source": "src/services/memory/jrx-5tier-memory-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "memory.social.context",
+      "displayName": "Social Memory — Context",
+      "category": "memory",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple",
+        "sequential"
+      ],
+      "tags": [
+        "memory",
+        "social",
+        "context",
+        "mem0"
+      ],
+      "source": "src/services/social-memory-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "memory.mem0.store",
+      "displayName": "mem0 — Persist Memory",
+      "category": "memory",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple",
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "memory",
+        "mem0",
+        "persist",
+        "agent-context"
+      ],
+      "source": "src/services/mem0-persistence-service.ts:Mem0PersistenceService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "memory.mem0.recall",
+      "displayName": "mem0 — Recall Memories",
+      "category": "memory",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple",
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "memory",
+        "mem0",
+        "recall",
+        "agent-context"
+      ],
+      "source": "src/services/mem0-persistence-service.ts:Mem0PersistenceService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "memory.mem0.consolidate",
+      "displayName": "mem0 — Consolidate Memories",
+      "category": "memory",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple",
+        "sequential"
+      ],
+      "tags": [
+        "memory",
+        "mem0",
+        "consolidate",
+        "compaction"
+      ],
+      "source": "src/services/mem0-persistence-service.ts:Mem0PersistenceService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "rag.adaptive",
+      "displayName": "Adaptive RAG — Query-aware Retrieval",
+      "category": "rag",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag",
+        "cot-with-tools",
+        "collective-debate"
+      ],
+      "tags": [
+        "rag",
+        "adaptive",
+        "retrieval"
+      ],
+      "source": "src/services/rag/adaptive-rag-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "rag.corrective",
+      "displayName": "Corrective RAG — Self-correcting Retrieval",
+      "category": "rag",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "rag",
+        "corrective",
+        "crag",
+        "retrieval"
+      ],
+      "source": "src/services/rag/corrective-rag-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "rag.self",
+      "displayName": "Self-RAG — Reflective Retrieval & Validation",
+      "category": "rag",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "rag",
+        "self-rag",
+        "reflection",
+        "validation"
+      ],
+      "source": "src/services/rag/self-rag-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "rag.graph",
+      "displayName": "GraphRAG — Legal Knowledge Graph Retrieval",
+      "category": "rag",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "rag",
+        "graph",
+        "graphrag",
+        "knowledge-graph",
+        "legal"
+      ],
+      "source": "src/services/rag/nyv-graphrag-legal-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "rag.lightrag",
+      "displayName": "LightRAG — Lightweight Hybrid Retrieval",
+      "category": "rag",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "rag",
+        "lightrag",
+        "hybrid",
+        "retrieval"
+      ],
+      "source": "src/services/rag/nyv-lightrag-pipeline.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "rag.reranker",
+      "displayName": "Legal Reranker — Domain-aware Result Reranking",
+      "category": "rag",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "rag",
+        "reranker",
+        "rerank",
+        "cross-encoder"
+      ],
+      "source": "src/services/rag/jrx-legal-reranker-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "vector.qdrant.search",
+      "displayName": "Qdrant Vector Store — Search",
+      "category": "vector",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple",
+        "parallel"
+      ],
+      "tags": [
+        "vector",
+        "qdrant",
+        "search",
+        "embedding"
+      ],
+      "source": "src/services/rag/jrx-qdrant-adapter-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "vector.qdrant.upsert",
+      "displayName": "Qdrant Vector Store — Upsert",
+      "category": "vector",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple",
+        "parallel"
+      ],
+      "tags": [
+        "vector",
+        "qdrant",
+        "upsert",
+        "embedding"
+      ],
+      "source": "src/services/rag/jrx-qdrant-adapter-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "intelligence.secure-collaboration",
+      "displayName": "Secure Multi-party Collaboration",
+      "category": "intelligence",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "collaboration",
+        "privileged",
+        "multi-party",
+        "security"
+      ],
+      "source": "src/services/intelligence/jrx-secure-collaboration-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "intelligence.regulatory-digest",
+      "displayName": "Regulatory Intelligence — Digest",
+      "category": "intelligence",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "regulatory",
+        "intelligence",
+        "digest",
+        "changes"
+      ],
+      "source": "src/services/intelligence/jrx-regulatory-intelligence-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "intelligence.compliance-calendar",
+      "displayName": "Regulatory Intelligence — Compliance Calendar",
+      "category": "intelligence",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "regulatory",
+        "compliance",
+        "calendar",
+        "deadlines"
+      ],
+      "source": "src/services/intelligence/jrx-regulatory-intelligence-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "compliance.eu-ai-act",
+      "displayName": "EU AI Act — Conformity Assessment",
+      "category": "compliance",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": [
+        "EU",
+        "UK"
+      ],
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple",
+        "sequential"
+      ],
+      "tags": [
+        "compliance",
+        "eu-ai-act",
+        "gpai",
+        "high-risk"
+      ],
+      "source": "src/services/eu-ai-act-compliance-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "security.federated-privacy.session",
+      "displayName": "Federated Privacy — Session Init",
+      "category": "security",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple",
+        "sequential"
+      ],
+      "tags": [
+        "security",
+        "federated",
+        "privacy",
+        "flwr"
+      ],
+      "source": "src/services/security/jrx-federated-privacy-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "security.federated-privacy.aggregate",
+      "displayName": "Federated Privacy — Aggregate Gradients",
+      "category": "security",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential"
+      ],
+      "tags": [
+        "security",
+        "federated",
+        "privacy",
+        "aggregation",
+        "dp"
+      ],
+      "source": "src/services/security/jrx-federated-privacy-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "security.federated-privacy.dp-noise",
+      "displayName": "Federated Privacy — Differential Privacy Noise",
+      "category": "security",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple",
+        "parallel"
+      ],
+      "tags": [
+        "security",
+        "differential-privacy",
+        "noise",
+        "dp"
+      ],
+      "source": "src/services/security/jrx-federated-privacy-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "security.pqc.kem-keygen",
+      "displayName": "PQC — ML-KEM Key Generation",
+      "category": "security",
+      "tiers": [
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "sovereign",
+      "supportedPatterns": [
+        "simple"
+      ],
+      "tags": [
+        "security",
+        "pqc",
+        "kem",
+        "ml-kem",
+        "post-quantum"
+      ],
+      "source": "src/services/security/jrx-pqc-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "security.pqc.dsa-sign",
+      "displayName": "PQC — ML-DSA Sign",
+      "category": "security",
+      "tiers": [
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "sovereign",
+      "supportedPatterns": [
+        "simple"
+      ],
+      "tags": [
+        "security",
+        "pqc",
+        "dsa",
+        "ml-dsa",
+        "sign",
+        "post-quantum"
+      ],
+      "source": "src/services/security/jrx-pqc-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "security.pqc.dsa-verify",
+      "displayName": "PQC — ML-DSA Verify",
+      "category": "security",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "simple",
+        "parallel"
+      ],
+      "tags": [
+        "security",
+        "pqc",
+        "dsa",
+        "ml-dsa",
+        "verify",
+        "post-quantum"
+      ],
+      "source": "src/services/security/jrx-pqc-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "agent.chain.execute",
+      "displayName": "Agent Chain — Execute Composed Pipeline",
+      "category": "agent-orchestration",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag",
+        "hierarchical",
+        "cot-with-tools"
+      ],
+      "tags": [
+        "agent",
+        "chain",
+        "pipeline",
+        "composition",
+        "cot",
+        "tool-use"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvAgentChainService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "agent.bmad.orchestrate",
+      "displayName": "BMAD — Behaviour-driven Multi-Agent Decomposition",
+      "category": "agent-orchestration",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "hierarchical",
+        "swarm",
+        "dag",
+        "collective-debate"
+      ],
+      "tags": [
+        "agent",
+        "bmad",
+        "multi-agent",
+        "orchestration",
+        "debate"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvBMADService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "agent.parlant.govern",
+      "displayName": "Parlant — Conversation Governance",
+      "category": "agent-orchestration",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "agent",
+        "parlant",
+        "conversation",
+        "governance"
+      ],
+      "source": "src/services/jrx-orchestration-services.ts:NvParlantService",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "docs.embed",
+      "displayName": "Text Embedding Generation",
+      "category": "document-pipeline",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "embedding",
+        "vector",
+        "documents"
+      ],
+      "source": "src/services/document-pipeline/embedding-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "docs.parse",
+      "displayName": "Document Parsing (PDF/Office/Image)",
+      "category": "document-pipeline",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "dag"
+      ],
+      "tags": [
+        "parsing",
+        "pdf",
+        "office",
+        "extraction"
+      ],
+      "source": "src/services/document-pipeline/document-parsing-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "docs.intelligence",
+      "displayName": "Document Intelligence Pipeline",
+      "category": "document-pipeline",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "intelligence",
+        "classification",
+        "extraction"
+      ],
+      "source": "src/services/document-pipeline/document-intelligence-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "docs.watermark",
+      "displayName": "Document Watermarking",
+      "category": "document-pipeline",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "watermark",
+        "provenance",
+        "integrity"
+      ],
+      "source": "src/services/document-pipeline/jrx-watermark-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "docs.identity-extract",
+      "displayName": "Identity Field Extraction",
+      "category": "document-pipeline",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "identity",
+        "kyc",
+        "extraction",
+        "pii"
+      ],
+      "source": "src/services/identity-extraction-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "rag.embedding",
+      "displayName": "Legal Embedding (jurisdiction-aware)",
+      "category": "rag",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "embedding",
+        "rag",
+        "vector"
+      ],
+      "source": "src/services/rag/jrx-legal-embedding-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "testing.judge",
+      "displayName": "LLM Judge — Legal Response Evaluation",
+      "category": "simulation",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "testing",
+        "judge",
+        "evaluation",
+        "quality"
+      ],
+      "source": "src/services/testing/jrx-llm-judge-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "testing.oracle",
+      "displayName": "Agent Oracle Test Suite",
+      "category": "simulation",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "testing",
+        "oracle",
+        "regression",
+        "agent"
+      ],
+      "source": "src/services/testing/jrx-agent-testing-framework.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "testing.adversarial",
+      "displayName": "Agent Adversarial Test Suite",
+      "category": "simulation",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "testing",
+        "adversarial",
+        "red-team",
+        "agent"
+      ],
+      "source": "src/services/testing/jrx-agent-testing-framework.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "testing.scorecard",
+      "displayName": "Agent Quality Scorecard",
+      "category": "simulation",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag",
+        "hierarchical"
+      ],
+      "tags": [
+        "testing",
+        "scorecard",
+        "benchmark",
+        "agent"
+      ],
+      "source": "src/services/testing/jrx-agent-testing-framework.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "compliance.bipa-consent",
+      "displayName": "IL BIPA Biometric Consent",
+      "category": "compliance",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": [
+        "US"
+      ],
+      "costClass": "low",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "bipa",
+        "biometric",
+        "consent",
+        "privacy"
+      ],
+      "source": "src/services/compliance/jrx-bipa-consent-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "compliance.breach-notice",
+      "displayName": "Breach Notice Planner",
+      "category": "compliance",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "breach",
+        "incident",
+        "notification",
+        "compliance"
+      ],
+      "source": "src/services/compliance/jrx-breach-notice-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "orchestration.dag.execute",
+      "displayName": "DAG Orchestration — Plan + Execute",
+      "category": "agent-orchestration",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "dag",
+        "parallel",
+        "hierarchical"
+      ],
+      "tags": [
+        "dag",
+        "orchestration",
+        "parallel",
+        "plan"
+      ],
+      "source": "src/services/dag-orchestration-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "orchestration.swarm.topology",
+      "displayName": "Swarm Topology Execution",
+      "category": "agent-orchestration",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "swarm",
+        "parallel",
+        "hierarchical",
+        "collective-debate"
+      ],
+      "tags": [
+        "swarm",
+        "topology",
+        "consensus",
+        "multi-agent"
+      ],
+      "source": "src/services/jrx-swarm-topology-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "orchestration.cot.reason",
+      "displayName": "Chain-of-Thought Reasoning",
+      "category": "agent-orchestration",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "cot-with-tools",
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "cot",
+        "reasoning",
+        "chain-of-thought"
+      ],
+      "source": "src/services/chain-of-thought-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "intelligence.summarize",
+      "displayName": "Legal Document Summarizer",
+      "category": "intelligence",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "simple"
+      ],
+      "tags": [
+        "summarize",
+        "summary",
+        "legal",
+        "documents"
+      ],
+      "source": "src/services/jrx-legal-summarizer-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "intelligence.ner",
+      "displayName": "Legal Named-Entity Recognition",
+      "category": "intelligence",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "ner",
+        "entities",
+        "extraction",
+        "legal"
+      ],
+      "source": "src/services/jrx-legal-ner-v2-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "intelligence.statute-verify",
+      "displayName": "Statute Citation Verification",
+      "category": "intelligence",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel",
+        "qa"
+      ],
+      "tags": [
+        "citation",
+        "statute",
+        "verification",
+        "grounding"
+      ],
+      "source": "src/services/jrx-citation-verification-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "intelligence.doc-analyze",
+      "displayName": "Legal Document Risk Analysis",
+      "category": "intelligence",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "analysis",
+        "risk",
+        "contracts",
+        "documents"
+      ],
+      "source": "src/services/legal-doc-analyze-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "intelligence.legal-feed",
+      "displayName": "Daily Legal Intelligence Feed",
+      "category": "intelligence",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "feed",
+        "intelligence",
+        "regulatory",
+        "news"
+      ],
+      "source": "src/services/jrx-legal-intelligence-feed-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "security.rbac.check",
+      "displayName": "RBAC Access Check",
+      "category": "security",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "rbac",
+        "authorization",
+        "access"
+      ],
+      "source": "src/services/rbac/rbac-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "workflow.maker-checker",
+      "displayName": "Maker-Checker Human Review Loop",
+      "category": "workflow",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "hierarchical"
+      ],
+      "tags": [
+        "maker-checker",
+        "human-review",
+        "approval"
+      ],
+      "source": "src/services/maker-checker-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "hitl.workflow",
+      "displayName": "HITL Workflow Execution",
+      "category": "hitl",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "hierarchical"
+      ],
+      "tags": [
+        "hitl",
+        "workflow",
+        "approval",
+        "human"
+      ],
+      "source": "src/services/hitl-workflow-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "protocol.mcp.invoke",
+      "displayName": "MCP Connector Invoke",
+      "category": "protocol",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "cot-with-tools"
+      ],
+      "tags": [
+        "mcp",
+        "connector",
+        "protocol",
+        "tools"
+      ],
+      "source": "src/services/mcp/jrx-mcp-connector-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "sdk.application",
+      "displayName": "SDK Application Registry",
+      "category": "protocol",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "sdk",
+        "application",
+        "partner"
+      ],
+      "source": "src/services/sdk/sdk-application-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "sdk.document-pipeline",
+      "displayName": "SDK Document Pipeline",
+      "category": "document-pipeline",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "sdk",
+        "documents",
+        "pipeline"
+      ],
+      "source": "src/services/sdk/sdk-document-pipeline-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "sdk.multimodal-voice",
+      "displayName": "SDK Multimodal Voice",
+      "category": "multimodal",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "parallel"
+      ],
+      "tags": [
+        "sdk",
+        "voice",
+        "multimodal",
+        "vision"
+      ],
+      "source": "src/services/sdk/sdk-multimodal-voice-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "sdk.workflow-protocol",
+      "displayName": "SDK Workflow Protocol",
+      "category": "workflow",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "dag",
+        "hierarchical"
+      ],
+      "tags": [
+        "sdk",
+        "workflow",
+        "protocol",
+        "agui"
+      ],
+      "source": "src/services/sdk/sdk-workflow-protocol-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "sdk.usage-metering",
+      "displayName": "SDK Usage Metering",
+      "category": "metering",
+      "tiers": [
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "sdk",
+        "metering",
+        "usage",
+        "billing"
+      ],
+      "source": "src/services/sdk/sdk-usage-metering-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "simulation.grpo",
+      "displayName": "GRPO Policy Optimization",
+      "category": "simulation",
+      "tiers": [
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "high",
+      "safetyClass": "sovereign",
+      "supportedPatterns": [
+        "swarm",
+        "parallel",
+        "collective-debate"
+      ],
+      "tags": [
+        "grpo",
+        "optimization",
+        "policy",
+        "rl"
+      ],
+      "source": "src/services/grpo-optimization-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "simulation.verbalized-sampling",
+      "displayName": "Verbalized Sampling Analysis",
+      "category": "simulation",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "cot-with-tools"
+      ],
+      "tags": [
+        "sampling",
+        "confidence",
+        "calibration",
+        "cot"
+      ],
+      "source": "src/services/verbalized-sampling-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "agent.persona",
+      "displayName": "Agent Persona Registry",
+      "category": "agent-orchestration",
+      "tiers": [
+        "lite",
+        "mitra",
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "free",
+      "safetyClass": "safe",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "persona",
+        "agent",
+        "tone",
+        "platform"
+      ],
+      "source": "src/services/agent-persona-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "workflow.matter-vault",
+      "displayName": "Matter Vault — Case Document Vault",
+      "category": "workflow",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "medium",
+      "safetyClass": "high-risk",
+      "supportedPatterns": [
+        "sequential",
+        "dag"
+      ],
+      "tags": [
+        "matter",
+        "vault",
+        "case",
+        "documents"
+      ],
+      "source": "src/services/jrx-matter-vault-service.ts",
+      "inputs": null,
+      "output": null
+    },
+    {
+      "id": "queue.webhook.dispatch",
+      "displayName": "Webhook Delivery Dispatch",
+      "category": "protocol",
+      "tiers": [
+        "enterprise",
+        "sovereign",
+        "white-label"
+      ],
+      "supportedJurisdictions": "all",
+      "costClass": "low",
+      "safetyClass": "review",
+      "supportedPatterns": [
+        "sequential",
+        "simple"
+      ],
+      "tags": [
+        "webhook",
+        "queue",
+        "dispatch",
+        "integration"
+      ],
+      "source": "src/services/queue/webhook-dispatcher.ts",
+      "inputs": null,
+      "output": null
+    }
+  ]
+}

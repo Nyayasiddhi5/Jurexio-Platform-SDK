@@ -1,0 +1,20 @@
+export { SarvamAIService, SarvamAIService as SarvamTranslationService, sarvamAIService, sarvamAIService as sarvamTranslationService } from '../../services/sarvam-translation-service.js';
+export type {
+  SarvamLanguageInfo,
+  TranslateRequest,
+  TranslateResponse,
+  TransliterateRequest,
+  TransliterateResponse,
+  SpeechToTextRequest,
+  SpeechToTextResponse,
+  TextToSpeechRequest,
+  TextToSpeechResponse,
+  LanguageDetectionRequest,
+  LanguageDetectionResponse,
+  DocumentTranslationRequest,
+  DocumentTranslationResponse,
+  TranslationRequest,
+  TranslationResponse,
+  BatchTranslationRequest,
+  ServiceStatistics,
+} from '../../services/sarvam-translation-service.js';

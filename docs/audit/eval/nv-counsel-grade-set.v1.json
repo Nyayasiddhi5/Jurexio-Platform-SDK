@@ -1,0 +1,272 @@
+{
+  "_meta": {
+    "id": "nv-counsel-grade-set.v1",
+    "ruleId": "NV-COUNSEL-GRADE-EVAL-001",
+    "createdAt": "2026-08-19",
+    "purpose": "Fixed prompt set for the counsel-grade quality regression harness. One case per AI task family, each declaring only the properties that family actually claims — an over-claimed case produces a false failure, which is worse than no check.",
+    "runner": "scripts/nv-eval-counsel-grade.ts",
+    "checker": "scripts/_nv-counsel-grade-assertions.ts",
+    "howToRun": "npm run eval:counsel-grade -- --gateway https://api.nyayasiddhi.online --key-env NYV_SDK_KEY_NSP",
+    "timingReality": "A legal_research or draft orchestrate measured 55-65s on nysdev. Cases run SEQUENTIALLY with a per-case timeout (default 150000ms), and a timeout is recorded as `blocked`, never as a quality failure.",
+    "whyEachAssertion": {
+      "authority_density": "Measured live 2026-08-19: 6,925 chars of research prose with zero case citations. The count is re-derived from the body by regex; the envelope's own number is reported but never trusted.",
+      "envelope_honesty": "The same answer reported trust.citationsPresent=true. This cross-check is the highest-value assertion here.",
+      "draft_structure": "A verified-good bail application scored 8/8 at 10,978 chars. That is the reference bar.",
+      "statute_currency": "Only asserted where offenceEra is post-2024-07-01. A transitional mention of IPC/CrPC alongside its BNS/BNSS successor PASSES.",
+      "deterministic_fidelity": "Statute transition is a table lookup, so it is the strongest control in the set: red here means the platform is broken, not that the model varied."
+    }
+  },
+  "cases": [
+    {
+      "id": "research-anticipatory-bail-economic",
+      "family": "legal_research",
+      "endpoint": "orchestrate",
+      "request": {
+        "taskType": "legal_research",
+        "jurisdiction": "IN",
+        "tier": "pro",
+        "prompt": "List the leading Supreme Court authorities on anticipatory bail for economic offences. For each authority give the case name and its citation."
+      },
+      "prompt": "List the leading Supreme Court authorities on anticipatory bail for economic offences. For each authority give the case name and its citation.",
+      "minChars": 1500,
+      "minCaseAuthorities": 1,
+      "notes": "THE REGRESSION CASE. This is the exact prompt that returned 6,925 chars with zero citations while reporting citationsPresent=true."
+    },
+    {
+      "id": "research-section-138-ni-act",
+      "family": "legal_research",
+      "endpoint": "orchestrate",
+      "request": {
+        "taskType": "legal_research",
+        "jurisdiction": "IN",
+        "tier": "pro",
+        "prompt": "What are the leading Supreme Court authorities on the presumption under Section 139 of the Negotiable Instruments Act, and how has the burden of rebuttal been described? Cite the cases."
+      },
+      "prompt": "What are the leading Supreme Court authorities on the presumption under Section 139 of the Negotiable Instruments Act, and how has the burden of rebuttal been described? Cite the cases.",
+      "minChars": 1500,
+      "minCaseAuthorities": 1,
+      "notes": "A second authority-seeking prompt in a different domain, so a single-topic corpus gap cannot look like a platform-wide pass or fail."
+    },
+    {
+      "id": "chat-fast-bnss-bail-timeline",
+      "family": "legal-chat-fast",
+      "endpoint": "orchestrate",
+      "request": {
+        "taskType": "legal-chat-fast",
+        "jurisdiction": "IN",
+        "tier": "pro",
+        "prompt": "My client was arrested yesterday for an offence of cheating committed in March 2025. Which provision governs the bail application and what is the timeline? Cite the operative code."
+      },
+      "prompt": "My client was arrested yesterday for an offence of cheating committed in March 2025. Which provision governs the bail application and what is the timeline? Cite the operative code.",
+      "minChars": 600,
+      "offenceEra": "post-2024-07-01",
+      "notes": "The interactive partner path. No minCaseAuthorities: a procedural question is correctly answered from the statute alone, and demanding case law here would be a false failure. statute_currency is the real assertion."
+    },
+    {
+      "id": "analysis-msa-risk",
+      "family": "analysis",
+      "endpoint": "orchestrate",
+      "request": {
+        "taskType": "analysis",
+        "jurisdiction": "IN",
+        "tier": "pro",
+        "prompt": "Analyse the risk allocation in this clause set and identify every obligation, risk and deadline.\n\nCLAUSE 11.2 (INDEMNITY): The Supplier shall indemnify, defend and hold harmless the Customer against all claims, losses and damages arising out of or in connection with the Services, without limitation.\n\nCLAUSE 12.1 (LIABILITY CAP): Notwithstanding anything to the contrary, the aggregate liability of either party shall not exceed the fees paid in the twelve months preceding the claim.\n\nCLAUSE 14.1 (TERMINATION): The Customer may terminate this Agreement for convenience upon thirty (30) days written notice.\n\nCLAUSE 18 (GOVERNING LAW): This Agreement is governed by the laws of India and the courts at Bengaluru shall have exclusive jurisdiction.\n\nCLAUSE 6.3 (RENEWAL): This Agreement renews automatically unless either party gives notice ninety (90) days before the end of the initial term."
+      },
+      "prompt": "Analyse the risk allocation in this clause set and identify every obligation, risk and deadline.",
+      "minChars": 1200,
+      "requiredFields": ["obligations", "risks", "deadlines", "governingLaw"],
+      "notes": "The Clause 11.2 / 12.1 conflict (uncapped indemnity against a capped aggregate liability) is planted deliberately — an analysis that misses it is not counsel-grade. That specific finding is NOT asserted mechanically; see the honest-limits section of the report."
+    },
+    {
+      "id": "draft-fast-anticipatory-bail",
+      "family": "legal-draft-fast",
+      "endpoint": "orchestrate",
+      "request": {
+        "taskType": "legal-draft-fast",
+        "jurisdiction": "IN",
+        "tier": "pro",
+        "parameters": {
+          "documentType": "bail_application"
+        },
+        "prompt": "Draft an anticipatory bail application for the Principal Sessions Judge at Hyderabad. The offence is cheating committed in March 2025. Do not invent any particulars I have not given you — leave placeholders."
+      },
+      "prompt": "Draft an anticipatory bail application for the Principal Sessions Judge at Hyderabad. The offence is cheating committed in March 2025. Do not invent any particulars I have not given you — leave placeholders.",
+      "minChars": 4000,
+      "requiredStructure": ["causeTitle", "showeth", "prayer", "verification", "numberedParagraphs", "advocateBlock", "placeDate"],
+      "minStructureScore": 6,
+      "offenceEra": "post-2024-07-01",
+      "factsWithheld": true,
+      "minPlaceholders": 3,
+      "notes": "The 8/8 reference bar. minStructureScore is 6 of 7 rather than 7: `placeDate` is attached by the stored skeleton and a model that renders the signature block differently is not producing a defective instrument. Party names, FIR number and address are all withheld, so placeholders are mandatory."
+    },
+    {
+      "id": "draft-legal-notice-138",
+      "family": "legal-draft",
+      "endpoint": "orchestrate",
+      "request": {
+        "taskType": "legal-draft",
+        "jurisdiction": "IN",
+        "tier": "pro",
+        "parameters": {
+          "documentType": "legal_notice"
+        },
+        "prompt": "Draft a statutory demand notice under Section 138 of the Negotiable Instruments Act for a dishonoured cheque. I have not given you the parties, the cheque number, the amount or the bank — leave placeholders for all of them."
+      },
+      "prompt": "Draft a statutory demand notice under Section 138 of the Negotiable Instruments Act for a dishonoured cheque. I have not given you the parties, the cheque number, the amount or the bank — leave placeholders for all of them.",
+      "minChars": 1800,
+      "requiredStructure": ["numberedParagraphs", "advocateBlock"],
+      "minStructureScore": 2,
+      "factsWithheld": true,
+      "minPlaceholders": 4,
+      "notes": "A notice is NOT a pleading: it has no cause title, no `Most Respectfully Showeth`, no prayer and no verification. Asserting those here would fail a correct notice. `placeDate` is also excluded — a demand notice carries a Date and a Ref No but no `Place:` line; the live run initially failed on it and that was the harness over-claiming, not the platform. This case exists to prove the structure check is per-instrument and not one hardcoded skeleton."
+    },
+    {
+      "id": "analyze-document-fields",
+      "family": "analyzeDocument",
+      "endpoint": "orchestrate",
+      "request": {
+        "taskType": "analyzeDocument",
+        "jurisdiction": "IN",
+        "tier": "pro",
+        "documentContent": "MASTER SERVICES AGREEMENT dated 14 March 2025 between ACME TECHNOLOGIES PRIVATE LIMITED, a company incorporated under the Companies Act, 2013 having its registered office at Bengaluru (the \"Supplier\") and BETA RETAIL LIMITED having its registered office at Mumbai (the \"Customer\").\n\n1. TERM. The initial term is three years from the Effective Date.\n2. PAYMENT. The Customer shall pay each undisputed invoice within thirty (30) days of receipt.\n3. CONFIDENTIALITY. Each party shall keep the other's Confidential Information confidential for five (5) years after termination.\n4. INDEMNITY. The Supplier shall indemnify the Customer against all third-party claims without limitation.\n5. LIABILITY. Aggregate liability shall not exceed fees paid in the preceding twelve months.\n6. TERMINATION. The Customer may terminate for convenience on thirty (30) days notice.\n7. RENEWAL. Notice of non-renewal must be given ninety (90) days before the end of the initial term.\n8. GOVERNING LAW. Laws of India; courts at Bengaluru have exclusive jurisdiction.",
+        "prompt": "Extract the parties, the governing law, every obligation, every risk and every deadline from this agreement."
+      },
+      "prompt": "Extract the parties, the governing law, every obligation, every risk and every deadline from this agreement.",
+      "minChars": 500,
+      "requiredFields": ["parties", "governingLaw", "obligations", "risks", "deadlines"],
+      "notes": "Structured extraction over orchestrate. The document MUST be sent as `documentContent`: the route picks the LONGEST of documentContent/documentText/content/text/prompt, and the first live run used `documentText`, which the field-extraction path did not pick up — the platform correctly answered 'the retrieved context does not contain the text of any agreement' and my harness scored that as a length_floor failure. That was the harness sending the wrong key, not a quality defect. Fields are read from `fields`/`extractedFields`/`analysis.fields` and fall back to headings in the body, because several analyse paths render fields as prose sections."
+    },
+    {
+      "id": "statute-transition-ipc-bns-420",
+      "family": "compare/ipc-bns",
+      "endpoint": "knowledge",
+      "request": {
+        "method": "GET",
+        "path": "/api/nv/knowledge/statutes/compare/ipc-bns?section=420"
+      },
+      "prompt": "IPC 420 -> BNS mapping",
+      "minChars": 40,
+      "mustContain": ["318"],
+      "notes": "DETERMINISTIC CONTROL. IPC 420 maps to BNS 318(4) by table lookup, so this case has no model variance at all: red here means the knowledge plane is broken. Only `318` is required — the JSON field names around it are not part of the legal claim, and pinning them would make this a brittle schema test."
+    },
+    {
+      "id": "statute-transition-new-old-bnss-482",
+      "family": "compare/new-old",
+      "endpoint": "knowledge",
+      "request": {
+        "method": "GET",
+        "path": "/api/nv/knowledge/statutes/compare/new-old?section=482&from=BNSS"
+      },
+      "prompt": "BNSS 482 -> CrPC mapping",
+      "minChars": 40,
+      "mustContain": ["438"],
+      "notes": "The reverse direction. BNSS 482 corresponds to the repealed CrPC 438. Confirms the reverse map is populated, which is the direction NSP's SDK had never received a result for."
+    },
+    {
+      "id": "draft-comprehensive-written-statement",
+      "family": "legal-draft",
+      "endpoint": "orchestrate",
+      "request": {
+        "taskType": "legal-draft-fast",
+        "jurisdiction": "IN",
+        "tier": "pro",
+        "options": { "draftLength": "comprehensive" },
+        "parameters": { "documentType": "written_statement" },
+        "prompt": "Draft a written statement on behalf of the Defendant in CS No. 1234/2024 pending before the City Civil Court at Bengaluru. The plaintiff alleges breach of a software development agreement. Traverse the plaint para-wise; include preliminary objections on limitation and jurisdiction. Do not invent party names or amounts — use placeholders."
+      },
+      "prompt": "Draft a comprehensive written statement for CS No. 1234/2024 Bengaluru.",
+      "minChars": 8000,
+      "requiredStructure": ["causeTitle", "prayer", "verification", "numberedParagraphs"],
+      "minStructureScore": 3,
+      "factsWithheld": true,
+      "minPlaceholders": 3,
+      "notes": "Long-pleading family at comprehensive depth. Standard tier (8192 SLA) truncates WS — this case uses comprehensive to measure counsel-grade length + structure."
+    },
+    {
+      "id": "draft-writ-petition-hc",
+      "family": "legal-draft",
+      "endpoint": "orchestrate",
+      "request": {
+        "taskType": "legal-draft-fast",
+        "jurisdiction": "IN",
+        "tier": "pro",
+        "parameters": { "documentType": "writ_petition", "state": "Telangana", "highCourt": "Telangana High Court" },
+        "prompt": "Draft a writ petition under Article 226 of the Constitution before the High Court for the State of Telangana at Hyderabad challenging an arbitrary termination order. Include maintainability, facts, grounds, prayer, and verification. Leave unknown particulars as placeholders."
+      },
+      "prompt": "Draft Article 226 writ petition — Telangana HC.",
+      "minChars": 5000,
+      "mustContain": ["226", "Article"],
+      "requiredStructure": ["causeTitle", "prayer", "verification", "numberedParagraphs"],
+      "minStructureScore": 3,
+      "factsWithheld": true,
+      "minPlaceholders": 2,
+      "notes": "Writ petition HC pattern — Art 226 marker + pleading structure."
+    },
+    {
+      "id": "draft-slp-sc",
+      "family": "legal-draft",
+      "endpoint": "orchestrate",
+      "request": {
+        "taskType": "legal-draft-fast",
+        "jurisdiction": "IN",
+        "tier": "pro",
+        "parameters": { "documentType": "writ_petition", "slp": true },
+        "prompt": "Draft a Special Leave Petition under Article 136 before the Supreme Court of India against a judgment of the High Court. Include synopsis, list of dates, questions of law, grounds, certificate under Order XXI Supreme Court Rules, and prayer. Use placeholders for diary number and annexure pages."
+      },
+      "prompt": "Draft SLP under Article 136 with paper-book blocks.",
+      "minChars": 4500,
+      "mustContain": ["Synopsis", "CERTIFICATE"],
+      "requiredStructure": ["causeTitle", "prayer", "verification"],
+      "minStructureScore": 2,
+      "factsWithheld": true,
+      "minPlaceholders": 2,
+      "notes": "SLP aliases writ_petition registry key; SLP_PAPERBOOK_RULE overlay injects synopsis/certificate checklist."
+    },
+    {
+      "id": "draft-comprehensive-queen-async",
+      "family": "legal-draft",
+      "endpoint": "orchestrate",
+      "request": {
+        "taskType": "legal-draft",
+        "jurisdiction": "IN",
+        "tier": "pro",
+        "options": { "draftLength": "comprehensive" },
+        "parameters": { "documentType": "written_statement" },
+        "prompt": "Draft a comprehensive written statement (Queen async path) for a commercial suit. Full para-wise traverse, preliminary objections, and verification."
+      },
+      "prompt": "Comprehensive WS via bare legal-draft async path.",
+      "minChars": 12000,
+      "requiredStructure": ["causeTitle", "prayer", "verification", "numberedParagraphs"],
+      "minStructureScore": 3,
+      "notes": "FIXTURE / LIVE ASYNC — expects bare legal-draft + comprehensive (NSP worker path). Live run may block on timeout in sequential harness; grade offline responses or run with --only. Documents expected NYV behavior; NSP BFF async wire is NSP-owned."
+    },
+    {
+      "id": "research-leading-sc-authorities",
+      "family": "legal_research",
+      "endpoint": "orchestrate",
+      "request": {
+        "taskType": "legal_research",
+        "jurisdiction": "IN",
+        "tier": "pro",
+        "prompt": "List the leading Supreme Court authorities on the twin conditions for grant of anticipatory bail under Section 482 BNSS. For each authority give the case name and its citation."
+      },
+      "prompt": "Leading SC authorities — anticipatory bail twin conditions BNSS 482.",
+      "minChars": 1500,
+      "minCaseAuthorities": 1,
+      "notes": "Authority density + envelope honesty for leading SC research. Corpus gaps may block; NYS RAG corpus depth is NYS-owned."
+    },
+    {
+      "id": "caselaw-treatment-maneka-gandhi",
+      "family": "caselaw/treatment",
+      "endpoint": "knowledge",
+      "request": {
+        "method": "GET",
+        "path": "/api/nv/knowledge/caselaw/treatment?citation=Maneka%20Gandhi%20versus%20Union%20of%20India"
+      },
+      "prompt": "is Maneka Gandhi still good law",
+      "minChars": 40,
+      "expectTreatmentSignal": true,
+      "notes": "Good-law signal. An honest `unknown` PASSES: the assertion is that the platform SAYS something about treatment, not that it claims certainty. A check that demanded a definite verdict would push the platform toward confident guessing."
+    }
+  ]
+}

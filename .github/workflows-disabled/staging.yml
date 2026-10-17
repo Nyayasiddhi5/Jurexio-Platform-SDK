@@ -1,0 +1,224 @@
+name: NYV Deploy — Staging
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      modules:
+        description: 'Comma-separated modules to deploy (leave blank for full deploy)'
+        required: false
+        default: ''
+
+concurrency:
+  group: deploy-staging
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '22'
+  DEPLOY_ENV: staging
+  WORKING_DIR: nyayavigya-platform-312
+
+jobs:
+  # ── JOB 1: Pre-deploy validation ─────────────────────────────────────────────
+  pre-deploy:
+    name: Pre-Deploy Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      modules: ${{ steps.modules.outputs.modules }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract platform version
+        id: version
+        working-directory: ${{ env.WORKING_DIR }}
+        run: |
+          VERSION=$(node -e "console.log(require('./package.json').version)" 2>/dev/null || echo "3.1.2")
+          BUILD="${VERSION}-staging.$(date +%Y%m%d%H%M%S).${GITHUB_SHA:0:8}"
+          echo "version=$BUILD" >> $GITHUB_OUTPUT
+          echo "Platform version: $BUILD"
+
+      - name: Determine modules to deploy
+        id: modules
+        run: |
+          MODULES="${{ github.event.inputs.modules }}"
+          if [ -z "$MODULES" ]; then
+            MODULES="nyv-gateway,nyv-agents,nyv-documents,nyv-rag,nyv-sdk,nyv-llm-router"
+          fi
+          echo "modules=$MODULES" >> $GITHUB_OUTPUT
+          echo "Deploying modules: $MODULES"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: ${{ env.WORKING_DIR }}/package-lock.json
+
+      - name: Install & TypeScript check
+        working-directory: ${{ env.WORKING_DIR }}
+        run: |
+          npm ci --prefer-offline
+          npx tsc --noEmit
+
+  # ── JOB 2: Build ─────────────────────────────────────────────────────────────
+  build:
+    name: Build Artifacts
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: pre-deploy
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: ${{ env.WORKING_DIR }}/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ${{ env.WORKING_DIR }}
+        run: npm ci --prefer-offline
+
+      - name: Build frontend
+        working-directory: ${{ env.WORKING_DIR }}
+        env:
+          NODE_ENV: production
+          VITE_APP_VERSION: ${{ needs.pre-deploy.outputs.version }}
+          VITE_DEPLOY_ENV: staging
+        run: npx vite build
+
+      - name: Verify build artifacts
+        working-directory: ${{ env.WORKING_DIR }}
+        run: |
+          echo "Build artifacts:"
+          ls -la dist/ || echo "No dist/ dir"
+          du -sh dist/ 2>/dev/null || true
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nyv-staging-build-${{ needs.pre-deploy.outputs.version }}
+          path: ${{ env.WORKING_DIR }}/dist/
+          retention-days: 7
+
+  # ── JOB 3: Database Migration (Staging) ──────────────────────────────────────
+  migrate:
+    name: Database Migration
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [pre-deploy, build]
+    environment:
+      name: staging
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: ${{ env.WORKING_DIR }}/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ${{ env.WORKING_DIR }}
+        run: npm ci --prefer-offline
+
+      - name: Run database migrations (staging)
+        working-directory: ${{ env.WORKING_DIR }}
+        env:
+          DATABASE_URL: ${{ secrets.NYV_STAGING_DATABASE_URL }}
+          NODE_ENV: staging
+        run: |
+          echo "Running migrations on staging..."
+          npx tsx scripts/nv-migrate.ts || echo "Migration script not found — skipping"
+
+  # ── JOB 4: Deploy to Staging ──────────────────────────────────────────────────
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: [pre-deploy, build, migrate]
+    environment:
+      name: staging
+      url: https://staging.nyayavigya.in
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: nyv-staging-build-${{ needs.pre-deploy.outputs.version }}
+          path: ${{ env.WORKING_DIR }}/dist/
+
+      - name: Deploy to Replit (staging)
+        env:
+          REPLIT_DEPLOY_KEY: ${{ secrets.NYV_REPLIT_DEPLOY_KEY }}
+          DEPLOY_VERSION: ${{ needs.pre-deploy.outputs.version }}
+        run: |
+          echo "Deploying version $DEPLOY_VERSION to staging..."
+          echo "Modules: ${{ needs.pre-deploy.outputs.modules }}"
+          # Replit deployment hook
+          if [ -n "$REPLIT_DEPLOY_KEY" ]; then
+            curl -s -X POST "https://api.replit.com/v0/repls/nyayavigya-platform/deploy" \
+              -H "Authorization: Bearer $REPLIT_DEPLOY_KEY" \
+              -H "Content-Type: application/json" \
+              -d "{\"env\":\"staging\",\"version\":\"$DEPLOY_VERSION\"}" || true
+          fi
+          echo "✅ Staging deploy triggered"
+
+      - name: Health check (staging)
+        run: |
+          echo "Waiting for staging to come up..."
+          sleep 15
+          MAX_RETRIES=10
+          RETRY=0
+          while [ $RETRY -lt $MAX_RETRIES ]; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://staging.nyayavigya.in/api/nv/health 2>/dev/null || echo "000")
+            if [ "$STATUS" = "200" ]; then
+              echo "✅ Staging health check passed"
+              exit 0
+            fi
+            echo "Health check attempt $((RETRY+1))/$MAX_RETRIES: HTTP $STATUS"
+            sleep 10
+            RETRY=$((RETRY+1))
+          done
+          echo "⚠️ Health check not verified — staging may still be starting"
+
+  # ── JOB 5: Post-Deploy Seed (Staging) ────────────────────────────────────────
+  post-deploy:
+    name: Post-Deploy Seeding
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [deploy-staging]
+    if: success()
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        working-directory: ${{ env.WORKING_DIR }}
+        run: npm ci --prefer-offline
+
+      - name: Sync feature flags to staging
+        working-directory: ${{ env.WORKING_DIR }}
+        env:
+          DATABASE_URL: ${{ secrets.NYV_STAGING_DATABASE_URL }}
+        run: |
+          npx tsx scripts/nv-seed-feature-flags.ts || echo "Flag sync skipped"
+
+      - name: Notify deployment
+        if: always()
+        run: |
+          echo "=== STAGING DEPLOYMENT SUMMARY ==="
+          echo "Version: ${{ needs.pre-deploy.outputs.version }}"
+          echo "Modules: ${{ needs.pre-deploy.outputs.modules }}"
+          echo "Status: ${{ job.status }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Author: ${{ github.actor }}"
+          echo "=================================="

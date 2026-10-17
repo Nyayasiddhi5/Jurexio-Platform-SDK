@@ -1,0 +1,40 @@
+{
+  "name": "@jurexio/docparse",
+  "version": "0.2.1",
+  "description": "Jurexio document understanding engine - Indian legal document parsing, extraction and autofill. Deterministic, provenance-bearing, no LLM in the default path.",
+  "license": "UNLICENSED",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "zod": "4.4.3"
+  },
+  "optionalDependencies": {
+    "mammoth": "1.12.1",
+    "node-poppler": "10.0.1",
+    "pdfjs-dist": "^6.2.108",
+    "ppu-paddle-ocr": "6.4.2",
+    "sharp": "^0.35.4",
+    "tesseract.js": "7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.13.1",
+    "typescript": "5.9.2",
+    "vitest": "3.2.4"
+  }
+}

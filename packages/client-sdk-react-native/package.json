@@ -1,0 +1,101 @@
+{
+  "name": "@jurexio/client-sdk-react-native",
+  "version": "5.0.0",
+  "description": "Jurexio v5.0.0 SDK — React Native / Expo wrapper. Native fetch + EncryptedStorage + react-native-sse streaming + camera/mic permission helpers + push-notification HITL handler.",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./storage": {
+      "import": "./dist/storage.js",
+      "require": "./dist/storage.js",
+      "types": "./dist/storage.d.ts"
+    },
+    "./sse": {
+      "import": "./dist/sse.js",
+      "require": "./dist/sse.js",
+      "types": "./dist/sse.d.ts"
+    },
+    "./permissions": {
+      "import": "./dist/permissions.js",
+      "require": "./dist/permissions.js",
+      "types": "./dist/permissions.d.ts"
+    },
+    "./push": {
+      "import": "./dist/push.js",
+      "require": "./dist/push.js",
+      "types": "./dist/push.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "publish:beta": "npm publish --tag beta --access public",
+    "publish:latest": "npm publish --tag latest --access public",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "nyayavigya",
+    "legal-ai",
+    "react-native",
+    "expo",
+    "mobile",
+    "sdk",
+    "india"
+  ],
+  "author": "Jurexio Technology Pvt Ltd",
+  "license": "PROPRIETARY",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-native": ">=0.74.0"
+  },
+  "peerDependenciesMeta": {
+    "react-native-sse": {
+      "optional": true
+    },
+    "@react-native-async-storage/async-storage": {
+      "optional": true
+    },
+    "expo-secure-store": {
+      "optional": true
+    },
+    "expo-camera": {
+      "optional": true
+    },
+    "expo-av": {
+      "optional": true
+    },
+    "expo-notifications": {
+      "optional": true
+    },
+    "expo-image-picker": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@jurexio/client-sdk": "^5.0.0",
+    "@jurexio/types": "^5.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "@types/react": "^18.0.0"
+  },
+  "sideEffects": false
+}

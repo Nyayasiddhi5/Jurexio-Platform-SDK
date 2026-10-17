@@ -1,0 +1,9 @@
+# Shell scripts must always be checked out with LF line endings on Windows.
+# This prevents `bash`/`sh` from seeing `\r` as part of option names, which
+# causes errors like `pipefail\r: invalid option name` and avoids Windows
+# opening .sh files with the wrong handler / terminal popups.
+*.sh text eol=lf
+*.mjs text eol=lf
+# Keep the deploy wrapper and env loader in LF so the Windows/Git Bash path works.
+.local/deploy-with-win-python.sh text eol=lf
+scripts/nv-source-dev-deploy-env.sh text eol=lf

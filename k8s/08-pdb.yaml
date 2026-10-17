@@ -1,0 +1,29 @@
+---
+# Pod Disruption Budget — Gateway (ensures 2 pods always up during maintenance)
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: nyayavigya-gateway-pdb
+  namespace: nyayavigya
+  labels:
+    app: nyayavigya-gateway
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: nyayavigya-gateway
+
+---
+# Pod Disruption Budget — Console
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: nyayavigya-console-pdb
+  namespace: nyayavigya
+  labels:
+    app: nyayavigya-console
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: nyayavigya-console

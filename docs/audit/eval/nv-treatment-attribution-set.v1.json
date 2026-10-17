@@ -1,0 +1,680 @@
+{
+  "id": "nv-treatment-attribution-set",
+  "version": 1,
+  "builtAt": "2026-08-19T19:36:35.544Z",
+  "provenance": {
+    "corpus": "NYS caselaw, Indian Supreme Court tier (43,505 embedded judgments)",
+    "sourcedVia": "POST /api/athena/extract over judgment PDFs, on the caselaw host",
+    "sourcedOn": "2026-08-20",
+    "labelSemantics": "expected describes WHAT THE TEXT SAYS about the named authority, not whether that authority is good law today. Only text-derived labels are scored.",
+    "unsourceable": [
+      "HIS HOLINESS KESAVANANDA BHARATI SRIPADAGALAVARU versus STATE OF KERALA (1973) — PDF 35.8 MB, above the deployed 20 MB extraction cap (HTTP 413)",
+      "MANEKA GANDHI versus UNION OF INDIA (1978) — PDF 60.9 MB, HTTP 413"
+    ]
+  },
+  "counts": {
+    "total": 32,
+    "byExpected": {
+      "overruled": 5,
+      "unknown": 26,
+      "doubted": 1
+    },
+    "byControl": {
+      "positive": 6,
+      "negative-relied-on": 3,
+      "negative-different-case": 4,
+      "negative-statutory-object": 2,
+      "negative-submission": 4,
+      "negative-quotation": 6,
+      "negative-declined": 1,
+      "negative-negated": 1,
+      "negative-legislative": 1,
+      "negative-third-party-report": 4
+    },
+    "byBasis": {
+      "text-derived": 32
+    }
+  },
+  "items": [
+    {
+      "id": "sushila2020-mhetre-overruled",
+      "target": "Siddharam Satlingappa Mhetre v. State of Maharashtra",
+      "expected": "overruled",
+      "control": "positive",
+      "labelBasis": "text-derived",
+      "note": "Constitution Bench operative conclusion (12). Names the authority in full, then the verb.",
+      "source": {
+        "judgmentId": "20521098",
+        "title": null,
+        "citation": null,
+        "year": null,
+        "bodyChars": 314022,
+        "windowIndex": 29,
+        "phrase": "are hereby overruled",
+        "charOffset": 313039
+      },
+      "evidence": "The observations in Siddharam Satlingappa Mhetre v. State of Maharashtra & Ors",
+      "passage": "ibbia (supra) had observed that “if and when the occasion arises, it may be possible for the prosecution to claim the benefit of Section 27 of the Evidence Act in regard to a discovery of facts made in pursuance of information supplied by a person released on bail by invoking the principle stated by this Court in State of U.P. v Deoman Upadhyaya.” (9) It is open to the police or the investigating agency to move the court concerned, which grants anticipatory bail, for a direction under Section 439 (2) to arrest the accused, in the event of violation of any term, such as absconding, non-cooperating during investigation, evasion, intimidation or inducement to witnesses with a view to influence outcome of the investigation or trial, etc. A B C D E F G H 131 (10) The court referred to in para (9) above is the court which grants anticipatory bail, in the first instance, according to prevailing authorities. (11) The correctness of an order granting bail, can be considered by the appellate or superior court at the behest of the state or investigating agency, and set aside on the ground that the court granting it did not consider material facts or crucial circumstances. (See Prakash Kadam & Etc. Etc vs Ramprasad Vishwanath Gupta & Anr55; Jai Prakash Singh (supra) State through C.B.I. vs. Amarmani Tripathi56). This does not amount to “cancellation” in terms of Section 439 (2), Cr. PC. (12) The observations in Siddharam Satlingappa Mhetre v. State of Maharashtra & Ors57(and other similar judgments) that no restrictive conditions at all can be imposed, while granting anticipatory bail are hereby overruled. Likewise, the decision in Salauddin Abdulsamad Shaikh v. State of Maharashtra58and subsequent decisions (including K.L. Verma v. State & Anr59; Sunita Devi v. State of Bihar & Anr60; Adri Dharan Das v. State of West Bengal61; Nirmal Jeet Kaur v. State of M.P. & Anr62; HDFC Bank Limited v. J.J. Mannan63; Satpal Singh v. the State of Punjab64and Naresh Kumar Yadav v Ravindra Kumar65) which lay down such restrictive conditions, or terms limiting the grant of anticipatory bail, to a period of time are hereby overruled. 2. The reference is hereby answered in the above terms. Divya Pandey Reference answered. 55 (2011) 6 SCC 189 56 (2005) 8 SCC 21 57 2011 (1) SCC 694 58 (1996 (1) SCC 667) 59 1998 (9) SCC 348 60 2005 (1) SCC 608 61 2005 (4) SCC 303 62 2004 (7) SCC 558 63 2010 (1) SCC 679 64 2018 SCC Online (SC 415 65 2008 (1) SCC 632 SUSHILA AGGARWAL v. STATE (NCT OF DELHI)"
+    },
+    {
+      "id": "sushila2020-salauddin-overruled",
+      "target": "Salauddin Abdulsamad Shaikh v. State of Maharashtra",
+      "expected": "overruled",
+      "control": "positive",
+      "labelBasis": "text-derived",
+      "note": "Same conclusion, second limb: 'are hereby overruled' after a long intervening clause.",
+      "source": {
+        "judgmentId": "20521098",
+        "title": null,
+        "citation": null,
+        "year": null,
+        "bodyChars": 314022,
+        "windowIndex": 30,
+        "phrase": "are hereby overruled",
+        "charOffset": 313560
+      },
+      "evidence": "the decision in Salauddin Abdulsamad Shaikh v. State of Maharashtra",
+      "passage": "ccused, in the event of violation of any term, such as absconding, non-cooperating during investigation, evasion, intimidation or inducement to witnesses with a view to influence outcome of the investigation or trial, etc. A B C D E F G H 131 (10) The court referred to in para (9) above is the court which grants anticipatory bail, in the first instance, according to prevailing authorities. (11) The correctness of an order granting bail, can be considered by the appellate or superior court at the behest of the state or investigating agency, and set aside on the ground that the court granting it did not consider material facts or crucial circumstances. (See Prakash Kadam & Etc. Etc vs Ramprasad Vishwanath Gupta & Anr55; Jai Prakash Singh (supra) State through C.B.I. vs. Amarmani Tripathi56). This does not amount to “cancellation” in terms of Section 439 (2), Cr. PC. (12) The observations in Siddharam Satlingappa Mhetre v. State of Maharashtra & Ors57(and other similar judgments) that no restrictive conditions at all can be imposed, while granting anticipatory bail are hereby overruled. Likewise, the decision in Salauddin Abdulsamad Shaikh v. State of Maharashtra58and subsequent decisions (including K.L. Verma v. State & Anr59; Sunita Devi v. State of Bihar & Anr60; Adri Dharan Das v. State of West Bengal61; Nirmal Jeet Kaur v. State of M.P. & Anr62; HDFC Bank Limited v. J.J. Mannan63; Satpal Singh v. the State of Punjab64and Naresh Kumar Yadav v Ravindra Kumar65) which lay down such restrictive conditions, or terms limiting the grant of anticipatory bail, to a period of time are hereby overruled. 2. The reference is hereby answered in the above terms. Divya Pandey Reference answered. 55 (2011) 6 SCC 189 56 (2005) 8 SCC 21 57 2011 (1) SCC 694 58 (1996 (1) SCC 667) 59 1998 (9) SCC 348 60 2005 (1) SCC 608 61 2005 (4) SCC 303 62 2004 (7) SCC 558 63 2010 (1) SCC 679 64 2018 SCC Online (SC 415 65 2008 (1) SCC 632 SUSHILA AGGARWAL v. STATE (NCT OF DELHI) [ARUN MISHRA, INDIRA BANERJEE, VINEET SARAN, M. R. SHAH AND S. RAVINDRA BHAT, JJ.]"
+    },
+    {
+      "id": "sushila2020-sibbia-relied-on",
+      "target": "Gurbaksh Singh Sibbia v. State of Punjab",
+      "expected": "unknown",
+      "control": "negative-relied-on",
+      "labelBasis": "text-derived",
+      "note": "THE decisive negative control. Sibbia is RELIED ON in the same reporter block that lists nine authorities as overruled. Proximity matching flags it; the platform must not.",
+      "source": {
+        "judgmentId": "20521098",
+        "title": null,
+        "citation": null,
+        "year": null,
+        "bodyChars": 314022,
+        "windowIndex": 8,
+        "phrase": "– overruled",
+        "charOffset": 39058
+      },
+      "evidence": "Shri Gurbaksh Singh Sibbia and others v. State of Punjab (1980) 2 SCC 565 : [1980] 3 SCR 383 – relied on.",
+      "passage": "lation” in terms of Section 439 (2), Cr. PC. (12) The observations in Siddharam Satlingappa Mhetre v. State of Maharashtra & Ors (and other similar judgments) that no restrictive conditions at all can be imposed, while granting anticipatory bail are hereby overruled. Likewise, the decision in Salauddin Abdulsamad Shaikh v. State of Maharashtra and subsequent decisions (including K.L. Verma v. State & Anr; Sunita Devi v. State of Bihar & Anr; Adri Dharan Das v. State of West Bengal; Nirmal Jeet Kaur v. State of M.P. & Anr; HDFC Bank Limited v. J.J. Mannan; Satpal Singh v. the State of Punjab and Naresh Kumar Yadav v Ravindra Kumar) which lay down such restrictive conditions, or terms limiting the grant of anticipatory bail, to a period of time are hereby overruled. [Para 1][128-E-H; 129-A-H; 130-A-H; 131-A-D] Siddharam Satlingappa Mhetre v. State of Maharashtra (2011) 1 SCC 694 : [2010] 15 SCR 201; Salauddin Abdulsamad Shaikh v. State of Maharashtra (1996) 1 SCC 667 : [1995] 6 Suppl. SCR 556; K.L. Verma v. State and another (1998) 9 SCC 348; Sunita Devi v. State of Bihar (2005) 1 SCC 608 : [2004] 6 Suppl. SCR 707; Adri Dharan Das v. State of West Bengal (2005) (4) SCC 303 : [2005] 2 SCR 188; Nirmal Jeet Kaur v. SUSHILA AGGARWAL v. STATE (NCT OF DELHI) A B C D E F G H 18 SUPREME COURT REPORTS [2020] 2 S.C.R. State of M.P. (2004) 7 SCC 558 : [2004] 3 Suppl. SCR 1006; HDFC Bank Limited v. J.J. Mannan (2010) 1 SCC 679 : [2009] 16 SCR 590; Satpal Singh v. State of Punjab (2018) 4 SCC 303 : [2018] 3 SCR 739; Naresh Kumar Yadav v Ravindra Kumar (2008) 1 SCC 632 : [2007] 11 SCR 615 – overruled. Shri Gurbaksh Singh Sibbia and others v. State of Punjab (1980) 2 SCC 565 : [1980] 3 SCR 383 – relied on. Prakash Kadam & Etc. Etc. vs Ramprasad Vishwanath Gupta & Anr (2011) 6 SCC 189 : [2011] 6 SCR 800; Jai Prakash Singh v State of Bihar (2012) 4 SCC 325 : [2012] 5 SCR 1; State through C.B.I. v. Amarmani Tripathi (2005) 8 SCC 21 – referred to. Case Law Reference IN THE JUDGMENT OF M.R. SHAH, J.: [1980] 3 SCR 383 relied on Para 1 [2010] 15 SCR 201 held not correct law Para 1 [2015] 10 SCR 398 referred to Para 1 [1995] 6 Suppl. SCR 556 held not good law Para 1 (1998) 9 SCC 348 referred to Para 1 [2004] 6 Suppl. SCR 707 referred to Para 1 [2004] 3 Suppl. SCR 1006 referred to Para 1 [2009] 16 SCR 590 referred to Para 1 [2018] 3 SCR 739 referred to Para 1 [1977] 2 SCR 52 referred to Para 2 (1994) 4 SCC 260 referred to Para 3.1 [2013] 14 SCR 713 referred to Para 3.1 [2014] 8 SCR"
+    },
+    {
+      "id": "sushila2020-sibbia-reiterated",
+      "target": "Gurbaksh Singh Sibbia v. State of Punjab",
+      "expected": "unknown",
+      "control": "negative-different-case",
+      "labelBasis": "text-derived",
+      "note": "Sibbia named, then 'Salauddin ... needs to be overruled' one clause later. A paragraph-scoped binder attributes the verb to Sibbia.",
+      "source": {
+        "judgmentId": "20521098",
+        "title": null,
+        "citation": null,
+        "year": null,
+        "bodyChars": 314022,
+        "windowIndex": 27,
+        "phrase": "needs to be overruled",
+        "charOffset": 305089
+      },
+      "evidence": "the conclusions in Shri Gurbaksh Singh Sibbia and others v. State of Punjab 1980 (2) SCC 565 needs reiteration",
+      "passage": "mmittees and commissions, arbitrary and groundless arrests continue as a pervasive phenomenon. Parliament has not thought it appropriate to curtail the power or discretion of the courts, in granting pre-arrest or anticipatory bail, especially regarding the duration, or till charge sheet is filed, or in serious crimes. Therefore, it would not be in the larger interests of society if the court, by judicial interpretation, limits the exercise of that power: the danger of such an exercise would be that in fractions, little by little, the discretion, advisedly kept wide, would shrink to a very narrow and unrecognizably tiny portion, thus frustrating the objective behind the provision, which has stood the test of time, these 46 years. 81. The reference is hereby answered in the above terms. ARUN MISHRA, INDIRA BANERJEE AND VINEET SARAN, JJ. We have seen the drafts of Justice M.R. Shah and Justice S. Ravindra Bhat and are in agreement with them. Since there is no SUSHILA AGGARWAL v. STATE (NCT OF DELHI) [S. RAVINDRA BHAT, J.] A B C D E F G H 128 SUPREME COURT REPORTS [2020] 2 S.C.R. difference of opinion between the two, we are in agreement with the reasoning of Justice M.R. Shah and Justice S. Ravindra Bhat that the conclusions in Shri Gurbaksh Singh Sibbia and others v. State of Punjab 1980 (2) SCC 565 needs reiteration and further that the restrictive manner in which Section 438 of the Cr.PC has been interpreted in Salauddin Abdulsamad Shaikh v. State of Maharashtra 1996 (1) SCC 667 is incorrect. Therefore, we agree that Salauddin (supra) and other cases which have followed it needs to be overruled. Similarly, the wide interpretation in Siddharam Satlingappa Mhetre v. State of Maharashtra & Ors. 2011 (1) SCC 694, i.e. that no conditions can be imposed while granting an order of anticipatory bail, is incorrect. Mhetre (supra) to that extent and other judgments which have followed it are accordingly overruled. In view of the said conclusions, we are in agreement with the answers to the reference made to the larger Bench. ARUN MISHRA, INDIRA BANERJEE, VINEET SARAN, M. R. SHAH AND S. RAVINDRA BHAT, JJ. FINAL CONCLUSIONS: In view of the concurring judgments of Justice M.R. Shah and of Justice S. Ravindra Bhat with Justice Arun Mishra, Justice Indira Banerjee and Justice Vineet Saran agreeing with them, the following answers to the reference are set out: (1) Regarding Question No. 1, this court holds that the protection granted to a person under Section 438 Cr. PC s"
+    },
+    {
+      "id": "sibbia1980-s438-statutory",
+      "target": "Balchand Jain v. State of Madhya Pradesh",
+      "expected": "unknown",
+      "control": "negative-statutory-object",
+      "labelBasis": "text-derived",
+      "note": "'stand overruled' with a STATUTE as its object, inside a sentence whose nearest case name is Balchand Jain. No case was overruled at all.",
+      "source": {
+        "judgmentId": "20494230",
+        "title": null,
+        "citation": null,
+        "year": null,
+        "bodyChars": 107019,
+        "windowIndex": 0,
+        "phrase": "stand overruled",
+        "charOffset": 25797
+      },
+      "evidence": "the provisions of Section 438 relating to antici~ patory bail stand overruled or repealed by virtue of Rule 184",
+      "passage": "rue that the functions of judiciary and the police are in a s\"nse complementary and not overlapping. An order of anticipatory bail does not in any way, directly or indirectly, take away from the police their right to investigate into charges made or to be made against the person released on bail. In fact, two of the usual conditions incorporated in a direction issued under section 438(1) are those recommended in Sub-section (2)(i) and (ii) which require the applicant to co-operate with the police and to assure that he shall not tamper with the witnesses during and after the investigation. While· grant- ing relief under Section 438(1), appropriate conditions can be imposed uuder Section 438(2), so as to ensure an uninterrupted investigation. One of G n 8 390 SUPREME COURT REPORTS [1980] 3 S.C.R. such conditions can even be that in the event of the police making out a case of a likely discovery under Section 27 of the Evidence Act, the person released on bail shall be liable to be taken in police custody for facilitating the discovery. Besides, if and when the occasion arises, it may be possible for the prosecution to claim the be-nefit of Section 27 of the Evidence Act in regard to a discovery of facts made in pursuance of information supplied by a peraon released on bail. [409 D, 41() A-DJ King Emperor v. Khwaja Nazir Ahmed, 71 I.A., 203, State of U.P. v. Deoman Upadhyaya, [1961] 1 S.C.R. p. 14 @ 26; referred to. 13. In Balchand Jain v. State of Madhya Pradesh, [1977] 2 SCR 52, this Court was considering whether the provisions of Section 438 relating to antici~ patory bail stand overruled or repealed by virtue of Rule 184 of the Defence C and Internal Security of India Rules, 1971 or whether both the provisions can by rule of harmonious interpretion, exist side by side. It was in that context that it was observed that \"As section 438 immediately fo11ows Section 437 which is the main provision for bail in respect of non-bailable offences, it is manifest that the conditions imposed by s. 437 ( 1) are implicitly contained in Section 438 of the Code\"~ These observations regarding the nature of the power conferred by section 438 and regarding the question whether the condi- D tions mentioned in Section 437 should be read into section 438 cannot, there- fore be treated as the ratio of the decision. [413 C-D, E] .£ F G '_ B The power conferred by section 438 is of an \"extra ordinary\" character only in the sense that it is not ordinarily resorted to like the power"
+    },
+    {
+      "id": "sibbia1980-s438-statutory-2",
+      "target": "Balchand Jain v. State of Madhya Pradesh",
+      "expected": "unknown",
+      "control": "negative-statutory-object",
+      "labelBasis": "text-derived",
+      "note": "Second occurrence in Sibbia, this time explicitly reporting what Fazal Ali J. framed as the only point in Balchand Jain.",
+      "source": {
+        "judgmentId": "20494230",
+        "title": null,
+        "citation": null,
+        "year": null,
+        "bodyChars": 107019,
+        "windowIndex": 1,
+        "phrase": "stand overruled",
+        "charOffset": 86305
+      },
+      "evidence": "the provisions of Section 438 relating to anticipatory bail stand overruled and repealed by virtue of Rule 184",
+      "passage": "hat there were reaso- nable grounds for believing that he was not guilty of offence punishable with death or imprisonment for life. Such a course would render the provisions of s. 437 nugatory and will give a free licence to the accused persons charged with non- bailable offences to get easy bail by approaching the Court under s. 438 and by-passing s. 437 of the Code. This, we feel, could never have been the intention of the Legislatnre. Section 438 does not contain unguided or unca'.nalised powers to pass an order for anticipatory bail, but such an order being of an exceptional type can only be passed if, (!) [1977] 2 S. C. R. 52. • • GURBAKSH SINGH v. PUNJAB (Chandrachud, C.J.) 413 apurt from the conditians mentioned in s. 43 7, there is a A special case made out for passing the order. The words \"for a direction under this section\" and \"Court may, if it thinks fit, direct\" clearly show that· the Court has to be guided by a large number of considerations inc:uding those montioned i'n s. 437 of the Code.\" While stating his conclusions Fazal Ali, J. reiterated in conclusion no.3 that \"Section 43 8 of the Code is an extraordinary remedy and should b<e. resorted to only in special cases.\" We hold the decision in Balchand Jain (supra) in great respect but 11 is necessary to remember that the question as regards the int•;rpreta- tion o( Section 438 did not at all arise in that case. Fazal Ali, J. has staled in parngraph 3 of his judgment that ·'the only point\" which arose for c-0nsideration before the Court was whether the provisions of Section 438 relating to anticipatory bail stand overruled and repealed by virtue of Rule 184 of the Defence and Internal Security of Ind;a Rules, ]071 or whether both the provisions can, by the rule of harmonious inter- pretation, exist side by side. Bhagwati, J. has also stated in his judgment, after adverting to Section 438 that Rule 184 is what the Court was concerned with in the appeal. The observations made in Balchand Jain (supra) regarding the nature of the power conferred by Section 438 and regarding the question whether the conditions mentioned in Section 437 should be read into Section 438 cannot therefore be treated as conclud- ing the points which arise directly for our consideration. We agree, with respect, that the power conferred by Section 438 is of an extraordinary character in the sense indicated above, namely, that it is not ordinarily rosorted to like the power confrrred by Sections 437 and 439. We also agree"
+    },
+    {
+      "id": "vodafone2012-azadi-submission",
+      "target": "Union of India v. Azadi Bachao Andolan",
+      "expected": "unknown",
+      "control": "negative-submission",
+      "labelBasis": "text-derived",
+      "note": "Counsel's prayer, named authority, verb present. Vodafone did not overrule Azadi Bachao. The most dangerous shape in the corpus.",
+      "source": {
+        "judgmentId": "20515384",
+        "title": null,
+        "citation": null,
+        "year": null,
+        "bodyChars": 406881,
+        "windowIndex": 0,
+        "phrase": "needs to be overruled",
+        "charOffset": 120114
+      },
+      "evidence": "it was contended on behalf of the Revenue that Union of India v. Azadi Bachao Ando/an (2004) 10 SCC D 1 needs to be overruled",
+      "passage": "tself. 55. To sum up, CGP held 42.34% in HEL through 100% wholly owned subsidiaries [Mauritius companies], 9.62% indirectly through Tll and Omega [i.e. pro rata route], and 15.03% through GSPL route. H I ! 638 SUPREME COURT REPORTS i . h11------------i l'. I I I i - ~~ 'i i ; ..' ! ' • I 'II •• lI h· l I• ,, . H . H ~) 11---~ /I 'f-~l . -1• 1---~1 • I \" 1 111 ' Iii 11 I I / -Ii l I• ! I r~ . 1 II f I I I 11! I I I '· I I f i f Ji~ • 11 . I i e l t 1} . )l I ~u ~ lil - ill I Ii1j I [2012] 1 S.C.R. ! . . ! . I ; ... 11 ~. . .. I ! Ii . .. ' ~-,..,.!1n·I . ··!1111. . . ·:;··· VODAFONE INTERNATIONAL HOLDINGS B.V. v. 639 UNION OF INDIA & ANR. [S.H. KAPADIA, CJI.] 56. To explain the GSPL route briefly, it may be mentioned A that on 11.02.2007 AG Group of companies held 23.97% in Tll, AS Group of companies held 38.78% in Tll whereas SMMS held 54.21 % in Omega. Consequently, holding of AG in HEL through Tll stood at 4.68% whereas holding of AS in HEL through Tll stood at 7.577% and holding of SMMS in HEL through Omega B stood at 2.77%, which adds up to 15.03% in HEL. These holdings of AG, AS and SMMS came under the Option Route. In this connection, it may be mentioned that GSPL is an Indian company indirectly owned by CGP. It held Call Options and Subscription Options to be exercised in future under c circumstances spelt out in Tll and IDFC Framework Agreements (keeping in mind the sectoral cap of 74%). Correctness of Azadi Bachao case - Re: Tax Avoidance/ Evasion 57. Before us, it was contended on behalf of the Revenue that Union of India v. Azadi Bachao Ando/an (2004) 10 SCC D 1 needs to be overruled insofar as it departs from McDowell and Co. Ltd. v. CTO (1985) 3 SCC 230 principle for the following : i) Para 46 of McDowell judgment has been missed E which reads as under: \"on this aspect Chinnappa Reddy, J. has proposed a separate opinion with which we agree\". [i.e. Westminster principle is dead]. ii) That, Azadi Bachao failed to read paras 41-45 and 46 of McDowell in entirety. If so read, the only conclusion one could draw is that four learned judges F speaking through Misra, J. agreed with the observations of Chinnappa Reddy, J. as to how in certain circumstances tax avoidance should be brought within the tax net. iii) That, subsequent to McDowell, another matter came before the Constitution Bench of five Judges in Mathuram Agrawal v. State G of Madhya Pradesh (1999) 8 SCC 667, in which Westminster principle was quoted which has not been noticed by Azadi Bacha"
+    },
+    {
+      "id": "sushila2018-salauddin-quoted",
+      "target": "Salauddin Abdulsamad Shaikh v. State of Maharashtra",
+      "expected": "unknown",
+      "control": "negative-quotation",
+      "labelBasis": "text-derived",
+      "note": "The 2018 order REPORTS Mhetre's holding and then refers the question to a larger Bench. It performs no treatment itself.",
+      "source": {
+        "judgmentId": "20519389",
+        "title": null,
+        "citation": null,
+        "year": null,
+        "bodyChars": 60677,
+        "windowIndex": 2,
+        "phrase": "per incuriam",
+        "charOffset": 17562
+      },
+      "evidence": "the two-Judge Bench in Mhetre(supra) has taken the stand that the decisions in Salauddin (supra), K.L .Verma (supra), Adri Dharan Das (supra) and Sunita Devi (supra) are per incuriam",
+      "passage": "to the custody of the court and pray for regular bail. On the strength of an order granting anticipatory bail, an accused against whom charge has been framed, cannot avoid appearing before the trial court. 21. If what has been submitted on behalf of the appellant that Respondent 1 has never appeared before the trial court is to be accepted, it will lead to the absurd situation that charge was framed against the accused in his absence, which would defeat the very purpose of sub-section (2) of Section 240 CrPC.” 6. In Satpal Singh v.The State of Punjab10 at paragraph 14, it has been held: “14. In any case, the protection under Section 438, Cr.P.C. is available to the accused only till the court summons the accused based on the charge sheet (report under Section 173(2), Cr.P.C.). On such appearance, the accused has to seek regular bail under Section 439 Cr.P.C. and that application has to be considered by the court on its own merits. Merely because an accused was under the protection of anticipatory bail granted under Section 438 Cr.P.C. that does not mean that he is automatically entitled to regular bail under Section 439 Cr.P.C. The satisfaction of the court for granting protection under Section 438 Cr.P.C. is different from the one under Section 439 Cr.P.C. while considering regular bail.” 10(2018) SCC Online SC 415 A B C D E F G H 833 7. It is relevant to point out that placing reliance on Sibbia (supra), the two-Judge Bench in Mhetre(supra) has taken the stand that the decisions in Salauddin (supra), K.L .Verma (supra), Adri Dharan Das (supra) and Sunita Devi (supra) are per incuriam. To quote:- “123. In view of the clear declaration of law laid down by the Constitution Bench in Sibbia case, it would not be proper to limit the life of anticipatory bail. When the Court observed that the anticipatory bail is for limited duration and thereafter the accused should apply to the regular court for bail, that means the life of Section 438 CrPC would come to an end after that limited duration. This limitation has not been envisaged by the legislature. The Constitution Bench in Sibbia case clearly observed that it is not necessary to rewrite Section 438 CrPC. Therefore, in view of the clear declaration of the law by the Constitution Bench, the life of the order under Section 438 CrPC granting bail cannot be curtailed. 124. The ratio of the judgment of the Constitution Bench in Sibbia case perhaps was not brought to the notice of Their Lordships who had decided the"
+    },
+    {
+      "id": "sushila2018-klverma-quoted",
+      "target": "K.L. Verma v. State",
+      "expected": "unknown",
+      "control": "negative-quotation",
+      "labelBasis": "text-derived",
+      "note": "Inside a block quotation of an earlier judgment ('To quote:'). The 2018 Bench is transcribing, not holding.",
+      "source": {
+        "judgmentId": "20519389",
+        "title": null,
+        "citation": null,
+        "year": null,
+        "bodyChars": 60677,
+        "windowIndex": 0,
+        "phrase": "per incuriam",
+        "charOffset": 12147
+      },
+      "evidence": "The view regarding extension of time to “move” the higher court as culled out from the decision in K.L. Verma case shall have to be treated as having been rendered per incuriam",
+      "passage": "d to the date on which the bail application is disposed of or even a few days thereafter to enable the accused persons to move the higher court, if they so desire. This decision was not intended to convey that as soon as the accused persons are produced before the regular court the anticipatory bail ends even if the court is yet to decide the question of bail on merits. The decision in Salauddin case has to be so understood.” In Nirmal Jeet Kaur v. State of M.P. and another8, K.L. Verma (supra) in so far as it stated that “...or even a few days thereafter to enable the accused persons to move the higher court, if they so desire ...” was held to be in conflict with the statutory requirement under Section 439. To quote: “13. The grey area according to us is the following part of the judgment in K.L. Verma case “or even a few days thereafter to enable the accused persons to move the higher court, if they so desire”. xxx xxx xxx xxx 20. In Salauddin case also this Court observed that the regular court has to be moved for bail. Obviously, an application under Section 439 of the Code must be in a manner in accordance with law and the accused seeking remedy under Section 439 must ensure that it would be lawful for the court to deal with the application. Unless the applicant is in custody his making application only under Section 439 of the Code will not confer jurisdiction on the court to which the application is made. The view regarding extension of time to “move” the higher court as culled out from the decision in K.L. Verma case shall have to be treated as having been rendered per incuriam, as no reference was made to the prescription in Section 439 requiring the accused to be in custody. In State v. Ratan Lal Arora it was held that where in a case the decision has been rendered without reference to statutory bars, the same cannot have any precedential value and shall have to be treated as having been rendered per incuriam. The present case stands at par, if not, on a better footing. The provisions of Section 439 do not appear to have been taken note of. 8 (2004) 7 SCC 558 A B C D E F G H 831 xxx xxx xxx xxx 23. If the protective umbrella of Section 438 is extended beyond what was laid down in Salauddin case the result would be clear bypassing of what is mandated in Section 439 regarding custody. In other words, till the applicant avails remedies up to higher courts, the requirements of Section 439 become dead letter. No part of a statute can be rendered redun"
+    },
+    {
+      "id": "aligarh2024-azeez-basha-overruled",
+      "target": "Azeez Basha",
+      "expected": "overruled",
+      "control": "positive",
+      "labelBasis": "text-derived",
+      "note": "Majority holding, 'The view taken in X ... is overruled' — the canonical Indian object-binding form.",
+      "source": {
+        "judgmentId": "20524655",
+        "title": "ALIGARH MUSLIM UNIVERSITY versus NARESH AGARWAL & ORS.",
+        "citation": "[2024] 11 S.C.R. 1647",
+        "year": 2024,
+        "bodyChars": 500066,
+        "windowIndex": 0,
+        "phrase": "is overruled",
+        "charOffset": 32582
+      },
+      "evidence": "The view taken in Azeez Basha that an educational institution is not established by a minority if it derives its legal character through a statute, is overruled.",
+      "passage": "e crux of Article 30(1) lies in its mandate to ensure parity between non-minority [or ‘neutral’] institutions and minority institutions – Its fundamental aim is to prevent any form of discrimination or preferential treatment to non-minority communities, thereby advocating for equal treatment under the law for one and all – This provision underscores that no specific category or type of institution should be disadvantaged or unduly favoured over another within the legal framework. [Para 266] 12. To assume that the minorities of the country require some ‘safe haven’ for attaining education and knowledge is wholly incorrect – The minorities of the country have not just joined the mainstream but comprise an important facet of the mainstream itself. The institutions of national character of the country always serve the interests of the minorities and are diverse centers of learning. [Para 266] [2024] 11 S.C.R. 1661Aligarh Muslim University v. Naresh Agarwal & Ors. B. Educational Institution – Minority educational institution – Status of AMU vis-à-vis minority rights – Whether the Constitution Bench decision in Azeez Basha was incorrect. Held [per Dr D Y Chandrachud, CJI (for himself, Sanjiv Khanna, J.B. Pardiwala and Manoj Misra, JJ.)]: The view taken in Azeez Basha that an educational institution is not established by a minority if it derives its legal character through a statute, is overruled. [Para 161] Held [per Surya Kant, J.]: The Constitution Bench in Azeez Basha, when it holds that since Section 6 of the AMU Act, 1920 stipulates that degrees conferred by AMU would be recognised by the Government, it could not have been ‘brought into existence by a private individual or body’, is seemingly incorrect – There is no conflict between the seven-judge bench opinion in Kerala Education Bill and the five-judge Constitution Bench in Azeez Basha on the other – The six-judge Constitution Bench in Sidhajbhai Sabhai, laying down that the right under Article 30 is absolute and unconditional, is not the correct principle of law; the judgement is no more binding in nature and stands effectively overruled in TMA Pai, to that extent – Consequently, Azeez Basha does not suffer f"
+    },
+    {
+      "id": "aligarh2024-azeez-basha-declined",
+      "target": "Azeez Basha",
+      "expected": "unknown",
+      "control": "negative-declined",
+      "labelBasis": "text-derived",
+      "note": "Dipankar Datta J. DECLINING to overrule. 'being overruled' present verbatim; the holding is the opposite.",
+      "source": {
+        "judgmentId": "20524655",
+        "title": "ALIGARH MUSLIM UNIVERSITY versus NARESH AGARWAL & ORS.",
+        "citation": "[2024] 11 S.C.R. 1647",
+        "year": 2024,
+        "bodyChars": 500066,
+        "windowIndex": 2,
+        "phrase": "overruled",
+        "charOffset": 33877
+      },
+      "evidence": "demands due deference rather than the view being overruled at this distance of time",
+      "passage": "tional institution is not established by a minority if it derives its legal character through a statute, is overruled. [Para 161] Held [per Surya Kant, J.]: The Constitution Bench in Azeez Basha, when it holds that since Section 6 of the AMU Act, 1920 stipulates that degrees conferred by AMU would be recognised by the Government, it could not have been ‘brought into existence by a private individual or body’, is seemingly incorrect – There is no conflict between the seven-judge bench opinion in Kerala Education Bill and the five-judge Constitution Bench in Azeez Basha on the other – The six-judge Constitution Bench in Sidhajbhai Sabhai, laying down that the right under Article 30 is absolute and unconditional, is not the correct principle of law; the judgement is no more binding in nature and stands effectively overruled in TMA Pai, to that extent – Consequently, Azeez Basha does not suffer from any legal infirmity on the premise that it did not cite or follow Sidhajbhai Sabhai. [Para 192(a), (b) and (f)] Held [per Dipankar Datta, J.]: Not only is Azeez Basha a judicial verdict more than half a century old on the status of AMU vis-à- vis minority rights, but it has a strong foundational basis and is anchored in robust legal reasoning – The view taken therein, in the given facts and circumstances, is indeed a plausible view which demands due deference rather than the view being overruled at this distance of time. [Para 14] Held [per Satish Chandra Sharma, J.]: The notion that Azeez Basha categorically prohibits minorities from establishing universities due to statutory requirements is unfounded – The bench in Azeez Basha and present bench are faced with a unique situation and needs to adopt a suitably modulated approach – The judgment in Azeez Basha does not preclude minorities from establishing universities but rather highlights the importance of legislative intent and statutory provisions in determining an institution’s character – The UGC Act or the judgment in Yashpal, in no manner, comes to the aid of the parties challenging the correctness of the judgment 1662 [2024] 11 S.C.R.Supreme Court Reports in Azeez Basha – The amendment in the NCMEI Act 2004 does no"
+    },
+    {
+      "id": "aligarh2024-precedents-hypothetical",
+      "target": "State of Kerala v. Very Rev. Mother Provincial",
+      "expected": "unknown",
+      "control": "negative-different-case",
+      "labelBasis": "text-derived",
+      "note": "Conditional ('If, indeed, the proposed view ... were accepted'), and the object is an unnamed set of precedents.",
+      "source": {
+        "judgmentId": "20524655",
+        "title": "ALIGARH MUSLIM UNIVERSITY versus NARESH AGARWAL & ORS.",
+        "citation": "[2024] 11 S.C.R. 1647",
+        "year": 2024,
+        "bodyChars": 500066,
+        "windowIndex": 7,
+        "phrase": "stand overruled",
+        "charOffset": 44175
+      },
+      "evidence": "all the precedents referred to above would stand overruled",
+      "passage": "Basha, without disagreeing with it” could permit the bench in Anjuman- e-Rahmania to request the Chief Justice of India to place the matter for being heard by a bench of 7 (seven) Judges and such a course of action were held to be permissible and within the limits of Central Board of Dawoodi Bohra Community, as proposed in the majority opinion - I am afraid, tomorrow, a bench of 2 (two) Judges, referring to opinions of jurists [as in Anjuman-e-Rahmania] could well doubt the ‘basic structure’ doctrine and request the Chief Justice of India to constitute a bench of 15 (fifteen) Judges – The 1666 [2024] 11 S.C.R.Supreme Court Reports reasoning in the majority opinion, with due respect, appears to be based on an incomplete reading of paragraph 12(2) of Central Board of Dawoodi Bohra Community – Though the second sentence of the said paragraph is a bit ambiguous, but the same read harmoniously with the other sentences would lead to the inevitable conclusion that even in case of a doubt being expressed by a bench of 2 (two) Judges in respect of the ratio laid down by a bench of 5 (five) Judges, the case on a reference being made (with sufficient reasons) ought to be first placed before a bench of 3 (three) Judges, and not to a bench of either 5 (five) or 7 (seven) Judges – If, indeed, the proposed view in the majority opinion were accepted, all the precedents referred to above would stand overruled and a legal principle, which hitherto no bench of this Court did, would be laid down and, in the process, the floodgates for unmeritorious references opened – That would be an incorrect and improper approach – Hence, the order of reference in Anjuman-e-Rahmania must be regarded as completely flawed and non-est. [Para 28] 2. The essence of the law laid down in State of Kerala vs. Very Rev. Mother Provincial, which is a decision of the Constitution Bench of 6 (six) Judges of this Court rendered more than half a century back, and has never been doubted by any subsequent bench, is that the minority institution should have been established for the benefit of a minority community by a member of that community – Attention of the bench of 2 (two) Judges in Anjuman-e-Rahmania was no"
+    },
+    {
+      "id": "aalamgir2025-pune-municipal-quoted",
+      "target": "Pune Municipal Corpn. v. Harakchand Misirimal Solanki",
+      "expected": "unknown",
+      "control": "negative-quotation",
+      "labelBasis": "text-derived",
+      "note": "A 2025 judgment quoting paras 365-367 of Indore Development Authority ('are extracted as under'). The overruling was performed by Indore, not here.",
+      "source": {
+        "judgmentId": "20525602",
+        "title": "STATE OF HARYANA & OTHERS versus AALAMGIR & OTHERS",
+        "citation": "[2025] 3 S.C.R. 1460",
+        "year": 2025,
+        "bodyChars": 40886,
+        "windowIndex": 0,
+        "phrase": "is hereby overruled",
+        "charOffset": 26565
+      },
+      "evidence": "the decision rendered in Pune Municipal Corpn.",
+      "passage": "relief under sub-section (2) of Section 24 of the 2013 Act. In certain cases, amendments to the pending Writ Petitions may have also been made while in certain other Writ Petitions while assailing the process of acquisition under Sections 4 and 6 as well as under other provisions of the 1894 Act, applications seeking relief under Section 24(2) of the 2013 Act have also been made. Various contentions were also raised under sub-section (2) of Section 24 of the 2013 Act before the High Court. 4. At this stage, it is necessary to note that this Court, in the case of Pune Municipal Corporation vs. Harakchand Misirimal Solanki, (2014) 3 SCC 183 (“Pune Municipal Corporation”) had interpreted sub-section (2) of Section 24 of the 2013 Act by granting relief on the basis of the said interpretation. Thereafter, the matter was considered by a five-Judge Bench of this Court which was the case of Indore Development Authority vs. Manoharlal, (2020) 8 SCC [2025] 3 S.C.R. 1475State of Haryana & Others v. Aalamgir & Others 129 (“Indore Development Authority”), which set aside the earlier judgment of this Court in Pune Municipal Corporation. Paragraphs 365 to 367 of the judgment in Indore Development Authority are extracted as under: “365. Resultantly, the decision rendered in Pune Municipal Corpn. [Pune Municipal Corpn. v. Harakchand Misirimal Solanki, (2014) 3 SCC 183 : (2014) 2 SCC (Civ) 274] is hereby overruled and all other decisions in which Pune Municipal Corpn. [Pune Municipal Corpn. v. Harakchand Misirimal Solanki, (2014) 3 SCC 183 : (2014) 2 SCC (Civ) 274] has been followed, are also overruled. The decision in Sree Balaji Nagar Residential Assn. [Sree Balaji Nagar Residential Assn. v. State of T.N., (2015) 3 SCC 353: (2015) 2 SCC (Civ) 298] cannot be said to be laying down good law, is overruled and other decisions following the same are also overruled. In Indore Development Authority v. Shailendra [Indore Development Authority v. Shailendra, (2018) 3 SCC 412 : (2018) 2 SCC (Civ) 426] , the aspect with respect to the proviso to Section 24(2) and whether “or” has to be read as “nor” or as “and” was not placed for consideration. Therefore, that decision too cannot prevail,"
+    },
+    {
+      "id": "gayatri2025-lgchaudhary-negated",
+      "target": "L.G. Chaudhary",
+      "expected": "unknown",
+      "control": "negative-negated",
+      "labelBasis": "text-derived",
+      "note": "Explicit negation of a per incuriam finding. Detection-only reports per_incuriam here.",
+      "source": {
+        "judgmentId": "20525760",
+        "title": "M/S GAYATRI PROJECT LIMITED  versus MADHYA PRADESH ROAD DEVELOPMENT CORPORATION LIMITED",
+        "citation": "[2025] 5 S.C.R. 2534",
+        "year": 2025,
+        "bodyChars": 126970,
+        "windowIndex": 2,
+        "phrase": "per incuriam",
+        "charOffset": 7668
+      },
+      "evidence": "it cannot be termed to be per incuriam",
+      "passage": "ction 34 of the Act, 1996, even if the same was never raised before the arbitral tribunal, and being a question of law, Section 16 sub-section (2) of the Act, 1996 would have no application – However, in L.G. Chaudhary (II) it was held that no plea of lack of jurisdiction can be raised in the proceedings under Section 34 – This was contended to be per [2025] 5 S.C.R. 2537M/s Gayatri Project Limited v. Madhya Pradesh Road Development Corporation Limited incurium and a contradictory view since L.G. Chaudhary (II) did not refer to Lion Engineering – It was held that merely because L.G. Chaudhary (II) does not refer to the decision of Lion Engineering, would not render it per incuriam, if either such omission in referring to previous decision does not amount to a non-consideration of the ratio of an earlier decision or where there is no palpable conflict or contradiction in the ratio of both decisions – If L.G. Chaudhary (II) was not conscious of the position of law laid in Lion Engineering, then there was no need for it to clarify that an award would not be annulled only on the ground of lack of jurisdiction – As even without the aforesaid clarification, such awards would not have been susceptible to annulment, if not for the ratio of Lion Engineering – Thus, it was held that even if L.G. Chaudhary (II) does not refer to the decision of Lion Engineering, it cannot be termed to be per incuriam, as the very factum that the aforesaid observations were made by L.G. Chaudhary (II) in paras 16, 17 and 19, shows that this Court was well aware of the decision of Lion Engineering, and accordingly chose to carve out an exception to the ratio of Lion Engineering keeping in mind the cleavage of judicial view that was prevailing earlier – Lion Engineering does not address the question whether an award may be annulled only on the ground of lack of jurisdiction or not – It does not disturb the settled position of law as regards the scope of Section 34 of the Act, 1996 i.e., an award may be set aside only if such lack of jurisdiction goes to the root of the matter and results in patent illegality – On the contrary, L.G. Chaudhary (II) specifically addresses this question in the co"
+    },
+    {
+      "id": "gayatri2025-vatech-quoted",
+      "target": "Va Tech Escher Wyass Flovel Ltd. v. M.P. SEB",
+      "expected": "unknown",
+      "control": "negative-quotation",
+      "labelBasis": "text-derived",
+      "note": "Block quotation of L.G. Chaudhary's holding that Va Tech is per incuriam. The quoting judgment performs nothing.",
+      "source": {
+        "judgmentId": "20525760",
+        "title": "M/S GAYATRI PROJECT LIMITED  versus MADHYA PRADESH ROAD DEVELOPMENT CORPORATION LIMITED",
+        "citation": "[2025] 5 S.C.R. 2534",
+        "year": 2025,
+        "bodyChars": 126970,
+        "windowIndex": 3,
+        "phrase": "per incuriam",
+        "charOffset": 30741
+      },
+      "evidence": "The relevant para 42 reads as under",
+      "passage": "0 Rs. 1,03,55,187.00 Claim No. 2 Amount not specified Rs. Nil ................................. ............................... Total Amount Rs. 1,03,55,187.00 plus Interest. Rs. 1,03,55,187.00 (ix) As is evident from Para 1.19 of the Award quoted above, the quantification of this amount was in-fact recommended by the Engineer and had been admitted by the respondent. The Tribunal also awarded future interest at the rate of 10% p.a. from the date of the award till the date of actual payment as per para 3.1. As of 17.02.2025, the amount payable by the respondent to the appellant stands at Rs. 2,44,63,775. (x) The respondent challenged the award before the Civil Court under Section 34 of the Arbitration Act vide a petition filed on 30.09.2011. However, the respondent in its petition admittedly did not challenge the jurisdiction of the Tribunal. The respondent has admitted this fact in Para 5 of its counter affidavit filed before this Court. The respondent’s grounds for challenge were essentially on matters of appreciation of evidence by the Tribunal which grounds were, in any case, untenable given the limited scope of Section 34 of the Arbitration Act. (xi) A two Judge Bench of this Court delivered a judgment in the matter titled MP Rural Road Development Authority & Anr v. L.G. Chaudhary Engineers & Contractors, reported in (2012) 3 SCC 495, wherein it held VA Tech (supra) to be per incuriam. The relevant para 42 reads as under: - “42. Therefore, the appeal is allowed and the judgment of the High Court which is based on the reasoning of Va Tech [Va Tech Escher Wyass Flovel Ltd. v. M.P. SEB, Misc. Appeal No. 380 of 2003, order dated 5-3-2003 (MP)] is set aside. This Court holds that the decision in Va Tech [(2011) 13 SCC 261] has been rendered per incuriam. In that view of the matter the arbitration proceeding may proceed under the M.P. Act of 1983 and not under the AC Act, 1996.” [2025] 5 S.C.R. 2549M/s Gayatri Project Limited v. Madhya Pradesh Road Development Corporation Limited (xii) The Division Bench, however, differed on the point of applicability of the State Act to such works contracts which had been terminated, and this difference of opinion caused this m"
+    },
+    {
+      "id": "eminent2026-patel-legislative",
+      "target": "SBP & Co. v. Patel Engg. Ltd.",
+      "expected": "unknown",
+      "control": "negative-legislative",
+      "labelBasis": "text-derived",
+      "note": "Legislative supersession, not a judicial treatment edge. Also the exact case a citation graph structurally cannot see.",
+      "source": {
+        "judgmentId": "20525933",
+        "title": "M/S EMINENT COLONIZERS PRIVATE LIMITED versus RAJASTHAN HOUSING BOARD AND ORS.",
+        "citation": "[2026] 3 S.C.R. 1",
+        "year": 2026,
+        "bodyChars": 56447,
+        "windowIndex": 0,
+        "phrase": "overruled",
+        "charOffset": 36302
+      },
+      "evidence": "the 2015 Amendment Act has legislatively overruled the dictum of Patel Engg.",
+      "passage": "ction 34 application 18 [2026] 3 S.C.R.Supreme Court Reports that the order of the Section 11 court did not have any precedential value and hence the order will not be binding is in the teeth of the judgment in SBP (supra). LEGAL POSITION FROM 23.10.2015: - 23. The scenario would have been totally different if the 2015 (Amendment) Act had applied to the arbitral proceedings. The scope of the inquiry has been clarified in In re Interplay Between Arbitration Agreements under Arbitration and Conciliation Act, 1996 & Stamp Act, 18995, in the following terms : - “164. The 2015 Amendment Act has laid down different parameters for judicial review under Section 8 and Section 11. Where Section 8 requires the Referral Court to look into the prima facie existence of a valid arbitration agreement, Section 11 confines the Court’s jurisdiction to the examination of the existence of an arbitration agreement. Although the object and purpose behind both Sections 8 and 11 is to compel parties to abide by their contractual understanding, the scope of power of the Referral Courts under the said provisions is intended to be different. The same is also evident from the fact that Section 37 of the Arbitration Act allows an appeal from the order of an Arbitral Tribunal refusing to refer the parties to arbitration under Section 8, but not from Section 11. Thus, the 2015 Amendment Act has legislatively overruled the dictum of Patel Engg. [SBP & Co. v. Patel Engg. Ltd., (2005) 8 SCC 618] where it was held that Section 8 and Section 11 are complementary in nature. Accordingly, the two provisions cannot be read as laying down a similar standard. 165. The legislature confined the scope of reference under Section 11(6-A) to the examination of the existence of an arbitration agreement. The use of the term “examination” in itself connotes that the scope of the power is limited to a prima facie determination. 5 (2024) 6 SCC 1 [2026] 3 S.C.R. 19M/s Eminent Colonizers Private Limited v. Rajasthan Housing Board and Ors. Since the Arbitration Act is a self-contained code, the requirement of “existence” of an arbitration agreement draws effect from Section 7 of the Arbitration Act. In Duro Felguera ["
+    },
+    {
+      "id": "interstate2025-slarora-third-party",
+      "target": "Hyder Consulting (UK) Ltd.",
+      "expected": "unknown",
+      "control": "negative-third-party-report",
+      "labelBasis": "text-derived",
+      "note": "Hyder Consulting is the OVERRULING court. Naive matching inverts the edge and reports Hyder as overruled.",
+      "source": {
+        "judgmentId": "20525753",
+        "title": "M/S INTERSTATE CONSTRUCTION versus NATIONAL PROJECTS CONSTRUCTION CORPORATION LTD.",
+        "citation": "[2025] 5 S.C.R. 2106",
+        "year": 2025,
+        "bodyChars": 44127,
+        "windowIndex": 0,
+        "phrase": "overruled",
+        "charOffset": 41733
+      },
+      "evidence": "the judgment in S.L. Arora (supra) has since been overruled by a three-Judge Bench of this Court in Hyder Consulting (UK) Ltd. (supra)",
+      "passage": "that it was not possible to agree with the conclusion in S.L. Arora (supra) that Section 31(7) of the 1996 Act does not require that interest which accrues till the date of the award be included in the sum from the date of the award for calculating the post-award interest. Justice Bobde (as His Lordship then was) authoring the majority opinion was of the view that the conclusion reached in S.L. Arora (supra) did not seem to be in consonance with the clear language of Section 31(7) of the 1996 Act. Hyder Consulting (UK) Ltd. (supra) declared that S.L. Arora (supra) was wrongly decided in that it held that a sum directed to be paid by an arbitral tribunal and the reference to the award on the substantive claim did not refer to interest pendente lite awarded on the sum directed to be paid upon award and that in the absence of 4 (2010) 3 SCC 690 5 (2015) 2 SCC 189 2126 [2025] 5 S.C.R.Supreme Court Reports any provision of interest upon interest in the contract, the arbitral tribunal did not have the power to award interest upon interest or compound interest either for the pre-award period or for the post- award period. It has been clarified that the ‘sum’ includes the principal as adjudged together with the interest granted. 41. A three-Judge Bench of this Court in UHL Power Company Ltd. Vs. State of Himachal Pradesh6 declared that the judgment in S.L. Arora (supra) has since been overruled by a three-Judge Bench of this Court in Hyder Consulting (UK) Ltd. (supra). The majority view in Hyder Consulting (UK) Ltd. (supra) is that post-award interest can be granted by an arbitrator on the interest amount awarded. 42. This view was reiterated by this Court in subsequent decisions (please see Delhi Airport Metro Express Private Ltd. Vs. Delhi Metro Rail Corporation7 and Morgan Securities and Credits Private Ltd. Vs. Videocon Industries Limited 8). 43. Finally, in S.A. Builders (supra), this Bench after a thorough analysis of Section 31(7)(a) and Section 31(7)(b) of the 1996 Act came to the following conclusion: 38. Natural corollary to the above analysis would be that the ‘sum’ so awarded by the arbitral tribunal which may include interest from the date when the cause of"
+    },
+    {
+      "id": "renuka2025-athappa-third-party",
+      "target": "Pulukuri Kottaya",
+      "expected": "unknown",
+      "control": "negative-third-party-report",
+      "labelBasis": "text-derived",
+      "note": "Pulukuri Kottaya is affirmed; Athappa Goundan is what was overruled. Nearest-name binding gets this backwards.",
+      "source": {
+        "judgmentId": "20525180",
+        "title": "RENUKA PRASAD versus THE STATE REPRESENTED BY ASSISTANT SUPERINTENDENT OF POLICE",
+        "citation": "[2025] 7 S.C.R. 160",
+        "year": 2025,
+        "bodyChars": 69123,
+        "windowIndex": 0,
+        "phrase": "overruled",
+        "charOffset": 63288
+      },
+      "evidence": "the decision in Pulukuri Kottaya5 , of the Privy Council, affirmed and reaffirmed by the Supreme Court of India, in which, the Full Bench decision of the Madras High Court in Athappa Goundan12, relied on in the impugned judgment, had been overruled",
+      "passage": " and effect of Section 27 and Section 30, we cannot but reiterate the caution expressed in Pandurang Kalu Patil19 wherein was impugned a judgment of a Division Bench of the High Court of Bombay which disagreed with the ratio in Pulukuri Kottaya5. In that context this Court referred to the judgment in State v. Chhaganlal Gangaram Lavar23 and an extract was made from page 6 paragraph 10 which is as below: “So long as the Supreme Court does not take a different view from the view taken by the Privy Council, the decisions of the Privy Council are still binding upon us, and when we say that the decisions of the Privy Council are binding upon us, what is binding is not merely the point actually decided but an opinion expressed by the Privy Council, which opinion is expressed after careful consideration of all the arguments and which is deliberately and advisedly given.” 44. It was held that Pulukuri Kottaya5 was considered and tested by this Court time and again and on all such occasions, its ratio was re-affirmed, lately, as we noticed in Navjot Sandhu14. The attention of the Division Bench of the High Court of Karnataka obviously was not drawn to the decision in Pulukuri Kottaya5 , of the Privy Council, affirmed and reaffirmed by the Supreme Court of India, in which, the Full Bench decision of the Madras High Court in Athappa Goundan12, relied on in the impugned judgment, had been overruled. 45. In the present case, we have already held that the confession under Section 27 cannot be relied upon and there is no question of any aid being drawn from it to implicate the other accused. As far as the sites pointed out by A1, we have found that it did not lead to any discovery of a fact and it is hit by Section 25 & 26 of the Evidence Act. 46. We cannot but observe that the judgment of the High Court reversing the order of acquittal of the Trial Court proceeds on mere surmises 23 1954 SCC OnLine Bom 69 [2025] 7 S.C.R. 187Renuka Prasad v. The State Represented by Assistant Superintendent of Police and conjectures relying wholly on the testimony of the Investigating Officers, who merely regurgitated the statements recorded under Section 161 and the voluntary statements of th"
+    },
+    {
+      "id": "glas2024-kamal-singh-per-incuriam",
+      "target": "Kamal K. Singh v. Dinesh Gupta",
+      "expected": "overruled",
+      "control": "positive",
+      "labelBasis": "text-derived",
+      "note": "Reporter verdict list, adverse. per incuriam is treated as overruled for good-law purposes.",
+      "source": {
+        "judgmentId": "20524386",
+        "title": "GLAS TRUST COMPANY LLC  versus BYJU RAVEENDRAN & ORS.",
+        "citation": "[2024] 10 S.C.R. 1802",
+        "year": 2024,
+        "bodyChars": 115775,
+        "windowIndex": 0,
+        "phrase": "per incuriam",
+        "charOffset": 9539
+      },
+      "evidence": "Kamal K. Singh v. Dinesh Gupta (2022) 8 SCC 33; Ashok G. Rajani v. Beacon Trusteeship Ltd [2022] 18 SCR 133 : 2022 SCC OnLine SC 1275 – held per incuriam.",
+      "passage": "ed, whether a mere technicality which can be dispensed with: Held: No – The fact that the application is to be submitted by the IRP rather than the parties themselves is not a distinction without difference – Once the application is admitted and CIRP is initiated, it is the IRP who takes charge of the affairs of the corporate debtor – The proceedings become collective proceedings and the interests of the former management of the corporate debtor, become disjunct from the interest of the corporate debtor – Therefore, the parties (such as the former management of the corporate debtor) must submit their application for withdrawal through the IRP who is now the person in control of the insolvency proceedings – NCLT conducts an adjudicatory exercise when the application for withdrawal is placed before it and the procedure is not a mere technicality. [Para 66] Insolvency and Bankruptcy Code, 2016 – Chapter II – ss.7, 9, 10 – Insolvency and Bankruptcy (Second Amendment) Act, 1806 [2024] 10 S.C.R.Digital Supreme Court Reports 2018 – s.12A – CIRP Regulations 2016 – Regulation 30A – Insolvency and Bankruptcy (Application to Adjudicating Authority) Rules, 2016 – r.8 – Withdrawal and settlement of claims – Evolution of law – Discussed. Case Law Cited Kamal K. Singh v. Dinesh Gupta (2022) 8 SCC 33; Ashok G. Rajani v. Beacon Trusteeship Ltd [2022] 18 SCR 133 : 2022 SCC OnLine SC 1275 – held per incuriam. Abhishek Singh v. Huhtamaki PPL Limited [2023] 4 SCR 596 : 2023 SCC Online SC 349 – distinguished. Swiss Ribbons (P) Ltd. v. Union of India [2019] 3 SCR 535 : (2019) 4 SCC 17 – relied on. Arun Kumar Jagatramka v Jindal Steel & Power Ltd [2021] 3 SCR 114 : (2021) 7 SCC 474; Indus Biotech (P) Ltd. v. Kotak India Venture (Offshore) Fund [2021] 7 SCR 112 : (2021) 6 SCC 436; Lokhandwala Kataria Construction (P) Ltd. v. Nisus Finance and Investment Managers LLP (2018) 15 SCC 589; Mothers Pride Dairy India Private Limited v. Portrait Advertising and Marketing Private Limited 2017 SCC OnLine SC 1789; Uttara Foods & Feeds (P) Ltd. v. Mona Pharmachem (2018) 15 SCC 587; Brilliant Alloy Private Limited v. S Rajagopal and Ors (2022) 2 SCC 544; Ram Chand and Sons Sugar Mills (P) Ltd. v. Ka"
+    },
+    {
+      "id": "glas2024-swiss-ribbons-relied-on",
+      "target": "Swiss Ribbons (P) Ltd. v. Union of India",
+      "expected": "unknown",
+      "control": "negative-relied-on",
+      "labelBasis": "text-derived",
+      "note": "Relied on, two lines below a 'held per incuriam' marker in the same block.",
+      "source": {
+        "judgmentId": "20524386",
+        "title": "GLAS TRUST COMPANY LLC  versus BYJU RAVEENDRAN & ORS.",
+        "citation": "[2024] 10 S.C.R. 1802",
+        "year": 2024,
+        "bodyChars": 115775,
+        "windowIndex": 0,
+        "phrase": "per incuriam",
+        "charOffset": 9539
+      },
+      "evidence": "Swiss Ribbons (P) Ltd. v. Union of India [2019] 3 SCR 535 : (2019) 4 SCC 17 – relied on.",
+      "passage": "ed, whether a mere technicality which can be dispensed with: Held: No – The fact that the application is to be submitted by the IRP rather than the parties themselves is not a distinction without difference – Once the application is admitted and CIRP is initiated, it is the IRP who takes charge of the affairs of the corporate debtor – The proceedings become collective proceedings and the interests of the former management of the corporate debtor, become disjunct from the interest of the corporate debtor – Therefore, the parties (such as the former management of the corporate debtor) must submit their application for withdrawal through the IRP who is now the person in control of the insolvency proceedings – NCLT conducts an adjudicatory exercise when the application for withdrawal is placed before it and the procedure is not a mere technicality. [Para 66] Insolvency and Bankruptcy Code, 2016 – Chapter II – ss.7, 9, 10 – Insolvency and Bankruptcy (Second Amendment) Act, 1806 [2024] 10 S.C.R.Digital Supreme Court Reports 2018 – s.12A – CIRP Regulations 2016 – Regulation 30A – Insolvency and Bankruptcy (Application to Adjudicating Authority) Rules, 2016 – r.8 – Withdrawal and settlement of claims – Evolution of law – Discussed. Case Law Cited Kamal K. Singh v. Dinesh Gupta (2022) 8 SCC 33; Ashok G. Rajani v. Beacon Trusteeship Ltd [2022] 18 SCR 133 : 2022 SCC OnLine SC 1275 – held per incuriam. Abhishek Singh v. Huhtamaki PPL Limited [2023] 4 SCR 596 : 2023 SCC Online SC 349 – distinguished. Swiss Ribbons (P) Ltd. v. Union of India [2019] 3 SCR 535 : (2019) 4 SCC 17 – relied on. Arun Kumar Jagatramka v Jindal Steel & Power Ltd [2021] 3 SCR 114 : (2021) 7 SCC 474; Indus Biotech (P) Ltd. v. Kotak India Venture (Offshore) Fund [2021] 7 SCR 112 : (2021) 6 SCC 436; Lokhandwala Kataria Construction (P) Ltd. v. Nisus Finance and Investment Managers LLP (2018) 15 SCC 589; Mothers Pride Dairy India Private Limited v. Portrait Advertising and Marketing Private Limited 2017 SCC OnLine SC 1789; Uttara Foods & Feeds (P) Ltd. v. Mona Pharmachem (2018) 15 SCC 587; Brilliant Alloy Private Limited v. S Rajagopal and Ors (2022) 2 SCC 544; Ram Chand and Sons Sugar Mills (P) Ltd. v. Ka"
+    },
+    {
+      "id": "glas2024-abhishek-singh-distinguished",
+      "target": "Abhishek Singh v. Huhtamaki PPL Limited",
+      "expected": "unknown",
+      "control": "negative-relied-on",
+      "labelBasis": "text-derived",
+      "note": "Distinguished is neutral. It sits between an adverse marker and a favourable one.",
+      "source": {
+        "judgmentId": "20524386",
+        "title": "GLAS TRUST COMPANY LLC  versus BYJU RAVEENDRAN & ORS.",
+        "citation": "[2024] 10 S.C.R. 1802",
+        "year": 2024,
+        "bodyChars": 115775,
+        "windowIndex": 0,
+        "phrase": "per incuriam",
+        "charOffset": 9539
+      },
+      "evidence": "Abhishek Singh v. Huhtamaki PPL Limited [2023] 4 SCR 596 : 2023 SCC Online SC 349 – distinguished.",
+      "passage": "ed, whether a mere technicality which can be dispensed with: Held: No – The fact that the application is to be submitted by the IRP rather than the parties themselves is not a distinction without difference – Once the application is admitted and CIRP is initiated, it is the IRP who takes charge of the affairs of the corporate debtor – The proceedings become collective proceedings and the interests of the former management of the corporate debtor, become disjunct from the interest of the corporate debtor – Therefore, the parties (such as the former management of the corporate debtor) must submit their application for withdrawal through the IRP who is now the person in control of the insolvency proceedings – NCLT conducts an adjudicatory exercise when the application for withdrawal is placed before it and the procedure is not a mere technicality. [Para 66] Insolvency and Bankruptcy Code, 2016 – Chapter II – ss.7, 9, 10 – Insolvency and Bankruptcy (Second Amendment) Act, 1806 [2024] 10 S.C.R.Digital Supreme Court Reports 2018 – s.12A – CIRP Regulations 2016 – Regulation 30A – Insolvency and Bankruptcy (Application to Adjudicating Authority) Rules, 2016 – r.8 – Withdrawal and settlement of claims – Evolution of law – Discussed. Case Law Cited Kamal K. Singh v. Dinesh Gupta (2022) 8 SCC 33; Ashok G. Rajani v. Beacon Trusteeship Ltd [2022] 18 SCR 133 : 2022 SCC OnLine SC 1275 – held per incuriam. Abhishek Singh v. Huhtamaki PPL Limited [2023] 4 SCR 596 : 2023 SCC Online SC 349 – distinguished. Swiss Ribbons (P) Ltd. v. Union of India [2019] 3 SCR 535 : (2019) 4 SCC 17 – relied on. Arun Kumar Jagatramka v Jindal Steel & Power Ltd [2021] 3 SCR 114 : (2021) 7 SCC 474; Indus Biotech (P) Ltd. v. Kotak India Venture (Offshore) Fund [2021] 7 SCR 112 : (2021) 6 SCC 436; Lokhandwala Kataria Construction (P) Ltd. v. Nisus Finance and Investment Managers LLP (2018) 15 SCC 589; Mothers Pride Dairy India Private Limited v. Portrait Advertising and Marketing Private Limited 2017 SCC OnLine SC 1789; Uttara Foods & Feeds (P) Ltd. v. Mona Pharmachem (2018) 15 SCC 587; Brilliant Alloy Private Limited v. S Rajagopal and Ors (2022) 2 SCC 544; Ram Chand and Sons Sugar Mills (P) Ltd. v. Ka"
+    },
+    {
+      "id": "celir2024-highcourt-order",
+      "target": "Celir LLP v. Sumati Prasad Bafna",
+      "expected": "unknown",
+      "control": "negative-submission",
+      "labelBasis": "text-derived",
+      "note": "Counsel recounting what an earlier order did ('overruled the impugned order of the High Court'). The object is an order, not a reported authority, and the frame is a submission.",
+      "source": {
+        "judgmentId": "20524982",
+        "title": "CELIR LLP versus MR. SUMATI PRASAD BAFNA & ORS.",
+        "citation": "[2024] 12 S.C.R. 1618",
+        "year": 2024,
+        "bodyChars": 281406,
+        "windowIndex": 0,
+        "phrase": "overruled",
+        "charOffset": 100874
+      },
+      "evidence": "He submitted that in the said decision",
+      "passage": "ined under Article 300A of the Constitution. 97. He submitted that the entire gamut of proceedings before this Court in the Main Appeals have emanated from an interlocutory application filed in S.A. No. 46 of 2022 and that the very substantive 1660 [2024] 12 S.C.R.Supreme Court Reports and procedural aspects relating to the Bank’s measures the under SARFAESI Act and Rules thereunder are still pending adjudication. 98. In the last, Mr. Sibal submitted that the Subsequent Transferee had to borrow significant amount for purchasing the Secured Asset from its financiers who now have the title deeds to the property as security against the loan taken by it. He submitted that if the reliefs sought by the petitioner are granted grave prejudice and hardship would be caused to the Subsequent Transferee. Accordingly he prayed that the present contempt petition and the miscellaneous applications be dismissed and the Subsequent Transferee be permitted to pursue the S.A. No. 46 of 2022 pending before the DRT. iv. Submissions of the Bank/the respondent no. 3. 99. Mr. Raju Ramachandran, the learned Senior Counsel appearing for the Bank submitted that this Court in its decision in the Main Appeals categorically held that under the amended Section 13(8) of SARFAESI Act, the right of the borrower to redeem a secured asset stands extinguished on the date of publication of public auction notice and overruled the impugned order of the High Court that had allowed the Borrower to redeem the mortgage. 100. He submitted that in the said decision, this Court not only held the redemption of mortgage after auction notice as unlawful but also confirmed the right of the auction purchaser to the Secured Asset and directed the refund of the entire amount paid by the Borrower towards redemption, and further directed the Bank to issue the sale certificate in favour of the petitioner in accordance with Rule 9(6) of the SARFAESI Rules upon payment of an additional amount of Rs. 23.5 crore by it. 101. He submitted that the implied effect of this decision is that the Release Deed executed by the Bank and the Assignment Agreement executed by the Borrower had to be cancelled and the original title deeds"
+    },
+    {
+      "id": "sushila2020-mhetre-solicitor-submission",
+      "target": "Siddharam Satlingappa Mhetre v. State of Maharashtra",
+      "expected": "unknown",
+      "control": "negative-submission",
+      "labelBasis": "text-derived",
+      "note": "Same judgment, same authority, but this passage is the Solicitor General's submission. Mhetre IS overruled later — so an honest harness must score THIS passage as no-finding while scoring window 29 as a finding. Tests that the veto is passage-local, not authority-global.",
+      "source": {
+        "judgmentId": "20521098",
+        "title": null,
+        "citation": null,
+        "year": null,
+        "bodyChars": 314022,
+        "windowIndex": 23,
+        "phrase": "overruled",
+        "charOffset": 212206
+      },
+      "evidence": "submitted that the decision in Mhetre (supra) is erroneous and should be overruled",
+      "passage": " Parliament. Counsel submitted that besides, the discretion of courts empowered to grant anticipatory bail should be understood as balancing the right to liberty and the public interest in a fair and objective investigation. Therefore, such orders should be so fashioned as to ensure that accused individuals co-operate during investigations and assist in the process of recovery of suspect or incriminating material, which they may lead the police to discover or recover and which is admissible, during the trial, per Section 27 of the Evidence Act. He submitted that if these concerns are taken into account, the declaration of law in Mhetre – particularly in Paras 122 and 123 that no condition can be imposed by court, in regard to applications for anticipatory bail, is erroneous; it is contrary to Para 42 and 43 of the declaration of law in Sibbia’s case (supra). It was emphasized that ever since the decision in Salauddin and other subsequent judgments which followed it, the practise of courts generally was to impose conditions while granting anticipatory bail: especially conditions which required the applicant/ accused to apply for bail after 90 days, or surrender once the charge sheet was filed, and apply for regular bail. Counsel relied on Section 437(3) to say that the conditions spelt out in that provision are to be considered, while granting anticipatory bail, by virtue of Section 438(2). 32. Mr. Tushar Mehta, learned Solicitor General and Mr. Vikramjit Banerjee, learned Additional Solicitor General, submitted that the decision in Mhetre (supra) is erroneous and should be overruled. It was submitted that though Section 438 does not per se pre-suppose imposition of conditions for grant of anticipatory bail, nevertheless, given Section 438(2) and Section 437(3), various factors must be taken into account. Whilst exercising power to grant (or refuse) a direction in the nature of anticipatory bail, the court is bound to strike a balance between the A B C D E F G H 91 individual’s right to personal freedom and the right of investigation of the police. For this purpose, in granting relief under Section 438(1), appropriate conditions can be imposed under Section 438(2) to ensure an unimpeded investigation. The object of imposing conditions is to avoid the possibility of the person or accused hampering investigation. Thus, any condition, which has no reference to the fairness or propriety of the investigation or trial, cannot be countenanced as permissible under "
+    },
+    {
+      "id": "sushila2020-salauddin-counsel-per-incuriam",
+      "target": "Salauddin Abdulsamad Shaikh v. State of Maharashtra",
+      "expected": "unknown",
+      "control": "negative-submission",
+      "labelBasis": "text-derived",
+      "note": "Counsel's per incuriam submission, recorded verbatim by the Court.",
+      "source": {
+        "judgmentId": "20521098",
+        "title": null,
+        "citation": null,
+        "year": null,
+        "bodyChars": 314022,
+        "windowIndex": 21,
+        "phrase": "per incuriam",
+        "charOffset": 73244
+      },
+      "evidence": "It is submitted that the decision of this Court in Salauddin Abdulsamad Shaikh (supra) and subsequent judgments following Salauddin Abdulsamad Shaikh (supra) are all per incuriam",
+      "passage": "y by the Magistrate during the stage of inquiry, if he considers it necessary to do so at the stage of the submission of the final report/ charge sheet or committal proceedings. It is submitted that it is imperative therefore that if the accused takes pre-arrest bail during the earlier state of criminal investigation, the power of the Magistrate under the said provisions of Cr.P.C. should be maintained including the power of the Magistrate to send the accused to the custody. 6. Shri C.S.N. Mohan Rao, learned Advocate appearing on behalf of respondent no.2 has vehemently submitted that the Constitution Bench judgment in Gurbaksh Singh Sibbia (supra) has dealt with various aspects of anticipatory bail and preserved the discretionary power granted by the legislature on the courts while considering application for anticipatory bail. It is submitted that the Constitution Bench has refused to impose any limitation or conditions, which are not imposed by the Parliament. 6.1 It is further submitted by the learned Counsel appearing on behalf of respondent no.2 that the decision of the Constitution Bench regarding duration of anticipatory bail is not called in question by any judgment. It is submitted that there is a clear conflict regarding the duration of anticipatory bail as enunciated by the Constitution Bench and the order in Salauddin Abdulsamad Shaikh (supra), which was followed in number of subsequent judgments. It is submitted that the decision of this Court in Salauddin Abdulsamad Shaikh (supra) and subsequent judgments following Salauddin Abdulsamad Shaikh (supra) are all per incuriam. 6.2 It is further submitted by the learned Counsel appearing on behalf of respondent no.2 that as a normal rule, it is not required to limit the duration of anticipatory bail. It is submitted that however, court while A B C D E F G H 33 granting anticipatory bail may, keeping in view the peculiar facts and circumstances of the case, limit the duration of anticipatory bail. It is submitted that the life of anticipatory bail would not end on filing of charge sheet. 6.3 It is further submitted by the learned counsel appearing on behalf of respondent no.2 that both the questions of law framed for consideration by the larger Bench does not arise for consideration. It is submitted that considering the elaborate reasons given by the Constitution Bench in not putting any fetters or limitations on the discretionary power of a court to grant anticipatory bail and as there is no ambig"
+    },
+    {
+      "id": "sushila2020-larger-bench-reference",
+      "target": "Gurbaksh Singh Sibbia v. State of Punjab",
+      "expected": "unknown",
+      "control": "negative-different-case",
+      "labelBasis": "text-derived",
+      "note": "'referred to a larger Bench' is a DOUBTED phrase, and Sibbia is the nearest name. But the reference concerns the issues, not Sibbia's correctness — Sibbia is being applied.",
+      "source": {
+        "judgmentId": "20521098",
+        "title": null,
+        "citation": null,
+        "year": null,
+        "bodyChars": 314022,
+        "windowIndex": 22,
+        "phrase": "referred to a larger Bench",
+        "charOffset": 77189
+      },
+      "evidence": "While considering the issues referred to a larger Bench, referred to hereinabove, the decision of the Constitution Bench of this Court in Gurbaksh Singh Sibbia (supra) is required to be referred to and considered in detail",
+      "passage": "under Section 438 of the Cr.P.C. vests only with the Court of Sessions or the High Court. Therefore, ultimately it is for the concerned court to consider the application for “anticipatory bail” and while granting the “anticipatory bail” it is ultimately for the concerned court to impose SUSHILA AGGARWAL v. STATE (NCT OF DELHI) [M. R. SHAH, J.] A B C D E F G H 34 SUPREME COURT REPORTS [2020] 2 S.C.R. conditions including the limited period of “anticipatory bail”, depends upon the stages at which the application for anticipatory bail is moved. A person in whose favour a pre-arrest bail order is made under Section 438 of the Cr.P.C. has to be arrested. However, once there is an order of pre-arrest bail/anticipatory bail, as and when he is arrested he has to be released on bail. Otherwise, there is no distinction or difference between the pre-arrest bail order under Section 438 and the bail order under Section 437 & 439 of the Cr.P.C. The only difference between the pre-arrest bail order under Section 438 and the bail order under Sections 437 and 439 is the stages at which the bail order is passed. The bail order under Section 438 of the Cr.P.C. is prior to his arrest and in anticipation of his arrest and the order of bail under Sections 437 and 439 is after a person is arrested. A bare reading of Section 438 of the Cr.P.C. shows that there is nothing in the language of the Section which goes to show that the pre-arrest bail granted under Section 438 has to be time bound. The position is the same as in Section 437 and Section 439 of the Cr.P.C. 7.2 While considering the issues referred to a larger Bench, referred to hereinabove, the decision of the Constitution Bench of this Court in Gurbaksh Singh Sibbia (supra) is required to be referred to and considered in detail. The matter before the Constitution Bench in the case of Gurbaksh Singh Sibbia (supra) was arising out of the decision of the Full Bench of the Punjab and Haryana High Court. The High Court rejected the application for bail after summarising, what according to it was the true legal position, thus, “(1) The power under Section 438, Criminal Procedure Code, is of an extraordinary character and must be exercised sparingly in exceptional cases only; (2) Neither Section 438 nor any other provision of the Code authorises the grant of blanket anticipatory bail for offences not yet committed or with regard to accusations not so far levelled. (3) The said power is not unguided or uncanalised but all the li"
+    },
+    {
+      "id": "aligarh2024-dawoodi-bohra-correct",
+      "target": "Central Board of Dawoodi Bohra Community v. State of Maharashtra",
+      "expected": "unknown",
+      "control": "negative-different-case",
+      "labelBasis": "text-derived",
+      "note": "'requires reconsideration' appears in the same window as an abstract statement of doctrine; Dawoodi Bohra is affirmed as correct.",
+      "source": {
+        "judgmentId": "20524655",
+        "title": "ALIGARH MUSLIM UNIVERSITY versus NARESH AGARWAL & ORS.",
+        "citation": "[2024] 11 S.C.R. 1647",
+        "year": 2024,
+        "bodyChars": 500066,
+        "windowIndex": 3,
+        "phrase": "requires reconsideration",
+        "charOffset": 36456
+      },
+      "evidence": "The position of law laid down in Central Board of Dawoodi Bohra Community is correct",
+      "passage": " Chandrachud, CJI (for himself, Sanjiv Khanna, J.B. Pardiwala and Manoj Misra, JJ.)]: 1. In Central Board of Dawoodi Bohra Community, a Constitution Bench discussed the legal precepts which apply to orders of reference and reiterated the position of law as below:- a. Decisions of this Court rendered by a Bench of larger strength are binding on Benches of a less or equal strength; b. If a Bench of lower strength is doubtful about the correctness of a judgment delivered by a Bench of larger strength, it cannot disagree or dissent from the view taken by the larger Bench – In case of doubt, it can invite the attention of the Chief Justice of India to its opinion and request the Chief Justice to list the matter before a Bench, the strength of which is greater than that which delivered the judgment which has been doubted; c. The correctness of the view taken by any Bench can only be doubted by a Bench of equal strength – The matter will then be placed for hearing before a Bench of greater strength; d. There are two exceptions to the rules: i. The discretion of the Chief Justice is not bound by the rules – As the master of the roster, the Chief Justice may list any case before any Bench of any strength; ii. Despite the rules, if a particular case has come up for hearing before a Bench of larger strength and that Bench is of the opinion that the judgment of the Bench of lower strength requires reconsideration or correction, or is otherwise doubtful of its correctness, it may dispense with the need for a [2024] 11 S.C.R. 1663Aligarh Muslim University v. Naresh Agarwal & Ors. reference in the terms described above or an order of the Chief Justice and hear the matter for reasons given by it. [Para 37] 2. The position of law laid down in Central Board of Dawoodi Bohra Community is correct – Decisions of a larger Bench are binding precedent, and judicial discipline and propriety dictate that Benches of lower strength must adhere to such decisions – This will also avoid inconsistencies in the development of law – Questions concerning the correctness of judgments must ordinarily be referred only by a Bench which is equal in strength to the Bench whose judgment is doubted – We "
+    },
+    {
+      "id": "aligarh2024-azeez-basha-doubted",
+      "target": "Azeez Basha",
+      "expected": "doubted",
+      "control": "positive",
+      "labelBasis": "text-derived",
+      "note": "A genuine doubted finding bound to the named authority. Doubt must not escalate to overruled.",
+      "source": {
+        "judgmentId": "20524655",
+        "title": "ALIGARH MUSLIM UNIVERSITY versus NARESH AGARWAL & ORS.",
+        "citation": "[2024] 11 S.C.R. 1647",
+        "year": 2024,
+        "bodyChars": 500066,
+        "windowIndex": 4,
+        "phrase": "Doubting the correctness",
+        "charOffset": 37658
+      },
+      "evidence": "Doubting the correctness of the opinion in Azeez Basha, without disagreeing with it",
+      "passage": "any strength; ii. Despite the rules, if a particular case has come up for hearing before a Bench of larger strength and that Bench is of the opinion that the judgment of the Bench of lower strength requires reconsideration or correction, or is otherwise doubtful of its correctness, it may dispense with the need for a [2024] 11 S.C.R. 1663Aligarh Muslim University v. Naresh Agarwal & Ors. reference in the terms described above or an order of the Chief Justice and hear the matter for reasons given by it. [Para 37] 2. The position of law laid down in Central Board of Dawoodi Bohra Community is correct – Decisions of a larger Bench are binding precedent, and judicial discipline and propriety dictate that Benches of lower strength must adhere to such decisions – This will also avoid inconsistencies in the development of law – Questions concerning the correctness of judgments must ordinarily be referred only by a Bench which is equal in strength to the Bench whose judgment is doubted – We also agree with the two exceptions to this rule, as detailed by this Court in Central Board of Dawoodi Bohra Community – They must remain exceptions and not transmogrify into the rule itself. [Para 38] 3. The three issues which required an authoritative pronouncement in Anjuman-e-Rahmaniya, were not directly a point of contention in Azeez Basha – However, the decision would have a bearing on them – Doubting the correctness of the opinion in Azeez Basha, without disagreeing with it, the two-Judge Bench requested that the matter may be placed before the Chief Justice of India for being heard by a Bench of seven Judges – This falls within the permissible limits laid down in Central Board of Dawoodi Bohra Community – Further, the Solicitor General has also stated that he is not pressing the Union’s preliminary objection – The order of reference dated 12 February 2019 (wherein a three-Judge Bench of this Court observed that the correctness of the question arising from the decision in Azeez Basha was unanswered, and then referred the matter to a seven-Judge Bench), too, noted that although a three-Judge Bench could not ordinarily refer a case directly to a seven-Judge Bench, it was doing s"
+    },
+    {
+      "id": "aligarh2024-anjuman-doubting",
+      "target": "Anjuman-e-Rahmaniya",
+      "expected": "unknown",
+      "control": "negative-third-party-report",
+      "labelBasis": "text-derived",
+      "note": "Anjuman is the DOUBTING bench, not the doubted authority. Inverted-edge control for the doubted verb.",
+      "source": {
+        "judgmentId": "20524655",
+        "title": "ALIGARH MUSLIM UNIVERSITY versus NARESH AGARWAL & ORS.",
+        "citation": "[2024] 11 S.C.R. 1647",
+        "year": 2024,
+        "bodyChars": 500066,
+        "windowIndex": 5,
+        "phrase": "doubting the correctness",
+        "charOffset": 40959
+      },
+      "evidence": "the reference by a two-judge bench in Anjuman doubting the correctness of the five-judge bench in Azeez Basha",
+      "passage": "he well-established principles based upon doctrines of predictability, consistency, finality and the principle of stare decisis – The two-judge bench in Anjuman, ought to have understood and applied the law, consistent with these principles – The two-judge bench in Anjuman being of lesser strength than the five-judge bench in Azeez Basha, lacked the authority to explicitly question the correctness of Azeez Basha and refer the matter to a seven-judge bench. [Para 93] 1.3. In Anjuman, the bench not only referred the matter but also specified the numerical strength of the bench to which it should be referred, with a further direction that the matter be placed before the Chief Justice for the limited purpose of notifying the composition of the seven-judge bench – This effectively impaired the Chief Justice’s authority as the master of the roster – Allowing such a practice would enable benches of lesser strength, such as a two-judge bench, to undermine the decisions of larger benches, potentially even an eleven-judge bench – This would also place the Chief Justice in an untenable position, who would be bound by a judicial order while acting in an administrative role, leading to procedural complications and embarrassment. [Para 94] 2. There is no substantial difference between ‘doubting’ or ‘disagreeing’ with a judgement – That being so, the reference by a two-judge bench in Anjuman doubting the correctness of the five-judge bench in Azeez Basha and referring it to a [2024] 11 S.C.R. 1665Aligarh Muslim University v. Naresh Agarwal & Ors. seven-judge bench suffers from multiple illegalities, including judicial impropriety. [Para 192(c)] 3. In view of the dictum of the Constitution Bench in Dawoodi Bohra, a two-judge bench has no authority whatsoever to doubt or disagree with a judgement of the larger bench, and directly refer the matter to a bench having a numerically greater strength than the matter so doubted – The reference by the two judge bench in Anjuman is nothing but a challenge to the authority of the Chief Justice of India being the master of the roster and in derogation of the special powers enjoyed upon under Article 145 of the Constitution read with Order "
+    },
+    {
+      "id": "aalamgir2025-sree-balaji-quoted",
+      "target": "Sree Balaji Nagar Residential Assn. v. State of T.N.",
+      "expected": "unknown",
+      "control": "negative-quotation",
+      "labelBasis": "text-derived",
+      "note": "Named and genuinely overruled — but by Indore Development Authority, in text this 2025 judgment is quoting. The edge belongs to Indore.",
+      "source": {
+        "judgmentId": "20525602",
+        "title": "STATE OF HARYANA & OTHERS versus AALAMGIR & OTHERS",
+        "citation": "[2025] 3 S.C.R. 1460",
+        "year": 2025,
+        "bodyChars": 40886,
+        "windowIndex": 2,
+        "phrase": "is overruled",
+        "charOffset": 26970
+      },
+      "evidence": "The decision in Sree Balaji Nagar Residential Assn.",
+      "passage": "re also raised under sub-section (2) of Section 24 of the 2013 Act before the High Court. 4. At this stage, it is necessary to note that this Court, in the case of Pune Municipal Corporation vs. Harakchand Misirimal Solanki, (2014) 3 SCC 183 (“Pune Municipal Corporation”) had interpreted sub-section (2) of Section 24 of the 2013 Act by granting relief on the basis of the said interpretation. Thereafter, the matter was considered by a five-Judge Bench of this Court which was the case of Indore Development Authority vs. Manoharlal, (2020) 8 SCC [2025] 3 S.C.R. 1475State of Haryana & Others v. Aalamgir & Others 129 (“Indore Development Authority”), which set aside the earlier judgment of this Court in Pune Municipal Corporation. Paragraphs 365 to 367 of the judgment in Indore Development Authority are extracted as under: “365. Resultantly, the decision rendered in Pune Municipal Corpn. [Pune Municipal Corpn. v. Harakchand Misirimal Solanki, (2014) 3 SCC 183 : (2014) 2 SCC (Civ) 274] is hereby overruled and all other decisions in which Pune Municipal Corpn. [Pune Municipal Corpn. v. Harakchand Misirimal Solanki, (2014) 3 SCC 183 : (2014) 2 SCC (Civ) 274] has been followed, are also overruled. The decision in Sree Balaji Nagar Residential Assn. [Sree Balaji Nagar Residential Assn. v. State of T.N., (2015) 3 SCC 353: (2015) 2 SCC (Civ) 298] cannot be said to be laying down good law, is overruled and other decisions following the same are also overruled. In Indore Development Authority v. Shailendra [Indore Development Authority v. Shailendra, (2018) 3 SCC 412 : (2018) 2 SCC (Civ) 426] , the aspect with respect to the proviso to Section 24(2) and whether “or” has to be read as “nor” or as “and” was not placed for consideration. Therefore, that decision too cannot prevail, in the light of the discussion in the present judgment. 366. In view of the aforesaid discussion, we answer the questions as under: 366.1. Under the provisions of Section 24(1)(a) in case the award is not made as on 1-1-2014, the date of commencement of the 2013 Act, there is no lapse of proceedings. Compensation has to be determined under the provisions of the 2013 Act. 366.2. In case the award has b"
+    },
+    {
+      "id": "gayatri2025-msp-partly-overruled",
+      "target": "MSP Infrastructure Ltd. v. M.P. Road Development Corp. Ltd.",
+      "expected": "unknown",
+      "control": "negative-third-party-report",
+      "labelBasis": "text-derived",
+      "note": "Reported inside a High Court judgment being recounted, and it is a PARTIAL overruling. Partial overruling is not boolean, which is one reason goodLaw 'good' cannot be asserted.",
+      "source": {
+        "judgmentId": "20525760",
+        "title": "M/S GAYATRI PROJECT LIMITED  versus MADHYA PRADESH ROAD DEVELOPMENT CORPORATION LIMITED",
+        "citation": "[2025] 5 S.C.R. 2534",
+        "year": 2025,
+        "bodyChars": 126970,
+        "windowIndex": 6,
+        "phrase": "overruled",
+        "charOffset": 41709
+      },
+      "evidence": "in Lion Engg. Consultants Vs. State of M.P. partly overruled MSP Infrastructure Ltd",
+      "passage": "he impugned judgment dated 07.01.2022 under Section 37 of the Act of 1996. The High Court held that the Tribunal lacked jurisdiction to adjudicate the disputes between the parties. The High Court, in effect, held that the exception carved out in L.G. Chaudhary (II) (supra), as reiterated in JMC Projects (supra), could not be relied upon as JMC Projects (supra) had not considered the 2554 [2025] 5 S.C.R.Supreme Court Reports law laid down by this Court in Lion Engineering (supra). Paras 21, 22 and 23 respectively of the impugned judgment dated 07.01.2022 are as under: - “21. Now, we shall consider the specific objection of the appellant regarding lack of objection on jurisdiction under Section 16(2) of the Act of 1996 before the arbitral tribunal in view of order dated 13.03.2018 in C.A. No. 2616 of 201810 and in M/s. JMC Projects (India) Ltd. 22. It is true that the Hon’ble Supreme Court in its order dated 13.03.2018 in C.A.No.2616 of 2018 has held that award cannot be annulled on the ground of lack of jurisdiction if the objection under Section 16(2) was not taken before the arbitral tribunal. This view was based on a decision of two judge bench of the Hon’ble Supreme Court in MSP Infrastructure Ltd. Vs. M.P. Road Development Corp. Ltd. 23. However, a bench of three-judges of the Hon’ble Supreme Court in a subsequent decision in Lion Engg. Consultants Vs. State of M.P. partly overruled MSP Infrastructure Ltd and held that the objection regarding lack of jurisdiction can be taken under Section 34 of the Act of 1996, even if no objection under Section 16(2) was taken before the arbitral tribunal. Thus, in view of the subsequent decision of the larger bench, this Court is of the view that the objection regarding lack of jurisdiction could have been taken before the learned trial Court under Section 34 of the Act of 1996, even though no such objection was taken before the arbitral tribunal under Section 16(2) of the Act. The Hon’ble Supreme Court in the matter of M/s. JMC Projects (India) Ltd. has not referred to the decision in the matter of Lion Engineers which was subsequent to the decision of C.A. No. 2616 of 2018. Hence, The learned trial Court acted in accord"
+    },
+    {
+      "id": "celir2024-res-judicata-doubted",
+      "target": "Henderson v. Henderson",
+      "expected": "unknown",
+      "control": "negative-quotation",
+      "labelBasis": "text-derived",
+      "note": "'doubted the correctness' whose object is a DOCTRINE, inside a quotation from an English authority. No named Indian authority is doubted.",
+      "source": {
+        "judgmentId": "20524982",
+        "title": "CELIR LLP versus MR. SUMATI PRASAD BAFNA & ORS.",
+        "citation": "[2024] 12 S.C.R. 1618",
+        "year": 2024,
+        "bodyChars": 281406,
+        "windowIndex": 1,
+        "phrase": "doubted the correctness",
+        "charOffset": 175724
+      },
+      "evidence": "Later decisions have doubted the correctness of treating the principle as an application of the doctrine of res judicata",
+      "passage": " public and private interests involved and also takes account of all the facts of the case, focusing attention on the crucial question whether, in all the circumstances, a party is misusing or abusing the process of the court by seeking to raise before it the issue which could have been raised before. As one cannot comprehensively list all possible forms of abuse, so one cannot formulate any hard and fast rule to determine whether, on given facts, abuse is to be found or not [...]” (Emphasis supplied) 1696 [2024] 12 S.C.R.Supreme Court Reports (ii) Lord Millett construing the Principle held that it does not belong to the doctrine of res-judicata in the strict sense but rather was analogous to the doctrine, as it goes a step further to encompass even those proceedings that either culminated into a settlement or issues which had never been adjudicated previously in order to protect the process of the court from abuse and the defendant from oppression. The relevant observations read as under: - “As the passages which I have emphasised indicate, Sir James Wigram V-C did not consider that he was laying down a new principle, but rather that he was explaining the true extent of the existing plea of res judicata. Thus he was careful to limit what he was saying to cases which had proceeded to judgment, and not, as in the present case, to an out of court settlement. Later decisions have doubted the correctness of treating the principle as an application of the doctrine of res judicata, while describing it as an extension of the doctrine or analogous to it … But these various defences [res judicata, issue or cause of action estoppel] are all designed to serve the same purpose : to bring finality to litigation and avoid the oppression of subjecting a defendant unnecessarily to successive actions. While the exact relationship between the principle expounded by Sir James Wigram V-C and the defences of res judicata and cause of action and issue estoppel may be obscure, I am inclined to regard it as primarily an ancillary and salutary principle necessary to protect the integrity of those defences and prevent them from being deliberately or inadvertently circumvented. In one res"
+    },
+    {
+      "id": "glas2024-ashok-rajani-per-incuriam-prose",
+      "target": "Ashok G. Rajani v. Beacon Trusteeship Ltd",
+      "expected": "overruled",
+      "control": "positive",
+      "labelBasis": "text-derived",
+      "note": "Prose per incuriam holding. The judgment's own finding, in its own voice ('In our view ... it would be per incuriam').",
+      "source": {
+        "judgmentId": "20524386",
+        "title": "GLAS TRUST COMPANY LLC  versus BYJU RAVEENDRAN & ORS.",
+        "citation": "[2024] 10 S.C.R. 1802",
+        "year": 2024,
+        "bodyChars": 115775,
+        "windowIndex": 1,
+        "phrase": "per incuriam",
+        "charOffset": 111532
+      },
+      "evidence": "The same infirmity is found in Ashok G. Rajani (supra)",
+      "passage": "e case of the respondents. 83. In Kamal Singh (supra), a two-judge bench of this Court passed a brief order setting aside an order of the NCLT, which dismissed an application filed under Rule 11 of the NCLT Rules 2016 for withdrawal of CIRP based on a settlement arrived at before the constitution of the CoC. This Court relied on the observations in para 82 of Swiss Ribbons (supra) referred to above, wherein this Court stated that at the stage when the CoC has not been constituted, the NCLT may exercise its inherent powers under Rule 11 to allow or disallow an application for withdrawal or settlement. It may be noted that there is no reference in this order to the prescribed procedure under Section 12A read with Regulation 30A, although the proceedings took place well after their insertion. As noted above, in response to the decision of this Court in Swiss Ribbons (supra), there was a change in the legal framework and Regulation 30A was amended to specifically provide for a procedure for withdrawal before the CoC is constituted. The intention was to account for the lacuna identified in Swiss Ribbons (supra) and at the same time, reduce the reliance on ‘inherent powers’ by prescribing a procedure for withdrawal at this stage. In our view, as the order overlooks the relevant legal provisions and fails to even refer to the existing legal framework under Regulation 30A, it would be per incuriam and is not binding on this Court. 84. The same infirmity is found in Ashok G. Rajani (supra), a judgement rendered by a two-judge bench of this Court. In this case, too, the petition filed by a creditor against a corporate debtor had been admitted, but the CoC had not been constituted. The decision refers to Section 12A of the IBC but fails to even acknowledge the amendment to Regulation 30A, which specifically provided for such an eventuality. Instead, this Court proceeded to hold while Section 12A of the IBC permits withdrawal after admission of the application by the creditor, it only provides for the procedure for withdrawal after the CoC has been constituted, without laying down a bar on withdrawal [2024] 10 S.C.R. 1853GLAS Trust Company LLC v. BYJU Raveendran & Ors. befo"
+    }
+  ]
+}

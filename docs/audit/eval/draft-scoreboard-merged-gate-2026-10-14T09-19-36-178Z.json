@@ -1,0 +1,74 @@
+{
+  "mergedAt": "2026-10-14T09:19:36.177Z",
+  "gateStage": "merge",
+  "fastScoreboard": "draft-scoreboard-2026-10-14T07-55-05-431Z.json",
+  "counselScoreboards": [
+    "draft-scoreboard-2026-10-14T09-18-17-793Z.json"
+  ],
+  "fastAvg": 71,
+  "counselAvg": 72,
+  "gateNeed": 76,
+  "gatePass": false,
+  "perCase": [
+    {
+      "caseId": "IN-BAIL-001",
+      "fast": 69,
+      "counsel": 67,
+      "delta": -2
+    },
+    {
+      "caseId": "IN-WS-001",
+      "fast": 69,
+      "counsel": 69,
+      "delta": 0
+    },
+    {
+      "caseId": "IN-NOTICE-001",
+      "fast": 77,
+      "counsel": 77,
+      "delta": 0
+    },
+    {
+      "caseId": "IN-SLP-001",
+      "fast": 69,
+      "counsel": 84,
+      "delta": 15
+    },
+    {
+      "caseId": "IN-WP-001",
+      "fast": 67,
+      "counsel": 67,
+      "delta": 0
+    },
+    {
+      "caseId": "IN-CA-001",
+      "fast": 68,
+      "counsel": 68,
+      "delta": 0
+    },
+    {
+      "caseId": "IN-IA-001",
+      "fast": 70,
+      "counsel": 70,
+      "delta": 0
+    },
+    {
+      "caseId": "IN-REVIEW-001",
+      "fast": 69,
+      "counsel": 69,
+      "delta": 0
+    },
+    {
+      "caseId": "IN-EXEC-001",
+      "fast": 70,
+      "counsel": 70,
+      "delta": 0
+    },
+    {
+      "caseId": "IN-AGREE-001",
+      "fast": 77,
+      "counsel": 77,
+      "delta": 0
+    }
+  ]
+}

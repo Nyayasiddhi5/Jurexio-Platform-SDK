@@ -1,0 +1,77 @@
+# node_modules/  (intentionally tracked - see 2026-08-26 decision)
+dist/
+client/dist/
+.env
+*.log
+.DS_Store
+.replit
+replit.nix
+*.local
+.cache/
+tmp/
+
+# Graphify knowledge graph output
+graphify-out/
+
+# AWS dev deploy
+deploy/.env.aws-dev
+deploy/.env.*.local
+dist-sdk/
+
+# Production env (filled with secrets — never commit)
+.env.production
+.env.local
+.env.*.local
+
+# NYV operational ledgers + pending-secrets paste files (NEVER commit)
+.local/
+secrets-pending.json
+sdk-key-issuance.log
+db-sync.log
+dumps/
+
+# NV-SEC-2026-05-08 — never commit local PEM/key material
+*.pem
+*.key
+.local-*.pem
+.local-*.key
+# NV-PG-SSL-2026-05-11 — RDS public CA bundle is allow-listed (task #142).
+# It's the official AWS RDS root cert chain, not private key material; the
+# runtime requires it for sslmode=verify-full against the prod RDS instance.
+!certs/rds-global-bundle.pem
+
+# Built SDK artifacts that leak into packages/<sdk>/src/ (TS is the source of truth;
+# the published declarations live in packages/client-sdk/dist/ per package.json "types").
+packages/client-sdk/src/**/*.js
+packages/client-sdk/src/**/*.js.map
+packages/client-sdk/src/**/*.d.ts
+packages/client-sdk/src/**/*.d.ts.map
+
+# Transient smoke-run outputs + audit screenshot drops (not source of truth)
+audit/smoke-*.json
+docs/audit/dashboard-audit-*/
+
+# Ad-hoc EC2 operator/diagnostic scripts (throwaway; canonical deploy = scripts/deploy-replit-ssm.sh).
+# Note: the durable scripts/_ec2-platforms-*.sh reconcilers are already tracked and unaffected.
+scripts/_ec2-bcrypt-*
+scripts/_ec2-fix-*
+scripts/_ec2-login-*
+scripts/_ec2-merge-sdk-keys.sh
+scripts/_ec2-p0-*
+scripts/_ec2-partner-smoke*
+scripts/_ec2-recover-*
+scripts/_ec2-restart-*
+scripts/_ec2-rls-probe.sh
+scripts/_ec2-rotate-sdk-keys.sh
+
+# Playwright (Session-15 v9)
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Secret material — never commit (added 2026-08-26 after history purge)
+scripts/envtest.yaml
+*envtest*.yml
+*envtest*.yaml
+*.env.json
+secrets.json

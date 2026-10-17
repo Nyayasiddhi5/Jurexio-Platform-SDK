@@ -1,0 +1,35 @@
+[
+  {
+    "query": "anticipatory bail under BNSS for economic offences Delhi High Court",
+    "relevantIds": ["c1", "c3"],
+    "candidates": [
+      { "id": "c1", "content": "Delhi High Court on anticipatory bail under BNSS s.482 for white-collar accused; conditions and twin test.", "score": 0.42 },
+      { "id": "c2", "content": "Tenancy dispute under Transfer of Property Act — eviction decree.", "score": 0.55 },
+      { "id": "c3", "content": "Supreme Court guidelines on anticipatory bail and economic offences; CrPC 438 legacy compared with BNSS.", "score": 0.40 },
+      { "id": "c4", "content": "GST input tax credit dispute before CESTAT.", "score": 0.51 },
+      { "id": "c5", "content": "Family court maintenance under Hindu Marriage Act.", "score": 0.48 }
+    ]
+  },
+  {
+    "query": "Article 21 right to life privacy Puttaswamy",
+    "relevantIds": ["p1", "p2"],
+    "candidates": [
+      { "id": "p1", "content": "Justice K.S. Puttaswamy v Union of India — privacy as fundamental right under Article 21.", "score": 0.39 },
+      { "id": "p2", "content": "Article 21 expansive interpretation — dignity, health, and privacy jurisprudence.", "score": 0.41 },
+      { "id": "p3", "content": "Arbitration clause enforcement under Arbitration Act 1996.", "score": 0.62 },
+      { "id": "p4", "content": "Cheque bounce under NI Act section 138.", "score": 0.58 },
+      { "id": "p5", "content": "Insolvency CIRP admission under IBC section 7.", "score": 0.50 }
+    ]
+  },
+  {
+    "query": "BNS 2023 theft vs IPC 378 repealed",
+    "relevantIds": ["b1"],
+    "candidates": [
+      { "id": "b1", "content": "BNS section on theft replaces IPC 378; elements of dishonest intention and movable property.", "score": 0.37 },
+      { "id": "b2", "content": "Contract of indemnity under Indian Contract Act.", "score": 0.60 },
+      { "id": "b3", "content": "Motor accident claims tribunal quantum of compensation.", "score": 0.52 },
+      { "id": "b4", "content": "Writ petition maintainability under Article 226.", "score": 0.45 },
+      { "id": "b5", "content": "Copyright infringement fair dealing under Copyright Act.", "score": 0.44 }
+    ]
+  }
+]

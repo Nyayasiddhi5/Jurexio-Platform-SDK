@@ -1,0 +1,139 @@
+client/src/App.tsx: error TS18048: 'params' is possibly 'undefined'.
+client/src/App.tsx: error TS2322: Type '"enterprise_admin"' is not assignable to type 'RoleLevel'.
+client/src/components/AIAssistantMarketplace.tsx: error TS2339: Property 'filter' does not exist on type 'unknown'.
+client/src/components/AIAssistantMarketplace.tsx: error TS2339: Property 'length' does not exist on type 'unknown'.
+client/src/components/AIAssistantMarketplace.tsx: error TS2339: Property 'map' does not exist on type 'unknown'.
+client/src/components/AIAssistantMarketplace.tsx: error TS2339: Property 'reduce' does not exist on type 'unknown'.
+client/src/components/AIAssistantMarketplace.tsx: error TS2339: Property 'sort' does not exist on type 'unknown'.
+client/src/components/AssistantDrawer.tsx: error TS2353: Object literal may only specify known properties, and 'prompt' does not exist in type 'ChatRequest'.
+client/src/components/BrandManagementSystem.tsx: error TS2304: Cannot find name 'X'.
+client/src/components/ChatDollKit3DAvatar.tsx: error TS2307: Cannot find module 'three' or its corresponding type declarations.
+client/src/components/ChatDollKit3DAvatar.tsx: error TS2307: Cannot find module 'three/addons/loaders/FBXLoader.js' or its corresponding type declarations.
+client/src/components/ChatDollKit3DAvatar.tsx: error TS2307: Cannot find module 'three/addons/loaders/GLTFLoader.js' or its corresponding type declarations.
+client/src/components/ChatDollKit3DAvatar.tsx: error TS2554: Expected 1 arguments, but got 0.
+client/src/components/ComprehensiveDocumentation.tsx: error TS2304: Cannot find name 'Activity'.
+client/src/components/ComprehensiveDocumentation.tsx: error TS2304: Cannot find name 'Clock'.
+client/src/components/GlobalOptimizationDashboard.tsx: error TS2339: Property 'bundles' does not exist on type 'unknown'.
+client/src/components/GlobalOptimizationDashboard.tsx: error TS2339: Property 'cache' does not exist on type 'unknown'.
+client/src/components/GlobalOptimizationDashboard.tsx: error TS2339: Property 'infrastructure' does not exist on type 'unknown'.
+client/src/components/GlobalOptimizationDashboard.tsx: error TS2339: Property 'metrics' does not exist on type 'unknown'.
+client/src/components/IterativeRefinementInterface.tsx: error TS2339: Property 'filter' does not exist on type 'number | string[]'.
+client/src/components/IterativeRefinementInterface.tsx: error TS2488: Type 'number | string[]' must have a '[Symbol.iterator]()' method that returns an iterator.
+client/src/components/MonacoCodeEditor.tsx: error TS2304: Cannot find name 'collaborationCursors'.
+client/src/components/MonacoCodeEditor.tsx: error TS2304: Cannot find name 'setCollaborationCursors'.
+client/src/components/MonacoCodeEditor.tsx: error TS2304: Cannot find name 'wsRef'.
+client/src/components/ProjectManagement.tsx: error TS2339: Property 'data' does not exist on type 'unknown'.
+client/src/components/admin/AgentDeleteDialog.tsx: error TS2339: Property 'message' does not exist on type 'never'.
+client/src/components/admin/AgentEditModal.tsx: error TS2339: Property 'message' does not exist on type 'never'.
+client/src/components/admin/EnhancedAgentConfigPanel.tsx: error TS2339: Property 'data' does not exist on type 'unknown'.
+client/src/components/advanced-ide-interface.tsx: error TS2322: Type '(model: ITextModel, position: Position) => { suggestions: { label: string; kind: CompletionItemKind; insertText: string; insertTextRules: CompletionItemInsertTextRule; documentation: string; }[]; }' is not assignable to type '(model: ITextModel, position: Position, context: CompletionContext, token: CancellationToken) => ProviderResult<CompletionList>'.
+client/src/components/agent-dashboard.tsx: error TS2339: Property 'agents' does not exist on type 'UseQueryResult<any, Error>'.
+client/src/components/agent-dashboard.tsx: error TS2559: Type '(data: any) => void' has no properties in common with type 'UseWebSocketOptions'.
+client/src/components/agent-orchestration.tsx: error TS2307: Cannot find module '@/components/react-bits/animated-list' or its corresponding type declarations.
+client/src/components/agent-status.tsx: error TS2307: Cannot find module '@/types/agents' or its corresponding type declarations.
+client/src/components/agui/HumanApprovalDialog.tsx: error TS2307: Cannot find module '@shared/agui-event-types' or its corresponding type declarations.
+client/src/components/agui/ThinkingStepsPanel.tsx: error TS2307: Cannot find module '@shared/agui-event-types' or its corresponding type declarations.
+client/src/components/agui/ToolCallsPanel.tsx: error TS2307: Cannot find module '@shared/agui-event-types' or its corresponding type declarations.
+client/src/components/analytics-dashboard.tsx: error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+client/src/components/celebrations/JourneyCompletionModal.tsx: error TS2307: Cannot find module 'canvas-confetti' or its corresponding type declarations.
+client/src/components/celebrations/SuccessModal.tsx: error TS2307: Cannot find module 'canvas-confetti' or its corresponding type declarations.
+client/src/components/comprehensive-tech-stack-selector.tsx: error TS2322: Type '{ children: string; variant: "default"; size: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+client/src/components/continuous-chat-enhancement.tsx: error TS2307: Cannot find module 'react-syntax-highlighter' or its corresponding type declarations.
+client/src/components/continuous-chat-enhancement.tsx: error TS2307: Cannot find module 'react-syntax-highlighter/dist/esm/styles/prism' or its corresponding type declarations.
+client/src/components/dashboard/agent-status.tsx: error TS2322: Type 'string' is not assignable to type '"error" | "active" | "inactive"'.
+client/src/components/dashboard/agent-status.tsx: error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+client/src/components/dashboard/agent-status.tsx: error TS2322: Type '{ status: any; size: string; }' is not assignable to type 'IntrinsicAttributes & { status: "error" | "active" | "inactive"; children: ReactNode; }'.
+client/src/components/dashboard/dashboard-overview.tsx: error TS2322: Type '"number" | "duration" | "currency" | "percentage"' is not assignable to type '"number" | "currency" | "percentage"'.
+client/src/components/dashboard/llm-provider-status.tsx: error TS2322: Type '{ status: any; size: string; }' is not assignable to type 'IntrinsicAttributes & { status: "warning" | "error" | "healthy"; children: ReactNode; }'.
+client/src/components/dashboard/recent-activity.tsx: error TS2322: Type '{ status: any; size: string; }' is not assignable to type 'IntrinsicAttributes & { status: "success" | "error" | "pending"; children: ReactNode; }'.
+client/src/components/deployment-options.tsx: error TS2559: Type '(string | number)[]' has no properties in common with type 'InvalidateQueryFilters<readonly unknown[]>'.
+client/src/components/deployment-panel.tsx: error TS2559: Type '(data: any) => void' has no properties in common with type 'UseWebSocketOptions'.
+client/src/components/deployment-pipeline.tsx: error TS2339: Property 'logs' does not exist on type 'unknown'.
+client/src/components/deployment-pipeline.tsx: error TS2339: Property 'status' does not exist on type 'unknown'.
+client/src/components/deployment-pipeline.tsx: error TS2339: Property 'steps' does not exist on type 'unknown'.
+client/src/components/design/AIDesignGenerator.tsx: error TS2339: Property 'inspiration' does not exist on type 'unknown'.
+client/src/components/design/AIDesignGenerator.tsx: error TS2339: Property 'templates' does not exist on type 'unknown'.
+client/src/components/design/EnhancedCanvasEditor.tsx: error TS2307: Cannot find module '../mobile/TouchGestureHandler' or its corresponding type declarations.
+client/src/components/design/EnhancedCanvasEditor.tsx: error TS2307: Cannot find module '../mobile/VoiceCommandInterface' or its corresponding type declarations.
+client/src/components/enterprise/SSOAuthenticationSystem.tsx: error TS2367: This comparison appears to be unintentional because the types '"oidc"' and '"saml"' have no overlap.
+client/src/components/enterprise/data-table.tsx: error TS2307: Cannot find module '@tanstack/react-table' or its corresponding type declarations.
+client/src/components/enterprise/metric-card.tsx: error TS2305: Module '"../../lib/utils"' has no exported member 'formatNumber'.
+client/src/components/enterprise/metric-card.tsx: error TS2305: Module '"../../lib/utils"' has no exported member 'formatPercentage'.
+client/src/components/enterprise/status-badge.tsx: error TS2322: Type 'string | number | symbol' is not assignable to type '"default" | "success" | "warning" | "error" | "active" | "offline" | "pending" | "running" | "inactive" | "failed" | "healthy" | "degraded" | "maintenance"'.
+client/src/components/enterprise/status-badge.tsx: error TS2339: Property 'defaultVariants' does not exist on type '(props?: ConfigVariants<{ variant: { healthy: string; active: string; success: string; running: string; pending: string; warning: string; degraded: string; error: string; failed: string; offline: string; inactive: string; maintenance: string; default: string; }; size: { ...; }; }> & ClassProp) => string'.
+client/src/components/hero-section.tsx: error TS2307: Cannot find module '@/components/react-bits/hyperspeed' or its corresponding type declarations.
+client/src/components/hero-section.tsx: error TS2307: Cannot find module '@/components/react-bits/split-text' or its corresponding type declarations.
+client/src/components/multi-language-sandbox.tsx: error TS2558: Expected 0 type arguments, but got 1.
+client/src/components/provider-health-dashboard.tsx: error TS2339: Property 'providers' does not exist on type 'unknown'.
+client/src/components/provider-health-dashboard.tsx: error TS2339: Property 'stats' does not exist on type 'unknown'.
+client/src/components/redirect.tsx: error TS2307: Cannot find module 'next/navigation' or its corresponding type declarations.
+client/src/components/system-status.tsx: error TS2322: Type '{ status: any; size: string; pulse: boolean; }' is not assignable to type 'IntrinsicAttributes & { status: "healthy" | "degraded" | "unhealthy"; children: ReactNode; }'.
+client/src/components/theme-toggle.tsx: error TS2307: Cannot find module 'next-themes' or its corresponding type declarations.
+client/src/components/ui/calendar.tsx: error TS2307: Cannot find module 'react-day-picker' or its corresponding type declarations.
+client/src/components/ui/chart.tsx: error TS2339: Property 'label' does not exist on type 'Omit<Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean; allowEscapeViewBox?: AllowInDimension; ... 24 more ...; wrapperStyle?: CSSProperties; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }, "ref">'.
+client/src/components/ui/chart.tsx: error TS2339: Property 'length' does not exist on type 'unknown'.
+client/src/components/ui/chart.tsx: error TS2339: Property 'map' does not exist on type 'unknown'.
+client/src/components/ui/chart.tsx: error TS2339: Property 'payload' does not exist on type 'Omit<Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean; allowEscapeViewBox?: AllowInDimension; ... 24 more ...; wrapperStyle?: CSSProperties; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }, "ref">'.
+client/src/components/ui/chart.tsx: error TS2344: Type '"verticalAlign" | "payload"' does not satisfy the constraint '"string" | "children" | "style" | "onAnimationStart" | "onDragStart" | "onDragEnd" | "onDrag" | "layout" | "values" | "className" | "slot" | "filter" | "mask" | "path" | "clipPath" | ... 435 more ... | "onBBoxUpdate"'.
+client/src/components/ui/context-menu.tsx: error TS2307: Cannot find module '@radix-ui/react-context-menu' or its corresponding type declarations.
+client/src/components/ui/drawer.tsx: error TS2307: Cannot find module 'vaul' or its corresponding type declarations.
+client/src/components/ui/floating-chat.tsx: error TS2367: This comparison appears to be unintentional because the types '"agent"' and '"user"' have no overlap.
+client/src/components/ui/hover-card.tsx: error TS2307: Cannot find module '@radix-ui/react-hover-card' or its corresponding type declarations.
+client/src/components/ui/icons.tsx: error TS2300: Duplicate identifier 'Code'.
+client/src/components/ui/icons.tsx: error TS2300: Duplicate identifier 'Database'.
+client/src/components/ui/icons.tsx: error TS2300: Duplicate identifier 'Headphones'.
+client/src/components/ui/icons.tsx: error TS2300: Duplicate identifier 'Mail'.
+client/src/components/ui/icons.tsx: error TS2300: Duplicate identifier 'Monitor'.
+client/src/components/ui/icons.tsx: error TS2300: Duplicate identifier 'Play'.
+client/src/components/ui/icons.tsx: error TS2300: Duplicate identifier 'Users'.
+client/src/components/ui/icons.tsx: error TS2300: Duplicate identifier 'Zap'.
+client/src/components/ui/icons.tsx: error TS2304: Cannot find name 'Grid'.
+client/src/components/ui/icons.tsx: error TS2305: Module '"lucide-react"' has no exported member 'Stopwatch'.
+client/src/components/ui/input-otp.tsx: error TS2307: Cannot find module 'input-otp' or its corresponding type declarations.
+client/src/components/ui/input-otp.tsx: error TS2339: Property 'slots' does not exist on type 'unknown'.
+client/src/components/ui/menubar.tsx: error TS2307: Cannot find module '@radix-ui/react-menubar' or its corresponding type declarations.
+client/src/components/ui/navigation-menu.tsx: error TS2307: Cannot find module '@radix-ui/react-navigation-menu' or its corresponding type declarations.
+client/src/components/ui/resizable.tsx: error TS2307: Cannot find module 'react-resizable-panels' or its corresponding type declarations.
+client/src/components/ui/sidebar.tsx: error TS2307: Cannot find module '@/hooks/use-mobile' or its corresponding type declarations.
+client/src/components/ui/toggle-group.tsx: error TS2307: Cannot find module '@radix-ui/react-toggle-group' or its corresponding type declarations.
+client/src/components/ui/toggle.tsx: error TS2307: Cannot find module '@radix-ui/react-toggle' or its corresponding type declarations.
+client/src/components/user-nav.tsx: error TS2307: Cannot find module '@nyayavigya/ui' or its corresponding type declarations.
+client/src/components/visual-testing-tool.tsx: error TS2558: Expected 0 type arguments, but got 1.
+client/src/hooks/use-agent-status.ts: error TS2339: Property 'lastMessage' does not exist on type '{ isConnected: boolean; error: string; sendMessage: (message: any) => boolean; disconnect: () => void; reconnect: () => void; }'.
+client/src/hooks/use-agent-status.ts: error TS2554: Expected 1-2 arguments, but got 0.
+client/src/hooks/use-agents.ts: error TS2339: Property 'searchAgents' does not exist on type '{ getAgents: () => Promise<any>; getAgentCategories: () => Promise<any>; getAgentMetrics: () => Promise<any>; executeAgent: (agentId: string, payload: any) => Promise<...>; getAgentExecution: (executionId: string) => Promise<...>; }'.
+client/src/hooks/use-agents.ts: error TS2339: Property 'toggleAgent' does not exist on type '{ getAgents: () => Promise<any>; getAgentCategories: () => Promise<any>; getAgentMetrics: () => Promise<any>; executeAgent: (agentId: string, payload: any) => Promise<...>; getAgentExecution: (executionId: string) => Promise<...>; }'.
+client/src/hooks/use-agents.ts: error TS2551: Property 'getAgent' does not exist on type '{ getAgents: () => Promise<any>; getAgentCategories: () => Promise<any>; getAgentMetrics: () => Promise<any>; executeAgent: (agentId: string, payload: any) => Promise<...>; getAgentExecution: (executionId: string) => Promise<...>; }'. Did you mean 'getAgents'?
+client/src/hooks/use-agui-approval.ts: error TS2307: Cannot find module '@shared/agui-event-types' or its corresponding type declarations.
+client/src/hooks/use-agui-stream.ts: error TS2307: Cannot find module '@shared/agui-event-types' or its corresponding type declarations.
+client/src/hooks/use-orchestration.ts: error TS2339: Property 'executeOrchestration' does not exist on type '{ getSystemHealth: () => Promise<any>; getOrchestrationStatus: () => Promise<any>; getActiveExecutions: () => Promise<any>; executeTask: (task: any) => Promise<any>; }'.
+client/src/hooks/use-orchestration.ts: error TS2551: Property 'getOrchestrationHistory' does not exist on type '{ getSystemHealth: () => Promise<any>; getOrchestrationStatus: () => Promise<any>; getActiveExecutions: () => Promise<any>; executeTask: (task: any) => Promise<any>; }'. Did you mean 'getOrchestrationStatus'?
+client/src/hooks/use-orchestration.ts: error TS2554: Expected 0 arguments, but got 1.
+client/src/hooks/use-real-time-metrics.ts: error TS2339: Property 'getLLMUsageAnalytics' does not exist on type '{ getRealTimeMetrics: () => Promise<any>; getSystemMetrics: () => Promise<any>; getSystemHealth: () => Promise<any>; getOrchestrationMetrics: () => Promise<any>; }'.
+client/src/hooks/use-real-time-metrics.ts: error TS2339: Property 'getOrchestrationHistory' does not exist on type '{ getRealTimeMetrics: () => Promise<any>; getSystemMetrics: () => Promise<any>; getSystemHealth: () => Promise<any>; getOrchestrationMetrics: () => Promise<any>; }'.
+client/src/hooks/useErrorRecovery.ts: error TS2345: Argument of type '"error_recovered"' is not assignable to parameter of type 'EventType'.
+client/src/hooks/useErrorRecovery.ts: error TS2345: Argument of type '"error_recovery_failed"' is not assignable to parameter of type 'EventType'.
+client/src/hooks/useOnboarding.ts: error TS2305: Module '"@shared/schema"' has no exported member 'UserOnboardingProgress'.
+client/src/hooks/useStudioReadiness.ts: error TS2769: No overload matches this call.
+client/src/lib/lazy-imports.ts: error TS2307: Cannot find module '../components/orchestration-v3/OrchestrationDashboard' or its corresponding type declarations.
+client/src/lib/nv-api-paths.ts: error TS2367: This comparison appears to be unintentional because the types '"LIVE" | "AUTH_GATED"' and '"NEEDS_BACKEND"' have no overlap.
+client/src/lib/sentry.ts: error TS2339: Property 'startTransaction' does not exist on type 'typeof import("/Users/vamsit/Desktop/nyayavigya-platform-312/nyayavigya-platform-312/node_modules/@sentry/react/build/types/index")'.
+client/src/pages/AgentOrchestration.tsx: error TS2339: Property 'toString' does not exist on type 'never'.
+client/src/pages/agent-workspace.tsx: error TS2339: Property 'agents' does not exist on type 'UseQueryResult<any, Error>'.
+client/src/pages/agent-workspace.tsx: error TS2339: Property 'id' does not exist on type 'StringRouteParams<undefined>'.
+client/src/pages/agent-workspace.tsx: error TS2559: Type '(data: any) => void' has no properties in common with type 'UseWebSocketOptions'.
+client/src/pages/console-dashboard.tsx: error TS2881: This expression is never nullish.
+client/src/pages/hash-chain-audit.tsx: error TS2322: Type '{ className: string; title: string; }' is not assignable to type 'IntrinsicAttributes & Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>'.
+client/src/pages/jurisdiction-mapping.tsx: error TS2350: Only a void function can be called with the 'new' keyword.
+client/src/pages/jurisdiction-mapping.tsx: error TS2558: Expected 0 type arguments, but got 2.
+client/src/pages/openbot-studio.tsx: error TS2552: Cannot find name 'setInboxError'. Did you mean 'inboxError'?
+client/src/pages/rbac-console.tsx: error TS2322: Type 'Element' is not assignable to type 'string'.
+client/src/pages/roma-l5-admin.tsx: error TS2740: Type '{}' is missing the following properties from type 'AgentMetric[]': length, pop, push, concat, and 29 more.
+client/src/pages/roma-l5-admin.tsx: error TS2740: Type '{}' is missing the following properties from type 'LanguageStat[]': length, pop, push, concat, and 29 more.
+client/src/pages/roma-l5-admin.tsx: error TS2740: Type '{}' is missing the following properties from type 'SwarmMetric[]': length, pop, push, concat, and 29 more.
+client/src/pages/statutes-citations.tsx: error TS2339: Property 'data' does not exist on type '{}'.
+client/src/pages/statutes-citations.tsx: error TS2339: Property 'items' does not exist on type '{}'.
+client/src/pages/statutes-citations.tsx: error TS2339: Property 'statutes' does not exist on type '{}'.
+client/src/pages/superadmin-super-orgs.tsx: error TS2322: Type '{ title: string; message: string; onRetry: () => Promise<QueryObserverResult<SuperOrg[], Error>>; }' is not assignable to type 'IntrinsicAttributes & NyvErrorStateProps'.
+client/src/pages/superadmin-super-orgs.tsx: error TS2322: Type '{ title: string; message: string; onRetry: () => Promise<QueryObserverResult<{ members: Member[]; } & SuperOrg, Error>>; }' is not assignable to type 'IntrinsicAttributes & NyvErrorStateProps'.
+client/src/pages/superadmin-super-orgs.tsx: error TS2503: Cannot find namespace 'JSX'.

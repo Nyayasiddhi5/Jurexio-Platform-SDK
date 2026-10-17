@@ -1,0 +1,641 @@
+{
+  "generatedAt": "2026-10-08T00:25:54.301Z",
+  "mode": "live+ab",
+  "fixture": "nv-indian-draft-sme-cases.json",
+  "routing": [
+    {
+      "caseId": "IN-BAIL-001",
+      "documentType": "bail_application",
+      "fastMedium": {
+        "taskType": "legal-draft-fast",
+        "draftLength": "medium",
+        "registryTokens": 6144,
+        "partnerMaxTokens": 6144,
+        "slaFast": true,
+        "explicitFastAlias": true
+      },
+      "counselComprehensive": {
+        "taskType": "legal-draft",
+        "draftLength": "comprehensive",
+        "registryTokens": 16384,
+        "partnerMaxTokens": 16384,
+        "queenPath": true
+      },
+      "pass": true,
+      "notes": []
+    },
+    {
+      "caseId": "IN-WS-001",
+      "documentType": "written_statement",
+      "fastMedium": {
+        "taskType": "legal-draft-fast",
+        "draftLength": "medium",
+        "registryTokens": 8192,
+        "partnerMaxTokens": 8192,
+        "slaFast": true,
+        "explicitFastAlias": true
+      },
+      "counselComprehensive": {
+        "taskType": "legal-draft",
+        "draftLength": "comprehensive",
+        "registryTokens": 32768,
+        "partnerMaxTokens": 32768,
+        "queenPath": true
+      },
+      "pass": true,
+      "notes": []
+    },
+    {
+      "caseId": "IN-NOTICE-001",
+      "documentType": "legal_notice",
+      "fastMedium": {
+        "taskType": "legal-draft-fast",
+        "draftLength": "medium",
+        "registryTokens": 6144,
+        "partnerMaxTokens": 6144,
+        "slaFast": true,
+        "explicitFastAlias": true
+      },
+      "counselComprehensive": {
+        "taskType": "legal-draft",
+        "draftLength": "comprehensive",
+        "registryTokens": 16384,
+        "partnerMaxTokens": 16384,
+        "queenPath": true
+      },
+      "pass": true,
+      "notes": []
+    },
+    {
+      "caseId": "IN-SLP-001",
+      "documentType": "writ_petition",
+      "fastMedium": {
+        "taskType": "legal-draft-fast",
+        "draftLength": "medium",
+        "registryTokens": 8192,
+        "partnerMaxTokens": 8192,
+        "slaFast": true,
+        "explicitFastAlias": true
+      },
+      "counselComprehensive": {
+        "taskType": "legal-draft",
+        "draftLength": "comprehensive",
+        "registryTokens": 32768,
+        "partnerMaxTokens": 32768,
+        "queenPath": true
+      },
+      "pass": true,
+      "notes": []
+    },
+    {
+      "caseId": "IN-WP-001",
+      "documentType": "writ_petition",
+      "fastMedium": {
+        "taskType": "legal-draft-fast",
+        "draftLength": "medium",
+        "registryTokens": 8192,
+        "partnerMaxTokens": 8192,
+        "slaFast": true,
+        "explicitFastAlias": true
+      },
+      "counselComprehensive": {
+        "taskType": "legal-draft",
+        "draftLength": "comprehensive",
+        "registryTokens": 32768,
+        "partnerMaxTokens": 32768,
+        "queenPath": true
+      },
+      "pass": true,
+      "notes": []
+    },
+    {
+      "caseId": "IN-CA-001",
+      "documentType": "counter_affidavit",
+      "fastMedium": {
+        "taskType": "legal-draft-fast",
+        "draftLength": "medium",
+        "registryTokens": 8192,
+        "partnerMaxTokens": 8192,
+        "slaFast": true,
+        "explicitFastAlias": true
+      },
+      "counselComprehensive": {
+        "taskType": "legal-draft",
+        "draftLength": "comprehensive",
+        "registryTokens": 27648,
+        "partnerMaxTokens": 27648,
+        "queenPath": true
+      },
+      "pass": true,
+      "notes": []
+    },
+    {
+      "caseId": "IN-IA-001",
+      "documentType": "interlocutory_application",
+      "fastMedium": {
+        "taskType": "legal-draft-fast",
+        "draftLength": "medium",
+        "registryTokens": 6144,
+        "partnerMaxTokens": 6144,
+        "slaFast": true,
+        "explicitFastAlias": true
+      },
+      "counselComprehensive": {
+        "taskType": "legal-draft",
+        "draftLength": "comprehensive",
+        "registryTokens": 20480,
+        "partnerMaxTokens": 20480,
+        "queenPath": true
+      },
+      "pass": true,
+      "notes": []
+    },
+    {
+      "caseId": "IN-REVIEW-001",
+      "documentType": "review_petition",
+      "fastMedium": {
+        "taskType": "legal-draft-fast",
+        "draftLength": "medium",
+        "registryTokens": 8192,
+        "partnerMaxTokens": 8192,
+        "slaFast": true,
+        "explicitFastAlias": true
+      },
+      "counselComprehensive": {
+        "taskType": "legal-draft",
+        "draftLength": "comprehensive",
+        "registryTokens": 27648,
+        "partnerMaxTokens": 27648,
+        "queenPath": true
+      },
+      "pass": true,
+      "notes": []
+    },
+    {
+      "caseId": "IN-EXEC-001",
+      "documentType": "execution_petition",
+      "fastMedium": {
+        "taskType": "legal-draft-fast",
+        "draftLength": "medium",
+        "registryTokens": 8192,
+        "partnerMaxTokens": 8192,
+        "slaFast": true,
+        "explicitFastAlias": true
+      },
+      "counselComprehensive": {
+        "taskType": "legal-draft",
+        "draftLength": "comprehensive",
+        "registryTokens": 24576,
+        "partnerMaxTokens": 24576,
+        "queenPath": true
+      },
+      "pass": true,
+      "notes": []
+    },
+    {
+      "caseId": "IN-AGREE-001",
+      "documentType": "simple_agreement",
+      "fastMedium": {
+        "taskType": "legal-draft-fast",
+        "draftLength": "medium",
+        "registryTokens": 8192,
+        "partnerMaxTokens": 8192,
+        "slaFast": true,
+        "explicitFastAlias": true
+      },
+      "counselComprehensive": {
+        "taskType": "legal-draft",
+        "draftLength": "comprehensive",
+        "registryTokens": 27648,
+        "partnerMaxTokens": 27648,
+        "queenPath": true
+      },
+      "pass": true,
+      "notes": []
+    }
+  ],
+  "lanes": {
+    "fast_medium": {
+      "avgRubricPct": 74,
+      "runs": [
+        {
+          "caseId": "IN-BAIL-001",
+          "http": 200,
+          "ms": 28334,
+          "contentLen": 12233,
+          "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+          "path": "specialist",
+          "rubricPct": 70,
+          "rubric": {
+            "total": 70,
+            "maxTotal": 100,
+            "pct": 70,
+            "structure": 100,
+            "completion": 50,
+            "length": 40,
+            "voice": 100,
+            "placeholders": 40,
+            "markers": {
+              "prayer": true,
+              "verification": true,
+              "causeTitle": true,
+              "numberedParas": true,
+              "limitationChecked": true
+            },
+            "completionDetail": {
+              "complete": false,
+              "abruptEnding": true,
+              "missingSections": [],
+              "truncatedPrayer": false,
+              "incompleteNumberedPara": true,
+              "hasPrayerOrRelief": true,
+              "hasVerification": true,
+              "hasSignatureBlock": true,
+              "hasDisclosureClause": false,
+              "unresolvedPlaceholders": 2,
+              "reviewRecommended": true
+            },
+            "lengthWarning": "Draft shorter than expected for bail_application (medium): 12233 chars < ~22118",
+            "voiceHits": []
+          }
+        },
+        {
+          "caseId": "IN-WS-001",
+          "http": 200,
+          "ms": 48300,
+          "contentLen": 21172,
+          "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+          "path": "specialist",
+          "rubricPct": 69,
+          "rubric": {
+            "total": 69,
+            "maxTotal": 100,
+            "pct": 69,
+            "structure": 100,
+            "completion": 50,
+            "length": 40,
+            "voice": 100,
+            "placeholders": 30,
+            "markers": {
+              "prayer": true,
+              "verification": true,
+              "causeTitle": true,
+              "numberedParas": true,
+              "limitationChecked": true
+            },
+            "completionDetail": {
+              "complete": false,
+              "abruptEnding": true,
+              "missingSections": [],
+              "truncatedPrayer": false,
+              "incompleteNumberedPara": true,
+              "hasPrayerOrRelief": true,
+              "hasVerification": true,
+              "hasSignatureBlock": true,
+              "hasDisclosureClause": false,
+              "unresolvedPlaceholders": 7,
+              "reviewRecommended": true
+            },
+            "lengthWarning": "Draft shorter than expected for written_statement (medium): 21172 chars < ~29491",
+            "voiceHits": []
+          }
+        },
+        {
+          "caseId": "IN-NOTICE-001",
+          "http": 200,
+          "ms": 26883,
+          "contentLen": 9722,
+          "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+          "path": "specialist",
+          "rubricPct": 70,
+          "rubric": {
+            "total": 69.6,
+            "maxTotal": 100,
+            "pct": 70,
+            "structure": 100,
+            "completion": 52,
+            "length": 40,
+            "voice": 100,
+            "placeholders": 30,
+            "markers": {
+              "prayer": true,
+              "verification": true,
+              "causeTitle": true,
+              "numberedParas": true,
+              "limitationChecked": true
+            },
+            "completionDetail": {
+              "complete": true,
+              "abruptEnding": false,
+              "missingSections": [
+                "signature_block"
+              ],
+              "truncatedPrayer": false,
+              "incompleteNumberedPara": false,
+              "hasPrayerOrRelief": false,
+              "hasVerification": false,
+              "hasSignatureBlock": false,
+              "hasDisclosureClause": false,
+              "unresolvedPlaceholders": 32,
+              "reviewRecommended": true
+            },
+            "lengthWarning": "Draft shorter than expected for legal_notice (medium): 9722 chars < ~22118",
+            "voiceHits": []
+          }
+        },
+        {
+          "caseId": "IN-SLP-001",
+          "http": 200,
+          "ms": 48393,
+          "contentLen": 22327,
+          "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+          "path": "specialist",
+          "rubricPct": 69,
+          "rubric": {
+            "total": 69,
+            "maxTotal": 100,
+            "pct": 69,
+            "structure": 100,
+            "completion": 50,
+            "length": 40,
+            "voice": 100,
+            "placeholders": 30,
+            "markers": {
+              "prayer": true,
+              "verification": true,
+              "causeTitle": true,
+              "numberedParas": true,
+              "limitationChecked": true
+            },
+            "completionDetail": {
+              "complete": false,
+              "abruptEnding": true,
+              "missingSections": [],
+              "truncatedPrayer": false,
+              "incompleteNumberedPara": true,
+              "hasPrayerOrRelief": true,
+              "hasVerification": true,
+              "hasSignatureBlock": true,
+              "hasDisclosureClause": true,
+              "unresolvedPlaceholders": 0,
+              "reviewRecommended": true
+            },
+            "lengthWarning": "Draft shorter than expected for writ_petition (medium): 22327 chars < ~29491",
+            "voiceHits": []
+          }
+        },
+        {
+          "caseId": "IN-WP-001",
+          "http": 200,
+          "ms": 48784,
+          "contentLen": 22171,
+          "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+          "path": "specialist",
+          "rubricPct": 67,
+          "rubric": {
+            "total": 66.6,
+            "maxTotal": 100,
+            "pct": 67,
+            "structure": 100,
+            "completion": 42,
+            "length": 40,
+            "voice": 100,
+            "placeholders": 30,
+            "markers": {
+              "prayer": true,
+              "verification": true,
+              "causeTitle": true,
+              "numberedParas": true,
+              "limitationChecked": true
+            },
+            "completionDetail": {
+              "complete": false,
+              "abruptEnding": true,
+              "missingSections": [
+                "disclosure_clause"
+              ],
+              "truncatedPrayer": false,
+              "incompleteNumberedPara": true,
+              "hasPrayerOrRelief": true,
+              "hasVerification": true,
+              "hasSignatureBlock": true,
+              "hasDisclosureClause": false,
+              "unresolvedPlaceholders": 2,
+              "reviewRecommended": true
+            },
+            "lengthWarning": "Draft shorter than expected for writ_petition (medium): 22171 chars < ~29491",
+            "voiceHits": []
+          }
+        },
+        {
+          "caseId": "IN-CA-001",
+          "http": 200,
+          "ms": 57420,
+          "contentLen": 27621,
+          "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+          "path": "specialist",
+          "rubricPct": 68,
+          "rubric": {
+            "total": 67.6,
+            "maxTotal": 100,
+            "pct": 68,
+            "structure": 100,
+            "completion": 42,
+            "length": 40,
+            "voice": 100,
+            "placeholders": 40,
+            "markers": {
+              "prayer": true,
+              "verification": true,
+              "causeTitle": true,
+              "numberedParas": true,
+              "limitationChecked": true
+            },
+            "completionDetail": {
+              "complete": false,
+              "abruptEnding": true,
+              "missingSections": [
+                "disclosure_clause"
+              ],
+              "truncatedPrayer": false,
+              "incompleteNumberedPara": true,
+              "hasPrayerOrRelief": true,
+              "hasVerification": true,
+              "hasSignatureBlock": true,
+              "hasDisclosureClause": false,
+              "unresolvedPlaceholders": 0,
+              "reviewRecommended": true
+            },
+            "lengthWarning": "Draft shorter than expected for counter_affidavit (medium): 27621 chars < ~29491",
+            "voiceHits": []
+          }
+        },
+        {
+          "caseId": "IN-IA-001",
+          "http": 200,
+          "ms": 48209,
+          "contentLen": 20960,
+          "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+          "path": "specialist",
+          "rubricPct": 83,
+          "rubric": {
+            "total": 82.8,
+            "maxTotal": 100,
+            "pct": 83,
+            "structure": 75,
+            "completion": 100,
+            "length": 75,
+            "voice": 100,
+            "placeholders": 40,
+            "markers": {
+              "prayer": true,
+              "verification": true,
+              "causeTitle": true,
+              "numberedParas": true,
+              "limitationChecked": false
+            },
+            "completionDetail": {
+              "complete": true,
+              "abruptEnding": false,
+              "missingSections": [],
+              "truncatedPrayer": false,
+              "incompleteNumberedPara": false,
+              "hasPrayerOrRelief": true,
+              "hasVerification": true,
+              "hasSignatureBlock": true,
+              "hasDisclosureClause": false,
+              "unresolvedPlaceholders": 72,
+              "reviewRecommended": true
+            },
+            "lengthWarning": "Draft shorter than expected for interlocutory_application (medium): 20960 chars < ~22118",
+            "voiceHits": []
+          }
+        },
+        {
+          "caseId": "IN-REVIEW-001",
+          "http": 200,
+          "ms": 22956,
+          "contentLen": 8009,
+          "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+          "path": "specialist",
+          "rubricPct": 86,
+          "rubric": {
+            "total": 86,
+            "maxTotal": 100,
+            "pct": 86,
+            "structure": 100,
+            "completion": 100,
+            "length": 40,
+            "voice": 100,
+            "placeholders": 50,
+            "markers": {
+              "prayer": true,
+              "verification": true,
+              "causeTitle": true,
+              "numberedParas": true,
+              "limitationChecked": true
+            },
+            "completionDetail": {
+              "complete": true,
+              "abruptEnding": false,
+              "missingSections": [],
+              "truncatedPrayer": false,
+              "incompleteNumberedPara": false,
+              "hasPrayerOrRelief": true,
+              "hasVerification": true,
+              "hasSignatureBlock": true,
+              "hasDisclosureClause": false,
+              "unresolvedPlaceholders": 1,
+              "reviewRecommended": true
+            },
+            "lengthWarning": "Draft shorter than expected for review_petition (medium): 8009 chars < ~29491",
+            "voiceHits": []
+          }
+        },
+        {
+          "caseId": "IN-EXEC-001",
+          "http": 200,
+          "ms": 26290,
+          "contentLen": 9822,
+          "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+          "path": "specialist",
+          "rubricPct": 85,
+          "rubric": {
+            "total": 85,
+            "maxTotal": 100,
+            "pct": 85,
+            "structure": 100,
+            "completion": 100,
+            "length": 40,
+            "voice": 100,
+            "placeholders": 40,
+            "markers": {
+              "prayer": true,
+              "verification": true,
+              "causeTitle": true,
+              "numberedParas": true,
+              "limitationChecked": true
+            },
+            "completionDetail": {
+              "complete": true,
+              "abruptEnding": false,
+              "missingSections": [],
+              "truncatedPrayer": false,
+              "incompleteNumberedPara": false,
+              "hasPrayerOrRelief": true,
+              "hasVerification": true,
+              "hasSignatureBlock": true,
+              "hasDisclosureClause": true,
+              "unresolvedPlaceholders": 25,
+              "reviewRecommended": true
+            },
+            "lengthWarning": "Draft shorter than expected for execution_petition (medium): 9822 chars < ~29491",
+            "voiceHits": []
+          }
+        },
+        {
+          "caseId": "IN-AGREE-001",
+          "http": 200,
+          "ms": 64596,
+          "contentLen": 36105,
+          "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+          "path": "specialist",
+          "rubricPct": 69,
+          "rubric": {
+            "total": 69,
+            "maxTotal": 100,
+            "pct": 69,
+            "structure": 100,
+            "completion": 50,
+            "length": 40,
+            "voice": 100,
+            "placeholders": 30,
+            "markers": {
+              "prayer": true,
+              "verification": true,
+              "causeTitle": true,
+              "numberedParas": true,
+              "limitationChecked": true
+            },
+            "completionDetail": {
+              "complete": false,
+              "abruptEnding": true,
+              "missingSections": [],
+              "truncatedPrayer": false,
+              "incompleteNumberedPara": true,
+              "hasPrayerOrRelief": true,
+              "hasVerification": false,
+              "hasSignatureBlock": true,
+              "hasDisclosureClause": false,
+              "unresolvedPlaceholders": 25,
+              "reviewRecommended": true
+            },
+            "lengthWarning": "Draft longer than expected for simple_agreement (medium): 36105 chars > ~36045",
+            "voiceHits": []
+          }
+        }
+      ]
+    }
+  },
+  "laneMode": "fast"
+}

@@ -1,0 +1,171 @@
+---
+# ServiceMonitor — Prometheus Operator scraping for Nyayavigya Gateway
+# Requires: Prometheus Operator (kube-prometheus-stack) deployed in monitoring namespace
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: nyayavigya-gateway-monitor
+  namespace: nyayavigya
+  labels:
+    app: nyayavigya-gateway
+    app.kubernetes.io/name: nyayavigya
+    app.kubernetes.io/component: monitoring
+    release: prometheus
+  annotations:
+    description: "Prometheus ServiceMonitor for Nyayavigya Gateway metrics endpoint"
+spec:
+  selector:
+    matchLabels:
+      app: nyayavigya-gateway
+  endpoints:
+    - port: http
+      path: /api/nv/health/metrics
+      interval: 15s
+      scrapeTimeout: 10s
+      scheme: http
+      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      relabelings:
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          targetLabel: pod
+        - sourceLabels: [__meta_kubernetes_namespace]
+          targetLabel: namespace
+        - sourceLabels: [__meta_kubernetes_service_name]
+          targetLabel: service
+      metricRelabelings:
+        # Keep only nyayavigya_ prefixed metrics + standard Go/process metrics
+        - sourceLabels: [__name__]
+          regex: "(nyayavigya_.*|process_.*|go_.*|nodejs_.*|http_.*)"
+          action: keep
+
+---
+# ServiceMonitor — Console
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: nyayavigya-console-monitor
+  namespace: nyayavigya
+  labels:
+    app: nyayavigya-console
+    app.kubernetes.io/component: monitoring
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: nyayavigya-console
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 10s
+
+---
+# PrometheusRule — Alerting rules for Nyayavigya platform
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: nyayavigya-alerts
+  namespace: nyayavigya
+  labels:
+    app.kubernetes.io/name: nyayavigya
+    app.kubernetes.io/component: alerting
+    release: prometheus
+spec:
+  groups:
+    - name: nyayavigya.gateway.critical
+      interval: 30s
+      rules:
+        - alert: NyayavigyaGatewayDown
+          expr: up{job="nyayavigya-gateway"} == 0
+          for: 1m
+          labels:
+            severity: critical
+            team: platform
+          annotations:
+            summary: "Nyayavigya Gateway is down"
+            description: "Gateway pod {{ $labels.pod }} has been down for more than 1 minute."
+
+        - alert: NyayavigyaHighErrorRate
+          expr: |
+            rate(http_requests_total{job="nyayavigya-gateway",status=~"5.."}[5m])
+            / rate(http_requests_total{job="nyayavigya-gateway"}[5m]) > 0.05
+          for: 2m
+          labels:
+            severity: critical
+            team: platform
+          annotations:
+            summary: "High error rate on Nyayavigya Gateway"
+            description: "Error rate is {{ $value | humanizePercentage }} — threshold 5%"
+
+        - alert: NyayavigyaHighLatency
+          expr: |
+            histogram_quantile(0.95,
+              rate(http_request_duration_seconds_bucket{job="nyayavigya-gateway"}[5m])
+            ) > 5
+          for: 5m
+          labels:
+            severity: warning
+            team: platform
+          annotations:
+            summary: "P95 latency > 5s on Nyayavigya Gateway"
+            description: "P95 latency is {{ $value }}s — legal AI responses must be < 5s"
+
+    - name: nyayavigya.ai.alerts
+      interval: 60s
+      rules:
+        - alert: NyayavigyaAIRiskBlockHigh
+          expr: rate(nyayavigya_ai_risk_blocked_total[5m]) > 10
+          for: 5m
+          labels:
+            severity: warning
+            team: ai-governance
+          annotations:
+            summary: "High rate of AI risk blocks"
+            description: "{{ $value }} requests/min blocked by risk gate — review safety thresholds"
+
+        - alert: NyayavigyaCreditDepletion
+          expr: nyayavigya_credit_wallet_balance < 1000
+          for: 1m
+          labels:
+            severity: warning
+            team: billing
+          annotations:
+            summary: "Low credit balance for org {{ $labels.org_id }}"
+            description: "Credit balance {{ $value }} below 1000 — billing action required"
+
+        - alert: NyayavigyaAgentFailureRate
+          expr: |
+            rate(nyayavigya_agent_failures_total[10m])
+            / rate(nyayavigya_agent_requests_total[10m]) > 0.1
+          for: 10m
+          labels:
+            severity: warning
+            team: platform
+          annotations:
+            summary: "Agent failure rate > 10%"
+            description: "Agent {{ $labels.agent_id }} failure rate is {{ $value | humanizePercentage }}"
+
+    - name: nyayavigya.infra.alerts
+      interval: 60s
+      rules:
+        - alert: NyayavigyaPodCrashLooping
+          expr: |
+            rate(kube_pod_container_status_restarts_total{namespace="nyayavigya"}[15m]) > 0
+          for: 5m
+          labels:
+            severity: critical
+            team: platform
+          annotations:
+            summary: "Pod crash-looping in nyayavigya namespace"
+            description: "Pod {{ $labels.pod }} container {{ $labels.container }} is crash-looping"
+
+        - alert: NyayavigyaHPAMaxReplicas
+          expr: |
+            kube_horizontalpodautoscaler_status_current_replicas{namespace="nyayavigya"}
+            >= kube_horizontalpodautoscaler_spec_max_replicas{namespace="nyayavigya"}
+          for: 10m
+          labels:
+            severity: warning
+            team: platform
+          annotations:
+            summary: "HPA at max replicas — consider increasing maxReplicas"
+            description: "{{ $labels.horizontalpodautoscaler }} at {{ $value }} replicas (max)"

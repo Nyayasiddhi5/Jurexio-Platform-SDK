@@ -1,0 +1,9 @@
+{
+  "commands": [
+    "set -e",
+    "REPO=$(ls -dt /opt/nyayavigya/repo/*/ 2>/dev/null | head -1)",
+    "aws s3 cp s3://nyayavigya-sdk-devapp/product-readiness/jrx-seed-uat-platform-users.ts $REPO/scripts/jrx-seed-uat-platform-users.ts --region ap-south-1",
+    "ADMIN_URL=$(grep -E '^DATABASE_URL_ADMIN=' \"$REPO/.env\" | head -1 | sed -E 's/^DATABASE_URL_ADMIN=//; s/^\"(.*)\"$/\\1/; s/^'\\''(.*)'\\''$/\\1/')",
+    "docker run --rm --network host -v \"$REPO:/work\" -w /work -e DATABASE_URL_ADMIN=\"$ADMIN_URL\" node:22-bookworm-slim bash -lc 'npm install bcrypt pg tsx --no-save >/tmp/npm.log 2>&1; npx tsx scripts/jrx-seed-uat-platform-users.ts'"
+  ]
+}

@@ -1,0 +1,13 @@
+[
+  {
+    "query": "Patient data incident intake form sections",
+    "relevantIds": ["h1", "h2"],
+    "candidates": [
+      { "id": "h1", "content": "Incident intake: discovery time, systems affected, data categories, individuals impacted, containment steps, notification owners.", "score": 0.41 },
+      { "id": "h2", "content": "Vendor BAA review checklist: permitted uses, safeguards, breach notice windows, subcontractors, return/destruction of PHI/ePHI.", "score": 0.5 },
+      { "id": "h3", "content": "Privacy notice outline: controller identity, purposes, lawful basis, retention, rights, contact channel.", "score": 0.47 },
+      { "id": "h4", "content": "Surgical technique videos are for clinician training only.", "score": 0.36 },
+      { "id": "h5", "content": "Hospital cafeteria menu rotates weekly vegetarian options.", "score": 0.12 }
+    ]
+  }
+]

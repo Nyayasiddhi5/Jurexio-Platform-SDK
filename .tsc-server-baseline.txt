@@ -1,0 +1,19 @@
+src/config/nv-embedding-cascade.ts: error TS2339: Property 'length' does not exist on type 'never'.
+src/db/nv-auth-db.ts: error TS2352: Conversion of type 'QueryResult<Record<string, unknown>>' to type '{ rows?: AuthUserRow[] | undefined; }' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+src/middleware/nv-sdk-gateway.ts: error TS2339: Property 'name' does not exist on type 'SdkApplicationDbRow'.
+src/orchestration/capability-manifest.ts: error TS2322: Type '"qa"' is not assignable to type 'ExecutionPattern'.
+src/orchestration/capability-manifest.ts: error TS2339: Property 'getSocialContext' does not exist on type 'object'.
+src/orchestration/capability-manifest.ts: error TS2739: Type '{ maxRetries: number; baseDelay: number; maxDelay: number; backoffStrategy: "exponential"; }' is missing the following properties from type 'RetryPolicy': jitter, circuitBreaker
+src/orchestration/capability-manifest.ts: error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+src/orchestration/nv-queen-lifecycle-events.types-test.ts: error TS2322: Type 'true' is not assignable to type 'never'.
+src/routes/nv-auth-routes.ts: error TS2578: Unused '@ts-expect-error' directive.
+src/routes/nv-compliance-routes.ts: error TS2352: Conversion of type 'ComplianceEvidencePack' to type 'Record<string, unknown>' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+src/routes/nv-sdk-gateway-routes.ts: error TS2339: Property 'tier' does not exist on type 'SdkContext'.
+src/routes/nv-sdk-gateway-routes.ts: error TS2352: Conversion of type '{ content: string; model: string; provider: string; tokens: { prompt: number; completion: number; total: number; }; cost: number; orchestration: { degraded: boolean; reason: any; }; }' to type 'LLMResponse & { orchestration: any; }' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+src/services/intelligence/nv-amendment-impact-service.ts: error TS2345: Argument of type 'JurisdictionCode' is not assignable to parameter of type 'JurisdictionCode | undefined'.
+src/services/intelligence/nv-amendment-impact-service.ts: error TS2345: Argument of type 'JurisdictionCode' is not assignable to parameter of type 'JurisdictionCode'.
+src/services/legal-doc-analyze-service.ts: error TS2345: Argument of type '{ jurisdiction: string; maxTokens: number; tier: "pro"; enableRAG: boolean; enableOrchestration: boolean; enableCoT: boolean; taskType: unknown; } | { maxTokens: number; tier: "elite"; jurisdiction: string; enableRAG: boolean; enableOrchestration?: undefined; enableCoT?: undefined; taskType?: undefined; }' is not assignable to parameter of type 'NvOrchestrationOptions | undefined'.
+src/services/nv-legal-intelligence-feed-service.ts: error TS2322: Type '"enterprise"' is not assignable to type 'ProductTier | undefined'.
+src/services/nv-legal-intelligence-feed-service.ts: error TS7053: Element implicitly has an 'any' type because expression of type '0' can't be used to index type '{}'.
+src/services/nv-roma-seed-from-router.ts: error TS2558: Expected 0 type arguments, but got 1.
+src/services/nv-runtime-provider-secrets.ts: error TS2769: No overload matches this call.
