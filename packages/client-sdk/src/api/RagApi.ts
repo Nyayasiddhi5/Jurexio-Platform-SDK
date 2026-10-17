@@ -8,12 +8,12 @@
  * legacy single-layer pgvector escape hatch for diagnostics.
  */
 
-import type { NyvJurisdiction } from '../types/index.js';
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxJurisdiction } from '../types/index.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export interface RagQueryOptions {
   namespace?: string;
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   topK?: number;
   minSimilarity?: number;
   /** Bypass Auto-RAG and hit the raw pgvector retriever (diagnostics only). */
@@ -43,7 +43,7 @@ export interface RagQueryResult {
 
 export interface AutoRetrieveRequest {
   query: string;
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   /** Capability tier (default 'pro'). */
   tier?: string;
   taskType?: string;
@@ -63,7 +63,7 @@ export interface AutoRetrieveResult {
 }
 
 export class RagApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   /**
    * Retrieve via the unified tier-aware Auto-RAG router (default) or the raw

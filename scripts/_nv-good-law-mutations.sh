@@ -130,7 +130,7 @@ if cmp -s "$BK/svc" "$SVC"; then echo "  !! M17 DID NOT APPLY (instrument failur
 run_case "M17 truncated always null (upstream flag discarded)" "$SUITE_SVC"
 
 echo "== M18: PDF byte cap reverted to the stale 20 MB =="
-perl -0pi -e "s/export const NYS_EXTRACT_MAX_PDF_BYTES = 96 \* 1024 \* 1024;/export const NYS_EXTRACT_MAX_PDF_BYTES = 20 * 1024 * 1024;/" "$SVC"
+perl -0pi -e "s/export const JRX_ECOSYSTEM_EXTRACT_MAX_PDF_BYTES = 96 \* 1024 \* 1024;/export const JRX_ECOSYSTEM_EXTRACT_MAX_PDF_BYTES = 20 * 1024 * 1024;/" "$SVC"
 run_case "M18 cap back to 20 MB" "$SUITE_SVC"
 
 echo "== M19: route truncated computed from maxChars only (upstream flag ignored) =="

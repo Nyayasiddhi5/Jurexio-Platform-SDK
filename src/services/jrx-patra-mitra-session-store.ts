@@ -1,6 +1,6 @@
 /**
  * NV-PATRA-MITRA-PG-001 — durable Patra Mitra session backing store.
- * Hot Map cache in nv-patra-mitra-service.ts; Postgres is source of truth across restarts.
+ * Hot Map cache in jrx-patra-mitra-service.ts; Postgres is source of truth across restarts.
  */
 import { sql } from 'drizzle-orm';
 import { db as _rawDb } from '../db/index.js';

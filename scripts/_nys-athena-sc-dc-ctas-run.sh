@@ -32,7 +32,7 @@ echo "=== Athena row counts ==="
 node <<'NODE'
 const { AthenaClient, StartQueryExecutionCommand, GetQueryExecutionCommand, GetQueryResultsCommand } = require('@aws-sdk/client-athena');
 const c = new AthenaClient({ region: 'ap-south-1' });
-const DB = 'nyv_docs', OUT = 's3://usa-caselaw/athena/results/', WG = 'nyv-docs';
+const DB = 'nyv_docs', OUT = 's3://usa-caselaw/athena/results/', WG = 'jrx-docs';
 async function run(sql) {
   const s = await c.send(new StartQueryExecutionCommand({
     QueryString: sql, QueryExecutionContext: { Database: DB },
@@ -64,10 +64,10 @@ async function run(sql) {
 })().catch(e => { console.error('COUNT_ERR', e.message); process.exit(1); });
 NODE
 
-if systemctl is-active --quiet nyv-api; then
-  systemctl restart nyv-api
+if systemctl is-active --quiet jrx-api; then
+  systemctl restart jrx-api
   sleep 3
-  curl -sf -m 10 http://127.0.0.1:8080/healthz >/dev/null && echo "nyv-api healthz=OK" || echo "nyv-api healthz=FAIL"
+  curl -sf -m 10 http://127.0.0.1:8080/healthz >/dev/null && echo "jrx-api healthz=OK" || echo "jrx-api healthz=FAIL"
 fi
 
 echo "CTAS_RUN_DONE=5150"

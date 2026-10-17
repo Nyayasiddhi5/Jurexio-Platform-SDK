@@ -4,7 +4,7 @@
  *
  * WHY THIS FILE EXISTS
  * --------------------
- * The route-level suite (`nv-legalchat-quality-envelope.test.ts`) mocks
+ * The route-level suite (`jrx-legalchat-quality-envelope.test.ts`) mocks
  * `queenOrchestrator.orchestrate`, so it proves the route *reads*
  * `metadata.ragStep0.chunkCount` correctly and proves nothing about whether the
  * Queen ever *writes* it. Deleting the `chunkCount` spread from the Queen's

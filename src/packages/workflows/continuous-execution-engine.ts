@@ -1,4 +1,4 @@
-// NYV-TS-CLEANUP-2026-05-11 (Session-15 v7): pre-existing TS errors in stub-
+// JRX-TS-CLEANUP-2026-05-11 (Session-15 v7): pre-existing TS errors in stub-
 // laden workflow engine; gateway runs via tsx; runtime contract verified by
 // NV-NEVER-BREAK 50/50 suite. Same precedent as src/db/index.ts:1.
 /**
@@ -178,7 +178,7 @@ export class ContinuousExecutionEngine extends EventEmitter {
     if (this.heartbeatInterval) clearInterval(this.heartbeatInterval);
 
     // Wait for running tasks to complete (with timeout)
-    await this.nyayavigyatForTasksCompletion(30000); // 30 second timeout
+    await this.jurexiotForTasksCompletion(30000); // 30 second timeout
 
     logger.info('✅ Continuous Execution Engine stopped');
     this.emit('engine.stopped');
@@ -648,7 +648,7 @@ export class ContinuousExecutionEngine extends EventEmitter {
   /**
    * Wait for running tasks to complete
    */
-  private async nyayavigyatForTasksCompletion(timeoutMs: number): Promise<void> {
+  private async jurexiotForTasksCompletion(timeoutMs: number): Promise<void> {
     const start = Date.now();
     
     while (this.runningTasks.size > 0 && (Date.now() - start) < timeoutMs) {

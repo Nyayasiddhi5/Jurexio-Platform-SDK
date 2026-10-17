@@ -73,7 +73,7 @@ export async function rasterisePdf(
   opts: RasterOptions = {},
 ): Promise<{ pages: RasterPage[]; tmpDir: string }> {
   const dpi = opts.dpi ?? 300;
-  const dir = await mkdtemp(join(tmpdir(), "nyv-raster-"));
+  const dir = await mkdtemp(join(tmpdir(), "jrx-raster-"));
   const prefix = join(dir, "pg");
 
   const args = ["-r", String(dpi), "-png"];

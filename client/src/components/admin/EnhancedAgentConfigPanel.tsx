@@ -46,38 +46,38 @@ export default function EnhancedAgentConfigPanel() {
   const [activeConfigTab, setActiveConfigTab] = useState('model');
 
   const { data: statsData, isLoading: statsLoading } = useQuery({
-    queryKey: ['/api/nyayavigya-admin/enhanced-configs/stats']
+    queryKey: ['/api/jurexio-admin/enhanced-configs/stats']
   });
 
   const { data: configsData, isLoading: configsLoading, refetch } = useQuery({
-    queryKey: ['/api/nyayavigya-admin/enhanced-configs', { tier: tierFilter !== 'all' ? tierFilter : undefined }]
+    queryKey: ['/api/jurexio-admin/enhanced-configs', { tier: tierFilter !== 'all' ? tierFilter : undefined }]
   });
 
   const { data: protocolOptions } = useQuery({
-    queryKey: ['/api/nyayavigya-admin/protocol-options']
+    queryKey: ['/api/jurexio-admin/protocol-options']
   });
 
   const { data: languageOptions } = useQuery({
-    queryKey: ['/api/nyayavigya-admin/language-options']
+    queryKey: ['/api/jurexio-admin/language-options']
   });
 
   const { data: guardrailsOptions } = useQuery({
-    queryKey: ['/api/nyayavigya-admin/guardrails-options']
+    queryKey: ['/api/jurexio-admin/guardrails-options']
   });
 
   const { data: operationModeOptions } = useQuery({
-    queryKey: ['/api/nyayavigya-admin/operation-mode-options']
+    queryKey: ['/api/jurexio-admin/operation-mode-options']
   });
 
   const { data: modelModeOptions } = useQuery({
-    queryKey: ['/api/nyayavigya-admin/model-selection-modes']
+    queryKey: ['/api/jurexio-admin/model-selection-modes']
   });
 
   const updateModelSelectionMutation = useMutation({
     mutationFn: ({ agentId, data }: { agentId: string; data: any }) =>
-      apiRequest(`/api/nyayavigya-admin/enhanced-configs/${agentId}/model-selection`, 'PUT', data),
+      apiRequest(`/api/jurexio-admin/enhanced-configs/${agentId}/model-selection`, 'PUT', data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya-admin/enhanced-configs'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio-admin/enhanced-configs'] });
       toast({ title: 'Model Selection Updated', description: 'Agent model configuration saved.' });
     },
     onError: (error: any) => {
@@ -87,36 +87,36 @@ export default function EnhancedAgentConfigPanel() {
 
   const updateGroupAssignmentMutation = useMutation({
     mutationFn: ({ agentId, data }: { agentId: string; data: any }) =>
-      apiRequest(`/api/nyayavigya-admin/enhanced-configs/${agentId}/group-assignment`, 'PUT', data),
+      apiRequest(`/api/jurexio-admin/enhanced-configs/${agentId}/group-assignment`, 'PUT', data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya-admin/enhanced-configs'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio-admin/enhanced-configs'] });
       toast({ title: 'Group Assignment Updated', description: 'Agent group configuration saved.' });
     }
   });
 
   const updateProtocolsMutation = useMutation({
     mutationFn: ({ agentId, data }: { agentId: string; data: any }) =>
-      apiRequest(`/api/nyayavigya-admin/enhanced-configs/${agentId}/protocols`, 'PUT', data),
+      apiRequest(`/api/jurexio-admin/enhanced-configs/${agentId}/protocols`, 'PUT', data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya-admin/enhanced-configs'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio-admin/enhanced-configs'] });
       toast({ title: 'Protocols Updated', description: 'Agent protocol configuration saved.' });
     }
   });
 
   const updateGuardrailsMutation = useMutation({
     mutationFn: ({ agentId, data }: { agentId: string; data: any }) =>
-      apiRequest(`/api/nyayavigya-admin/enhanced-configs/${agentId}/guardrails`, 'PUT', data),
+      apiRequest(`/api/jurexio-admin/enhanced-configs/${agentId}/guardrails`, 'PUT', data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya-admin/enhanced-configs'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio-admin/enhanced-configs'] });
       toast({ title: 'Guardrails Updated', description: 'Agent guardrails configuration saved.' });
     }
   });
 
   const updateOperationModeMutation = useMutation({
     mutationFn: ({ agentId, data }: { agentId: string; data: any }) =>
-      apiRequest(`/api/nyayavigya-admin/enhanced-configs/${agentId}/operation-mode`, 'PUT', data),
+      apiRequest(`/api/jurexio-admin/enhanced-configs/${agentId}/operation-mode`, 'PUT', data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya-admin/enhanced-configs'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio-admin/enhanced-configs'] });
       toast({ title: 'Operation Mode Updated', description: 'Agent operation mode saved.' });
     }
   });

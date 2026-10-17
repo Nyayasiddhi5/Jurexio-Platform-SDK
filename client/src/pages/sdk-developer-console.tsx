@@ -42,7 +42,7 @@ import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 
 const APP_TYPES = [
-  { value: 'nyayamitra', label: 'Nyayamitra' },
+  { value: 'jurexio-citizen', label: 'Jurexio Citizen' },
   { value: 'nyayasiddhi_professional', label: 'Jurexio Professional™' },
   { value: 'nyayasiddhi_institutional', label: 'Jurexio Institutional™' },
   { value: 'nyayasiddhi_governance', label: 'Jurexio Ministry™' },

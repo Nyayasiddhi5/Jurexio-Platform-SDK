@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Jurexio Enterprise Platform 3.1.2 — Jurisdiction Binding Middleware
- * NYV-MW-JURISDICTION-001
+ * JRX-MW-JURISDICTION-001
  *
  * Handover §3.3.1: "MUST FIX BEFORE PHASE-1"
  * Binds currency, court structure, clause bank, and statute terminology
@@ -217,7 +217,7 @@ export function jurisdictionBindingMiddleware(
   const jurisdictionCode: string =
     (req.body?.jurisdiction as string) ||
     (req.query?.jurisdiction as string) ||
-    (req.headers['x-nyv-jurisdiction'] as string) ||
+    (req.headers['x-jrx-jurisdiction'] as string) ||
     'IN';
 
   const profile = JURISDICTION_PROFILES[jurisdictionCode.toUpperCase()] || JURISDICTION_PROFILES['IN'];

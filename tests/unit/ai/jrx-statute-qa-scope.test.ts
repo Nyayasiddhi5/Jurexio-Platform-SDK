@@ -23,7 +23,7 @@ describe('./jrx-statute-qa-grounding — FAQ scope (NV-STATUTE-FAQ-SCOPE-001)', 
     + 'SEBI proceedings. Sequence the remedies and flag limitation risks.';
 
   it('does not treat the measured litigation-strategy prompt as a section FAQ', () => {
-    // Guard the exact prompt that reproduced the defect on nysdev.
+    // Guard the exact prompt that reproduced the defect on jrx-prod.
     expect(STRATEGY_PROMPT.length).toBeLessThan(280);
     expect(parseStatuteReference(STRATEGY_PROMPT)).not.toBeNull();
     expect(needsMoreThanOneSection(STRATEGY_PROMPT)).toBe(true);

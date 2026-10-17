@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * nv-backfill-usage-metering.mjs — Task #302
+ * jrx-backfill-usage-metering.mjs — Task #302
  *
  * Seeds public.sdk_usage_metering with rows synthesised from existing
  * audit/decision sources so the Cost Optimizer + Operations Hub have
  * meaningful data on first paint, before any new SDK traffic flows
- * through nv-usage-metering-middleware.
+ * through jrx-usage-metering-middleware.
  *
  * Sources (in order of preference):
  *   1. nv_router_decisions  (canonical: provider, model, cost_usd, tokens)

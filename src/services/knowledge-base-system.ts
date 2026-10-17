@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * Knowledge Base System for Jurexio Enterprise Platform SDK 9.0
  * Comprehensive document management with versioning, search, and real-time updates

@@ -1,6 +1,6 @@
 // @ts-nocheck
 /**
- * nv-uat-cartesian-worker.ts (N6, 2026-05-09)
+ * jrx-uat-cartesian-worker.ts (N6, 2026-05-09)
  * ─────────────────────────────────────────────────────────────────────────────
  * BullMQ-backed cartesian UAT runner. Designed for the full-10k matrix
  * (60 scenarios × 7 jurisdictions × 4 CoT × 6 providers + 8 free-models × 60).
@@ -22,7 +22,7 @@
  * WHY BULLMQ NOT BASH-WRAPPED RUNNER
  *   The bash tool wrapping in this Repl truncates at 115s, killing any
  *   foreground runner before the matrix completes. BullMQ persists jobs to
- *   Redis (NYV_REDIS_TCP_URL — already configured) so a producer-worker
+ *   Redis (JRX_REDIS_TCP_URL — already configured) so a producer-worker
  *   split can survive arbitrary tool restarts and parallelize across
  *   multiple worker processes.
  *
@@ -34,10 +34,10 @@ import { Queue, Worker, QueueEvents, type Job } from 'bullmq';
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
-const BASE = process.env.NYV_GATEWAY_URL || 'http://localhost:5000';
-const REDIS_URL = process.env.NYV_REDIS_TCP_URL || process.env.REDIS_URL;
+const BASE = process.env.JRX_GATEWAY_URL || 'http://localhost:5000';
+const REDIS_URL = process.env.JRX_REDIS_TCP_URL || process.env.REDIS_URL;
 if (!REDIS_URL) {
-  console.error('[uat-cart-worker] NYV_REDIS_TCP_URL is required');
+  console.error('[uat-cart-worker] JRX_REDIS_TCP_URL is required');
   process.exit(2);
 }
 const QUEUE_NAME = './jrx-uat-cartesian';
@@ -145,7 +145,7 @@ async function produce(args: Record<string,string>) {
       }
     }
   }
-  console.log(`[uat-cart-worker] enqueued ${enqueued} cells. Run with: nv-uat-cartesian-worker.ts work`);
+  console.log(`[uat-cart-worker] enqueued ${enqueued} cells. Run with: jrx-uat-cartesian-worker.ts work`);
   await queue.close();
 }
 
@@ -156,12 +156,12 @@ async function executeCell(d: CartesianJobData): Promise<CartesianJobResult> {
   const url = new URL(scen.request.path, BASE);
   const headers: Record<string,string> = {
     'Content-Type': 'application/json',
-    'X-API-Key': process.env.NYV_SDK_KEY_NSP || '',
-    'X-NYV-UAT-Provider': d.provider,
-    'X-NYV-UAT-CoT': d.cot,
-    'X-NYV-UAT-Inject': d.inject,
+    'X-API-Key': process.env.JRX_SDK_KEY_NSP || '',
+    'X-JRX-UAT-Provider': d.provider,
+    'X-JRX-UAT-CoT': d.cot,
+    'X-JRX-UAT-Inject': d.inject,
   };
-  if (d.freeModel) headers['X-NYV-UAT-Model'] = d.freeModel;
+  if (d.freeModel) headers['X-JRX-UAT-Model'] = d.freeModel;
   const init: any = { method: scen.request.method, headers };
   if (scen.request.method !== 'GET' && scen.request.body !== undefined) {
     init.body = JSON.stringify(scen.request.body);
@@ -279,7 +279,7 @@ const args = parseArgs(process.argv.slice(3));
   else if (cmd === 'work') { await work(args); await new Promise(()=>{}); }
   else if (cmd === 'drain') await drain(args);
   else {
-    console.error('usage: nv-uat-cartesian-worker.ts {produce|work|drain} [--key=val ...]');
+    console.error('usage: jrx-uat-cartesian-worker.ts {produce|work|drain} [--key=val ...]');
     process.exit(1);
   }
 })().catch((e) => { console.error(e); process.exit(1); });

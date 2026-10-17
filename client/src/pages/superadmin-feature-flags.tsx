@@ -9,8 +9,8 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvErrorState } from '@/components/NyvErrorState';
-import { NyvPageShell } from '@/components/NyvPageShell';
+import { JrxErrorState } from '@/components/JrxErrorState';
+import { JrxPageShell } from '@/components/JrxPageShell';
 import { useToast } from '@/hooks/use-toast';
 import { getAuthToken } from '@/lib/jrx-auth-token';
 import { NV_BASE, p } from '@/lib/jrx-api-paths';
@@ -71,7 +71,7 @@ export default function SuperAdminFeatureFlags() {
   const flags = (flagsQ.data ?? []) as FeatureFlag[];
 
   return (
-    <NyvPageShell
+    <JrxPageShell
       title="Feature Flags"
       description="Super Admin — toggle JRX_F_* flags governing platform surfaces. Read/write via /api/jrx/admin/feature-flags."
       className="./jrx-light-scope"
@@ -88,7 +88,7 @@ export default function SuperAdminFeatureFlags() {
         </div>
       )}
       {flagsQ.isError && (
-        <NyvErrorState title="Could not load feature flags" onRetry={() => flagsQ.refetch()} variant="card" />
+        <JrxErrorState title="Could not load feature flags" onRetry={() => flagsQ.refetch()} variant="card" />
       )}
       {!flagsQ.isLoading && !flagsQ.isError && (
         <div className="space-y-2">
@@ -117,6 +117,6 @@ export default function SuperAdminFeatureFlags() {
           ))}
         </div>
       )}
-    </NyvPageShell>
+    </JrxPageShell>
   );
 }

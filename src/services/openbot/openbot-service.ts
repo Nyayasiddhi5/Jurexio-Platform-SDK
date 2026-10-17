@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * OpenBot™ Service — Multi-Channel Studio
  * Jurexio Enterprise Platform 312 | Build: June 2026
@@ -206,7 +206,7 @@ class OpenBotService extends EventEmitter {
     this.hydrated = true;
     // task-236: idempotent runtime ALTERs so older deployments that pre-date
     // the org_id column (Drizzle push hasn't run yet) still get the multi-tenant
-    // filter. Same pattern as `nyv-graphrag-legal-service.ts`.
+    // filter. Same pattern as `jrx-graphrag-legal-service.ts`.
     try {
       const { pool } = await import('../../db/index.js');
       await (pool as any).query(`ALTER TABLE nv_schema.nv_openbot_channels ADD COLUMN IF NOT EXISTS org_id VARCHAR(64)`);

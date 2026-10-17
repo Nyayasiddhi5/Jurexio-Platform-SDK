@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
+// JRX-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
 // file. Runtime is unaffected (gateway runs via tsx). Opt out of strict-null
 // for the v5.0.0 deploy gate; track follow-up cleanup in INV-CLEANUP-001.
 /**
@@ -40,7 +40,7 @@ import { createLogger } from '../../utils/logger.js';
 const logger = createLogger('security-audit-persistence-servi');
 
 // task-251 / task-262: lazy non-null binding. Throws clearly with
-// `NyvMissingDependencyError('db')` at first use if the gateway booted
+// `JrxMissingDependencyError('db')` at first use if the gateway booted
 // without a database (instead of silently swallowing writes like the
 // previous stub did).
 const db = lazyRequire(() => rawDb, 'db');

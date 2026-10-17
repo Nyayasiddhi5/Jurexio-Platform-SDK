@@ -2,7 +2,7 @@
  * ConnectorsApi — Legaltech MCP integration connectors for ecosystem SDKs.
  * Wraps /api/jrx/mcp/connectors/*
  */
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export interface ConnectorDescriptor {
   id: string;
@@ -16,7 +16,7 @@ export interface ConnectorDescriptor {
 }
 
 export class ConnectorsApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   list(): Promise<{ connectors: ConnectorDescriptor[]; stats: Record<string, unknown> }> {
     return this.http.get('/api/jrx/mcp/connectors').then((r: any) => r.data ?? r);

@@ -53,6 +53,6 @@ export function JrxPageShell({
 }
 
 /** @deprecated Use JrxPageShell — removed next release */
-export const NyvPageShell = JrxPageShell;
+export const JrxPageShell = JrxPageShell;
 
 export default JrxPageShell;

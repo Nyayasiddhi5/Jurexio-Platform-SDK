@@ -16,8 +16,8 @@
  *      LLM entrypoint and fabricates nothing.
  *
  * This is the single source of truth for pattern→execution binding; it does
- * NOT duplicate the catalog (nv-patterns-routes) or the selector
- * (nyv-pattern-auto-selector) — those classify; this dispatches.
+ * NOT duplicate the catalog (jrx-patterns-routes) or the selector
+ * (jrx-pattern-auto-selector) — those classify; this dispatches.
  */
 import type { TaskDecomposition } from './jrx-queen-orchestrator.js';
 import { TOP_10_TOPOLOGY_IDS } from '../services/jrx-topology-algorithms.js';

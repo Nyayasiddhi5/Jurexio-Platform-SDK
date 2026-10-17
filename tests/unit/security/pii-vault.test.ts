@@ -12,16 +12,16 @@ async function loadModule() {
 }
 
 describe('PII Vault — Redis backed with in-memory fallback', () => {
-  const originalRedisUrl = process.env.NYV_REDIS_TCP_URL;
+  const originalRedisUrl = process.env.JRX_REDIS_TCP_URL;
   const originalAltUrl = process.env.REDIS_URL;
 
   beforeEach(() => {
-    delete process.env.NYV_REDIS_TCP_URL;
+    delete process.env.JRX_REDIS_TCP_URL;
     delete process.env.REDIS_URL;
   });
 
   afterEach(() => {
-    if (originalRedisUrl !== undefined) process.env.NYV_REDIS_TCP_URL = originalRedisUrl;
+    if (originalRedisUrl !== undefined) process.env.JRX_REDIS_TCP_URL = originalRedisUrl;
     if (originalAltUrl !== undefined) process.env.REDIS_URL = originalAltUrl;
   });
 
@@ -42,8 +42,8 @@ describe('PII Vault — Redis backed with in-memory fallback', () => {
     infoSpy.mockRestore();
   });
 
-  it('uses Redis when NYV_REDIS_TCP_URL is set, with PX TTL', async () => {
-    process.env.NYV_REDIS_TCP_URL = 'rediss://example.upstash.io:6380';
+  it('uses Redis when JRX_REDIS_TCP_URL is set, with PX TTL', async () => {
+    process.env.JRX_REDIS_TCP_URL = 'rediss://example.upstash.io:6380';
 
     const store = new Map<string, { value: string; pxExpiry?: number }>();
     const setMock = vi.fn(async (key: string, value: string, _mode: string, ttl: number) => {

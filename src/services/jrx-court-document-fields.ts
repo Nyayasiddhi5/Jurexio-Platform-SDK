@@ -5,7 +5,7 @@
  * Why this exists: `POST /api/jrx/gateway/documents/analyze` returned only an
  * `analysis` prose blob. NSP therefore had no structured values to attach to a
  * matter and fell back to its own regex layer, badging extraction as "Heuristic"
- * rather than "NYV" — i.e. we were doing the expensive part (an LLM read of the
+ * rather than "JRX" — i.e. we were doing the expensive part (an LLM read of the
  * document) and still not delivering the part the product needed.
  *
  * Why deterministic rather than another LLM call:
@@ -82,7 +82,7 @@ export interface CourtDocExtraction {
 
 /**
  * The three outcomes a partner must be able to tell apart. `[]` alone cannot carry
- * this distinction, which is the whole of NSP's NYV-6 report: an empty analysis and
+ * this distinction, which is the whole of NSP's JRX-6 report: an empty analysis and
  * a failed analysis were byte-identical, so their client could neither trust an
  * empty result nor retry a broken one.
  */
@@ -217,7 +217,7 @@ export function buildCourtDocFieldBlock(
       case 'heuristic':
         return 'heuristic';
       default:
-        /* Legacy partner badge — deterministic NYV heuristics + NER. */
+        /* Legacy partner badge — deterministic JRX heuristics + NER. */
         return 'nyv';
     }
   })();

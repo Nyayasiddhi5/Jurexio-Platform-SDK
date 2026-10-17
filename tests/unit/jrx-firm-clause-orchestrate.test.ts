@@ -75,8 +75,8 @@ describe('NV-FIRM-CLAUSE-ORCH-001: Defect 1 — reachable from the orchestrate d
   });
 
   it('reaches BOTH legal-intelligence overlay tiers — the shared ancestor every orchestrate branch uses', () => {
-    // `buildUniversalLegalIntelligenceOverlay` is what nv-orchestration-routes,
-    // nv-client (specialist) and nv-queen-leaf-prompt (Queen leaves) all call on
+    // `buildUniversalLegalIntelligenceOverlay` is what jrx-orchestration-routes,
+    // jrx-client (specialist) and jrx-queen-leaf-prompt (Queen leaves) all call on
     // the `draft` task kind. Covering both tiers covers all of them: none of
     // those three passes `parameters`, so only a request-scoped seam works.
     for (const depth of ['full', 'compact'] as const) {

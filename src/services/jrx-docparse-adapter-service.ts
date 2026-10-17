@@ -1,10 +1,10 @@
 /**
- * NV-DOCPARSE-ADAPTER-001 — wire @jurexio/docparse v0.2.0 into NYV ingest with
+ * NV-DOCPARSE-ADAPTER-001 — wire @jurexio/docparse v0.2.0 into JRX ingest with
  * honest provenance and tier-2 fallbacks.
  *
  * Cascade (enhancement-only — existing paths remain):
  *   bytes → docparse run() [deterministic primary]
- *        → if unreadable / empty / throw → nv-got-ocr-adapter → heuristics + NER
+ *        → if unreadable / empty / throw → jrx-got-ocr-adapter → heuristics + NER
  *        → partial success → merge docparse + heuristic (higher confidence wins)
  *
  * Never claims literal 100% — completeness ratio and conflict/low-confidence
@@ -20,7 +20,7 @@ import {
   type TableRecord,
 } from '@jurexio/docparse';
 import { createLogger } from '../utils/logger.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import {
   extractCourtDocumentFields,
   type CourtDocField,
@@ -395,7 +395,7 @@ async function runDocparseEngine(
       preferOcr: runOpts.preferOcr,
       maxPagesPerDoc: runOpts.maxPagesPerDoc,
     });
-    if (isNyvFeatureOn('docparseSdk')) {
+    if (isJrxFeatureOn('docparseSdk')) {
       try {
         const { buildSdkResultBundle } = await import('./jrx-docparse-sdk-adapter-service.js');
         const bundle = await buildSdkResultBundle(queued, domainPackId);
@@ -430,7 +430,7 @@ async function runDocparseEngine(
       }
     : undefined;
 
-  if (isNyvFeatureOn('docparseSdk')) {
+  if (isJrxFeatureOn('docparseSdk')) {
     try {
       const { runDocparseSdkEngine, buildSdkResultBundle } = await import(
         './jrx-docparse-sdk-adapter-service.js'
@@ -455,13 +455,13 @@ async function runDocparseEngine(
       logger.warn('[DocparseAdapter] Platform SDK engine failed', {
         err: err instanceof Error ? err.message : String(err),
       });
-      if (!isNyvFeatureOn('docparseLegacy')) {
+      if (!isJrxFeatureOn('docparseLegacy')) {
         throw err;
       }
     }
   }
 
-  if (isNyvFeatureOn('docparseLegacy')) {
+  if (isJrxFeatureOn('docparseLegacy')) {
     const { run } = await import('@jurexio/docparse');
     return run(inputFiles, { batchId, actor, onPage });
   }
@@ -469,7 +469,7 @@ async function runDocparseEngine(
 }
 
 /**
- * DOCX (P2): pre-convert via nv-doc-content-extractor; docparse run() is PDF/image only.
+ * DOCX (P2): pre-convert via jrx-doc-content-extractor; docparse run() is PDF/image only.
  */
 async function extractDocxText(bytes: Buffer, fileName: string, mimeType?: string): Promise<string> {
   const { extractDocumentText } = await import('./sdk/jrx-doc-content-extractor.js');
@@ -550,7 +550,7 @@ async function runDocparseCore(
 
   const heuristic = await extractCourtDocumentFields(workingText, jurisdiction);
 
-  const flagOn = isNyvFeatureOn('docparse');
+  const flagOn = isJrxFeatureOn('docparse');
   const inLegal = isIndianLegalJurisdiction(jurisdiction);
   const hasBinary = files.length > 0;
   const eligible = primaryFile ? isDocparseEligibleBinary(primaryFile.fileName, primaryFile.mimeType) : false;
@@ -740,5 +740,5 @@ async function runDocparseCore(
 }
 
 export function isDocparseEnabled(jurisdiction?: string): boolean {
-  return isNyvFeatureOn('docparse') && isIndianLegalJurisdiction(jurisdiction);
+  return isJrxFeatureOn('docparse') && isIndianLegalJurisdiction(jurisdiction);
 }

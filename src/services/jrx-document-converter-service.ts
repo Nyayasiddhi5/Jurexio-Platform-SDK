@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Jurexio Document Converter Service
  * @version 3.1.2
@@ -224,7 +224,7 @@ function htmlToMarkdown(html: string): string {
 async function drainStreamToTmp(stream: Readable, format: SourceFormat): Promise<string> {
   const tmpPath = path.join(
     os.tmpdir(),
-    `nyv-doc-conv-${Date.now()}-${process.pid}-${Math.random().toString(36).slice(2, 8)}.${format}`,
+    `jrx-doc-conv-${Date.now()}-${process.pid}-${Math.random().toString(36).slice(2, 8)}.${format}`,
   );
   await pipeline(stream, createWriteStream(tmpPath));
   return tmpPath;
@@ -588,16 +588,16 @@ async function convertDocument(request: ConversionRequest): Promise<ConversionRe
   // existing buffer behaviour (cheaper for the common small-payload case).
   const outputDiskThreshold = Math.max(
     0,
-    Number.parseInt(process.env.NYV_DOC_CONVERT_OUTPUT_DISK_THRESHOLD_BYTES ?? '', 10) || 1024 * 1024,
+    Number.parseInt(process.env.JRX_DOC_CONVERT_OUTPUT_DISK_THRESHOLD_BYTES ?? '', 10) || 1024 * 1024,
   );
-  const fileName = `nyayavigya-converted-${Date.now()}.${targetFormat}`;
+  const fileName = `jurexio-converted-${Date.now()}.${targetFormat}`;
   const sizeBytes = outputBuffer.length;
   let outputPath: string | undefined;
   let outputBufferOut: Buffer | undefined = outputBuffer;
   if (sizeBytes >= outputDiskThreshold) {
     const tmpPath = path.join(
       os.tmpdir(),
-      `nyv-doc-conv-out-${Date.now()}-${process.pid}-${Math.random().toString(36).slice(2, 8)}.${targetFormat}`,
+      `jrx-doc-conv-out-${Date.now()}-${process.pid}-${Math.random().toString(36).slice(2, 8)}.${targetFormat}`,
     );
     try {
       await fs.writeFile(tmpPath, outputBuffer);

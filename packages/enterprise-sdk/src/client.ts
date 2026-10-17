@@ -30,9 +30,9 @@ export class EnterpriseHttpClientImpl implements EnterpriseHttpClient {
     this.headers = {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${config.apiKey}`,
-      'X-NYV-Org-ID': config.orgId,
-      'X-NYV-SDK-Version': '5.0.0',
-      'X-NYV-SDK': 'enterprise',
+      'X-JRX-Org-ID': config.orgId,
+      'X-JRX-SDK-Version': '5.0.0',
+      'X-JRX-SDK': 'enterprise',
     };
     this.timeout = config.timeout ?? 30_000;
   }
@@ -70,7 +70,7 @@ export class EnterpriseHttpClientImpl implements EnterpriseHttpClient {
         let errBody: Record<string, unknown> = {};
         try { errBody = await res.json() as Record<string, unknown>; } catch { /* ignore */ }
         throw new Error(
-          `NYV Enterprise API error: ${res.status} ${res.statusText} — ${errBody.message ?? errBody.error ?? 'Unknown error'}`
+          `JRX Enterprise API error: ${res.status} ${res.statusText} — ${errBody.message ?? errBody.error ?? 'Unknown error'}`
         );
       }
 

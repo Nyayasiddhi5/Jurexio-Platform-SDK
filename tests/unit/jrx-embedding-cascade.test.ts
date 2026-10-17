@@ -11,10 +11,10 @@ import { describeLlmCascadeConfig } from '../../src/config/jrx-llm-cascade-confi
 describe('./jrx-embedding-cascade config', () => {
   const prev: Record<string, string | undefined> = {};
   const keys = [
-    'NYV_EMBEDDING_PROVIDER',
-    'NYV_EMBEDDING_CASCADE',
-    'NYV_BEDROCK_EMBEDDINGS',
-    'NYV_EMBEDDING_ALLOW_DIM_MISMATCH',
+    'JRX_EMBEDDING_PROVIDER',
+    'JRX_EMBEDDING_CASCADE',
+    'JRX_BEDROCK_EMBEDDINGS',
+    'JRX_EMBEDDING_ALLOW_DIM_MISMATCH',
   ];
 
   beforeEach(() => {
@@ -38,9 +38,9 @@ describe('./jrx-embedding-cascade config', () => {
     expect(cfg.primary).toBe('gemini');
   });
 
-  it('respects NYV_EMBEDDING_CASCADE env without code change', () => {
-    process.env.NYV_EMBEDDING_CASCADE = 'openrouter,gemini,local';
-    process.env.NYV_EMBEDDING_PROVIDER = 'auto';
+  it('respects JRX_EMBEDDING_CASCADE env without code change', () => {
+    process.env.JRX_EMBEDDING_CASCADE = 'openrouter,gemini,local';
+    process.env.JRX_EMBEDDING_PROVIDER = 'auto';
     const cfg = getEmbeddingCascadeConfig();
     expect(cfg.cascade[0]).toBe('openrouter');
     expect(cfg.cascade).toContain('gemini');

@@ -3,7 +3,7 @@ import { Router, Route, Switch, useLocation } from 'wouter';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';
 import { Toaster } from './components/ui/toaster';
-import { NyvSkipLink } from './components/NyvSkipLink';
+import { JrxSkipLink } from './components/JrxSkipLink';
 import { ErrorBoundaryWithRetry } from './components/ErrorBoundaryWithRetry';
 import { AssistantDrawer } from './components/AssistantDrawer';
 import { LanguageProvider } from './contexts/LanguageContext';
@@ -86,7 +86,7 @@ const OrgLlmBudgetAdmin = lazy(() => import('./pages/admin/org-llm-budget'));
 const AdversarialTesting = lazy(() => import('./pages/adversarial-testing'));
 const ModelDriftMonitor = lazy(() => import('./pages/model-drift-monitor'));
 // task-344 (2026-05-13): HashChainAudit moved into AuditChain page's `hash-chain` tab.
-const JurexioSDKHub = lazy(() => import('./pages/nyayavigya-sdk-hub'));
+const JurexioSDKHub = lazy(() => import('./pages/jurexio-sdk-hub'));
 const SDKTestingConsole = lazy(() => import('./pages/sdk-testing-console'));
 const AgentCreationWizard = lazy(() => import('./pages/agent-creation-wizard'));
 const PlatformManagement = lazy(() => import('./pages/platform-management'));
@@ -206,8 +206,8 @@ const BipaConsent           = lazy(() => import('./pages/bipa-consent'));
 const AgentScorecard        = lazy(() => import('./pages/agent-scorecard'));
 
 import { JrxConsoleSidebar } from './components/JrxConsoleSidebar';
-import { NyvTopBar } from './components/NyvTopBar';
-import { NyvBreadcrumbs } from './components/NyvBreadcrumbs';
+import { JrxTopBar } from './components/JrxTopBar';
+import { JrxBreadcrumbs } from './components/JrxBreadcrumbs';
 
 // Sidebar-aware layout — hides sidebar/topbar on login/landing to avoid flash
 function WithSidebar({ user, children }: { user: unknown; children: React.ReactNode }) {
@@ -218,9 +218,9 @@ function WithSidebar({ user, children }: { user: unknown; children: React.ReactN
     <div className="flex" style={{ minHeight: '100vh' }}>
       <JrxConsoleSidebar />
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <NyvTopBar />
-        <NyvBreadcrumbs />
-        <div className="flex-1 overflow-y-auto nv-light-scope bg-[#F8FAFC]">{children}</div>
+        <JrxTopBar />
+        <JrxBreadcrumbs />
+        <div className="flex-1 overflow-y-auto jrx-light-scope bg-[#F8FAFC]">{children}</div>
       </div>
     </div>
   );
@@ -410,7 +410,7 @@ export default function App() {
       <AuthProvider user={user} login={handleLoginSuccess} logout={handleLogout}>
         <OrgProvider>
         <ErrorBoundaryWithRetry>
-          <NyvSkipLink />
+          <JrxSkipLink />
           <div className="min-h-screen bg-background" id="main-content" role="main" aria-label="Jurexio Legal AI Platform">
             <Router base="/console">
               <WithSidebar user={user}>
@@ -738,7 +738,7 @@ export default function App() {
                 <Route path="/agent-wizard">{() => <ProtectedRoute minRole="developer"><AgentCreationWizard /></ProtectedRoute>}</Route>
                 <Route path="/create-agent">{() => <ProtectedRoute minRole="developer"><AgentCreationWizard /></ProtectedRoute>}</Route>
                 <Route path="/platform-management">{() => <RedirectTo to="/superadmin/platforms" />}</Route>
-                <Route path="/nyayamitra">{() => <RedirectTo to="/chat?tab=legal" />}</Route>
+                <Route path="/jurexio-citizen">{() => <RedirectTo to="/chat?tab=legal" />}</Route>
                 <Route path="/platform-config">{() => <ProtectedRoute minRole="org_admin" requiresOrg><PlatformManagement /></ProtectedRoute>}</Route>
                 <Route path="/agent-live-testing">{() => <ProtectedRoute minRole="analyst"><AgentLiveTesting /></ProtectedRoute>}</Route>
 

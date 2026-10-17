@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 import { Router, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import { generateToken, authenticateToken, generateRefreshToken, storeRefreshToken, rotateRefreshToken, revokeAllRefreshTokens } from '../middleware/auth.js';
@@ -198,12 +198,12 @@ router.get('/me', async (req: Request, res: Response) => {
 
     const token = authHeader.split(' ')[1];
     const jwt = await import('jsonwebtoken');
-    // NYV-AUTH-FIX (2026-05-05): use the SAME secret-resolution chain as
+    // JRX-AUTH-FIX (2026-05-05): use the SAME secret-resolution chain as
     // generateToken() in src/middleware/jrx-auth.ts. Previously this read
-    // only JWT_SECRET, while login signs with NYV_JWT_SECRET (preferred) →
+    // only JWT_SECRET, while login signs with JRX_JWT_SECRET (preferred) →
     // every browser session was 401'd and immediately logged out.
     const secret =
-      process.env.NYV_JWT_SECRET ||
+      process.env.JRX_JWT_SECRET ||
       process.env.JWT_SECRET ||
       process.env.NS_JWT_SECRET;
     if (!secret) { safeError(res, 'Server configuration error', 500); return; }
@@ -360,7 +360,7 @@ router.post('/otp/verify', async (req: Request, res: Response) => {
 router.post('/api-key', async (req: Request, res: Response) => {
   try {
     const { name, permissions } = req.body;
-    const apiKey = `nyayavigya_${Buffer.from(Date.now().toString()).toString('base64').replace(/=/g, '')}`;
+    const apiKey = `jurexio_${Buffer.from(Date.now().toString()).toString('base64').replace(/=/g, '')}`;
 
     res.json({
       success: true,

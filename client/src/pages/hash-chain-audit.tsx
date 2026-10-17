@@ -11,8 +11,8 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Label } from '@/components/ui/label';
 import { Link, Shield, CheckCircle, XCircle, Search, Download, RefreshCw, FileText, Clock } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { formatDistanceToNow, format } from 'date-fns';
@@ -163,7 +163,7 @@ export default function HashChainAudit() {
                   </div>
                 ) : lineageError ? (
                   <div className="p-4">
-                    <NyvErrorState
+                    <JrxErrorState
                       title="Unable to load lineage records"
                       description="The hash-chain audit query could not be completed."
                       onRetry={() => refetch()}
@@ -171,7 +171,7 @@ export default function HashChainAudit() {
                     />
                   </div>
                 ) : records.length === 0 ? (
-                  <NyvEmptyState
+                  <JrxEmptyState
                     icon={FileText}
                     title="No lineage records found"
                     description="Records are created automatically for all AI inference calls, document uploads, PII access, and admin actions."

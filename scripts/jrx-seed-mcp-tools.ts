@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — MCP Tools Seed
- * NYV-SCRIPT-SEED-MCP-001 (rewritten 2026-05-08 for P1 #6)
+ * Jurexio Platform 3.1.2 — MCP Tools Seed
+ * JRX-SCRIPT-SEED-MCP-001 (rewritten 2026-05-08 for P1 #6)
  *
  * Seeds `public.nv_mcp_tools` from the canonical 530-tool registry at
  * `src/data/jrx-mcp-tools-registry.ts` (NV_MCP_TOOLS_REGISTRY). Replaces
@@ -27,7 +27,7 @@ const REQUIRED_COLUMNS = {
 const DRY = process.env.DRY_RUN === '1';
 
 function toolIdFor(id: string): string {
-  return `NYV-MCP-${id.toUpperCase().replace(/[^A-Z0-9]+/g, '-')}-001`;
+  return `JRX-MCP-${id.toUpperCase().replace(/[^A-Z0-9]+/g, '-')}-001`;
 }
 
 async function seedMcpTools(): Promise<void> {

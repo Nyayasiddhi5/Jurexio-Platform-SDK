@@ -1,7 +1,7 @@
 /**
  * NV-QE-COT-CAPTURE-FAIL-001 — completed Queen answers survive a CoT JSON parse miss.
  *
- * Job 297 (2026-08-17T05:37Z, api.nyayasiddhi.online): Queen produced the draft,
+ * Job 297 (2026-08-17T05:37Z, api.jurexio.com): Queen produced the draft,
  * CoT capture threw, envelope fail-closed missing:["cot"], NSP got HTTP 500
  * QUALITY_ENVELOPE_FAILED (193 bytes). This locks the scale-off so that class
  * of failure cannot 500 a billed answer again — without reopening
@@ -69,8 +69,8 @@ describe('NV-QE-COT-CAPTURE-FAIL-001: scale-off after a completed answer', () =>
   });
 
   it('does not 500 when asserted fail-closed after scale-off', () => {
-    const prev = process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED;
-    process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED = '1';
+    const prev = process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED;
+    process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED = '1';
     try {
       const env = envelope(true);
       scaleCoTAfterCaptureFailure(env, {
@@ -81,8 +81,8 @@ describe('NV-QE-COT-CAPTURE-FAIL-001: scale-off after a completed answer', () =>
       completeSafety(env, false);
       expect(() => assertQualityEnvelope(env)).not.toThrow();
     } finally {
-      if (prev === undefined) delete process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED;
-      else process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED = prev;
+      if (prev === undefined) delete process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED;
+      else process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED = prev;
     }
   });
 

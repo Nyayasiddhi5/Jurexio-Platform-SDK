@@ -105,15 +105,15 @@ describe('./jrx-prompt-budget: classification', () => {
 });
 
 describe('./jrx-prompt-budget: overlay tiering actually shrinks the prompt', () => {
-  const prevRefDate = process.env.NYV_REFERENCE_DATE;
+  const prevRefDate = process.env.JRX_REFERENCE_DATE;
 
   beforeEach(() => {
-    process.env.NYV_REFERENCE_DATE = '2026-08-20T12:00:00+05:30';
+    process.env.JRX_REFERENCE_DATE = '2026-08-20T12:00:00+05:30';
   });
 
   afterEach(() => {
-    if (prevRefDate === undefined) delete process.env.NYV_REFERENCE_DATE;
-    else process.env.NYV_REFERENCE_DATE = prevRefDate;
+    if (prevRefDate === undefined) delete process.env.JRX_REFERENCE_DATE;
+    else process.env.JRX_REFERENCE_DATE = prevRefDate;
   });
 
   const full = buildUniversalLegalIntelligenceOverlay({ prompt: FAQ, jurisdiction: 'IN', depth: 'full' });

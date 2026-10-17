@@ -5,7 +5,7 @@
  *   - QualityEnvelope import / assert
  *   - AdaptiveRouter decideAdaptivePath
  *   - Credit enforce before Queen
- *   - NV-LLM-001 callNyayavigya / orchestrateLLM
+ *   - NV-LLM-001 callJurexio / orchestrateLLM
  *   - osDepth on response contract
  *
  * Run: npx tsx scripts/jrx-guardrail-orch-stage-contract.ts
@@ -68,7 +68,7 @@ const checks: Array<{ file: string; mustInclude: string[]; label: string }> = [
     file: 'src/services/jrx-auto-rag-router.ts',
     label: 'Auto-RAG parallel extras deadline',
     mustInclude: [
-      'NYV_AUTO_RAG_EXTRAS_DEADLINE_MS',
+      'JRX_AUTO_RAG_EXTRAS_DEADLINE_MS',
       'autoRagRetrieve',
     ],
   },

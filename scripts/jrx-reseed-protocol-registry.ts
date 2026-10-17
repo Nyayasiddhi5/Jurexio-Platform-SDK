@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — Protocol Registry reseed
- * NYV-SCRIPT-RESEED-PROTOCOL-001 (T-DLR-11)
+ * Jurexio Platform 3.1.2 — Protocol Registry reseed
+ * JRX-SCRIPT-RESEED-PROTOCOL-001 (T-DLR-11)
  *
  * Idempotent reseed of `nv_schema.protocol_registry` from the SSoT
  * `capabilityManifest`. Equivalent to the boot-time

@@ -51,7 +51,7 @@ function envFlagOff(name: string): boolean {
 }
 
 export function isRetryEnabled(): boolean {
-  return !envFlagOff('NYV_LLM_RETRY');
+  return !envFlagOff('JRX_LLM_RETRY');
 }
 
 /**

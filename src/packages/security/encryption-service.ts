@@ -140,7 +140,7 @@ export class EncryptionService {
    * Generate API key
    */
   generateApiKey(): string {
-    const prefix = 'nyayavigya_';
+    const prefix = 'jurexio_';
     const keyLength = 32;
     const randomBytes = crypto.randomBytes(keyLength);
     return prefix + randomBytes.toString('hex');
@@ -150,7 +150,7 @@ export class EncryptionService {
    * Validate API key format
    */
   isValidApiKey(apiKey: string): boolean {
-    return /^nyayavigya_[a-f0-9]{64}$/.test(apiKey);
+    return /^jurexio_[a-f0-9]{64}$/.test(apiKey);
   }
 }
 

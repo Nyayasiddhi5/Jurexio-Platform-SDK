@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { attemptEcourtsIndiaLiveFetch } from '../jrx-ecourtsindia-live-fetch.js';
 
 describe('attemptEcourtsIndiaLiveFetch', () => {
-  const prev = process.env.NYV_ECOURTSINDIA_API_KEY;
+  const prev = process.env.JRX_ECOURTSINDIA_API_KEY;
 
   beforeEach(() => {
     vi.stubGlobal('fetch', vi.fn());
@@ -10,12 +10,12 @@ describe('attemptEcourtsIndiaLiveFetch', () => {
 
   afterEach(() => {
     vi.unstubAllGlobals();
-    if (prev === undefined) delete process.env.NYV_ECOURTSINDIA_API_KEY;
-    else process.env.NYV_ECOURTSINDIA_API_KEY = prev;
+    if (prev === undefined) delete process.env.JRX_ECOURTSINDIA_API_KEY;
+    else process.env.JRX_ECOURTSINDIA_API_KEY = prev;
   });
 
   it('maps partner case payload to found resolve', async () => {
-    process.env.NYV_ECOURTSINDIA_API_KEY = 'eci_live_test_key_len_ok';
+    process.env.JRX_ECOURTSINDIA_API_KEY = 'eci_live_test_key_len_ok';
     (fetch as ReturnType<typeof vi.fn>).mockResolvedValue({
       ok: true,
       status: 200,

@@ -9,7 +9,7 @@
  * across:
  *   - tryJwtBypass (resolves applicationId via the resolver)
  *   - the customer-orgs admin-scope guard (org_admin → customer-orgs:admin)
- *   - platformIdOrFail in nv-customer-orgs-routes.ts (uses sdkContext.applicationId)
+ *   - platformIdOrFail in jrx-customer-orgs-routes.ts (uses sdkContext.applicationId)
  *
  * The global db mock returns a thenable chain via vi.mock; we override
  * `db.execute` per-test to capture the SQL bind values and assert the
@@ -33,7 +33,7 @@ import { db } from '../../src/db/index.js';
 import { resolveApplicationIdForOrg } from '../../src/services/jrx-resolve-application-for-org.js';
 import customerOrgsRouter from '../../src/routes/jrx-customer-orgs-routes.js';
 
-const SECRET = process.env.NYV_JWT_SECRET!;
+const SECRET = process.env.JRX_JWT_SECRET!;
 
 async function withApp<T>(fn: (baseUrl: string) => Promise<T>): Promise<T> {
   const app = express();
@@ -107,7 +107,7 @@ describe('task-367 — GET /api/jrx/sdk/customer-orgs (JWT-only) uses resolved p
 
     // Both SQL calls (list + COUNT) MUST bind platform_id = 11. The
     // drizzle mock surfaces bound values as { strings, values } — every
-    // route in nv-customer-orgs-routes.ts emits platform_id as the first
+    // route in jrx-customer-orgs-routes.ts emits platform_id as the first
     // bound value. Asserting on values[0] catches the historical
     // hard-code-to-0 regression without false positives from LIMIT/OFFSET.
     expect(sqlCalls.length).toBeGreaterThanOrEqual(2);

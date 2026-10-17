@@ -3,7 +3,7 @@
  * task-258 (2026-05-13)
  *
  * Replaces the structured-501 stub at /api/architect/deploy that lived in
- * `nv-console-page-stubs-routes.ts` with a real persistence + side-effect
+ * `jrx-console-page-stubs-routes.ts` with a real persistence + side-effect
  * backend so the Architect Visual Workflow Builder
  * (`client/src/pages/architect-workflow-builder.tsx`) can actually deploy
  * an org graph instead of just downloading a JSON file.
@@ -22,9 +22,9 @@
  * Auth: `authenticateToken` — the page itself is gated by
  * `<ProtectedRoute minRole="manager">`, so callers always have a JWT in
  * scope. Service-account / inter-service callers are also accepted via the
- * canonical bypass already implemented in `nv-auth.ts`.
+ * canonical bypass already implemented in `jrx-auth.ts`.
  *
- * Guardrails: NV-NAMING-001 (file prefixed `nv-`), NV-WIRING-001 (mounted
+ * Guardrails: NV-NAMING-001 (file prefixed `jrx-`), NV-WIRING-001 (mounted
  * from `src/index.ts`), NV-CONTRACT-001 (zod-validated body), NV-OWNERSHIP-001
  * (errors are surfaced explicitly, not swallowed).
  */
@@ -41,7 +41,7 @@ import { createLogger } from '../utils/logger.js';
 
 // Lazy-bind the drizzle singleton so this module imports cleanly even if
 // initializeDatabase() runs after route registration. Property access throws
-// `NyvMissingDependencyError` with a clear message if the DB is still null
+// `JrxMissingDependencyError` with a clear message if the DB is still null
 // at request time. Pattern documented in `utils/jrx-type-helpers.ts`.
 const db = lazyRequire(() => rawDb, 'db', 'Architect routes need the NV core DB pool.');
 
@@ -117,7 +117,7 @@ function summarise(body: DeployBody) {
 // page-level guard `<ProtectedRoute minRole="manager">`, but enforced
 // server-side (the client guard is UX, not a security boundary). The
 // `service` role is included so the canonical inter-service-secret bypass in
-// nv-auth.ts (used by NSP / NSI / Nyayamitra) keeps working.
+// jrx-auth.ts (used by NSP / NSI / Jurexio Citizen) keeps working.
 const ARCHITECT_ALLOWED_ROLES = [
   'manager',
   'admin',
@@ -229,7 +229,7 @@ export function createArchitectRouter(): Router {
       // subscribers (agent materializer, routing-rules writer, IronLedger
       // recorder) can react. The bus ships with a built-in logging
       // subscriber so the side-effect is always observable even before any
-      // domain subscriber is wired (see nv-architect-deployment-bus.ts).
+      // domain subscriber is wired (see jrx-architect-deployment-bus.ts).
       const deployedWorkflowId: string = (row?.workflowId as string | undefined) ?? workflowId;
       const deploymentRowId: number | null = typeof row?.id === 'number' ? row.id : null;
       nvArchitectDeploymentBus.publish({

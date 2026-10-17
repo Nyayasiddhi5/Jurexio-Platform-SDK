@@ -1,10 +1,10 @@
 /**
- * Nyayavigya Platform 3.1.2 — SDK Applications Schema Extension Migration
- * NYV-MIGRATION-SDK-APPS-EXTEND-001
+ * Jurexio Platform 3.1.2 — SDK Applications Schema Extension Migration
+ * JRX-MIGRATION-SDK-APPS-EXTEND-001
  *
  * Adds enterprise columns to nv_sdk_applications:
- *   platform_type       — which of the 5 Nyayasiddhi platforms
- *   modules_enabled     — JSONB flags per Nyayavigya module
+ *   platform_type       — which of the 5 Jurexio platforms
+ *   modules_enabled     — JSONB flags per Jurexio module
  *   agents_allowed      — which ROMA L5 agent IDs are active
  *   llm_config          — primary/fallback model, budget mode, monthly cap
  *   rate_limits_config  — req/min, req/hour, tokens/day
@@ -37,7 +37,7 @@ const sql = makePgSql(DATABASE_URL);
 
 async function runMigration(): Promise<void> {
   console.log('\n══════════════════════════════════════════════════════');
-  console.log('  NYV SDK Applications — Schema Extension Migration');
+  console.log('  JRX SDK Applications — Schema Extension Migration');
   console.log('══════════════════════════════════════════════════════\n');
 
   try {

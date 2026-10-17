@@ -1,18 +1,18 @@
 /**
- * NV-DRAFT-INTENT-PROMPT-001 — prompt → drafting intent resolver (NYV SSoT).
+ * NV-DRAFT-INTENT-PROMPT-001 — prompt → drafting intent resolver (JRX SSoT).
  *
  * The single heuristic map that decodes a raw partner prompt / documentText into
  * a coarse {@link DraftDocumentType} PLUS, where a statutory trigger is
- * unambiguous, the fine-grained FB-468 `nvTemplateKey` — so NYV can apply the
+ * unambiguous, the fine-grained FB-468 `nvTemplateKey` — so JRX can apply the
  * right Indian structure checklist and filing-enclosure manifest even when NSP
  * omits `documentType` / `filingContext` / `filingBookRowId` and sends only a
  * prompt (NV-DOCUMENT-TYPE-INFERENCE-001 fail-open, deepened for FB-468).
  *
  * NV-NO-DUPLICATE-001: this is the ONE prompt-heuristic table. The coarse
  * document-type resolver (`resolveDraftDocumentTypeWithMeta` in
- * `nv-draft-length-registry.ts`) delegates its prompt-inference branch here
+ * `jrx-draft-length-registry.ts`) delegates its prompt-inference branch here
  * rather than carrying a second rule list. Keyword sources are aligned with the
- * filing-book crosswalk (`nv-filing-book-crosswalk.ts`) and the manifest keys.
+ * filing-book crosswalk (`jrx-filing-book-crosswalk.ts`) and the manifest keys.
  *
  * Fail-open contract: never throw, never return an empty/broken type. When no
  * rule matches, resolve to `general_legal_document` with `source: 'default'` so

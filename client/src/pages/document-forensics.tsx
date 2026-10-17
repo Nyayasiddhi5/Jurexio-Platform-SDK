@@ -10,7 +10,7 @@ export default function DocumentForensicsPage() {
     if (!text.trim()) return;
     setLoading(true);
     try {
-      const res = await fetch(nv('nyaya-tools/forensic/verify'), {
+      const res = await fetch(nv('jrx-legal-tools/forensic/verify'), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

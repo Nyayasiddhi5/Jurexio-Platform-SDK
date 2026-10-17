@@ -113,9 +113,9 @@ export const PHASE_C_ENDPOINTS: PhaseCEndpoint[] = [
     flag: 'tools_mcp',
     feature: 'Tools & MCP',
     capabilities: ['Browse nv_mcp_tools registry', 'Live invoke + log to nv_mcp_tool_calls', 'Per-tool RBAC'],
-    ownerNote: 'Superseded 2026-05-28: nyaya-tools catalog + /api/jrx/v1/mcp/tools/:id/execute invoke.',
+    ownerNote: 'Superseded 2026-05-28: jrx-legal-tools catalog + /api/jrx/v1/mcp/tools/:id/execute invoke.',
     superseded: true,
-    passthrough: '/api/jrx/nyaya-tools/catalog',
+    passthrough: '/api/jrx/jrx-legal-tools/catalog',
   },
   {
     path: '/statutes-citations',

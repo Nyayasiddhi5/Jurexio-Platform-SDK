@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 
 // Jurexio Legal SDK API Client for real-time system metrics
-const nyayavigyaSDKClient = {
+const jurexioSDKClient = {
   getSystemHealth: () => apiRequest('/api/v9/health'),
   getSystemMetrics: () => apiRequest('/api/v9/system/metrics')
 };
@@ -14,8 +14,8 @@ export function useRealTimeSystemMetrics() {
     queryKey: ['/api/v9/system/metrics'],
     queryFn: async () => {
       const [health, metrics] = await Promise.all([
-        nyayavigyaSDKClient.getSystemHealth(),
-        nyayavigyaSDKClient.getSystemMetrics(),
+        jurexioSDKClient.getSystemHealth(),
+        jurexioSDKClient.getSystemMetrics(),
       ]);
       
       return {
@@ -53,7 +53,7 @@ export function useRealTimeSystemMetrics() {
 export function useSystemHealth() {
   return useQuery({
     queryKey: ['/api/v9/health'],
-    queryFn: () => nyayavigyaSDKClient.getSystemHealth(),
+    queryFn: () => jurexioSDKClient.getSystemHealth(),
     refetchInterval: 10000, // Refresh every 10 seconds
   });
 }

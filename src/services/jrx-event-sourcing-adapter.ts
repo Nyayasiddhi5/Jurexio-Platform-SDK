@@ -94,7 +94,7 @@ class NvEventSourcingAdapter {
   private mode: 'pg-queue' | 'kafka';
 
   constructor() {
-    this.mode = process.env.NYV_EVENT_BUS_MODE === 'kafka' ? 'kafka' : 'pg-queue';
+    this.mode = process.env.JRX_EVENT_BUS_MODE === 'kafka' ? 'kafka' : 'pg-queue';
     this.bus = new NvPgJobQueueEventBus();
     logger.info({ service: 'NvEventSourcingAdapter', mode: this.mode });
 

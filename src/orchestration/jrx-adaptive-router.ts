@@ -9,7 +9,7 @@
  * Partner lean (`partnerSyncLean`) ALWAYS wins → specialist. Never rewrite lean semantics.
  *
  * NV-QUEEN-EARNED-001 (2026-08-16): every *heuristic* admission to `queen` is now
- * confirmed by `assessQueenAdmission` (`nv-queen-admission.ts`) — an evidence
+ * confirmed by `assessQueenAdmission` (`jrx-queen-admission.ts`) — an evidence
  * score over the prompt's structure, not a keyword or a static caller flag. An
  * explicit caller force (`engageQueenForced` / `forceQueenMode`) and
  * `partnerSyncLean` are untouched: both are contracts, not heuristics. The
@@ -143,12 +143,12 @@ function inferDocTask(prompt: string, taskType?: string): { docTask: string; cap
   if (/\bclassif/.test(blob) || /^classif/i.test(tt)) {
     return { docTask: 'classify', capabilityIds: ['intelligence.doc-analyze', 'workflow.email-classify'] };
   }
-  // Doc A/B compare → sdk pipeline; statute IPC/BNS compare stays nyaya-tools
+  // Doc A/B compare → sdk pipeline; statute IPC/BNS compare stays jrx-legal-tools
   if (/\b(ipc|bns|statute)\b.*\bcompar|\bcompar.*\b(ipc|bns|statute)\b/.test(blob)) {
-    return { docTask: 'statute_compare', capabilityIds: ['nyaya-tools.compare'] };
+    return { docTask: 'statute_compare', capabilityIds: ['jrx-legal-tools.compare'] };
   }
   if (/\bcompare|comparison|\bdiff\b/.test(blob) || /^compar/i.test(tt)) {
-    return { docTask: 'compare', capabilityIds: ['sdk.document-pipeline', 'nyaya-tools.compare'] };
+    return { docTask: 'compare', capabilityIds: ['sdk.document-pipeline', 'jrx-legal-tools.compare'] };
   }
   if (/\bsummar/.test(blob) || /^summar/i.test(tt)) {
     return { docTask: 'summarize', capabilityIds: ['intelligence.summarize'] };
@@ -381,12 +381,12 @@ export function decideAdaptivePath(input: AdaptiveRouterInput): AdaptiveRouterDe
     };
   }
 
-  // 5) NYV-dependent moderate research-ish without doc → Queen, when earned
+  // 5) JRX-dependent moderate research-ish without doc → Queen, when earned
   if (input.nyvDependent && complexity === 'moderate' && wantsQueenTask) {
     if (!queenEarned()) return specialistInsteadOfQueen('nyvDependent_moderate_queen_task');
     return {
       path: 'queen',
-      reason: `NYV-dependent moderate Queen task | ${formatQueenAdmission(admission())}`,
+      reason: `JRX-dependent moderate Queen task | ${formatQueenAdmission(admission())}`,
       complexity,
       risk,
       primaryCapabilityIds: [],
@@ -403,7 +403,7 @@ export function decideAdaptivePath(input: AdaptiveRouterInput): AdaptiveRouterDe
   // Short statute FAQs are overridden to grounded specialist in orchestrate routes.
   // Web-search / workflow sync tasks already returned above (fast_sync_specialist).
   //
-  // NV-QUEEN-EARNED-001: `forceLegalBestOutcome` is true for every NYV-dependent
+  // NV-QUEEN-EARNED-001: `forceLegalBestOutcome` is true for every JRX-dependent
   // platform and every authenticated SDK partner except JRX, so before the gate
   // this branch made Queen the *default* for all ecosystem legal traffic — the
   // single largest source of unearned swarm entry. It is now a +2 preference

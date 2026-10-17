@@ -24,7 +24,7 @@ node - <<'NODE'
 const fs=require('fs');
 const path='/opt/nyv/api/.env';
 const env=Object.fromEntries(fs.readFileSync(path,'utf8').split('\n').filter(l=>l&&!l.startsWith('#')&&l.includes('=')).map(l=>{const i=l.indexOf('=');return [l.slice(0,i),l.slice(i+1).replace(/^["']|["']$/g,'')]}));
-process.env.DATABASE_URL=env.DATABASE_URL||env.NYS_DATABASE_URL;
+process.env.DATABASE_URL=env.DATABASE_URL||env.JRX_ECOSYSTEM_DATABASE_URL;
 const pg=require('pg');
 (async()=>{
   const p=new pg.Pool({connectionString:process.env.DATABASE_URL,ssl:{rejectUnauthorized:false}});

@@ -6,7 +6,7 @@ cd /opt/nyv/api || exit 1
 
 echo "=== NV-NYSAPI-RDS-FRESHNESS-001 $(date -u +%Y-%m-%dT%H:%M:%SZ) ==="
 echo "host=$(hostname -s 2>/dev/null || echo worker)"
-echo "rds_instance=nyv-caselaw-pg"
+echo "rds_instance=jrx-caselaw-pg"
 
 node --env-file=/opt/nyv/api/.env <<'NODE'
 import { readFileSync, existsSync } from "node:fs";
@@ -15,7 +15,7 @@ import { RDSClient, DescribeDBInstancesCommand } from "@aws-sdk/client-rds";
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
 
 const REGION = "ap-south-1";
-const DB_ID = "nyv-caselaw-pg";
+const DB_ID = "jrx-caselaw-pg";
 
 function ssl() {
   const p = process.env.RDS_CA_BUNDLE;
@@ -185,7 +185,7 @@ echo "=== LOCAL NYS API (:8080) ==="
 curl -sS -m 5 -w " healthz http=%{http_code} ms=%{time_total}\n" http://127.0.0.1:8080/healthz 2>/dev/null | head -c 200 || echo healthz_fail
 
 echo "=== EMBED UNITS ==="
-for u in nyv-caselaw-embed-loop@{0,1,2} nyv-caselaw-embed-dc; do
+for u in jrx-caselaw-embed-loop@{0,1,2} jrx-caselaw-embed-dc; do
   echo "$u: $(systemctl is-active $u 2>/dev/null || echo inactive)"
 done
 

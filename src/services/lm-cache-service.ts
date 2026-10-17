@@ -16,7 +16,7 @@ import {
   type CacheRejectReason,
 } from './jrx-lm-cache-key.js';
 import { MODEL_CATALOG } from './intelligent-router/model-catalog.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 
 
 const logger = createLogger('lm-cache-service');
@@ -50,7 +50,7 @@ export interface LMCacheConfig {
    * index instead.
    */
   semanticCandidatesPerNamespace: number;
-  /** Global ceiling on indexed vectors, to bound heap (NYV-LMCACHE-HEAP-CAP-001). */
+  /** Global ceiling on indexed vectors, to bound heap (JRX-LMCACHE-HEAP-CAP-001). */
   semanticMaxVectors: number;
   /**
    * Similarity at/above which a semantically-matched answer may be *served*.
@@ -157,7 +157,7 @@ export interface CacheStats {
    */
   semanticNearMisses: number;
   /**
-   * Writes refused because the value was an error / empty / abstain / placeholder. nv-allow-placeholder: describes the REJECTION rule.
+   * Writes refused because the value was an error / empty / abstain / placeholder. jrx-allow-placeholder: describes the REJECTION rule.
    */
   rejectedWrites: number;
   rejectedWritesByReason: Record<string, number>;
@@ -171,7 +171,7 @@ export interface CacheStats {
    */
   sharedBackendEnabled: boolean;
   estimatedLatencySavedMs: number;
-  /** @deprecated Use {@link savings}. Kept for `nv-health-full-routes.ts:630`. */
+  /** @deprecated Use {@link savings}. Kept for `jrx-health-full-routes.ts:630`. */
   estimatedCostSaved: number;
   savings: CacheSavings;
   evictionCount: number;
@@ -180,7 +180,7 @@ export interface CacheStats {
   corpusVersion: string;
 }
 
-// NYV-LMCACHE-HEAP-CAP-001 (2026-04-30): cold tier was previously 100k entries × 24h TTL,
+// JRX-LMCACHE-HEAP-CAP-001 (2026-04-30): cold tier was previously 100k entries × 24h TTL,
 // which on EC2 dev (running without a Redis shared backend so all tiers live in heap) was a
 // material contributor to the 96% heap pressure. Lowered to 20k by default and made all
 // capacity/TTL knobs env-configurable so operators can tune per environment without a redeploy.
@@ -202,24 +202,24 @@ function envUnitFloat(name: string, fallback: number): number {
   return n;
 }
 const DEFAULT_CONFIG: LMCacheConfig = {
-  hotCapacity: envPosInt('NYV_LMCACHE_HOT_CAPACITY', 1_000),
-  warmCapacity: envPosInt('NYV_LMCACHE_WARM_CAPACITY', 5_000),
-  coldCapacity: envPosInt('NYV_LMCACHE_COLD_CAPACITY', 20_000),
-  hotTTLMs: envPosInt('NYV_LMCACHE_HOT_TTL_MS', 300_000),
-  warmTTLMs: envPosInt('NYV_LMCACHE_WARM_TTL_MS', 1_800_000),
-  coldTTLMs: envPosInt('NYV_LMCACHE_COLD_TTL_MS', 86_400_000),
+  hotCapacity: envPosInt('JRX_LMCACHE_HOT_CAPACITY', 1_000),
+  warmCapacity: envPosInt('JRX_LMCACHE_WARM_CAPACITY', 5_000),
+  coldCapacity: envPosInt('JRX_LMCACHE_COLD_CAPACITY', 20_000),
+  hotTTLMs: envPosInt('JRX_LMCACHE_HOT_TTL_MS', 300_000),
+  warmTTLMs: envPosInt('JRX_LMCACHE_WARM_TTL_MS', 1_800_000),
+  coldTTLMs: envPosInt('JRX_LMCACHE_COLD_TTL_MS', 86_400_000),
   enableSemanticMatching: true,
   similarityThreshold: 0.85,
   compressionEnabled: true,
   // 24 h absolute ceiling: long enough to absorb a day of repeat legal traffic,
   // short enough that an un-signalled corpus change self-heals within a day
-  // even if nobody bumps NYV_LEGAL_CORPUS_VERSION.
-  maxAgeMs: envPosInt('NYV_LMCACHE_MAX_AGE_MS', 86_400_000),
-  semanticCandidatesPerNamespace: envPosInt('NYV_LMCACHE_SEMANTIC_CANDIDATES', 200),
-  semanticMaxVectors: envPosInt('NYV_LMCACHE_SEMANTIC_MAX_VECTORS', 5_000),
+  // even if nobody bumps JRX_LEGAL_CORPUS_VERSION.
+  maxAgeMs: envPosInt('JRX_LMCACHE_MAX_AGE_MS', 86_400_000),
+  semanticCandidatesPerNamespace: envPosInt('JRX_LMCACHE_SEMANTIC_CANDIDATES', 200),
+  semanticMaxVectors: envPosInt('JRX_LMCACHE_SEMANTIC_MAX_VECTORS', 5_000),
   // 0.94 serve / 0.88 grounding floor are the plan's §6.1 numbers.
-  semanticServeThreshold: envUnitFloat('NYV_LMCACHE_SEMANTIC_SERVE_MIN', 0.94),
-  semanticGroundingFloor: envUnitFloat('NYV_LMCACHE_SEMANTIC_GROUNDING_MIN', 0.88),
+  semanticServeThreshold: envUnitFloat('JRX_LMCACHE_SEMANTIC_SERVE_MIN', 0.94),
+  semanticGroundingFloor: envUnitFloat('JRX_LMCACHE_SEMANTIC_GROUNDING_MIN', 0.88),
 };
 
 const EVICTION_INTERVAL_MS = 60000;
@@ -454,7 +454,7 @@ export class LMCacheService extends EventEmitter {
    */
   private semanticAllowed(namespace?: string): boolean {
     if (!this.config.enableSemanticMatching) return false;
-    if (!isNyvFeatureOn('lmcacheSemanticEmbed')) return false;
+    if (!isJrxFeatureOn('lmcacheSemanticEmbed')) return false;
     return isFuzzyMatchSafeNamespace(namespace);
   }
 
@@ -890,7 +890,7 @@ export class LMCacheService extends EventEmitter {
     const { userTurn, lookupKey, corpusVersion } = this.keyPartsFor(prompt, namespace);
 
     /* NV-LMCACHE-NO-POISON-001: an error, an empty completion, a grounded
-     * abstain, or a suite placeholder must never enter the cache. Caching one nv-allow-placeholder: REJECTION rule.
+     * abstain, or a suite placeholder must never enter the cache. Caching one jrx-allow-placeholder: REJECTION rule.
      * converts a transient failure into a persistent, fleet-wide wrong answer
      * that reports as a *hit* rather than as an error — so it is both wrong and
      * invisible. Refusals are metered, not swallowed. */
@@ -1227,7 +1227,7 @@ export class LMCacheService extends EventEmitter {
       staleEvictions: this.stats.staleEvictions,
       sharedBackendEnabled: this.backend !== null,
       estimatedLatencySavedMs: this.stats.estimatedLatencySavedMs,
-      // Kept as a field so `nv-health-full-routes.ts:630` keeps compiling, but
+      // Kept as a field so `jrx-health-full-routes.ts:630` keeps compiling, but
       // it now carries the *measured* avoided cost instead of `hits * 0.002`.
       estimatedCostSaved: savings.avoidedCostUsd,
       savings,

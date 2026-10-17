@@ -7,8 +7,8 @@
  * default-observe switch would quietly turn four working caps off — a safety
  * REDUCTION dressed as caution.
  *
- * The guarantee is structural: observe mode lives in `nv-credit-cap-observe.ts`,
- * which only `nv-ai-credit-cap-middleware.ts` imports. This suite pins that
+ * The guarantee is structural: observe mode lives in `jrx-credit-cap-observe.ts`,
+ * which only `jrx-ai-credit-cap-middleware.ts` imports. This suite pins that
  * structure two ways — behaviourally (the enforcer still refuses with the observe
  * default in force) and by reading the actual import graph, so moving the observe
  * branch into the enforcer or into a route goes red.
@@ -34,8 +34,8 @@ function read(rel: string): string {
 
 const SAVED = { ...process.env };
 beforeEach(() => {
-  delete process.env.NYV_CREDIT_CAP_MODE;
-  delete process.env.NYV_CREDIT_ENFORCE;
+  delete process.env.JRX_CREDIT_CAP_MODE;
+  delete process.env.JRX_CREDIT_ENFORCE;
 });
 afterEach(() => {
   process.env = { ...SAVED };
@@ -58,7 +58,7 @@ describe('NV-CREDIT-OBSERVE-001 — scope containment', () => {
      * four pre-existing ones — would silently stop refusing. */
     const enforcer = read('src/services/jrx-ai-credit-enforcer.ts');
     expect(enforcer).not.toContain(OBSERVE_MODULE);
-    expect(enforcer).not.toContain('NYV_CREDIT_CAP_MODE');
+    expect(enforcer).not.toContain('JRX_CREDIT_CAP_MODE');
   });
 
   it('the pre-existing surfaces still refuse on their own, in the route body', () => {
@@ -114,7 +114,7 @@ describe('NV-CREDIT-OBSERVE-001 — the enforcer verdict is unchanged by the obs
 
 describe('NV-CREDIT-COST-DIM-001 — the real enforcer carries the money dimension', () => {
   /* Asserted here rather than in the cost-dimension suite because that suite mocks
-   * `nv-ai-credit-enforcer` wholesale (it is testing the middleware's calls into it).
+   * `jrx-ai-credit-enforcer` wholesale (it is testing the middleware's calls into it).
    * The enforcer's own arithmetic has to be exercised unmocked or it is untested. */
   it('refuses on the cost budget and names the limit, so the two are countable apart', async () => {
     const { NVAICreditEnforcer } = await import('../../src/services/jrx-ai-credit-enforcer.js');

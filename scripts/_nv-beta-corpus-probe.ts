@@ -16,8 +16,8 @@ for (const envPath of [
   break;
 }
 
-const base = process.env.NYV_API_BASE_URL || 'https://api.nyayasiddhi.online';
-const key = process.env.NYV_SDK_KEY_NSP || '';
+const base = process.env.JRX_API_BASE_URL || 'https://api.jurexio.com';
+const key = process.env.JRX_SDK_KEY_NSP || '';
 const samples = ['TSWL000000742024', 'RJHC010324382023'] as const;
 
 for (const cnr of samples) {
@@ -26,7 +26,7 @@ for (const cnr of samples) {
     headers: {
       'Content-Type': 'application/json',
       'X-API-Key': key,
-      'X-NYV-Platform': 'NSP',
+      'X-JRX-Platform': 'NSP',
     },
     body: JSON.stringify({ cnr, options: { profile: 'caseCreate' } }),
   });

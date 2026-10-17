@@ -3,13 +3,13 @@
  *
  * Modes:
  *   - REAL:        when @open-quantum-safe/oqs-node is installed AND
- *                  NYV_PQC_MODE !== 'simulation'. Uses ML-KEM-768 +
+ *                  JRX_PQC_MODE !== 'simulation'. Uses ML-KEM-768 +
  *                  ML-DSA-65 + SLH-DSA-SHA2-128f from liboqs.
  *   - SIMULATION:  cryptographically deterministic stand-ins, kept so dev
- *                  / staging / non-NYS-MIN paths keep working without the
+ *                  / staging / non-JRX-MIN paths keep working without the
  *                  native dependency.
  *
- * Switch: set NYV_PQC_MODE=real (default if oqs available) or =simulation.
+ * Switch: set JRX_PQC_MODE=real (default if oqs available) or =simulation.
  *
  * Public API is unchanged from prior versions, so callers do not need to
  * be updated. New helpers `signArtifact` / `verifyArtifact` are exposed for
@@ -31,18 +31,18 @@ let _oqs: any = null;
 let _mode: Mode = 'simulation';
 
 async function detectMode(): Promise<Mode> {
-  // NV-PQC-GATE (R4 — 2026-05-07): default-off unless NYV_PQC=true (or
-  // NYV_PQC_MODE=real explicitly). Was always trying to load liboqs even when
+  // NV-PQC-GATE (R4 — 2026-05-07): default-off unless JRX_PQC=true (or
+  // JRX_PQC_MODE=real explicitly). Was always trying to load liboqs even when
   // unused — now opt-in.
   const pqcOn =
-    process.env.NYV_PQC === 'true' ||
-    process.env.NYV_PQC === '1' ||
-    process.env.NYV_PQC_MODE === 'real';
+    process.env.JRX_PQC === 'true' ||
+    process.env.JRX_PQC === '1' ||
+    process.env.JRX_PQC_MODE === 'real';
   if (!pqcOn) {
-    logger.info('PQC: disabled (set NYV_PQC=true or NYV_PQC_MODE=real to enable). Using simulation mode.');
+    logger.info('PQC: disabled (set JRX_PQC=true or JRX_PQC_MODE=real to enable). Using simulation mode.');
     return 'simulation';
   }
-  if (process.env.NYV_PQC_MODE === 'simulation') return 'simulation';
+  if (process.env.JRX_PQC_MODE === 'simulation') return 'simulation';
   try {
     // Optional native binding — never throw to consumers.
     // Dynamic, optional import — kept opaque to TS so the binding stays soft-required.
@@ -51,7 +51,7 @@ async function detectMode(): Promise<Mode> {
     logger.info('PQC: liboqs binding detected — REAL mode enabled (ML-KEM-768 + ML-DSA-65)');
     return 'real';
   } catch {
-    logger.warn('PQC: @open-quantum-safe/oqs-node not installed — simulation mode (install for production NYS-MIN tier)');
+    logger.warn('PQC: @open-quantum-safe/oqs-node not installed — simulation mode (install for production JRX-MIN tier)');
     return 'simulation';
   }
 }
@@ -186,7 +186,7 @@ export const nvPqcService = new NvPqcService();
  */
 interface CachedKey { keypair: DsaKeyPair; expiresAt: number; }
 const _ephemeralKeys = new Map<string, CachedKey>();
-const KEY_TTL_MS = Number(process.env.NYV_PQC_KEY_TTL_MS ?? 24 * 3600 * 1000);
+const KEY_TTL_MS = Number(process.env.JRX_PQC_KEY_TTL_MS ?? 24 * 3600 * 1000);
 
 function _evictExpired() {
   const now = Date.now();

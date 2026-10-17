@@ -20,10 +20,10 @@ export interface NysPlaneHealthResult {
 
 export function resolveNysPlaneHealth(input: NysPlaneHealthInput): NysPlaneHealthResult {
   if (!input.flagOn) {
-    return { status: 'not_configured', details: 'JRX_F_NYS_KNOWLEDGE_PLANE off' };
+    return { status: 'not_configured', details: 'JRX_F_JRX_ECOSYSTEM_KNOWLEDGE_PLANE off' };
   }
   if (!input.configured) {
-    return { status: 'not_configured', details: 'NYS_KNOWLEDGE_BASE_URL not set' };
+    return { status: 'not_configured', details: 'JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL not set' };
   }
   if (!input.probeOk) {
     return {

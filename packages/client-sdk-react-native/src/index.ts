@@ -3,17 +3,17 @@
  * v5.0.0 — companion to @jurexio/client-sdk@^5.0.0
  */
 
-export { NyvClientRN, type NyvClientRNCreateOptions } from './NyvClientRN.js';
+export { JrxClientRN, type JrxClientRNCreateOptions } from './JrxClientRN.js';
 export {
   createSecureStorage,
-  NyvStorageKeys,
-  type NyvSecureStorage,
-  type NyvStorageOptions,
+  JrxStorageKeys,
+  type JrxSecureStorage,
+  type JrxStorageOptions,
 } from './storage.js';
 export {
-  NyvRNStreamReader,
-  type NyvRNStreamOptions,
-  type NyvRNStreamReaderConfig,
+  JrxRNStreamReader,
+  type JrxRNStreamOptions,
+  type JrxRNStreamReaderConfig,
 } from './sse.js';
 export {
   requestCameraPermission,
@@ -21,7 +21,7 @@ export {
   requestMediaLibraryPermission,
   requestPushNotificationPermission,
   requestStandardSdkPermissions,
-  type NyvPermissionResult,
+  type JrxPermissionResult,
 } from './permissions.js';
 export {
   registerForHITLPushNotifications,
@@ -32,18 +32,18 @@ export {
 
 // Re-export the underlying client + types so consumers only import this package.
 export {
-  NyvClient,
-  NyvError,
-  NyvStreamReader,
-  type NyvClientConfig,
-  type NyvHttpClient,
-  type NyvJurisdiction,
-  type NyvPlatform,
-  type NyvAgentPattern,
-  type NyvRiskLevel,
-  type NyvPatternResponse,
-  type NyvCitation,
-  type NyvStreamHandlers,
-  type NyvStreamEvent,
-  type NyvApiError,
+  JrxClient,
+  JrxError,
+  JrxStreamReader,
+  type JrxClientConfig,
+  type JrxHttpClient,
+  type JrxJurisdiction,
+  type JrxPlatform,
+  type JrxAgentPattern,
+  type JrxRiskLevel,
+  type JrxPatternResponse,
+  type JrxCitation,
+  type JrxStreamHandlers,
+  type JrxStreamEvent,
+  type JrxApiError,
 } from '@jurexio/client-sdk';

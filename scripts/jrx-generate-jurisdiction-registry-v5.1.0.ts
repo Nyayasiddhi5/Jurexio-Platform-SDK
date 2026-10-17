@@ -8,7 +8,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
-const DEFAULT_PATH = path.join(ROOT, 'config', 'agent-registries', 'Nyayavigya-Legal-registry-Default.json');
+const DEFAULT_PATH = path.join(ROOT, 'config', 'agent-registries', 'Jurexio-Legal-registry-Default.json');
 const JCN_PATH = path.join(ROOT, 'config', 'jcn-nodes-v5.1.0.json');
 const OUT_DIR = path.join(ROOT, 'config', 'agent-registries');
 
@@ -179,7 +179,7 @@ function main(): void {
       agents: defaultReg.agents.map(a => tuneAgent(a as Record<string, any>, meta)),
     };
 
-    const outPath = path.join(OUT_DIR, `Nyayavigya-Legal-registry-${code}.json`);
+    const outPath = path.join(OUT_DIR, `Jurexio-Legal-registry-${code}.json`);
     fs.writeFileSync(outPath, JSON.stringify(out, null, 2));
     console.log(`Wrote ${code}: ${out.agents.length} agents → ${outPath}`);
   }

@@ -1,6 +1,6 @@
 # JRX Search API — US / global corpus plan
 
-**Scope:** `jrx-search/` worker (fork of NYS ingest/search logic). **No** shared S3/RDS/Athena with Nyayavigya India caselaw.
+**Scope:** `jrx-search/` worker (fork of NYS ingest/search logic). **No** shared S3/RDS/Athena with Jurexio India caselaw.
 
 ## Infrastructure
 

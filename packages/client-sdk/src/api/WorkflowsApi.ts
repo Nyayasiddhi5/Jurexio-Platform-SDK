@@ -13,7 +13,7 @@
  * submit tasks) lives under `.autonomous` / `.continuous`.
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 /* ─── Canonical lifecycle (namespace root) ─── */
 
@@ -113,7 +113,7 @@ export interface AutonomousStatusResponse {
 }
 
 class ContinuousSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   health(): Promise<{ success: boolean; service: string; running: boolean }> {
     return this.http.get('/api/nv5/workflows/continuous/health');
   }
@@ -141,7 +141,7 @@ class ContinuousSubApi {
 }
 
 class AutonomousSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   health(): Promise<{ success: boolean; service: string; running: boolean }> {
     return this.http.get('/api/nv5/workflows/autonomous/health');
   }
@@ -178,7 +178,7 @@ export class WorkflowsApi {
   public readonly autonomous: AutonomousSubApi;
   public readonly continuous: ContinuousSubApi;
 
-  constructor(private http: NyvHttpClient) {
+  constructor(private http: JrxHttpClient) {
     this.autonomous = new AutonomousSubApi(http);
     this.continuous = new ContinuousSubApi(http);
   }

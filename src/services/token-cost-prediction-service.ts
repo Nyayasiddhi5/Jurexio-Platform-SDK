@@ -16,7 +16,7 @@
 import { EventEmitter } from 'events';
 import { db } from '../db/index.js';
 import {
-  nyayavigyaOrchestrationJobs,
+  jurexioOrchestrationJobs,
   type OrchestrationJobType,
 } from '@shared/schema.js';
 import { eq, desc, sql } from 'drizzle-orm';
@@ -25,7 +25,7 @@ import { createLogger } from '../utils/logger.js';
 
 const logger = createLogger('token-cost-prediction-service');
 
-// NYV-PREFLIGHT-FIX-003 (2026-04-30): `OrchestrationWorkflow` was previously imported
+// JRX-PREFLIGHT-FIX-003 (2026-04-30): `OrchestrationWorkflow` was previously imported
 // from `@shared/schema.js` but was never exported there (the schema only exposes
 // `OrchestrationJobType`). The sibling implementation at
 // `src/packages/analytics/token-cost-prediction-service.ts` already declares this as a
@@ -571,9 +571,9 @@ export class TokenCostPredictionService extends EventEmitter {
   /**
    * Get historical averages for workflow type
    *
-   * NYV-PREFLIGHT-FIX-004 (2026-04-30): the previous implementation queried columns
+   * JRX-PREFLIGHT-FIX-004 (2026-04-30): the previous implementation queried columns
    * (`workflow`, `inputTokens`, `outputTokens`, `cost`) that do not exist on the
-   * `nyayavigyaOrchestrationJobs` table — the schema actually exposes `jobType` (varchar)
+   * `jurexioOrchestrationJobs` table — the schema actually exposes `jobType` (varchar)
    * and stores token/cost data inside the `output` jsonb. This pulled the most recent
    * 20 rows by `jobType` and reads the figures back from the jsonb payload. If the
    * payload doesn't carry those fields yet, we return `null` and the caller falls back
@@ -586,9 +586,9 @@ export class TokenCostPredictionService extends EventEmitter {
     try {
       const recentJobs = await db
         .select()
-        .from(nyayavigyaOrchestrationJobs)
-        .where(eq(nyayavigyaOrchestrationJobs.jobType, workflow))
-        .orderBy(desc(nyayavigyaOrchestrationJobs.createdAt))
+        .from(jurexioOrchestrationJobs)
+        .where(eq(jurexioOrchestrationJobs.jobType, workflow))
+        .orderBy(desc(jurexioOrchestrationJobs.createdAt))
         .limit(20);
 
       if (recentJobs.length === 0) return null;

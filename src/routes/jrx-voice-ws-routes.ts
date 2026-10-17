@@ -42,7 +42,7 @@ import { getLanguageProvider } from '../utils/jrx-language-provider.js';
 const router = Router();
 const logger = createLogger('voice-ws');
 
-// NYV-AUDIT-F13 (2026-05-05 — architect callout): /api/jrx/voice/* exposed
+// JRX-AUDIT-F13 (2026-05-05 — architect callout): /api/jrx/voice/* exposed
 // billable STT/TTS endpoints with NO auth guard. /voice/info is intentionally
 // public (capability discovery), but /transcribe and /synthesize must require
 // either an SDK key (sdkGatewayAuth — also handles the JWT bypass for
@@ -60,7 +60,7 @@ router.get('/info', (_req: Request, res: Response): void => {
     capabilities: {
       realtime_stt: true,
       websocket_endpoint: '/api/jrx/voice/stream',
-      providers: ['Gemini multimodal STT (default)', 'OpenAI Whisper (fallback)', 'Sarvam AI STT (opt-in via NYV_LANGUAGE_PROVIDER=sarvam)', 'Deepgram Nova-2'],
+      providers: ['Gemini multimodal STT (default)', 'OpenAI Whisper (fallback)', 'Sarvam AI STT (opt-in via JRX_LANGUAGE_PROVIDER=sarvam)', 'Deepgram Nova-2'],
       languages: ['en-IN', 'hi', 'ta', 'te', 'mr', 'bn', 'gu', 'kn', 'ml', 'pa', 'or', 'ur'],
       formats: ['PCM 16kHz 16-bit', 'WebM Opus', 'MP3'],
       maxDurationSeconds: 300,
@@ -87,7 +87,7 @@ router.get('/ws-upgrade', (_req: Request, res: Response): void => {
   res.json({
     error: 'This endpoint requires WebSocket upgrade (ws:// or wss://)',
     hint: 'Connect with a WebSocket client to this URL',
-    protocol: 'nyv-stt-v1',
+    protocol: 'jrx-stt-v1',
   });
 });
 
@@ -170,7 +170,7 @@ router.post('/transcribe', requireSdkOrJwt, consentGate({ purpose: 'biometric', 
       routing: {
         selectedProvider: result.provider,
         primary: 'Gemini multimodal STT (Indic + EN) — default until Sarvam keys',
-        indianLanguages: 'Gemini (default) · Sarvam when NYV_LANGUAGE_PROVIDER=sarvam',
+        indianLanguages: 'Gemini (default) · Sarvam when JRX_LANGUAGE_PROVIDER=sarvam',
         englishLegal: 'Gemini / Deepgram Nova-2 / Whisper',
         fallback: 'OpenAI Whisper-1',
       },
@@ -215,7 +215,7 @@ export function handleVoiceWebSocket(ws: any, req: any): void {
 
   ws.send(JSON.stringify({
     type: 'ready',
-    message: 'NYV Voice STT WebSocket connected',
+    message: 'JRX Voice STT WebSocket connected',
     clientId,
     version: '3.1.2',
     liveProviders: sttService.getAvailableProviders(),
@@ -324,8 +324,8 @@ export function handleVoiceWebSocket(ws: any, req: any): void {
             };
 
             const subject = resolveBipaSubject(syntheticReq) ?? `voice-ws:${clientId}`;
-            const usStateHdr = (req?.headers?.['x-nv-us-state'] as string | undefined)
-              ?? (req?.headers?.['x-nv-jurisdiction'] as string | undefined);
+            const usStateHdr = (req?.headers?.['x-jrx-us-state'] as string | undefined)
+              ?? (req?.headers?.['x-jrx-jurisdiction'] as string | undefined);
             const jurisdictionStr = String(msg.jurisdiction ?? msg.usState ?? usStateHdr ?? '').toUpperCase();
             let illinois = jurisdictionStr === 'IL'
               || jurisdictionStr === 'US-IL'

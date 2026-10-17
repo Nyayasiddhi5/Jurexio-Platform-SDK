@@ -15,7 +15,7 @@ import type { Request } from 'express';
 function nspRequest(body: Record<string, unknown> = {}): Request {
   return {
     body,
-    headers: { 'x-nyv-platform': 'NSP' },
+    headers: { 'x-jrx-platform': 'NSP' },
     sdkContext: { partnerCode: 'NSP', tenantId: 't-nsp' },
   } as unknown as Request;
 }
@@ -87,8 +87,8 @@ describe('NV-DRAFT-LENGTH-REGISTRY-001', () => {
   });
 
   it('R-DRAFT-TOKEN-TRUTH-001 beta medium fast SLA uses 8192 rail not registry-only 6144', () => {
-    const prev = process.env.NYV_BETA_QUALITY_FIRST;
-    process.env.NYV_BETA_QUALITY_FIRST = '1';
+    const prev = process.env.JRX_BETA_QUALITY_FIRST;
+    process.env.JRX_BETA_QUALITY_FIRST = '1';
     try {
       const cap = resolveDraftFastSlaTokenCapForDocument({
         documentType: 'bail_application',
@@ -102,14 +102,14 @@ describe('NV-DRAFT-LENGTH-REGISTRY-001', () => {
       });
       expect(applyPartnerMaxTokensFloor(req, undefined)).toBeGreaterThanOrEqual(8_192);
     } finally {
-      if (prev === undefined) delete process.env.NYV_BETA_QUALITY_FIRST;
-      else process.env.NYV_BETA_QUALITY_FIRST = prev;
+      if (prev === undefined) delete process.env.JRX_BETA_QUALITY_FIRST;
+      else process.env.JRX_BETA_QUALITY_FIRST = prev;
     }
   });
 
   it('resolvePartnerMaxOutputTokens caps legal-draft-fast at registry when beta off', () => {
-    const prev = process.env.NYV_BETA_QUALITY_FIRST;
-    process.env.NYV_BETA_QUALITY_FIRST = '0';
+    const prev = process.env.JRX_BETA_QUALITY_FIRST;
+    process.env.JRX_BETA_QUALITY_FIRST = '0';
     try {
       const req = nspRequest({
         taskType: 'legal-draft-fast',
@@ -118,8 +118,8 @@ describe('NV-DRAFT-LENGTH-REGISTRY-001', () => {
       });
       expect(applyPartnerMaxTokensFloor(req, undefined)).toBe(6_144);
     } finally {
-      if (prev === undefined) delete process.env.NYV_BETA_QUALITY_FIRST;
-      else process.env.NYV_BETA_QUALITY_FIRST = prev;
+      if (prev === undefined) delete process.env.JRX_BETA_QUALITY_FIRST;
+      else process.env.JRX_BETA_QUALITY_FIRST = prev;
     }
   });
 
@@ -142,9 +142,9 @@ describe('NV-DRAFT-LENGTH-REGISTRY-001', () => {
     expect(applyPartnerMaxTokensFloor(req, undefined)).toBe(16_384);
   });
 
-  it('resolvePartnerMaxOutputTokens uses full registry floor when NYV_DRAFT_FAST_SLA=0', () => {
-    const prev = process.env.NYV_DRAFT_FAST_SLA;
-    process.env.NYV_DRAFT_FAST_SLA = '0';
+  it('resolvePartnerMaxOutputTokens uses full registry floor when JRX_DRAFT_FAST_SLA=0', () => {
+    const prev = process.env.JRX_DRAFT_FAST_SLA;
+    process.env.JRX_DRAFT_FAST_SLA = '0';
     try {
       const req = nspRequest({
         taskType: 'legal-draft-fast',
@@ -153,8 +153,8 @@ describe('NV-DRAFT-LENGTH-REGISTRY-001', () => {
       });
       expect(applyPartnerMaxTokensFloor(req, undefined)).toBe(6_144);
     } finally {
-      if (prev === undefined) delete process.env.NYV_DRAFT_FAST_SLA;
-      else process.env.NYV_DRAFT_FAST_SLA = prev;
+      if (prev === undefined) delete process.env.JRX_DRAFT_FAST_SLA;
+      else process.env.JRX_DRAFT_FAST_SLA = prev;
     }
   });
 
@@ -178,9 +178,9 @@ describe('NV-DRAFT-LENGTH-REGISTRY-001', () => {
     expect(applyPartnerMaxTokensFloor(agreeReq, undefined)).toBe(8_192);
   });
 
-  it('NYV_PARTNER_MAX_TOKENS_DRAFT_FAST does not starve registry typed drafts', () => {
-    const prev = process.env.NYV_PARTNER_MAX_TOKENS_DRAFT_FAST;
-    process.env.NYV_PARTNER_MAX_TOKENS_DRAFT_FAST = '4096';
+  it('JRX_PARTNER_MAX_TOKENS_DRAFT_FAST does not starve registry typed drafts', () => {
+    const prev = process.env.JRX_PARTNER_MAX_TOKENS_DRAFT_FAST;
+    process.env.JRX_PARTNER_MAX_TOKENS_DRAFT_FAST = '4096';
     try {
       const req = nspRequest({
         taskType: 'legal-draft-fast',
@@ -189,8 +189,8 @@ describe('NV-DRAFT-LENGTH-REGISTRY-001', () => {
       });
       expect(applyPartnerMaxTokensFloor(req, undefined)).toBe(6_144);
     } finally {
-      if (prev === undefined) delete process.env.NYV_PARTNER_MAX_TOKENS_DRAFT_FAST;
-      else process.env.NYV_PARTNER_MAX_TOKENS_DRAFT_FAST = prev;
+      if (prev === undefined) delete process.env.JRX_PARTNER_MAX_TOKENS_DRAFT_FAST;
+      else process.env.JRX_PARTNER_MAX_TOKENS_DRAFT_FAST = prev;
     }
   });
 

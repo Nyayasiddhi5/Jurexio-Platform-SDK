@@ -83,16 +83,16 @@ interface ConverterBehaviour {
   mode: 'ok' | 'hang' | 'fail-once';
   failed: boolean;
 }
-G.__NYV_TEST_CONVERTER_BEHAVIOUR ??= { mode: 'ok', failed: false } as ConverterBehaviour;
+G.__JRX_TEST_CONVERTER_BEHAVIOUR ??= { mode: 'ok', failed: false } as ConverterBehaviour;
 function setConverter(behaviour: Partial<ConverterBehaviour>): void {
-  Object.assign(G.__NYV_TEST_CONVERTER_BEHAVIOUR, behaviour);
+  Object.assign(G.__JRX_TEST_CONVERTER_BEHAVIOUR, behaviour);
 }
 
 vi.mock('../../src/services/jrx-document-converter-service.js', () => {
   const isSupported = (_s: string, _t: string) => true;
   const getSupportedConversions = () => ({ txt: ['md'] });
   const conv = async (req: { sourcePath?: string }) => {
-    const behave: ConverterBehaviour = G.__NYV_TEST_CONVERTER_BEHAVIOUR;
+    const behave: ConverterBehaviour = G.__JRX_TEST_CONVERTER_BEHAVIOUR;
     const fsP = await import('node:fs/promises');
     const src = req.sourcePath ? await fsP.readFile(req.sourcePath, 'utf8') : '';
     if (behave.mode === 'hang') {
@@ -249,7 +249,7 @@ let redisDataDir = '';
 
 beforeAll(async () => {
   redisPort = await getFreePort();
-  redisDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'nyv-test-redis-'));
+  redisDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jrx-test-redis-'));
   redisProc = spawn(
     'redis-server',
     [
@@ -268,12 +268,12 @@ beforeAll(async () => {
   await waitForRedis('127.0.0.1', redisPort);
 
   // Set env BEFORE the modules under test load.
-  process.env.NYV_REDIS_TCP_URL = redisUrl;
+  process.env.JRX_REDIS_TCP_URL = redisUrl;
   // No object storage credentials → doc-ai-job-store falls back to local-disk
   // staging. Both simulated pods share the same host /tmp, so this satisfies
   // the cross-pod survival test on a single machine.
-  process.env.NYV_DOC_AI_BLOB_PREFIX = `temp/doc-ai-test-${Date.now()}`;
-  process.env.NYV_DOC_AI_JOB_TTL_SEC = '600';
+  process.env.JRX_DOC_AI_BLOB_PREFIX = `temp/doc-ai-test-${Date.now()}`;
+  process.env.JRX_DOC_AI_JOB_TTL_SEC = '600';
 }, 30_000);
 
 afterAll(async () => {

@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
+// JRX-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
 // file. Runtime is unaffected (gateway runs via tsx). Opt out of strict-null
 // for the v5.0.0 deploy gate; track follow-up cleanup in INV-CLEANUP-001.
 import { EventEmitter } from 'events';

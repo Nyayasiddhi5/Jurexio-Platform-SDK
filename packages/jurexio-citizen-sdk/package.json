@@ -1,0 +1,64 @@
+{
+  "name": "@jurexio/jurexio-citizen-sdk",
+  "version": "5.1.2",
+  "description": "Jurexio Citizen (NYM) — citizen legal-aid SDK. Wraps the JRX gateway with NYM agents + Patra Mitra (document parse/OCR/fields/summary/Q&A), 9-language Indic helpers, and offline draft serialization. React Native and Node.js compatible.",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./indic": {
+      "import": "./dist/indic.js",
+      "require": "./dist/indic.js",
+      "types": "./dist/indic.d.ts"
+    },
+    "./offline": {
+      "import": "./dist/offline.js",
+      "require": "./dist/offline.js",
+      "types": "./dist/offline.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "publish:beta": "npm publish --tag beta --access public",
+    "publish:latest": "npm publish --tag latest --access public",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "jurexio-citizen",
+    "jurexio",
+    "legal-aid",
+    "india",
+    "hindi",
+    "indic-languages",
+    "citizen",
+    "sdk"
+  ],
+  "author": "Jurexio Technology Pvt Ltd",
+  "license": "PROPRIETARY",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "@jurexio/client-sdk": "^5.0.0",
+    "@jurexio/types": "^5.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "sideEffects": false
+}

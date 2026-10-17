@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { useNyvClient } from './useNyvClient.js';
+import { useJrxClient } from './useJrxClient.js';
 
 export interface UseComplianceReturn {
   loading: boolean;
@@ -9,7 +9,7 @@ export interface UseComplianceReturn {
 }
 
 export function useCompliance(): UseComplianceReturn {
-  const { authHeaders, baseUrl } = useNyvClient({});
+  const { authHeaders, baseUrl } = useJrxClient({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

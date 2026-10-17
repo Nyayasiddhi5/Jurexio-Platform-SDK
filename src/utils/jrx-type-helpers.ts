@@ -1,6 +1,6 @@
 /**
  * Jurexio Enterprise Platform 3.1.2 — Type-narrowing helpers for the TS sprint
- * NYV-NS-005  ·  2026-05-01
+ * JRX-NS-005  ·  2026-05-01
  *
  * Express-/runtime-side helpers that turn nullable singletons (db, redis,
  * env vars, request context, …) into NON-NULL bindings with a single call
@@ -21,20 +21,20 @@
  *     can map a boot failure straight to the offending env / dep.
  */
 
-export class NyvMissingDependencyError extends Error {
+export class JrxMissingDependencyError extends Error {
   constructor(public readonly name: string, hint?: string) {
     super(
-      `[NYV-NS-005] Required dependency '${name}' is null/undefined at use site.`
+      `[JRX-NS-005] Required dependency '${name}' is null/undefined at use site.`
         + (hint ? ` Hint: ${hint}` : '')
     );
-    this.name = 'NyvMissingDependencyError';
+    this.name = 'JrxMissingDependencyError';
   }
 }
 
 /** Narrow a nullable value to a non-null one or throw. */
 export function requireValue<T>(value: T | null | undefined, name: string, hint?: string): T {
   if (value === null || value === undefined) {
-    throw new NyvMissingDependencyError(name, hint);
+    throw new JrxMissingDependencyError(name, hint);
   }
   return value;
 }
@@ -48,14 +48,14 @@ export function requireDb<T>(db: T | null | undefined): T {
  * task-251 (2026-05-12): Lazy non-null binding for module-scope singletons.
  *
  * Returns a transparent stand-in that re-resolves `getRaw()` on every property
- * access and throws `NyvMissingDependencyError(name)` if the underlying value
+ * access and throws `JrxMissingDependencyError(name)` if the underlying value
  * is still null/undefined. Use it instead of:
  *
  *   - `const db = rawDb!`                    // permissive cast, hides errors
  *   - `const db = rawDb as NonNullable<...>` // same
  *   - `const db = requireDb(rawDb)` at module top — eager, throws at IMPORT
  *     time if the importer is loaded before initializeDatabase() runs (this
- *     bit us in prod once already; see nv-orchestration-services NYV-NS-022).
+ *     bit us in prod once already; see jrx-orchestration-services JRX-NS-022).
  *
  * Canonical pattern (preferred for service-style modules with no Express
  * `res` in scope):
@@ -77,7 +77,7 @@ export function lazyRequire<T extends object>(
     get(_t, prop, receiver) {
       const real = getRaw();
       if (real === null || real === undefined) {
-        throw new NyvMissingDependencyError(name, hint);
+        throw new JrxMissingDependencyError(name, hint);
       }
       const v = Reflect.get(real as object, prop, receiver);
       return typeof v === 'function' ? (v as (...a: unknown[]) => unknown).bind(real) : v;
@@ -92,14 +92,14 @@ export function lazyRequire<T extends object>(
 
 /** Narrow the redis client. */
 export function requireRedis<T>(redis: T | null | undefined): T {
-  return requireValue(redis, 'redis', 'Redis client not initialised. Check NYV_REDIS_TCP_URL / REDIS_URL.');
+  return requireValue(redis, 'redis', 'Redis client not initialised. Check JRX_REDIS_TCP_URL / REDIS_URL.');
 }
 
 /** Read a required env var or throw with a helpful name. */
 export function requireEnv(name: string, hint?: string): string {
   const v = process.env[name];
   if (v === undefined || v === '') {
-    throw new NyvMissingDependencyError(`process.env.${name}`, hint);
+    throw new JrxMissingDependencyError(`process.env.${name}`, hint);
   }
   return v;
 }
@@ -118,7 +118,7 @@ export function requireStringHeader(
   name: string
 ): string {
   if (typeof header !== 'string' || header.trim() === '') {
-    throw new NyvMissingDependencyError(`header:${name}`);
+    throw new JrxMissingDependencyError(`header:${name}`);
   }
   return header;
 }
@@ -153,7 +153,7 @@ export function requireShape<T>(
   name: string
 ): T {
   if (!predicate(value)) {
-    throw new NyvMissingDependencyError(name, 'Payload did not match expected shape');
+    throw new JrxMissingDependencyError(name, 'Payload did not match expected shape');
   }
   return value;
 }

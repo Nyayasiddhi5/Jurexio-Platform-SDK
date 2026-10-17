@@ -6,7 +6,7 @@
  */
 
 import type { Request } from 'express';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import { isPartnerDraftTaskType } from '../config/jrx-draft-length-registry.js';
 import {
   wantsNspNymBestOutcome,
@@ -23,13 +23,13 @@ export type TrustTier =
   | 'T5_eval_test';
 
 export function isTrustTierMemoryGateEnabled(): boolean {
-  return isNyvFeatureOn('trustTierMemory');
+  return isJrxFeatureOn('trustTierMemory');
 }
 
 export function isEvalOrTestOrchestrateRequest(req: Request, body?: Record<string, unknown>): boolean {
   const record = body && typeof body === 'object' ? body : ((req.body || {}) as Record<string, unknown>);
   const headers = req.headers || {};
-  const evalHdr = String(headers['x-nyv-eval'] ?? headers['x-nyv-test'] ?? headers['x-nyv-fixture'] ?? '').toLowerCase();
+  const evalHdr = String(headers['x-jrx-eval'] ?? headers['x-jrx-test'] ?? headers['x-jrx-fixture'] ?? '').toLowerCase();
   if (evalHdr === '1' || evalHdr === 'true' || evalHdr === 'yes') return true;
   const matterId = String(record.matterId ?? record.matter_id ?? '').toLowerCase();
   if (/^(eval|test|fixture|smoke|uat)[-_]/i.test(matterId)) return true;

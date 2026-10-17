@@ -10,7 +10,7 @@
  * send X-Org-Id" signal was server-log-only. A partner reading the documented
  * field saw nothing and had no way to tell a silent 200 from a successful one.
  *
- * `nv-orchestration-routes.ts` is 4.5k lines behind `authenticateToken` /
+ * `jrx-orchestration-routes.ts` is 4.5k lines behind `authenticateToken` /
  * `dualSdkOrJwt` / `consentGate` and reaches the Queen, the doc-pipeline adapter
  * and the specialist client. Booting it to assert three object spreads would test
  * the mock harness, not the wiring. So this suite pins the two things that can
@@ -236,7 +236,7 @@ describe('NV-FIRM-CLAUSE-DIAG-001: ALL THREE orchestrate branches spread it, not
     const importIdx = src.indexOf("import {\n  getFirmClauseDiagnostic,");
     expect(importIdx).toBeGreaterThan(-1);
     expect(src.indexOf('const router = Router()')).toBeGreaterThan(importIdx);
-    expect(/function[\s\S]{0,4000}?await import\([^)]*nv-firm-clause-library/.test(src)).toBe(false);
+    expect(/function[\s\S]{0,4000}?await import\([^)]*jrx-firm-clause-library/.test(src)).toBe(false);
   });
 
   it("the route's helper still guards on presence — the shape this suite reproduces", () => {

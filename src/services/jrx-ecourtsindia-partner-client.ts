@@ -1,14 +1,14 @@
 /**
  * NV-ECOURTSINDIA-PARTNER-001 — eCourtsIndia.com partner REST client.
  * Docs: https://ecourtsindia.com/api/docs · Base: https://webapi.ecourtsindia.com
- * Auth: Authorization: Bearer eci_live_* (NYV_ECOURTSINDIA_API_KEY or eci_live in NYV_ECOURTS_API_KEY).
+ * Auth: Authorization: Bearer eci_live_* (JRX_ECOURTSINDIA_API_KEY or eci_live in JRX_ECOURTS_API_KEY).
  */
 import { createLogger } from '../utils/logger.js';
 
 const logger = createLogger('./jrx-ecourtsindia-partner');
 
 export const ECOURTSINDIA_PARTNER_BASE =
-  (process.env.NYV_ECOURTSINDIA_BASE_URL ?? 'https://webapi.ecourtsindia.com').replace(/\/$/, '');
+  (process.env.JRX_ECOURTSINDIA_BASE_URL ?? 'https://webapi.ecourtsindia.com').replace(/\/$/, '');
 
 export interface EcourtsIndiaPartnerConfig {
   apiKey: string;
@@ -28,9 +28,9 @@ export function ecourtsIndiaApiKeyLen(): number {
 }
 
 export function resolveEcourtsIndiaApiKey(): string {
-  const dedicated = (process.env.NYV_ECOURTSINDIA_API_KEY ?? '').trim();
+  const dedicated = (process.env.JRX_ECOURTSINDIA_API_KEY ?? '').trim();
   if (dedicated) return dedicated;
-  const legacy = (process.env.NYV_ECOURTS_API_KEY ?? '').trim();
+  const legacy = (process.env.JRX_ECOURTS_API_KEY ?? '').trim();
   if (legacy.startsWith('eci_live_')) return legacy;
   return '';
 }

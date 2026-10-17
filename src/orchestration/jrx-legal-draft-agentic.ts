@@ -1,6 +1,6 @@
 /**
  * NV-LEGAL-DRAFT-AGENTIC-001 — Tier D1 agentic drafting pipeline (deterministic
- * orchestration over LIVE NYV SSoT; no second LLM pipeline — NV-NO-DUPLICATE-001,
+ * orchestration over LIVE JRX SSoT; no second LLM pipeline — NV-NO-DUPLICATE-001,
  * NV-NO-STUB-001).
  *
  * The `legal-draft-agentic` taskType runs a four-stage counsel loop:

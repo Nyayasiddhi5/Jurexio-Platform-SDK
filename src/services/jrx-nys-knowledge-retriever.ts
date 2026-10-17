@@ -1,14 +1,14 @@
 /**
- * NV-NYS-KNOWLEDGE-RETRIEVER-001 — Map NYS retrieval plane → Auto-RAG chunks.
+ * NV-JRX-KNOWLEDGE-RETRIEVER-001 — Map NYS retrieval plane → Auto-RAG chunks.
  *
  * Channel A of the federated Knowledge Plane: call NYS POST /retrieve
  * (RetrievalPlan with steps[] per live OpenAPI) and emit AutoRagChunk[] for
- * RRF fusion inside nv-auto-rag-router. Fully fail-soft — empty array on any error.
+ * RRF fusion inside jrx-auto-rag-router. Fully fail-soft — empty array on any error.
  *
  * Supports both live OpenAPI shape (steps[]) and legacy flat envelopes.
  */
 import { createLogger } from '../utils/logger.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import {
   isNysKnowledgeConfigured,
   nysKnowledgeRequest,
@@ -23,7 +23,7 @@ import { getPlatformReferenceYear } from '../utils/jrx-platform-temporal-context
 
 const logger = createLogger('./jrx-nys-knowledge-retriever');
 
-/** NV-NYS-CASELAW-MODE-001 — numeric section queries use FTS (hybrid 503/latency risk). */
+/** NV-JRX-CASELAW-MODE-001 — numeric section queries use FTS (hybrid 503/latency risk). */
 export function resolveCaselawSearchMode(query: string): 'fts' | 'hybrid' {
   const q = String(query || '');
   if (/\b(section|s\.|u\/s|u\.s\.|bns|bnss|ipc|crpc|bsa|iea)\s*\d{1,4}\b/i.test(q)) {
@@ -77,7 +77,7 @@ export function resolveCaselawYearTo(query: string, refYear = getPlatformReferen
   return undefined;
 }
 
-export const NYS_GLOBAL_NAMESPACES = {
+export const JRX_ECOSYSTEM_GLOBAL_NAMESPACES = {
   statutesIN: 'global:statutes:IN',
   caselawIN: 'global:caselaw:IN',
   caselawUS: 'global:caselaw:US',
@@ -191,7 +191,7 @@ function statuteToChunk(s: NysStatute, jurisdiction: string): AutoRagChunk {
   const ref = s.code && s.section ? `${s.code} §${s.section}` : title;
   return {
     id: `nys:statute:${s.id ?? `${s.code}:${s.section}`}`,
-    source: NYS_GLOBAL_NAMESPACES.statutesIN.replace(':IN', `:${jurisdiction}`),
+    source: JRX_ECOSYSTEM_GLOBAL_NAMESPACES.statutesIN.replace(':IN', `:${jurisdiction}`),
     title,
     content: content || title,
     jurisdiction,
@@ -313,7 +313,7 @@ function caseToChunk(c: NysCase, jurisdiction: string): AutoRagChunk {
       : `${title}${authorityRef ? ` — ${authorityRef}` : ''}`
         + '\n(Metadata-only corpus record: no headnote text available. Do not invent passages.)'
   ).slice(0, 4000);
-  const ns = jurisdiction === 'US' ? NYS_GLOBAL_NAMESPACES.caselawUS : NYS_GLOBAL_NAMESPACES.caselawIN;
+  const ns = jurisdiction === 'US' ? JRX_ECOSYSTEM_GLOBAL_NAMESPACES.caselawUS : JRX_ECOSYSTEM_GLOBAL_NAMESPACES.caselawIN;
   return {
     id: `nys:case:${c.id ?? c.citation ?? title}`,
     source: ns,
@@ -348,7 +348,7 @@ function comparisonToChunk(cmp: NysComparison, index: number, jurisdiction: stri
   if (!text) return null;
   return {
     id: `nys:cmp:${index}`,
-    source: NYS_GLOBAL_NAMESPACES.statutesIN.replace(':IN', `:${jurisdiction}`),
+    source: JRX_ECOSYSTEM_GLOBAL_NAMESPACES.statutesIN.replace(':IN', `:${jurisdiction}`),
     title: cmp.title || 'Code comparison',
     content: text.slice(0, 4000),
     jurisdiction,
@@ -511,7 +511,7 @@ export async function retrieveNysGlobalKnowledge(opts: {
   /** NV-AUTHORITY-SALIENCE-001 — the tier the query asked for, if any. */
   tierRequest?: AuthorityTierRequest;
 }> {
-  if (!isNyvFeatureOn('nysKnowledgePlane')) {
+  if (!isJrxFeatureOn('nysKnowledgePlane')) {
     return { chunks: [], method: 'nys:flag_off' };
   }
   if (!isNysKnowledgeConfigured()) {
@@ -675,7 +675,7 @@ export async function nysVerifyCitation(citation: string, jurisdiction = 'IN'): 
   source: string;
   detail?: unknown;
 } | null> {
-  if (!isNyvFeatureOn('nysKnowledgePlane') || !isNysKnowledgeConfigured()) return null;
+  if (!isJrxFeatureOn('nysKnowledgePlane') || !isNysKnowledgeConfigured()) return null;
   const res = await nysKnowledgeRequest({
     method: 'POST',
     path: '/caselaw/verify-citation',
@@ -702,7 +702,7 @@ export async function nysVerifyCitation(citation: string, jurisdiction = 'IN'): 
 
 /** Extract citations via NYS regex extractor (LLM-free). */
 export async function nysExtractCitations(text: string, link = true): Promise<unknown | null> {
-  if (!isNyvFeatureOn('nysKnowledgePlane') || !isNysKnowledgeConfigured()) return null;
+  if (!isJrxFeatureOn('nysKnowledgePlane') || !isNysKnowledgeConfigured()) return null;
   const res = await nysKnowledgeRequest({
     method: 'POST',
     path: '/citations/extract',
@@ -720,7 +720,7 @@ export async function nysCompareOldNew(opts: {
   fromCode: 'IPC' | 'CrPC' | 'IEA';
   section: string;
 }): Promise<unknown | null> {
-  if (!isNyvFeatureOn('nysKnowledgePlane') || !isNysKnowledgeConfigured()) return null;
+  if (!isJrxFeatureOn('nysKnowledgePlane') || !isNysKnowledgeConfigured()) return null;
 
   if (opts.fromCode === 'IPC') {
     const getRes = await nysKnowledgeRequest({

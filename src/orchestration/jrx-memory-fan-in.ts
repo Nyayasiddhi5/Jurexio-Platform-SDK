@@ -34,7 +34,7 @@ const logger = createLogger('./jrx-memory-fan-in');
  * unchanged, only the time spent not getting them.
  *
  * Reading the live policy (rather than hardcoding 30_000) keeps this correct
- * when an SRE tunes `NYV_BREAKER_CAPABILITY_TIMEOUT_MS`.
+ * when an SRE tunes `JRX_BREAKER_CAPABILITY_TIMEOUT_MS`.
  *
  * NV-COMPLETION-DRIVEN-001 (2026-08-17) — the bound is an UPPER limit for a
  * hung source, not the event that advances the leaf. Promise.allSettled used

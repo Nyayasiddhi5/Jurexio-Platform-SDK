@@ -1,6 +1,6 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
- * NYV Platform 3.1.2 — Production Index Creation Script
+ * JRX Platform 3.1.2 — Production Index Creation Script
  * Creates all performance-critical database indexes for 120M user scale
  * Run with: npm run db:indexes
  *
@@ -35,7 +35,7 @@ const INDEX_DEFINITIONS: Array<{ name: string; ddl: string }> = [
   { name: 'idx_sdk_keys_hashed_active', ddl: `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_sdk_keys_hashed_active ON sdk_app_api_keys (key_hash) WHERE is_active = true AND revoked_at IS NULL` },
 
   // ── Orchestration + legal chat hot paths (NV-PERF-HOTPATH-INDEX-001) ───────
-  { name: 'idx_orch_jobs_status_created', ddl: `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orch_jobs_status_created ON nyayavigya_orchestration_jobs (status, created_at DESC)` },
+  { name: 'idx_orch_jobs_status_created', ddl: `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orch_jobs_status_created ON jurexio_orchestration_jobs (status, created_at DESC)` },
   { name: 'idx_legal_chat_session_created', ddl: `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_legal_chat_session_created ON legal_chat_messages (session_id, created_at DESC)` },
 
   // ── GRPO Runs (public schema — Drizzle-managed) ────────────────────────────

@@ -1,8 +1,8 @@
 /**
  * Jurexio Enterprise Platform 3.1.2 — Orchestration barrel
- * NYV-NS-009  ·  2026-05-01
+ * JRX-NS-009  ·  2026-05-01
  *
- * Re-export façade for the split of `nv-orchestration-services.ts` (1,799 LOC,
+ * Re-export façade for the split of `jrx-orchestration-services.ts` (1,799 LOC,
  * 25 classes) into a folder layout. Today every export is forwarded from the
  * monolith so call sites can be updated in two atomic steps:
  *
@@ -10,12 +10,12 @@
  *           '../services/orchestration' instead of
  *           '../services/jrx-orchestration-services.js'.
  *
- *   STEP 2 (queued, NYV-NS-009): each class moves into its sibling file
+ *   STEP 2 (queued, JRX-NS-009): each class moves into its sibling file
  *           under this folder (run.ts, inspect.ts, plan.ts, replay.ts,
  *           governance.ts, …) and this barrel switches its `from` clause
  *           to point at the new files.
  *
- * Target physical split (do NOT change without updating NYV-TECH-SPEC-MASTER §14):
+ * Target physical split (do NOT change without updating JRX-TECH-SPEC-MASTER §14):
  *
  *   orchestration/
  *     run.ts          — execution surface

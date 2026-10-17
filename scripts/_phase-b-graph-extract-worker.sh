@@ -11,4 +11,4 @@ fi
 echo "=== B4 GRAPH EDGE EXTRACT (batch 100) ==="
 TREATMENT_GRAPH_EDGES_BATCH=100 node "$SCRIPT" 2>&1 | tail -30
 echo "=== S3 pending check ==="
-aws s3 ls "s3://${NYV_DEPLOY_BUCKET:-nyayavigya-sdk-devapp}/caselaw-worker/graph-edges/" --region ap-south-1 2>&1 | tail -10
+aws s3 ls "s3://${JRX_DEPLOY_BUCKET:-jurexio-sdk-devapp}/caselaw-worker/graph-edges/" --region ap-south-1 2>&1 | tail -10

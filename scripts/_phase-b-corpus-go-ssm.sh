@@ -106,7 +106,7 @@ PY
 echo "========== BEFORE COUNTS (worker) =========="
 ssm_script "$WORKER" 120 "$ROOT/scripts/_phase-b-corpus-counts.sh"
 
-echo "========== CNR PROBE BEFORE (nysdev) =========="
+echo "========== CNR PROBE BEFORE (jrx-prod) =========="
 ssm_script "$NYSDEV" 180 "$ROOT/scripts/_phase-b-probe.sh" | tee /tmp/cnr-before.txt
 
 echo "========== UPLOAD HC/DC SCRIPTS (worker) =========="
@@ -127,10 +127,10 @@ ssm_run "$WORKER" 600 \
   "nohup env HC_DC_BODY_FTS_SCOPE=hc HC_DC_BODY_FTS_MAX_HC=25000 HC_DC_BODY_FTS_BATCH=25 HC_DC_BODY_FTS_CONCURRENCY=1 node /opt/nyv/api/backfill-hc-dc-body-fts.mjs >> /opt/nyv/logs/hc-body-fts-pilot.log 2>&1 & echo HC_PILOT_PID=\$!" \
   "sleep 5 && tail -5 /opt/nyv/logs/hc-body-fts-pilot.log 2>/dev/null || true"
 
-echo "========== WAIT 90s for CNR stability =========="
+echo "========== JRXT 90s for CNR stability =========="
 sleep 90
 
-echo "========== CNR PROBE AFTER (nysdev) =========="
+echo "========== CNR PROBE AFTER (jrx-prod) =========="
 ssm_script "$NYSDEV" 180 "$ROOT/scripts/_phase-b-probe.sh" | tee /tmp/cnr-after.txt
 
 echo "========== AFTER COUNTS (worker) =========="

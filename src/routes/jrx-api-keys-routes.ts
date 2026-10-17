@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * NV SDK — API Key Management
- * Platform clients (NSP, NSI, Nyayamitra) can generate and manage SDK keys.
+ * Platform clients (NSP, NSI, Jurexio Citizen) can generate and manage SDK keys.
  * Stores keys in nv_org_api_keys table with per-key rate limits and usage metering.
  */
 
@@ -94,7 +94,7 @@ router.post('/', authenticateToken as any, requireRole('developer', 'org_admin')
     const { name, platform = 'custom', tier = 'pro', rateLimitPerMinute = 200, expiresInDays } = req.body;
 
     if (!name) { sendApiError(res, 'BAD_REQUEST', { overrideMessage: 'name required' }); return; }
-    const validPlatforms = ['nsp', 'nsi', 'nyayamitra', 'custom'];
+    const validPlatforms = ['nsp', 'nsi', 'jurexio-citizen', 'custom'];
     if (!validPlatforms.includes(platform)) {
       sendApiError(res, 'BAD_REQUEST', { status: 400, overrideMessage: `platform must be one of: ${validPlatforms.join(' | ')}` }); return;
     }

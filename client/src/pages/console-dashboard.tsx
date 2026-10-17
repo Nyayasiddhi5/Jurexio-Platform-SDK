@@ -41,7 +41,7 @@ import { nv } from '@/lib/jrx-api-paths';
 import PartnerSmokePanel from '@/components/admin/PartnerSmokePanel';
 import { hasAccess, type RoleLevel } from '@/lib/rbac-registry';
 import { NV_REGISTRY_DEFAULTS } from '@/hooks/useNvRegistryMeta';
-import { NyvPageShell } from '@/components/NyvPageShell';
+import { JrxPageShell } from '@/components/JrxPageShell';
 import { extractModelCatalogRows } from '@/hooks/useNvModelCatalog';
 // ── tiny fetch helper that swallows errors so one 404 doesn't break the page ─
 async function safeGet<T = any>(url: string): Promise<T | null> {
@@ -332,7 +332,7 @@ export default function ConsoleDashboard() {
     : [];
 
   return (
-    <NyvPageShell
+    <JrxPageShell
       className="./jrx-light-scope mx-auto max-w-7xl"
       title={`Welcome back, ${displayName}`}
       description="Live snapshot of platform health, Instant Search, Legal Feed, and approvals. SDK 5.0.7 · NSP/NYM best-outcome on orchestrate."
@@ -632,6 +632,6 @@ export default function ConsoleDashboard() {
             </CardContent>
           </Card>
         </div>
-    </NyvPageShell>
+    </JrxPageShell>
   );
 }

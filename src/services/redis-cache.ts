@@ -23,8 +23,8 @@ const logger = createLogger('redis-cache');
 let _redis: any = null;
 
 /**
- * NYV-NS-018 (post-architect 2026-05-05): tolerate two common operator
- * misconfigurations of REDIS_URL / NYV_REDIS_TCP_URL that we have hit in
+ * JRX-NS-018 (post-architect 2026-05-05): tolerate two common operator
+ * misconfigurations of REDIS_URL / JRX_REDIS_TCP_URL that we have hit in
  * deployment:
  *   1. value starts with `ediss://` — the leading `r` got eaten somewhere
  *      in the secret pipeline. Auto-recover to `rediss://`.

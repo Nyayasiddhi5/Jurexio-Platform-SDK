@@ -5,8 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, RefreshCw, ShieldCheck, Hash, ServerCrash, Network } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 
 import { NV_BASE } from '@/lib/jrx-api-paths';
 /**
@@ -139,7 +139,7 @@ export default function LineagePage() {
           </CardHeader>
           <CardContent>
             {isError ? (
-              <NyvErrorState
+              <JrxErrorState
                 title="No lineage found for this requestId"
                 description="Either the audit-wire flag is off, or the row isn't visible to your tenant."
                 variant="card"
@@ -150,7 +150,7 @@ export default function LineagePage() {
                 {Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}
               </div>
             ) : (data?.auditChain ?? []).length === 0 ? (
-              <NyvEmptyState title="No entries" size="sm" />
+              <JrxEmptyState title="No entries" size="sm" />
             ) : (
               <div className="space-y-3">
                 {data!.auditChain!.map((row, idx) => (

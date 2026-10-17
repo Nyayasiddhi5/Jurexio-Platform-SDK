@@ -1,6 +1,6 @@
 /**
  * NV-ECOURTS-LIVE-FETCH-001 — Tier-3 live eCourts attempt for unified cascade.
- * Uses existing nv-ecourts-client (NIC API) when NYV_ECOURTS_API_KEY is set.
+ * Uses existing jrx-ecourts-client (NIC API) when JRX_ECOURTS_API_KEY is set.
  * Honesty: claimEcourts stays false; sourcesTried records attempt outcome.
  */
 import { createLogger } from '../utils/logger.js';
@@ -125,8 +125,8 @@ export async function attemptEcourtsLiveFetch(input: {
   }
 
   const t0 = Date.now();
-  const apiKeyLen = (process.env.NYV_ECOURTS_API_KEY ?? '').trim().length;
-  const nicKey = (process.env.NYV_ECOURTS_API_KEY ?? '').trim();
+  const apiKeyLen = (process.env.JRX_ECOURTS_API_KEY ?? '').trim().length;
+  const nicKey = (process.env.JRX_ECOURTS_API_KEY ?? '').trim();
   if (apiKeyLen === 0 || nicKey.startsWith('eci_live_')) {
     logger.info('[CNR] eCourts live fetch: no NIC key (eCourtsIndia-only or unconfigured)', {
       cnrLen: cnr.length,
@@ -135,7 +135,7 @@ export async function attemptEcourtsLiveFetch(input: {
     return {
       kind: 'attempted',
       tag: ECOURTS_LIVE_ATTEMPTED,
-      reason: 'NIC NYV_ECOURTS_API_KEY not configured (eCourtsIndia attempted when key present)',
+      reason: 'NIC JRX_ECOURTS_API_KEY not configured (eCourtsIndia attempted when key present)',
     };
   }
 

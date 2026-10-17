@@ -3,7 +3,7 @@
  * Task #156 — SME Legal Chat E2E bootstrap.
  *
  * Idempotent. Run via:
- *   DATABASE_URL=$NYV_DATABASE_URL npx tsx scripts/jrx-sme-bootstrap.ts
+ *   DATABASE_URL=$JRX_DATABASE_URL npx tsx scripts/jrx-sme-bootstrap.ts
  *
  * Uses NV-DB-SCRIPT-001-compliant `makePgSql()` from scripts/_pg-pool.ts.
  */

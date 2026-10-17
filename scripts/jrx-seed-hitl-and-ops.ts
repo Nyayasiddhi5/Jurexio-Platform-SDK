@@ -1,5 +1,5 @@
 /**
- * Nyayavigya Platform — HITL queue + RBAC users + Regulatory feeds + Drift events.
+ * Jurexio Platform — HITL queue + RBAC users + Regulatory feeds + Drift events.
  * Multi-jurisdiction, multi-platform (NSP, NSPM, NSI, NSA, NSM, NYM, JRX).
  */
 
@@ -99,18 +99,18 @@ async function seedRbacUsers() {
   }
 
   const users = [
-    { email:'cto@nyayavigya.in',                role:'super_admin', tier:'enterprise', name:'CTO' },
-    { email:'security-lead@nyayavigya.in',      role:'super_admin', tier:'enterprise', name:'Head of Security' },
-    { email:'compliance-lead@nyayavigya.in',    role:'manager',     tier:'enterprise', name:'Head of Compliance' },
-    { email:'platform-ops@nyayavigya.in',       role:'manager',     tier:'enterprise', name:'Platform Operations Lead' },
-    { email:'ai-safety-lead@nyayavigya.in',     role:'manager',     tier:'enterprise', name:'AI Safety Lead' },
-    { email:'legal-counsel-in@nyayavigya.in',   role:'analyst',     tier:'pro',        name:'India Legal Counsel' },
-    { email:'legal-counsel-us@nyayavigya.in',   role:'analyst',     tier:'pro',        name:'US Legal Counsel (JRX)' },
-    { email:'legal-counsel-eu@nyayavigya.in',   role:'analyst',     tier:'pro',        name:'EU Legal Counsel' },
-    { email:'hitl-reviewer-1@nyayavigya.in',    role:'operator',    tier:'pro',        name:'HITL Reviewer L1' },
-    { email:'hitl-reviewer-2@nyayavigya.in',    role:'operator',    tier:'pro',        name:'HITL Reviewer L2' },
-    { email:'finops-analyst@nyayavigya.in',     role:'analyst',     tier:'pro',        name:'FinOps Analyst' },
-    { email:'audit-readonly@nyayavigya.in',     role:'readonly',    tier:'pro',        name:'External Audit (read-only)' },
+    { email:'cto@jurexio.com',                role:'super_admin', tier:'enterprise', name:'CTO' },
+    { email:'security-lead@jurexio.com',      role:'super_admin', tier:'enterprise', name:'Head of Security' },
+    { email:'compliance-lead@jurexio.com',    role:'manager',     tier:'enterprise', name:'Head of Compliance' },
+    { email:'platform-ops@jurexio.com',       role:'manager',     tier:'enterprise', name:'Platform Operations Lead' },
+    { email:'ai-safety-lead@jurexio.com',     role:'manager',     tier:'enterprise', name:'AI Safety Lead' },
+    { email:'legal-counsel-in@jurexio.com',   role:'analyst',     tier:'pro',        name:'India Legal Counsel' },
+    { email:'legal-counsel-us@jurexio.com',   role:'analyst',     tier:'pro',        name:'US Legal Counsel (JRX)' },
+    { email:'legal-counsel-eu@jurexio.com',   role:'analyst',     tier:'pro',        name:'EU Legal Counsel' },
+    { email:'hitl-reviewer-1@jurexio.com',    role:'operator',    tier:'pro',        name:'HITL Reviewer L1' },
+    { email:'hitl-reviewer-2@jurexio.com',    role:'operator',    tier:'pro',        name:'HITL Reviewer L2' },
+    { email:'finops-analyst@jurexio.com',     role:'analyst',     tier:'pro',        name:'FinOps Analyst' },
+    { email:'audit-readonly@jurexio.com',     role:'readonly',    tier:'pro',        name:'External Audit (read-only)' },
   ];
 
   for (const u of users) {

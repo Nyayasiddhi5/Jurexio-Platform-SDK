@@ -63,7 +63,7 @@ export function CostEstimator({
   // Cost estimation mutation
   const estimateCostMutation = useMutation({
     mutationFn: async () => {
-      return apiRequest('/api/nyayavigya/estimate-cost', {
+      return apiRequest('/api/jurexio/estimate-cost', {
         method: 'POST',
         body: {
           workflow,

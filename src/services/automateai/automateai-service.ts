@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * AutomateAI™ Service — Visual Workflow Builder with AI Decision Gates
  * Jurexio Enterprise Platform 312 | Build: June 2026
@@ -329,7 +329,7 @@ const gateExecutors: Record<GateType, GateExecutor> = {
     const required = config.requireHumanApproval !== false;
     return {
       output: { approvalRequired: required, approvers: config.approvers ?? [], deadline: config.deadline },
-      decision: required ? 'AWAITING_APPROVAL' : 'AUTO_APPROVED',
+      decision: required ? 'AJRXTING_APPROVAL' : 'AUTO_APPROVED',
       confidence: 1.0,
       explanation: required ? 'Human approval required before proceeding' : 'Auto-approved (approval gate bypassed)',
       requiresApproval: required,

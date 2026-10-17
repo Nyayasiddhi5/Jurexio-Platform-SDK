@@ -24,7 +24,7 @@ export function renderReport({ set, raw, agg }) {
   const b = agg.blended;
   const singleRun = (raw.runsPerPrompt ?? 1) === 1;
 
-  p(`# NYV cost benchmark — ${raw.label || 'unlabelled'}`);
+  p(`# JRX cost benchmark — ${raw.label || 'unlabelled'}`);
   p('');
   p(`- set: \`${raw.setId}\` v${raw.setVersion} (frozen ${raw.setFrozenAt})`);
   p(`- started: ${raw.startedAt || '—'}  finished: ${raw.finishedAt || '—'}`);
@@ -90,7 +90,7 @@ export function renderReport({ set, raw, agg }) {
     p('Set separation self-test: **not applicable** — this set declares no per-prompt `cacheExpectation`, so a cross-prompt cache hit cannot be detected and any zero-cost row below may be another prompt\'s answer (the v1 defect). Use the v2 set to close this.');
     p('');
   }
-  p(`| | NYV orchestrated | direct ${raw.baseline?.providerModelName} |`);
+  p(`| | JRX orchestrated | direct ${raw.baseline?.providerModelName} |`);
   p('|---|---:|---:|');
   p(`| blended cost / request (USD) | **${f6(b.nyvCostUsd)}** | **${f6(b.directCostUsd)}** |`);
   p(`| blended prompt tokens | ${i(b.nyvPromptTokens)} | ${i(b.directPromptTokens)} |`);
@@ -115,10 +115,10 @@ export function renderReport({ set, raw, agg }) {
       ? '`>= 70 %`. It is only claimable with the set version, the weighting, the build, and the metering verdict above attached to it.'
       : `**BELOW the 70 % headline claim.** Measured ${pct(headline)}. See §3 for which classes drag it down. Do not re-frame this figure upward.`);
   } else {
-    p('Not computable — no class produced a comparable NYV/direct cost pair.');
+    p('Not computable — no class produced a comparable JRX/direct cost pair.');
   }
   p('');
-  p(`Discarded spend (hedge loser / deadline-abandoned) is **excluded** from the NYV figure above and totals ${f6(b.nyvWastedCostUsd)} USD/request blended. Against TRUE provider spend (billable + wasted) the reduction is ${pct(b.directCostUsd > 0 ? (1 - (b.nyvCostUsd + b.nyvWastedCostUsd) / b.directCostUsd) * 100 : null)}.`);
+  p(`Discarded spend (hedge loser / deadline-abandoned) is **excluded** from the JRX figure above and totals ${f6(b.nyvWastedCostUsd)} USD/request blended. Against TRUE provider spend (billable + wasted) the reduction is ${pct(b.directCostUsd > 0 ? (1 - (b.nyvCostUsd + b.nyvWastedCostUsd) / b.directCostUsd) * 100 : null)}.`);
   p('');
   p('**Weighting used to blend** (a blended figure without this is meaningless):');
   p('');
@@ -150,7 +150,7 @@ export function renderReport({ set, raw, agg }) {
     p('');
     p(`In v1 these classes carried ${trivialRows.reduce((s, r) => s + (set.classes[r.classId].mixShare ?? 0), 0).toFixed(2)} of the blended weight at a free 100 % saving, which is that much headline handed over by the set's composition rather than earned by the platform. They are measured here and excluded from the blend.`);
     p('');
-    p('| class | assumed mix share | cost USD NYV/direct | cut | fan-out NYV |');
+    p('| class | assumed mix share | cost USD JRX/direct | cut | fan-out JRX |');
     p('|---|---:|---|---:|---:|');
     for (const r of trivialRows) {
       const cut = (typeof r.nyv.costUsd === 'number' && typeof r.direct.costUsd === 'number' && r.direct.costUsd > 0)
@@ -162,9 +162,9 @@ export function renderReport({ set, raw, agg }) {
   }
 
   // ── per-class cost table ───────────────────────────────────────────────────
-  p('## 3. Per-class: NYV vs direct');
+  p('## 3. Per-class: JRX vs direct');
   p('');
-  p('| class | w | n | prompt tok NYV/direct | compl tok NYV/direct | fan-out NYV/direct | cost USD NYV/direct | cut | latency s NYV/direct | cache hit |');
+  p('| class | w | n | prompt tok JRX/direct | compl tok JRX/direct | fan-out JRX/direct | cost USD JRX/direct | cut | latency s JRX/direct | cache hit |');
   p('|---|---:|---:|---|---|---|---|---:|---|---:|');
   for (const r of agg.classRows) {
     const cut = (typeof r.nyv.costUsd === 'number' && typeof r.direct.costUsd === 'number' && r.direct.costUsd > 0)
@@ -177,7 +177,7 @@ export function renderReport({ set, raw, agg }) {
   }
   p('');
   p('⚠ **unearned** = cheaper than direct, but the answer did not answer the question (see §2 and §5). Its `cut` column is a fiction and is excluded from the adjusted blend.');
-  p('`fan-out NYV` is the **independent** count from provider log lines, not the envelope\'s claim. Direct is 1 by construction (one call, no retry) — where a real naive integration would retry or hedge, the baseline is understated and this comparison is conservative against NYV.');
+  p('`fan-out JRX` is the **independent** count from provider log lines, not the envelope\'s claim. Direct is 1 by construction (one call, no retry) — where a real naive integration would retry or hedge, the baseline is understated and this comparison is conservative against JRX.');
   p('');
   const drags = agg.classRows
     .filter((r) => r.weight > 0 && typeof r.nyv.costUsd === 'number' && typeof r.direct.costUsd === 'number' && r.direct.costUsd > 0)
@@ -202,7 +202,7 @@ export function renderReport({ set, raw, agg }) {
     p(`| ${r.classId} | ${i(r.nyv.residualPromptTokens)} | ${i(r.nyv.residualCompletionTokens)} | ${unpriced} | ${r.notes.join('; ') || '—'} |`);
   }
   p('');
-  p('A residual is envelope-reported tokens that no provider log line accounted for. `hedge success` lines carry no token counts (llm-orchestrator.ts:1293), so on hedge-won requests the residual is attributed pro rata across those calls and priced at their own model; anything still unattributed is printed above and means the NYV cost figure is **understated** by that much.');
+  p('A residual is envelope-reported tokens that no provider log line accounted for. `hedge success` lines carry no token counts (llm-orchestrator.ts:1293), so on hedge-won requests the residual is attributed pro rata across those calls and priced at their own model; anything still unattributed is printed above and means the JRX cost figure is **understated** by that much.');
   p('');
 
   // ── quality ────────────────────────────────────────────────────────────────
@@ -210,7 +210,7 @@ export function renderReport({ set, raw, agg }) {
   p('');
   p('> **These are NOT a legal-quality score and must never be presented as one.** They are containment and shape checks that make a cost win from *silently answering less* visible. Legal correctness was **NOT verified** by this harness.');
   p('');
-  p('| class | answer chars NYV/direct | struct. citations NYV | text citations NYV/direct | expected-citation coverage NYV/direct | keyword coverage NYV/direct | empty NYV | direct errors |');
+  p('| class | answer chars JRX/direct | struct. citations JRX | text citations JRX/direct | expected-citation coverage JRX/direct | keyword coverage JRX/direct | empty JRX | direct errors |');
   p('|---|---|---:|---|---|---|---:|---:|');
   for (const r of agg.classRows) {
     p(`| ${r.classId} | ${i(r.nyv.answerChars)} / ${i(r.direct.answerChars)} | ${f(r.nyv.structuredCitations, 1)} | ` +
@@ -237,7 +237,7 @@ export function renderReport({ set, raw, agg }) {
   p('');
   for (const note of set.qualitySignals.notCaptured) p(`- NOT captured: ${note}`);
   p('');
-  p('Raw NYV and direct answers for every run are written to `answers/` in this artifact directory for human/SME scoring.');
+  p('Raw JRX and direct answers for every run are written to `answers/` in this artifact directory for human/SME scoring.');
   p('');
 
   // ── zero-cost attribution ──────────────────────────────────────────────────
@@ -365,7 +365,7 @@ export function renderReport({ set, raw, agg }) {
       p('- One run per prompt. The §1.0 repeat test showed micro-FAQ prompt tokens stable within 0.03 % but wall clock varying 27.0–30.9 s (±13 %), so latency figures here carry at least that much noise. Cost figures inherit token stability, not latency stability.');
     }
   }
-  p('- The blend excludes discarded (`wasted`) spend from the NYV side; the true-spend variant is stated in §2.');
+  p('- The blend excludes discarded (`wasted`) spend from the JRX side; the true-spend variant is stated in §2.');
   /* Longest prompt in the pass, rather than a hardcoded item id: the claim being
    * qualified is "no genuinely large document was measured", and that stays true
    * across sets while the item carrying it does not. */
@@ -377,13 +377,13 @@ export function renderReport({ set, raw, agg }) {
   p('- NOT covered: streaming (`/orchestrate/stream`). M3/M4 estimated-vs-provider usage is only observable on streamed calls; `usageSource` tallies per run are in `raw.json`.');
   p('- NOT covered: concurrency / load. Every run is serial and alone, so nothing here speaks to per-request cost under contention.');
   p('- NOT covered: cost of non-LLM infrastructure (RAG embeddings, DB, NYS round trips). §12.1 measured 236 s of a 366 s Queen request as non-LLM time — that time has a real cost this harness does not price.');
-  p('- NOT covered: any provider other than the baseline model. "Equivalent-quality" is guaranteed here by using the SAME model NYV itself selects, not by a cross-vendor quality argument.');
+  p('- NOT covered: any provider other than the baseline model. "Equivalent-quality" is guaranteed here by using the SAME model JRX itself selects, not by a cross-vendor quality argument.');
   p('');
   p('## 8. Reproduce');
   p('');
   p('```bash');
-  p('source scripts/nv-source-dev-deploy-env.sh');
-  p(`node scripts/nv-benchmark-cost.mjs --label ${raw.label || 'run'} --runs ${raw.runsPerPrompt ?? 1}${raw.setPath ? ` --set ${path.basename(raw.setPath)}` : ''}`);
+  p('source scripts/jrx-source-dev-deploy-env.sh');
+  p(`node scripts/jrx-benchmark-cost.mjs --label ${raw.label || 'run'} --runs ${raw.runsPerPrompt ?? 1}${raw.setPath ? ` --set ${path.basename(raw.setPath)}` : ''}`);
   p('```');
   p('');
   p(`Command ids for every invocation in this pass are in \`raw.json\` (\`dispatch[]\`), so each row is traceable to an SSM invocation on \`${raw.instanceId || 'the instance'}\`.`);

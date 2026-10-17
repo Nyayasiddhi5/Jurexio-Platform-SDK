@@ -7,16 +7,16 @@
  *   3. Response carries citations + grounding fields                  (T-DLR-05)
  *   4. GET /api/jrx/orchestration/lineage/:requestId returns audit chain (T-DLR-04)
  *   5. emitOrchestrationAudit row is written to nv_audit_logs           (T-DLR-03)
- *   6. NSP web proxy /api/nyv-proxy/api/jrx/health passes through        (T-DLR-15)
+ *   6. NSP web proxy /api/jrx-proxy/api/jrx/health passes through        (T-DLR-15)
  *
  * Exits non-zero on any HARD failure; SOFT failures (503 LLM, NSP unreachable)
  * are reported but do not fail the script — those are environment, not code.
  *
  * Usage:
- *   NYV_GATEWAY_URL=http://localhost:5000 \
- *   NYV_TEST_TOKEN=<jwt> \
+ *   JRX_GATEWAY_URL=http://localhost:5000 \
+ *   JRX_TEST_TOKEN=<jwt> \
  *   NSP_BASE_URL=http://localhost:3000 \
- *   NYV_F_AUDIT_WIRE=1 \
+ *   JRX_F_AUDIT_WIRE=1 \
  *   tsx scripts/jrx-smoke-dev-live-ready.ts
  *
  * Result classification:
@@ -29,9 +29,9 @@
  *           non-zero exit.
  */
 
-const GATEWAY = process.env.NYV_GATEWAY_URL || 'http://localhost:5000';
+const GATEWAY = process.env.JRX_GATEWAY_URL || 'http://localhost:5000';
 const NSP     = process.env.NSP_BASE_URL    || 'http://localhost:3000';
-const TOKEN   = process.env.NYV_TEST_TOKEN  || '';
+const TOKEN   = process.env.JRX_TEST_TOKEN  || '';
 
 type StepResult = { name: string; ok: boolean; soft?: boolean; detail?: string };
 const results: StepResult[] = [];
@@ -60,7 +60,7 @@ async function step1Health(): Promise<void> {
 
 async function step2Orchestrate(): Promise<{ requestId: string | null; data: any }> {
   if (!TOKEN) {
-    record('2. orchestrate (no token, skipped)', false, 'NYV_TEST_TOKEN unset', true);
+    record('2. orchestrate (no token, skipped)', false, 'JRX_TEST_TOKEN unset', true);
     return { requestId: null, data: null };
   }
   try {
@@ -124,7 +124,7 @@ async function step4Lineage(requestId: string | null): Promise<void> {
     const j = await safeJson(r);
     if (r.status === 404) {
       record('4. lineage reader (T-DLR-04)', false,
-        '404 — likely NYV_F_AUDIT_WIRE=off; environment SOFT', true);
+        '404 — likely JRX_F_AUDIT_WIRE=off; environment SOFT', true);
       return;
     }
     const ok = r.ok && j?.success && Array.isArray(j?.data?.auditChain) && j.data.auditChain.length > 0;
@@ -137,7 +137,7 @@ async function step4Lineage(requestId: string | null): Promise<void> {
 
 async function step5NspProxy(): Promise<void> {
   try {
-    const r = await fetch(`${NSP}/api/nyv-proxy/api/jrx/health`);
+    const r = await fetch(`${NSP}/api/jrx-proxy/api/jrx/health`);
     const j = await safeJson(r);
     if (!r.ok) {
       record('5. NSP proxy (T-DLR-15)', false,

@@ -1,15 +1,15 @@
 /**
- * Nyayavigya Platform 3.1.2 — Legal Agent Registry Seed
- * NYV-SCRIPT-SEED-AGENTS-001
+ * Jurexio Platform 3.1.2 — Legal Agent Registry Seed
+ * JRX-SCRIPT-SEED-AGENTS-001
  *
  * Loads all legal agents from jrx-agents-registry.json into nv_agents table.
- * Agent IDs follow NYV-AGT-{CATEGORY}-{NNN} format.
+ * Agent IDs follow JRX-AGT-{CATEGORY}-{NNN} format.
  * This script is idempotent — safe to run multiple times.
  *
  * NV-AGENT-REGISTRY-MERGE-2026-05-11 (task-135): src/data/jrx-agents-registry.json
  * is the auto-merged flat file produced by scripts/jrx-build-flat-registry.ts
  * from the 7 canonical per-jurisdiction registries under
- * config/agent-registries/Nyayavigya-Legal-registry-{Default,IN,UK,US,GC,EU,SG}.json.
+ * config/agent-registries/Jurexio-Legal-registry-{Default,IN,UK,US,GC,EU,SG}.json.
  * Current merged count is 1,042 agents (148 Default + 6 × 149 jurisdictions),
  * matching the figure in replit.md. The "452" historical comment was stale.
  */
@@ -47,9 +47,9 @@ async function seedAgents() {
     // throwing — boot must not regress. Operator rebuilds via
     // `npx tsx scripts/jrx-build-flat-registry.ts` and re-runs seed:agents.
     console.warn(
-      '  ⚠ NYV-SEED-SKIP-AGENTS: jrx-agents-registry.json missing or unreadable. ' +
+      '  ⚠ JRX-SEED-SKIP-AGENTS: jrx-agents-registry.json missing or unreadable. ' +
         'Run `npx tsx scripts/jrx-build-flat-registry.ts` to regenerate from the ' +
-        'config/agent-registries/Nyayavigya-Legal-registry-*.json sources, ' +
+        'config/agent-registries/Jurexio-Legal-registry-*.json sources, ' +
         'then re-run `npm run seed:agents`. Skipping cleanly so boot can continue.',
     );
     console.warn(`    underlying error: ${error instanceof Error ? error.message : String(error)}`);
@@ -66,7 +66,7 @@ async function seedAgents() {
   await assertColumns(sql, './jrx-seed-agents', REQUIRED_COLUMNS);
 
   for (const agent of agents) {
-    const id = agent.id || agent.key || `NYV-AGT-UNKNOWN-${inserted}`;
+    const id = agent.id || agent.key || `JRX-AGT-UNKNOWN-${inserted}`;
     const name = agent.name || 'Unnamed Agent';
     const category = agent.category || agent.type || 'general';
     const description = agent.description || agent.desc || '';

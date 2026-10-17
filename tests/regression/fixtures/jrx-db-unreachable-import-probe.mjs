@@ -3,16 +3,16 @@
  * NV_DATABASE_URL / DATABASE_URL / NS_DATABASE_URL / NM_DATABASE_URL all
  * unset.
  *
- * Asserts the lazy-Proxy contract introduced in task-251 (NYV-NS-022):
+ * Asserts the lazy-Proxy contract introduced in task-251 (JRX-NS-022):
  *
  *   1. Importing `src/db/index.js` does NOT throw and exports `db === null`
  *      / `pool === null` when no connection string is configured.
  *   2. Importing the canonical lazy-Proxy module
- *      (`src/services/nv-orchestration-services.js`) does NOT throw at import
+ *      (`src/services/jrx-orchestration-services.js`) does NOT throw at import
  *      time — the Proxy defers the `requireDb` call until first property
  *      access, so module init must succeed even with no DB.
  *   3. Importing a representative lazy-Proxy route module
- *      (`src/routes/nv-shared-docs-routes.js`) does NOT throw at import
+ *      (`src/routes/jrx-shared-docs-routes.js`) does NOT throw at import
  *      time for the same reason.
  *   4. `initializeDatabase()` resolves cleanly when DATABASE_URL is unset
  *      (it logs the warning and returns).
@@ -41,36 +41,36 @@ const expectations = [
     },
   },
   {
-    name: 'import routes/nv-shared-docs-routes.js (lazyRequire consumer)',
+    name: 'import routes/jrx-shared-docs-routes.js (lazyRequire consumer)',
     run: async () => {
       // Representative `lazyRequire(() => _raw_db, 'db')` consumer. The lazy
       // Proxy must defer DB resolution to first use — module init must
       // succeed without a database.
-      await import('../../../src/routes/nv-shared-docs-routes.js');
+      await import('../../../src/routes/jrx-shared-docs-routes.js');
     },
   },
   {
-    name: 'import routes/nv-knowledge-aggregators.js (lazyRequire consumer)',
+    name: 'import routes/jrx-knowledge-aggregators.js (lazyRequire consumer)',
     run: async () => {
-      await import('../../../src/routes/nv-knowledge-aggregators.js');
+      await import('../../../src/routes/jrx-knowledge-aggregators.js');
     },
   },
   {
-    name: 'import routes/nv-patterns-routes.js (lazyRequire consumer)',
+    name: 'import routes/jrx-patterns-routes.js (lazyRequire consumer)',
     run: async () => {
-      await import('../../../src/routes/nv-patterns-routes.js');
+      await import('../../../src/routes/jrx-patterns-routes.js');
     },
   },
   {
-    name: 'import routes/nv-audit-chain-routes.js (lazyRequire consumer)',
+    name: 'import routes/jrx-audit-chain-routes.js (lazyRequire consumer)',
     run: async () => {
-      await import('../../../src/routes/nv-audit-chain-routes.js');
+      await import('../../../src/routes/jrx-audit-chain-routes.js');
     },
   },
   {
-    name: 'import middleware/nv-doc-access-guard.js (lazyRequire consumer)',
+    name: 'import middleware/jrx-doc-access-guard.js (lazyRequire consumer)',
     run: async () => {
-      await import('../../../src/middleware/nv-doc-access-guard.js');
+      await import('../../../src/middleware/jrx-doc-access-guard.js');
     },
   },
   {
@@ -85,7 +85,7 @@ const expectations = [
       // task-256 caught a regression here: this module previously did
       // `if (!db) throw new Error('Database connection failed')` at module
       // top, defeating the lazy-Proxy contract for every transitive
-      // importer (nv-orchestration-services → rag-service). Migrated to
+      // importer (jrx-orchestration-services → rag-service). Migrated to
       // lazyRequire by task-256 — pin it here so a future revert is caught.
       await import('../../../src/services/rag/rag-service.js');
     },

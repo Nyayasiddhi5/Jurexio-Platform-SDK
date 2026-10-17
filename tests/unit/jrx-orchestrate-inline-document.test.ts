@@ -92,7 +92,7 @@ vi.mock('../../src/orchestration/jrx-queen-orchestrator.js', async (importOrigin
 
 /* The statute / deterministic fast paths would answer before dispatch and hide the
  * assembly under test; they have their own suites. Partial mocks (importOriginal)
- * because `nv-queen-admission` also imports `listCoreSectionRefs` from here — a
+ * because `jrx-queen-admission` also imports `listCoreSectionRefs` from here — a
  * whole-module mock made the ROUTE throw, which looked like the fix failing. */
 vi.mock('../../src/services/jrx-statute-qa-grounding.js', async (importOriginal) => ({
   ...(await importOriginal<Record<string, unknown>>()),

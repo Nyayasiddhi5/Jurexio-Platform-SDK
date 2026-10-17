@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import { useToast } from '@/hooks/use-toast';
 import {
   Search, BookOpen, Scale, FileText, ChevronRight, Brain,
@@ -252,7 +252,7 @@ export default function IntelligenceResearch() {
 
       {/* Empty */}
       {!mutation.isPending && !result && (
-        <NyvEmptyState
+        <JrxEmptyState
           icon={BookOpen}
           title="Start Your Legal Research"
           description="Enter any legal question in plain language. NyayaRAG will search across Indian and international case law, identify relevant statutes, and synthesise the key legal principles with citations."

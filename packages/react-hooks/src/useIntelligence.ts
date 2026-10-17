@@ -1,27 +1,27 @@
 import { useState, useCallback } from 'react';
-import { useNyvClient } from './useNyvClient.js';
+import { useJrxClient } from './useJrxClient.js';
 import type {
-  NyvPrecedentSearchResult,
-  NyvRegulatoryDigest,
-  NyvComplianceCalendar,
-  NyvContractAnalysis,
-  NyvReadabilityScore,
-  NyvLegalNerResult,
+  JrxPrecedentSearchResult,
+  JrxRegulatoryDigest,
+  JrxComplianceCalendar,
+  JrxContractAnalysis,
+  JrxReadabilityScore,
+  JrxLegalNerResult,
 } from '@jurexio/types';
 
 export interface UseIntelligenceReturn {
   loading: boolean;
   error: string | null;
-  findPrecedents: (caseDescription: string, jurisdiction: string) => Promise<NyvPrecedentSearchResult>;
-  getRegulatoryDigest: (jurisdiction: string, days?: number) => Promise<NyvRegulatoryDigest>;
-  getComplianceCalendar: (jurisdiction: string) => Promise<NyvComplianceCalendar>;
-  analyzeContract: (text: string, jurisdiction: string) => Promise<NyvContractAnalysis>;
-  scoreReadability: (text: string) => Promise<NyvReadabilityScore>;
-  extractEntities: (text: string, jurisdiction: string) => Promise<NyvLegalNerResult>;
+  findPrecedents: (caseDescription: string, jurisdiction: string) => Promise<JrxPrecedentSearchResult>;
+  getRegulatoryDigest: (jurisdiction: string, days?: number) => Promise<JrxRegulatoryDigest>;
+  getComplianceCalendar: (jurisdiction: string) => Promise<JrxComplianceCalendar>;
+  analyzeContract: (text: string, jurisdiction: string) => Promise<JrxContractAnalysis>;
+  scoreReadability: (text: string) => Promise<JrxReadabilityScore>;
+  extractEntities: (text: string, jurisdiction: string) => Promise<JrxLegalNerResult>;
 }
 
 export function useIntelligence(): UseIntelligenceReturn {
-  const { authHeaders, baseUrl } = useNyvClient();
+  const { authHeaders, baseUrl } = useJrxClient();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

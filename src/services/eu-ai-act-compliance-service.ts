@@ -68,7 +68,7 @@ const HIGH_RISK_CATEGORIES = {
 
 const NYAYAVIGYA_CLASSIFICATIONS: AISystemClassification[] = [
   {
-    systemId: 'nyv-ns-queen',
+    systemId: 'jrx-ns-queen',
     systemName: 'Jurexio NS-Queen Legal AI',
     riskCategory: 'high',
     annexIIICategory: 'Annex III §8(a) — Administration of justice',
@@ -102,7 +102,7 @@ const NYAYAVIGYA_CLASSIFICATIONS: AISystemClassification[] = [
         'Notified body assessment': false,
       },
       transparencyMeasures: [
-        'NyvGovernanceBadge on all AI outputs with risk level indicator',
+        'JrxGovernanceBadge on all AI outputs with risk level indicator',
         'Clear "AI-generated legal research" labeling',
         'Source citations included for all statute references',
         'Confidence indicators on pattern outputs',
@@ -126,7 +126,7 @@ const NYAYAVIGYA_CLASSIFICATIONS: AISystemClassification[] = [
       ],
     },
     biasAssessment: {
-      systemId: 'nyv-ns-queen',
+      systemId: 'jrx-ns-queen',
       assessmentDate: '2026-04-06',
       protectedAttributes: ['Gender', 'Religion', 'Caste', 'Socioeconomic status', 'Geography (rural/urban)', 'Language'],
       metrics: [
@@ -175,7 +175,7 @@ const NYAYAVIGYA_CLASSIFICATIONS: AISystemClassification[] = [
       mitigations: [
         'Diverse preference data collection across all socioeconomic groups in GRPO training',
         'Sarvam AI integration for 22 Indian language parity',
-        'Nyayamitra product specifically designed for rural/citizen legal access',
+        'Jurexio Citizen product specifically designed for rural/citizen legal access',
         'Regular quarterly bias audits with independent review',
         'GRPO reward function includes fairness dimension (weight: 0.05)',
       ],
@@ -223,8 +223,8 @@ class EuAiActComplianceService {
         title: `EU AI Act gap: ${gap.split(' — ')[0]}`,
         description: gap,
         triggeredBy: 'eu_ai_act_gap_analysis',
-        evidenceRef: 'nyv-ns-queen',
-        metadata: { systemId: 'nyv-ns-queen', source: 'getComplianceGap' },
+        evidenceRef: 'jrx-ns-queen',
+        metadata: { systemId: 'jrx-ns-queen', source: 'getComplianceGap' },
       });
     }
 

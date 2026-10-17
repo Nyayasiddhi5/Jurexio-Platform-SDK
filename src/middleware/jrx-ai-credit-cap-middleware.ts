@@ -1,5 +1,5 @@
 /**
- * nv-ai-credit-cap-middleware.ts — NV-CREDIT-UNIVERSAL-001 (pre-spend leg)
+ * jrx-ai-credit-cap-middleware.ts — NV-CREDIT-UNIVERSAL-001 (pre-spend leg)
  *
  * Reusable pre-spend AI token-budget gate for routes that call a model but are
  * not the orchestrate/legal-chat handlers that already inline the enforcer.
@@ -37,7 +37,7 @@
  * ────────────────────────────────────
  * These caps default to *observe*: the enforcer still runs and a would-be refusal
  * is logged with the full budget arithmetic, but the request proceeds. See
- * `nv-credit-cap-observe.ts` for why (the budgets have never been compared to real
+ * `jrx-credit-cap-observe.ts` for why (the budgets have never been compared to real
  * consumption, because the counter behind them was never written). The pre-existing
  * inline enforcement on `/orchestrate*` and `/legal-chat/send` does NOT import that
  * module and keeps refusing.
@@ -129,7 +129,7 @@ export interface NvAiCreditCapOptions {
 }
 
 const DEFAULT_COMPLETION_ALLOWANCE = Number(
-  process.env.NYV_AI_CREDIT_COMPLETION_ALLOWANCE || 4_096,
+  process.env.JRX_AI_CREDIT_COMPLETION_ALLOWANCE || 4_096,
 );
 
 /** Where each driver's billable quantity lives in a request body, by observed shape. */
@@ -250,7 +250,7 @@ export function nvAiCreditCap(options: NvAiCreditCapOptions = {}): RequestHandle
           return;
         }
         sendApiError(res, 'RATE_LIMIT_EXCEEDED', {
-          overrideMessage: 'NYV-CREDIT-001: AI token budget exceeded for this billing period.',
+          overrideMessage: 'JRX-CREDIT-001: AI token budget exceeded for this billing period.',
           details: {
             code: 'CREDIT_CAP_EXCEEDED',
             reason: check.reason,

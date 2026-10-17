@@ -32,24 +32,24 @@ interface LLMResponse {
   tokens: { input: number; output: number };
 }
 
-const TIER_1_MODELS = (process.env.NYV_CASCADE_TIER1_MODELS || 'groq/llama-3.3-70b,deepseek/r1-lite,groq/mixtral-8x7b').split(',');
-const TIER_2_MODELS = (process.env.NYV_CASCADE_TIER2_MODELS || 'deepseek/v3,google/gemini-1.5-flash,mistral/large').split(',');
-const TIER_3_MODELS = (process.env.NYV_CASCADE_TIER3_MODELS || 'anthropic/claude-3.5-sonnet,openai/gpt-4o,google/gemini-1.5-pro').split(',');
+const TIER_1_MODELS = (process.env.JRX_CASCADE_TIER1_MODELS || 'groq/llama-3.3-70b,deepseek/r1-lite,groq/mixtral-8x7b').split(',');
+const TIER_2_MODELS = (process.env.JRX_CASCADE_TIER2_MODELS || 'deepseek/v3,google/gemini-1.5-flash,mistral/large').split(',');
+const TIER_3_MODELS = (process.env.JRX_CASCADE_TIER3_MODELS || 'anthropic/claude-3.5-sonnet,openai/gpt-4o,google/gemini-1.5-pro').split(',');
 
 const TIER_COSTS: Record<number, number> = {
-  1: parseFloat(process.env.NYV_CASCADE_TIER1_COST || '0.0005'),
-  2: parseFloat(process.env.NYV_CASCADE_TIER2_COST || '0.003'),
-  3: parseFloat(process.env.NYV_CASCADE_TIER3_COST || '0.015'),
+  1: parseFloat(process.env.JRX_CASCADE_TIER1_COST || '0.0005'),
+  2: parseFloat(process.env.JRX_CASCADE_TIER2_COST || '0.003'),
+  3: parseFloat(process.env.JRX_CASCADE_TIER3_COST || '0.015'),
 };
 const TIER_MAX_TOKENS: Record<number, number> = {
-  1: parseInt(process.env.NYV_CASCADE_TIER1_MAX_TOKENS || '2048', 10),
-  2: parseInt(process.env.NYV_CASCADE_TIER2_MAX_TOKENS || '4096', 10),
-  3: parseInt(process.env.NYV_CASCADE_TIER3_MAX_TOKENS || '8192', 10),
+  1: parseInt(process.env.JRX_CASCADE_TIER1_MAX_TOKENS || '2048', 10),
+  2: parseInt(process.env.JRX_CASCADE_TIER2_MAX_TOKENS || '4096', 10),
+  3: parseInt(process.env.JRX_CASCADE_TIER3_MAX_TOKENS || '8192', 10),
 };
 
-const COMPLEXITY_THRESHOLD_TIER1 = parseFloat(process.env.NYV_CASCADE_COMPLEXITY_TIER1 || '0.35');
-const COMPLEXITY_THRESHOLD_TIER2 = parseFloat(process.env.NYV_CASCADE_COMPLEXITY_TIER2 || '0.75');
-const ESCALATION_THRESHOLD = parseFloat(process.env.NYV_CASCADE_ESCALATION_THRESHOLD || '0.6');
+const COMPLEXITY_THRESHOLD_TIER1 = parseFloat(process.env.JRX_CASCADE_COMPLEXITY_TIER1 || '0.35');
+const COMPLEXITY_THRESHOLD_TIER2 = parseFloat(process.env.JRX_CASCADE_COMPLEXITY_TIER2 || '0.75');
+const ESCALATION_THRESHOLD = parseFloat(process.env.JRX_CASCADE_ESCALATION_THRESHOLD || '0.6');
 
 class NvModelCascadeService {
   async selectModel(query: string, context: ModelSelectionContext): Promise<ModelSelection> {

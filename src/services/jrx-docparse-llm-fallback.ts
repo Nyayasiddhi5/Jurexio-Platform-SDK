@@ -21,7 +21,7 @@
 import { randomUUID } from 'node:crypto';
 import { z } from 'zod';
 import { createLogger } from '../utils/logger.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import type { CourtDocField } from './jrx-court-document-fields.js';
 import type { DocparseAdapterResult } from './jrx-docparse-adapter-service.js';
 
@@ -37,8 +37,8 @@ const NOVA_MICRO_PRIMARY = 'apac.amazon.nova-micro-v1:0';
 
 /**
  * Tool schema (Zod) for the recoverable court-document fields. Keys mirror the
- * deterministic `CourtDocField.key` space in nv-court-document-fields /
- * nv-docparse-adapter-service so merges are 1:1 and no new field taxonomy is born.
+ * deterministic `CourtDocField.key` space in jrx-court-document-fields /
+ * jrx-docparse-adapter-service so merges are 1:1 and no new field taxonomy is born.
  */
 const FIELD_SCHEMA = z
   .object({
@@ -157,11 +157,11 @@ function tryParse(s: string): Record<string, unknown> | null {
 async function novaMicroExtract(
   prompt: string,
 ): Promise<ExtractedFields | null> {
-  const budgetMs = Number(process.env.NYV_DOCPARSE_LLM_FALLBACK_BUDGET_MS || 12_000);
+  const budgetMs = Number(process.env.JRX_DOCPARSE_LLM_FALLBACK_BUDGET_MS || 12_000);
   /* NV-LLM-001 + no-inline-imports exception (documented): real-llm-service is a
    * heavy module that (transitively) imports the router which imports config; a
    * top-level import here creates a load-time cycle. Every safety-ring leaf
-   * service (e.g. nv-draft-structure-checker) uses this same dynamic import. */
+   * service (e.g. jrx-draft-structure-checker) uses this same dynamic import. */
   const { realLLMService } = await import('./real-llm-service.js');
 
   const llmPromise = realLLMService.executeRequest({
@@ -177,7 +177,7 @@ async function novaMicroExtract(
     taskKind: 'extraction',
     jurisdiction: 'IN',
     expectJson: true,
-    maxCostUsd: Number(process.env.NYV_DOCPARSE_LLM_FALLBACK_MAX_COST_USD || 0.02),
+    maxCostUsd: Number(process.env.JRX_DOCPARSE_LLM_FALLBACK_MAX_COST_USD || 0.02),
     requirements: {
       complexity: 'simple',
       domain: 'analytical',
@@ -214,7 +214,7 @@ export async function applyDocparseLlmFallback(
   ctx: { text?: string; jurisdiction?: string },
 ): Promise<DocparseAdapterResult> {
   try {
-    if (!isNyvFeatureOn('docparseLlmFallback')) return result;
+    if (!isJrxFeatureOn('docparseLlmFallback')) return result;
     if (!isIndianLegalJurisdiction(ctx.jurisdiction)) return result;
     const text = String(ctx.text || '').trim();
     if (text.length < 40) return result;

@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * NV AI Credit Cap Enforcer — Token Budget Enforcement (NV-B2 Fix)
  * @version 5.2.0
@@ -56,10 +56,10 @@ const HOURLY_RATE_LIMITS: Record<string, number> = {
  * so an embedding call and a completion call draw down the same wallet.
  *
  * 0.00475 = gpt-4o at a 70/30 input/output split
- * (0.7 × $0.0025 + 0.3 × $0.0100 per 1k), from nv-llm-pricing.ts.
+ * (0.7 × $0.0025 + 0.3 × $0.0100 per 1k), from jrx-llm-pricing.ts.
  */
 const BLENDED_USD_PER_1K_TOKENS = Number(
-  process.env.NYV_CREDIT_BLENDED_USD_PER_1K || 0.00475,
+  process.env.JRX_CREDIT_BLENDED_USD_PER_1K || 0.00475,
 );
 
 /** Micro-USD (1e-6 USD) is the resolution `ai_credit_usage.cost_usd` already stores. */
@@ -141,7 +141,7 @@ async function getOrgBudget(orgId: string): Promise<number | null> {
 
 // ── Get tokens used today (UTC day) — Redis L1 → process Map → PG (ms hot-path) ─
 const usedTodayL1 = new Map<string, { value: number; at: number }>();
-const USED_TODAY_TTL_MS = Math.max(5_000, Number(process.env.NYV_CREDIT_CACHE_TTL_MS || 15_000));
+const USED_TODAY_TTL_MS = Math.max(5_000, Number(process.env.JRX_CREDIT_CACHE_TTL_MS || 15_000));
 
 function creditCacheKey(userId: string, orgId?: string): string {
   return orgId ? `org:${orgId}` : `user:${userId}`;
@@ -170,7 +170,7 @@ async function getRedisCreditClient(): Promise<{
   expire(key: string, seconds: number): Promise<number>;
   set(key: string, value: string, mode?: string, ttl?: number): Promise<unknown>;
 } | null> {
-  if (process.env.NYV_CREDIT_REDIS_L1 === '0') return null;
+  if (process.env.JRX_CREDIT_REDIS_L1 === '0') return null;
   try {
     const { resolveRedisTcpUrl, logRedisDisabledOnce } = await import('../utils/redis-tcp-url.js');
     const r = resolveRedisTcpUrl();
@@ -338,8 +338,8 @@ export class NVAICreditEnforcer {
     const wantsCostDimension = typeof params.estimatedCostMicroUsd === 'number';
     const estimatedCostMicroUsd = Math.max(0, Math.floor(Number(params.estimatedCostMicroUsd) || 0));
 
-    // Global escape: NYV_CREDIT_ENFORCE=0 | NYV_PARTNER_DEMO_UNLIMITED handled by callers via bypassCaps.
-    const enforceOff = String(process.env.NYV_CREDIT_ENFORCE ?? '1').trim().toLowerCase();
+    // Global escape: JRX_CREDIT_ENFORCE=0 | JRX_PARTNER_DEMO_UNLIMITED handled by callers via bypassCaps.
+    const enforceOff = String(process.env.JRX_CREDIT_ENFORCE ?? '1').trim().toLowerCase();
     if (enforceOff === '0' || enforceOff === 'false' || enforceOff === 'off' || params.bypassCaps) {
       const budgetLimit = TIER_BUDGETS.government;
       const bypassed: CreditCheckResult = {

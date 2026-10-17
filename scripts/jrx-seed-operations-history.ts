@@ -1,8 +1,8 @@
 /**
- * nv-seed-operations-history.ts (2026-05-13)
+ * jrx-seed-operations-history.ts (2026-05-13)
  *
  * Seeds realistic operational history so the Operations Hub shows real
- * Nyayasiddhi-ecosystem (NSP/NSPM/NSI/NSA/NSM/NYM/JRX) activity:
+ * Jurexio-ecosystem (NSP/NSPM/NSI/NSA/NSM/NYM/JRX) activity:
  *   - nv_orchestration_jobs        (~280 jobs over last 14 days)
  *   - nv_sdk_usage_metrics         (~720 SDK calls over last 7 days)
  *   - nv_audit_logs                (~220 audit events)
@@ -155,7 +155,7 @@ async function seedAuditLogs(sql: Sql) {
         action, metadata, created_at, resource_type, resource_id
       ) VALUES (
         ${action},
-        ${JSON.stringify({ platform, jurisdiction, source: 'nyayavigya-ops-history', actor: 'system', org_id: pick([1, 2, 3, 4]) })}::jsonb,
+        ${JSON.stringify({ platform, jurisdiction, source: 'jurexio-ops-history', actor: 'system', org_id: pick([1, 2, 3, 4]) })}::jsonb,
         ${ts},
         ${action.split('.')[0]},
         ${`${action}_${i}`}
@@ -168,8 +168,8 @@ async function seedAuditLogs(sql: Sql) {
 }
 
 async function main() {
-  if (!process.env.DATABASE_URL && process.env.NYV_DATABASE_URL) {
-    process.env.DATABASE_URL = process.env.NYV_DATABASE_URL;
+  if (!process.env.DATABASE_URL && process.env.JRX_DATABASE_URL) {
+    process.env.DATABASE_URL = process.env.JRX_DATABASE_URL;
   }
   const sql = makePgSql();
   console.log('[ops-history] starting');

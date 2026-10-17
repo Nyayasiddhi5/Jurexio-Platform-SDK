@@ -18,11 +18,11 @@
  * there is exactly one estimator in the codebase.
  */
 
-import { NyvTokenBudgetManager } from '../utils/jrx-token-budget.js';
+import { JrxTokenBudgetManager } from '../utils/jrx-token-budget.js';
 
 /**
  * Prompt task classes, ordered by the amount of fixed scaffolding they justify.
- * Ceilings come from NYV-ORCHESTRATION-OPTIMIZATION-PLAN-2026-08 §7.
+ * Ceilings come from JRX-ORCHESTRATION-OPTIMIZATION-PLAN-2026-08 §7.
  */
 export type PromptTaskClass =
   | 'micro_faq'
@@ -60,38 +60,38 @@ function envInt(name: string, fallback: number, min: number, max: number): numbe
 const BUDGETS: Record<PromptTaskClass, PromptBudget> = {
   micro_faq: {
     taskClass: 'micro_faq',
-    maxPromptTokens: envInt('NYV_PROMPT_BUDGET_MICRO_FAQ', 600, 200, 8_000),
-    maxContextTokens: envInt('NYV_PROMPT_CTX_MICRO_FAQ', 250, 0, 4_000),
+    maxPromptTokens: envInt('JRX_PROMPT_BUDGET_MICRO_FAQ', 600, 200, 8_000),
+    maxContextTokens: envInt('JRX_PROMPT_CTX_MICRO_FAQ', 250, 0, 4_000),
     overlayDepth: 'compact',
-    maxOutputTokens: envInt('NYV_OUTPUT_BUDGET_MICRO_FAQ', 700, 128, 8_192),
+    maxOutputTokens: envInt('JRX_OUTPUT_BUDGET_MICRO_FAQ', 700, 128, 8_192),
   },
   classify: {
     taskClass: 'classify',
-    maxPromptTokens: envInt('NYV_PROMPT_BUDGET_CLASSIFY', 1_200, 300, 16_000),
-    maxContextTokens: envInt('NYV_PROMPT_CTX_CLASSIFY', 500, 0, 8_000),
+    maxPromptTokens: envInt('JRX_PROMPT_BUDGET_CLASSIFY', 1_200, 300, 16_000),
+    maxContextTokens: envInt('JRX_PROMPT_CTX_CLASSIFY', 500, 0, 8_000),
     overlayDepth: 'compact',
-    maxOutputTokens: envInt('NYV_OUTPUT_BUDGET_CLASSIFY', 800, 128, 8_192),
+    maxOutputTokens: envInt('JRX_OUTPUT_BUDGET_CLASSIFY', 800, 128, 8_192),
   },
   chat: {
     taskClass: 'chat',
-    maxPromptTokens: envInt('NYV_PROMPT_BUDGET_CHAT', 2_500, 600, 32_000),
-    maxContextTokens: envInt('NYV_PROMPT_CTX_CHAT', 1_000, 0, 16_000),
+    maxPromptTokens: envInt('JRX_PROMPT_BUDGET_CHAT', 2_500, 600, 32_000),
+    maxContextTokens: envInt('JRX_PROMPT_CTX_CHAT', 1_000, 0, 16_000),
     overlayDepth: 'compact',
-    maxOutputTokens: envInt('NYV_OUTPUT_BUDGET_CHAT', 2_048, 256, 16_384),
+    maxOutputTokens: envInt('JRX_OUTPUT_BUDGET_CHAT', 2_048, 256, 16_384),
   },
   research: {
     taskClass: 'research',
-    maxPromptTokens: envInt('NYV_PROMPT_BUDGET_RESEARCH', 8_000, 2_000, 64_000),
-    maxContextTokens: envInt('NYV_PROMPT_CTX_RESEARCH', 4_500, 0, 48_000),
+    maxPromptTokens: envInt('JRX_PROMPT_BUDGET_RESEARCH', 8_000, 2_000, 64_000),
+    maxContextTokens: envInt('JRX_PROMPT_CTX_RESEARCH', 4_500, 0, 48_000),
     overlayDepth: 'full',
-    maxOutputTokens: envInt('NYV_OUTPUT_BUDGET_RESEARCH', 4_096, 512, 32_768),
+    maxOutputTokens: envInt('JRX_OUTPUT_BUDGET_RESEARCH', 4_096, 512, 32_768),
   },
   drafting: {
     taskClass: 'drafting',
-    maxPromptTokens: envInt('NYV_PROMPT_BUDGET_DRAFTING', 24_000, 4_000, 200_000),
-    maxContextTokens: envInt('NYV_PROMPT_CTX_DRAFTING', 14_000, 0, 150_000),
+    maxPromptTokens: envInt('JRX_PROMPT_BUDGET_DRAFTING', 24_000, 4_000, 200_000),
+    maxContextTokens: envInt('JRX_PROMPT_CTX_DRAFTING', 14_000, 0, 150_000),
     overlayDepth: 'full',
-    maxOutputTokens: envInt('NYV_OUTPUT_BUDGET_DRAFTING', 8_192, 1_024, 65_536),
+    maxOutputTokens: envInt('JRX_OUTPUT_BUDGET_DRAFTING', 8_192, 1_024, 65_536),
   },
 };
 
@@ -141,7 +141,7 @@ const TASK_KIND_CLASS: Record<string, PromptTaskClass> = {
  * starve it of context, so anything with drafting/research vocabulary, or any
  * prompt longer than the threshold, falls through to `chat` or better.
  */
-const MICRO_FAQ_MAX_CHARS = envInt('NYV_PROMPT_MICRO_FAQ_MAX_CHARS', 240, 40, 2_000);
+const MICRO_FAQ_MAX_CHARS = envInt('JRX_PROMPT_MICRO_FAQ_MAX_CHARS', 240, 40, 2_000);
 const NON_TRIVIAL_RE =
   /\b(draft|plead|petition|plaint|affidavit|notice|bail\s+application|opinion|memorand|strategy|research|precedent|compare|analys|review|clause|due\s+diligence|advise|advice|leading|landmark|authorities|anticipatory|template|checklist|format|procedure|amendment|notification)\b/i;
 
@@ -225,13 +225,13 @@ const CLASS_BY_RANK: PromptTaskClass[] = ['micro_faq', 'classify', 'chat', 'rese
  * Widest class an *exploration* leaf may use.
  *
  * `chat` (2,500 tok / compact overlay / lean L1) is the default. Ops may widen
- * to `research` via `NYV_QUEEN_EXPLORATION_PROMPT_CLASS`; values leaner than
+ * to `research` via `JRX_QUEEN_EXPLORATION_PROMPT_CLASS`; values leaner than
  * `chat` are refused, because an exploration leaf reasons over retrieved
  * authorities and starving it below the chat tier is not supported by any
  * measurement we have.
  */
 function resolveExplorationCeiling(
-  raw: string | undefined = process.env.NYV_QUEEN_EXPLORATION_PROMPT_CLASS,
+  raw: string | undefined = process.env.JRX_QUEEN_EXPLORATION_PROMPT_CLASS,
 ): PromptTaskClass {
   const want = String(raw || '').trim().toLowerCase();
   if (!want || !(want in CLASS_RANK)) return 'chat';
@@ -270,7 +270,7 @@ export interface QueenNodePromptPolicy {
   /**
    * Whether this node may load the FULL L0 registry constitution (~6,572 tok)
    * on session turn 1. Exploration leaves may not when
-   * `NYV_QUEEN_LEAF_L0_DOWNGRADE` is on — see `isQueenLeafL0DowngradeEnabled`.
+   * `JRX_QUEEN_LEAF_L0_DOWNGRADE` is on — see `isQueenLeafL0DowngradeEnabled`.
    */
   allowFullConstitution: boolean;
   /** `false` ⇒ pre-Phase-3 append-everything behaviour (A/B escape hatch). */
@@ -317,11 +317,11 @@ export function resolveQueenNodePromptClass(input: QueenNodeBudgetInput): Prompt
  * the swarm reasons over — so it must clear the 40-prompt legal eval gate
  * (plan §11) before it can default on, unlike the overlay/L1 tiering which
  * Phase 3 already shipped on by default. Enable with
- * `NYV_QUEEN_LEAF_L0_DOWNGRADE=1`.
+ * `JRX_QUEEN_LEAF_L0_DOWNGRADE=1`.
  */
 export function isQueenLeafL0DowngradeEnabled(): boolean {
   return ['1', 'true', 'on', 'yes'].includes(
-    String(process.env.NYV_QUEEN_LEAF_L0_DOWNGRADE ?? '').trim().toLowerCase(),
+    String(process.env.JRX_QUEEN_LEAF_L0_DOWNGRADE ?? '').trim().toLowerCase(),
   );
 }
 
@@ -344,7 +344,7 @@ export function budgetForQueenNode(input: QueenNodeBudgetInput): QueenNodePrompt
       leanActiveLayer: false,
       allowFullConstitution: true,
       enforced: false,
-      reason: 'NYV_PROMPT_BUDGET=0 — pre-Phase-3 append-everything behaviour',
+      reason: 'JRX_PROMPT_BUDGET=0 — pre-Phase-3 append-everything behaviour',
     };
   }
 
@@ -369,18 +369,18 @@ export function budgetForRequest(input: ClassifyPromptTaskInput): PromptBudget {
 
 /** Delegated so the platform has exactly one token estimator. */
 export function estimatePromptTokens(text: string): number {
-  return NyvTokenBudgetManager.estimateTokens(text);
+  return JrxTokenBudgetManager.estimateTokens(text);
 }
 
 /**
  * Redundancy removal (duplicate blocks, jurisdiction restatement, overlay
  * tiering) is on by default: every cut is a provable duplicate or explicitly
- * untargeted boilerplate. `NYV_PROMPT_BUDGET=0` restores the pre-Phase-3
+ * untargeted boilerplate. `JRX_PROMPT_BUDGET=0` restores the pre-Phase-3
  * append-everything behaviour for A/B comparison against a legal eval run.
  */
 export function isPromptBudgetEnforced(): boolean {
   return !['0', 'false', 'off', 'no'].includes(
-    String(process.env.NYV_PROMPT_BUDGET ?? '').trim().toLowerCase(),
+    String(process.env.JRX_PROMPT_BUDGET ?? '').trim().toLowerCase(),
   );
 }
 
@@ -391,7 +391,7 @@ export function isPromptBudgetEnforced(): boolean {
  */
 export function isOutputBudgetEnforced(): boolean {
   return ['1', 'true', 'on', 'yes'].includes(
-    String(process.env.NYV_PROMPT_BUDGET_OUTPUT ?? '').trim().toLowerCase(),
+    String(process.env.JRX_PROMPT_BUDGET_OUTPUT ?? '').trim().toLowerCase(),
   );
 }
 

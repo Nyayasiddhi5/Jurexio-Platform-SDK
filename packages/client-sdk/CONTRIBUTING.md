@@ -7,7 +7,7 @@ Gateway API. Its contract is consumed by:
 
 - `@jurexio/react-hooks`
 - `@jurexio/client-sdk-react-native`
-- `@jurexio/nyayamitra-sdk`
+- `@jurexio/jurexio-citizen-sdk`
 - The three example apps under `examples/`
 - All third-party developer integrations
 
@@ -61,7 +61,7 @@ Actions. The same release-train tag publishes all three GA SDKs together:
 
 - `@jurexio/client-sdk`
 - `@jurexio/client-sdk-react-native`
-- `@jurexio/nyayamitra-sdk`
+- `@jurexio/jurexio-citizen-sdk`
 
 ### Process
 
@@ -104,12 +104,12 @@ GitHub → Settings → Secrets and variables → Actions:
 
 | Secret name | Type | How to generate |
 | ----------- | ---- | --------------- |
-| `NPM_TOKEN` | Automation token (npm) | `npm token create --type=automation` while logged in as a member of the `@nyayavigya` org with publish rights, or via <https://www.npmjs.com/settings/your-org/tokens>. |
+| `NPM_TOKEN` | Automation token (npm) | `npm token create --type=automation` while logged in as a member of the `@jurexio` org with publish rights, or via <https://www.npmjs.com/settings/your-org/tokens>. |
 
 The token must:
 
 - Be an **Automation** token (so 2FA is not required on `npm publish`).
-- Have **Read and Publish** access to the `@nyayavigya` scope.
+- Have **Read and Publish** access to the `@jurexio` scope.
 - Be stored as a repository secret (not an environment secret) so the workflow
   can read it without an environment-protection prompt.
 
@@ -130,7 +130,7 @@ npm publish --tag latest --access public
 ```
 
 Then repeat for `packages/client-sdk-react-native` and
-`packages/nyayamitra-sdk`. Note that locally published versions will **not**
+`packages/jurexio-citizen-sdk`. Note that locally published versions will **not**
 carry npm provenance — prefer the workflow whenever possible.
 
 ---
@@ -139,14 +139,14 @@ carry npm provenance — prefer the workflow whenever possible.
 
 - Strict TypeScript (`"strict": true` in tsconfig). No `any` in public APIs.
 - All public methods have JSDoc with at least one example.
-- All thrown errors are `NyvError` instances with a stable `code`.
+- All thrown errors are `JrxError` instances with a stable `code`.
 - All HTTP timeouts are configurable; default 30 s.
-- All requests go through `NyvHttpClient` so headers/auth/retry are centralised.
+- All requests go through `JrxHttpClient` so headers/auth/retry are centralised.
 
 ---
 
 ## Reporting issues
 
 Open a GitHub issue at the platform repo with a minimal repro, the SDK version
-(`NyvClient.VERSION`), Node/RN version, and the full `NyvError` message including
+(`JrxClient.VERSION`), Node/RN version, and the full `JrxError` message including
 `code`, `status`, `traceId`.

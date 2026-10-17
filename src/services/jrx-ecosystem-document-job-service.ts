@@ -7,13 +7,13 @@ import { db as _raw_db } from '../db/index.js';
 import { lazyRequire } from '../utils/jrx-type-helpers.js';
 import { sql } from 'drizzle-orm';
 import { createLogger } from '../utils/logger.js';
-import { nyvDocumentStorage } from './nyv-document-storage-service.js';
+import { nyvDocumentStorage } from './jrx-document-storage-service.js';
 import { extractDocumentText } from './sdk/jrx-doc-content-extractor.js';
 import { analyzeDocument } from './legal-doc-analyze-service.js';
 import { autoShareIfLarge } from './jrx-doc-sharing-service.js';
 import { dispatchWebhook } from './queue/webhook-dispatcher.js';
 import { jobQueue as pgJobQueue } from './job-queue.js';
-import type { PlatformCode } from '../config/nyv-dms-config.js';
+import type { PlatformCode } from '../config/jrx-dms-config.js';
 import {
   edjJobId,
   platformFromAppType,
@@ -517,7 +517,7 @@ export async function deliverEdjWebhook(
   const url = payload.delivery?.webhookUrl ?? (await lookupAppWebhook(payload.applicationId))?.url;
   const secret =
     (await lookupAppWebhook(payload.applicationId))?.secret
-    ?? process.env.NYV_WEBHOOK_FALLBACK_SECRET;
+    ?? process.env.JRX_WEBHOOK_FALLBACK_SECRET;
 
   if (!url || !secret) return;
 

@@ -1,7 +1,7 @@
 -- Phase B RLS pilot — enable FORCE RLS on 5 highest-risk unprotected org_id tables.
 -- Tables: nv_clawdbot_conversations, nv_openbot_inbox, nv_openbot_channels,
 --         nv_clawdbot_bots, nv_org_console_layout
--- Route audit: nv-openbot-routes (org scoping), nv-org-console-layout-routes (withTenant wired Phase B)
+-- Route audit: jrx-openbot-routes (org scoping), jrx-org-console-layout-routes (withTenant wired Phase B)
 -- Idempotent; does NOT touch the other 5 unprotected tables.
 
 DO $$

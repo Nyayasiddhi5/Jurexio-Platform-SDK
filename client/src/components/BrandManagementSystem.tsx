@@ -136,30 +136,30 @@ export default function BrandManagementSystem() {
 
   // Fetch brand metrics using Jurexio orchestration
   const { data: metrics, isLoading: metricsLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/brand/metrics'],
-    queryFn: () => apiRequest('/api/nyayavigya/brand/metrics')
+    queryKey: ['/api/jurexio/brand/metrics'],
+    queryFn: () => apiRequest('/api/jurexio/brand/metrics')
   });
 
   // Fetch brands using Jurexio orchestration
   const { data: brands = [], isLoading: brandsLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/brand/brands'],
-    queryFn: () => apiRequest('/api/nyayavigya/brand/brands')
+    queryKey: ['/api/jurexio/brand/brands'],
+    queryFn: () => apiRequest('/api/jurexio/brand/brands')
   });
 
   // Fetch brand assets using Jurexio orchestration
   const { data: assets = [], isLoading: assetsLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/brand/assets', selectedBrand, selectedCategory, searchQuery],
-    queryFn: () => apiRequest(`/api/nyayavigya/brand/assets?brand=${selectedBrand || 'all'}&category=${selectedCategory}&search=${searchQuery}`)
+    queryKey: ['/api/jurexio/brand/assets', selectedBrand, selectedCategory, searchQuery],
+    queryFn: () => apiRequest(`/api/jurexio/brand/assets?brand=${selectedBrand || 'all'}&category=${selectedCategory}&search=${searchQuery}`)
   });
 
   // Upload asset mutation
   const uploadAsset = useMutation({
-    mutationFn: (asset: any) => apiRequest('/api/nyayavigya/brand/assets', {
+    mutationFn: (asset: any) => apiRequest('/api/jurexio/brand/assets', {
       method: 'POST',
       body: JSON.stringify(asset)
     }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya/brand'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio/brand'] });
       setIsUploading(false);
       toast({
         title: "Asset Uploaded",
@@ -170,11 +170,11 @@ export default function BrandManagementSystem() {
 
   // Check compliance mutation
   const checkCompliance = useMutation({
-    mutationFn: (assetId: string) => apiRequest(`/api/nyayavigya/brand/assets/${assetId}/compliance`, {
+    mutationFn: (assetId: string) => apiRequest(`/api/jurexio/brand/assets/${assetId}/compliance`, {
       method: 'POST'
     }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya/brand/assets'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio/brand/assets'] });
       toast({
         title: "Compliance Check Complete",
         description: "Asset compliance has been verified"

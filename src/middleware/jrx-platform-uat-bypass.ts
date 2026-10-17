@@ -5,14 +5,14 @@ import { createLogger } from '../utils/logger.js';
 const logger = createLogger('platform-uat-bypass');
 
 const PLATFORM_KEY_ENV_NAMES = [
-  'NYV_SDK_KEY_NSP',
-  'NYV_SDK_KEY_NSPM',
-  'NYV_SDK_KEY_NSI',
-  'NYV_SDK_KEY_NSA',
-  'NYV_SDK_KEY_NSM',
-  'NYV_SDK_KEY_NYM',
-  'NYV_SDK_KEY_JRX',
-  'NYV_SDK_KEY_SHARED',
+  'JRX_SDK_KEY_NSP',
+  'JRX_SDK_KEY_NSPM',
+  'JRX_SDK_KEY_NSI',
+  'JRX_SDK_KEY_NSA',
+  'JRX_SDK_KEY_NSM',
+  'JRX_SDK_KEY_NYM',
+  'JRX_SDK_KEY_JRX',
+  'JRX_SDK_KEY_SHARED',
 ] as const;
 
 export const NV_PLATFORM_UAT_BYPASS = process.env.NV_PLATFORM_UAT_BYPASS === '1';
@@ -30,7 +30,7 @@ if (NV_PLATFORM_UAT_BYPASS) {
     if (typeof value === 'string' && value.trim().length > 0) {
       const fp = fingerprint(value.trim());
       fingerprintSet.add(fp);
-      fingerprintToPlatform.set(fp, envName.replace('NYV_SDK_KEY_', ''));
+      fingerprintToPlatform.set(fp, envName.replace('JRX_SDK_KEY_', ''));
     }
   }
   logger.warn(

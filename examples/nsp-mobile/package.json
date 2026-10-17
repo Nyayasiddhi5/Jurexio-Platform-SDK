@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
-  "description": "Expo (React Native) sample for the Nyayavigya v6 mobile SDK — chat, document analyze, voice, intelligence, with camera-OCR + Sarvam voice.",
+  "description": "Expo (React Native) sample for the Jurexio v6 mobile SDK — chat, document analyze, voice, intelligence, with camera-OCR + Sarvam voice.",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",

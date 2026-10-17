@@ -529,7 +529,7 @@ export const waiEmailResponses = pgTable('wai_email_responses', {
 
 // ── Context Engineering Tables ─────────────────────────────────────────────
 
-export const nyayavigyaFounderContextProfiles = pgTable('nyayavigya_founder_context_profiles', {
+export const jurexioFounderContextProfiles = pgTable('jurexio_founder_context_profiles', {
   id: serial('id').primaryKey(),
   userId: varchar('user_id', { length: 100 }),
   profileData: jsonb('profile_data').$type<Record<string, any>>().default({}),
@@ -539,7 +539,7 @@ export const nyayavigyaFounderContextProfiles = pgTable('nyayavigya_founder_cont
   updatedAt: timestamp('updated_at').defaultNow(),
 });
 
-export const nyayavigyaContextLearningHistory = pgTable('nyayavigya_context_learning_history', {
+export const jurexioContextLearningHistory = pgTable('jurexio_context_learning_history', {
   id: serial('id').primaryKey(),
   userId: varchar('user_id', { length: 100 }),
   sessionId: varchar('session_id', { length: 100 }),
@@ -551,7 +551,7 @@ export const nyayavigyaContextLearningHistory = pgTable('nyayavigya_context_lear
 
 // ── Orchestration Tables ───────────────────────────────────────────────────
 
-export const nyayavigyaOrchestrationJobs = pgTable('nyayavigya_orchestration_jobs', {
+export const jurexioOrchestrationJobs = pgTable('jurexio_orchestration_jobs', {
   id: serial('id').primaryKey(),
   jobType: varchar('job_type', { length: 100 }),
   status: varchar('status', { length: 50 }).default('pending'),
@@ -576,10 +576,10 @@ export type InsertDocumentPage = InferInsertModel<typeof documentPages>;
 export type InsertDocumentExtractedContent = InferInsertModel<typeof documentExtractedContent>;
 export type InsertDocumentProcessingJob = InferInsertModel<typeof documentProcessingJobs>;
 
-export type InsertJurexioFounderContextProfile = InferInsertModel<typeof nyayavigyaFounderContextProfiles>;
-export type InsertJurexioContextLearningHistory = InferInsertModel<typeof nyayavigyaContextLearningHistory>;
+export type InsertJurexioFounderContextProfile = InferInsertModel<typeof jurexioFounderContextProfiles>;
+export type InsertJurexioContextLearningHistory = InferInsertModel<typeof jurexioContextLearningHistory>;
 
-export type OrchestrationJobType = typeof nyayavigyaOrchestrationJobs.$inferInsert;
+export type OrchestrationJobType = typeof jurexioOrchestrationJobs.$inferInsert;
 
 // ── Legal Agents Table ────────────────────────────────────────────────────
 
@@ -1264,7 +1264,7 @@ export const templateLibrary = pgTable('template_library', {
 });
 
 // ── Immutable Audit Log — Hash Chain (§11.3 / §3.3.4) ───────────────────────
-// The hash chain table referenced by nv-sdk-tracking-middleware.ts (writeAuditLog).
+// The hash chain table referenced by jrx-sdk-tracking-middleware.ts (writeAuditLog).
 // Every row's record_hash incorporates the previous row's hash, making any
 // tampering immediately detectable on chain verification.
 export const auditLogs = pgTable('nv_audit_logs', {
@@ -1287,7 +1287,7 @@ export const auditLogs = pgTable('nv_audit_logs', {
 });
 
 // ── Jurisdiction Profiles (persisted per-tenant config) ────────────────────
-// Mirrors the in-memory JURISDICTION_PROFILES in nv-jurisdiction-binding-middleware.ts
+// Mirrors the in-memory JURISDICTION_PROFILES in jrx-jurisdiction-binding-middleware.ts
 // but provides a DB-backed persistence layer for per-org overrides.
 export const jurisdictionProfiles = pgTable('nv_jurisdiction_profiles', {
   id:                  serial('id').primaryKey(),
@@ -1656,8 +1656,8 @@ export type NewNvSession = InferInsertModel<typeof nvSessions>;
 export type NewNvAuthToken = InferInsertModel<typeof nvAuthTokens>;
 export type NewNvVoiceSession = InferInsertModel<typeof nvVoiceSessions>;
 
-// ─── Legal Chat Dashboard (NYV-LEGAL-CHAT) ──────────────────────────────────
-// Tables that back the admin Legal Chat tool inside NYV Console.
+// ─── Legal Chat Dashboard (JRX-LEGAL-CHAT) ──────────────────────────────────
+// Tables that back the admin Legal Chat tool inside JRX Console.
 // The tool lets Superadmins + Superadmin-allocated SMEs (a) drive the full
 // orchestration stack on real legal inputs, (b) watch every step in a live
 // timeline, and (c) rate the response with a 5-criterion rubric whose
@@ -1806,7 +1806,7 @@ export const nvModelGovernance = nvSchema.table('model_governance', {
 });
 
 // Hash-chain immutable audit log written synchronously by
-// nv-sdk-tracking-middleware.ts on every release of an LLM answer. The
+// jrx-sdk-tracking-middleware.ts on every release of an LLM answer. The
 // `nv_audit_logs_prev_hash_uniq` UNIQUE constraint name is referenced by name
 // from the middleware's error-recovery path — DO NOT rename it.
 export const nvAuditLogsHashChain = nvSchema.table('nv_audit_logs', {
@@ -1913,7 +1913,7 @@ export const nsParsedDocuments = pgTable('ns_parsed_documents', {
 }));
 
 // ─── e-Sign session persistence (v5.0.1 D2 fix, 2026-05-06) ─────────────
-// Replaces the in-memory Map in nv-esign-adapter-service.ts. Sessions
+// Replaces the in-memory Map in jrx-esign-adapter-service.ts. Sessions
 // previously evaporated on every gateway restart, breaking legally-binding
 // signing flows. Persisted to DB; in-memory cache kept request-scoped only.
 export const nvEsignSessions = pgTable('nv_esign_sessions', {
@@ -1991,7 +1991,7 @@ export const nvDocShareGrants = pgTable('nv_doc_share_grants', {
   grantReason:           text('grant_reason'),
   thresholdBytes:        bigint('threshold_bytes', { mode: 'number' }),
   storagePath:           text('storage_path'),
-  sharedBucket:          text('shared_bucket').notNull().default('nyv-shared-documents'),
+  sharedBucket:          text('shared_bucket').notNull().default('jrx-shared-documents'),
   expiresAt:             timestamp('expires_at', { withTimezone: true }),
   revokedAt:             timestamp('revoked_at', { withTimezone: true }),
   revokedBy:             text('revoked_by'),
@@ -2169,7 +2169,7 @@ export const nvTwindeskChatSessions = nvSchema.table('nv_twindesk_chat_sessions'
 
 // ── Compliance Action Manager (CAM) — Task #190 / migration 0009 ────────────
 // Public-schema table backing /api/jrx/cam/reviews. Previously created at
-// runtime via CREATE TABLE IF NOT EXISTS in nv-cam-routes.ts; now defined here
+// runtime via CREATE TABLE IF NOT EXISTS in jrx-cam-routes.ts; now defined here
 // and shipped via drizzle/0009_cam_actions.sql so prod RDS gets it during the
 // next schema sync and the table appears in Drizzle introspection.
 export const nvCamActions = pgTable('nv_cam_actions', {
@@ -2201,7 +2201,7 @@ export type NewNvCamAction = InferInsertModel<typeof nvCamActions>;
 // ── Per-Org Console Layout — Task #214 / migration 0008 ────────────────────
 // Public-schema table backing /api/jrx/admin/org-console-layout/*. Previously
 // created at runtime via CREATE TABLE IF NOT EXISTS in
-// nv-org-console-layout-routes.ts; now defined here and shipped via
+// jrx-org-console-layout-routes.ts; now defined here and shipped via
 // drizzle/0008_org_console_layout.sql so prod RDS gets it during the next
 // schema sync and the table appears in Drizzle introspection / db:parity.
 export const nvOrgConsoleLayout = pgTable('nv_org_console_layout', {
@@ -2382,10 +2382,10 @@ export type NewNvSecurityMetric      = InferInsertModel<typeof nvSecurityMetrics
 // Static reference tables that let the CNR resolve path prefill courtType /
 // courtName / stateName / districtName / complexName when the corpus row does
 // not publish them. These are deterministic reference joins — they NEVER set
-// claimEcourts: true. Seeded by migrations/2026-09-24-nv-jurisdiction-master.sql
+// claimEcourts: true. Seeded by migrations/2026-09-24-jrx-jurisdiction-master.sql
 // (raw SQL kept in exact parity with these Drizzle declarations for the
 // NV-SCHEMA-DRIFT-001 guardrail). See documents/working/
-// NYV-CASE-CORPUS-FIELD-GAP-PLAN-2026-09.md Appendix F.
+// JRX-CASE-CORPUS-FIELD-GAP-PLAN-2026-09.md Appendix F.
 
 /** 1) CNR prefix rules: first 4/6 chars of an eCourts CNR → tier + state + establishment. */
 export const nvCnrPrefixRules = pgTable('nv_cnr_prefix_rules', {
@@ -2455,9 +2455,9 @@ export type NewNvDistrictMaster    = InferInsertModel<typeof nvDistrictMaster>;
  * nv_district_master (which is keyed by CNR establishment letters like 'WL'
  * for the resolve-path prefill); this table is the numeric eCourts hierarchy.
  * Static reference joins only — never claims live eCourts. Raw SQL kept in
- * exact parity with migrations/2026-09-25-nv-court-complexes.sql
+ * exact parity with migrations/2026-09-25-jrx-court-complexes.sql
  * (NV-SCHEMA-DRIFT-001). See NSP-CASE-SEARCH-INTEGRATION-2026-09.md §18 and
- * NYV-CASE-CORPUS-FIELD-GAP-PLAN-2026-09.md Appendix F.
+ * JRX-CASE-CORPUS-FIELD-GAP-PLAN-2026-09.md Appendix F.
  */
 export const nvCourtComplexes = pgTable('nv_court_complexes', {
   stateCode:    varchar('state_code', { length: 4 }).notNull(),        // '2' (eCourts numeric)
@@ -2483,7 +2483,7 @@ export type NewNvCourtComplex      = InferInsertModel<typeof nvCourtComplexes>;
  * numeric eCourts `case_status`; the numeric→label master is the NJDG
  * `t_case_status` table (not in corpus yet). Seeded with VERIFIABLE text
  * disposal/stage buckets only (numeric_code NULL until NJDG). Raw SQL kept in
- * parity with migrations/2026-09-25-nv-dc-case-status-codes.sql (NV-SCHEMA-DRIFT-001).
+ * parity with migrations/2026-09-25-jrx-dc-case-status-codes.sql (NV-SCHEMA-DRIFT-001).
  * See src/services/jrx-dc-status-codes.ts and NSP-CASE-SEARCH-INTEGRATION §22.
  */
 export const nvDcCaseStatusCodes = pgTable('nv_dc_case_status_codes', {
@@ -2503,7 +2503,7 @@ export type NewNvDcCaseStatusCode = InferInsertModel<typeof nvDcCaseStatusCodes>
  * (state pos 1–2, district/establishment pos 3–4) → eCourts NUMERIC codes so a
  * pasted DC CNR can prefill courtCode/complexCode + district/complex names.
  * Numeric codes come from the courts.csv-seeded nv_court_complexes (not invented).
- * Raw SQL kept in parity with migrations/2026-09-25-nv-dc-establishment-crosswalk.sql
+ * Raw SQL kept in parity with migrations/2026-09-25-jrx-dc-establishment-crosswalk.sql
  * (NV-SCHEMA-DRIFT-001). Static reference join — never claims live eCourts.
  */
 export const nvDcEstablishmentCrosswalk = pgTable('nv_dc_establishment_crosswalk', {
@@ -2530,9 +2530,9 @@ export type NewNvDcEstablishmentCrosswalk = InferInsertModel<typeof nvDcEstablis
  * `finalOrders[]`/`interimOrders[]` records carry a raw eCourts-portal
  * `filename` with NO matching object in the public judgment buckets. An
  * order-mirror job (caselaw-worker, ops GO) copies the PDF into an OWNED bucket
- * under a deterministic key and records it here; the NYV adapter presigns ONLY
+ * under a deterministic key and records it here; the JRX adapter presigns ONLY
  * when a row exists AND the bucket is allowlisted (never a non-existent key).
- * Raw SQL kept in parity with migrations/2026-09-25-nv-hc-order-s3-map.sql
+ * Raw SQL kept in parity with migrations/2026-09-25-jrx-hc-order-s3-map.sql
  * (NV-SCHEMA-DRIFT-001). Idempotent.
  */
 export const nvHcOrderS3Map = pgTable('nv_hc_order_s3_map', {

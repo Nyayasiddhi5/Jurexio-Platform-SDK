@@ -18,7 +18,7 @@
 
 // Force live flags ON for the probe (env is read fresh on every adapter call).
 for (const j of ['IN', 'UK', 'US', 'EU', 'GC', 'SG']) {
-  process.env[`NYV_F_CITATION_LIVE_${j}`] = '1';
+  process.env[`JRX_F_CITATION_LIVE_${j}`] = '1';
 }
 
 import {

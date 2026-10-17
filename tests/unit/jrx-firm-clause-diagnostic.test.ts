@@ -3,7 +3,7 @@
  * (allow-listed but unreachable families), plus the per-role token budget and
  * the middleware wiring.
  *
- * Companion to `nv-firm-clause-orchestrate.test.ts`. Every guard here was broken
+ * Companion to `jrx-firm-clause-orchestrate.test.ts`. Every guard here was broken
  * deliberately and observed red; see the mutation table in CHANGELOG.md.
  */
 import { describe, it, expect, afterEach } from 'vitest';
@@ -450,7 +450,7 @@ describe('NV-FIRM-CLAUSE-ORCH-001: token budget per role', () => {
   });
 
   it('a fast drafting prompt with firm wording fits the tightest tier it can land in', () => {
-    /* `nv-prompt-budget` clamps a Queen exploration leaf to the `chat` tier
+    /* `jrx-prompt-budget` clamps a Queen exploration leaf to the `chat` tier
      * (2,500) — the tightest ceiling a drafting overlay can legitimately reach.
      * No budget was raised for this feature; the payload was reduced instead. */
     const overlay = runWithFirmClauseContext(

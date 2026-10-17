@@ -110,7 +110,7 @@ export class ProductionIntegrationManager extends EventEmitter {
         metadata: { version: '1.0.0', lastCheck: new Date(), healthScore: 1.0, errorCount: 0 }
       },
       {
-        id: 'crenyayavigya-integration',
+        id: 'crejurexio-integration',
         name: 'CrewAI Multi-Agent Framework',
         type: 'agent-framework',
         status: 'initializing',
@@ -266,7 +266,7 @@ export class ProductionIntegrationManager extends EventEmitter {
         name: 'Firebase GenKit Integration',
         type: 'tools',
         status: 'initializing',
-        config: { projectId: 'nyayavigya-sdk', realtimeEnabled: true },
+        config: { projectId: 'jurexio-sdk', realtimeEnabled: true },
         dependencies: [],
         capabilities: ['realtime-database', 'cloud-functions', 'analytics'],
         metadata: { version: '1.0.0', lastCheck: new Date(), healthScore: 1.0, errorCount: 0 }

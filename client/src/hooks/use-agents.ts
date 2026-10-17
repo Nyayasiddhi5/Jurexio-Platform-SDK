@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 
 // Jurexio Legal SDK API Client for 105+ Agents System
-const nyayavigyaSDKClient = {
+const jurexioSDKClient = {
   getAgents: () => apiRequest('/api/v9/agents'),
   getAgentCategories: () => apiRequest('/api/v9/agents/categories'),
   getAgentMetrics: () => apiRequest('/api/v9/agents/metrics'),
@@ -19,7 +19,7 @@ const nyayavigyaSDKClient = {
 export function useAgents(projectId?: number) {
   return useQuery({
     queryKey: ['agents'],
-    queryFn: () => nyayavigyaSDKClient.getAgents(),
+    queryFn: () => jurexioSDKClient.getAgents(),
     refetchInterval: 30000, // Refresh every 30 seconds
   });
 }
@@ -27,7 +27,7 @@ export function useAgents(projectId?: number) {
 export function useAgent(agentId: string) {
   return useQuery({
     queryKey: ['agents', agentId],
-    queryFn: () => nyayavigyaSDKClient.getAgent(agentId),
+    queryFn: () => jurexioSDKClient.getAgent(agentId),
     enabled: !!agentId,
   });
 }
@@ -35,7 +35,7 @@ export function useAgent(agentId: string) {
 export function useAgentSearch(query: string, filters?: any) {
   return useQuery({
     queryKey: ['agents', 'search', query, filters],
-    queryFn: () => nyayavigyaSDKClient.searchAgents({ query, ...filters }),
+    queryFn: () => jurexioSDKClient.searchAgents({ query, ...filters }),
     enabled: !!query,
   });
 }
@@ -45,7 +45,7 @@ export function useExecuteAgent() {
 
   return useMutation({
     mutationFn: ({ agentId, task }: { agentId: string; task: any }) =>
-      nyayavigyaSDKClient.executeAgent(agentId, task),
+      jurexioSDKClient.executeAgent(agentId, task),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['agents'] });
       queryClient.invalidateQueries({ queryKey: ['orchestration'] });
@@ -58,7 +58,7 @@ export function useToggleAgent() {
 
   return useMutation({
     mutationFn: ({ agentId, enabled }: { agentId: string; enabled: boolean }) =>
-      nyayavigyaSDKClient.toggleAgent(agentId, enabled),
+      jurexioSDKClient.toggleAgent(agentId, enabled),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['agents'] });
     },

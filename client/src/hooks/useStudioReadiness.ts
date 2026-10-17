@@ -23,10 +23,10 @@ export function useStudioReadiness(
   const { toast } = useToast();
 
   return useQuery<StudioReadinessResponse>({
-    queryKey: ['/api/nyayavigya/studios', studioId, 'readiness', startupId],
+    queryKey: ['/api/jurexio/studios', studioId, 'readiness', startupId],
     queryFn: async () => {
       const response = await fetch(
-        `/api/nyayavigya/studios/${studioId}/readiness?startupId=${startupId}`,
+        `/api/jurexio/studios/${studioId}/readiness?startupId=${startupId}`,
         {
           credentials: 'include',
         }

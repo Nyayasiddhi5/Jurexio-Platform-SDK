@@ -4,8 +4,8 @@ import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Network, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { nv } from '@/lib/jrx-api-paths';
 import { nvFetchJson } from '@/lib/jrx-fetch-json';
 
@@ -50,7 +50,7 @@ export default function SwarmTopologiesPanel() {
   if (isError) {
     return (
       <div className="p-6">
-        <NyvErrorState
+        <JrxErrorState
           title="Swarm registry unavailable"
           description="Could not load GET /api/jrx/swarm/topologies or /api/jrx/swarm/stats — check JWT session."
           onRetry={() => { void statsQ.refetch(); void topologiesQ.refetch(); }}
@@ -118,7 +118,7 @@ export default function SwarmTopologiesPanel() {
               </div>
             )}
             {!isLoading && topologies.length === 0 && (
-              <NyvEmptyState
+              <JrxEmptyState
                 title="No swarm topologies returned"
                 description="The gateway registry may be warming up. Retry or check operator JWT."
               />

@@ -11,8 +11,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { useToast } from '@/hooks/use-toast';
 import { getAuthToken } from '@/lib/jrx-auth-token';
 import { NV_BASE, nv, p } from '@/lib/jrx-api-paths';
@@ -117,7 +117,7 @@ export default function PlatformLimitsPanel({
 
       {tiersQ.isLoading && <Skeleton className="h-24 w-full" />}
       {tiersQ.isError && (
-        <NyvErrorState title="Could not load tier catalog" onRetry={() => tiersQ.refetch()} variant="card" size="sm" />
+        <JrxErrorState title="Could not load tier catalog" onRetry={() => tiersQ.refetch()} variant="card" size="sm" />
       )}
       {platformTiers.length > 0 && (
         <Card>
@@ -166,7 +166,7 @@ export default function PlatformLimitsPanel({
         </CardHeader>
         <CardContent className="space-y-3 pt-0">
           {Object.keys(limits).length === 0 ? (
-            <NyvEmptyState title="No limits configured" description="Add keys below or select a platform with existing limits." size="sm" />
+            <JrxEmptyState title="No limits configured" description="Add keys below or select a platform with existing limits." size="sm" />
           ) : (
             Object.entries(limits).map(([key, val]) => (
               <div key={key} className="grid grid-cols-2 gap-2 items-center">

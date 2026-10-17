@@ -1,9 +1,9 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Jurexio Async Job Worker v1.0 (Production)
  * ─────────────────────────────────────────────────────────────────────────────
  * Wires the existing PgJobQueue with typed handlers for all SDK async job types.
- * Replaces the setImmediate/setTimeout simulation in nv-completions-routes.ts.
+ * Replaces the setImmediate/setTimeout simulation in jrx-completions-routes.ts.
  *
  * Job Types:
  *   bulk_analysis      — batch legal document analysis
@@ -20,7 +20,7 @@ import { lazyRequire } from '../utils/jrx-type-helpers.js';
 const db = lazyRequire(() => _raw_db, 'db');
 import { sql } from 'drizzle-orm';
 import { createLogger } from '../utils/logger.js';
-import { jobProgressBroadcaster } from './nyv-ws-job-progress.js';
+import { jobProgressBroadcaster } from './jrx-ws-job-progress.js';
 
 const logger = createLogger('./jrx-job-worker');
 
@@ -304,7 +304,7 @@ async function handleFineTune(job: Job): Promise<any> {
     datasetId,
     model,
     epochs,
-    suffix: suffix || `nyv-ft-${Date.now()}`,
+    suffix: suffix || `jrx-ft-${Date.now()}`,
     metrics: {
       trainLoss: 0.042,
       validationLoss: 0.058,

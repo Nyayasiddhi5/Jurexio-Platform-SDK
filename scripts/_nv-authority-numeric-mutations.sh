@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# NYV-1/NYV-2 mutation harness. Proves each new guard can actually fail.
+# JRX-1/JRX-2 mutation harness. Proves each new guard can actually fail.
 #
 # Snapshots by `cp` and byte-verifies restoration with `cmp` — never git checkout/stash/reset.
 set -uo pipefail

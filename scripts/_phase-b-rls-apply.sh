@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Apply Phase B RLS pilot migration 0016 on nysdev
+# Apply Phase B RLS pilot migration 0016 on jrx-prod
 set -euo pipefail
-CANON="/opt/Nyayavigya/secrets/.env.production"
+CANON="/opt/Jurexio/secrets/.env.production"
 DB_ADMIN="$(grep -E '^DATABASE_URL_ADMIN=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')"
 # libpq sidecar rejects sslmode=no-verify
 DB_PSQL="${DB_ADMIN/sslmode=no-verify/sslmode=require}"
@@ -13,7 +13,7 @@ echo "=== APPLY drizzle/0016_rls_pilot_five_tables.sql ==="
 psql "$DB_PSQL" -v ON_ERROR_STOP=1 -f /tmp/0016.sql
 
 echo "=== VERIFY PILOT RLS ==="
-docker exec -e "DB=${DB_ADMIN}" -w /app nyv-gateway node --input-type=module -e "
+docker exec -e "DB=${DB_ADMIN}" -w /app jrx-gateway node --input-type=module -e "
 import pg from 'pg';
 const pool = new pg.Pool({ connectionString: process.env.DB, ssl: { rejectUnauthorized: false } });
 const tables = [

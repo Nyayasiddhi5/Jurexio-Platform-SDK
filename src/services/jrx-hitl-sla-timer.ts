@@ -23,7 +23,7 @@
  *   • `severity`  → surfaced as `priority` in the escalation event.
  *   • `org_id`    → passed to reviewer resolver.
  *
- * Disabled when `NYV_HITL_SLA_TIMER=off`.
+ * Disabled when `JRX_HITL_SLA_TIMER=off`.
  */
 import { pool } from '../db/index.js';
 import { createLogger } from '../utils/logger.js';
@@ -33,7 +33,7 @@ const logger = createLogger('./jrx-hitl-sla-timer');
 
 const TICK_MS = Math.max(
   10_000,
-  Number(process.env.NYV_HITL_SLA_TICK_MS ?? 60_000),
+  Number(process.env.JRX_HITL_SLA_TICK_MS ?? 60_000),
 );
 
 let _interval: NodeJS.Timeout | null = null;
@@ -123,8 +123,8 @@ async function scanAndEscalate(): Promise<void> {
 }
 
 export function startHitlSlaTimer(): { stop: () => void } {
-  if (process.env.NYV_HITL_SLA_TIMER === 'off') {
-    logger.info('HITL SLA timer disabled (NYV_HITL_SLA_TIMER=off)');
+  if (process.env.JRX_HITL_SLA_TIMER === 'off') {
+    logger.info('HITL SLA timer disabled (JRX_HITL_SLA_TIMER=off)');
     return { stop: () => { /* no-op */ } };
   }
 

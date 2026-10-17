@@ -3,17 +3,17 @@
  *
  * OmniRoute (https://github.com/diegosouzapw/OmniRoute) is an open AI gateway
  * that offers multi-provider routing, token compression, and automatic fallback
- * across 250+ providers. This adapter keeps NYV in control: it translates the
+ * across 250+ providers. This adapter keeps JRX in control: it translates the
  * platform's standard OpenAI-style chat payload into OmniRoute's
  * OpenAI-compatible API, enforces PII/tokenization preconditions, applies a cost
  * budget, and records the actual upstream model that OmniRoute selected.
  *
  * Governance rules:
- *   - OmniRoute is gated by OMNIROUTE_API_KEY + NYV_OMNIROUTE_ENABLED.
+ *   - OmniRoute is gated by OMNIROUTE_API_KEY + JRX_OMNIROUTE_ENABLED.
  *   - It is a last-mile fallback/cost-saver, never the primary legal-quality
  *     path, unless the caller explicitly opts in via routing.preferredModels.
  *   - PII must be tokenized before this adapter is invoked (caller responsibility
- *     via nv-governance-pii pipeline; this adapter asserts it in env mode).
+ *     via jrx-governance-pii pipeline; this adapter asserts it in env mode).
  *   - Every request/response is logged for audit; no prompts are cached.
  */
 
@@ -66,7 +66,7 @@ function resolveOmniRouteApiKey(): string | undefined {
 }
 
 function omniRouteModelAlias(modelId: string): string {
-  // Strip NYV namespace prefix if present; pass the OmniRoute alias through.
+  // Strip JRX namespace prefix if present; pass the OmniRoute alias through.
   if (modelId.startsWith('omniroute/')) return modelId.slice('omniroute/'.length);
   return modelId;
 }
@@ -211,17 +211,17 @@ export async function callOmniRoute(
 }
 
 /**
- * NYV governance assertion: confirm that OmniRoute is allowed for this request.
+ * JRX governance assertion: confirm that OmniRoute is allowed for this request.
  *
- * Per the NYV control model, all task-level, platform-level, and PII policy
- * decisions are made by the NYV orchestrator *before* OmniRoute is reached.
+ * Per the JRX control model, all task-level, platform-level, and PII policy
+ * decisions are made by the JRX orchestrator *before* OmniRoute is reached.
  * This adapter only enforces the final hard gates:
  *   1. OmniRoute must be enabled.
  *   2. A valid API key must be configured.
- *   3. `critical` sensitivity never leaves the NYV sovereign boundary.
+ *   3. `critical` sensitivity never leaves the JRX sovereign boundary.
  *
  * Once a request passes those gates and reaches this adapter, it is forwarded
- * without further restriction — NYV has already decided the content is compliant
+ * without further restriction — JRX has already decided the content is compliant
  * and governed.
  */
 export function isOmniRouteAllowedForRequest(
@@ -232,12 +232,12 @@ export function isOmniRouteAllowedForRequest(
     sensitivity?: 'low' | 'medium' | 'high' | 'critical';
   },
 ): boolean {
-  // Match catalog: enabled when key present unless NYV_OMNIROUTE_ENABLED=false.
-  const explicit = String(process.env.NYV_OMNIROUTE_ENABLED ?? '').toLowerCase();
+  // Match catalog: enabled when key present unless JRX_OMNIROUTE_ENABLED=false.
+  const explicit = String(process.env.JRX_OMNIROUTE_ENABLED ?? '').toLowerCase();
   if (explicit === 'false' || explicit === '0' || explicit === 'off') return false;
   if (!process.env.OMNIROUTE_API_KEY) return false;
 
-  // Critical sensitivity never leaves the NYV sovereign boundary via OmniRoute.
+  // Critical sensitivity never leaves the JRX sovereign boundary via OmniRoute.
   if (_request.sensitivity === 'critical') return false;
 
   return true;

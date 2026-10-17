@@ -1,6 +1,6 @@
 /**
- * NV-DOCPARSE-NSP-AGENT-RECOVER-001 — NYV gap recovery for NSP local parse failures only.
- * Full doc re-OCR on NYV (Textract + partial LLM); optional extractive summary — not full /analyze by default.
+ * NV-DOCPARSE-NSP-AGENT-RECOVER-001 — JRX gap recovery for NSP local parse failures only.
+ * Full doc re-OCR on JRX (Textract + partial LLM); optional extractive summary — not full /analyze by default.
  */
 import type { ExtractionResult } from '@jurexio/docparse-sdk';
 import { createLogger } from '../utils/logger.js';
@@ -81,8 +81,8 @@ export async function runNspDocparseAgentRecover(
     mapExtractionToNspEvidence,
     buildExtractiveLegalIntelligence,
   } = await import('@jurexio/docparse-sdk');
-  const { createNyvPartialFieldRecoveryProvider } = await import('./jrx-docparse-partial-llm-sdk-provider.js');
-  const { createNyvCloudOcrProvider } = await import('./jrx-docparse-cloud-ocr-sdk-provider.js');
+  const { createJrxPartialFieldRecoveryProvider } = await import('./jrx-docparse-partial-llm-sdk-provider.js');
+  const { createJrxCloudOcrProvider } = await import('./jrx-docparse-cloud-ocr-sdk-provider.js');
 
   const domainPackId = req.domainPackId ?? 'legal-in-civil';
   const batchId = `nsp_recover_${Date.now()}`;
@@ -90,9 +90,9 @@ export async function runNspDocparseAgentRecover(
   const partialLlm = opts.partialLlm !== false;
   const humanReviewOnly = opts.humanReviewPagesOnly !== false;
 
-  const prevHumanReviewFlag = process.env.NYV_DOCPARSE_PARTIAL_LLM_HUMAN_REVIEW_ONLY;
+  const prevHumanReviewFlag = process.env.JRX_DOCPARSE_PARTIAL_LLM_HUMAN_REVIEW_ONLY;
   if (humanReviewOnly && (req.localParse?.humanReviewPageNos?.length ?? 0) > 0) {
-    process.env.NYV_DOCPARSE_PARTIAL_LLM_HUMAN_REVIEW_ONLY = '1';
+    process.env.JRX_DOCPARSE_PARTIAL_LLM_HUMAN_REVIEW_ONLY = '1';
   }
 
   try {
@@ -108,8 +108,8 @@ export async function runNspDocparseAgentRecover(
         domainPackId,
         forceOcr: true,
         preferOcr: true,
-        partialFieldRecovery: partialLlm ? createNyvPartialFieldRecoveryProvider() : undefined,
-        cloudOcr: createNyvCloudOcrProvider(),
+        partialFieldRecovery: partialLlm ? createJrxPartialFieldRecoveryProvider() : undefined,
+        cloudOcr: createJrxCloudOcrProvider(),
       },
     );
 
@@ -149,14 +149,14 @@ export async function runNspDocparseAgentRecover(
     };
   } finally {
     if (prevHumanReviewFlag === undefined) {
-      delete process.env.NYV_DOCPARSE_PARTIAL_LLM_HUMAN_REVIEW_ONLY;
+      delete process.env.JRX_DOCPARSE_PARTIAL_LLM_HUMAN_REVIEW_ONLY;
     } else {
-      process.env.NYV_DOCPARSE_PARTIAL_LLM_HUMAN_REVIEW_ONLY = prevHumanReviewFlag;
+      process.env.JRX_DOCPARSE_PARTIAL_LLM_HUMAN_REVIEW_ONLY = prevHumanReviewFlag;
     }
   }
 }
 
-/** True when NSP should call NYV agent-recover (not full re-upload path). */
+/** True when NSP should call JRX agent-recover (not full re-upload path). */
 export function nspLocalParseNeedsAgentRecover(
   extraction: ExtractionResult,
   hints?: NspLocalParseHints,

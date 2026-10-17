@@ -6,7 +6,7 @@
  * NV-REQID-CORRELATION-001 made Queen dispatch ids parent-scoped
  * (`<uuid>::leaf-swarm-agent-0-1786963251079` = 76+ chars). Every batch holding a
  * Queen leaf failed `22001` and was re-prepended forever, so the whole decision
- * history froze behind it — observed on nysdev at `attempt: 22` with the table
+ * history froze behind it — observed on jrx-prod at `attempt: 22` with the table
  * stuck at 11,394 rows while traffic continued.
  */
 import { describe, it, expect } from 'vitest';
@@ -64,7 +64,7 @@ describe('NV-ROUTER-LOG-WIDTH-001 — poison batches cannot block the queue', ()
   });
 
   it('the drop is loud and auditable, never silent', () => {
-    expect(SRC).toContain('NYV-ROUTER-LOG-001');
+    expect(SRC).toContain('JRX-ROUTER-LOG-001');
     expect(SRC).toContain('permanently unwritable');
     expect(SRC).toContain('sqlstate:');
   });

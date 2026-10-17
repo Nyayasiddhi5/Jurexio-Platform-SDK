@@ -2,13 +2,13 @@
  * Tests for the tenant-isolation middleware.
  *
  * Verifies:
- *   - off-by-default when NYV_TENANT_ENFORCE is not set
+ *   - off-by-default when JRX_TENANT_ENFORCE is not set
  *   - 403 on cross-tenant body claim
  *   - 403 on cross-tenant query claim
  *   - 403 on cross-tenant header claim
  *   - same-tenant request passes through (next is called)
  *   - 401 in strict mode when no auth tenant and request is /api/sdk/*
- *   - falls back to NYV_TENANT_ID env when neither sdkContext nor user is set
+ *   - falls back to JRX_TENANT_ID env when neither sdkContext nor user is set
  */
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -53,8 +53,8 @@ const ENV_BACKUP = { ...process.env };
 beforeEach(() => {
   // Reset to a known state between tests.
   process.env = { ...ENV_BACKUP };
-  delete process.env.NYV_TENANT_ENFORCE;
-  delete process.env.NYV_TENANT_ID;
+  delete process.env.JRX_TENANT_ENFORCE;
+  delete process.env.JRX_TENANT_ID;
 });
 
 afterEach(() => {
@@ -62,7 +62,7 @@ afterEach(() => {
 });
 
 describe("tenantIsolation middleware", () => {
-  it("is a no-op when NYV_TENANT_ENFORCE is not set", () => {
+  it("is a no-op when JRX_TENANT_ENFORCE is not set", () => {
     const next = vi.fn();
     const res = mkRes();
     const req = mkReq({
@@ -77,7 +77,7 @@ describe("tenantIsolation middleware", () => {
   });
 
   it("returns 403 on cross-tenant body claim", () => {
-    process.env.NYV_TENANT_ENFORCE = "1";
+    process.env.JRX_TENANT_ENFORCE = "1";
     const next = vi.fn();
     const res = mkRes();
     const req = mkReq({
@@ -94,7 +94,7 @@ describe("tenantIsolation middleware", () => {
   });
 
   it("returns 403 on cross-tenant query claim", () => {
-    process.env.NYV_TENANT_ENFORCE = "1";
+    process.env.JRX_TENANT_ENFORCE = "1";
     const next = vi.fn();
     const res = mkRes();
     const req = mkReq({
@@ -108,7 +108,7 @@ describe("tenantIsolation middleware", () => {
   });
 
   it("returns 403 on cross-tenant header claim", () => {
-    process.env.NYV_TENANT_ENFORCE = "1";
+    process.env.JRX_TENANT_ENFORCE = "1";
     const next = vi.fn();
     const res = mkRes();
     const req = mkReq({
@@ -122,7 +122,7 @@ describe("tenantIsolation middleware", () => {
   });
 
   it("calls next() when claimed tenant matches authenticated tenant", () => {
-    process.env.NYV_TENANT_ENFORCE = "1";
+    process.env.JRX_TENANT_ENFORCE = "1";
     const next = vi.fn();
     const res = mkRes();
     const req = mkReq({
@@ -137,7 +137,7 @@ describe("tenantIsolation middleware", () => {
   });
 
   it("calls next() when no claim is supplied (auth-only)", () => {
-    process.env.NYV_TENANT_ENFORCE = "1";
+    process.env.JRX_TENANT_ENFORCE = "1";
     const next = vi.fn();
     const res = mkRes();
     const req = mkReq({
@@ -150,7 +150,7 @@ describe("tenantIsolation middleware", () => {
   });
 
   it("returns 401 in strict mode when SDK request has no auth tenant (per-router mount)", () => {
-    process.env.NYV_TENANT_ENFORCE = "strict";
+    process.env.JRX_TENANT_ENFORCE = "strict";
     const next = vi.fn();
     const res = mkRes();
     // Per-router mount: baseUrl is the SDK sub-router prefix.
@@ -163,9 +163,9 @@ describe("tenantIsolation middleware", () => {
     expect(payload.error).toBe("TENANT_CONTEXT_MISSING");
   });
 
-  it("uses NYV_TENANT_ID env as the auth-tenant fallback for single-tenant containers", () => {
-    process.env.NYV_TENANT_ENFORCE = "1";
-    process.env.NYV_TENANT_ID = "nym";
+  it("uses JRX_TENANT_ID env as the auth-tenant fallback for single-tenant containers", () => {
+    process.env.JRX_TENANT_ENFORCE = "1";
+    process.env.JRX_TENANT_ID = "nym";
     const next = vi.fn();
     const res = mkRes();
 
@@ -177,7 +177,7 @@ describe("tenantIsolation middleware", () => {
   });
 
   it("user.organizationId (JWT path) is treated as the auth tenant", () => {
-    process.env.NYV_TENANT_ENFORCE = "1";
+    process.env.JRX_TENANT_ENFORCE = "1";
     const next = vi.fn();
     const res = mkRes();
     const req = mkReq({
@@ -198,7 +198,7 @@ describe("tenantIsolation middleware", () => {
   // INSIDE the sub-router after sdkGatewayAuth, where sdkContext is
   // populated and the cross-tenant 403 fires.
   it("does not 403 on the app-level mount when sdkContext is not yet set", () => {
-    process.env.NYV_TENANT_ENFORCE = "1";
+    process.env.JRX_TENANT_ENFORCE = "1";
     const next = vi.fn();
     const res = mkRes();
     // Simulates the app-level mount running before sdkGatewayAuth:
@@ -215,7 +215,7 @@ describe("tenantIsolation middleware", () => {
   });
 
   it("403s on the per-router mount once sdkGatewayAuth has populated sdkContext", () => {
-    process.env.NYV_TENANT_ENFORCE = "1";
+    process.env.JRX_TENANT_ENFORCE = "1";
     const next = vi.fn();
     const res = mkRes();
     // Simulates the per-router mount after sdkGatewayAuth resolved the
@@ -239,7 +239,7 @@ describe("tenantIsolation middleware", () => {
   // must use req.originalUrl for its SDK-prefix check, otherwise strict
   // mode silently no-ops on every per-router mount.
   it("strict mode 401s on per-router mount where req.path is stripped but originalUrl retains the SDK prefix", () => {
-    process.env.NYV_TENANT_ENFORCE = "strict";
+    process.env.JRX_TENANT_ENFORCE = "strict";
     const next = vi.fn();
     const res = mkRes();
     // Simulates Express having stripped the "/api/jrx/sdk" mount prefix:
@@ -262,11 +262,11 @@ describe("tenantIsolation middleware", () => {
   // Regression: strict mode must NOT 401 at the app-level mount, because
   // sdkGatewayAuth has not yet run there — auth is always undefined for
   // SDK paths at that point. Without this guard, flipping to
-  // NYV_TENANT_ENFORCE=strict would reject every SDK request before its
+  // JRX_TENANT_ENFORCE=strict would reject every SDK request before its
   // API key was ever validated. The 401 is deferred to the per-router
   // mount, which runs AFTER sdkGatewayAuth.
   it("strict mode does NOT 401 at the app-level mount even on SDK paths (sdkGatewayAuth runs later)", () => {
-    process.env.NYV_TENANT_ENFORCE = "strict";
+    process.env.JRX_TENANT_ENFORCE = "strict";
     const next = vi.fn();
     const res = mkRes();
     // App-level mount: baseUrl is the bare /api/nv prefix.

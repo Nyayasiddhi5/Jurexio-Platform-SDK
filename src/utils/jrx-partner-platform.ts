@@ -35,12 +35,12 @@ const logger = createLogger('./jrx-partner-platform');
 export const INDIA_ONLY_PARTNER_CODES: ReadonlySet<string> = new Set(['NSP', 'NYM']);
 
 /**
- * Ecosystem platforms that depend on NYV for all AI tasks — always get full
+ * Ecosystem platforms that depend on JRX for all AI tasks — always get full
  * Queen depth (CoT + maker-checker + multi-agent) unless caller opts into
  * partnerSyncLean for a narrow sync extract.
  */
-export const NYV_DEPENDENT_PLATFORM_CODES: ReadonlySet<string> = new Set([
-  'NSP', 'NYM', 'NSI', 'NSA', 'NSM', 'NSPM', 'NYV',
+export const JRX_DEPENDENT_PLATFORM_CODES: ReadonlySet<string> = new Set([
+  'NSP', 'NYM', 'NSI', 'NSA', 'NSM', 'NSPM', 'JRX',
 ]);
 
 export function resolvePartnerPlatformCode(req: Request): string | null {
@@ -59,7 +59,7 @@ export function resolvePartnerPlatformCode(req: Request): string | null {
   if (fromType && INDIA_ONLY_PARTNER_CODES.has(fromType.toUpperCase())) {
     return fromType.toUpperCase();
   }
-  if (fromType && ['NSI', 'NSA', 'NSM', 'NSPM', 'JRX', 'NYV'].includes(fromType.toUpperCase())) {
+  if (fromType && ['NSI', 'NSA', 'NSM', 'NSPM', 'JRX', 'JRX'].includes(fromType.toUpperCase())) {
     return fromType.toUpperCase();
   }
 
@@ -71,11 +71,11 @@ export function resolvePartnerPlatformCode(req: Request): string | null {
 
 function resolvePartnerPlatformHintFromHeadersOnly(req: Request): string | null {
   const headerCandidates = [
-    req.headers['x-nyv-platform'],
+    req.headers['x-jrx-platform'],
     req.headers['x-platform-id'],
     req.headers['x-platform-name'],
     req.headers['x-client-id'],
-    req.headers['x-nyv-client'],
+    req.headers['x-jrx-client'],
   ];
   for (const raw of headerCandidates) {
     const v = String(Array.isArray(raw) ? raw[0] : raw || '')
@@ -84,7 +84,7 @@ function resolvePartnerPlatformHintFromHeadersOnly(req: Request): string | null 
     if (!v) continue;
     if (v === 'NSP' || v.startsWith('NSP') || v.includes('PROFESSIONAL')) return 'NSP';
     if (v === 'NYM' || v.includes('NYAYAMITRA') || v.includes('MITRA')) return 'NYM';
-    if (['NSI', 'NSA', 'NSM', 'NSPM', 'JRX', 'NYV'].includes(v)) return v;
+    if (['NSI', 'NSA', 'NSM', 'NSPM', 'JRX', 'JRX'].includes(v)) return v;
   }
   const nspClient = String(req.headers['x-nsp-client'] || '').toLowerCase();
   if (nspClient.includes('nyayasiddhi') || nspClient.includes('nsp') || nspClient.includes('professional')) {
@@ -199,35 +199,35 @@ export function isIndiaOnlyPartner(req: Request): boolean {
   return code != null && INDIA_ONLY_PARTNER_CODES.has(code);
 }
 
-export function isNyvDependentPlatform(req: Request): boolean {
+export function isJrxDependentPlatform(req: Request): boolean {
   const code = resolvePartnerPlatformCode(req);
-  if (code != null && NYV_DEPENDENT_PLATFORM_CODES.has(code)) return true;
+  if (code != null && JRX_DEPENDENT_PLATFORM_CODES.has(code)) return true;
   // Any authenticated SDK partner without an explicit non-dependent code
-  // (e.g. missing UAT label) still depends on NYV for AI when sdkContext exists.
+  // (e.g. missing UAT label) still depends on JRX for AI when sdkContext exists.
   const ctx = (req as Request & { sdkContext?: Record<string, unknown> }).sdkContext;
   if (!ctx) return false;
-  if (code === 'JRX') return false; // JRX may use NYV selectively — not force full Queen
+  if (code === 'JRX') return false; // JRX may use JRX selectively — not force full Queen
   return true;
 }
 
-/** NSP Professional + NYM Mitra — always receive max legal AI depth on NYV. */
+/** NSP Professional + NYM Mitra — always receive max legal AI depth on JRX. */
 export function isNspOrNymPartner(req: Request): boolean {
   return isIndiaOnlyPartner(req);
 }
 
 /**
- * NV-ECOSYSTEM-BEST-OUTCOME-001 — All NYV-dependent Jurexio platforms
- * (NSP, NYM, NSI, NSA, NSM, NSPM, NYV, and authenticated SDK partners except JRX)
- * receive max legal AI depth. Escape: NYV_ECOSYSTEM_BEST_OUTCOME=0
- * (legacy alias NYV_NSP_NYM_BEST_OUTCOME=0 also disables).
+ * NV-ECOSYSTEM-BEST-OUTCOME-001 — All JRX-dependent Jurexio platforms
+ * (NSP, NYM, NSI, NSA, NSM, NSPM, JRX, and authenticated SDK partners except JRX)
+ * receive max legal AI depth. Escape: JRX_ECOSYSTEM_BEST_OUTCOME=0
+ * (legacy alias JRX_NSP_NYM_BEST_OUTCOME=0 also disables).
  *
  * Formerly NSP/NYM-only; expanded 2026-08-03 so every ecosystem request gets
  * Queen depth + quality gates + India-grade drafting polish when jurisdiction=IN.
  */
 export function wantsNspNymBestOutcome(req: Request): boolean {
-  if (!isNyvDependentPlatform(req)) return false;
+  if (!isJrxDependentPlatform(req)) return false;
   const off = String(
-    process.env.NYV_ECOSYSTEM_BEST_OUTCOME ?? process.env.NYV_NSP_NYM_BEST_OUTCOME ?? '1',
+    process.env.JRX_ECOSYSTEM_BEST_OUTCOME ?? process.env.JRX_NSP_NYM_BEST_OUTCOME ?? '1',
   )
     .trim()
     .toLowerCase();
@@ -295,10 +295,10 @@ export function isPartnerExplicitFastDraftAlias(taskType?: string): boolean {
  * NV-DRAFT-FAST-SLA-001 — partner `-fast` draft latency contract (default ON).
  * When enabled: cap completion tokens below registry counsel floors and skip
  * expensive post-LLM passes (statute QA, Haiku delivery polish).
- * Escape: `NYV_DRAFT_FAST_SLA=0` for full registry length on `-fast`.
+ * Escape: `JRX_DRAFT_FAST_SLA=0` for full registry length on `-fast`.
  */
 export function isDraftFastSlaEnabled(): boolean {
-  const v = String(process.env.NYV_DRAFT_FAST_SLA ?? '1').trim().toLowerCase();
+  const v = String(process.env.JRX_DRAFT_FAST_SLA ?? '1').trim().toLowerCase();
   return !(v === '0' || v === 'false' || v === 'off' || v === 'no');
 }
 
@@ -319,9 +319,9 @@ export function resolveDraftFastSlaTokenCap(input: DraftFastSlaCapInput = 'mediu
   if (documentType) {
     return resolveDraftFastSlaTokenCapForDocument({ documentType, tier });
   }
-  const medium = envPartnerToken('NYV_DRAFT_FAST_SLA_MAX_TOKENS', 8_192);
-  const low = envPartnerToken('NYV_DRAFT_FAST_SLA_MAX_TOKENS_LOW', 4_096);
-  const comprehensive = envPartnerToken('NYV_DRAFT_FAST_SLA_MAX_TOKENS_COMPREHENSIVE', 16_384);
+  const medium = envPartnerToken('JRX_DRAFT_FAST_SLA_MAX_TOKENS', 8_192);
+  const low = envPartnerToken('JRX_DRAFT_FAST_SLA_MAX_TOKENS_LOW', 4_096);
+  const comprehensive = envPartnerToken('JRX_DRAFT_FAST_SLA_MAX_TOKENS_COMPREHENSIVE', 16_384);
   switch (tier) {
     case 'low':
       return low;
@@ -338,7 +338,7 @@ export function shouldSkipExpensiveDraftFastSteps(taskType?: string): boolean {
 }
 
 /** Partner sync budget ceiling (ms) — bare counsel aliases route to -fast at or below this. */
-const PARTNER_SYNC_BUDGET_MS = Number(process.env.NYV_PARTNER_SYNC_BUDGET_MS || 90_000);
+const PARTNER_SYNC_BUDGET_MS = Number(process.env.JRX_PARTNER_SYNC_BUDGET_MS || 90_000);
 
 /**
  * NV-PARTNER-SYNC-TASKTYPE-001 — detect interactive sync timeout budget from partner
@@ -346,12 +346,12 @@ const PARTNER_SYNC_BUDGET_MS = Number(process.env.NYV_PARTNER_SYNC_BUDGET_MS || 
  */
 export function hasPartnerSyncTimeoutBudget(req: Request): boolean {
   const body = (req.body || {}) as Record<string, unknown>;
-  const headerRaw = req.headers['x-nyv-partner-sync-timeout-ms']
-    ?? req.headers['x-nyv-sync-timeout-ms']
+  const headerRaw = req.headers['x-jrx-partner-sync-timeout-ms']
+    ?? req.headers['x-jrx-sync-timeout-ms']
     ?? req.headers['x-client-timeout-ms'];
   const headerMs = Number(Array.isArray(headerRaw) ? headerRaw[0] : headerRaw);
   const bodyMs = Number(body.syncTimeoutMs ?? body.clientTimeoutMs ?? body.timeoutMs ?? 0);
-  const routingMode = String(body.routingMode ?? req.headers['x-nyv-routing-mode'] ?? '').toLowerCase();
+  const routingMode = String(body.routingMode ?? req.headers['x-jrx-routing-mode'] ?? '').toLowerCase();
   if (routingMode === 'fast' || routingMode === 'sla' || routingMode === 'sync') return true;
   const ms = Number.isFinite(headerMs) && headerMs > 0 ? headerMs
     : Number.isFinite(bodyMs) && bodyMs > 0 ? bodyMs : 0;
@@ -381,7 +381,7 @@ export function wantsPartnerQualityQueenPath(req: Request, taskType?: string): b
   const body = (req.body || {}) as Record<string, unknown>;
   const tt = String(taskType || body.taskType || '');
   if (/-deep$/i.test(tt) || /[_-]deep$/i.test(tt)) return true;
-  const qm = String(body.qualityMode ?? req.headers['x-nyv-quality-mode'] ?? '').toLowerCase();
+  const qm = String(body.qualityMode ?? req.headers['x-jrx-quality-mode'] ?? '').toLowerCase();
   if (['counsel', 'queen', 'quality', 'deep', 'full'].includes(qm)) return true;
   if (resolvePartnerDraftLength(req) === 'comprehensive') return true;
   if (body.forceQueenMode === true || body.engageQueen === true) return true;
@@ -408,7 +408,7 @@ export function applyPartnerCounselUpgradeTaskType(req: Request): string {
 }
 
 function isComprehensiveAgenticUpgradeEnabled(): boolean {
-  const v = String(process.env.NYV_DRAFT_COMPREHENSIVE_AGENTIC ?? '1').trim().toLowerCase();
+  const v = String(process.env.JRX_DRAFT_COMPREHENSIVE_AGENTIC ?? '1').trim().toLowerCase();
   return !(v === '0' || v === 'false' || v === 'off');
 }
 
@@ -738,13 +738,13 @@ export function resolvePartnerDispatchEnableCoT(
  */
 export function resolvePartnerFastLlmTier(req: Request, taskType?: string): string | null {
   if (!isPartnerExplicitFastAlias(taskType)) return null;
-  const tier = String(process.env.NYV_PARTNER_FAST_SERVING_TIER || 'plus').trim() || 'plus';
+  const tier = String(process.env.JRX_PARTNER_FAST_SERVING_TIER || 'plus').trim() || 'plus';
   return tier;
 }
 
 /**
  * NV-SLA-FAST-TASKTYPE-001 — taskType-only SLA fast detector (no Request).
- * Used by nv-client context budgets and token floors where `req` is unavailable.
+ * Used by jrx-client context budgets and token floors where `req` is unavailable.
  */
 export function isSlaFastTaskType(taskType?: string): boolean {
   const tt = String(taskType || '').trim();
@@ -756,11 +756,11 @@ export function isSlaFastTaskType(taskType?: string): boolean {
 /**
  * NV-NSP-COUNSEL-QUEEN-001 — NSP/NYM Legal Chat + drafts use Queen + CoT +
  * maker-checker (comprehensive counsel). Default ON.
- * Escape: NYV_NSP_COUNSEL_QUEEN=0 restores grounded-fast (~15–45s, no Queen).
+ * Escape: JRX_NSP_COUNSEL_QUEEN=0 restores grounded-fast (~15–45s, no Queen).
  */
 export function wantsNspCounselQueen(req: Request): boolean {
   if (!wantsNspNymBestOutcome(req)) return false;
-  const v = String(process.env.NYV_NSP_COUNSEL_QUEEN ?? '1').trim().toLowerCase();
+  const v = String(process.env.JRX_NSP_COUNSEL_QUEEN ?? '1').trim().toLowerCase();
   return !(v === '0' || v === 'false' || v === 'off');
 }
 
@@ -770,7 +770,7 @@ export function wantsNspCounselQueen(req: Request): boolean {
  * taskType / tools / body flags.
  *
  * NV-NSP-COUNSEL-QUEEN-001: legal-chat / legal-draft are NOT SLA-fast when
- * counsel-Queen is ON (default). Escape NYV_NSP_COUNSEL_QUEEN=0 to restore
+ * counsel-Queen is ON (default). Escape JRX_NSP_COUNSEL_QUEEN=0 to restore
  * grounded-fast. Deep aliases `legal-draft-deep` / `doc-draft-deep` always Queen.
  */
 export function isPartnerSlaFastTask(
@@ -817,7 +817,7 @@ export function isPartnerSlaFastTask(
   if (/^(web[_-]?search|trending|market[_-]?intel(?:ligence)?|workflow[_-]?suggest|workflow|task[_-]?assist|project[_-]?manag(?:er|ement)?|evaluate[_-]?draft|scorecard|legal[_-]?chat[_-]?fast|legal[_-]?draft[_-]?fast|doc[_-]?draft(?:[_-]?fast)?|drafting)$/i.test(tt)) {
     return true;
   }
-  /* Bare partnerSyncLean is handled by wantsPartnerSyncLean (+ NYV_ALLOW_NSP_NYM_LEAN).
+  /* Bare partnerSyncLean is handled by wantsPartnerSyncLean (+ JRX_ALLOW_NSP_NYM_LEAN).
    * Do not treat the flag alone as SLA here — that would bypass best-outcome Queen for all lean opts. */
   const agent = String(opts?.agentKey ?? body.agentKey ?? '').toLowerCase();
   if (agent === 'legal-project-manager' && /workflow|suggest|intake/i.test(tt + String(body.prompt || '').slice(0, 80))) {
@@ -867,7 +867,7 @@ export function isPartnerSerpOnlyFastTask(
  *
  * Two SLA modes:
  * - SERP-only (web-search / workflow-suggest): no RAG/memory/CoT — live search budget.
- * - Grounded-fast (only when NYV_NSP_COUNSEL_QUEEN=0): legal-chat-fast / legal-draft-fast
+ * - Grounded-fast (only when JRX_NSP_COUNSEL_QUEEN=0): legal-chat-fast / legal-draft-fast
  *   keep RAG + citations + memory; skip CoT/Queen (~15–45s).
  * Default: counsel/draft use full Queen + CoT (NV-NSP-COUNSEL-QUEEN-001).
  */
@@ -965,11 +965,11 @@ export function resolveNspNymBestOutcomeQuality(
 }
 
 /**
- * Opt-in lean sync path: body.partnerSyncLean / header X-NYV-Partner-Sync-Lean=1
- * plus extract/analyze-style taskType. Default for NYV-dependent platforms is FULL Queen.
+ * Opt-in lean sync path: body.partnerSyncLean / header X-JRX-Partner-Sync-Lean=1
+ * plus extract/analyze-style taskType. Default for JRX-dependent platforms is FULL Queen.
  * SLA fast tasks (web-search / workflow-suggest) always lean — even for NSP/NYM —
  * so Hub / workflows never burn 90s+ on Queen+RAG.
- * Other lean opts still need NYV_ALLOW_NSP_NYM_LEAN=1 under best-outcome.
+ * Other lean opts still need JRX_ALLOW_NSP_NYM_LEAN=1 under best-outcome.
  */
 export function wantsPartnerSyncLean(
   req: Request,
@@ -979,11 +979,11 @@ export function wantsPartnerSyncLean(
     return true;
   }
   if (wantsNspNymBestOutcome(req)) {
-    const allowLean = String(process.env.NYV_ALLOW_NSP_NYM_LEAN || '0').trim() === '1';
+    const allowLean = String(process.env.JRX_ALLOW_NSP_NYM_LEAN || '0').trim() === '1';
     if (!allowLean) return false;
   }
   const body = req.body as Record<string, unknown> | undefined;
-  const header = String(req.headers['x-nyv-partner-sync-lean'] ?? '').toLowerCase();
+  const header = String(req.headers['x-jrx-partner-sync-lean'] ?? '').toLowerCase();
   const opted =
     body?.partnerSyncLean === true
     || header === '1'
@@ -1003,25 +1003,25 @@ export function isNspPlatformRequest(req: Request): boolean {
 /**
  * NV-NSP-UNLIMITED-001 — NSP (any user / any org SDK key) skips product RPM,
  * org AI rate limits, credit/hourly caps, and daily token budgets.
- * Default ON. Escape: NYV_NSP_UNLIMITED=0. Safety ring / consent unchanged.
+ * Default ON. Escape: JRX_NSP_UNLIMITED=0. Safety ring / consent unchanged.
  */
 export function wantsNspUnlimited(req: Request): boolean {
   if (!isNspPlatformRequest(req)) return false;
-  const v = String(process.env.NYV_NSP_UNLIMITED ?? '1').trim().toLowerCase();
+  const v = String(process.env.JRX_NSP_UNLIMITED ?? '1').trim().toLowerCase();
   return !(v === '0' || v === 'false' || v === 'off');
 }
 
 /**
  * NV-PARTNER-DEMO-UNLIMITED-001 — Ecosystem partners skip product credit/hourly
  * caps and get a high maxTokens floor. NSP is always included via NV-NSP-UNLIMITED-001.
- * Default ON when best-outcome is active. Escape: NYV_PARTNER_DEMO_UNLIMITED=0
- * (does not disable NSP unlimited unless NYV_NSP_UNLIMITED=0).
+ * Default ON when best-outcome is active. Escape: JRX_PARTNER_DEMO_UNLIMITED=0
+ * (does not disable NSP unlimited unless JRX_NSP_UNLIMITED=0).
  * Safety ring / consent / secrets guards remain enforced.
  */
 export function wantsPartnerDemoUnlimited(req: Request): boolean {
   if (wantsNspUnlimited(req)) return true;
   if (!wantsNspNymBestOutcome(req)) return false;
-  const v = String(process.env.NYV_PARTNER_DEMO_UNLIMITED ?? '1').trim().toLowerCase();
+  const v = String(process.env.JRX_PARTNER_DEMO_UNLIMITED ?? '1').trim().toLowerCase();
   return !(v === '0' || v === 'false' || v === 'off');
 }
 
@@ -1029,9 +1029,9 @@ export function wantsPartnerDemoUnlimited(req: Request): boolean {
  * HTTP middleware / SDK gateway: skip rate-limit enforcement for NSP (and
  * partner demo-unlimited when sdkContext already identifies the platform).
  */
-/** Caselaw-worker → NYV gateway (CNR SSOT); uses X-NYV-Platform: nys + server SDK key. */
+/** Caselaw-worker → JRX gateway (CNR SSOT); uses X-JRX-Platform: nys + server SDK key. */
 export function isNyayasearchGatewayRequest(req: Request): boolean {
-  const platform = String(req.headers['x-nyv-platform'] || '').trim().toLowerCase();
+  const platform = String(req.headers['x-jrx-platform'] || '').trim().toLowerCase();
   if (platform !== 'nys' && !platform.includes('nyayasearch')) return false;
   const key = String(req.headers['x-api-key'] || '').trim();
   return key.length > 8;
@@ -1055,15 +1055,15 @@ export interface PartnerServingProfile {
 
 /**
  * Token + serving profile for NSP/NYM/ecosystem AI (quality-first demo mode).
- * Env: NYV_PARTNER_MAX_TOKENS_FLOOR (default 16384), NYV_PARTNER_SERVING_TIER (default enterprise).
+ * Env: JRX_PARTNER_MAX_TOKENS_FLOOR (default 16384), JRX_PARTNER_SERVING_TIER (default enterprise).
  */
 export function resolvePartnerServingProfile(req: Request): PartnerServingProfile {
   const demoUnlimited = wantsPartnerDemoUnlimited(req);
-  const floorRaw = Number(process.env.NYV_PARTNER_MAX_TOKENS_FLOOR || 16_384);
+  const floorRaw = Number(process.env.JRX_PARTNER_MAX_TOKENS_FLOOR || 16_384);
   const maxTokensFloor = Number.isFinite(floorRaw) && floorRaw > 0
     ? Math.min(128_000, Math.max(2_048, Math.floor(floorRaw)))
     : 16_384;
-  const tier = String(process.env.NYV_PARTNER_SERVING_TIER || 'enterprise').trim() || 'enterprise';
+  const tier = String(process.env.JRX_PARTNER_SERVING_TIER || 'enterprise').trim() || 'enterprise';
   const betaFloor = betaPartnerMaxTokensFloor();
   const ecosystem = demoUnlimited || wantsNspNymBestOutcome(req);
   const partnerFloor = isBetaQualityFirst()
@@ -1092,8 +1092,8 @@ export function resolvePartnerMemoryUserId(
   const authUser = (req as Request & { user?: { id?: string | number; userId?: string | number; orgId?: string | number; organizationId?: string | number } }).user;
 
   const headerUser = String(
-    req.headers['x-nyv-user-id']
-    ?? req.headers['x-nv-user-id']
+    req.headers['x-jrx-user-id']
+    ?? req.headers['x-jrx-user-id']
     ?? req.headers['x-customer-user-id']
     ?? req.headers['x-user-id']
     ?? '',
@@ -1160,7 +1160,7 @@ export function resolvePartnerMaxOutputTokens(req: Request, requested?: number |
   if (isPartnerExplicitFastChatAlias(tt)) {
     const chatFastFloor = isBetaQualityFirst()
       ? betaPartnerChatFastFloor()
-      : envPartnerToken('NYV_PARTNER_MAX_TOKENS_CHAT_FAST', 768);
+      : envPartnerToken('JRX_PARTNER_MAX_TOKENS_CHAT_FAST', 768);
     return Math.max(asked > 0 ? asked : 0, chatFastFloor);
   }
 
@@ -1204,7 +1204,7 @@ export function resolvePartnerMaxOutputTokens(req: Request, requested?: number |
       return Math.max(asked > 0 ? asked : 0, floor);
     }
     const envCap = isPartnerExplicitFastDraftAlias(tt)
-      ? envPartnerToken('NYV_PARTNER_MAX_TOKENS_DRAFT_FAST', registryFloor)
+      ? envPartnerToken('JRX_PARTNER_MAX_TOKENS_DRAFT_FAST', registryFloor)
       : registryFloor;
     const floor = Math.max(registryFloor, envCap);
     return Math.max(asked > 0 ? asked : 0, floor);
@@ -1217,16 +1217,16 @@ export function resolvePartnerMaxOutputTokens(req: Request, requested?: number |
   const draft = /draft|document-draft|pleading|petition|notice|affidavit|paper-book/i.test(tt);
   const chatFloor = isBetaQualityFirst()
     ? betaPartnerChatFloor()
-    : envPartnerToken('NYV_PARTNER_MAX_TOKENS_CHAT', 8_192);
+    : envPartnerToken('JRX_PARTNER_MAX_TOKENS_CHAT', 8_192);
   const fastFloor = isBetaQualityFirst()
     ? betaPartnerFastFloor()
-    : envPartnerToken('NYV_PARTNER_MAX_TOKENS_FAST', 2_048);
+    : envPartnerToken('JRX_PARTNER_MAX_TOKENS_FAST', 2_048);
   const draftFastFloor = isBetaQualityFirst()
     ? betaPartnerDraftFastFloor()
-    : envPartnerToken('NYV_PARTNER_MAX_TOKENS_DRAFT_FAST', 4_096);
+    : envPartnerToken('JRX_PARTNER_MAX_TOKENS_DRAFT_FAST', 4_096);
   const chatFastFloor = isBetaQualityFirst()
     ? betaPartnerChatFastFloor()
-    : envPartnerToken('NYV_PARTNER_MAX_TOKENS_CHAT_FAST', 768);
+    : envPartnerToken('JRX_PARTNER_MAX_TOKENS_CHAT_FAST', 768);
   const floor = isPartnerExplicitFastDraftAlias(tt)
     ? draftFastFloor
     : isPartnerExplicitFastChatAlias(tt)

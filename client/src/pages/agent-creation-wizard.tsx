@@ -586,7 +586,7 @@ Language: {{language}} | Adaptation Threshold: Auto`
 // ──────────────────────────────────────────────────────────────────────────────
 
 const JURISDICTIONS = ['IN', 'UK', 'GCC', 'EU', 'US', 'SG'];
-const PLATFORMS_LIST = ['Nyayamitra™', 'NS Professional™', 'NS Institutional™', 'NS Academy™', 'NS Governance™', 'All Platforms'];
+const PLATFORMS_LIST = ['Jurexio Citizen', 'NS Professional™', 'NS Institutional™', 'NS Academy™', 'NS Governance™', 'All Platforms'];
 const PRACTICE_AREAS = ['Constitutional Law', 'Criminal Law', 'Corporate & Commercial', 'Civil Litigation', 'Family Law', 'IP Law', 'Tax Law', 'Labour & Employment', 'Real Estate & Property', 'International Law', 'Data Privacy & Cybersecurity', 'Regulatory & Compliance'];
 const LLM_OPTIONS = [
   // OpenAI — GPT-4.1 Series (Apr 2025, 1M context, real API IDs)
@@ -716,7 +716,7 @@ export default function AgentCreationWizard() {
     upd('testResponse', '');
     try {
       // Canonical orchestrated LLM endpoint (router → SLM → LLM fallback w/ PII redaction).
-      // Earlier `/api/jrx/llm/completions` returned NYV-404 because that path was
+      // Earlier `/api/jrx/llm/completions` returned JRX-404 because that path was
       // never mounted; the supported JWT-auth path is `/api/jrx/orchestrate`.
       const res = await fetch(nv('orchestrate'), {
         method: 'POST',

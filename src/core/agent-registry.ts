@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Jurexio Agent Registry v9.0
  * Agent management with readiness states and A2A bus

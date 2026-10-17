@@ -143,29 +143,29 @@ export const api = {
 };
 
 // Enhanced Jurexio orchestration with intelligent LLM selection
-export const nyayavigyaOrchestration = {
-  processRequest: (data: any) => apiRequest('/enhanced-nyayavigya/process', {
+export const jurexioOrchestration = {
+  processRequest: (data: any) => apiRequest('/enhanced-jurexio/process', {
     method: 'POST',
     body: JSON.stringify(data)
   }),
-  getAgentStatus: () => apiRequest('/enhanced-nyayavigya/status'),
-  getProviders: () => apiRequest('/enhanced-nyayavigya/providers/benchmarks'),
-  getMetrics: () => apiRequest('/enhanced-nyayavigya/metrics'),
-  recommendLLM: (data: any) => apiRequest('/enhanced-nyayavigya/recommend-llm', {
+  getAgentStatus: () => apiRequest('/enhanced-jurexio/status'),
+  getProviders: () => apiRequest('/enhanced-jurexio/providers/benchmarks'),
+  getMetrics: () => apiRequest('/enhanced-jurexio/metrics'),
+  recommendLLM: (data: any) => apiRequest('/enhanced-jurexio/recommend-llm', {
     method: 'POST',
     body: JSON.stringify(data)
   }),
-  routeTask: (data: any) => apiRequest('/enhanced-nyayavigya/route-task', {
+  routeTask: (data: any) => apiRequest('/enhanced-jurexio/route-task', {
     method: 'POST',
     body: JSON.stringify(data)
   }),
-  testRedundancy: (data: any) => apiRequest('/enhanced-nyayavigya/test-redundancy', {
+  testRedundancy: (data: any) => apiRequest('/enhanced-jurexio/test-redundancy', {
     method: 'POST',
     body: JSON.stringify(data)
   }),
 
   // Legacy endpoints for backward compatibility
-  createProject: (data: any) => apiRequest('/enhanced-nyayavigya/route-task', {
+  createProject: (data: any) => apiRequest('/enhanced-jurexio/route-task', {
     method: 'POST',
     body: JSON.stringify({
       component: 'software-dev',
@@ -173,7 +173,7 @@ export const nyayavigyaOrchestration = {
       payload: data
     })
   }),
-  enhancePrompt: (data: any) => apiRequest('/enhanced-nyayavigya/route-task', {
+  enhancePrompt: (data: any) => apiRequest('/enhanced-jurexio/route-task', {
     method: 'POST',
     body: JSON.stringify({
       component: 'content-creation',
@@ -181,7 +181,7 @@ export const nyayavigyaOrchestration = {
       payload: data
     })
   }),
-  testProviders: (data: any) => apiRequest('/enhanced-nyayavigya/test-redundancy', {
+  testProviders: (data: any) => apiRequest('/enhanced-jurexio/test-redundancy', {
     method: 'POST',
     body: JSON.stringify({
       task: 'Provider connectivity test',

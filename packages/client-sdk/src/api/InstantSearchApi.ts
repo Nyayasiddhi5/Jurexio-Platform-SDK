@@ -2,12 +2,12 @@
  * InstantSearchApi — facade over Knowledge Plane proxies (no dedicated /instant route).
  * NSP typeahead: statutes + caselaw (+ acts catalog).
  */
-import type { NyvHttpClient } from '../NyvClient.js';
-import type { NyvJurisdiction } from '../types/index.js';
+import type { JrxHttpClient } from '../JrxClient.js';
+import type { JrxJurisdiction } from '../types/index.js';
 import { KnowledgeApi } from './KnowledgeApi.js';
 
 export interface InstantSearchOptions {
-  jurisdiction?: NyvJurisdiction | string;
+  jurisdiction?: JrxJurisdiction | string;
   limit?: number;
   /** Caselaw backend: fts (snappy typeahead) | hybrid (RRF). */
   mode?: 'fts' | 'hybrid';
@@ -17,7 +17,7 @@ export interface InstantSearchOptions {
 export class InstantSearchApi {
   private readonly knowledge: KnowledgeApi;
 
-  constructor(private readonly http: NyvHttpClient) {
+  constructor(private readonly http: JrxHttpClient) {
     this.knowledge = new KnowledgeApi(http);
   }
 

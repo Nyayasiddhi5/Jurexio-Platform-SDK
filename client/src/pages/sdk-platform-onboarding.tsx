@@ -107,7 +107,7 @@ function StepIdentity({ data, onChange }: { data: IdentityData; onChange: (d: Id
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="bg-slate-100 border-slate-200">
-              <SelectItem value="nyayamitra">Nyayamitra™</SelectItem>
+              <SelectItem value="jurexio-citizen">Jurexio Citizen</SelectItem>
               <SelectItem value="nyayasiddhi-professional">Jurexio Professional™</SelectItem>
               <SelectItem value="nyayasiddhi-institution">Jurexio Institution™</SelectItem>
               <SelectItem value="nyayasiddhi-ministry">Jurexio Ministry™</SelectItem>

@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * Jurexio Enterprise Platform — Platform Registry Routes
- * NYV-PLATFORMS-001
+ * JRX-PLATFORMS-001
  *
  * Manages the Jurexio ecosystem platforms as SDK applications.
  * Each platform is an nv_sdk_application with platform_type set.
@@ -19,7 +19,7 @@
  *  GET    /api/jrx/platforms/:id/usage          — usage metrics for platform
  *  DELETE /api/jrx/platforms/:id                — remove platform (soft delete)
  *
- * NYV-PLATFORMS-500 fix (2026-06-03): this router previously used the
+ * JRX-PLATFORMS-500 fix (2026-06-03): this router previously used the
  * `@neondatabase/serverless` HTTP driver (`neon(DATABASE_URL)`) directly. That
  * driver speaks Neon's SQL-over-HTTP protocol, which the EC2 dev-edge RDS host
  * does NOT serve — so EVERY query 500'd (`fetch failed` / non-Neon host), which
@@ -57,7 +57,7 @@ const adminOnly = [authenticateToken, requireRole('super_admin')];
 // ─── Validation Schemas ───────────────────────────────────────────────────────
 
 const PlatformTypeEnum = z.enum([
-  'nyayamitra',
+  'jurexio-citizen',
   'nyayasiddhi-professional',
   'nsp-mobile',
   'nyayasiddhi-institution',
@@ -111,7 +111,7 @@ const CreatePlatformSchema = z.object({
   rate_limits_config: RateLimitsSchema.optional(),
 });
 
-// ─── Schema self-heal + ecosystem seed (NYV-PLATFORMS-500) ─────────────────────
+// ─── Schema self-heal + ecosystem seed (JRX-PLATFORMS-500) ─────────────────────
 
 let _ensured = false;
 let _appCols: Set<string> | null = null;
@@ -131,8 +131,8 @@ const ECOSYSTEM_SEED: Array<{
   modules_enabled: Record<string, boolean>;
 }> = [
   {
-    name: 'Nyayamitra', display_name: 'Nyayamitra (Citizen Legal Aid)',
-    platform_type: 'nyayamitra', tier: 'pro', jurisdiction: 'IN', jurisdictions: ['IN'],
+    name: 'Jurexio Citizen', display_name: 'Jurexio Citizen (Citizen Legal Aid)',
+    platform_type: 'jurexio-citizen', tier: 'pro', jurisdiction: 'IN', jurisdictions: ['IN'],
     environment: 'production',
     modules_enabled: { clawdbot: true, openbot: false, automateai: false, twindesk: false, skillshop: false, nyayarag: true, doc_intelligence: true, voice_ai: true, hitl: true, sdk_intelligence: false },
   },
@@ -325,7 +325,7 @@ router.get('/:id', async (req: Request, res: Response) => {
     const result = await db.execute(sql`SELECT * FROM nv_sdk_applications WHERE id = ${id}`);
     const rows = extractRows<Record<string, unknown>>(result);
     if (!rows.length) {
-      res.status(404).json({ error: 'NYV-PLAT-404: Platform not found', id });
+      res.status(404).json({ error: 'JRX-PLAT-404: Platform not found', id });
       return;
     }
     const keyResult = await db.execute(sql`
@@ -356,7 +356,7 @@ router.get('/:id', async (req: Request, res: Response) => {
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     logger.error('GET /platforms/:id error', { error: msg });
-    res.status(500).json({ error: 'NYV-PLAT-002: Failed to get platform', detail: msg });
+    res.status(500).json({ error: 'JRX-PLAT-002: Failed to get platform', detail: msg });
   }
 });
 
@@ -367,7 +367,7 @@ router.post('/', adminOnly, async (req: Request, res: Response) => {
   try {
     const parsed = CreatePlatformSchema.safeParse(req.body);
     if (!parsed.success) {
-      res.status(400).json({ error: 'NYV-PLAT-VAL-001: Validation failed', details: parsed.error.flatten() });
+      res.status(400).json({ error: 'JRX-PLAT-VAL-001: Validation failed', details: parsed.error.flatten() });
       return;
     }
     await ensureSchemaAndSeed();
@@ -418,7 +418,7 @@ router.post('/', adminOnly, async (req: Request, res: Response) => {
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     logger.error('POST /platforms error', { error: msg });
-    res.status(500).json({ error: 'NYV-PLAT-003: Failed to create platform', detail: msg });
+    res.status(500).json({ error: 'JRX-PLAT-003: Failed to create platform', detail: msg });
   }
 });
 
@@ -444,12 +444,12 @@ router.put('/:id', adminOnly, async (req: Request, res: Response) => {
       RETURNING *
     `);
     const rows = extractRows<Record<string, unknown>>(result);
-    if (!rows.length) { res.status(404).json({ error: 'NYV-PLAT-404: Platform not found' }); return; }
+    if (!rows.length) { res.status(404).json({ error: 'JRX-PLAT-404: Platform not found' }); return; }
     res.json(formatPlatform(rows[0]));
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     logger.error('PUT /platforms/:id error', { error: msg });
-    res.status(500).json({ error: 'NYV-PLAT-004: Failed to update platform', detail: msg });
+    res.status(500).json({ error: 'JRX-PLAT-004: Failed to update platform', detail: msg });
   }
 });
 
@@ -461,7 +461,7 @@ router.patch('/:id/status', adminOnly, async (req: Request, res: Response) => {
     const { id } = req.params;
     const schema = z.object({ is_active: z.boolean() });
     const parsed = schema.safeParse(req.body);
-    if (!parsed.success) { res.status(400).json({ error: 'NYV-PLAT-VAL-002: is_active boolean required' }); return; }
+    if (!parsed.success) { res.status(400).json({ error: 'JRX-PLAT-VAL-002: is_active boolean required' }); return; }
 
     const result = await db.execute(sql`
       UPDATE nv_sdk_applications
@@ -470,12 +470,12 @@ router.patch('/:id/status', adminOnly, async (req: Request, res: Response) => {
       RETURNING id, name, is_active, updated_at
     `);
     const rows = extractRows<Record<string, unknown>>(result);
-    if (!rows.length) { res.status(404).json({ error: 'NYV-PLAT-404: Platform not found' }); return; }
+    if (!rows.length) { res.status(404).json({ error: 'JRX-PLAT-404: Platform not found' }); return; }
     logger.info('Platform status updated', { id, is_active: parsed.data.is_active });
     res.json(rows[0]);
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    res.status(500).json({ error: 'NYV-PLAT-005: Failed to update status', detail: msg });
+    res.status(500).json({ error: 'JRX-PLAT-005: Failed to update status', detail: msg });
   }
 });
 
@@ -486,7 +486,7 @@ router.patch('/:id/modules', adminOnly, async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const parsed = ModulesSchema.safeParse(req.body);
-    if (!parsed.success) { res.status(400).json({ error: 'NYV-PLAT-VAL-003: Invalid modules payload' }); return; }
+    if (!parsed.success) { res.status(400).json({ error: 'JRX-PLAT-VAL-003: Invalid modules payload' }); return; }
 
     const result = await db.execute(sql`
       UPDATE nv_sdk_applications
@@ -496,12 +496,12 @@ router.patch('/:id/modules', adminOnly, async (req: Request, res: Response) => {
       RETURNING id, name, modules_enabled
     `);
     const rows = extractRows<Record<string, unknown>>(result);
-    if (!rows.length) { res.status(404).json({ error: 'NYV-PLAT-404: Platform not found' }); return; }
+    if (!rows.length) { res.status(404).json({ error: 'JRX-PLAT-404: Platform not found' }); return; }
     logger.info('Platform modules updated', { id, modules: parsed.data });
     res.json(rows[0]);
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    res.status(500).json({ error: 'NYV-PLAT-006: Failed to update modules', detail: msg });
+    res.status(500).json({ error: 'JRX-PLAT-006: Failed to update modules', detail: msg });
   }
 });
 
@@ -512,7 +512,7 @@ router.patch('/:id/llm-config', adminOnly, async (req: Request, res: Response) =
   try {
     const { id } = req.params;
     const parsed = LlmConfigSchema.partial().safeParse(req.body);
-    if (!parsed.success) { res.status(400).json({ error: 'NYV-PLAT-VAL-004: Invalid LLM config' }); return; }
+    if (!parsed.success) { res.status(400).json({ error: 'JRX-PLAT-VAL-004: Invalid LLM config' }); return; }
 
     const result = await db.execute(sql`
       UPDATE nv_sdk_applications
@@ -522,11 +522,11 @@ router.patch('/:id/llm-config', adminOnly, async (req: Request, res: Response) =
       RETURNING id, name, llm_config
     `);
     const rows = extractRows<Record<string, unknown>>(result);
-    if (!rows.length) { res.status(404).json({ error: 'NYV-PLAT-404: Platform not found' }); return; }
+    if (!rows.length) { res.status(404).json({ error: 'JRX-PLAT-404: Platform not found' }); return; }
     res.json(rows[0]);
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    res.status(500).json({ error: 'NYV-PLAT-007: Failed to update LLM config', detail: msg });
+    res.status(500).json({ error: 'JRX-PLAT-007: Failed to update LLM config', detail: msg });
   }
 });
 
@@ -537,7 +537,7 @@ router.patch('/:id/rate-limits', adminOnly, async (req: Request, res: Response) 
   try {
     const { id } = req.params;
     const parsed = RateLimitsSchema.partial().safeParse(req.body);
-    if (!parsed.success) { res.status(400).json({ error: 'NYV-PLAT-VAL-005: Invalid rate limits' }); return; }
+    if (!parsed.success) { res.status(400).json({ error: 'JRX-PLAT-VAL-005: Invalid rate limits' }); return; }
 
     const result = await db.execute(sql`
       UPDATE nv_sdk_applications
@@ -547,11 +547,11 @@ router.patch('/:id/rate-limits', adminOnly, async (req: Request, res: Response) 
       RETURNING id, name, rate_limits_config
     `);
     const rows = extractRows<Record<string, unknown>>(result);
-    if (!rows.length) { res.status(404).json({ error: 'NYV-PLAT-404: Platform not found' }); return; }
+    if (!rows.length) { res.status(404).json({ error: 'JRX-PLAT-404: Platform not found' }); return; }
     res.json(rows[0]);
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    res.status(500).json({ error: 'NYV-PLAT-008: Failed to update rate limits', detail: msg });
+    res.status(500).json({ error: 'JRX-PLAT-008: Failed to update rate limits', detail: msg });
   }
 });
 
@@ -563,7 +563,7 @@ router.patch('/:id/agents', adminOnly, async (req: Request, res: Response) => {
     const { id } = req.params;
     const schema = z.object({ agents_allowed: z.array(z.string()) });
     const parsed = schema.safeParse(req.body);
-    if (!parsed.success) { res.status(400).json({ error: 'NYV-PLAT-VAL-006: agents_allowed array required' }); return; }
+    if (!parsed.success) { res.status(400).json({ error: 'JRX-PLAT-VAL-006: agents_allowed array required' }); return; }
 
     const result = await db.execute(sql`
       UPDATE nv_sdk_applications
@@ -573,11 +573,11 @@ router.patch('/:id/agents', adminOnly, async (req: Request, res: Response) => {
       RETURNING id, name, agents_allowed
     `);
     const rows = extractRows<Record<string, unknown>>(result);
-    if (!rows.length) { res.status(404).json({ error: 'NYV-PLAT-404: Platform not found' }); return; }
+    if (!rows.length) { res.status(404).json({ error: 'JRX-PLAT-404: Platform not found' }); return; }
     res.json(rows[0]);
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    res.status(500).json({ error: 'NYV-PLAT-009: Failed to update agents', detail: msg });
+    res.status(500).json({ error: 'JRX-PLAT-009: Failed to update agents', detail: msg });
   }
 });
 
@@ -632,7 +632,7 @@ router.get('/:id/usage', async (req: Request, res: Response) => {
     });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    res.status(500).json({ error: 'NYV-PLAT-010: Failed to get usage', detail: msg });
+    res.status(500).json({ error: 'JRX-PLAT-010: Failed to get usage', detail: msg });
   }
 });
 
@@ -649,12 +649,12 @@ router.delete('/:id', adminOnly, async (req: Request, res: Response) => {
       RETURNING id, name, is_active
     `);
     const rows = extractRows<Record<string, unknown>>(result);
-    if (!rows.length) { res.status(404).json({ error: 'NYV-PLAT-404: Platform not found' }); return; }
+    if (!rows.length) { res.status(404).json({ error: 'JRX-PLAT-404: Platform not found' }); return; }
     logger.info('Platform deactivated', { id });
     res.json({ message: 'Platform deactivated', platform: rows[0] });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    res.status(500).json({ error: 'NYV-PLAT-011: Failed to deactivate platform', detail: msg });
+    res.status(500).json({ error: 'JRX-PLAT-011: Failed to deactivate platform', detail: msg });
   }
 });
 

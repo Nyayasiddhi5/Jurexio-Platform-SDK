@@ -1,7 +1,7 @@
 /**
  * NV-LLM-BREAKER-SHARED-001 — shared provider gate (breaker + unified quarantine).
  *
- * These tests exercise the per-pod fallback path (no `NYV_REDIS_TCP_URL`), which
+ * These tests exercise the per-pod fallback path (no `JRX_REDIS_TCP_URL`), which
  * is the path that must behave correctly when Redis is unavailable: a Redis
  * outage has to degrade to "at least as good as the old in-process Map", never
  * to "no protection at all".
@@ -37,9 +37,9 @@ const SAVED_ENV = { ...process.env };
 
 beforeEach(async () => {
   // Force the per-pod path and make the thresholds fast enough to test.
-  delete process.env.NYV_REDIS_TCP_URL;
+  delete process.env.JRX_REDIS_TCP_URL;
   delete process.env.REDIS_URL;
-  process.env.NYV_LLM_BREAKER_FAILURES = '4';
+  process.env.JRX_LLM_BREAKER_FAILURES = '4';
   await __resetProviderBreaker();
 });
 

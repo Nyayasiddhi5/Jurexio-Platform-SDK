@@ -1,6 +1,6 @@
 /**
  * Jurexio Contract Lifecycle Management (CLM) Service v3.1.2
- * NYV-SVC-CLM-001
+ * JRX-SVC-CLM-001
  *
  * End-to-end contract lifecycle management across all 6 jurisdictions.
  * Powers Jurexio Institutional™ contract governance workflows.

@@ -1,6 +1,6 @@
 /**
  * Jurexio White-Label Service v3.1.2
- * NYV-SVC-WHITE-LABEL-001
+ * JRX-SVC-WHITE-LABEL-001
  *
  * Enables SDK partners to deploy fully white-labeled legal AI products
  * under their own brand — powered by the Jurexio intelligence core.
@@ -16,7 +16,7 @@
  *
  * Supported White-Label Products:
  *   - Jurexio Professional™ (law firm SaaS)
- *   - Nyayamitra™ (citizen legal aid)
+ *   - Jurexio Citizen (citizen legal aid)
  *   - Jurexio Institutional™ (enterprise)
  *   - Jurexio Ministry™ (government)
  *   - Jurexio Academy™ (education)

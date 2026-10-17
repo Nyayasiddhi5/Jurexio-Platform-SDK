@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — Ecosystem demo flows
- * NYV-SCRIPT-ECOSYSTEM-DEMOS-001 (T-DLR-16)
+ * Jurexio Platform 3.1.2 — Ecosystem demo flows
+ * JRX-SCRIPT-ECOSYSTEM-DEMOS-001 (T-DLR-16)
  *
  * SDK-only smoke pack that drives 3 representative legal flows × 5 ecosystem
  * surfaces (pro / nym / ins / ace / min) = 15 orchestrate calls and asserts
@@ -8,22 +8,22 @@
  * (c) grounding gate verdict shape.
  *
  * Surfaces (consumer-facing brand → SDK tier mapping):
- *   pro = Nyayavigya Pro       (tier=pro, legal practitioners)
- *   nym = Nyayamitra            (tier=consumer, citizen access)
- *   ins = Nyayasiddhi-Insights  (tier=enterprise, analytics)
+ *   pro = Jurexio Pro       (tier=pro, legal practitioners)
+ *   nym = Jurexio Citizen            (tier=consumer, citizen access)
+ *   ins = Jurexio-Insights  (tier=enterprise, analytics)
  *   ace = Aceforce              (tier=enterprise, in-house counsel)
  *   min = Nyayamin              (tier=solo, single-lawyer SaaS)
  *
  * Run:
- *   NYV_GATEWAY_URL=http://localhost:5000 NV_API_KEY=... \
+ *   JRX_GATEWAY_URL=http://localhost:5000 NV_API_KEY=... \
  *     npx tsx scripts/jrx-seed-ecosystem-demos.ts
  */
 
-const GATEWAY = process.env.NYV_GATEWAY_URL || 'http://localhost:5000';
-const TOKEN   = process.env.NV_API_KEY || process.env.NYV_TEST_TOKEN || '';
+const GATEWAY = process.env.JRX_GATEWAY_URL || 'http://localhost:5000';
+const TOKEN   = process.env.NV_API_KEY || process.env.JRX_TEST_TOKEN || '';
 
 if (!TOKEN) {
-  console.error('  ✗ NV_API_KEY / NYV_TEST_TOKEN unset — cannot run');
+  console.error('  ✗ NV_API_KEY / JRX_TEST_TOKEN unset — cannot run');
   process.exit(2);
 }
 
@@ -86,7 +86,7 @@ async function runOne(flow: Flow, s: typeof SURFACES[number]): Promise<void> {
       headers: {
         'content-type': 'application/json',
         authorization: `Bearer ${TOKEN}`,
-        'x-nyv-platform': s.surface,
+        'x-jrx-platform': s.surface,
       },
       body: JSON.stringify({
         prompt: flow.prompt,

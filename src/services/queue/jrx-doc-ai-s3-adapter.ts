@@ -2,7 +2,7 @@
  * AWS S3 adapter for doc-ai-job-store � drop-in replacement for
  * blob backend for the convert job ledger.
  *
- * Use this on Cursor Cloud / AWS EC2 when NYV_S3_BUCKET / AWS_S3_BUCKET is set.
+ * Use this on Cursor Cloud / AWS EC2 when JRX_S3_BUCKET / AWS_S3_BUCKET is set.
  * The client uses the AWS SDK default credential chain (instance role / IAM
  * when no explicit keys are provided).
  */
@@ -25,25 +25,25 @@ export type DocAiBlobClient = {
 };
 
 function resolveBucket(): string | null {
-  const b = (process.env.NYV_S3_BUCKET || process.env.AWS_S3_BUCKET || '').trim();
+  const b = (process.env.JRX_S3_BUCKET || process.env.AWS_S3_BUCKET || '').trim();
   return b || null;
 }
 
 function resolveRegion(): string {
   return (
-    process.env.NYV_S3_REGION ||
+    process.env.JRX_S3_REGION ||
     process.env.AWS_BEDROCK_REGION ||
     process.env.AWS_REGION ||
     'ap-south-1'
   );
 }
 
-/** Build S3 client using instance role / default chain, or optional NYV_S3_* keys. */
+/** Build S3 client using instance role / default chain, or optional JRX_S3_* keys. */
 async function createS3Client(): Promise<any> {
   const { S3Client } = await import('@aws-sdk/client-s3');
   const region = resolveRegion();
-  const accessKeyId = (process.env.NYV_S3_ACCESS_KEY_ID || '').trim();
-  const secretAccessKey = (process.env.NYV_S3_SECRET_ACCESS_KEY || '').trim();
+  const accessKeyId = (process.env.JRX_S3_ACCESS_KEY_ID || '').trim();
+  const secretAccessKey = (process.env.JRX_S3_SECRET_ACCESS_KEY || '').trim();
   if (accessKeyId && secretAccessKey) {
     return new S3Client({
       region,
@@ -56,7 +56,7 @@ async function createS3Client(): Promise<any> {
 export async function createAwsS3DocAiBlobClient(): Promise<DocAiBlobClient | null> {
   const bucket = resolveBucket();
   if (!bucket) {
-    logger.info('AWS S3 doc-ai adapter skipped � no NYV_S3_BUCKET/AWS_S3_BUCKET');
+    logger.info('AWS S3 doc-ai adapter skipped � no JRX_S3_BUCKET/AWS_S3_BUCKET');
     return null;
   }
 

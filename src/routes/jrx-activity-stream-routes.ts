@@ -29,7 +29,7 @@ const router = Router();
 const logger = createLogger('./jrx-activity-stream');
 
 const HEARTBEAT_MS = 25_000;
-const JWT_SECRET = process.env.NYV_JWT_SECRET || process.env.JWT_SECRET || 'dev-secret';
+const JWT_SECRET = process.env.JRX_JWT_SECRET || process.env.JWT_SECRET || 'dev-secret';
 
 interface JwtUserPayload {
   id?: string | number;

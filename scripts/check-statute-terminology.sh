@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────────────────
-# Nyayavigya Platform 3.1.2 — Legal Terminology Linting Script
-# NYV-LINT-TERMINOLOGY-001
+# Jurexio Platform 3.1.2 — Legal Terminology Linting Script
+# JRX-LINT-TERMINOLOGY-001
 # T009 — Sprint 3
 #
 # Purpose: Detect bare IPC/CrPC references that should be replaced with
@@ -49,7 +49,7 @@ WARNINGS=0
 
 echo ""
 echo "═══════════════════════════════════════════════════════════════"
-echo "  Nyayavigya Platform 3.1.2 — Legal Terminology Linter"
+echo "  Jurexio Platform 3.1.2 — Legal Terminology Linter"
 echo "  T009 | Sprint 3 | Checking IPC/CrPC/Evidence Act references"
 echo "═══════════════════════════════════════════════════════════════"
 echo ""

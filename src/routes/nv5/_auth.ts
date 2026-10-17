@@ -8,15 +8,15 @@
  * `src/middleware/jrx-sdk-auth-header.ts` for header parsing.
  *
  * `delegateTo`: proxies the current request into a canonical router
- * mounted elsewhere (e.g. nv-sdk-multimodal-voice-routes,
- * nv-voice-ws-routes). This is how Batch B keeps NV-LLM-001 / NV-ARCH-001:
+ * mounted elsewhere (e.g. jrx-sdk-multimodal-voice-routes,
+ * jrx-voice-ws-routes). This is how Batch B keeps NV-LLM-001 / NV-ARCH-001:
  * the canonical chain is the ONE place provider calls happen, traversing
  * the safety ring; nv5 routes are thin auth+rename wrappers.
  *
  * Auth semantics for delegated paths (post-2026-05-10 review):
- *   - Multimodal canonical (nv-sdk-multimodal-voice-routes) auths via
+ *   - Multimodal canonical (jrx-sdk-multimodal-voice-routes) auths via
  *     `sdkGatewayAuth` — strict SDK-key only.
- *   - Voice canonical (nv-voice-ws-routes) auths via `requireSdkOrJwt` —
+ *   - Voice canonical (jrx-voice-ws-routes) auths via `requireSdkOrJwt` —
  *     SDK key OR session JWT. The /api/nv5/voice/* surface therefore
  *     INHERITS the SDK-OR-JWT semantics by design (intentional: voice
  *     streaming clients sometimes connect with a session JWT after the

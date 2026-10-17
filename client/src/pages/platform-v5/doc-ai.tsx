@@ -5,7 +5,7 @@ const cfg: NamespaceConfig = {
   slug: 'doc-ai',
   title: 'Platform v5 — Document AI',
   blurb:
-    'Session-10 Batch C document-AI surface — wires the previously-orphan nv-document-converter-service. Conversion-only; NV-LLM-001 does not apply because the converter is pure (no LLM/provider).',
+    'Session-10 Batch C document-AI surface — wires the previously-orphan jrx-document-converter-service. Conversion-only; NV-LLM-001 does not apply because the converter is pure (no LLM/provider).',
   apiPrefix: '/api/nv5/doc-ai',
   flagKeys: ['docAiConvert'],
   subServices: [

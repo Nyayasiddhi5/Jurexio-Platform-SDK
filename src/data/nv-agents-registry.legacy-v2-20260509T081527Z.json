@@ -18,8 +18,8 @@
     "lastUpdated": "2026-02-11",
     "deprecated": true,
     "deprecatedAt": "2026-04-04",
-    "deprecatedReason": "Superseded by nyayavigya-agents-v2-registry.json (SDK v2 + ROMA L5). This file retained for historical reference only.",
-    "supersededBy": "src/data/nyayavigya-agents-v2-registry.json",
+    "deprecatedReason": "Superseded by jurexio-agents-v2-registry.json (SDK v2 + ROMA L5). This file retained for historical reference only.",
+    "supersededBy": "src/data/jurexio-agents-v2-registry.json",
     "action": "DO NOT USE FOR PRODUCTION — use v2 registry only"
   },
   "tierSummary": {

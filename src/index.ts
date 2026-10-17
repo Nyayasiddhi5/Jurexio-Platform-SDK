@@ -100,7 +100,7 @@ import { mountStaticFrontends } from './gateway/static-serving.js';
 import { CORS_CONFIG, PLATFORM_VERSION } from './config/platform-config.js';
 
 // ============================================================
-// NV SDK CORE ROUTES (nv-* prefix)
+// NV SDK CORE ROUTES (jrx-* prefix)
 // ============================================================
 import { authRouter } from './routes/jrx-auth-routes.js';
 import { nvCsrfGuard, nvCsrfHeaders } from './middleware/jrx-csrf-middleware.js';
@@ -115,7 +115,7 @@ import { activityPublisher } from './middleware/jrx-activity-publisher.js';
 import nvGatewayRouter from './routes/jrx-gateway-routes.js';
 import nvEmbedAliasRouter from './routes/jrx-embed-alias-routes.js';
 // Session-10 Batch A — additive /api/nv5/orch/* sub-routers (flag-gated, default OFF).
-import { isNyvFeatureOn } from './config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from './config/jrx-feature-flags.js';
 import nv5OrchKbRouter from './routes/nv5-orch-kb.js';
 import nv5OrchContextRouter from './routes/nv5-orch-context.js';
 import nv5OrchMultimodalRagRouter from './routes/nv5-orch-multimodal-rag.js';
@@ -132,7 +132,7 @@ import nv5VoiceRouter from './routes/nv5/voice/index.js';
 // Session-10 Batch C — additive /api/nv5/{workflows,doc-ai}/* nested barrels.
 // Sub-routers are flag-gated INSIDE each barrel (default OFF). Workflow
 // engines are import-loaded here for wiring-audit reachability but their
-// loops do NOT auto-start at boot (see NYV-WORKFLOW-NO-AUTOSTART in
+// loops do NOT auto-start at boot (see JRX-WORKFLOW-NO-AUTOSTART in
 // autonomous-continuous-execution-engine.ts and continuous-execution-engine
 // lifecycle on POST /start).
 import nv5WorkflowsRouter from './routes/nv5/workflows/index.js';
@@ -143,7 +143,7 @@ import nv5DocAiRouter from './routes/nv5/doc-ai/index.js';
 // status). Read-only admin endpoints. Sub-routers are flag-gated INSIDE
 // the barrel (default OFF). The barrel is mounted unconditionally so the
 // wiring auditor sees a static-import edge to all 5 underlying services
-// (esp. nv-security-monitor whose existing `await import` is invisible to
+// (esp. jrx-security-monitor whose existing `await import` is invisible to
 // the BFS walker). With all 5 flags off the namespace returns 404.
 import nv5GovRouter from './routes/nv5/gov/index.js';
 // Session-11 Batch E — additive /api/nv5/legal-pipeline/* nested barrel
@@ -154,8 +154,8 @@ import nv5GovRouter from './routes/nv5/gov/index.js';
 // 5 underlying services. With all 5 flags off the namespace returns 404.
 import nv5LegalPipelineRouter from './routes/nv5/legal-pipeline/index.js';
 // Session-11 Batch F — additive /api/nv5/compliance/* nested barrel
-// wiring 3 previously-orphan services (nv-eu-ai-act-service, nv-pqc-service,
-// nv-federated-privacy-service). Read-only / deterministic admin endpoints.
+// wiring 3 previously-orphan services (jrx-eu-ai-act-service, jrx-pqc-service,
+// jrx-federated-privacy-service). Read-only / deterministic admin endpoints.
 // Sub-routers flag-gated INSIDE the barrel (default OFF). With all 3 flags
 // off the namespace returns 404.
 import nv5ComplianceRouter from './routes/nv5/compliance/index.js';
@@ -254,7 +254,7 @@ import nvContentRouter from './routes/jrx-content-routes.js';
 import nvNewServicesRouter from './routes/jrx-new-services-routes.js';
 import nvCompletionsRouter from './routes/jrx-completions-routes.js';
 import nvPatternsRouter from './routes/jrx-patterns-routes.js';
-import nvNyayaToolsRouter from './routes/jrx-nyaya-tools-routes.js';
+import nvNyayaToolsRouter from './routes/jrx-jrx-legal-tools-routes.js';
 import nvMcpConnectorRouter from './routes/jrx-mcp-connector-routes.js';
 import nvIntelligenceRouter from './routes/jrx-intelligence-routes.js';
 import nvTestingRouter from './routes/jrx-testing-routes.js';
@@ -274,7 +274,7 @@ import nvSkillsRouter from './routes/jrx-skills-routes.js';
 import nvDigitalTwinRouter from './routes/jrx-digital-twin-routes.js';
 import nvAguiStreamRouter from './routes/jrx-agui-stream-routes.js';
 import nvRazorpayRouter from './routes/jrx-razorpay-routes.js';
-import { featureFlagManager } from './services/nyv-feature-flag-manager.js';
+import { featureFlagManager } from './services/jrx-feature-flag-manager.js';
 import { PAYMENT_CONFIG } from './config/platform-config.js';
 
 // ============================================================
@@ -318,8 +318,8 @@ const logger = createLogger('index');
 // APPLICATION SETUP
 // ============================================================
 
-const NYV_PORT_GATEWAY = parseInt(process.env.NYV_PORT_GATEWAY || process.env.PORT || '5000');
-const NYV_PORT_ORCH    = parseInt(process.env.NYV_PORT_ORCH || '3001');
+const JRX_PORT_GATEWAY = parseInt(process.env.JRX_PORT_GATEWAY || process.env.PORT || '5000');
+const JRX_PORT_ORCH    = parseInt(process.env.JRX_PORT_ORCH || '3001');
 
 const app: Express = express();
 const server = http.createServer(app);
@@ -358,7 +358,7 @@ app.use(helmet({
         'https://api.sarvam.ai',
         'https://api.openai.com',
         'wss:', 'ws:',
-        ...(process.env.NYV_PUBLIC_API_URL ? [process.env.NYV_PUBLIC_API_URL] : []),
+        ...(process.env.JRX_PUBLIC_API_URL ? [process.env.JRX_PUBLIC_API_URL] : []),
       ],
       fontSrc: ["'self'", 'https://fonts.gstatic.com'],
       objectSrc: ["'none'"],
@@ -370,8 +370,8 @@ app.use(helmet({
   noSniff: true,
   referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
   crossOriginEmbedderPolicy: false,
-  // NYV-OPS-HELMET-CORP-001 (2026-05-01): SDK consumers (NyayaMitra,
-  // NYS-PRO, NYS-INS, NYS-ACE, NYS-MIN) embed gateway-served assets
+  // JRX-OPS-HELMET-CORP-001 (2026-05-01): SDK consumers (NyayaMitra,
+  // JRX-PRO, JRX-INS, JRX-ACE, JRX-MIN) embed gateway-served assets
   // and call the gateway from a different origin. Default 'same-origin'
   // CORP blocks cross-origin SDK fetches. 'cross-origin' is the
   // documented setting for an SDK gateway.
@@ -416,7 +416,7 @@ const ALLOWED_ORIGINS = new Set<string>([
 ].filter(Boolean));
 
 // Public-CORS gate: when NV_PUBLIC_CORS=true, allow any origin (no credentials).
-// Used so external backends (e.g. Nyayamitra) can call /api/jrx/orchestrate.
+// Used so external backends (e.g. Jurexio Citizen) can call /api/jrx/orchestrate.
 const NV_PUBLIC_CORS = process.env.NV_PUBLIC_CORS === 'true';
 
 app.use(cors({
@@ -427,7 +427,7 @@ app.use(cors({
     if (/^https?:\/\/([a-z0-9-]+\.)*nyayasiddhi\.online$/i.test(origin)) {
       return cb(null, true);
     }
-    if (/^https?:\/\/([a-z0-9-]+\.)*nyayavigya\.in$/i.test(origin)) {
+    if (/^https?:\/\/([a-z0-9-]+\.)*jurexio\.in$/i.test(origin)) {
       return cb(null, true);
     }
     if (NV_PUBLIC_CORS) return cb(null, true);
@@ -435,7 +435,7 @@ app.use(cors({
   },
   credentials: !NV_PUBLIC_CORS,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-NYV-Signature', 'X-Request-ID', 'X-NYV-SDK-Version', 'X-NYV-Jurisdiction', 'X-NSP-Inter-Secret', 'X-Inter-Service-Secret'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-JRX-Signature', 'X-Request-ID', 'X-JRX-SDK-Version', 'X-JRX-Jurisdiction', 'X-NSP-Inter-Secret', 'X-Inter-Service-Secret'],
   exposedHeaders: ['X-Request-ID', 'X-RateLimit-Remaining', 'X-RateLimit-Reset'],
   maxAge: 86400,
 }));
@@ -458,18 +458,18 @@ app.use('/api/jrx/', apiVersion);
 // NV-WIRING-BUDGET-001 Phase-1 wire-chain (2026-05-10) — feature-flag-gated
 // mounts for previously-orphan middleware. All default OFF.
 {
-  const { isNyvFeatureOn: _flag } = await import('./config/jrx-feature-flags.js');
+  const { isJrxFeatureOn: _flag } = await import('./config/jrx-feature-flags.js');
 
   // (1) Canonical request logger (replaces inline access-log line ~360 when ON)
   if (_flag('canonicalRequestLogger')) {
     app.use('/api/jrx/', nvCanonicalRequestLogger);
-    logger.info('[Phase-1/wire-chain] nv-request-logger MOUNTED');
+    logger.info('[Phase-1/wire-chain] jrx-request-logger MOUNTED');
   }
 
   // (2) OpenTelemetry-style tracing (sets x-trace-id + traceparent on responses)
   if (_flag('tracing')) {
     app.use('/api/jrx/', nvTracingMiddleware);
-    logger.info('[Phase-1/wire-chain] nv-tracing-middleware MOUNTED');
+    logger.info('[Phase-1/wire-chain] jrx-tracing-middleware MOUNTED');
   }
 
   // (4) Jurexio response-id remap (id → nyayasiddhi_*_id). HIGH BLAST RADIUS
@@ -477,14 +477,14 @@ app.use('/api/jrx/', apiVersion);
   //     so NV-core admin/health/agent endpoints stay byte-identical.
   if (_flag('nsResponseMap')) {
     app.use('/api/jrx/sdk/', nvNsResponseMapper());
-    logger.info('[Phase-1/wire-chain] nv-ns-response-mapper MOUNTED on /api/jrx/sdk/*');
+    logger.info('[Phase-1/wire-chain] jrx-ns-response-mapper MOUNTED on /api/jrx/sdk/*');
   }
 
   // (7) In-memory per-platform rate limiter — alternative to the Redis-backed
   //     limiter mounted below. Use ONLY if Redis is unavailable (dev only).
   if (_flag('platformRateLimiterInmem')) {
     app.use('/api/jrx/', nvPlatformRateLimiterInmem.middleware);
-    logger.info('[Phase-1/wire-chain] nv-per-platform-rate-limiter (in-mem) MOUNTED');
+    logger.info('[Phase-1/wire-chain] jrx-per-platform-rate-limiter (in-mem) MOUNTED');
   }
 }
 
@@ -512,13 +512,13 @@ app.use('/api/jrx/enterprise/', enterpriseRateLimit);
 app.use('/api/jrx/sdk/', sdkApiKeyRateLimit);
 
 // Redis-backed per-platform sliding-window limiter (platform_id × tier × endpoint × identity)
-// Fail-open if Redis unavailable; disable entirely with NYV_RATE_LIMITER=off.
+// Fail-open if Redis unavailable; disable entirely with JRX_RATE_LIMITER=off.
 // NV-WIRING-BUDGET-001 Phase-1 (2026-05-10) — mutual-exclusion with the in-mem
 // variant: if JRX_F_PLATFORM_RATE_LIMITER_INMEM=on, skip mounting Redis limiter
 // to avoid double-throttling. The in-mem variant is intended as a dev fallback
 // when Redis is unavailable, NOT to stack on top of Redis.
 {
-  const { isNyvFeatureOn: _flag } = await import('./config/jrx-feature-flags.js');
+  const { isJrxFeatureOn: _flag } = await import('./config/jrx-feature-flags.js');
   if (!_flag('platformRateLimiterInmem')) {
     app.use('/api/jrx/', createRedisPlatformRateLimiter());
   } else {
@@ -526,7 +526,7 @@ app.use('/api/jrx/sdk/', sdkApiKeyRateLimit);
   }
 }
 
-// ── NSP Response Signing (X-NYV-Signature on responses to NSP-originated requests) ─
+// ── NSP Response Signing (X-JRX-Signature on responses to NSP-originated requests) ─
 // Mounted before route handlers so res.send/res.end are wrapped for ALL /api/nv
 // responses including 4xx/5xx. Activates only when an NSP header (x-nsp-client,
 // x-nsp-tier, x-nsp-org) or an NSP origin is detected, so internal admin and
@@ -551,7 +551,7 @@ app.use('/api/jrx/auth/rotate', jwtRotationRouter);
 // have `req.user.organizationId` to compare against any claimed tenant id.
 //
 // IMPORTANT: SDK API-key auth (`sdkGatewayAuth`) runs INSIDE each SDK
-// sub-router (e.g. `nv-sdk-gateway-routes.ts`), AFTER this app-level mount has
+// sub-router (e.g. `jrx-sdk-gateway-routes.ts`), AFTER this app-level mount has
 // already executed. To catch cross-tenant attacks on SDK paths (valid API key
 // for tenant A + body claiming tenant B), `tenantIsolation` is ALSO mounted
 // inside every SDK sub-router immediately after `sdkGatewayAuth`. The two
@@ -559,11 +559,11 @@ app.use('/api/jrx/auth/rotate', jwtRotationRouter);
 //   • app-level here  -> JWT-authenticated /api/jrx/* paths
 //   • per-sub-router  -> /api/jrx/sdk/*, /api/jrx/gateway/*, /api/jrx/v1/sdk/*
 //
-// Behaviour gated by NYV_TENANT_ENFORCE:
+// Behaviour gated by JRX_TENANT_ENFORCE:
 //   • unset / "0"  -> no-op (default; safe rollout)
 //   • "1"          -> 403 if a request claims a tenant that does not match auth
 //   • "strict"     -> additionally 401 on /api/jrx/sdk/* with no auth tenant
-// See docs/v3.1.2/completed_docs/NYV-PLATFORM-GOVERNANCE.md for the rollout plan.
+// See docs/v3.1.2/completed_docs/JRX-PLATFORM-GOVERNANCE.md for the rollout plan.
 app.use('/api/jrx/', tenantIsolation);
 
 // ── Postgres RLS context binding (Task #29 deliverable #2) ────────────────
@@ -594,20 +594,20 @@ app.use('/api/jrx/', firmClauseRequestContext);
 // Non-fatal: failures are logged at debug level and do not affect the request.
 app.use('/api/jrx/', nvUsageMetering);
 
-// ── T-08: nv-security-monitor middleware (Phase C / JRX_F_SECURITY_MONITOR) ───
+// ── T-08: jrx-security-monitor middleware (Phase C / JRX_F_SECURITY_MONITOR) ───
 // Defaults OFF.  When ON, runs cross-session attack detection on requests that
 // upstream guardrails flagged for injection.  Mounted after auth + tenant
 // isolation so it has access to req.user and the org scope; runs before route
 // handlers so a SECURITY_BLOCK short-circuits before any business logic.
 {
-  const { isNyvFeatureOn: _flagOn } = await import('./config/jrx-feature-flags.js');
+  const { isJrxFeatureOn: _flagOn } = await import('./config/jrx-feature-flags.js');
   // Session-10 Batch D: JRX_F_GOV_SECURITY_MON is an OR-aliased flag for the
   // existing JRX_F_SECURITY_MONITOR — flipping either ON mounts the
   // middleware. Default for both: OFF (preserves current behaviour).
   if (_flagOn('securityMonitor') || _flagOn('govSecurityMon')) {
     const { securityMonitorMiddleware } = await import('./services/jrx-security-monitor.js');
     app.use('/api/jrx/', securityMonitorMiddleware);
-    logger.info('[Phase-C/T-08] nv-security-monitor middleware MOUNTED');
+    logger.info('[Phase-C/T-08] jrx-security-monitor middleware MOUNTED');
   }
 
   // Session-10 Batch D: JRX_F_GOV_ORG_RATELIMIT — mounts the per-org rate
@@ -666,10 +666,10 @@ app.use('/api/jrx/drift', driftMonitorRouter);
 //    SDK API key rate limiter. Auth is configurable per-request via env.
 app.use('/downloads/sdk', sdkDownloadsRouter);
 app.use('/api/jrx/health/full', nvHealthFullRouter);
-// NYV-OBS-ADMIN-HEALTH-001 (Task #28): /admin alias for the operator
+// JRX-OBS-ADMIN-HEALTH-001 (Task #28): /admin alias for the operator
 // dashboard — same data, separate path so the auth middleware can be
 // applied without breaking the public liveness/readiness probes.
-// NYV-OBS-ADMIN-AUTH-001 (Task #28 round 8): the admin payload
+// JRX-OBS-ADMIN-AUTH-001 (Task #28 round 8): the admin payload
 // contains breaker internals, queue depths, span latency buckets,
 // and provider health metadata that we do NOT want to expose
 // publicly. Gate behind authenticateToken + requireAdmin so only
@@ -677,7 +677,7 @@ app.use('/api/jrx/health/full', nvHealthFullRouter);
 // dashboard. /api/jrx/health/full remains unauthenticated for the
 // liveness/readiness path.
 app.use('/api/jrx/admin/health/full', authenticateToken, requireAdmin, nvHealthFullRouter);
-// NYV-NS-013 (P2 G1): super_admin-gated heap snapshot endpoint. requireAdmin
+// JRX-NS-013 (P2 G1): super_admin-gated heap snapshot endpoint. requireAdmin
 // here is the outer gate; the route additionally enforces role === 'super_admin'
 // on every handler. Heap dumps can leak secrets, so the double-gate is intentional.
 app.use('/api/jrx/admin/heap', authenticateToken, requireAdmin, nvAdminHeapRouter);
@@ -685,7 +685,7 @@ app.use('/api/jrx/admin/heap', authenticateToken, requireAdmin, nvAdminHeapRoute
 // forms reach /api/nv5/* sub-routes using only a Console JWT. The proxy
 // authenticates the JWT here, then re-dispatches to /api/nv5/* over loopback
 // with the canonical X-API-Key header set server-side from
-// NYV_CONSOLE_ADMIN_SDK_KEY. Gated to super_admin ONLY — this proxy holds a
+// JRX_CONSOLE_ADMIN_SDK_KEY. Gated to super_admin ONLY — this proxy holds a
 // platform-wide admin SDK secret server-side, so a plain `admin` user must
 // not be able to drive arbitrary /api/nv5/* operations through it. Audit-
 // chain entries record both the originating Console user_id and the masked
@@ -706,9 +706,9 @@ app.use('/api/jrx/storage', nvStorageFileRouter);
 // T012 Stream C — auto-generated OpenAPI 3.1 spec + Swagger UI shell.
 // JSON at /api/jrx/openapi.json (overrides the 308 redirect below for direct
 // reads), Swagger UI at /api/jrx/docs/swagger. Generated by
-// scripts/generate-openapi-spec.ts → docs/openapi/nyayavigya-v5.openapi.json.
+// scripts/generate-openapi-spec.ts → docs/openapi/jurexio-v5.openapi.json.
 app.use('/api/jrx', nvOpenApiRouter);
-// NYV-NS-008 (2026-05-01): canonical OpenAPI alias at /api/jrx/openapi.{json,yaml}
+// JRX-NS-008 (2026-05-01): canonical OpenAPI alias at /api/jrx/openapi.{json,yaml}
 // so external code-gen tools (openapi-typescript, prism, stoplight) can
 // auto-discover the spec without knowing the /docs/ subpath.
 //
@@ -747,14 +747,14 @@ app.use('/api/jrx/v1/sdk', sdkGatewayRoutes);
 // NV-WIRING-BUDGET-001 Session-10 Batch A — additive /api/nv5/orch/* surface.
 // Wires 7 previously-orphan AI orchestration files (knowledge-base-system,
 // context-engineering-service, advanced-multimodal-rag,
-// nyv-integration-plugin-manager, roma-l5-engine, bm25-agent-selector,
-// nv-protocol-registry-manifest) without disturbing the frozen v5 surface.
+// jrx-integration-plugin-manager, roma-l5-engine, bm25-agent-selector,
+// jrx-protocol-registry-manifest) without disturbing the frozen v5 surface.
 // Each sub-router mounted as a flat file (so scripts/generate-openapi-spec.ts
 // auto-discovers them) and flag-gated default OFF.
 //
-// Deferred orphans: provider-registry + nv-agentzero-adapter + nv-azentzero-service
+// Deferred orphans: provider-registry + jrx-agentzero-adapter + jrx-azentzero-service
 // (pre-existing missing google-provider.js + circuitBreakerManager export bugs);
-// nv-orchestration-facade (JurexioOrchestrationCoreV9 instantiated as `new`
+// jrx-orchestration-facade (JurexioOrchestrationCoreV9 instantiated as `new`
 // on a plain object + sharedAGUIService missing methods). Both queued for
 // dedicated repair tasks.
 //
@@ -768,18 +768,18 @@ app.use('/api/jrx/v1/sdk', sdkGatewayRoutes);
 // /health behind its own flag + sdkGatewayAuth. With all flags OFF the
 // entire namespace returns 404 — preserving zero behavior change on
 // no-env deploy.
-if (isNyvFeatureOn('aiOrchKb'))            app.use('/api/nv5/orch/kb', nv5OrchKbRouter);
-if (isNyvFeatureOn('aiOrchContext'))       app.use('/api/nv5/orch/context', nv5OrchContextRouter);
-if (isNyvFeatureOn('aiOrchMultimodalRag')) app.use('/api/nv5/orch/multimodal-rag', nv5OrchMultimodalRagRouter);
-if (isNyvFeatureOn('aiOrchPlugins'))       app.use('/api/nv5/orch/plugins', nv5OrchPluginsRouter);
-if (isNyvFeatureOn('aiOrchRoma'))          app.use('/api/nv5/orch/roma', nv5OrchRomaRouter);
-if (isNyvFeatureOn('aiOrchAgentSelect'))   app.use('/api/nv5/orch/agent-select', nv5OrchAgentSelectRouter);
-if (isNyvFeatureOn('aiOrchProtocols'))     app.use('/api/nv5/orch/protocols', nv5OrchProtocolsRouter);
+if (isJrxFeatureOn('aiOrchKb'))            app.use('/api/nv5/orch/kb', nv5OrchKbRouter);
+if (isJrxFeatureOn('aiOrchContext'))       app.use('/api/nv5/orch/context', nv5OrchContextRouter);
+if (isJrxFeatureOn('aiOrchMultimodalRag')) app.use('/api/nv5/orch/multimodal-rag', nv5OrchMultimodalRagRouter);
+if (isJrxFeatureOn('aiOrchPlugins'))       app.use('/api/nv5/orch/plugins', nv5OrchPluginsRouter);
+if (isJrxFeatureOn('aiOrchRoma'))          app.use('/api/nv5/orch/roma', nv5OrchRomaRouter);
+if (isJrxFeatureOn('aiOrchAgentSelect'))   app.use('/api/nv5/orch/agent-select', nv5OrchAgentSelectRouter);
+if (isJrxFeatureOn('aiOrchProtocols'))     app.use('/api/nv5/orch/protocols', nv5OrchProtocolsRouter);
 
 // Session-10 Batch B — additive /api/nv5/multimodal/* + /api/nv5/voice/*.
 // Wires 8 previously-orphan multimodal + voice service files (unity-avatar,
 // chatdollkit-avatar, enhanced-multimodal, advanced-3d-immersive, avatar-3d-system,
-// realtime-voice-streaming, voice-synthesis-engine, nyv-voice-service-enhanced).
+// realtime-voice-streaming, voice-synthesis-engine, jrx-voice-service-enhanced).
 // Per-feature flag gating happens INSIDE each barrel so individual sub-routes
 // are independently toggleable (JRX_F_MULTIMODAL_* / JRX_F_VOICE_*). With all
 // 8 flags OFF (default) the entire namespace returns 404 — frozen
@@ -794,7 +794,7 @@ app.use('/api/nv5/voice',      nv5VoiceRouter);
 
 // Session-10 Batch C — /api/nv5/workflows/* + /api/nv5/doc-ai/*.
 // Wires 3 previously-orphan files (autonomous-continuous-execution-engine,
-// continuous-execution-engine, nv-document-converter-service). Per-feature
+// continuous-execution-engine, jrx-document-converter-service). Per-feature
 // flag gating happens INSIDE each barrel (JRX_F_WORKFLOW_AUTONOMOUS /
 // _CONTINUOUS / JRX_F_DOC_AI_CONVERT). With all 3 flags OFF (default) the
 // entire namespace returns 404 and the workflow engines do not run loops
@@ -825,8 +825,8 @@ app.use('/api/nv5/compliance', nv5ComplianceRouter);
 app.use('/api/nv5/internal', nv5InternalRouter);
 
 // Session-10 Batch D — /api/nv5/gov/* (governance / compliance / cost).
-// Wires 5 previously-orphan files (maker-checker-service, nv-security-
-// monitor, nv-cost-optimization-suite, concurrency-governor, org-rate-
+// Wires 5 previously-orphan files (maker-checker-service, jrx-security-
+// monitor, jrx-cost-optimization-suite, concurrency-governor, org-rate-
 // limiter). Per-feature flag gating happens INSIDE the barrel
 // (JRX_F_GOV_MAKER_CHECKER / _SECURITY_MON / _COST_OPT / _CONCURRENCY /
 // _ORG_RATELIMIT). All routes are admin-scoped + read-only; no daemons,
@@ -834,7 +834,7 @@ app.use('/api/nv5/internal', nv5InternalRouter);
 // (default) the namespace returns 404.
 app.use('/api/nv5/gov',       nv5GovRouter);
 
-// Mount nv-statutes BEFORE nvCoreRouter so its /_summary route isn't shadowed
+// Mount jrx-statutes BEFORE nvCoreRouter so its /_summary route isn't shadowed
 // by core's /statutes/:code. Same dualSdkOrJwt auth on both.
 const { default: nvStatutesRouterEarly } = await import('./routes/jrx-statutes-routes.js');
 app.use('/api/jrx/statutes', nvStatutesRouterEarly);
@@ -868,21 +868,21 @@ app.use('/api/jrx/v311', nvV311Router);
 app.use('/api/jrx', nvGovernanceAggRouter);
 app.use(nvLongAiHttpTimeoutMiddleware());
 app.use('/api/jrx/orchestration', nvOrchestrationRouter);
-// NYV-AGUI-MOUNT-001 (Task #27): the AG-UI SSE streaming router (POST /)
+// JRX-AGUI-MOUNT-001 (Task #27): the AG-UI SSE streaming router (POST /)
 // MUST be mounted BEFORE the /api/nv catch-all alias below, otherwise the
 // catch-all's internal POST /stream (which expects `prompt`) shadows the
 // AG-UI route (which expects `task`) and the AG-UI Queen wiring is dead.
 app.use('/api/jrx/stream', nvAguiStreamRouter);
-// NYV-NS-016 (2026-05-05, post-architect): the dedicated consent router
+// JRX-NS-016 (2026-05-05, post-architect): the dedicated consent router
 // MUST mount before the catch-all /api/nv mount of nvOrchestrationRouter.
 // Otherwise GET /api/jrx/consent/purposes is captured by the orchestration
 // router's `GET /consent/:userId` (line 1023, auth-gated) which treats
 // "purposes" as a :userId and 401s the public endpoint. Bug found by
-// nv-credit-wallet.test.ts and nv-patterns-api.test.ts.
+// jrx-credit-wallet.test.ts and jrx-patterns-api.test.ts.
 app.use('/api/jrx/consent', nvConsentRouter);
 
 // task-357: BIPA §15(b) written-consent surface. Mounted alongside the
-// generic DPDPA consent router; the BIPA gate (nv-bipa-consent-gate.ts)
+// generic DPDPA consent router; the BIPA gate (jrx-bipa-consent-gate.ts)
 // reads from this router's table and blocks biometric capture pre-flight.
 app.use('/api/jrx/bipa/consent', nvBipaConsentRouter);
 
@@ -896,7 +896,7 @@ app.use('/api/jrx/bipa/consent', nvBipaConsentRouter);
 // router's `GET /hitl/:reviewId`, and `GET /orchestration/lineage/:requestId`
 // returns auditChain/summary at the top level, not under `data`.)
 
-// Contract alias: Nyayamitra SDK posts to /api/jrx/orchestrate directly
+// Contract alias: Jurexio Citizen SDK posts to /api/jrx/orchestrate directly
 app.use('/api/jrx', nvOrchestrationRouter);
 // NSP Pro mic — SDK dual-auth BEFORE JWT-gated legal-chat dashboard routes.
 app.use('/api/jrx/legal-chat/voice', nvLegalChatVoicePartnerRouter);
@@ -936,7 +936,7 @@ app.use('/api/jrx/observability', nvRouterStatsRouter);
 app.use('/api/jrx/agent-personas', nvAgentPersonaRouter);
 
 // SDK Management
-// NYV-UAT-FIX-006 (reviewer-flagged): the console router calls
+// JRX-UAT-FIX-006 (reviewer-flagged): the console router calls
 // `router.use(authenticateToken)` at module top, so any request that lands on
 // it without a JWT 401s before sub-mounts get a chance. The catch-all
 // `/api/jrx/sdk` mount must therefore come AFTER all the more-specific SDK
@@ -962,10 +962,10 @@ const jwtToSdkOrgBridge = bridgeJwtOrgToSdkContext;
 app.use('/api/jrx/v1/sdk/intelligence', jwtToSdkOrgBridge, sdkIntelligenceRoutes);
 app.use('/api/jrx/v1/sdk/llm', sdkLlmCatalogRoutes);
 app.use('/api/jrx/v1/sdk/cam', sdkCamRouter);
-app.use('/api/nyayavigya/cam', uiCamRouter);
+app.use('/api/jurexio/cam', uiCamRouter);
 
 // ── SDK Provision — initialization handshake + key validation (v3.1.2)
-// NYV-NS-015 (2026-05-01) — moved ABOVE the catch-all sdkConsoleRoutes mount.
+// JRX-NS-015 (2026-05-01) — moved ABOVE the catch-all sdkConsoleRoutes mount.
 // sdkConsoleRoutes calls `router.use(authenticateToken)` at module top, which
 // would otherwise 401 every SDK-key call to /provision, /provision/validate,
 // /provision/health, and /create-app. Mount this first so SDK-key auth
@@ -1037,7 +1037,7 @@ app.use('/api/jrx', nvCompletionsRouter);
 app.use('/api/jrx/patterns', nvPatternsRouter);
 
 // Nyaya Tools — NyayaGraph, NyayaWatch, NyayaCompare, NyayaAmend, Template, Timeline, Forensic, Trail, Agent Lifecycle, Memory, Citations (v3.1.2)
-app.use('/api/jrx/nyaya-tools', dualSdkOrJwt, nvNyayaToolsRouter);
+app.use('/api/jrx/jrx-legal-tools', dualSdkOrJwt, nvNyayaToolsRouter);
 app.use('/api/jrx/mcp/connectors', authenticateToken, nvMcpConnectorRouter);
 
 // Intelligence — Conflict Detector, Amendment Impact, Litigation Risk V2, Precedent Similarity, Regulatory, Collaboration (v3.1.2)
@@ -1045,7 +1045,7 @@ app.use('/api/jrx/mcp/connectors', authenticateToken, nvMcpConnectorRouter);
 // (NSP/NSPM/NSI/NSA/NSM/NYM/JRX) need to call /intelligence/* with their X-API-Key.
 // task-2026-05-13.
 app.use('/api/jrx/intelligence', dualSdkOrJwt, nvIntelligenceRouter);
-// NV-NSP-NYAYAWATCH-ALIAS-001: NSP integrations call /intelligence/nyayawatch/*; canonical path is /nyaya-tools/watch/* (same router + auth).
+// NV-NSP-NYAYAWATCH-ALIAS-001: NSP integrations call /intelligence/nyayawatch/*; canonical path is /jrx-legal-tools/watch/* (same router + auth).
 app.use('/api/jrx/intelligence/nyayawatch', dualSdkOrJwt, (req, res, next) => {
   const suffix = req.url === '/' ? '' : req.url;
   req.url = `/watch${suffix}`;
@@ -1119,7 +1119,7 @@ app.use('/api/jrx/gst', nvGSTRouter);
 app.use('/api/jrx/institutional', nvInstitutionalRouter);
 
 // DPDPA 2023 Consent Management (grant/withdraw/export/right-to-erasure)
-// NYV-NS-016: actual mount lives ABOVE the /api/nv catch-all (see line ~460);
+// JRX-NS-016: actual mount lives ABOVE the /api/nv catch-all (see line ~460);
 // the duplicate idempotent re-mount here is a no-op because Express routes
 // the first match — kept as a documentation marker.
 
@@ -1148,7 +1148,7 @@ try {
   await seedIsoControlsAndEvidence();
   // Task #312 — keep nv_iso_control_evidence rows fresh as new CAM
   // actions, audit events and security-scan runs land. Default cadence
-  // 15 min; override via NYV_ISO_EVIDENCE_REFRESH_MS. The scheduler is
+  // 15 min; override via JRX_ISO_EVIDENCE_REFRESH_MS. The scheduler is
   // unref()'d so it never blocks process shutdown.
   startIsoEvidenceRefresher();
 } catch (isoErr: any) {
@@ -1235,7 +1235,7 @@ app.use('/api/jrx/rag', nvRagRouter);
 app.use('/api/jrx/ecourts', nvECourtsRouter);
 
 // Task #114 — hydrate the runtime feature-flag overlay cache from
-// nv_runtime_flag_overrides and wire it into nv-feature-flags.flagOn().
+// nv_runtime_flag_overrides and wire it into jrx-feature-flags.flagOn().
 // Best-effort: failures fall through to env-only behaviour (the legacy path).
 import('./services/jrx-runtime-flag-overrides.js').then(async (m) => {
   try {
@@ -1268,7 +1268,7 @@ mountStaticFrontends(app);
 // ── 404 Handler ─────────────────────────────────────────────
 app.use('*', (req: Request, res: Response) => {
   res.status(404).json({
-    error: 'NYV-404: Route not found',
+    error: 'JRX-404: Route not found',
     path: req.originalUrl,
     platform: 'Jurexio Enterprise Platform 1.0.0',
     docs: '/api/jrx/docs'
@@ -1302,7 +1302,7 @@ async function start() {
     // `defaultSequenceFor` drops unresolvable ids silently, so this is the only
     // point where a drifted/retired model id is observable before it quietly
     // erodes the fallback depth the never-fail SLA depends on. Advisory unless
-    // NYV_VALIDATE_CASCADE_STRICT=1 (CI), because a single drifted id is a far
+    // JRX_VALIDATE_CASCADE_STRICT=1 (CI), because a single drifted id is a far
     // smaller incident than refusing to boot the gateway.
     try {
       const cascadeReport = assertCascadeModelIdsAtStartup();
@@ -1318,7 +1318,7 @@ async function start() {
     // Task #28: initialize structured tracer (Sentry if @sentry/node + DSN
     // present, JSONL fallback otherwise — never throws).
     try {
-      const { initTracer } = await import('./utils/nyv-tracer.js');
+      const { initTracer } = await import('./utils/jrx-tracer.js');
       await initTracer();
       logger.info('  ✓ Structured tracer initialized');
     } catch (tracerErr: any) {
@@ -1338,8 +1338,8 @@ async function start() {
 
     await loadDcNumericStatusMasterFromDb();
 
-    // Step 5b (NYV-NS-010, 2026-05-01): audit-log hash-chain self-test.
-    // Bootstrap-blocking unless NYV_AUDIT_CHAIN_TOLERATE=1.
+    // Step 5b (JRX-NS-010, 2026-05-01): audit-log hash-chain self-test.
+    // Bootstrap-blocking unless JRX_AUDIT_CHAIN_TOLERATE=1.
     await assertAuditChainIntegrityOnBoot();
     logger.info('  ✓ Audit hash-chain integrity verified');
 
@@ -1349,8 +1349,8 @@ async function start() {
     // any bootstrap (the referenced src/cron/index.ts never existed), so the
     // SOC2/ISO control CRY-006 "periodic integrity verification" had only the
     // one-shot boot self-test, not the recurring cron. Non-blocking; disable
-    // with NYV_HASHCHAIN_CRON_DISABLED=1.
-    if (!/^(1|true|yes|on)$/i.test(String(process.env.NYV_HASHCHAIN_CRON_DISABLED ?? ''))) {
+    // with JRX_HASHCHAIN_CRON_DISABLED=1.
+    if (!/^(1|true|yes|on)$/i.test(String(process.env.JRX_HASHCHAIN_CRON_DISABLED ?? ''))) {
       try {
         scheduleHashChainCron();
         logger.info('  ✓ Daily hash-chain verification cron scheduled (02:00 UTC)');
@@ -1359,9 +1359,9 @@ async function start() {
       }
     }
 
-    // Step 5c (NYV-NS-014, 2026-05-01): schedule vector-store eviction.
+    // Step 5c (JRX-NS-014, 2026-05-01): schedule vector-store eviction.
     // Non-blocking: failures log and the gateway continues. Disable with
-    // NYV_RAG_EVICT_DISABLED=1 (e.g. on read-only replicas).
+    // JRX_RAG_EVICT_DISABLED=1 (e.g. on read-only replicas).
     try {
       startVectorEvictionJob();
       logger.info('  ✓ Vector-store eviction scheduled');
@@ -1438,7 +1438,7 @@ async function start() {
        * `closeAllConnections()` once the grace period expires.
        */
       const drainMs = (() => {
-        const n = Number(process.env.NYV_SHUTDOWN_DRAIN_MS);
+        const n = Number(process.env.JRX_SHUTDOWN_DRAIN_MS);
         return Number.isFinite(n) && n >= 0 ? Math.min(60_000, Math.floor(n)) : 15_000;
       })();
       let shuttingDown = false;
@@ -1523,8 +1523,8 @@ async function start() {
       logger.warn(`  ⚠ Feature flag DB sync non-critical: ${ffErr.message}`);
     }
 
-    // Step 12d: Quantum Security Framework — activate if NYV_FEATURE_QUANTUM=true
-    if (process.env.NYV_FEATURE_QUANTUM === 'true') {
+    // Step 12d: Quantum Security Framework — activate if JRX_FEATURE_QUANTUM=true
+    if (process.env.JRX_FEATURE_QUANTUM === 'true') {
       try {
         const { quantumSecurityWiringService } = await import('./packages/security/quantum-security-wiring-service.js');
         const qStatus = await quantumSecurityWiringService.getSecurityStatus();
@@ -1539,7 +1539,7 @@ async function start() {
         logger.warn(`  ⚠ Quantum Security non-critical: ${qErr.message}`);
       }
     } else {
-      logger.info('  ℹ Quantum Security: simulation mode (set NYV_FEATURE_QUANTUM=true to activate)');
+      logger.info('  ℹ Quantum Security: simulation mode (set JRX_FEATURE_QUANTUM=true to activate)');
     }
 
     // Step 12e: Start background monitoring services
@@ -1548,9 +1548,9 @@ async function start() {
 
     // NV-OWN-REG-FEED-001: Tavily regulatory sweeps DISABLED by default.
     // Own RSS → S3 + RDS + RAG ingest runs via legal-intelligence feed scheduler.
-    if (String(process.env.NYV_ENABLE_TAVILY_REG_SWEEP || '0').trim() === '1') {
+    if (String(process.env.JRX_ENABLE_TAVILY_REG_SWEEP || '0').trim() === '1') {
       regulatoryMonitor.startTavilySweeps(30 * 60_000);
-      logger.info('  ✓ Tavily regulatory sweeps enabled (NYV_ENABLE_TAVILY_REG_SWEEP=1)');
+      logger.info('  ✓ Tavily regulatory sweeps enabled (JRX_ENABLE_TAVILY_REG_SWEEP=1)');
     } else {
       logger.info('  ✓ Own regulatory feed path (Tavily sweeps off — legal-intel RSS/S3/RDS/RAG)');
     }
@@ -1651,11 +1651,11 @@ async function start() {
     }
 
     // Step 12: Start server
-    server.listen(NYV_PORT_GATEWAY, '0.0.0.0', () => {
+    server.listen(JRX_PORT_GATEWAY, '0.0.0.0', () => {
       logger.info('\n══════════════════════════════════════════════════════');
-      logger.info(`  JRX-SVC-GATEWAY online  → http://0.0.0.0:${NYV_PORT_GATEWAY}`);
-      logger.info(`  API Docs               → http://0.0.0.0:${NYV_PORT_GATEWAY}/api/jrx/docs`);
-      logger.info(`  Health Check           → http://0.0.0.0:${NYV_PORT_GATEWAY}/api/jrx/health`);
+      logger.info(`  JRX-SVC-GATEWAY online  → http://0.0.0.0:${JRX_PORT_GATEWAY}`);
+      logger.info(`  API Docs               → http://0.0.0.0:${JRX_PORT_GATEWAY}/api/jrx/docs`);
+      logger.info(`  Health Check           → http://0.0.0.0:${JRX_PORT_GATEWAY}/api/jrx/health`);
       logger.info('══════════════════════════════════════════════════════\n');
     });
 

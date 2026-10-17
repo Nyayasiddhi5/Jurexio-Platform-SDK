@@ -6,7 +6,7 @@ node --input-type=module <<'NODE'
 import pg from 'pg';
 import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-secrets-manager';
 import { RDSClient, DescribeDBInstancesCommand } from '@aws-sdk/client-rds';
-const r = await new RDSClient({ region: 'ap-south-1' }).send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: 'nyv-caselaw-pg' }));
+const r = await new RDSClient({ region: 'ap-south-1' }).send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: 'jrx-caselaw-pg' }));
 const i = r.DBInstances[0];
 const s = await new SecretsManagerClient({ region: 'ap-south-1' }).send(new GetSecretValueCommand({ SecretId: i.MasterUserSecret.SecretArn }));
 const c = JSON.parse(s.SecretString);

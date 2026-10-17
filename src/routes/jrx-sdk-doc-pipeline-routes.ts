@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 import crypto from 'crypto';
 import { Router, Request, Response } from 'express';
 import { nvAiCreditCap } from '../middleware/jrx-ai-credit-cap-middleware.js';
@@ -60,7 +60,7 @@ router.use(consentGate({ purpose: 'ai_processing', triggeredBy: 'sdk-doc-pipelin
  * flow to close a gap that does not exist on those paths. */
 const docPipelineCap = nvAiCreditCap({ agentKey: 'sdk:docs-pipeline', completionAllowance: 4_096 });
 /* NV-CREDIT-COST-DIM-001 — money-metered, not token-metered: see
- * nv-aux-cost-estimator.ts. Observe mode, same as the token caps above. */
+ * jrx-aux-cost-estimator.ts. Observe mode, same as the token caps above. */
 const docPipelineEmbeddingsCap = nvAiCreditCap({
   agentKey: 'sdk:docs-pipeline/embeddings',
   costDriver: 'embedding_tokens',

@@ -7,18 +7,18 @@
  * that the API key / JWT was issued for.
  *
  * Rules:
- *   1. If NYV_TENANT_ENFORCE != "1", behave as a no-op (kept off in dev).
+ *   1. If JRX_TENANT_ENFORCE != "1", behave as a no-op (kept off in dev).
  *   2. The "auth tenant" is read in priority order:
  *        req.sdkContext.organizationId   (SDK API-key auth)
  *        req.user.organizationId         (JWT auth)
- *        process.env.NYV_TENANT_ID       (single-tenant container fallback)
+ *        process.env.JRX_TENANT_ID       (single-tenant container fallback)
  *   3. The "claimed tenant" is read in priority order:
  *        req.body.tenantId / req.body.tenant_id / req.body.organizationId
  *        req.query.tenantId / req.query.tenant_id
  *        req.headers['x-tenant-id'] / req.headers['x-organization-id']
  *        req.params.tenantId
  *   4. If a claimed tenant exists and !== auth tenant, return 403.
- *   5. If NYV_TENANT_ENFORCE=strict and the auth tenant is missing on an
+ *   5. If JRX_TENANT_ENFORCE=strict and the auth tenant is missing on an
  *      /api/sdk/* path, return 401 (unauthenticated tenant context).
  *
  * The middleware never throws — it only `res.status(403|401).json(...)` and
@@ -68,7 +68,7 @@ function readAuthTenant(req: Request): TenantClaim {
   const user = (req as unknown as { user?: { organizationId?: string } }).user;
   if (user?.organizationId) return user.organizationId;
 
-  const envTenant = process.env.NYV_TENANT_ID;
+  const envTenant = process.env.JRX_TENANT_ID;
   if (envTenant) return envTenant;
 
   // NV-UAT-DEFAULT-ORG-001 (task #335, 2026-05-13): in dev / E2E-bypass
@@ -83,7 +83,7 @@ function readAuthTenant(req: Request): TenantClaim {
 }
 
 export function tenantIsolation(req: Request, res: Response, next: NextFunction): void {
-  const enforce = process.env.NYV_TENANT_ENFORCE;
+  const enforce = process.env.JRX_TENANT_ENFORCE;
   if (enforce !== "1" && enforce !== "strict") {
     return next();
   }

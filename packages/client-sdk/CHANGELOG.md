@@ -22,7 +22,7 @@ All notable changes to this package are documented here. The format follows
 
 ### Added
 
-- **`DocparseApi`** on `NyvClient` — `docparse.listPacks()`, `docparse.submitJob()`, `docparse.getJob()` for `/api/jrx/v1/sdk/docparse/*`.
+- **`DocparseApi`** on `JrxClient` — `docparse.listPacks()`, `docparse.submitJob()`, `docparse.getJob()` for `/api/jrx/v1/sdk/docparse/*`.
 - **`DocsPipelineApi.analyze()`** — NSP alias to `/documents/analyze` (court fields + `docparseMeta`).
 - **`DocsPipelineApi.extract()`** / **`pipeline()`** — binary ingest helpers on the same router.
 
@@ -30,7 +30,7 @@ All notable changes to this package are documented here. The format follows
 
 ### Added
 
-- **`NyvLegalDocparse`** types — `LegalParseGuideV1`, `DocparseIntelligenceV1`, `DocparseMetaPartner` for NSP binding to gateway `docparseMeta.*` from `@jurexio/docparse-sdk`.
+- **`JrxLegalDocparse`** types — `LegalParseGuideV1`, `DocparseIntelligenceV1`, `DocparseMetaPartner` for NSP binding to gateway `docparseMeta.*` from `@jurexio/docparse-sdk`.
 - **`nspAutofillAction()`** — maps `autofillHint` → UI action (`bind` / `suggest` / `chooser` / `empty` / `withheld`).
 
 ## [5.2.0] — 2026-09-25T08:30:00Z
@@ -189,9 +189,9 @@ All notable changes to this package are documented here. The format follows
 
 ### Changed
 
-- **`NyvClient.VERSION`** → **5.1.0**.
+- **`JrxClient.VERSION`** → **5.1.0**.
 
-- **The 20 MB extraction ceiling documented in 5.0.11 is gone (NYS-side `NYS-ARCHIVE-LARGE-PDF-001`).**
+- **The 20 MB extraction ceiling documented in 5.0.11 is gone (JRX-side `JRX-ARCHIVE-LARGE-PDF-001`).**
   The cap is now **96 MB**, chosen to cover the entire Supreme Court PDF estate (176,997 objects, max
   68.79 MB), and the returned-text ceiling rose from 500,000 to **4,000,000** characters because
   Kesavananda Bharati alone yields 3,200,322. Both landmark judgments that previously produced
@@ -219,7 +219,7 @@ All notable changes to this package are documented here. The format follows
 
 ### Added
 - **`KnowledgeApi.judgmentFullText()`** → `POST /api/jrx/knowledge/judgments/full-text`
-  (`NV-NYS-FULLTEXT-001`). Fetches the **full judgment body** on demand in one call: resolves the
+  (`NV-JRX-FULLTEXT-001`). Fetches the **full judgment body** on demand in one call: resolves the
   case through the NYS Athena archive, then extracts the owned-bucket S3 PDF. Previously the SDK
   exposed the two hops separately (`documentSearch` → `extractArchive`) with nothing joining them, so
   a caller holding a case **name** rather than an `s3Path` had no route to the text.
@@ -242,7 +242,7 @@ All notable changes to this package are documented here. The format follows
   `documentSearch()` to obtain an `s3Path` first. **Fixed in 5.1.0.**
 
 ### Changed
-- **`NyvClient.VERSION`** → **5.0.11**.
+- **`JrxClient.VERSION`** → **5.0.11**.
 
 ## [5.0.10] — 2026-08-12T18:00:00Z
 
@@ -250,7 +250,7 @@ All notable changes to this package are documented here. The format follows
 - **`PatraMitraApi` on `nyv.patraMitra`** — `health` / `listSessions` / `createSession` / `getSession` / `chat` / `runTool` → `/api/jrx/v1/sdk/patra-mitra/*`.
 
 ### Changed
-- **`NyvClient.VERSION`** → **5.0.10**.
+- **`JrxClient.VERSION`** → **5.0.10**.
 
 ## [5.0.9] — 2026-08-09T17:30:00Z
 
@@ -259,7 +259,7 @@ All notable changes to this package are documented here. The format follows
 - Corpus-only CNR autofill for NSP (judgment / Open Data). Always `claimEcourts: false`.
 
 ### Changed
-- **`NyvClient.VERSION`** → **5.0.9**.
+- **`JrxClient.VERSION`** → **5.0.9**.
 
 ## [5.0.8] — 2026-08-06T10:00:00Z
 
@@ -283,19 +283,19 @@ All notable changes to this package are documented here. The format follows
 - **`KnowledgeApi.compareOldToNew` / `compareNewToOld`** helpers; caselaw `mode` query param.
 
 ### Changed
-- **`NyvClient.VERSION`** → **5.0.7**.
+- **`JrxClient.VERSION`** → **5.0.7**.
 
 ---
 
 ## [5.0.6] — 2026-07-30T18:30:00Z
 
 ### Added
-- **Queen provisional → gated replace contract** on `NyvTextDeltaEvent` (`provisional`, `gated`) and `onTextDelta` optional `meta`.
-- `NyvStreamReader` resets accumulated text on first gated/post-provisional delta (no double-paint).
+- **Queen provisional → gated replace contract** on `JrxTextDeltaEvent` (`provisional`, `gated`) and `onTextDelta` optional `meta`.
+- `JrxStreamReader` resets accumulated text on first gated/post-provisional delta (no double-paint).
 - README section documenting the SSE contract + `JRX_QUEEN_SUPPRESS_PROVISIONAL`.
 
 ### Changed
-- **`NyvClient.VERSION`** → **5.0.6**.
+- **`JrxClient.VERSION`** → **5.0.6**.
 
 ---
 
@@ -307,7 +307,7 @@ All notable changes to this package are documented here. The format follows
 - Partner catalog defaults to approved-only (`approvedOnly=true`).
 
 ### Changed
-- **`NyvClient.VERSION`** → **5.0.5**.
+- **`JrxClient.VERSION`** → **5.0.5**.
 
 ---
 
@@ -318,7 +318,7 @@ All notable changes to this package are documented here. The format follows
 - Partner templates catalog is India-only comprehensive (medium+); see gateway `GET /api/jrx/templates`.
 
 ### Changed
-- **`NyvClient.VERSION`** → **5.0.4**.
+- **`JrxClient.VERSION`** → **5.0.4**.
 
 ---
 
@@ -333,13 +333,13 @@ All notable changes to this package are documented here. The format follows
 - Response shape matches NSP MVP: `{ data: { templates: [{ id, name, content, ... }] } }`.
 
 ### Changed
-- **`NyvClient.VERSION`** → **5.0.3**.
+- **`JrxClient.VERSION`** → **5.0.3**.
 
 ---
 
 ## [5.0.0] — Production line (locked until production cutover)
 
-> **Policy (2026-07-14):** Package semver and `NyvClient.VERSION` remain **5.0.0** until
+> **Policy (2026-07-14):** Package semver and `JrxClient.VERSION` remain **5.0.0** until
 > explicit production cutover. Feature work below ships **inside** 5.0.0 (additive).
 > *(Superseded for templates surface by 5.0.3 above.)*
 
@@ -352,7 +352,7 @@ All notable changes to this package are documented here. The format follows
 - Gateway / EDJ / NSP shared-doc extensions (prior 5.1.0 gap closure).
 
 ### Changed
-- **`NyvClient.VERSION`** locked to **5.0.0** for ecosystem pack + partner docs alignment.
+- **`JrxClient.VERSION`** locked to **5.0.0** for ecosystem pack + partner docs alignment.
 
 ---
 
@@ -373,11 +373,11 @@ in-repo and is now carried as **5.0.0** surface. Kept for audit trail only.
 - **`LegalWorkApi`** (`nyv.legalWork`) — tasks, async runs, evaluate, legal chat → `/api/jrx/legal-work/*`.
 
 ### Changed
-- **`NyvClient.VERSION`** and package semver → **5.1.1**.
+- **`JrxClient.VERSION`** and package semver → **5.1.1**.
 
 ## [5.1.0] — 2026-07-09 — NSP partner SDK gap closure
 
-Additive release closing P0/P1 gaps vs `nyv-sdk-production-config.ts` and NSP execution docs.
+Additive release closing P0/P1 gaps vs `jrx-sdk-production-config.ts` and NSP execution docs.
 
 ### Added
 - **`SwarmApi`** (`nyv.swarm`) — `listTopologies()`, `getTopology()`, `getStats()`.
@@ -385,13 +385,13 @@ Additive release closing P0/P1 gaps vs `nyv-sdk-production-config.ts` and NSP ex
 - **`GatewayApi`** extensions — `translateDetect`, `translateBatch`, `transliterate`, `ocrProcess`, `classifyClauses`, `getUsageTokens`.
 - **`EcosystemDocumentsApi.processNspSharedDoc()`** — `POST /api/jrx/shared-docs/process` with `X-NSP-Client`.
 - **`EcosystemDocumentsApi.getNspSharedDocStatus()`** — poll shared-doc EDJ jobs.
-- **`NyvClientConfig.interServiceSecret`** → `X-NSP-Inter-Secret` header.
+- **`JrxClientConfig.interServiceSecret`** → `X-NSP-Inter-Secret` header.
 - **Flat facade:** `caseAnalysis()`, `processNspSharedDoc()`.
 - **Tooling:** `npm run sdk:smoke:nsp` — typed SDK smoke for NSP P0 paths.
 - **Tests:** `tests/unit/nsp-apis.test.ts` — mock HTTP coverage for all NSP API modules.
 
 ### Changed
-- **`NyvClient.VERSION`** and package semver aligned to **5.1.0**.
+- **`JrxClient.VERSION`** and package semver aligned to **5.1.0**.
 - Integration guide §5 matrix — all P0 rows show typed SDK methods (no raw HTTP).
 
 ## [5.0.0] — 2026-07-05 — Production GA + NSP partner SDK surface
@@ -405,8 +405,8 @@ Production-aligned semver for partner GA (canonical line stays **5.0.0**). Inclu
 - **`DocsPipelineApi`** — parse, summarize, clauses, compliance-check (`/api/jrx/sdk/docs-pipeline/*`).
 - **`LlmRouterApi`** — catalog, providers, router health/explain.
 - **`CamApi`** — partner CAM dashboard.
-- **NSP flat facade** on `NyvClient`: `orchestrate`, `callAgent`, `legalResearch`, `mentorChat`, `draftDocument`, `verifyCitations`, `checkHallucination`, `findPrecedents`, `evaluateWithJudge`, `getUsage`, etc.
-- **`NvSdkClient` export alias** for legacy `nv-sdk-client` import compatibility.
+- **NSP flat facade** on `JrxClient`: `orchestrate`, `callAgent`, `legalResearch`, `mentorChat`, `draftDocument`, `verifyCitations`, `checkHallucination`, `findPrecedents`, `evaluateWithJudge`, `getUsage`, etc.
+- **`NvSdkClient` export alias** for legacy `jrx-sdk-client` import compatibility.
 - **`patterns.rolePlay()`**, **`documents.uploadBuffer()`** aliases.
 - **`getFields(jobId)`** — fieldManifest extraction only.
 - **`getContent` / `getContentText` / `processAndGetContent`** — raw parsed text + fields after EDJ.
@@ -416,7 +416,7 @@ Production-aligned semver for partner GA (canonical line stays **5.0.0**). Inclu
 ### Changed
 - Auth header: canonical **`X-API-Key`** (Bearer retained as fallback).
 - **`platformClient`** config → sets `X-NSP-Client` header.
-- **`NyvClient.VERSION`** aligned to package semver **5.0.0**.
+- **`JrxClient.VERSION`** aligned to package semver **5.0.0**.
 
 ## [5.2.3] — 2026-07-03 — Raw Document Content API
 
@@ -459,11 +459,11 @@ Production-aligned semver for partner GA (canonical line stays **5.0.0**). Inclu
 - **`UsageApi`** (`nyv.usage`): `getSummary()` + `getTokens()` token/cost ledger.
 
 ### Changed
-- `NyvClient` now exposes 25 API classes (was 21). `NyvClient.VERSION` → `5.2.0`;
-  `NyvClientConfig.version` widened to `string` and defaults to `NyvClient.VERSION`.
+- `JrxClient` now exposes 25 API classes (was 21). `JrxClient.VERSION` → `5.2.0`;
+  `JrxClientConfig.version` widened to `string` and defaults to `JrxClient.VERSION`.
 - README refreshed: removed stale **v6 / 6.0.0 / 1,043-agents** claims → **5.2.0 /
   164 agents**, added the four new API-class rows + quickstart snippets.
-- Rebuilt `dist/` (the committed `NyvClient.d.ts` was still reporting `6.0.0`).
+- Rebuilt `dist/` (the committed `JrxClient.d.ts` was still reporting `6.0.0`).
 
 ### Notes
 - Purely additive surface — consumers on `^5.1.0` remain compatible.
@@ -472,11 +472,11 @@ Production-aligned semver for partner GA (canonical line stays **5.0.0**). Inclu
 
 ### Fixed
 - Unified the SDK's self-reported version. `package.json` was `5.1.0` but
-  `NyvClient.VERSION` still reported `6.0.0`, the package `description` said
+  `JrxClient.VERSION` still reported `6.0.0`, the package `description` said
   `v6.1.0`, and the `index.ts` banner said `3.1.2` — all stale leftovers from
   the short-lived 6.x line that was rolled back to the 5.1.x registry-aligned
   line on 2026-05-28. All four now read `5.1.1` (next patch in the live 5.1.x
-  line), so the `X-NYV-SDK-Version` request header, runtime banner, and package
+  line), so the `X-JRX-SDK-Version` request header, runtime banner, and package
   metadata agree. No API surface change; consumers on `^5.1.0` remain compatible.
 
 ---
@@ -518,7 +518,7 @@ Production-aligned semver for partner GA (canonical line stays **5.0.0**). Inclu
 
 ### Changed
 - Bumped `package.json` `version` from `5.0.0` (stale) to `6.1.0`. The
-  `NyvClient.VERSION` constant remains `6.0.0` for the on-wire SDK header
+  `JrxClient.VERSION` constant remains `6.0.0` for the on-wire SDK header
   until the next major.
 - README "Additive `/api/nv5/*` admin surface" section no longer claims
   consumers must call `nyv.http` directly — typed wrappers are the
@@ -541,7 +541,7 @@ Production-aligned semver for partner GA (canonical line stays **5.0.0**). Inclu
     form fields; added `submitJobBase64()` for the JSON path. `supported()`
     returns `{ success, supported }`, `getJob()` returns `{ success, job }`,
     and `getResult()` is now a binary download via the new
-    `NyvHttpClient.getBytes()` helper.
+    `JrxHttpClient.getBytes()` helper.
   - `WorkflowsApi` root surface returns
     `{ success, started: { autonomous?, continuous? } }`,
     `{ success, task }`, and `{ success, taskId, cancelled, ... }` per
@@ -569,7 +569,7 @@ Production-aligned semver for partner GA (canonical line stays **5.0.0**). Inclu
     / `{ success, sessions }` envelopes.
   - `ComplianceNv5Api` Batch F (EU AI Act + PQC) re-aligned against
     `src/routes/nv5/compliance/{eu-ai-act,pqc}-routes.ts`:
-    - `eu-ai-act/capabilities` returns `{ success, service: 'nv-eu-ai-act',
+    - `eu-ai-act/capabilities` returns `{ success, service: 'jrx-eu-ai-act',
       articles, documents }` (string lists, not generator records).
     - `eu-ai-act/report` returns `{ success, report }` — full report payload
       is wrapped, not spread at the top level.
@@ -578,7 +578,7 @@ Production-aligned semver for partner GA (canonical line stays **5.0.0**). Inclu
     - `eu-ai-act/agent/:id/bias-audit` returns `{ success, report }`
       (intentional server naming — different field name from
       risk-management; this is preserved in the typed contract).
-    - `pqc/capabilities` returns `{ success, service: 'nv-pqc',
+    - `pqc/capabilities` returns `{ success, service: 'jrx-pqc',
       primitives, operations, note? }`.
     - `pqc/ready` returns just `{ success, ready }` — it's a liveness
       probe; the previously-typed `mode` field does not exist server-side.
@@ -607,10 +607,10 @@ Production-aligned semver for partner GA (canonical line stays **5.0.0**). Inclu
       those don't exist in the current Batch A surface (only `/health`
       lives there). Will be re-added in a future minor when the routes
       actually mount, so the SDK doesn't lie about reachability.
-  - **`NyvHttpClient` error-message fallback**: NV-5 routes use
+  - **`JrxHttpClient` error-message fallback**: NV-5 routes use
     `safeError()` which emits `{ success: false, error: msg }`, not the
     `{ message }` shape the canonical NV-1 envelope used. The client now
-    falls back from `errBody.message` to `errBody.error` so `NyvError.message`
+    falls back from `errBody.message` to `errBody.error` so `JrxError.message`
     surfaces the real failure (e.g. `relation "knowledge_bases" does not
     exist`) instead of just `HTTP 500 Internal Server Error`. Applies to
     both `request()` and `getBytes()`.
@@ -630,11 +630,11 @@ Production-aligned semver for partner GA (canonical line stays **5.0.0**). Inclu
     `{ name, ownerId }` payload but surfaces `REACHED_DB_GAP` because
     the dev DB is missing the `knowledge_bases` table (pre-existing
     migration gap, not an SDK contract issue).
-- All seven new classes share the existing `NyvHttpClient` instance, so
+- All seven new classes share the existing `JrxHttpClient` instance, so
   the canonical `X-API-Key` header (NV-AUTH-HEADER-001), 30 s timeout,
-  and `NyvError` envelope unwrap behaviour are identical to the v6
+  and `JrxError` envelope unwrap behaviour are identical to the v6
   surface. Bearer-as-JWT on `/api/nv5/gov/*` is rejected gateway-side
-  with `401 BEARER_NOT_SDK_KEY` — surface this to users via `NyvError.code`.
+  with `401 BEARER_NOT_SDK_KEY` — surface this to users via `JrxError.code`.
 - Multimodal + voice are intentionally NOT re-wrapped — the canonical
   `nyv.voice` and existing multimodal helpers already cover the heavy
   paths the `/api/nv5/multimodal/*` + `/api/nv5/voice/*` routers
@@ -651,27 +651,27 @@ The first **General Availability** release of the v6 SDK line.
   React Native + Expo support (native fetch + AbortController, EncryptedStorage
   adapter, `react-native-sse` polyfill, camera/mic permission helpers, push-
   notification HITL handler).
-- New companion package `@jurexio/nyayamitra-sdk` exposing the citizen
-  Nyayamitra agent surface (`mitra-conversational`, `clause-classifier`,
+- New companion package `@jurexio/jurexio-citizen-sdk` exposing the citizen
+  Jurexio Citizen agent surface (`mitra-conversational`, `clause-classifier`,
   `case-brief-generator`) plus 9-language Indic helpers and offline draft
   serialization.
 - Webhook delivery on `orchestration.completed` is now wired end-to-end and
-  HMAC-signed (header `X-NYV-Signature: sha256=…` over `${ts}.${body}`).
+  HMAC-signed (header `X-JRX-Signature: sha256=…` over `${ts}.${body}`).
 - `CONTRIBUTING.md`, `SEMVER.md`, and this `CHANGELOG.md`.
 - `examples/nsp-web-quickstart` (Next.js 14), `examples/nsp-mobile` (Expo),
-  `examples/nyayamitra-mobile` (Expo) — copy-paste-ready quickstarts.
+  `examples/jurexio-citizen-mobile` (Expo) — copy-paste-ready quickstarts.
 
 ### Changed
-- Bumped `NyvClient.VERSION` from `5.0.0` to `6.0.0`.
+- Bumped `JrxClient.VERSION` from `5.0.0` to `6.0.0`.
 - README updated to v6 GA quickstart.
 - The streaming helper exposed by `nyv.stream.streamPattern(...)` is now the
   documented, supported entry point for all 22 patterns. The legacy
-  `NyvStreamReader` constructor still works but is no longer the recommended
+  `JrxStreamReader` constructor still works but is no longer the recommended
   call site.
 
 ### Deprecated
 - v5 alpha exports (`@jurexio/client-sdk@5.0.0-alpha.*`) — see
-  [`docs/v3.1.2/superseded/NYV-SDK-v5-DEPRECATION-POLICY.md`](../../docs/v3.1.2/superseded/NYV-SDK-v5-DEPRECATION-POLICY.md).
+  [`docs/v3.1.2/superseded/JRX-SDK-v5-DEPRECATION-POLICY.md`](../../docs/v3.1.2/superseded/JRX-SDK-v5-DEPRECATION-POLICY.md).
   The v5 line continues to receive **security patches only** until 2026-10-25
   (6 months) and will then be unpublished from npm `latest`.
 
@@ -702,9 +702,9 @@ Internal Release Candidate aligned with Platform 312. Not GA. No public npm tag.
 
 ### Verification (2026-04-25)
 - `tsc --noEmit` against `packages/client-sdk-react-native` and
-  `packages/nyayamitra-sdk` (which both depend on this package's published
+  `packages/jurexio-citizen-sdk` (which both depend on this package's published
   `dist/` types) — **PASS** (0 errors).
 - `npm pack --dry-run` for both companion packages — **PASS**.
 - Webhook delivery on `orchestration.completed` is wired in
   `src/index.ts` via `startSdkWebhookListener()` and fanned out from
-  `src/middleware/nv-sdk-gateway.ts`.
+  `src/middleware/jrx-sdk-gateway.ts`.

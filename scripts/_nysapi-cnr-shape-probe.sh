@@ -37,7 +37,7 @@ PY
   rm -f "$tmp"
 }
 
-BASE="https://nysapi.nyayasiddhi.online"
+BASE="https://nysapi.jurexio.com"
 for pair in \
   "TSWL|$BASE/v1/cases/TSWL000000742024" \
   "RJHC|$BASE/v1/cases/RJHC010324382023" \

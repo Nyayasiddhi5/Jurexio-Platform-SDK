@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * Jurexio Enterprise Platform SDK v5.0.0 Enhanced Routes
  * 
@@ -15,14 +15,14 @@
 import { Router, Request, Response } from 'express';
 import { authenticateToken } from '../middleware/auth.js';
 import { PLATFORM_VERSION } from '../config/platform-config.js';
-import { enhancedOCRService } from '../services/nyayavigya-enhanced-ocr-service.js';
-import { statuteVerificationService } from '../services/nyayavigya-statute-verification-service.js';
-import { legalWebSearchService } from '../services/nyayavigya-legal-web-search-service.js';
-import { documentTemplatesService } from '../services/nyayavigya-document-templates-service.js';
-import { citationGroundingService } from '../services/nyayavigya-citation-grounding-service.js';
-import { tokenOptimizationService } from '../services/nyayavigya-token-optimization-service.js';
-import { performanceMetricsService } from '../services/nyayavigya-performance-metrics-service.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { enhancedOCRService } from '../services/jurexio-enhanced-ocr-service.js';
+import { statuteVerificationService } from '../services/jurexio-statute-verification-service.js';
+import { legalWebSearchService } from '../services/jurexio-legal-web-search-service.js';
+import { documentTemplatesService } from '../services/jurexio-document-templates-service.js';
+import { citationGroundingService } from '../services/jurexio-citation-grounding-service.js';
+import { tokenOptimizationService } from '../services/jurexio-token-optimization-service.js';
+import { performanceMetricsService } from '../services/jurexio-performance-metrics-service.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import { syncAgentsWithRawSQL, getSyncStatusRaw, updateAllModelsRaw, validatePromptsRaw } from '../../server/services/legal-agents/raw-database-sync.js';
 import { syncLLMModelsToDatabase, getLLMModelsDbStatus, getProvidersList } from '../../server/services/llm-models/llm-models-database-sync.js';
 import { syncAllDocumentation } from '../../server/services/documentation-sync-guardrail.js';
@@ -59,8 +59,8 @@ router.get('/v311/status', (req: Request, res: Response) => {
       tokenOptimization: {
         status: 'active',
         mode: 'advisory',
-        advisoryFlag: { env: 'JRX_F_TOKEN_OPT', on: isNyvFeatureOn('tokenOpt') },
-        enforcement: { env: 'JRX_F_GOV_COST_OPT', on: isNyvFeatureOn('govCostOpt'), surface: '/api/nv5/gov/cost-optimizer/*' },
+        advisoryFlag: { env: 'JRX_F_TOKEN_OPT', on: isJrxFeatureOn('tokenOpt') },
+        enforcement: { env: 'JRX_F_GOV_COST_OPT', on: isJrxFeatureOn('govCostOpt'), surface: '/api/nv5/gov/cost-optimizer/*' },
       },
       performanceMetrics: { status: 'active' }
     },

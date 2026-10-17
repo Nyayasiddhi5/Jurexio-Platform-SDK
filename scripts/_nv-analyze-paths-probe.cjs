@@ -1,5 +1,5 @@
 /**
- * NYV-6 analyze-path probe. Runs INSIDE nyv-gateway (node 22, global fetch).
+ * JRX-6 analyze-path probe. Runs INSIDE jrx-gateway (node 22, global fetch).
  * Written as .cjs because /app is ESM. No imports, so /tmp module resolution
  * is irrelevant — but it is copied into /app anyway per NV gotcha.
  *
@@ -7,12 +7,12 @@
  * court-filing fixture must exceed 500 chars. Any of these failing means the
  * instrument is broken and the run says nothing about the platform.
  */
-const KEY = process.env.NYV_SDK_KEY_NSP || '';
+const KEY = process.env.JRX_SDK_KEY_NSP || '';
 const BASE = 'http://127.0.0.1:5000';
 const H = {
   'x-api-key': KEY,
-  'x-nyv-platform': 'nsp',
-  'x-nyv-consent': 'granted',
+  'x-jrx-platform': 'nsp',
+  'x-jrx-consent': 'granted',
   'content-type': 'application/json',
 };
 

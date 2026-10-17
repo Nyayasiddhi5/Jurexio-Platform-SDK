@@ -21,7 +21,7 @@
         "serviceAccountKeyPath": "./play-store-service-account.json"
       },
       "ios": {
-        "appleId": "store-submitter@nyayavigya.in",
+        "appleId": "store-submitter@jurexio.com",
         "ascAppId": "REPLACE_WITH_APPSTORE_CONNECT_ID"
       }
     }

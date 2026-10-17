@@ -1,5 +1,5 @@
 /**
- * NYV Web Scraper — Legal-Source Allowlist & Per-Domain Policy
+ * JRX Web Scraper — Legal-Source Allowlist & Per-Domain Policy
  * ─────────────────────────────────────────────────────────────────────────────
  * Single source of truth for which domains the platform may scrape.
  * Anything not in this list is rejected by `WebScrapingService.scrape()`.

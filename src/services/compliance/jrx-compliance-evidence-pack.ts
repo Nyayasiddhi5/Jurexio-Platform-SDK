@@ -7,9 +7,9 @@
 import { sql } from 'drizzle-orm';
 import { db as _rawDb } from '../../db/index.js';
 import { lazyRequire } from '../../utils/jrx-type-helpers.js';
-import { isNyvFeatureOn } from '../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../../config/jrx-feature-flags.js';
 import { getEnterpriseGovernanceDefaultSnapshot } from '../../config/jrx-enterprise-governance-defaults.js';
-import { NYV_JURISDICTIONS } from '../../config/nyv-master-config.js';
+import { JRX_JURISDICTIONS } from '../../config/jrx-master-config.js';
 import { runHashChainVerification } from '../hash-chain-verifier.js';
 
 const db = lazyRequire(() => _rawDb, 'db');
@@ -189,7 +189,7 @@ function soc2Checklist(): EvidenceChecklistItem[] {
     {
       controlId: 'C1.2',
       title: 'Confidentiality — native document attestation',
-      description: 'NYV-native HMAC e-sign attestation on nv_esign_sessions.metadata (not DocuSign).',
+      description: 'JRX-native HMAC e-sign attestation on nv_esign_sessions.metadata (not DocuSign).',
       automationLevel: 'automated',
       evidenceSource: './jrx-esign-adapter-service + nv_esign_sessions',
       status: 'collectable',
@@ -224,7 +224,7 @@ function iso42001Checklist(): EvidenceChecklistItem[] {
 async function collectPlatformEvidenceSnapshot(): Promise<PlatformEvidenceSnapshot> {
   const collectionErrors: string[] = [];
   const jurisdictions: Record<string, string> = {};
-  for (const [code, cfg] of Object.entries(NYV_JURISDICTIONS)) {
+  for (const [code, cfg] of Object.entries(JRX_JURISDICTIONS)) {
     jurisdictions[code] = cfg.dataResidency;
   }
 
@@ -301,14 +301,14 @@ async function collectPlatformEvidenceSnapshot(): Promise<PlatformEvidenceSnapsh
     collectionErrors.push(`nv_audit_logs: ${err?.message ?? String(err)}`);
   }
 
-  const enforceEnvFlag = (process.env.NYV_RLS_ENFORCE ?? '').toLowerCase() === 'true'
-    || process.env.NYV_RLS_ENFORCE === '1';
+  const enforceEnvFlag = (process.env.JRX_RLS_ENFORCE ?? '').toLowerCase() === 'true'
+    || process.env.JRX_RLS_ENFORCE === '1';
 
   return {
     evidenceClass: 'platform_evidence',
     collectedAt: new Date().toISOString(),
     dataResidency: {
-      primaryRegion: process.env.AWS_REGION || process.env.NYV_S3_REGION || 'ap-south-1',
+      primaryRegion: process.env.AWS_REGION || process.env.JRX_S3_REGION || 'ap-south-1',
       jurisdictions,
     },
     auditHashChain: hashChainResults,
@@ -326,7 +326,7 @@ async function collectPlatformEvidenceSnapshot(): Promise<PlatformEvidenceSnapsh
     rlsPosture: {
       enforceEnvFlag,
       note: enforceEnvFlag
-        ? 'NYV_RLS_ENFORCE active in this process — confirm runtime DSN uses nv_app role.'
+        ? 'JRX_RLS_ENFORCE active in this process — confirm runtime DSN uses nv_app role.'
         : 'RLS policies installed; enforcement gated — see SOP/15-RLS-ENFORCE-AND-RDS-CA-PIN-2026-07.md.',
     },
     collectionErrors,
@@ -356,10 +356,10 @@ export async function buildComplianceEvidencePack(
     frameworks: selected,
     governanceDefaults: getEnterpriseGovernanceDefaultSnapshot(),
     featureFlags: {
-      auditWire: isNyvFeatureOn('auditWire'),
-      hitlRegistry: isNyvFeatureOn('hitlRegistry'),
-      govMakerChecker: isNyvFeatureOn('govMakerChecker'),
-      govSecurityMon: isNyvFeatureOn('govSecurityMon'),
+      auditWire: isJrxFeatureOn('auditWire'),
+      hitlRegistry: isJrxFeatureOn('hitlRegistry'),
+      govMakerChecker: isJrxFeatureOn('govMakerChecker'),
+      govSecurityMon: isJrxFeatureOn('govSecurityMon'),
     },
     platformEvidence,
     checklists,

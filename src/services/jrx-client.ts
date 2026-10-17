@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 import { realLLMService } from './real-llm-service.js';
 import type { LLMRequest } from './real-llm-service.js';
 import { promptEnhancementPipeline } from '../orchestration/jrx-prompt-enhancement-pipeline.js';
@@ -21,7 +21,7 @@ import {
 import { selfRAGService } from './rag/self-rag-service.js';
 import { confidenceScorer, type ConfidenceResult } from './confidence-scorer.js';
 import { tokenCostPredictionService } from './token-cost-prediction-service.js';
-import { aguiJurexioIntegrationService } from '../packages/protocols/agui-nyayavigya-integration-service.js';
+import { aguiJurexioIntegrationService } from '../packages/protocols/agui-jurexio-integration-service.js';
 // A2A bus imported lazily below to avoid circular dependency during module init
 import { chainOfThoughtService, selectCoTStrategy } from './chain-of-thought-service.js';
 import crypto from 'crypto';
@@ -820,9 +820,9 @@ export async function callJurexio(
         : systemPrompt;
 
       // NV-LEGAL-INTEL-MANDATE-001: High-Court counsel overlay on ALL safety-ring
-      // AI paths by default. Escape only: NYV_LEGAL_INTEL_FORCE=0|off|false.
+      // AI paths by default. Escape only: JRX_LEGAL_INTEL_FORCE=0|off|false.
       const forceOff = ['0', 'false', 'off', 'no'].includes(
-        String(process.env.NYV_LEGAL_INTEL_FORCE ?? '').trim().toLowerCase(),
+        String(process.env.JRX_LEGAL_INTEL_FORCE ?? '').trim().toLowerCase(),
       );
       const forceIntel = !forceOff || options.forceLegalBestOutcome === true;
 
@@ -909,7 +909,7 @@ export async function callJurexio(
     }
 
     // NV-PROMPT-COMPILER-001 — optional legacy path when layered XML not used
-    if (sessionId && agent && !/<section_1_identity>/i.test(effectiveSystemPrompt) && process.env.NYV_SPECIALIST_PROMPT_COMPILER === '1') {
+    if (sessionId && agent && !/<section_1_identity>/i.test(effectiveSystemPrompt) && process.env.JRX_SPECIALIST_PROMPT_COMPILER === '1') {
       try {
         const { assembleCompiledPrompt } = await import('./jrx-system-prompt-engine.js');
         const compiled = assembleCompiledPrompt(
@@ -923,7 +923,7 @@ export async function callJurexio(
             await import('./jrx-legal-intelligence-overlay.js');
           const priorHadIntel = looksLikeLegalIntelOverlay(effectiveSystemPrompt);
           effectiveSystemPrompt = compiled.prompt;
-          if (priorHadIntel || options.forceLegalBestOutcome || !['0', 'false', 'off', 'no'].includes(String(process.env.NYV_LEGAL_INTEL_FORCE ?? '').trim().toLowerCase())) {
+          if (priorHadIntel || options.forceLegalBestOutcome || !['0', 'false', 'off', 'no'].includes(String(process.env.JRX_LEGAL_INTEL_FORCE ?? '').trim().toLowerCase())) {
             const overlay = buildUniversalLegalIntelligenceOverlay({
               prompt: sanitizedPrompt,
               jurisdiction: jurisdiction || 'IN',
@@ -1359,10 +1359,10 @@ export async function callJurexio(
       enhancedPrompt = `${userContextParts.join('\n\n')}\n\n[User Query]\n${sanitizedPrompt}`;
     }
 
-    /* NV-NYS-DETERMINISTIC-WIRE-001 (2026-08-16) — honour the deterministic
+    /* NV-JRX-DETERMINISTIC-WIRE-001 (2026-08-16) — honour the deterministic
      * verdict on the specialist path.
      *
-     * NV-NYS-LLMREQUIRED-001 made Auto-RAG carry `deterministic.answer`, but only
+     * NV-JRX-LLMREQUIRED-001 made Auto-RAG carry `deterministic.answer`, but only
      * the knowledge-plane routes consumed it. Per NV-WIRING-001 exported is not
      * live: every `/orchestrate` request — the majority of traffic — still paid a
      * frontier completion to restate statute text NYS had already returned
@@ -1419,8 +1419,8 @@ export async function callJurexio(
     // not by allowing ungrounded model-only answers.
     const abstainTasks = /^(research|opinion|advisory|precedent|litigation)$/i;
     const wantsCaseLaw = /\b(case\s*law|precedent|cit(e|ation)|judgment|judgement|AIR\s|SCC\s)\b/i.test(sanitizedPrompt);
-    const abstainFloor = Number(process.env.NYV_RAG_ABSTAIN_MIN_CONFIDENCE || '0.45');
-    const forceAbstain = process.env.NYV_RAG_ABSTAIN_ON_EMPTY !== '0';
+    const abstainFloor = Number(process.env.JRX_RAG_ABSTAIN_MIN_CONFIDENCE || '0.45');
+    const forceAbstain = process.env.JRX_RAG_ABSTAIN_ON_EMPTY !== '0';
     if (
       forceAbstain
       && enableRAG
@@ -1599,9 +1599,9 @@ export async function callJurexio(
       }
     }
 
-    /* ── Nyayamitra agent post-processing ─────────────────────────────────────
+    /* ── Jurexio Citizen agent post-processing ─────────────────────────────────────
        (a) mitra-conversational → strip any model-emitted disclaimer
-           (the Nyayamitra backend appends the canonical one).
+           (the Jurexio Citizen backend appends the canonical one).
        (b) clause-classifier / case-brief-generator → enforce STRICT JSON.
            Brace-balanced extraction; on parse failure, single retry with a
            hardened "JSON ONLY — no markdown, no commentary" re-prompt.
@@ -1719,7 +1719,7 @@ export async function callJurexio(
     let confidenceResult: NvResponse['confidence'] = undefined;
 
     // GAP-009: Emit AG-UI events when a session is active
-    const aguiSessionId = sessionId ? `nv-${sessionId}` : null;
+    const aguiSessionId = sessionId ? `jrx-${sessionId}` : null;
     if (aguiSessionId && sessionId) {
       try {
         aguiJurexioIntegrationService.createSession(0, undefined, resolvedAgentKey, undefined);
@@ -2009,7 +2009,7 @@ export async function callJurexio(
       }
 
       // NV-MEM-DURABLE-WIRE-001 — L2 matter memory was reachable only from the
-      // manual /nyaya-tools routes, so nothing on the live request path ever
+      // manual /jrx-legal-tools routes, so nothing on the live request path ever
       // populated it and recall had nothing durable to draw on across pods.
       if (matterId && userId) {
         const numericUserId = parseInt(String(userId), 10);

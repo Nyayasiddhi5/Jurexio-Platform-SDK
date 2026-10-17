@@ -95,7 +95,7 @@ function MessageActions({ message, onRate }: { message: ChatMessage; onRate: (id
       ? `\n\n## Citations\n${cites.map((c, i) => `${i + 1}. ${c.title || c.id || c.url || JSON.stringify(c).slice(0, 120)}`).join('\n')}`
       : '';
     const md = `# Jurexio LegalChat answer\n\n_orch_: \`${orchId || 'n/a'}\`  \n_exported_: ${new Date().toISOString()}\n\n${message.content}${cited}\n`;
-    downloadMarkdown(`nyv-legalchat-${ts}.md`, md);
+    downloadMarkdown(`jrx-legalchat-${ts}.md`, md);
   };
   const share = async () => {
     if (!orchId) return;

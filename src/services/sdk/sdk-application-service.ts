@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
+// JRX-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
 // file. Runtime is unaffected (gateway runs via tsx). Opt out of strict-null
 // for the v5.0.0 deploy gate; track follow-up cleanup in INV-CLEANUP-001.
 import { db as _raw_db } from '../../db/index.js';
@@ -595,7 +595,7 @@ class SdkApplicationService {
   async getAppUsageAnalytics(appId: number, orgId: number, period: { start: Date; end: Date }): Promise<ServiceResponse> {
     const operation = 'getAppUsageAnalytics';
     try {
-      // NYV-USAGE-ORGISO-FIX (2026-05-07): the previous code joined on
+      // JRX-USAGE-ORGISO-FIX (2026-05-07): the previous code joined on
       // (sdkApplications.id, sdkApplications.organizationId) which caused a
       // 500 "Application not found" on EC2 because mirrored applications
       // (mirror-pg.ts staging path) were upserted without an explicit
@@ -614,7 +614,7 @@ class SdkApplicationService {
         return { success: false, error: 'Application not found' };
       }
 
-      // NYV-AUDIT-F12 (2026-05-05): the Drizzle `sdkApiRequestLogs` schema
+      // JRX-AUDIT-F12 (2026-05-05): the Drizzle `sdkApiRequestLogs` schema
       // matches `public.sdk_api_request_logs` (the live writer = 206 rows).
       // Previous code referenced `.organizationId`, `.tokensUsed`,
       // `.estimatedCost`, `.errorMessage` — none of which exist on the

@@ -5,13 +5,13 @@
  * Backend: src/routes/jrx-operations-aggregators.ts → GET /api/jrx/operations/overview
  * Auth:    analyst+; 30s refetch.
  *
- * Path imported via `p('OPERATIONS_OVERVIEW')` from nv-api-paths.ts. Rendered
+ * Path imported via `p('OPERATIONS_OVERVIEW')` from jrx-api-paths.ts. Rendered
  * as the "Overview" tab inside hubs/OperationsHub.tsx.
  */
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { p } from '@/lib/jrx-api-paths';
 
 type OperationsOverview = {
@@ -44,7 +44,7 @@ export default function OperationsOverview() {
 
   if (q.isError) {
     return (
-      <NyvErrorState
+      <JrxErrorState
         title="Could not load operations overview"
         description={`Unable to retrieve ${OPS_OVERVIEW_PATH}. You may not have analyst+ access.`}
         error={q.error}

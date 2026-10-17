@@ -4,42 +4,42 @@
  */
 
 import type {
-  NyvKnowledgeSearchRequest,
-  NyvKnowledgeSearchResponse,
-  NyvJurisdiction,
+  JrxKnowledgeSearchRequest,
+  JrxKnowledgeSearchResponse,
+  JrxJurisdiction,
 } from '../types/index.js';
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export interface AddKnowledgeRequest {
   text: string;
   title?: string;
   docType?: 'statute' | 'case-law' | 'commentary' | 'circular' | 'notification' | 'contract' | 'other';
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   tags?: string[];
   metadata?: Record<string, unknown>;
 }
 
 export interface GraphSearchOptions {
   query: string;
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   entityTypes?: string[];
   maxHops?: number;
   limit?: number;
 }
 
 export class KnowledgeApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   /** Hybrid Auto-RAG search (includes NYS global layer when flag on). */
-  search(req: NyvKnowledgeSearchRequest): Promise<NyvKnowledgeSearchResponse> {
+  search(req: JrxKnowledgeSearchRequest): Promise<JrxKnowledgeSearchResponse> {
     return this.http.post('/api/jrx/knowledge/search', req);
   }
 
   query(
     query: string,
-    jurisdiction: NyvJurisdiction = 'IN',
+    jurisdiction: JrxJurisdiction = 'IN',
     limit = 10,
-  ): Promise<NyvKnowledgeSearchResponse> {
+  ): Promise<JrxKnowledgeSearchResponse> {
     return this.search({ query, jurisdiction, limit, searchMode: 'hybrid' });
   }
 
@@ -231,7 +231,7 @@ export class KnowledgeApi {
   }
 
   /**
-   * On-demand FULL judgment text (NV-NYS-FULLTEXT-001).
+   * On-demand FULL judgment text (NV-JRX-FULLTEXT-001).
    *
    * Resolves the case through the Athena archive and extracts the owned-bucket
    * S3 PDF in one call. Pass `s3Path` when you already have it (cheapest — no
@@ -280,7 +280,7 @@ export class KnowledgeApi {
     return this.http.delete(`/api/jrx/knowledge/${docId}`);
   }
 
-  getStats(jurisdiction?: NyvJurisdiction): Promise<{
+  getStats(jurisdiction?: JrxJurisdiction): Promise<{
     totalDocuments: number;
     totalChunks: number;
     totalEmbeddings: number;
@@ -295,7 +295,7 @@ export class KnowledgeApi {
   similarity(
     text1: string,
     text2: string,
-    jurisdiction?: NyvJurisdiction,
+    jurisdiction?: JrxJurisdiction,
   ): Promise<{
     similarity: number;
     explanation: string;

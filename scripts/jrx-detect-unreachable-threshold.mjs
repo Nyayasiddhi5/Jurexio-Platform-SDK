@@ -21,7 +21,7 @@
  *
  * Deliberately narrow to stay useful rather than noisy: only flags a NAMED
  * constant (not a literal) appearing in both roles. Reports and exits non-zero
- * only with --enforce, matching `nv-detect-placeholders.mjs`.
+ * only with --enforce, matching `jrx-detect-placeholders.mjs`.
  */
 import { readFileSync } from 'fs';
 import { execSync } from 'child_process';

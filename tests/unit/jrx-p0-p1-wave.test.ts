@@ -15,7 +15,7 @@ import { join } from 'path';
 import {
   signLocalStoragePath,
   verifyLocalSignedUrlToken,
-} from '../../src/services/nyv-document-storage-service.js';
+} from '../../src/services/jrx-document-storage-service.js';
 import { buildBedrockRequest } from '../../src/services/intelligent-router/bedrock-request-builder.js';
 
 const SRC = join(process.cwd(), 'src');
@@ -59,7 +59,7 @@ describe('NV-LOCAL-SIGNED-URL-001 — signed URLs are servable and verifiable', 
 
   it('the URL now carries exp so a verifier can recompute the digest', () => {
     // The old implementation signed an expiry it never emitted — unverifiable by design.
-    const svc = read('services/nyv-document-storage-service.ts');
+    const svc = read('services/jrx-document-storage-service.ts');
     expect(svc).toContain('?exp=${exp}&token=${token}');
     expect(svc).toContain('timingSafeEqual');
   });
@@ -77,7 +77,7 @@ describe('NV-LOCAL-SIGNED-URL-001 — signed URLs are servable and verifiable', 
     expect(broadIdx).toBeGreaterThan(-1);
     expect(storageIdx).toBeLessThan(broadIdx);
     expect(route).toContain("router.get('/files/*'");
-    expect(route).toContain("NYV_STORAGE.backend === 's3'");
+    expect(route).toContain("JRX_STORAGE.backend === 's3'");
     // Traversal must be rejected by resolved-path comparison, not a regex.
     expect(route).toContain('resolveWithinRoot');
     expect(route).toContain('attachment;');
@@ -191,7 +191,7 @@ describe('NV-LADDER-COST-EFFECTIVE-001 + dead rungs', () => {
   });
 
   it('value rungs sit between FAST and DEEP for non-drafting legal work', () => {
-    expect(policy).toContain('NYV_LADDER_COST_FIRST');
+    expect(policy).toContain('JRX_LADDER_COST_FIRST');
     expect(policy).toContain('...BEDROCK_CLAUDE_FAST, ...value, ...BEDROCK_CLAUDE_DEEP');
   });
 
@@ -199,7 +199,7 @@ describe('NV-LADDER-COST-EFFECTIVE-001 + dead rungs', () => {
     expect(policy).toContain('costFirst && !deepFirst');
   });
 
-  it('NYV_LLM_COST_PROFILE enables Nova/Haiku-first tier leads (NV-LLM-COST-PROFILE-001)', () => {
+  it('JRX_LLM_COST_PROFILE enables Nova/Haiku-first tier leads (NV-LLM-COST-PROFILE-001)', () => {
     expect(policy).toContain('isLlmCostProfileActive');
     expect(policy).toContain('apac.amazon.nova-micro-v1:0');
     expect(readFileSync(join(SRC, 'config/jrx-llm-cascade-config.ts'), 'utf8')).toContain(

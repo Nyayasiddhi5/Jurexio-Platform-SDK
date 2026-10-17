@@ -1,6 +1,6 @@
 /**
  * k6 load test — 100 concurrent users hitting the NSP-Web SDK surface
- * NYV-T013 (Stream D, 2026-05-06).
+ * JRX-T013 (Stream D, 2026-05-06).
  *
  * Run (full):
  *   k6 run --vus 100 --duration 60s tests/load/k6-100-concurrent-nsp.js
@@ -9,9 +9,9 @@
  *   k6 run --vus 1 --duration 5s tests/load/k6-100-concurrent-nsp.js
  *
  * Required env:
- *   NYV_BASE_URL          (default: https://api.nyayasiddhi.online)
- *   NYV_API_KEY           NSP-Web sdk_api_key
- *   NYV_PUBLISHABLE_KEY   (optional — used by completions sub-scenario)
+ *   JRX_BASE_URL          (default: https://api.jurexio.com)
+ *   JRX_API_KEY           NSP-Web sdk_api_key
+ *   JRX_PUBLISHABLE_KEY   (optional — used by completions sub-scenario)
  *
  * Acceptance thresholds:
  *   • http_req_failed         < 5%
@@ -28,9 +28,9 @@ import http from 'k6/http';
 import { check, group, sleep } from 'k6';
 import { Rate, Trend } from 'k6/metrics';
 
-const BASE        = __ENV.NYV_BASE_URL || 'https://api.nyayasiddhi.online';
-const API_KEY     = __ENV.NYV_API_KEY  || 'nyv_test_sk_nsp_placeholder';
-const PUB_KEY     = __ENV.NYV_PUBLISHABLE_KEY || '';
+const BASE        = __ENV.JRX_BASE_URL || 'https://api.jurexio.com';
+const API_KEY     = __ENV.JRX_API_KEY  || 'nyv_test_sk_nsp_placeholder';
+const PUB_KEY     = __ENV.JRX_PUBLISHABLE_KEY || '';
 
 const successRate = new Rate('nyv_success_rate');
 const orchLatency = new Trend('nyv_orchestrate_latency_ms', true);

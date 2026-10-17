@@ -79,7 +79,7 @@ export interface RunOptions {
   referenceYear?: number;
   /** Cap pages processed per document. A 400-page paper book must not stall a batch. */
   maxPagesPerDoc?: number;
-  /** Per-page progress hook for partner SSE / job pollers (NYV docparse adapter). */
+  /** Per-page progress hook for partner SSE / job pollers (JRX docparse adapter). */
   onPage?: (detail: {
     documentId: string;
     pageNo: number;
@@ -92,7 +92,7 @@ export interface RunOptions {
   forceOcr?: boolean;
   /** Prefer OCR when the text layer is garbled or sparse over image (stricter than default trust). */
   preferOcr?: boolean;
-  /** Optional cloud OCR when local Tesseract/Paddle fail a page (NYV/NSP inject). */
+  /** Optional cloud OCR when local Tesseract/Paddle fail a page (JRX/NSP inject). */
   cloudOcr?: CloudOcrProvider;
 }
 
@@ -147,7 +147,7 @@ export async function run(files: InputFile[], opts: RunOptions): Promise<Extract
     let pdfPath = file.path;
     let tmpPdfDir: string | undefined;
     if (mime === "application/pdf" && !pdfPath) {
-      tmpPdfDir = await mkdtemp(join(tmpdir(), "nyv-docparse-pdf-"));
+      tmpPdfDir = await mkdtemp(join(tmpdir(), "jrx-docparse-pdf-"));
       const safeName = basename(file.fileName).replace(/[^\w.\-]+/g, "_") || "upload.pdf";
       pdfPath = join(tmpPdfDir, safeName.endsWith(".pdf") ? safeName : `${safeName}.pdf`);
       await writeFile(pdfPath, Buffer.from(bytes));
@@ -166,7 +166,7 @@ export async function run(files: InputFile[], opts: RunOptions): Promise<Extract
       let imagePath = file.path;
       let tmpImageDir: string | undefined;
       if (!imagePath) {
-        tmpImageDir = await mkdtemp(join(tmpdir(), "nyv-docparse-img-"));
+        tmpImageDir = await mkdtemp(join(tmpdir(), "jrx-docparse-img-"));
         const ext =
           mime === "image/png" ? "png" : mime === "image/jpeg" || mime === "image/jpg" ? "jpg" : "bin";
         imagePath = join(tmpImageDir, `upload.${ext}`);

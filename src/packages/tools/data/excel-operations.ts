@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Excel Operations Tool
  * Read, write, and manipulate Excel files using ExcelJS (replaces xlsx@0.18.5 — CVE-2026-39279 / GHSA-4r6h-8v6p-xvw6)

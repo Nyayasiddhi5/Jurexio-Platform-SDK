@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/contexts/AuthContext';
 import { hasAccess, type RoleLevel } from '@/lib/rbac-registry';
-import { NyvPageShell } from '@/components/NyvPageShell';
+import { JrxPageShell } from '@/components/JrxPageShell';
 import { OrchestrationOsStatusStrip } from '@/components/orchestration/OrchestrationOsStatusStrip';
 
 const AgentOrchestration = lazy(() => import('../AgentOrchestration'));
@@ -65,7 +65,7 @@ export default function OrchestrationHub() {
   }
 
   return (
-    <NyvPageShell
+    <JrxPageShell
       title="Orchestration Hub"
       description="Agent orchestration, CAM, router decisions, A2A, BMAD, memory, GRPO training and policy management — all under one roof. Tabs are filtered by your role."
       className="./jrx-light-scope"
@@ -93,6 +93,6 @@ export default function OrchestrationHub() {
           );
         })}
       </Tabs>
-    </NyvPageShell>
+    </JrxPageShell>
   );
 }

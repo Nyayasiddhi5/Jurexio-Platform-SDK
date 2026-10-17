@@ -1,6 +1,6 @@
 /**
  * Jurexio DB Connection Pool Manager — Platform 3.1.2
- * NYV-SVC-DB-POOL-001
+ * JRX-SVC-DB-POOL-001
  *
  * Features:
  *   - Per-product pool metrics (total/idle/waiting/maxUsed)

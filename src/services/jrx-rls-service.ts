@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * NV Row-Level Security (RLS) Service v3.1.2
  * ─────────────────────────────────────────────────────────────────────────────

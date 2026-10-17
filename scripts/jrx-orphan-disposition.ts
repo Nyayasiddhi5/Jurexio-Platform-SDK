@@ -1,5 +1,5 @@
 /**
- * nv-orphan-disposition.ts
+ * jrx-orphan-disposition.ts
  *
  * Reads docs/audit/jrx-wiring-audit.json and, for each ORPHAN file, opens the
  * source and applies heuristics to propose ONE disposition tag:
@@ -86,14 +86,14 @@ function findDuplicate(orphan: string, wiredFiles: Set<string>): string | undefi
   const base = path.basename(orphan).replace(/\.ts$/, '');
   // Skip generic names like 'index.ts', 'types.ts' — basename match is meaningless.
   if (['index', 'types', 'utils', 'helpers', 'constants'].includes(base)) return undefined;
-  const stripped = base.replace(/^(nv-|nyayavigya-)/, '');
+  const stripped = base.replace(/^(jrx-|jurexio-)/, '');
   // Only consider it a duplicate if (a) basename matches after prefix strip AND
   // (b) lives in the SAME parent directory (sibling file, not random match elsewhere).
   const orphanDir = path.dirname(orphan);
   for (const w of wiredFiles) {
     if (w === orphan) continue;
     const wb = path.basename(w).replace(/\.ts$/, '');
-    const ws = wb.replace(/^(nv-|nyayavigya-)/, '');
+    const ws = wb.replace(/^(jrx-|jurexio-)/, '');
     if (ws !== stripped) continue;
     if (path.dirname(w) !== orphanDir) continue; // must be sibling
     return path.relative(ROOT, w);
@@ -156,7 +156,7 @@ function classify(rel: string, area: string, wiredFiles: Set<string>, allowlist:
   //    Router or define route handlers. Mere `import { Request } from 'express'`
   //    no longer counts (caught DTOs/middleware as routes previously).
   if (/Router\(\)|express\.Router\(\)|router\.(get|post|put|delete|patch|use|all)\s*\(/.test(head)) {
-    const mountGuess = `/api/jrx/${path.basename(rel, '.ts').replace(/^nv-/, '').replace(/-routes?$/, '').replace(/-service$/, '')}`;
+    const mountGuess = `/api/jrx/${path.basename(rel, '.ts').replace(/^jrx-/, '').replace(/-routes?$/, '').replace(/-service$/, '')}`;
     return { disposition: 'WIRE-ROUTE', reason: 'instantiates Router() or defines router.METHOD handlers', proposedMount: mountGuess, exports, lines, bytes: stat.size };
   }
 

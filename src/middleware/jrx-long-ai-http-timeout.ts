@@ -1,7 +1,7 @@
 /**
  * NV-LONG-AI-HTTP-TIMEOUT-001 — do not cut partner long AI HTTP paths early.
  *
- * NSP owns lawyer-facing copy; NYV must keep the socket open through Queen /
+ * NSP owns lawyer-facing copy; JRX must keep the socket open through Queen /
  * orchestrate / doc-analyze budgets (ALB/nginx 600s class). Applies per-request
  * socket timeouts on long AI routes only (health/metrics stay default).
  */
@@ -10,7 +10,7 @@ import type { Request, Response, NextFunction } from 'express';
 import { NV_TIMEOUTS } from '../config/jrx-timeout-policy.js';
 
 function longAiTimeoutMs(): number {
-  const n = Number(process.env.NYV_HTTP_LONG_AI_TIMEOUT_MS);
+  const n = Number(process.env.JRX_HTTP_LONG_AI_TIMEOUT_MS);
   if (Number.isFinite(n) && n >= 60_000) {
     return Math.min(600_000, Math.floor(n));
   }
@@ -37,7 +37,7 @@ export function nvLongAiHttpTimeoutMiddleware() {
   };
 }
 
-/** Gateway http.Server — align with edge 600s (env NYV_HTTP_SERVER_TIMEOUT_MS). */
+/** Gateway http.Server — align with edge 600s (env JRX_HTTP_SERVER_TIMEOUT_MS). */
 export function applyGatewayHttpServerTimeouts(server: import('http').Server): void {
   const ms = longAiTimeoutMs();
   server.requestTimeout = ms;

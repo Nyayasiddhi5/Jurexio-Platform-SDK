@@ -6,19 +6,19 @@ log() { echo "=== $* ==="; }
 
 log "TIME $(date -Is) TZ=$(cat /etc/timezone 2>/dev/null || timedatectl show -p Timezone --value 2>/dev/null || echo unknown)"
 
-log "NYV-API STATUS"
-systemctl is-active nyv-api.service 2>/dev/null || echo inactive
-systemctl show nyv-api.service -p ActiveState,SubState,MainPID --no-pager 2>/dev/null || true
+log "JRX-API STATUS"
+systemctl is-active jrx-api.service 2>/dev/null || echo inactive
+systemctl show jrx-api.service -p ActiveState,SubState,MainPID --no-pager 2>/dev/null || true
 curl -sS -m 5 -o /dev/null -w "healthz http=%{http_code}\n" http://127.0.0.1:8080/healthz 2>/dev/null || echo "healthz FAIL"
 curl -sS -m 5 -o /dev/null -w "coverage http=%{http_code} time=%{time_total}s\n" http://127.0.0.1:8080/api/caselaw/embedding/coverage 2>/dev/null || echo "coverage FAIL"
 ss -tlnp 2>/dev/null | grep -E ':8080|:3000|:5000' || netstat -tlnp 2>/dev/null | grep -E ':8080' || echo "no 8080 listener"
 
 log "EMBED UNITS"
-systemctl is-active nyv-caselaw-embed-loop@0 nyv-caselaw-embed-loop@1 nyv-caselaw-embed-loop@2 nyv-caselaw-embed-dc nyv-embed-statutes-loop 2>/dev/null || true
+systemctl is-active jrx-caselaw-embed-loop@0 jrx-caselaw-embed-loop@1 jrx-caselaw-embed-loop@2 jrx-caselaw-embed-dc jrx-embed-statutes-loop 2>/dev/null || true
 pgrep -af embed-corpus.mjs | head -15 || echo "no embed pids"
 
 log "SYSTEMD DROP-INS (concurrency knobs)"
-for u in nyv-caselaw-embed-loop@0 nyv-caselaw-embed-loop@1 nyv-caselaw-embed-loop@2 nyv-caselaw-embed-dc nyv-embed-statutes-loop; do
+for u in jrx-caselaw-embed-loop@0 jrx-caselaw-embed-loop@1 jrx-caselaw-embed-loop@2 jrx-caselaw-embed-dc jrx-embed-statutes-loop; do
   echo "--- $u ---"
   ls -la "/etc/systemd/system/${u}.service.d/" 2>/dev/null || echo "  (no drop-ins)"
   for f in "/etc/systemd/system/${u}.service.d/"*.conf; do
@@ -43,7 +43,7 @@ if [ -f "$LOG" ]; then
   echo "--- errors last hour ---"
   grep -E '57014|Throttl|timeout|ECONN|error' "$LOG" 2>/dev/null | tail -20
 else
-  journalctl -u 'nyv-caselaw-embed-loop@*' --since '60 min ago' --no-pager 2>/dev/null | tail -30
+  journalctl -u 'jrx-caselaw-embed-loop@*' --since '60 min ago' --no-pager 2>/dev/null | tail -30
 fi
 
 log "EMBED_PROGRESS CHECKPOINTS"
@@ -59,7 +59,7 @@ for line in open("/opt/nyv/api/.env"):
     line=line.strip()
     if not line or line.startswith("#") or "=" not in line: continue
     k,v=line.split("=",1); env[k.strip()]=v.strip().strip("'\"")
-url = env.get("DATABASE_URL") or env.get("NYV_CASELAW_DATABASE_URL") or ""
+url = env.get("DATABASE_URL") or env.get("JRX_CASELAW_DATABASE_URL") or ""
 if not url:
     print("no DATABASE_URL")
     raise SystemExit(0)

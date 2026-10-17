@@ -1,6 +1,6 @@
 /**
  * NV-DRAFT-STRUCTURE-CHECKER-001 — Sonnet structure pass on `-fast` when
- * structureMarkers incomplete. Mirrors nv-fast-delivery-polish (512 tokens, 8s).
+ * structureMarkers incomplete. Mirrors jrx-fast-delivery-polish (512 tokens, 8s).
  */
 
 import { randomUUID } from 'node:crypto';
@@ -41,7 +41,7 @@ export interface StructureCheckerResult {
 }
 
 export function isDraftStructureCheckerEnabled(): boolean {
-  const v = String(process.env.NYV_DRAFT_STRUCTURE_CHECKER ?? '1').trim().toLowerCase();
+  const v = String(process.env.JRX_DRAFT_STRUCTURE_CHECKER ?? '1').trim().toLowerCase();
   return !(v === '0' || v === 'false' || v === 'off');
 }
 
@@ -137,7 +137,7 @@ export function shouldRunDraftStructureChecker(opts: {
 
   const completion = analyzeDraftCompletion(String(opts.content || ''));
   const placeholderOverflow = completion.unresolvedPlaceholders
-    >= Number(process.env.NYV_COUNSEL_EXIT_PLACEHOLDER_THRESHOLD || 10);
+    >= Number(process.env.JRX_COUNSEL_EXIT_PLACEHOLDER_THRESHOLD || 10);
   const counselExitNeedsCompletion =
     isCounselDraftExitPath(opts)
     && counselExitStructureCheckEligible(docType, {
@@ -169,9 +169,9 @@ function resolveStructureCheckerMaxTokens(taskType?: string): number {
     return isFast ? betaStructureCheckerMaxTokensFast() : betaStructureCheckerMaxTokensCounsel();
   }
   if (isFast) {
-    return Number(process.env.NYV_DRAFT_STRUCTURE_CHECKER_MAX_TOKENS || 512);
+    return Number(process.env.JRX_DRAFT_STRUCTURE_CHECKER_MAX_TOKENS || 512);
   }
-  return Number(process.env.NYV_DRAFT_STRUCTURE_CHECKER_COUNSEL_MAX_TOKENS || 2048);
+  return Number(process.env.JRX_DRAFT_STRUCTURE_CHECKER_COUNSEL_MAX_TOKENS || 2048);
 }
 
 async function sonnetStructurePass(
@@ -183,7 +183,7 @@ async function sonnetStructurePass(
     prompt?: string;
   },
 ): Promise<string | null> {
-  const budgetMs = Number(process.env.NYV_DRAFT_STRUCTURE_CHECKER_BUDGET_MS || 8000);
+  const budgetMs = Number(process.env.JRX_DRAFT_STRUCTURE_CHECKER_BUDGET_MS || 8000);
   const { realLLMService } = await import('./real-llm-service.js');
 
   const docType = resolveCheckerDocumentType(opts);

@@ -1,5 +1,5 @@
 /**
- * NV-NYS-FULLTEXT-001 — on-demand full judgment text via the NYS Athena path.
+ * NV-JRX-FULLTEXT-001 — on-demand full judgment text via the NYS Athena path.
  *
  * The shapes asserted here are the shapes actually observed against the live
  * NYS host on 2026-08-19 (instance i-000115b19219bb766), so the mock cannot
@@ -27,7 +27,7 @@ const {
   fetchJudgmentFullText,
   isFullJudgmentTextRequest,
   mergeTruncation,
-  NYS_EXTRACT_MAX_PDF_BYTES,
+  JRX_ECOSYSTEM_EXTRACT_MAX_PDF_BYTES,
 } = await import('../../src/services/jrx-nys-judgment-fulltext.js');
 
 const SC_S3 =
@@ -166,7 +166,7 @@ describe('fetchJudgmentFullText — real failure modes', () => {
   });
 });
 
-describe('fetchJudgmentFullText — truncation is never silent (NYS-ARCHIVE-LARGE-PDF-001)', () => {
+describe('fetchJudgmentFullText — truncation is never silent (JRX-ARCHIVE-LARGE-PDF-001)', () => {
   it('surfaces upstream truncated:true so a partial judgment is distinguishable', async () => {
     /* Kesavananda: 1,006 pages, 2,878,447 chars. NYS stops at its page/time
      * budget and stamps `truncated`. A caller that cannot see this flag would
@@ -201,7 +201,7 @@ describe('fetchJudgmentFullText — truncation is never silent (NYS-ARCHIVE-LARG
   });
 
   it('reports an absent upstream flag as null — absence is not evidence of completeness', async () => {
-    // Pre-NYS-ARCHIVE-LARGE-PDF-001 hosts omit the field entirely. Coercing
+    // Pre-JRX-ARCHIVE-LARGE-PDF-001 hosts omit the field entirely. Coercing
     // that to `false` would assert a complete body we cannot vouch for.
     nysKnowledgeRequest.mockResolvedValueOnce(extractOk);
     const r = await fetchJudgmentFullText({ s3Path: SC_S3 });
@@ -209,7 +209,7 @@ describe('fetchJudgmentFullText — truncation is never silent (NYS-ARCHIVE-LARG
     expect(r.ok && r.truncated).not.toBe(false);
   });
 
-  it('EXECUTED PROOF that NYS_EXTRACT_MAX_PDF_BYTES is inert: a 63.9 MB body still returns ok', async () => {
+  it('EXECUTED PROOF that JRX_ECOSYSTEM_EXTRACT_MAX_PDF_BYTES is inert: a 63.9 MB body still returns ok', async () => {
     /*
      * The constant is documentation-only. Rather than trust a grep, this drives
      * the whole function with Maneka Gandhi's real byte size (63,851,267 —
@@ -225,7 +225,7 @@ describe('fetchJudgmentFullText — truncation is never silent (NYS-ARCHIVE-LARG
     const r = await fetchJudgmentFullText({ s3Path: SC_S3 });
     expect(r.ok).toBe(true);
     expect(r.ok && r.byteSize).toBe(63_851_267);
-    expect(NYS_EXTRACT_MAX_PDF_BYTES).toBe(96 * 1024 * 1024);
+    expect(JRX_ECOSYSTEM_EXTRACT_MAX_PDF_BYTES).toBe(96 * 1024 * 1024);
   });
 });
 

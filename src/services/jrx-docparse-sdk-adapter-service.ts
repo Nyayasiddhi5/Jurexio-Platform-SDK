@@ -1,5 +1,5 @@
 /**
- * NV-DOCPARSE-SDK-ADAPTER-001 — @jurexio/docparse-sdk engine for NYV ingest (dev flag).
+ * NV-DOCPARSE-SDK-ADAPTER-001 — @jurexio/docparse-sdk engine for JRX ingest (dev flag).
  * Production default remains @jurexio/docparse until golden parity + cutover GO.
  */
 import type { ExtractionResult } from '@jurexio/docparse-sdk';
@@ -31,16 +31,16 @@ export async function runDocparseSdkEngine(
   runOpts: DocparseSdkRunOpts = {},
 ): Promise<ExtractionResult> {
   const { runComplete } = await import('@jurexio/docparse-sdk');
-  const { createNyvPartialFieldRecoveryProvider } = await import('./jrx-docparse-partial-llm-sdk-provider.js');
-  const { createNyvCloudOcrProvider } = await import('./jrx-docparse-cloud-ocr-sdk-provider.js');
+  const { createJrxPartialFieldRecoveryProvider } = await import('./jrx-docparse-partial-llm-sdk-provider.js');
+  const { createJrxCloudOcrProvider } = await import('./jrx-docparse-cloud-ocr-sdk-provider.js');
   const inputFiles = files.map((f) => ({
     bytes: new Uint8Array(f.bytes),
     fileName: f.fileName,
     mime: f.mimeType,
   }));
   const pack = runOpts.domainPackId ?? domainPackId;
-  const partialFieldRecovery = createNyvPartialFieldRecoveryProvider();
-  const cloudOcr = createNyvCloudOcrProvider();
+  const partialFieldRecovery = createJrxPartialFieldRecoveryProvider();
+  const cloudOcr = createJrxCloudOcrProvider();
   const completed = await runComplete(inputFiles, {
     batchId,
     actor,

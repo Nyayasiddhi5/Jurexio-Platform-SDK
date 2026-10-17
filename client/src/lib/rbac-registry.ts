@@ -86,8 +86,8 @@ export const CATEGORY_ICONS: Record<FeatureCategory, string> = {
 };
 
 export const FEATURE_REGISTRY: FeatureEntry[] = [
-  { id: 'nyayavigya', label: 'Jurexio Dashboard', description: 'Central SDK administration dashboard', route: '/dashboard', category: 'legal_platform', icon: 'Monitor', minRole: 'user' },
-  // Nyayamitra Chat removed from central console (lives in NYM downstream client) — v5.0.1
+  { id: 'jurexio', label: 'Jurexio Dashboard', description: 'Central SDK administration dashboard', route: '/dashboard', category: 'legal_platform', icon: 'Monitor', minRole: 'user' },
+  // Jurexio Citizen Chat removed from central console (lives in NYM downstream client) — v5.0.1
   { id: 'nyayasiddhi-professional', label: 'Jurexio Professional™', description: 'Practice management OS for lawyers', route: '/nyayasiddhi-professional', category: 'legal_platform', icon: 'Briefcase', minRole: 'user' },
   { id: 'nyayasiddhi-ministry', label: 'Jurexio Ministry™', description: 'Sovereign regulatory & government legal infrastructure', route: '/governance', category: 'legal_platform', icon: 'Landmark', minRole: 'analyst' },
   { id: 'nyayasiddhi-academy', label: 'Jurexio Academy™', description: 'Legal intelligence training platform', route: '/academy', category: 'legal_platform', icon: 'GraduationCap', minRole: 'user' },
@@ -128,7 +128,7 @@ export const FEATURE_REGISTRY: FeatureEntry[] = [
   { id: 'org-admin', label: 'Organization Admin', description: 'Organization management', route: '/org-admin', category: 'admin', icon: 'Building', minRole: 'org_admin', requiresOrg: true },
   // admin-console + realtime-dashboard removed 2026-05-06 (Phase A T001): admin-console
   // page never had its own component (route mapped to <CommandCentre>); realtime-dashboard
-  // succeeded by Phase C scaffold /live-activity-feed (NyvSidebar.tsx:90, App.tsx:409).
+  // succeeded by Phase C scaffold /live-activity-feed (JrxSidebar.tsx:90, App.tsx:409).
   { id: 'architect', label: 'Architect Builder', description: 'Visual org design tool', route: '/architect', category: 'admin', icon: 'PenTool', minRole: 'manager' },
   { id: 'hitl', label: 'HITL Decision Cards', description: 'Human-in-the-loop approvals', route: '/decision-cards', category: 'admin', icon: 'CheckSquare', minRole: 'operator' },
   { id: 'digital-twin', label: 'Digital Twin', description: 'System digital twin view', route: '/digital-twin', category: 'admin', icon: 'Eye', minRole: 'super_admin' },

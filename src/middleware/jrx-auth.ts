@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
@@ -13,16 +13,16 @@ const ACCESS_TOKEN_EXPIRY_HOURS = SECURITY_CONFIG.session.jwtExpiryHours;
 const REFRESH_TOKEN_EXPIRY_DAYS = SECURITY_CONFIG.session.refreshTokenExpiryDays;
 
 function getJwtSecret(): string {
-  // NYV-AUDIT-A1 (2026-05-05): centralized JWT-secret resolution.
-  // Accept any of NYV_JWT_SECRET, JWT_SECRET, NS_JWT_SECRET (in priority order)
+  // JRX-AUDIT-A1 (2026-05-05): centralized JWT-secret resolution.
+  // Accept any of JRX_JWT_SECRET, JWT_SECRET, NS_JWT_SECRET (in priority order)
   // to avoid the historical triple-naming split-brain. All three should ideally
   // hold the same value; the fallback chain protects against single-name typos.
   const secret =
-    process.env.NYV_JWT_SECRET ||
+    process.env.JRX_JWT_SECRET ||
     process.env.JWT_SECRET ||
     process.env.NS_JWT_SECRET;
   if (!secret) {
-    throw new Error('FATAL: JWT secret env var (NYV_JWT_SECRET / JWT_SECRET / NS_JWT_SECRET) is required. Refusing to start with insecure defaults.');
+    throw new Error('FATAL: JWT secret env var (JRX_JWT_SECRET / JWT_SECRET / NS_JWT_SECRET) is required. Refusing to start with insecure defaults.');
   }
   return secret;
 }
@@ -211,12 +211,12 @@ setInterval(async () => {
 export const authenticateToken = (req: Request, res: Response, next: NextFunction): void => {
   try {
     /* ── Inter-service auth bypass ─────────────────────────────
-       Allows trusted internal services (NSP, NSI, Nyayamitra) to
+       Allows trusted internal services (NSP, NSI, Jurexio Citizen) to
        call Core SDK without a user JWT — verified by a shared
        secret presented either as:
          - X-NSP-Inter-Secret: <secret>          (legacy header)
          - X-Inter-Service-Secret: <secret>      (alias)
-         - Authorization: Bearer <secret>        (NV_API_KEY style — used by Nyayamitra)
+         - Authorization: Bearer <secret>        (NV_API_KEY style — used by Jurexio Citizen)
        Accepts either NV_API_KEY or NV_INTER_SERVICE_SECRET; if
        NV_API_KEY is unset it falls back to NV_INTER_SERVICE_SECRET.
     ─────────────────────────────────────────────────────────── */
@@ -245,11 +245,11 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
                                   : undefined;
 
     if (interServiceSecret && allowedSecrets.includes(interServiceSecret)) {
-      logger.info(`[nv-auth] auth_method=inter_service header=x-nsp-inter-secret`);
+      logger.info(`[jrx-auth] auth_method=inter_service header=x-nsp-inter-secret`);
       req.user = {
         id:             'service-account',
         userId:         'service-account',
-        email:          process.env.NYV_SERVICE_ACCOUNT_EMAIL || 'service@nyayavigya.internal',
+        email:          process.env.JRX_SERVICE_ACCOUNT_EMAIL || 'service@jurexio.comternal',
         role:           'service',
         // NV-UAT-DEFAULT-ORG-001: service accounts default to baseline org_id=1.
         organizationId: 1,
@@ -258,11 +258,11 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     }
 
     if (bearerToken && allowedSecrets.includes(bearerToken)) {
-      logger.info(`[nv-auth] auth_method=api_key header=authorization-bearer`);
+      logger.info(`[jrx-auth] auth_method=api_key header=authorization-bearer`);
       req.user = {
         id:             'service-account',
         userId:         'service-account',
-        email:          process.env.NYV_SERVICE_ACCOUNT_EMAIL || 'service@nyayavigya.internal',
+        email:          process.env.JRX_SERVICE_ACCOUNT_EMAIL || 'service@jurexio.comternal',
         role:           'service',
         // NV-UAT-DEFAULT-ORG-001: service accounts default to baseline org_id=1.
         organizationId: 1,

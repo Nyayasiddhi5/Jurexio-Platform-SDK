@@ -1,5 +1,5 @@
 /**
- * nv-my-approvals-routes.ts — Task #337 (2026-05-13, hardened post-review)
+ * jrx-my-approvals-routes.ts — Task #337 (2026-05-13, hardened post-review)
  *
  * Real backend for the Console "My Approvals" page (`/console/my-approvals`),
  * replacing the Phase-C 501 stub at `/api/jrx/phase-c/my-approvals`.
@@ -167,7 +167,7 @@ async function ensureHitlTables(): Promise<boolean> {
       try {
         // Widen nv_hitl_queue with every column the GET SELECT / WHERE
         // references. Legacy installs only had a subset; types mirror the
-        // canonical governance migration (2026-05-14-nv-governance-tables.sql)
+        // canonical governance migration (2026-05-14-jrx-governance-tables.sql)
         // and the customer-org cutover (drizzle/0012). All idempotent.
         await pool.query(
           `ALTER TABLE nv_hitl_queue

@@ -15,8 +15,8 @@ import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { useToast } from '@/hooks/use-toast';
 import { getAuthToken } from '@/lib/jrx-auth-token';
 import {
@@ -57,16 +57,16 @@ const PLATFORMS = [
   {
     id: './jrx-sdk', name: 'Jurexio Enterprise Platform SDK', fullName: 'Jurexio Global Legal Operating System',
     desc: 'AI Backbone · ROMA L5 Agents · Multi-LLM Routing · 6 Jurisdictions',
-    route: '/api/nyayavigya', icon: Brain, color: COLORS.royalBlue, healthPath: nv('health'),
+    route: '/api/jurexio', icon: Brain, color: COLORS.royalBlue, healthPath: nv('health'),
     consolePath: null as string | null, standalonePort: null as string | null, badge: 'CURRENT',
     completion: 95, category: 'Core SDK',
     pending: ['Production deployment', 'Performance load testing', 'SDK v2 documentation'],
   },
   {
-    id: 'nyayamitra', name: 'Nyayamitra™', fullName: 'Nyayamitra — Citizen Legal Assistance Platform',
+    id: 'jurexio-citizen', name: 'Jurexio Citizen', fullName: 'Jurexio Citizen — Citizen Legal Assistance Platform',
     desc: 'AI-powered legal help for citizens · Case intake · Lawyer discovery · 22 Languages',
-    route: '/api/nyayamitra', icon: Users, color: COLORS.emerald, healthPath: '/api/nyayamitra/health',
-    consolePath: '/console/nyayamitra', standalonePort: null, badge: 'BETA',
+    route: '/api/jurexio-citizen', icon: Users, color: COLORS.emerald, healthPath: '/api/jurexio-citizen/health',
+    consolePath: '/console/jurexio-citizen', standalonePort: null, badge: 'BETA',
     completion: 88, category: 'Citizen Services',
     pending: ['Mobile app (Flutter)', '22-language translation completion', 'Lawyer marketplace integration'],
   },
@@ -89,7 +89,7 @@ const PLATFORMS = [
   {
     id: 'nsg', name: 'Jurexio Ministry™', fullName: 'Jurexio Ministry — AI & Regulatory Governance',
     desc: 'AI model governance · DPDPA compliance · Enforcement monitoring · Regulatory audit chain',
-    route: '/api/nyayavigya/governance', icon: Shield, color: COLORS.midBlue, healthPath: nv('health'),
+    route: '/api/jurexio/governance', icon: Shield, color: COLORS.midBlue, healthPath: nv('health'),
     consolePath: '/console/enforcement', standalonePort: null, badge: 'BETA',
     completion: 65, category: 'Governance',
     pending: ['Dedicated governance portal UI', 'WORM audit chain implementation', 'Regulatory API integrations'],
@@ -106,7 +106,7 @@ const PLATFORMS = [
 
 /** Maps command-centre platform ids → nv_sdk_applications.platform_type */
 const PLATFORM_REGISTRY_ALIAS: Record<string, string> = {
-  nyayamitra: 'nyayamitra',
+  jurexio-citizen: 'jurexio-citizen',
   nsp: 'nyayasiddhi-professional',
   nsi: 'nyayasiddhi-institution',
   nsg: 'nyayasiddhi-ministry',
@@ -470,8 +470,8 @@ export default function CommandCentre() {
   });
 
   const { data: mcpCatalogData } = useQuery({
-    queryKey: [nv('nyaya-tools/catalog'), 'summary'],
-    queryFn: () => fetchApi(nv('nyaya-tools/catalog?limit=1')),
+    queryKey: [nv('jrx-legal-tools/catalog'), 'summary'],
+    queryFn: () => fetchApi(nv('jrx-legal-tools/catalog?limit=1')),
     refetchInterval: pollMs(120000),
     placeholderData: (prev: any) => prev,
   });
@@ -1124,7 +1124,7 @@ export default function CommandCentre() {
                   {Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}
                 </div>
               ) : filteredAgents.length === 0 ? (
-                <NyvEmptyState icon={Bot} title="No agents found" description="Try adjusting your filters above." size="sm" />
+                <JrxEmptyState icon={Bot} title="No agents found" description="Try adjusting your filters above." size="sm" />
               ) : (
                 filteredAgents.slice(0, 50).map((agent: any, idx: number) => (
                   <div key={`${agent.id}:${idx}`} className="flex items-center justify-between p-2 rounded border hover:bg-gray-50 transition-colors">
@@ -1202,14 +1202,14 @@ export default function CommandCentre() {
                   {Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-8 w-full" />)}
                 </div>
               ) : providersError ? (
-                <NyvErrorState
+                <JrxErrorState
                   title="Unable to load providers"
                   description="The provider list could not be retrieved."
                   onRetry={() => refetchProviders()}
                   size="sm"
                 />
               ) : (providerChain.length === 0 && providers.length === 0) ? (
-                <NyvEmptyState title="No providers configured yet" description="Connect an LLM provider to populate the failover chain." size="sm" />
+                <JrxEmptyState title="No providers configured yet" description="Connect an LLM provider to populate the failover chain." size="sm" />
               ) : (
                 (providerChain.length > 0 ? providerChain : providers).slice(0, 10).map((p: any, i: number) => (
                   <div key={p.id || p.name || i} className="flex items-center gap-3 p-3 rounded-lg border hover:bg-gray-50">
@@ -1787,7 +1787,7 @@ export default function CommandCentre() {
           </CardHeader>
           <CardContent className="space-y-2">
             {[
-              { rule: 'No AI Legal Advice (Nyayamitra)', active: true },
+              { rule: 'No AI Legal Advice (Jurexio Citizen)', active: true },
               { rule: 'No Visible Lawyer Ratings', active: true },
               { rule: 'No Notice Drafting', active: true },
               { rule: 'No Bail Advice', active: true },
@@ -2046,7 +2046,7 @@ export default function CommandCentre() {
           <CardContent>
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={[
-                { platform: 'Nyayamitra', budget: 500000 },
+                { platform: 'Jurexio Citizen', budget: 500000 },
                 { platform: 'NS Prof', budget: 200000 },
                 { platform: 'NS Inst', budget: 1000000 },
                 { platform: 'NS Governance', budget: 2000000 },
@@ -2123,7 +2123,7 @@ export default function CommandCentre() {
               </div>
             ) : settingsError ? (
               <div className="col-span-full">
-                <NyvErrorState
+                <JrxErrorState
                   title="Unable to load orchestration features"
                   onRetry={() => refetchSettings()}
                   size="sm"
@@ -2131,7 +2131,7 @@ export default function CommandCentre() {
               </div>
             ) : Object.keys(features).length === 0 ? (
               <div className="col-span-full">
-                <NyvEmptyState title="No orchestration features reported" description="Settings have not advertised any feature flags." size="sm" />
+                <JrxEmptyState title="No orchestration features reported" description="Settings have not advertised any feature flags." size="sm" />
               </div>
             ) : (
               Object.entries(features).map(([key, val]) => (
@@ -2359,14 +2359,14 @@ export default function CommandCentre() {
                   {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}
                 </div>
               ) : usersError ? (
-                <NyvErrorState
+                <JrxErrorState
                   title="Unable to load users"
                   description="The user directory could not be retrieved."
                   onRetry={() => refetchUsers()}
                   size="sm"
                 />
               ) : realUsers.length === 0 ? (
-                <NyvEmptyState title="No users yet" description="Invite your first user to get started." size="sm" />
+                <JrxEmptyState title="No users yet" description="Invite your first user to get started." size="sm" />
               ) : realUsers.map((u: any, i: number) => (
                 <div key={u.id || i} className="flex items-center justify-between p-3 rounded-lg border hover:bg-gray-50">
                   <div className="flex items-center gap-3">
@@ -2516,7 +2516,7 @@ export default function CommandCentre() {
         <CardContent>
           <div className="space-y-2">
             {corpusRows.length === 0 ? (
-              <NyvEmptyState title="No knowledge surfaces yet" description="Knowledge Plane proxies or tenant RAG collections will appear here." size="sm" />
+              <JrxEmptyState title="No knowledge surfaces yet" description="Knowledge Plane proxies or tenant RAG collections will appear here." size="sm" />
             ) : corpusRows.map((kb, i) => (
               <div key={i} className="flex items-center justify-between p-3 rounded-lg border hover:bg-gray-50">
                 <div className="flex items-center gap-3">
@@ -2558,7 +2558,7 @@ export default function CommandCentre() {
           <CardHeader className="pb-2"><CardTitle className="text-sm" style={{ color: COLORS.royalBlue }}>Federation probes</CardTitle></CardHeader>
           <CardContent className="space-y-3">
             <p className="text-xs text-gray-500">
-              Use the Knowledge Plane hub for Auto-RAG / statutes / caselaw / Athena probes with live NYV proxies.
+              Use the Knowledge Plane hub for Auto-RAG / statutes / caselaw / Athena probes with live JRX proxies.
             </p>
             <Button size="sm" className="w-full text-xs" style={{ background: COLORS.royalBlue }} onClick={() => { window.location.href = '/nys-knowledge-plane'; }}>
               <Search className="w-3 h-3 mr-1" />Open Knowledge Plane hub
@@ -2799,14 +2799,14 @@ export default function CommandCentre() {
                   {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}
                 </div>
               ) : orgsError ? (
-                <NyvErrorState
+                <JrxErrorState
                   title="Unable to load organizations"
                   description="The organization directory could not be retrieved."
                   onRetry={() => refetchOrgs()}
                   size="sm"
                 />
               ) : realOrgs.length === 0 ? (
-                <NyvEmptyState title="No organizations yet" description="Onboard your first organization to populate this directory." size="sm" />
+                <JrxEmptyState title="No organizations yet" description="Onboard your first organization to populate this directory." size="sm" />
               ) : realOrgs.map((t: any, i: number) => (
                 <div key={t.id || i} className="flex items-center justify-between p-3 rounded-lg border hover:bg-gray-50">
                   <div className="flex items-center gap-3">
@@ -2889,7 +2889,7 @@ export default function CommandCentre() {
         <CardContent>
           <div className="space-y-2">
             {openIncidents.length === 0 && incidents.length === 0 ? (
-              <NyvEmptyState title="No open incidents" description="Live incident feed is empty — platform health is clear." size="sm" />
+              <JrxEmptyState title="No open incidents" description="Live incident feed is empty — platform health is clear." size="sm" />
             ) : (openIncidents.length ? openIncidents : incidents).slice(0, 12).map((alert: any, i: number) => {
               const sev = String(alert.severity || alert.level || 'INFO').toUpperCase();
               const color = sev.includes('CRIT') ? '#EF4444' : sev.includes('WARN') ? COLORS.gold : COLORS.midBlue;
@@ -2950,7 +2950,7 @@ export default function CommandCentre() {
           <CardContent>
             <div className="space-y-2">
               {keyRows.length === 0 ? (
-                <NyvEmptyState title="No API keys listed" description="Keys appear here from /api/jrx/admin/api-keys when available for your role." size="sm" />
+                <JrxEmptyState title="No API keys listed" description="Keys appear here from /api/jrx/admin/api-keys when available for your role." size="sm" />
               ) : keyRows.map((k: any, i: number) => (
                 <div key={k.id || i} className="p-3 rounded border">
                   <div className="flex justify-between">
@@ -2969,7 +2969,7 @@ export default function CommandCentre() {
           <CardContent className="space-y-2 text-xs text-gray-600">
             <p>SDK Hub, API Tester, and partner smoke use live gateway + Knowledge Plane — not sandbox mock counters.</p>
             <div className="flex flex-wrap gap-2">
-              <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => { window.location.href = '/nyayavigya-sdk-hub'; }}>SDK Hub</Button>
+              <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => { window.location.href = '/jurexio-sdk-hub'; }}>SDK Hub</Button>
               <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => { window.location.href = '/sdk-testing-console'; }}>SDK Testing</Button>
               <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => { window.location.href = '/nys-knowledge-plane'; }}>Knowledge Plane</Button>
             </div>
@@ -3002,7 +3002,7 @@ export default function CommandCentre() {
         <CardContent>
           <div className="space-y-2">
             {registryPlatformRows.length === 0 ? (
-              <NyvEmptyState title="No platforms registered" description="Platforms from /api/jrx/platforms will appear here." size="sm" />
+              <JrxEmptyState title="No platforms registered" description="Platforms from /api/jrx/platforms will appear here." size="sm" />
             ) : registryPlatformRows.map((p: any, i: number) => (
               <div key={p.id || i} className="flex items-center justify-between p-3 rounded-lg border hover:bg-gray-50">
                 <div>
@@ -3024,7 +3024,7 @@ export default function CommandCentre() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {realOrgs.slice(0, 6).length === 0 ? (
-              <NyvEmptyState title="No orgs yet" description="Seed demo tenants to populate org structure." size="sm" />
+              <JrxEmptyState title="No orgs yet" description="Seed demo tenants to populate org structure." size="sm" />
             ) : realOrgs.slice(0, 6).map((wl: any, i: number) => (
               <div key={wl.id || i} className="p-3 rounded border space-y-1">
                 <div className="flex justify-between items-center">
@@ -3069,7 +3069,7 @@ export default function CommandCentre() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: '#f8f9fc' }}>
       {/* ─── v5.0.1 (Phase B): inner sidebar removed, replaced by horizontal tab strip ───
-          The outer NyvSidebar.tsx is the single source of truth for app navigation.
+          The outer JrxSidebar.tsx is the single source of truth for app navigation.
           activeSection state preserved; all sectionRenderers untouched. */}
       <header className="border-b bg-white flex items-center justify-between px-4 h-14 shrink-0" style={{ borderColor: COLORS.royalBlue + '15' }} role="banner">
         <div className="flex items-center gap-3 min-w-0">

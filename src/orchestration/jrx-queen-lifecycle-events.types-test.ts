@@ -1,7 +1,7 @@
 /**
  * Type-level test for Queen lifecycle event contracts.
  *
- * NYV-ORCH-EVENT-CORRELATION-002 (Task #37): the Queen orchestrator stamps
+ * JRX-ORCH-EVENT-CORRELATION-002 (Task #37): the Queen orchestrator stamps
  * `orchestrationId` on every lifecycle event so AG-UI listeners on the shared
  * global EventEmitter forward only their own run's events. Without that field,
  * concurrent /api/jrx/stream requests cross-receive each other's payloads and

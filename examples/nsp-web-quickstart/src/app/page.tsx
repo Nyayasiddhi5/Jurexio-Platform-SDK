@@ -15,7 +15,7 @@ export default function HomePage() {
       <p style={{ color: '#555' }}>
         This sample demonstrates the five most common <code>@nyayavigya/client-sdk</code> v6 flows.
         All API traffic is proxied through the Next.js route handlers under{' '}
-        <code>/api/nyv-proxy/*</code> so your live API key never reaches the browser.
+        <code>/api/jrx-proxy/*</code> so your live API key never reaches the browser.
       </p>
       <ul style={{ listStyle: 'none', padding: 0, marginTop: 24 }}>
         {flows.map(f => (

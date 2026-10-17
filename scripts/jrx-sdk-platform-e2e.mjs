@@ -3,13 +3,13 @@ import { writeFileSync } from 'node:fs';
 
 const BASE = process.env.NV_BASE_URL || 'http://127.0.0.1:5000';
 const PLATFORMS = [
-  { sku: 'NSP',  key: process.env.NYV_SDK_KEY_NSP,  client: 'nyayasiddhi-professional/1.0.0', tier: 'enterprise' },
-  { sku: 'NSPM', key: process.env.NYV_SDK_KEY_NSPM, client: 'nyayasiddhi',                    tier: 'enterprise' },
-  { sku: 'NSI',  key: process.env.NYV_SDK_KEY_NSI,  client: 'nyayasiddhi',                    tier: 'enterprise' },
-  { sku: 'NSA',  key: process.env.NYV_SDK_KEY_NSA,  client: 'nyayasiddhi',                    tier: 'enterprise' },
-  { sku: 'NSM',  key: process.env.NYV_SDK_KEY_NSM,  client: 'nyayasiddhi',                    tier: 'enterprise' },
-  { sku: 'NYM',  key: process.env.NYV_SDK_KEY_NYM,  client: 'nyayamitra',                     tier: 'enterprise' },
-  { sku: 'JRX',  key: process.env.NYV_SDK_KEY_JRX,  client: 'nyayasiddhi',                    tier: 'enterprise' },
+  { sku: 'NSP',  key: process.env.JRX_SDK_KEY_NSP,  client: 'nyayasiddhi-professional/1.0.0', tier: 'enterprise' },
+  { sku: 'NSPM', key: process.env.JRX_SDK_KEY_NSPM, client: 'nyayasiddhi',                    tier: 'enterprise' },
+  { sku: 'NSI',  key: process.env.JRX_SDK_KEY_NSI,  client: 'nyayasiddhi',                    tier: 'enterprise' },
+  { sku: 'NSA',  key: process.env.JRX_SDK_KEY_NSA,  client: 'nyayasiddhi',                    tier: 'enterprise' },
+  { sku: 'NSM',  key: process.env.JRX_SDK_KEY_NSM,  client: 'nyayasiddhi',                    tier: 'enterprise' },
+  { sku: 'NYM',  key: process.env.JRX_SDK_KEY_NYM,  client: 'jurexio-citizen',                     tier: 'enterprise' },
+  { sku: 'JRX',  key: process.env.JRX_SDK_KEY_JRX,  client: 'nyayasiddhi',                    tier: 'enterprise' },
 ];
 
 const FACTS_LEGAL =
@@ -151,7 +151,7 @@ async function main() {
   const tests = buildTests();
   const tasks = [];
   for (const platform of PLATFORMS) {
-    if (!platform.key) { console.error(`MISSING KEY for ${platform.sku} — set NYV_SDK_KEY_${platform.sku}`); continue; }
+    if (!platform.key) { console.error(`MISSING KEY for ${platform.sku} — set JRX_SDK_KEY_${platform.sku}`); continue; }
     for (const t of tests) tasks.push(callOnce(t, platform, t.timeoutMs || 30000));
   }
   console.error(`Running ${tasks.length} test calls in parallel (${tests.length} tests × ${PLATFORMS.length} platforms)...`);
@@ -204,8 +204,8 @@ async function main() {
     console.log(`\nReal-LLM latency: p50=${p50}ms p95=${p95}ms max=${llms[llms.length-1]}ms (n=${llms.length})`);
   }
 
-  writeFileSync('/tmp/nv-sdk-e2e-report.json', JSON.stringify({ ts: new Date().toISOString(), base: BASE, total, passed, llmTotal, llmPassed, results }, null, 2));
-  console.error('\nFull report → /tmp/nv-sdk-e2e-report.json');
+  writeFileSync('/tmp/jrx-sdk-e2e-report.json', JSON.stringify({ ts: new Date().toISOString(), base: BASE, total, passed, llmTotal, llmPassed, results }, null, 2));
+  console.error('\nFull report → /tmp/jrx-sdk-e2e-report.json');
   process.exit(passed === total ? 0 : 1);
 }
 

@@ -16,12 +16,12 @@
  *   2. Auth (Console-side): JWT-only (`authenticateToken` + `requireAdmin`)
  *      — applied at mount time in `src/index.ts`. Plain users get 401/403
  *      from the JWT layer before ever touching this router.
- *   3. SDK key (server-side): read once from `process.env.NYV_CONSOLE_ADMIN_SDK_KEY`.
+ *   3. SDK key (server-side): read once from `process.env.JRX_CONSOLE_ADMIN_SDK_KEY`.
  *      When unset, the proxy returns a 503 with an explicit operator
  *      runbook hint — it never silently falls back to "no key" (which
  *      would re-create the original 401 the user reported).
  *   4. Forward: dispatch the request to `/api/nv5/<rest>` over the
- *      gateway's own loopback (`127.0.0.1:${NYV_PORT_GATEWAY}`) with
+ *      gateway's own loopback (`127.0.0.1:${JRX_PORT_GATEWAY}`) with
  *      `X-API-Key` set server-side. Method, query string, request body,
  *      and `Content-Type` are passed through as-is.
  *   5. Audit: every dispatch (success or failure) writes one
@@ -33,7 +33,7 @@
  *
  * Guardrails honored:
  *   - NV-AUTH-HEADER-001 — uses canonical `X-API-Key` only; no new headers.
- *   - NV-NAMING-001      — `nv-` prefix; net-new file (no existing concept).
+ *   - NV-NAMING-001      — `jrx-` prefix; net-new file (no existing concept).
  *   - NV-WIRING-001      — wired from `src/index.ts` (see Batch K mount).
  *   - NV-CONTRACT-001    — additive route surface, no removals.
  */
@@ -47,7 +47,7 @@ import { createLogger } from '../utils/logger.js';
 const logger = createLogger('./jrx-admin-nv5-proxy');
 const router = Router();
 
-const ADMIN_SDK_KEY_ENV = 'NYV_CONSOLE_ADMIN_SDK_KEY';
+const ADMIN_SDK_KEY_ENV = 'JRX_CONSOLE_ADMIN_SDK_KEY';
 
 function maskKey(key: string): string {
   if (!key) return '';
@@ -59,7 +59,7 @@ function loopbackHost(): string {
   return '127.0.0.1';
 }
 function loopbackPort(): number {
-  return parseInt(process.env.NYV_PORT_GATEWAY || process.env.PORT || '5000', 10);
+  return parseInt(process.env.JRX_PORT_GATEWAY || process.env.PORT || '5000', 10);
 }
 
 /**
@@ -181,7 +181,7 @@ router.use(async (req: Request, res: Response) => {
   } finally {
     // Audit-chain entry. `appendAuditRecord` is hash-chained + cross-pod
     // serialized — never block the response on it; log at debug if it
-    // fails (matches the pattern in writeAuditLog at nv-sdk-tracking-
+    // fails (matches the pattern in writeAuditLog at jrx-sdk-tracking-
     // middleware.ts:525).
     const auditPayload = JSON.stringify({
       console_user_id: userId,

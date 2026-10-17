@@ -1,6 +1,6 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
- * NYV-SVC-DOCAI Routes — /api/jrx/doc-analyze/*
+ * JRX-SVC-DOCAI Routes — /api/jrx/doc-analyze/*
  */
 
 import { Router, Request, Response } from 'express';
@@ -12,7 +12,7 @@ import { consentGate } from '../middleware/jrx-consent-gate.js';
 
 const docAnalyzeLogger = createLogger('doc-analyze');
 
-// T004: All document uploads go through the async job queue (nv-document-intelligence-orchestrator).
+// T004: All document uploads go through the async job queue (jrx-document-intelligence-orchestrator).
 // This ensures consistent job tracking, embeddings, and observability for ALL documents.
 // The SYNC_MAX_BYTES limit has been removed — ALL uploads are async.
 const SYNC_MAX_BYTES = 0; // T004: force all uploads to async queue

@@ -1,8 +1,8 @@
 -- ─────────────────────────────────────────────────────────────────────────────
--- nv_doc_share_grants: Nyayavigya-mediated cross-platform document sharing
+-- nv_doc_share_grants: Jurexio-mediated cross-platform document sharing
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Per Phase 2A decisions LOCKED 2026-05-06:
---   - Sharing is platform-mediated by Nyayavigya, NOT peer-to-peer
+--   - Sharing is platform-mediated by Jurexio, NOT peer-to-peer
 --   - Default policy = private (uploader-platform-only)
 --   - Documents ≥ auto_share_threshold_mb (default 50) auto-receive grants
 --     for ALL ecosystem platforms (NSP, NSPM, NSI, NSM, NSA, NYM, JRX) so
@@ -25,20 +25,20 @@ CREATE TABLE IF NOT EXISTS public.nv_doc_share_grants (
   granted_to_platform_code TEXT        NOT NULL,
   granted_to_org_id        TEXT,                          -- NULL = ecosystem-wide for that platform
   grant_type               TEXT        NOT NULL DEFAULT 'read',  -- read|write|admin
-  grant_reason             TEXT,                          -- auto-large-doc|manual|cross-platform-workflow|nyayavigya-orchestrator
+  grant_reason             TEXT,                          -- auto-large-doc|manual|cross-platform-workflow|jurexio-orchestrator
   threshold_bytes          BIGINT,                        -- file size that triggered auto-grant (NULL for manual)
-  storage_path             TEXT,                          -- canonical storage path (Nyayavigya-shared bucket)
-  shared_bucket            TEXT        NOT NULL DEFAULT 'nyv-shared-documents',
+  storage_path             TEXT,                          -- canonical storage path (Jurexio-shared bucket)
+  shared_bucket            TEXT        NOT NULL DEFAULT 'jrx-shared-documents',
   expires_at               TIMESTAMPTZ,                   -- NULL = no expiry
   revoked_at               TIMESTAMPTZ,
   revoked_by               TEXT,
   revoke_reason            TEXT,
   created_at               TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  created_by               TEXT,                          -- user_id or 'nyayavigya-orchestrator'
+  created_by               TEXT,                          -- user_id or 'jurexio-orchestrator'
   audit_chain_hash         TEXT,                          -- linked into nv_audit_logs hash chain
   metadata                 JSONB       NOT NULL DEFAULT '{}'::jsonb,
   CHECK (grant_type IN ('read','write','admin')),
-  CHECK (owner_platform_code IN ('NSP','NSPM','NSI','NSM','NSA','NYM','JRX','NYV')),
+  CHECK (owner_platform_code IN ('NSP','NSPM','NSI','NSM','NSA','NYM','JRX','JRX')),
   CHECK (granted_to_platform_code IN ('NSP','NSPM','NSI','NSM','NSA','NYM','JRX'))
 );
 
@@ -69,7 +69,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS uq_doc_share_grants_active
 
 -- Comments for psql \d+ inspection
 COMMENT ON TABLE public.nv_doc_share_grants IS
-  'Nyayavigya-mediated cross-platform document share grants. Per Phase 2A 2026-05-06: large docs (>= auto_share_threshold_mb) auto-grant ecosystem read access to eliminate per-platform duplication.';
+  'Jurexio-mediated cross-platform document share grants. Per Phase 2A 2026-05-06: large docs (>= auto_share_threshold_mb) auto-grant ecosystem read access to eliminate per-platform duplication.';
 
 COMMENT ON COLUMN public.nv_doc_share_grants.granted_to_org_id IS
   'NULL = ecosystem-wide grant for the named platform (any org on that platform with valid SDK key has read).';

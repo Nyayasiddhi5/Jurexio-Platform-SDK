@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Demo-gap live probe — runs ON nysdev. Never echo secret values.
+# Demo-gap live probe — runs ON jrx-prod. Never echo secret values.
 set -uo pipefail
-CANON="/opt/Nyayavigya/secrets/.env.production"
-NSPK="$(grep -E '^NYV_SDK_KEY_NSP=' "$CANON" | head -1 | cut -d= -f2- | tr -d '\r\n"')"
-API="https://api.nyayasiddhi.online"
+CANON="/opt/Jurexio/secrets/.env.production"
+NSPK="$(grep -E '^JRX_SDK_KEY_NSP=' "$CANON" | head -1 | cut -d= -f2- | tr -d '\r\n"')"
+API="https://api.jurexio.com"
 
 probe() {
   local label="$1"; shift
@@ -14,7 +14,7 @@ probe() {
 
 probe "MULTI-TERM CASELAW (anticipatory+bail)" bash -c '
   curl -sS -m 60 -o /tmp/mt.json -w "http=%{http_code}\n" \
-    -H "X-API-Key: '"$NSPK"'" -H "X-NYV-Platform: nsp" \
+    -H "X-API-Key: '"$NSPK"'" -H "X-JRX-Platform: nsp" \
     "'"$API"'/api/jrx/knowledge/caselaw/search?q=anticipatory+bail&limit=3&mode=fts"
   python3 -c "
 import json
@@ -53,7 +53,7 @@ probe "CNR RJHC REGRESSION" bash -c '
 
 probe "DRAFT-FAST SMOKE (short)" bash -c '
   curl -sS -m 90 -o /tmp/df.json -w "http=%{http_code} time=%{time_total}s\n" \
-    -X POST -H "X-API-Key: '"$NSPK"'" -H "X-NYV-Platform: nsp" -H "Content-Type: application/json" \
+    -X POST -H "X-API-Key: '"$NSPK"'" -H "X-JRX-Platform: nsp" -H "Content-Type: application/json" \
     -d "{\"prompt\":\"Draft one sentence bail application under BNSS.\",\"taskType\":\"legal-draft-fast\",\"jurisdiction\":\"IN\",\"maxTokens\":256}" \
     "'"$API"'/api/jrx/orchestrate"
   python3 -c "

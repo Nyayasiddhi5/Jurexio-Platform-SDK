@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { useNyv } from '../providers';
+import { useJrx } from '../providers';
 
 export default function VoicePage() {
-  const { client } = useNyv();
+  const { client } = useJrx();
   const [text, setText] = useState('यह एक नमूना उत्तर है।');
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);

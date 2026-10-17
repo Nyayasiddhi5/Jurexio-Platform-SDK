@@ -2,7 +2,7 @@
  * NV-MEM-FANIN-BOUND-001 / NV-QUEEN-STAGE-ATTRIBUTION-001 — the 236 s that a
  * forced-Queen swarm spent OUTSIDE its model calls.
  *
- * Measured on live nysdev (deploy 2026-08-16T0910Z-aws-ssm), one request,
+ * Measured on live jrx-prod (deploy 2026-08-16T0910Z-aws-ssm), one request,
  * HTTP 200, 366.1 s wall clock. Read from the span tree, not inferred:
  *
  *   queen.orchestrate                    366.1s
@@ -148,7 +148,7 @@ describe('NV-MEM-FANIN-BOUND-001 — recall is bounded by one breaker attempt', 
 
   it('binds the budget to the live breaker policy, not a hardcoded literal', () => {
     const src = readFileSync(join(SRC, 'orchestration/jrx-memory-fan-in.ts'), 'utf8');
-    expect(src, 'budget must derive from getBreakerPolicy so NYV_BREAKER_CAPABILITY_TIMEOUT_MS stays authoritative')
+    expect(src, 'budget must derive from getBreakerPolicy so JRX_BREAKER_CAPABILITY_TIMEOUT_MS stays authoritative')
       .toContain("getBreakerPolicy('outbound:capability').timeoutMs");
     expect(src, 'a hardcoded 30_000 would silently desync from the breaker')
       .not.toMatch(/FANIN_BUDGET_MS\s*=\s*30_?000/);
@@ -171,8 +171,8 @@ describe('NV-QUEEN-STAGE-ATTRIBUTION-001 — every ring stage reports its own du
   });
 
   it('reuses the existing tracer rather than adding a second timing mechanism', () => {
-    expect(mw, 'NV-NO-DUPLICATE-001: must use utils/nyv-tracer.js withSpan')
-      .toContain("from '../utils/nyv-tracer.js'");
+    expect(mw, 'NV-NO-DUPLICATE-001: must use utils/jrx-tracer.js withSpan')
+      .toContain("from '../utils/jrx-tracer.js'");
   });
 
   it('reports per-source recall duration on success as well as failure', () => {

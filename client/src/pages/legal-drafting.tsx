@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { VoiceDictationTextarea } from '@/components/VoiceDictationTextarea';
 import { apiRequest } from '@/lib/queryClient';
 import { nv } from '@/lib/jrx-api-paths';
-import { NyvPageShell } from '@/components/NyvPageShell';
+import { JrxPageShell } from '@/components/JrxPageShell';
 import { ExecutionTraceRail } from '@/components/execution/ExecutionTraceRail';
 import type { LegalChatTimelineEvent } from '@/services/legal-chat-api';
 
@@ -110,7 +110,7 @@ export default function LegalDraftingPage() {
   };
 
   return (
-    <NyvPageShell
+    <JrxPageShell
       testId="page-legal-drafting"
       title="Legal Drafting"
       description="High Court / Sessions practice-pattern drafts — humanized counsel voice, forum-precise cause title, mic dictation. Bail applications do not schedule sureties until after grant."
@@ -243,6 +243,6 @@ export default function LegalDraftingPage() {
           </Card>
         )}
       </div>
-    </NyvPageShell>
+    </JrxPageShell>
   );
 }

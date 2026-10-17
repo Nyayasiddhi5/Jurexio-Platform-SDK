@@ -9,7 +9,7 @@
     "files.exclude": {
       "**/node_modules": true,
       "**/dist": true,
-      "archive/upstream-nyv": false
+      "archive/deprecated-nyv-compose": true
     },
     "search.exclude": {
       "**/node_modules": true,

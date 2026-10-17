@@ -14,8 +14,8 @@ import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   Bot, Search, RefreshCw, BarChart3, Shield, Globe, CheckCircle2,
@@ -217,7 +217,7 @@ export default function SuperAdminAgentMatrix() {
             </div>
           )}
           {!agentsLoading && agentsError && (
-            <NyvErrorState
+            <JrxErrorState
               title="Unable to load agents"
               description="The agent registry could not be retrieved."
               onRetry={() => refetchAgents()}
@@ -225,7 +225,7 @@ export default function SuperAdminAgentMatrix() {
             />
           )}
           {!agentsLoading && !agentsError && filtered.length === 0 && (
-            <NyvEmptyState icon={Bot} title="No agents match your filters" description="Try adjusting search or category." />
+            <JrxEmptyState icon={Bot} title="No agents match your filters" description="Try adjusting search or category." />
           )}
         </CardContent>
       </Card>

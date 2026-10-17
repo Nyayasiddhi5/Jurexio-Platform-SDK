@@ -15,7 +15,7 @@ node --input-type=module <<'NODE'
 import pg from 'pg';
 import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-secrets-manager';
 import { RDSClient, DescribeDBInstancesCommand } from '@aws-sdk/client-rds';
-const r = await new RDSClient({ region: 'ap-south-1' }).send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: 'nyv-caselaw-pg' }));
+const r = await new RDSClient({ region: 'ap-south-1' }).send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: 'jrx-caselaw-pg' }));
 const i = r.DBInstances[0];
 const s = await new SecretsManagerClient({ region: 'ap-south-1' }).send(new GetSecretValueCommand({ SecretId: i.MasterUserSecret.SecretArn }));
 const c = JSON.parse(s.SecretString);
@@ -39,5 +39,5 @@ await cl.end();
 NODE
 
 echo "=== UNITS ==="
-systemctl is-active nyv-caselaw-embed-loop@0 nyv-caselaw-embed-loop@1 nyv-caselaw-embed-loop@2 nyv-caselaw-embed-dc nyv-embed-statutes-loop 2>/dev/null || true
+systemctl is-active jrx-caselaw-embed-loop@0 jrx-caselaw-embed-loop@1 jrx-caselaw-embed-loop@2 jrx-caselaw-embed-dc jrx-embed-statutes-loop 2>/dev/null || true
 pgrep -af 'backfill-sc-body-fts|backfill-hc-dc-body-fts|embed-corpus' || echo "no backfill pids"

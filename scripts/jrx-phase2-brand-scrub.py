@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Replace user-facing Nyayavigya/Nyayasiddhi strings in Jurexio product paths."""
+"""Replace user-facing Jurexio/Jurexio strings in Jurexio product paths."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -9,13 +9,13 @@ SKIP = {"node_modules", "dist", "archive", "patches", ".git"}
 ROOTS = [ROOT / "src", ROOT / "client" / "src", ROOT / "packages", ROOT / "tests"]
 
 REPLACEMENTS = [
-    ("Nyayavigya Platform 5.0.0", "Jurexio Enterprise Platform 1.0.0"),
-    ("Nyayavigya Platform", "Jurexio Enterprise Platform"),
-    ("Nyayavigya SDK", "Jurexio Enterprise Platform SDK"),
-    ("Nyayavigya", "Jurexio"),
-    ("NYV-SVC-GATEWAY", "JRX-SVC-GATEWAY"),
-    ("NYV Naming Convention", "JRX Naming Convention"),
-    ("@nyayavigya/", "@jurexio/"),
+    ("Jurexio Platform 5.0.0", "Jurexio Enterprise Platform 1.0.0"),
+    ("Jurexio Platform", "Jurexio Enterprise Platform"),
+    ("Jurexio SDK", "Jurexio Enterprise Platform SDK"),
+    ("Jurexio", "Jurexio"),
+    ("JRX-SVC-GATEWAY", "JRX-SVC-GATEWAY"),
+    ("JRX Naming Convention", "JRX Naming Convention"),
+    ("@jurexio/", "@jurexio/"),
     ("@nyv/", "@jurexio/"),
 ]
 

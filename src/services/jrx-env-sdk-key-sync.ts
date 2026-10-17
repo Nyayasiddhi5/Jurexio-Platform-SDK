@@ -1,5 +1,5 @@
 /**
- * NV-ENV-KEY-SYNC-001 — Mirror existing NYV_SDK_KEY_* env values into
+ * NV-ENV-KEY-SYNC-001 — Mirror existing JRX_SDK_KEY_* env values into
  * public.sdk_applications + public.sdk_app_api_keys (hash only, never log values).
  * Does NOT mint new keys — reads canonical secrets already on the host.
  */
@@ -25,7 +25,7 @@ interface PlatformEnvDef {
 
 const PLATFORM_ENV_DEFS: PlatformEnvDef[] = [
   {
-    envVar: 'NYV_SDK_KEY_NSP',
+    envVar: 'JRX_SDK_KEY_NSP',
     short: 'nsp',
     appName: 'Jurexio Professional™',
     appType: 'nyayasiddhi_professional',
@@ -34,16 +34,16 @@ const PLATFORM_ENV_DEFS: PlatformEnvDef[] = [
     rateLimitPerMin: 60,
   },
   {
-    envVar: 'NYV_SDK_KEY_NYM',
+    envVar: 'JRX_SDK_KEY_NYM',
     short: 'nym',
-    appName: 'Nyayamitra™ Citizen App',
-    appType: 'nyayamitra',
+    appName: 'Jurexio Citizen Citizen App',
+    appType: 'jurexio-citizen',
     clientId: 'nyv_app_nym_v5',
     scopes: ['agents:read', 'agents:execute', 'consumer_intake:write', 'usage:read', 'research:read'],
     rateLimitPerMin: 100,
   },
   {
-    envVar: 'NYV_SDK_KEY_NSI',
+    envVar: 'JRX_SDK_KEY_NSI',
     short: 'nsi',
     appName: 'Jurexio Institutional™',
     appType: 'nyayasiddhi_institutional',
@@ -52,7 +52,7 @@ const PLATFORM_ENV_DEFS: PlatformEnvDef[] = [
     rateLimitPerMin: 600,
   },
   {
-    envVar: 'NYV_SDK_KEY_NSA',
+    envVar: 'JRX_SDK_KEY_NSA',
     short: 'nsa',
     appName: 'Jurexio Academy™',
     appType: 'nyayasiddhi_academy',
@@ -61,7 +61,7 @@ const PLATFORM_ENV_DEFS: PlatformEnvDef[] = [
     rateLimitPerMin: 80,
   },
   {
-    envVar: 'NYV_SDK_KEY_NSM',
+    envVar: 'JRX_SDK_KEY_NSM',
     short: 'nsm',
     appName: 'Jurexio Ministry™',
     appType: 'government',
@@ -70,7 +70,7 @@ const PLATFORM_ENV_DEFS: PlatformEnvDef[] = [
     rateLimitPerMin: 200,
   },
   {
-    envVar: 'NYV_SDK_KEY_NSPM',
+    envVar: 'JRX_SDK_KEY_NSPM',
     short: 'nspm',
     appName: 'Jurexio Professional Mobile™',
     appType: 'nys_professional_mobile',
@@ -79,7 +79,7 @@ const PLATFORM_ENV_DEFS: PlatformEnvDef[] = [
     rateLimitPerMin: 60,
   },
   {
-    envVar: 'NYV_SDK_KEY_JRX',
+    envVar: 'JRX_SDK_KEY_JRX',
     short: 'jrx',
     appName: 'JurisX™',
     appType: 'jurisx',

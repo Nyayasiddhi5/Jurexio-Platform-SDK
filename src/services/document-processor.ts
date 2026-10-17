@@ -1,6 +1,6 @@
 /**
  * Document Processor — REAL DELEGATION SEAM
- * NYV-ORCH-SEAM-004 (Task #32)
+ * JRX-ORCH-SEAM-004 (Task #32)
  *
  * Re-exports the canonical NyayavignyaDocumentProcessor implementation living
  * under src/services/document-pipeline/. Legacy imports of the form

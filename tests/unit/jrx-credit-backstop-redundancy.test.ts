@@ -21,7 +21,7 @@ vi.mock('../../src/services/jrx-ai-credit-enforcer.js', () => ({
 }));
 vi.mock('../../src/config/jrx-feature-flags.js', async (io) => ({
   ...(await io<Record<string, unknown>>()),
-  isNyvFeatureOn: (f: string) => f === 'creditRecord',
+  isJrxFeatureOn: (f: string) => f === 'creditRecord',
 }));
 vi.mock('../../src/db/index.js', () => ({
   db: { execute: vi.fn().mockResolvedValue({ rows: [] }) },

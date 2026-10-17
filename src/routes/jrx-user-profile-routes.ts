@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Jurexio User Profile Routes — v3.1.2
  * Handles user profile updates, 2FA (TOTP), session management, and password changes.

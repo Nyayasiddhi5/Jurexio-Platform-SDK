@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# JRX-ENV-LOCAL-001 — bootstrap .env for Jurexio (never touches Nyayasiddhi hosts/DB).
+# JRX-ENV-LOCAL-001 — bootstrap .env for Jurexio (never touches Jurexio hosts/DB).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -39,10 +39,10 @@ append_if_missing() {
 if [[ ! -f "$SECRETS_FILE" ]]; then
   : >"$SECRETS_FILE"
   chmod 600 "$SECRETS_FILE"
-  append_if_missing NYV_JWT_SECRET "$(gen_hex 32)" "$SECRETS_FILE"
-  append_if_missing NYV_JWT_REFRESH_SECRET "$(gen_hex 32)" "$SECRETS_FILE"
+  append_if_missing JRX_JWT_SECRET "$(gen_hex 32)" "$SECRETS_FILE"
+  append_if_missing JRX_JWT_REFRESH_SECRET "$(gen_hex 32)" "$SECRETS_FILE"
   append_if_missing NV_PII_ENCRYPTION_KEY "$(gen_hex 32)" "$SECRETS_FILE"
-  append_if_missing NYV_SDK_KEY_JRX "jrx_local_sk_$(gen_hex 24)" "$SECRETS_FILE"
+  append_if_missing JRX_SDK_KEY_JRX "jrx_local_sk_$(gen_hex 24)" "$SECRETS_FILE"
   echo "== wrote dev secrets (lengths only) to $SECRETS_FILE"
 else
   echo "== $SECRETS_FILE exists — keeping existing dev secrets"

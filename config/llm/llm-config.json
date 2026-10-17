@@ -47,7 +47,7 @@
     "targetSavingsPct": 70
   },
   "perPlatformOverride": {
-    "nyayamitra":      { "preferTier": 1 },
+    "jurexio-citizen":      { "preferTier": 1 },
     "nys-professional":{ "preferTier": 2 },
     "nys-institutional":{ "preferTier": 2, "premiumAllowedFor": ["litigation-risk-v2","digital-twin","grpo"] },
     "nys-academy":     { "preferTier": 1 },

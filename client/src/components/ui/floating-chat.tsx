@@ -47,7 +47,7 @@ export function FloatingChat({ projectId, className = "" }: FloatingChatProps) {
   // Send message mutation
   const sendMessageMutation = useMutation({
     mutationFn: async (message: string) => {
-      return apiRequest('/api/nyayavigya/request', {
+      return apiRequest('/api/jurexio/request', {
         method: 'POST',
         body: JSON.stringify({
           type: 'text',

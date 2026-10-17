@@ -3,7 +3,7 @@
  * Region default ap-south-1; gated by JRX_F_TEXTRACT.
  */
 import { createLogger } from '../../utils/logger.js';
-import { isNyvFeatureOn } from '../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../../config/jrx-feature-flags.js';
 
 const logger = createLogger('./jrx-textract-ocr');
 
@@ -36,12 +36,12 @@ export function blocksToPlainText(blocks: TextractBlock[]): { text: string; mean
 }
 
 export function isTextractOcrEnabled(): boolean {
-  return isNyvFeatureOn('textractOcr');
+  return isJrxFeatureOn('textractOcr');
 }
 
 export function textractRegion(): string {
   return (
-    process.env.NYV_TEXTRACT_REGION?.trim()
+    process.env.JRX_TEXTRACT_REGION?.trim()
     || process.env.AWS_REGION?.trim()
     || 'ap-south-1'
   );

@@ -115,9 +115,9 @@ describe('legal structure attach', () => {
     expect(p).toMatch(/§482/);
   });
 
-  it('NYV_LEGAL_STRUCTURE_ATTACH=0 disables attach', () => {
-    prev.NYV_LEGAL_STRUCTURE_ATTACH = process.env.NYV_LEGAL_STRUCTURE_ATTACH;
-    process.env.NYV_LEGAL_STRUCTURE_ATTACH = '0';
+  it('JRX_LEGAL_STRUCTURE_ATTACH=0 disables attach', () => {
+    prev.JRX_LEGAL_STRUCTURE_ATTACH = process.env.JRX_LEGAL_STRUCTURE_ATTACH;
+    process.env.JRX_LEGAL_STRUCTURE_ATTACH = '0';
     expect(selectLegalStructure({ taskType: 'legal-chat' }).kind).toBe('none');
     const out = applyLegalResponseFormatting('Thin answer.', {
       jurisdiction: 'IN',

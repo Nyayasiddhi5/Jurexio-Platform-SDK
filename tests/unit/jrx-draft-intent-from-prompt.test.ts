@@ -1,7 +1,7 @@
 /**
  * NV-DRAFT-INTENT-PROMPT-001 — prompt → drafting-intent fail-open resolver.
  *
- * Proves NYV-level intelligence when NSP omits documentType/filingContext and
+ * Proves JRX-level intelligence when NSP omits documentType/filingContext and
  * sends only a prompt: intent decode, fine-grained nvTemplateKey where a
  * statutory trigger is unambiguous, and a safe default envelope otherwise.
  */

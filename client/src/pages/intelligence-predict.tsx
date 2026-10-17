@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import { useToast } from '@/hooks/use-toast';
 import {
   Brain, Scale, Target, TrendingUp, AlertTriangle, CheckCircle2,
@@ -343,7 +343,7 @@ export default function IntelligencePredict() {
           )}
 
           {!mutation.isPending && !pred && (
-            <NyvEmptyState
+            <JrxEmptyState
               icon={Target}
               title="Enter Case Details to Predict Outcome"
               description="The ROMA L5 Litigation Specialist agent will analyse your case facts, review similar precedents, and provide a structured win probability with strategic recommendations."

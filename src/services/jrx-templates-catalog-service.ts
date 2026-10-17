@@ -17,7 +17,7 @@ import { createLogger } from '../utils/logger.js';
 import {
   documentTemplatesService,
   type DocumentTemplate,
-} from './nyayavigya-document-templates-service.js';
+} from './jurexio-document-templates-service.js';
 import {
   bootstrapPlatformCurated,
   enrichTemplateWithReview,
@@ -61,7 +61,7 @@ export interface NspLegalTemplate {
   version: string;
   complexity: TemplateComplexity;
   external_id?: string;
-  source: 'nyv-document' | 'nys-seed' | 'nyv-generated';
+  source: 'jrx-document' | 'nys-seed' | 'jrx-generated';
   /** Partner DraftDocumentType registry key when slug/title is mappable (NV-TEMPLATE-DOCTYPE-MAP-001). */
   documentTypeKey?: DraftDocumentType;
 }
@@ -189,7 +189,7 @@ function fromDocumentTemplate(t: DocumentTemplate): NspLegalTemplate {
     variables: mapDocFields(t),
     version: t.version || '1.0.0',
     complexity,
-    source: 'nyv-document',
+    source: 'jrx-document',
   });
 }
 
@@ -319,7 +319,7 @@ function loadDomainPackTemplates(): NspLegalTemplate[] {
           variables: [],
           version: '2026.07',
           complexity: content.length >= 1200 ? 'medium' : 'simple',
-          source: 'nyv-document',
+          source: 'jrx-document',
         });
       }
       logger.info('loaded multi-domain template pack', { dir, count: out.length });
@@ -335,7 +335,7 @@ function loadDomainPackTemplates(): NspLegalTemplate[] {
 
 function isDomainPackComprehensive(t: NspLegalTemplate): boolean {
   if (!t.id.startsWith('domain-')) return false;
-  if (t.source === 'nyv-generated') return false;
+  if (t.source === 'jrx-generated') return false;
   return (t.content || '').length >= 800;
 }
 
@@ -383,10 +383,10 @@ function loadNysSeeds(): NspLegalTemplate[] {
  */
 function isPartnerComprehensive(t: NspLegalTemplate): boolean {
   if (t.jurisdiction_code !== 'IN') return false;
-  if (t.source === 'nyv-generated') return false;
+  if (t.source === 'jrx-generated') return false;
   if (t.complexity === 'simple') return false;
   // Curated India document templates (FIR, vakalatnama, SC/HC petitions, etc.) always qualify when medium+.
-  if (t.source === 'nyv-document') return true;
+  if (t.source === 'jrx-document') return true;
   if ((t.content || '').length < PARTNER_MIN_CONTENT_CHARS) return false;
   const blob = `${t.name} ${t.description} ${(t.tags || []).join(' ')}`.toLowerCase();
   if (/\b(sample|placeholder|lorem|demo|stub|generated)\b/.test(blob)) return false;
@@ -420,7 +420,7 @@ function buildCatalog(): NspLegalTemplate[] {
   });
   logger.info('templates catalog built (IN comprehensive + domain packs)', {
     total: merged.length,
-    document: merged.filter((t) => t.source === 'nyv-document').length,
+    document: merged.filter((t) => t.source === 'jrx-document').length,
     nys: merged.filter((t) => t.source === 'nys-seed').length,
     domainPacks: merged.filter((t) => t.id.startsWith('domain-')).length,
     advanced: merged.filter((t) => t.complexity === 'advanced').length,
@@ -481,9 +481,9 @@ export function queryTemplatesCatalog(q: TemplatesCatalogQuery = {}): {
       // Domain packs are GLOBAL — allow when caller asks for a domain category
       if (!(isDomainPack && (jurisdiction === 'GLOBAL' || category))) return false;
     }
-    if (!q.includeGenerated && t.source === 'nyv-generated') return false;
+    if (!q.includeGenerated && t.source === 'jrx-generated') return false;
     if (!q.includeSimple && t.complexity === 'simple' && !isDomainPack) return false;
-    if (!q.includeSimple && t.source !== 'nyv-document' && (t.content || '').length < PARTNER_MIN_CONTENT_CHARS) {
+    if (!q.includeSimple && t.source !== 'jrx-document' && (t.content || '').length < PARTNER_MIN_CONTENT_CHARS) {
       return false;
     }
     if (category) {

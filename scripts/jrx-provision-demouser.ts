@@ -2,7 +2,7 @@ import { makePgSql } from './_pg-pool.js';
 import bcrypt from 'bcrypt';
 
 const sql = makePgSql();
-const EMAIL = 'demouser@nyayavigya.in';
+const EMAIL = 'demouser@jurexio.com';
 const PASSWORD = 'demouser123';
 
 async function main() {

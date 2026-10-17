@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * NV-REAL-DATA-002 — flags console pages that still ship hardcoded KPI / fake API key rows.
- * Run: node scripts/nv-console-live-data-audit.mjs
+ * Run: node scripts/jrx-console-live-data-audit.mjs
  * CI: npm run guardrail:console-live-data
  */
 import { readFileSync, readdirSync, statSync } from 'node:fs';
@@ -12,7 +12,7 @@ const PAGES = join(ROOT, 'client/src/pages');
 
 const BANNED_PATTERNS = [
   { id: 'fake-api-key-row', re: /nyv_live_sk_/ },
-  { id: 'static-grpo-score', re: /nv-agent-001.*12,450|12,450 episodes/ },
+  { id: 'static-grpo-score', re: /jrx-agent-001.*12,450|12,450 episodes/ },
   { id: 'hardcoded-mcp-53', re: /['"]53['"].*MCP|MCP Tools Live['"].*value:\s*['"]53['"]/ },
   { id: 'hardcoded-2.4M-calls', re: /2\.4M/ },
   { id: 'initPlatforms-array', re: /initPlatforms\s*=\s*\[/ },
@@ -48,8 +48,8 @@ for (const file of walk(PAGES)) {
 }
 
 if (hits.length) {
-  console.error('nv-console-live-data-audit: FAIL');
+  console.error('jrx-console-live-data-audit: FAIL');
   for (const h of hits) console.error(`  [${h.id}] ${h.file}`);
   process.exit(1);
 }
-console.log('nv-console-live-data-audit: PASS (no banned static patterns in console pages)');
+console.log('jrx-console-live-data-audit: PASS (no banned static patterns in console pages)');

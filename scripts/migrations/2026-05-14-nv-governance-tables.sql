@@ -1,5 +1,5 @@
 -- ──────────────────────────────────────────────────────────────────────────────
--- Nyayavigya Platform — Governance / Compliance / Policies / Internal-Security
+-- Jurexio Platform — Governance / Compliance / Policies / Internal-Security
 -- Migration: 2026-05-14
 --
 -- Adds the persistent backbone for the Console "Governance & Compliance" and
@@ -160,7 +160,7 @@ CREATE INDEX IF NOT EXISTS nv_policy_violations_policy_idx ON nv_policy_violatio
 CREATE INDEX IF NOT EXISTS nv_policy_violations_status_idx ON nv_policy_violations(status);
 CREATE INDEX IF NOT EXISTS nv_policy_violations_detected_idx ON nv_policy_violations(detected_at DESC);
 
--- 6. Internal security posture catalog (Nyayavigya-as-a-platform's own controls)
+-- 6. Internal security posture catalog (Jurexio-as-a-platform's own controls)
 CREATE TABLE IF NOT EXISTS nv_internal_security_controls (
   id              SERIAL PRIMARY KEY,
   control_code    VARCHAR(80) NOT NULL UNIQUE,
@@ -250,7 +250,7 @@ ALTER TABLE nv_hitl_queue ADD COLUMN IF NOT EXISTS severity        VARCHAR(20) N
 ALTER TABLE nv_hitl_queue ADD COLUMN IF NOT EXISTS payload_summary TEXT;
 ALTER TABLE nv_hitl_queue ADD COLUMN IF NOT EXISTS sla_minutes     INTEGER     NOT NULL DEFAULT 60;
 ALTER TABLE nv_hitl_queue ADD COLUMN IF NOT EXISTS decided_at      TIMESTAMPTZ;
--- Reviewer-assignment columns the My-Approvals route (src/routes/nv-my-approvals-routes.ts)
+-- Reviewer-assignment columns the My-Approvals route (src/routes/jrx-my-approvals-routes.ts)
 -- filters on. Legacy installs lacked `assigned_to` entirely (the type-convert
 -- block below only runs WHEN it already exists), which 500'd the endpoint with
 -- `column q.assigned_to does not exist`. Add them here so fresh + legacy installs

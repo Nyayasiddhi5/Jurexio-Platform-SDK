@@ -5,13 +5,13 @@
  * A live forced-Queen probe on jrx-staging measured one request at **366 s wall,
  * 7 billed completions, 89,610 prompt tokens**. The cheapest Queen request is
  * the one that never runs, so gating *entry* is worth more than optimising the
- * swarm's internals (NYV-ORCHESTRATION-OPTIMIZATION-PLAN-2026-08 §10.2 rule 2,
+ * swarm's internals (JRX-ORCHESTRATION-OPTIMIZATION-PLAN-2026-08 §10.2 rule 2,
  * §12.1, §12.2).
  *
  * Before this module, three predicates admitted a request to the swarm and none
  * of them looked at the request's structure:
  *
- *   1. `forceLegalBestOutcome` — true for **every** NYV-dependent platform and
+ *   1. `forceLegalBestOutcome` — true for **every** JRX-dependent platform and
  *      every authenticated SDK partner except JRX (`wantsNspNymBestOutcome`,
  *      default ON). Its only escape was a ≤ 6-word greeting with no legal
  *      keyword, so effectively all ecosystem legal traffic was Queen traffic.
@@ -43,7 +43,7 @@
  * tautology that produced NV-RAG-CONF-001 and NV-MEM-DECAY-001. The unit tests
  * assert the same table both crosses and fails to cross the threshold.
  *
- * Pure — no I/O, no LLM, no network. Escape hatch: NYV_QUEEN_EARNED=0 restores
+ * Pure — no I/O, no LLM, no network. Escape hatch: JRX_QUEEN_EARNED=0 restores
  * the pre-gate behaviour (every heuristic admission stands).
  */
 import {
@@ -163,16 +163,16 @@ export interface QueenAdmissionVerdict {
 }
 
 export function isQueenEarnedGateEnabled(): boolean {
-  return String(process.env.NYV_QUEEN_EARNED ?? '1').trim() !== '0';
+  return String(process.env.JRX_QUEEN_EARNED ?? '1').trim() !== '0';
 }
 
 /**
  * Length ceiling below which an anchored, non-reasoning question is treated as a
  * lookup. Matches the deterministic tier's own default so the two tiers agree on
- * what "a lookup" means (NYV_NYS_DETERMINISTIC_MAX_CHARS).
+ * what "a lookup" means (JRX_JRX_ECOSYSTEM_DETERMINISTIC_MAX_CHARS).
  */
 function lookupCharCeiling(): number {
-  const n = Number(process.env.NYV_NYS_DETERMINISTIC_MAX_CHARS ?? '240');
+  const n = Number(process.env.JRX_JRX_ECOSYSTEM_DETERMINISTIC_MAX_CHARS ?? '240');
   return Number.isFinite(n) && n >= 40 ? Math.min(600, Math.floor(n)) : 240;
 }
 

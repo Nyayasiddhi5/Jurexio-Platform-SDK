@@ -1,7 +1,7 @@
 # JRX AWS infrastructure — options and runbook
 
-**Goal:** Jurexio Enterprise Platform on **separate** AWS resources from nysdev / Nyayavigya.  
-**Temporary (optional):** Reuse **Bedrock** configuration from NYV until JRX smoke passes — only when `JRX_SSM_COPY_FROM_NYV=1` on `jrx-ssm-bootstrap-bedrock-smoke.sh`. Greenfield US should populate **JRX-native** `/jurexio/prod/*` names directly (see SSM table below).
+**Goal:** Jurexio Enterprise Platform on **separate** AWS resources from jrx-prod / Jurexio.  
+**Temporary (optional):** Reuse **Bedrock** configuration from JRX until JRX smoke passes — only when `JRX_SSM_COPY_FROM_JRX=1` on `jrx-ssm-bootstrap-bedrock-smoke.sh`. Greenfield US should populate **JRX-native** `/jurexio/prod/*` names directly (see SSM table below).
 
 ### Pre-deploy platform closeout (before any `--apply` or `jrx-deploy-aws-ssm.sh`)
 
@@ -25,11 +25,11 @@ Complete repo-side **naming, console IA, legacy script archive, and SSM param do
 
 | Component | Implementation | Isolation |
 |-----------|----------------|-----------|
-| **EC2** | New instance (e.g. `t3.xlarge`), new SG | Not nysdev |
-| **App DB** | Postgres + Redis **on same EC2** via `docker-compose.jurexio-aws.yml` | Not NYV RDS |
+| **EC2** | New instance (e.g. `t3.xlarge`), new SG | Not jrx-prod |
+| **App DB** | Postgres + Redis **on same EC2** via `docker-compose.jurexio-aws.yml` | Not JRX RDS |
 | **RAG** | pgvector in same Postgres (`jurexio` DB) | Logical separation |
 | **Search** | `jrx-search` container on same host (US fixture corpus) | No India Athena |
-| **Bedrock** | JRX-native SSM under `/jurexio/prod/*` (optional NYV copy) | Isolated prefix |
+| **Bedrock** | JRX-native SSM under `/jurexio/prod/*` (optional JRX copy) | Isolated prefix |
 
 **Pros:** Fast, cheap, full smoke. **Cons:** Not production HA.
 
@@ -37,7 +37,7 @@ Complete repo-side **naming, console IA, legacy script archive, and SSM param do
 
 | Component | Implementation |
 |-----------|----------------|
-| **RDS** | **New** `db.t4g.medium` Postgres 15 **or** logical DB `jurexio` on a **new** RDS instance (not `nyayavigya` DB) |
+| **RDS** | **New** `db.t4g.medium` Postgres 15 **or** logical DB `jurexio` on a **new** RDS instance (not `jurexio` DB) |
 | **Redis** | New ElastiCache cluster **or** dedicated Redis on EC2 |
 | **RAG** | pgvector on JRX RDS; optional **OpenSearch Serverless** later for JRX Search scale |
 | **EC2** | Gateway + Console + worker only |
@@ -50,7 +50,7 @@ Complete repo-side **naming, console IA, legacy script archive, and SSM param do
 
 ---
 
-## SSM layout (never overwrite NYV paths)
+## SSM layout (never overwrite JRX paths)
 
 Create only under **`/jurexio/prod/`**:
 
@@ -61,10 +61,10 @@ Create only under **`/jurexio/prod/`**:
 | `JRX_JWT_SECRET` / `JRX_JWT_REFRESH_SECRET` | Auth |
 | `JRX_PII_ENCRYPTION_KEY` | Vault |
 | `JRX_SDK_KEY_ENTERPRISE` | SDK smoke |
-| `JRX_BEDROCK_ENABLED`, `JRX_ROUTER_BEDROCK_FIRST`, `AWS_BEDROCK_REGION`, `JRX_BEDROCK_REGION_ORDER`, `BEDROCK_MODEL_ID` | Bedrock smoke (set directly or via optional NYV copy) |
+| `JRX_BEDROCK_ENABLED`, `JRX_ROUTER_BEDROCK_FIRST`, `AWS_BEDROCK_REGION`, `JRX_BEDROCK_REGION_ORDER`, `BEDROCK_MODEL_ID` | Bedrock smoke (set directly or via optional JRX copy) |
 | `JRX_SEARCH_BASE_URL` / `JRX_SEARCH_API_KEY` | Worker federation |
 
-**Forbidden:** Writing to `/nyv/*`, `/nyayavigya/*`, or editing nysdev `/opt/Nyayavigya/secrets/.env.production`.
+**Forbidden:** Writing to `/nyv/*`, `/jurexio/*`, or editing jrx-prod `/opt/Jurexio/secrets/.env.production`.
 
 ---
 
@@ -77,8 +77,8 @@ cd Jurexio-Platform-SDK
 # Greenfield: export JRX_* bedrock vars locally, then:
 bash scripts/jrx-ssm-bootstrap-bedrock-smoke.sh --dry-run
 bash scripts/jrx-ssm-bootstrap-bedrock-smoke.sh
-# Legacy NYV account only:
-# JRX_SSM_COPY_FROM_NYV=1 JRX_SSM_SOURCE_PREFIX=/nyayavigya/dev bash scripts/jrx-ssm-bootstrap-bedrock-smoke.sh
+# Legacy JRX account only:
+# JRX_SSM_COPY_FROM_JRX=1 JRX_SSM_SOURCE_PREFIX=/jurexio/dev bash scripts/jrx-ssm-bootstrap-bedrock-smoke.sh
 ```
 
 ### 2. EC2 (new instance)
@@ -128,7 +128,7 @@ bash scripts/jrx-smoke-ec2.sh
 
 ### 6. Cursor workspace
 
-Open **`Jurexio-Platform-SDK.code-workspace`** (repo root) — not the Nyayavigya monorepo parent.
+Open **`Jurexio-Platform-SDK.code-workspace`** (repo root) — not the Jurexio monorepo parent.
 
 ---
 
@@ -137,7 +137,7 @@ Open **`Jurexio-Platform-SDK.code-workspace`** (repo root) — not the Nyayavigy
 | Name in request | Jurexio mapping |
 |-----------------|-----------------|
 | **RAG instance** | Phase 1: **Postgres pgvector** on JRX DB (gateway RAG routes). Phase 2: OpenSearch Serverless for JRX Search US corpus. |
-| **Not used for JRX** | NYV India caselaw RDS/Athena, nysdev NYS corpus |
+| **Not used for JRX** | JRX India caselaw RDS/Athena, jrx-prod NYS corpus |
 
 ---
 

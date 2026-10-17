@@ -11,7 +11,7 @@ export interface PartialFieldRecoveryInput {
   fieldPaths: string[];
   jurisdiction: string;
   snippets: Record<string, string>;
-  /** Domain pack for schema-aware recovery (NYV/NSP inject). */
+  /** Domain pack for schema-aware recovery (JRX/NSP inject). */
   domainPackId?: string;
   /** When set, provider should only emit keys allowed for this schema. */
   schemaId?: string;

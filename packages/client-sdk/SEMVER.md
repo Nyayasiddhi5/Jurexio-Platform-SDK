@@ -2,13 +2,13 @@
 
 This package and its companion packages (`@jurexio/types`,
 `@jurexio/react-hooks`, `@jurexio/client-sdk-react-native`,
-`@jurexio/nyayamitra-sdk`) follow [SemVer 2.0](https://semver.org).
+`@jurexio/jurexio-citizen-sdk`) follow [SemVer 2.0](https://semver.org).
 
 ## What counts as a breaking change (MAJOR)
 
 - Removing or renaming any export from `src/index.ts`.
-- Removing or renaming any public method on `NyvClient`, any `*Api` class, or
-  `NyvStreamReader`.
+- Removing or renaming any public method on `JrxClient`, any `*Api` class, or
+  `JrxStreamReader`.
 - Changing the type of any required argument or return value of a public
   method.
 - Adding a new required argument to a public method (use an options bag with
@@ -21,7 +21,7 @@ This package and its companion packages (`@jurexio/types`,
 
 - A new exported symbol.
 - A new optional argument with a default that preserves prior behavior.
-- A new event type emitted by `NyvStreamReader`.
+- A new event type emitted by `JrxStreamReader`.
 - A new field added to a response payload.
 
 ## What counts as a patch (PATCH)
@@ -47,9 +47,9 @@ This package and its companion packages (`@jurexio/types`,
 ## Companion package alignment
 
 The four companion packages (`types`, `react-hooks`, `client-sdk-react-native`,
-`nyayamitra-sdk`) are released together with `@jurexio/client-sdk` at the
+`jurexio-citizen-sdk`) are released together with `@jurexio/client-sdk` at the
 **same MAJOR** version. Their MINOR/PATCH versions may differ.
 
-For v6 GA all five packages share `^6.0.0` (except `nyayamitra-sdk` which
+For v6 GA all five packages share `^6.0.0` (except `jurexio-citizen-sdk` which
 starts at `1.0.0` since it is brand new — its v1 is contract-aligned with
 `@jurexio/client-sdk@^6.0.0`).

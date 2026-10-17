@@ -129,30 +129,30 @@ export default function EnhancedAIAssistantBuilder() {
 
   // Fetch assistants using Jurexio orchestration
   const { data: assistants = [], isLoading: assistantsLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/assistants'],
-    queryFn: () => apiRequest('/api/nyayavigya/assistants')
+    queryKey: ['/api/jurexio/assistants'],
+    queryFn: () => apiRequest('/api/jurexio/assistants')
   });
 
   // Fetch prompt templates using Jurexio orchestration
   const { data: promptTemplates = [], isLoading: templatesLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/assistants/templates'],
-    queryFn: () => apiRequest('/api/nyayavigya/assistants/templates')
+    queryKey: ['/api/jurexio/assistants/templates'],
+    queryFn: () => apiRequest('/api/jurexio/assistants/templates')
   });
 
   // Fetch knowledge bases using Jurexio orchestration
   const { data: knowledgeBases = [], isLoading: knowledgeLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/assistants/knowledge-bases'],
-    queryFn: () => apiRequest('/api/nyayavigya/assistants/knowledge-bases')
+    queryKey: ['/api/jurexio/assistants/knowledge-bases'],
+    queryFn: () => apiRequest('/api/jurexio/assistants/knowledge-bases')
   });
 
   // Create assistant mutation
   const createAssistant = useMutation({
-    mutationFn: (assistant: any) => apiRequest('/api/nyayavigya/assistants', {
+    mutationFn: (assistant: any) => apiRequest('/api/jurexio/assistants', {
       method: 'POST',
       body: JSON.stringify(assistant)
     }),
     onSuccess: (assistant) => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya/assistants'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio/assistants'] });
       setIsCreating(false);
       setAssistantForm({ name: '', description: '', personality: 'helpful', capabilities: [], avatar: '' });
       toast({
@@ -164,11 +164,11 @@ export default function EnhancedAIAssistantBuilder() {
 
   // Train assistant mutation
   const trainAssistant = useMutation({
-    mutationFn: (assistantId: string) => apiRequest(`/api/nyayavigya/assistants/${assistantId}/train`, {
+    mutationFn: (assistantId: string) => apiRequest(`/api/jurexio/assistants/${assistantId}/train`, {
       method: 'POST'
     }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya/assistants'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio/assistants'] });
       toast({
         title: "Training Started",
         description: "Assistant training has been initiated"
@@ -178,11 +178,11 @@ export default function EnhancedAIAssistantBuilder() {
 
   // Deploy assistant mutation
   const deployAssistant = useMutation({
-    mutationFn: (assistantId: string) => apiRequest(`/api/nyayavigya/assistants/${assistantId}/deploy`, {
+    mutationFn: (assistantId: string) => apiRequest(`/api/jurexio/assistants/${assistantId}/deploy`, {
       method: 'POST'
     }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya/assistants'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio/assistants'] });
       toast({
         title: "Assistant Deployed",
         description: "Assistant is now live and available"
@@ -229,7 +229,7 @@ export default function EnhancedAIAssistantBuilder() {
         { id: 'i1', platform: 'Slack', type: 'chatbot', config: {}, status: 'active', lastUsed: '2025-08-17T09:00:00Z' },
         { id: 'i2', platform: 'Website', type: 'widget', config: {}, status: 'active', lastUsed: '2025-08-17T11:00:00Z' }
       ],
-      apiEndpoint: 'https://api.nyayavigya-devstudio.com/assistants/1',
+      apiEndpoint: 'https://api.jurexio-devstudio.com/assistants/1',
       status: 'active',
       usage: {
         totalInteractions: 15678,
@@ -285,7 +285,7 @@ export default function EnhancedAIAssistantBuilder() {
       integrations: [
         { id: 'i3', platform: 'HubSpot', type: 'api', config: {}, status: 'active', lastUsed: '2025-08-17T11:15:00Z' }
       ],
-      apiEndpoint: 'https://api.nyayavigya-devstudio.com/assistants/2',
+      apiEndpoint: 'https://api.jurexio-devstudio.com/assistants/2',
       status: 'training',
       usage: {
         totalInteractions: 3456,

@@ -14,7 +14,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
 import { Zap, Plus, Star, Globe, Search, RefreshCw, CheckCircle, BookOpen, Settings } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 
@@ -199,7 +199,7 @@ export default function SkillsLibrary() {
                 </div>
               ) : (tab === 'core' ? coreSkills : tab === 'custom' ? customSkills : skillsArr).length === 0 ? (
                 <div className="col-span-2">
-                  <NyvEmptyState
+                  <JrxEmptyState
                     icon={Zap}
                     title={tab === 'custom' ? 'No custom skills yet' : 'No skills found'}
                     description={tab === 'custom' ? 'Register your first skill above to get started.' : 'Try a different filter or register a custom skill.'}

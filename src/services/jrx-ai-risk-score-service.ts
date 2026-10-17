@@ -1,6 +1,6 @@
 /**
  * Jurexio Enterprise Platform 3.1.2 — AI Risk Score Engine
- * NYV-SVC-RISK-001
+ * JRX-SVC-RISK-001
  *
  * Mandatory per Handover §3.3.3 — every AI output must carry a risk score (0–100).
  * Outputs with score > 60 are BLOCKED until explicit lawyer confirmation.

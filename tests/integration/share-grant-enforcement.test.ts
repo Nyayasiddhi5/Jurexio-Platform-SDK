@@ -22,8 +22,8 @@ vi.mock('../../src/db/index.js', () => {
   return { db: builder };
 });
 
-vi.mock('../../src/config/nyv-dms-config.js', () => ({
-  getNyvDmsConfig: () => ({
+vi.mock('../../src/config/jrx-dms-config.js', () => ({
+  getJrxDmsConfig: () => ({
     sharing: {
       auditEveryGrant: false,
       auditEveryCrossPlatformRead: false,
@@ -31,7 +31,7 @@ vi.mock('../../src/config/nyv-dms-config.js', () => ({
       autoShareThresholdMb: 50,
       ecosystemPlatforms: ['NSP', 'NSI'],
     },
-    backend: { sharedBucket: 'nyv-shared-documents' },
+    backend: { sharedBucket: 'jrx-shared-documents' },
   }),
 }));
 

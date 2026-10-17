@@ -1,5 +1,5 @@
 /**
- * nv-credit-usage-recorder.ts — NV-CREDIT-UNIVERSAL-001
+ * jrx-credit-usage-recorder.ts — NV-CREDIT-UNIVERSAL-001
  *
  * Universal post-spend AI-credit accounting for every `/api/jrx/*` request that
  * actually spent money on a model.
@@ -14,7 +14,7 @@
  * sites exist. Enforcement without recording is decorative.
  *
  * Before this module, exactly two handlers wrote those rows — the sync
- * `/api/jrx/orchestrate` (NYV-P1-ORCH-CORE-001 item D) and `/api/jrx/legal-chat/send`
+ * `/api/jrx/orchestrate` (JRX-P1-ORCH-CORE-001 item D) and `/api/jrx/legal-chat/send`
  * (NV-LEGALCHAT-CREDIT-001). An audit of every mounted router found ~110 further
  * partner-reachable handlers that reach a paid model call and recorded nothing,
  * including `/orchestrate/stream`, which enforced a cap it could never enforce.
@@ -33,13 +33,13 @@
  * the money is spent, so a refusal there would bill and refuse. Pre-spend caps
  * stay at the routes that can still decline before calling a model.
  *
- * NV-WIRING-001: called from nv-usage-metering-middleware's existing `finish`
+ * NV-WIRING-001: called from jrx-usage-metering-middleware's existing `finish`
  * hook (mounted on `/api/jrx/` in src/index.ts).
  */
 
 import type { Request, Response } from 'express';
 import { createLogger } from '../utils/logger.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import { claimRequestUsageForBilling, type RequestUsage } from '../utils/jrx-request-usage-context.js';
 import { nvAICreditEnforcer } from '../services/jrx-ai-credit-enforcer.js';
 
@@ -85,7 +85,7 @@ function resolveTier(req: Request): string {
  * recorded. Callers must not read the return value as "nothing was billed".
  */
 export function recordRequestAiCredit(req: Request, res: Response, usage: RequestUsage | undefined): number {
-  if (!isNyvFeatureOn('creditRecord')) return 0;
+  if (!isJrxFeatureOn('creditRecord')) return 0;
   if (!usage) return 0;
   try {
     const tokensUsed = Math.max(

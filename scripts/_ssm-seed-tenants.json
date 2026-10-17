@@ -5,7 +5,7 @@
     "echo REPO=$REPO",
     "test -n \"$REPO\"",
     "test -f \"$REPO/.env\"",
-    "aws s3 cp s3://nyayavigya-sdk-devapp/product-readiness/jrx-seed-demo-tenants.ts /tmp/jrx-seed-demo-tenants.ts --region ap-south-1",
+    "aws s3 cp s3://jurexio-sdk-devapp/product-readiness/jrx-seed-demo-tenants.ts /tmp/jrx-seed-demo-tenants.ts --region ap-south-1",
     "cp /tmp/jrx-seed-demo-tenants.ts \"$REPO/scripts/jrx-seed-demo-tenants.ts\"",
     "ADMIN_URL=$(grep -E '^DATABASE_URL_ADMIN=' \"$REPO/.env\" | head -1 | sed -E 's/^DATABASE_URL_ADMIN=//; s/^\"(.*)\"$/\\1/; s/^'\\''(.*)'\\''$/\\1/')",
     "DB_URL=$(grep -E '^DATABASE_URL=' \"$REPO/.env\" | head -1 | sed -E 's/^DATABASE_URL=//; s/^\"(.*)\"$/\\1/; s/^'\\''(.*)'\\''$/\\1/')",

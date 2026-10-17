@@ -8,26 +8,26 @@ import {
 } from '../jrx-ecourts-live-fetch.js';
 
 describe('./jrx-ecourts-live-fetch', () => {
-  const prevKey = process.env.NYV_ECOURTS_API_KEY;
+  const prevKey = process.env.JRX_ECOURTS_API_KEY;
 
   afterEach(() => {
     vi.restoreAllMocks();
-    if (prevKey === undefined) delete process.env.NYV_ECOURTS_API_KEY;
-    else process.env.NYV_ECOURTS_API_KEY = prevKey;
+    if (prevKey === undefined) delete process.env.JRX_ECOURTS_API_KEY;
+    else process.env.JRX_ECOURTS_API_KEY = prevKey;
   });
 
   it('returns attempted when API key absent', async () => {
-    delete process.env.NYV_ECOURTS_API_KEY;
+    delete process.env.JRX_ECOURTS_API_KEY;
     const result = await attemptEcourtsLiveFetch({ cnr: 'TSWL000000742024' });
     expect(result.kind).toBe('attempted');
     if (result.kind === 'attempted') {
       expect(result.tag).toBe(ECOURTS_LIVE_ATTEMPTED);
-      expect(result.reason).toContain('NYV_ECOURTS_API_KEY');
+      expect(result.reason).toContain('JRX_ECOURTS_API_KEY');
     }
   });
 
   it('maps NIC success to found resolve data with claimEcourts false', async () => {
-    process.env.NYV_ECOURTS_API_KEY = 'test-ecourts-key-len-ok';
+    process.env.JRX_ECOURTS_API_KEY = 'test-ecourts-key-len-ok';
     vi.stubGlobal(
       'fetch',
       vi.fn().mockImplementation(async (url: string) => {

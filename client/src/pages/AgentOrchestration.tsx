@@ -11,7 +11,7 @@ import { Progress } from '@/components/ui/progress';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { 
   Bot, 
   Crown, 
@@ -333,7 +333,7 @@ export default function AgentOrchestration() {
   if (error) {
     return (
       <div className="p-6">
-        <NyvErrorState
+        <JrxErrorState
           title="Could not load agents"
           error={error}
           onRetry={() => queryClient.invalidateQueries({ queryKey: [nv('agents'), 'orchestration'] })}

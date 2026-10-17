@@ -14,7 +14,7 @@ export const AUDIT_GENESIS_HASH =
   '0000000000000000000000000000000000000000000000000000000000000000';
 
 /**
- * NYV-AUDIT-HASH-002 — deep stable JSON so pg jsonb round-trips match.
+ * JRX-AUDIT-HASH-002 — deep stable JSON so pg jsonb round-trips match.
  */
 export function stableStringify(value: unknown): string {
   if (value === null || typeof value !== 'object') return JSON.stringify(value);
@@ -33,7 +33,7 @@ export function canonicalizePayload(payload: string | object): string {
   }
 }
 
-/** NYV-AUDIT-HASH-003 — pg timestamptz strings → ISO UTC for hashing. */
+/** JRX-AUDIT-HASH-003 — pg timestamptz strings → ISO UTC for hashing. */
 export function normalizeAuditCreatedAt(createdAt: string | Date): string {
   return createdAt instanceof Date
     ? createdAt.toISOString()

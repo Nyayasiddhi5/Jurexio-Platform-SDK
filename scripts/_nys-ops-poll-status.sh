@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Poll NV-NYS-OPS-GO-001 background jobs + post counts
+# Poll NV-JRX-OPS-GO-001 background jobs + post counts
 set -uo pipefail
-API="${NYS_API_DIR:-/opt/nyv/api}"
+API="${JRX_ECOSYSTEM_API_DIR:-/opt/nyv/api}"
 echo "=== OPS POLL $(date -u +%Y-%m-%dT%H:%M:%SZ) ==="
 
 echo "--- delta-dc process ---"
@@ -25,7 +25,7 @@ function ssl() {
   return { rejectUnauthorized: false };
 }
 const rds = new RDSClient({ region: REGION });
-const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "nyv-caselaw-pg" }));
+const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "jrx-caselaw-pg" }));
 const inst = desc.DBInstances[0];
 const sm = new SecretsManagerClient({ region: REGION });
 const secret = await sm.send(new GetSecretValueCommand({ SecretId: inst.MasterUserSecret.SecretArn }));

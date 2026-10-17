@@ -59,7 +59,7 @@ async function probeRag(query: string, jurisdiction: JurisdictionKey): Promise<{
 
   // 1. Try GraphRAG legal service
   try {
-    const { nyvGraphRAGLegal } = await import('../../services/rag/nyv-graphrag-legal-service.js');
+    const { nyvGraphRAGLegal } = await import('../../services/rag/jrx-graphrag-legal-service.js');
     const svc = nyvGraphRAGLegal;
     if (typeof (svc as any).query === 'function') {
       const r = await (svc as any).query({ query, jurisdiction, limit: 5 });

@@ -17,7 +17,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import { PageLoading } from '@/components/ui/page-loading';
 import {
   Globe, Settings, Save, RefreshCw, Zap, Brain, Bot,
@@ -462,7 +462,7 @@ export default function OrgPlatformSettings() {
         {isLoading ? (
           <PageLoading rows={5} label="Loading platform configurations" />
         ) : error ? (
-          <NyvEmptyState
+          <JrxEmptyState
             icon={AlertTriangle}
             title="Platform data unavailable"
             description={`Could not load platform configurations. Ensure the ${NV_BASE}platforms endpoint is accessible and your session is authenticated.`}
@@ -470,7 +470,7 @@ export default function OrgPlatformSettings() {
             variant="card"
           />
         ) : platforms.length === 0 ? (
-          <NyvEmptyState
+          <JrxEmptyState
             icon={Globe}
             title="No platforms configured yet"
             description="Your organisation hasn't registered any Jurexio platforms yet. Use the SDK Onboarding Wizard to register your first platform and generate API keys."

@@ -4,7 +4,7 @@
  * Pipeline:
  *  1) Ingest RSS via Knowledge Modules (news, SC/HC rulings, legislation)
  *  2) Pull own RSS + KM corpus + nv_regulatory_feeds (NO Tavily)
- *  3) Archive full docs to S3 + RAG via nv-own-regulatory-feed-ingest
+ *  3) Archive full docs to S3 + RAG via jrx-own-regulatory-feed-ingest
  *  4) LLM-orchestrate ranking into top 5–10 items
  *  5) Persist digest + ranked items for SDK retrieval
  */
@@ -57,10 +57,10 @@ export interface LegalIntelDigest {
 }
 
 const DEFAULT_ORG = () =>
-  String(process.env.NYV_LEGAL_INTEL_ORG_ID || process.env.NV_PLATFORM_ORG_ID || 'platform').trim();
+  String(process.env.JRX_LEGAL_INTEL_ORG_ID || process.env.NV_PLATFORM_ORG_ID || 'platform').trim();
 
 const DEFAULT_TOP_N = () => {
-  const n = Number(process.env.NYV_LEGAL_INTEL_TOP_N ?? 10);
+  const n = Number(process.env.JRX_LEGAL_INTEL_TOP_N ?? 10);
   if (!Number.isFinite(n)) return 10;
   return Math.min(10, Math.max(5, Math.floor(n)));
 };
@@ -819,13 +819,13 @@ export async function listLegalIntelligenceFeeds(options?: {
 
 /** Daily timer — generates feed once per UTC day after configured hour. */
 export function startLegalIntelligenceFeedScheduler(): { stop: () => void } {
-  const enabled = String(process.env.NYV_LEGAL_INTEL_FEED ?? 'on').toLowerCase();
+  const enabled = String(process.env.JRX_LEGAL_INTEL_FEED ?? 'on').toLowerCase();
   if (enabled === 'off' || enabled === '0' || enabled === 'false') {
-    logger.info('[LegalIntel] scheduler disabled via NYV_LEGAL_INTEL_FEED');
+    logger.info('[LegalIntel] scheduler disabled via JRX_LEGAL_INTEL_FEED');
     return { stop: () => undefined };
   }
 
-  const hourUtc = Number(process.env.NYV_LEGAL_INTEL_CRON_HOUR_UTC ?? 2);
+  const hourUtc = Number(process.env.JRX_LEGAL_INTEL_CRON_HOUR_UTC ?? 2);
   let lastRunDate: string | null = null;
   let running = false;
 

@@ -90,7 +90,7 @@ export function sanitizeUserFacingImprovedPrompt(text: string): string {
   return out.trim();
 }
 
-/** Deterministic user-safe brief — no internal NYV overlays or registry bindings. */
+/** Deterministic user-safe brief — no internal JRX overlays or registry bindings. */
 export function buildUserFacingPromptBrief(
   prompt: string,
   opts: {

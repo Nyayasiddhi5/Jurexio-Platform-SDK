@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Compliance Routes — ISO 42001 AIMS + SOC2 + EU AI Act + Bias Assessment
  * GET  /api/jrx/compliance/aims/inventory

@@ -47,10 +47,10 @@
 
 /** Zero-LLM `cost.model` values, each an id emitted by a real code path. */
 const DETERMINISTIC_MODEL_IDS = new Set([
-  // src/routes/nv-orchestration-routes.ts — pre-Queen fast paths
+  // src/routes/jrx-orchestration-routes.ts — pre-Queen fast paths
   'nys-statute-map',
   'nys-statute-faq',
-  // src/services/nv-nys-deterministic-answer.ts — DeterministicResolverId
+  // src/services/jrx-nys-deterministic-answer.ts — DeterministicResolverId
   'nys-statute-section',
   'nys-citation-resolve',
   'nys-code-compare',
@@ -60,7 +60,7 @@ const ABSTAIN_MODEL_IDS = new Set(['rag-abstain']);
 
 /**
  * `cost.model` on a cache hit is `entry.metadata.model || 'cache'`
- * (nv-client.ts), so the literal 'cache' only appears when the stored entry had
+ * (jrx-client.ts), so the literal 'cache' only appears when the stored entry had
  * no model recorded. It is therefore sufficient but nowhere near necessary.
  */
 const CACHE_MODEL_IDS = new Set(['cache']);

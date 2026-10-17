@@ -29,12 +29,12 @@ const COUNSEL_HEADINGS: Array<{ key: string; match: RegExp; title: string }> = [
 ];
 
 export function isLegalComprehensiveMode(): boolean {
-  const v = String(process.env.NYV_LEGAL_COMPREHENSIVE ?? '1').trim().toLowerCase();
+  const v = String(process.env.JRX_LEGAL_COMPREHENSIVE ?? '1').trim().toLowerCase();
   return !(v === '0' || v === 'false' || v === 'off');
 }
 
 function isHeadingCompleteEnabled(): boolean {
-  const v = String(process.env.NYV_LEGAL_HEADING_COMPLETE ?? '1').trim().toLowerCase();
+  const v = String(process.env.JRX_LEGAL_HEADING_COMPLETE ?? '1').trim().toLowerCase();
   return !(v === '0' || v === 'false' || v === 'off');
 }
 

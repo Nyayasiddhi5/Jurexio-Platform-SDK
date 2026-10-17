@@ -1,7 +1,7 @@
 /**
  * Webhook receiver for `orchestration.completed` events.
  *
- * Verifies the `X-NYV-Signature: sha256=…` header by computing
+ * Verifies the `X-JRX-Signature: sha256=…` header by computing
  * HMAC-SHA-256(secret, `${timestamp}.${body}`) and comparing in
  * constant time. Rejects payloads older than 5 minutes (replay window).
  */
@@ -15,12 +15,12 @@ export const dynamic = 'force-dynamic';
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
 
 export async function POST(req: NextRequest) {
-  const secret = process.env.NYV_WEBHOOK_SECRET;
+  const secret = process.env.JRX_WEBHOOK_SECRET;
   if (!secret) {
-    return Response.json({ error: 'NYV_WEBHOOK_SECRET not configured' }, { status: 500 });
+    return Response.json({ error: 'JRX_WEBHOOK_SECRET not configured' }, { status: 500 });
   }
-  const sig = req.headers.get('x-nyv-signature') ?? '';
-  const ts  = req.headers.get('x-nyv-timestamp') ?? '';
+  const sig = req.headers.get('x-jrx-signature') ?? '';
+  const ts  = req.headers.get('x-jrx-timestamp') ?? '';
   if (!sig || !ts) return Response.json({ error: 'missing sig/ts headers' }, { status: 400 });
 
   // Replay protection. The platform dispatcher sends an ISO-8601 timestamp
@@ -47,13 +47,13 @@ export async function POST(req: NextRequest) {
 
   if (event === 'orchestration.completed') {
     // eslint-disable-next-line no-console
-    console.log('[nyv-webhook] orchestration.completed:', {
+    console.log('[jrx-webhook] orchestration.completed:', {
       appId: payload?.appId,
       orchestrationId: payload?.payload?.orchestrationId,
     });
   } else if (event === 'document.job.completed' || event === 'document.job.failed') {
     // eslint-disable-next-line no-console
-    console.log(`[nyv-webhook] ${event}:`, {
+    console.log(`[jrx-webhook] ${event}:`, {
       jobId: payload?.payload?.jobId,
       correlationId: payload?.payload?.correlationId,
       callbackMetadata: payload?.payload?.callbackMetadata,
@@ -62,14 +62,14 @@ export async function POST(req: NextRequest) {
     // TODO: Update your ns_documents row using callbackMetadata.nspDocumentId
   } else if (event === 'document.job.progress') {
     // eslint-disable-next-line no-console
-    console.log('[nyv-webhook] document.job.progress:', {
+    console.log('[jrx-webhook] document.job.progress:', {
       jobId: payload?.payload?.jobId,
       phase: payload?.payload?.phase,
       progress: payload?.payload?.progress,
     });
   } else {
     // eslint-disable-next-line no-console
-    console.log('[nyv-webhook] unknown event:', event, payload);
+    console.log('[jrx-webhook] unknown event:', event, payload);
   }
 
   return Response.json({ ok: true });

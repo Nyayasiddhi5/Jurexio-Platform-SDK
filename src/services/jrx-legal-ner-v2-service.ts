@@ -93,7 +93,7 @@ const COURT_PATTERN = /(?:Supreme Court|High Court|District Court|Sessions Court
  * "Justice Sharma" still matches.
  *
  * Note the earlier court-document probe DID report `judge: "A. Rajashekar Reddy"` —
- * that came from `nv-court-document-fields.ts`'s own JUDGE_RE, which already handled
+ * that came from `jrx-court-document-fields.ts`'s own JUDGE_RE, which already handled
  * initials. This service was the one that could not, so the two disagreed on the same
  * text. Now aligned.
  */

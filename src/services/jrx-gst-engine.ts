@@ -1,6 +1,6 @@
 /**
  * Jurexio Enterprise Platform 3.1.2 — GST Engine + Invoice ID Standardisation
- * NYV-SVC-GST-001
+ * JRX-SVC-GST-001
  *
  * Handover §7 — GST compliance for all billing:
  *   Invoice ID format: INV-YYYY-{NNNNNN}  e.g. INV-2026-000001
@@ -29,7 +29,7 @@ const logger = createLogger('./jrx-gst-engine');
 // Constants
 // ─────────────────────────────────────────
 
-export const NYV_GST_DETAILS = {
+export const JRX_GST_DETAILS = {
   legal_name: 'Jurexio Technology Private Limited',
   trade_name: 'Jurexio',
   companyName: 'Jurexio Technology Private Limited', // alias for legal_name
@@ -44,7 +44,7 @@ export const NYV_GST_DETAILS = {
   tds_rate_percent: 10,       // §194J professional services TDS
 };
 
-export const GST_RATE = NYV_GST_DETAILS.gst_rate_percent / 100; // 0.18
+export const GST_RATE = JRX_GST_DETAILS.gst_rate_percent / 100; // 0.18
 
 // ─────────────────────────────────────────
 // Types
@@ -72,7 +72,7 @@ export interface InvoiceDetails {
   invoice_id: string;        // INV-YYYY-NNNNNN
   invoice_number: string;    // alias for invoice_id
   invoice_type: 'TAX_INVOICE' | 'PROFORMA' | 'CREDIT_NOTE';
-  supplier: typeof NYV_GST_DETAILS;
+  supplier: typeof JRX_GST_DETAILS;
   supplier_name: string;     // alias for supplier.legal_name
   total_amount: number;      // top-level alias for gst.total_amount
   customer: {
@@ -153,7 +153,7 @@ export class GSTEngine {
   /**
    * Compute GST breakdown for a base amount.
    * @param baseAmount - Pre-tax amount in INR
-   * @param supplierStateCode - '27' (Maharashtra) for NYV
+   * @param supplierStateCode - '27' (Maharashtra) for JRX
    * @param customerStateCode - Customer state code (2 digits). If same as supplier = intra-state.
    */
   computeGST(
@@ -173,7 +173,7 @@ export class GSTEngine {
         sgst_rate: 0,
         sgst_amount: 0,
         sgst: 0,
-        igst_rate: NYV_GST_DETAILS.gst_rate_percent,
+        igst_rate: JRX_GST_DETAILS.gst_rate_percent,
         igst_amount: totalTax,
         igst: totalTax,
         total_tax: totalTax,
@@ -221,13 +221,13 @@ export class GSTEngine {
   }): InvoiceDetails {
     const invoiceId = this.generateInvoiceId();
     const customerStateCode = params.customer_state_code || '27';
-    const gst = this.computeGST(params.base_amount, NYV_GST_DETAILS.state_code, customerStateCode);
+    const gst = this.computeGST(params.base_amount, JRX_GST_DETAILS.state_code, customerStateCode);
     const isB2B = params.is_b2b || !!params.customer_gstin;
 
     // TDS applicable for B2B payments above ₹30,000 (§194J threshold)
     const tdsApplicable = isB2B && params.base_amount >= 30000;
     const tdsAmount = tdsApplicable
-      ? Math.round(params.base_amount * NYV_GST_DETAILS.tds_rate_percent / 100 * 100) / 100
+      ? Math.round(params.base_amount * JRX_GST_DETAILS.tds_rate_percent / 100 * 100) / 100
       : 0;
 
     const dueDate = new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
@@ -236,8 +236,8 @@ export class GSTEngine {
       invoice_id: invoiceId,
       invoice_number: invoiceId,
       invoice_type: 'TAX_INVOICE',
-      supplier: NYV_GST_DETAILS,
-      supplier_name: NYV_GST_DETAILS.legal_name,
+      supplier: JRX_GST_DETAILS,
+      supplier_name: JRX_GST_DETAILS.legal_name,
       total_amount: Math.round((params.base_amount + Math.round(params.base_amount * GST_RATE * 100) / 100) * 100) / 100,
       customer: {
         name: params.customer_name,
@@ -248,7 +248,7 @@ export class GSTEngine {
       line_items: [
         {
           description: `Jurexio ${params.plan_name} Plan — AI Legal Platform Subscription (${params.period})`,
-          sac_code: NYV_GST_DETAILS.sac_code,
+          sac_code: JRX_GST_DETAILS.sac_code,
           quantity: 1,
           unit: 'subscription',
           unit_price: params.base_amount,

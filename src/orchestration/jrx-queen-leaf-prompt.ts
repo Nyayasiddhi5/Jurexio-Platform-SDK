@@ -9,7 +9,7 @@
  * (~12.8 k average) — exploration leaves at 19,938 / 19,938 / 19,936 / 13,570
  * and the synthesis leg at 11,696 — while the Phase-3 micro/FAQ path on the same
  * deploy sat at **1,048**. Phase 3's budget tiers were never broken; the Queen
- * simply never consulted them. In `nv-queen-orchestrator.ts` `callAgentInner()`
+ * simply never consulted them. In `jrx-queen-orchestrator.ts` `callAgentInner()`
  * the leaf prompt was assembled with:
  *
  *   - `buildUniversalLegalIntelligenceOverlay({ …, partnerBestOutcome: true })`
@@ -41,7 +41,7 @@
  * court-applications pack) which are grounding rather than boilerplate — they
  * supply the actual section under discussion.
  *
- * See `documents/working/NYV-ORCHESTRATION-OPTIMIZATION-PLAN-2026-08.md`
+ * See `documents/working/JRX-ORCHESTRATION-OPTIMIZATION-PLAN-2026-08.md`
  * §8.5 (leaf vs synthesis) and §12.2 (this measurement).
  */
 
@@ -173,7 +173,7 @@ export async function buildQueenLeafSystemPrompt(
   const registry = String(input.registrySystemPrompt || '');
 
   /* `partnerBestOutcome` is deliberately left at `true`, matching both the prior
-   * Queen behaviour and `nv-client.ts`. It only gates the drafting builder's
+   * Queen behaviour and `jrx-client.ts`. It only gates the drafting builder's
    * best-outcome framing — a QUALITY lever, not a token lever — and this lane is
    * prompt size. Changing it would be an unmeasured behavioural edit. */
   const overlay = buildUniversalLegalIntelligenceOverlay({
@@ -234,7 +234,7 @@ export async function buildQueenLeafSystemPrompt(
   } else {
     /* Platform-internal / non-XML agents. Cap the base at the task's share of
      * the budget instead of the fixed 12 k chars, which alone exceeded the whole
-     * ceiling — the same correction `nv-client.ts` applies. */
+     * ceiling — the same correction `jrx-client.ts` applies. */
     systemPrompt = mergeLegalIntelligencePrompt(
       registry,
       overlay,
@@ -251,10 +251,10 @@ export async function buildQueenLeafSystemPrompt(
    * leaves. It was previously computed, logged as `overBudget`, and then ignored.
    *
    * Measured on a live drafting request: **8 of 9 hops logged `overBudget: true`**, with
-   * `nv-client` reporting `cap=8000 assembled=11069` and a `chat`-class leaf capped at
+   * `jrx-client` reporting `cap=8000 assembled=11069` and a `chat`-class leaf capped at
    * 2,500 sending 2,990. The cost benchmark independently measured 82,565 prompt tokens for
    * a 5-call drafting request against a ~18,000 ceiling implied by the per-hop budgets —
-   * 4.6x over. That gap is why NYV costs ~4x a direct call (drafting -224%,
+   * 4.6x over. That gap is why JRX costs ~4x a direct call (drafting -224%,
    * single-issue-advice -318%) while the harness finds no quality advantage.
    *
    * Deliberately narrow: only exploration leaves. Their notes feed the synthesis leg, so a
@@ -263,7 +263,7 @@ export async function buildQueenLeafSystemPrompt(
    *
    * WHY THIS IS NOT A NAIVE TRUNCATION — a lesson from the first attempt.
    * My first version sliced the tail on the assumption that the prompt is ordered
-   * least-load-bearing-last. `nv-queen-leaf-prompt.test.ts` immediately failed: a 9,573 →
+   * least-load-bearing-last. `jrx-queen-leaf-prompt.test.ts` immediately failed: a 9,573 →
    * 2,386 token cut removed the **jurisdiction grounding (BNS/BNSS/BSA)** that prevents
    * IPC-instead-of-BNS answers, i.e. it traded the platform's single most important legal
    * correctness guarantee for tokens. The correctness floor is asserted across every tier
@@ -278,7 +278,7 @@ export async function buildQueenLeafSystemPrompt(
     overBudget
     && policy.role === 'exploration'
     && !['0', 'false', 'off', 'no'].includes(
-      String(process.env.NYV_QUEEN_LEAF_BUDGET_ENFORCE ?? '').trim().toLowerCase(),
+      String(process.env.JRX_QUEEN_LEAF_BUDGET_ENFORCE ?? '').trim().toLowerCase(),
     )
   ) {
     const capTokens = policy.budget.maxPromptTokens;

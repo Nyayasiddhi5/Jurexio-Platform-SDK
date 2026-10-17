@@ -5,7 +5,7 @@ import crypto from 'crypto';
 import { Router, type Request, type Response } from 'express';
 import { sdkGatewayAuth } from '../middleware/sdk-gateway.js';
 import { tenantIsolation } from '../middleware/jrx-tenant-isolation.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import {
   getDocparseSdkJob,
   submitDocparseSdkJob,
@@ -20,13 +20,13 @@ router.get('/health', (_req: Request, res: Response) => {
   res.json({
     success: true,
     data: {
-      status: isNyvFeatureOn('docparseSdk') ? 'ok' : 'disabled',
-      docparseSdk: isNyvFeatureOn('docparseSdk'),
-      docparseJobs: isNyvFeatureOn('docparseJobs'),
-      textractPage: isNyvFeatureOn('textractOcr') || isNyvFeatureOn('docparseTextractPage'),
-      llmFallback: isNyvFeatureOn('docparseLlmFallback'),
-      evidenceDepict: isNyvFeatureOn('docparseEvidenceDepict'),
-      attachUnderstand: isNyvFeatureOn('docparseAttachUnderstand'),
+      status: isJrxFeatureOn('docparseSdk') ? 'ok' : 'disabled',
+      docparseSdk: isJrxFeatureOn('docparseSdk'),
+      docparseJobs: isJrxFeatureOn('docparseJobs'),
+      textractPage: isJrxFeatureOn('textractOcr') || isJrxFeatureOn('docparseTextractPage'),
+      llmFallback: isJrxFeatureOn('docparseLlmFallback'),
+      evidenceDepict: isJrxFeatureOn('docparseEvidenceDepict'),
+      attachUnderstand: isJrxFeatureOn('docparseAttachUnderstand'),
     },
   });
 });
@@ -35,7 +35,7 @@ router.use(sdkGatewayAuth);
 router.use(tenantIsolation);
 
 function sdkDisabled(_req: Request, res: Response): boolean {
-  if (!isNyvFeatureOn('docparseSdk')) {
+  if (!isJrxFeatureOn('docparseSdk')) {
     res.status(503).json({
       success: false,
       error: 'Docparse Platform SDK is disabled. Set JRX_F_DOCPARSE_SDK=1 on dev.',
@@ -104,15 +104,15 @@ router.post('/jobs', async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-/** NSP-only: onboarding KYC / firm cert → autofill JSON (OCR + partial LLM on NYV). */
+/** NSP-only: onboarding KYC / firm cert → autofill JSON (OCR + partial LLM on JRX). */
 router.post('/nsp/onboarding-extract', async (req: Request, res: Response): Promise<void> => {
   if (sdkDisabled(req, res)) return;
-  const platform = String(req.headers['x-nyv-platform'] ?? req.headers['x-nyv-app'] ?? '').toLowerCase();
+  const platform = String(req.headers['x-jrx-platform'] ?? req.headers['x-jrx-app'] ?? '').toLowerCase();
   if (platform !== 'nsp' && platform !== 'nsp-pro') {
     res.status(403).json({
       success: false,
       code: 'NSP_ONBOARDING_EXTRACT_PLATFORM',
-      error: 'Set X-NYV-Platform: nsp or nsp-pro.',
+      error: 'Set X-JRX-Platform: nsp or nsp-pro.',
     });
     return;
   }
@@ -142,12 +142,12 @@ router.post('/nsp/onboarding-extract', async (req: Request, res: Response): Prom
 /** NSP-only: AI-assisted gap recovery when local docparse could not read pages / map fields. */
 router.post('/nsp/agent-recover', async (req: Request, res: Response): Promise<void> => {
   if (sdkDisabled(req, res)) return;
-  const platform = String(req.headers['x-nyv-platform'] ?? req.headers['x-nyv-app'] ?? '').toLowerCase();
+  const platform = String(req.headers['x-jrx-platform'] ?? req.headers['x-jrx-app'] ?? '').toLowerCase();
   if (platform !== 'nsp' && platform !== 'nsp-pro') {
     res.status(403).json({
       success: false,
       code: 'NSP_AGENT_RECOVER_PLATFORM',
-      error: 'This endpoint is for NSP gap recovery only. Set X-NYV-Platform: nsp.',
+      error: 'This endpoint is for NSP gap recovery only. Set X-JRX-Platform: nsp.',
     });
     return;
   }
@@ -178,12 +178,12 @@ router.post('/nsp/agent-recover', async (req: Request, res: Response): Promise<v
 /** NSP-only: vision depiction for case photos / imaging when user asks what this shows. */
 router.post('/nsp/evidence-depict', async (req: Request, res: Response): Promise<void> => {
   if (sdkDisabled(req, res)) return;
-  const platform = String(req.headers['x-nyv-platform'] ?? req.headers['x-nyv-app'] ?? '').toLowerCase();
+  const platform = String(req.headers['x-jrx-platform'] ?? req.headers['x-jrx-app'] ?? '').toLowerCase();
   if (platform !== 'nsp' && platform !== 'nsp-pro') {
     res.status(403).json({
       success: false,
       code: 'NSP_EVIDENCE_DEPICT_PLATFORM',
-      error: 'This endpoint is for NSP evidence depiction only. Set X-NYV-Platform: nsp.',
+      error: 'This endpoint is for NSP evidence depiction only. Set X-JRX-Platform: nsp.',
     });
     return;
   }
@@ -214,12 +214,12 @@ router.post('/nsp/evidence-depict', async (req: Request, res: Response): Promise
 /** NSP-only: prompt-only attach understanding when local parse is partial (draft/chat). */
 router.post('/nsp/attach-understand', async (req: Request, res: Response): Promise<void> => {
   if (sdkDisabled(req, res)) return;
-  const platform = String(req.headers['x-nyv-platform'] ?? req.headers['x-nyv-app'] ?? '').toLowerCase();
+  const platform = String(req.headers['x-jrx-platform'] ?? req.headers['x-jrx-app'] ?? '').toLowerCase();
   if (platform !== 'nsp' && platform !== 'nsp-pro') {
     res.status(403).json({
       success: false,
       code: 'NSP_ATTACH_UNDERSTAND_PLATFORM',
-      error: 'This endpoint is for NSP attach understanding only. Set X-NYV-Platform: nsp.',
+      error: 'This endpoint is for NSP attach understanding only. Set X-JRX-Platform: nsp.',
     });
     return;
   }

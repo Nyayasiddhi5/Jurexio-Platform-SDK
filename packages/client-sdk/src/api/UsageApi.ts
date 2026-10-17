@@ -6,7 +6,7 @@
  * the console dashboards). All endpoints require authentication.
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export interface UsageSummaryOptions {
   startDate?: string;
@@ -38,7 +38,7 @@ export interface UsageTokens {
 }
 
 export class UsageApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   /**
    * Token/cost usage summary with per-endpoint breakdown for the current period.

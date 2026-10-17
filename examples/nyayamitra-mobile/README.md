@@ -1,4 +1,4 @@
-# `nyayamitra-mobile` — Expo (React Native) sample for `@nyayavigya/nyayamitra-sdk@^1`
+# `jurexio-citizen-mobile` — Expo (React Native) sample for `@nyayavigya/jurexio-citizen-sdk@^1`
 
 Citizen-facing legal-aid app. Hindi/Indic-first. Three flows:
 
@@ -55,4 +55,4 @@ NetInfo.addEventListener(s => {
 
 ## Store submission
 
-See [`docs/v3.1.2/completed_docs/NYV-MOBILE-STORE-SUBMISSION-CHECKLIST.md`](../../docs/v3.1.2/completed_docs/NYV-MOBILE-STORE-SUBMISSION-CHECKLIST.md).
+See [`docs/v3.1.2/completed_docs/JRX-MOBILE-STORE-SUBMISSION-CHECKLIST.md`](../../docs/v3.1.2/completed_docs/JRX-MOBILE-STORE-SUBMISSION-CHECKLIST.md).

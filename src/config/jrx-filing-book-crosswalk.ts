@@ -1,26 +1,26 @@
 /**
- * NV-FILING-BOOK-CROSSWALK-001 — NSP FB-468 `nvTemplateKey` → coarse NYV `DraftDocumentType`.
+ * NV-FILING-BOOK-CROSSWALK-001 — NSP FB-468 `nvTemplateKey` → coarse JRX `DraftDocumentType`.
  *
  * SSoT for the fine-grained → coarse mapping so NSP can send
  * `parameters.documentType = nvTemplateKey` (reconciled FB-468 flow, commit
- * `ccecd65d`) and NYV still resolves a first-class drafting document type.
+ * `ccecd65d`) and JRX still resolves a first-class drafting document type.
  *
  * Reconciliation contract: `documents/working/NSP-LEGAL-INTELLIGENCE-SDK-SURFACE-2026-08.md`
  * §"NSP FB-468 reconciliation" §C (per-key map) + §D (merged wire shape).
  *
  * This module carries NO runtime dependency on the registry (type-only import),
- * so `nv-draft-length-registry.ts` can consume the crosswalk without a cycle.
+ * so `jrx-draft-length-registry.ts` can consume the crosswalk without a cycle.
  */
 import type { DraftDocumentType } from './jrx-draft-length-registry.js';
 
 /**
- * Version stamp of the FB-468 filing-book manifest the NYV side is seeded from.
+ * Version stamp of the FB-468 filing-book manifest the JRX side is seeded from.
  * Echoed on `draftProfile.filingBookVersion` when NSP omits its own.
  */
 export const FILING_BOOK_MANIFEST_VERSION = 'FB-468.2026-09-22.waveD';
 
 /**
- * FB-468 filing-book manifest keys NYV crosswalks today:
+ * FB-468 filing-book manifest keys JRX crosswalks today:
  *   - 16 P0 keys (original reconciliation), plus
  *   - 7 Wave B keys (NV-FILING-BOOK-WAVEB-001) — common IAs + statutory notices, plus
  *   - 17 Wave C keys (NV-FILING-BOOK-WAVEC-001) — full 96pp book-manifest ingest:
@@ -151,7 +151,7 @@ function normalizeTemplateKey(raw: unknown): string {
     .replace(/[^a-z0-9_]/g, '');
 }
 
-/** Resolve an NSP `nvTemplateKey` to a coarse NYV `DraftDocumentType`, or undefined. */
+/** Resolve an NSP `nvTemplateKey` to a coarse JRX `DraftDocumentType`, or undefined. */
 export function crosswalkNvTemplateKey(raw: unknown): DraftDocumentType | undefined {
   const key = normalizeTemplateKey(raw);
   if (!key) return undefined;

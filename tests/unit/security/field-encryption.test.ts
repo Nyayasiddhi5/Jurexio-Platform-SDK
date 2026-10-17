@@ -21,13 +21,13 @@ async function loadFresh(envPatch: Record<string, string | undefined>) {
 
 describe('field-encryption-service', () => {
   const origNode = process.env.NODE_ENV;
-  const origKey = process.env.NYV_FIELD_ENCRYPTION_KEY;
+  const origKey = process.env.JRX_FIELD_ENCRYPTION_KEY;
   const origEnc = process.env.ENCRYPTION_KEY;
 
   afterEach(() => {
     process.env.NODE_ENV = origNode;
-    if (origKey === undefined) delete process.env.NYV_FIELD_ENCRYPTION_KEY;
-    else process.env.NYV_FIELD_ENCRYPTION_KEY = origKey;
+    if (origKey === undefined) delete process.env.JRX_FIELD_ENCRYPTION_KEY;
+    else process.env.JRX_FIELD_ENCRYPTION_KEY = origKey;
     if (origEnc === undefined) delete process.env.ENCRYPTION_KEY;
     else process.env.ENCRYPTION_KEY = origEnc;
   });
@@ -35,7 +35,7 @@ describe('field-encryption-service', () => {
   it('encryptedExpr returns a SQL fragment that calls pgp_sym_encrypt with the key', async () => {
     const mod = await loadFresh({
       NODE_ENV: 'test',
-      NYV_FIELD_ENCRYPTION_KEY: '0123456789abcdef0123456789abcdef',
+      JRX_FIELD_ENCRYPTION_KEY: '0123456789abcdef0123456789abcdef',
     });
     const expr = mod.encryptedExpr('hello world');
     const stringified = JSON.stringify(expr);
@@ -47,7 +47,7 @@ describe('field-encryption-service', () => {
   it('encryptedExpr returns a NULL fragment for null/undefined input', async () => {
     const mod = await loadFresh({
       NODE_ENV: 'test',
-      NYV_FIELD_ENCRYPTION_KEY: 'k'.repeat(32),
+      JRX_FIELD_ENCRYPTION_KEY: 'k'.repeat(32),
     });
     const expr = mod.encryptedExpr(null);
     const s = JSON.stringify(expr);
@@ -58,7 +58,7 @@ describe('field-encryption-service', () => {
   it('decryptedExpr embeds the column verbatim and references pgp_sym_decrypt', async () => {
     const mod = await loadFresh({
       NODE_ENV: 'test',
-      NYV_FIELD_ENCRYPTION_KEY: 'k'.repeat(32),
+      JRX_FIELD_ENCRYPTION_KEY: 'k'.repeat(32),
     });
     const expr = mod.decryptedExpr('transcript_text_enc');
     const s = JSON.stringify(expr);
@@ -69,7 +69,7 @@ describe('field-encryption-service', () => {
   it('decryptedExpr rejects illegal column identifiers (SQL-injection guard)', async () => {
     const mod = await loadFresh({
       NODE_ENV: 'test',
-      NYV_FIELD_ENCRYPTION_KEY: 'k'.repeat(32),
+      JRX_FIELD_ENCRYPTION_KEY: 'k'.repeat(32),
     });
     expect(() => mod.decryptedExpr("foo; DROP TABLE x; --")).toThrow(/illegal column/);
     expect(() => mod.decryptedExpr('foo bar')).toThrow(/illegal column/);
@@ -80,7 +80,7 @@ describe('field-encryption-service', () => {
   it('in-process AES-256-GCM round-trip succeeds', async () => {
     const mod = await loadFresh({
       NODE_ENV: 'test',
-      NYV_FIELD_ENCRYPTION_KEY: 'super-secret-test-key-not-for-prod',
+      JRX_FIELD_ENCRYPTION_KEY: 'super-secret-test-key-not-for-prod',
     });
     const ct = mod.fieldEncryption.encryptInProcess('PAN: AAAAA1234A');
     expect(ct).toMatch(/^[0-9a-f]+:[0-9a-f]+:[0-9a-f]+$/);
@@ -91,7 +91,7 @@ describe('field-encryption-service', () => {
   it('selfCheck reports ok when key is configured', async () => {
     const mod = await loadFresh({
       NODE_ENV: 'test',
-      NYV_FIELD_ENCRYPTION_KEY: 'k'.repeat(64),
+      JRX_FIELD_ENCRYPTION_KEY: 'k'.repeat(64),
     });
     expect(mod.fieldEncryption.selfCheck().ok).toBe(true);
   });
@@ -99,7 +99,7 @@ describe('field-encryption-service', () => {
   it('production refuses to operate without a configured key', async () => {
     const mod = await loadFresh({
       NODE_ENV: 'production',
-      NYV_FIELD_ENCRYPTION_KEY: undefined,
+      JRX_FIELD_ENCRYPTION_KEY: undefined,
       ENCRYPTION_KEY: undefined,
     });
     expect(() => mod.encryptedExpr('anything')).toThrow(/required in production/);
@@ -108,7 +108,7 @@ describe('field-encryption-service', () => {
   it('exposes the list of sensitive fields that must be encrypted', async () => {
     const mod = await loadFresh({
       NODE_ENV: 'test',
-      NYV_FIELD_ENCRYPTION_KEY: 'k'.repeat(32),
+      JRX_FIELD_ENCRYPTION_KEY: 'k'.repeat(32),
     });
     const fields = mod.fieldEncryption.sensitiveFields();
     const names = fields.map((f) => `${f.table}.${f.column}`);
@@ -198,13 +198,13 @@ describe('Field encryption is wired into actual write paths', () => {
 
 // ── Migration runner wires field-encryption key into the DO block ────────────
 describe('Migration runner sets app.field_encryption_key from env', () => {
-  it('scripts/jrx-migrate.ts binds NYV_FIELD_ENCRYPTION_KEY before executing 0004', () => {
+  it('scripts/jrx-migrate.ts binds JRX_FIELD_ENCRYPTION_KEY before executing 0004', () => {
     const src = fs.readFileSync(
       path.join(process.cwd(), 'scripts/jrx-migrate.ts'),
       'utf8',
     );
     expect(src).toMatch(/applyRlsAndFieldEncryptionMigration/);
-    expect(src).toMatch(/process\.env\.NYV_FIELD_ENCRYPTION_KEY/);
+    expect(src).toMatch(/process\.env\.JRX_FIELD_ENCRYPTION_KEY/);
     expect(src).toMatch(/set_config\('app\.field_encryption_key'/);
     expect(src).toMatch(/0004_enable_rls_for_tenant_tables\.sql/);
   });
@@ -261,7 +261,7 @@ describe('Schema-only encryption-target tables — no plaintext writers exist', 
   it('SENSITIVE_FIELDS still declares both schema-only tables so 0004 keeps the *_enc columns provisioned', async () => {
     const mod = await loadFresh({
       NODE_ENV: 'test',
-      NYV_FIELD_ENCRYPTION_KEY: 'k'.repeat(32),
+      JRX_FIELD_ENCRYPTION_KEY: 'k'.repeat(32),
     });
     const tables = mod.SENSITIVE_FIELDS.map((f: { table: string; column: string }) => `${f.table}.${f.column}`);
     expect(tables).toContain('nv_voice_sessions.transcript_text');

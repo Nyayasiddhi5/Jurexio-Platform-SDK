@@ -1,5 +1,5 @@
 /**
- * NV-NYS-FULLTEXT-001 — on-demand full judgment text via the NYS Athena
+ * NV-JRX-FULLTEXT-001 — on-demand full judgment text via the NYS Athena
  * archive path.
  *
  * WHY THIS EXISTS
@@ -16,11 +16,11 @@
  *                             fallback), caches it in `archive_extracts`, and
  *                             returns the body.
  *
- * Before this module NYV exposed both hops as bare proxies but nothing joined
+ * Before this module JRX exposed both hops as bare proxies but nothing joined
  * them, and the only NYS archive MCP tool (`nys_athena_search`) returned
  * metadata. An agent could therefore discover an `s3_path` and had no way to
  * read the judgment — which is precisely how "full judgment text is not
- * available" became the received wisdom on the NYV side.
+ * available" became the received wisdom on the JRX side.
  *
  * COST / LATENCY CONTRACT (measured 2026-08-19 against the live NYS host)
  * ----------------------------------------------------------------------
@@ -33,7 +33,7 @@
  *
  * Consequence: this is an EXPLICIT, on-demand call only. It must never be
  * wired into the default RAG/orchestrate grounding path — see
- * `nv-auto-rag-router` / `nv-nys-knowledge-retriever`, which intentionally
+ * `jrx-auto-rag-router` / `jrx-nys-knowledge-retriever`, which intentionally
  * ground on the headnote and say "Do not invent passages" instead.
  */
 import { nysKnowledgeRequest } from './jrx-nys-knowledge-client.js';
@@ -55,14 +55,14 @@ const logger = createLogger('./jrx-nys-judgment-fulltext');
  * `jrx-search/artifacts/api-server/src/lib/archiveDocs.ts`; NYS enforces it
  * and returns 413, which arrives here as `code: 'TOO_LARGE'`.
  *
- * Raised 20 → 96 MB with NYS (NYS-ARCHIVE-LARGE-PDF-001). 96 MB was chosen from
+ * Raised 20 → 96 MB with NYS (JRX-ARCHIVE-LARGE-PDF-001). 96 MB was chosen from
  * the corpus, not guessed: across all 176,997 SC PDFs the maximum object is
  * 68.79 MB, 43 exceed 20 MB, and none exceed 80 MB. Bytes are also the wrong
  * instrument for cost — extraction time tracks PAGE COUNT (Kesavananda 37.5 MB /
  * 1,006 pp took 4.8x longer than Maneka 63.9 MB / 156 pp) — so NYS additionally
  * enforces a page/time budget, which is what `truncated` below reports.
  */
-export const NYS_EXTRACT_MAX_PDF_BYTES = 96 * 1024 * 1024;
+export const JRX_ECOSYSTEM_EXTRACT_MAX_PDF_BYTES = 96 * 1024 * 1024;
 
 /** Extract can require a cold S3 download + OCR; the default client timeout is too short. */
 const EXTRACT_TIMEOUT_MS = 60_000;
@@ -86,7 +86,7 @@ export interface JudgmentFullTextRequest {
   title?: string;
   /**
    * Ask NYS to parse `paras[]` and the extractable structured fields from the
-   * judgment text (NYS-JUDGMENT-STRUCTURE-001).
+   * judgment text (JRX-JUDGMENT-STRUCTURE-001).
    *
    * Off by default so the existing payload shape is unchanged for current
    * callers. Parsing happens on the NYS side, over the text it already has in
@@ -432,7 +432,7 @@ export async function fetchJudgmentFullText(
  * so a caller can tell "raise your maxChars" from "the extractor gave up".
  */
 /**
- * Structured paragraph availability envelope for partner UIs (NYS-JUDGMENT-STRUCTURE-001).
+ * Structured paragraph availability envelope for partner UIs (JRX-JUDGMENT-STRUCTURE-001).
  * Surfaces WHY `paras[]` is empty rather than leaving callers guessing.
  */
 export function buildParasMeta(

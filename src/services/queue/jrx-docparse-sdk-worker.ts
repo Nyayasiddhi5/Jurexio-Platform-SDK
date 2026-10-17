@@ -22,8 +22,8 @@ export async function handleDocparseSdkJob(data: DocparseSdkBullJob): Promise<vo
 
   try {
     const { runComplete } = await import('@jurexio/docparse-sdk');
-    const { createNyvPartialFieldRecoveryProvider } = await import('../jrx-docparse-partial-llm-sdk-provider.js');
-    const { createNyvCloudOcrProvider } = await import('../jrx-docparse-cloud-ocr-sdk-provider.js');
+    const { createJrxPartialFieldRecoveryProvider } = await import('../jrx-docparse-partial-llm-sdk-provider.js');
+    const { createJrxCloudOcrProvider } = await import('../jrx-docparse-cloud-ocr-sdk-provider.js');
     const files = data.files.map((f) => ({
       bytes: new Uint8Array(Buffer.from(f.base64, 'base64')),
       fileName: f.fileName,
@@ -31,8 +31,8 @@ export async function handleDocparseSdkJob(data: DocparseSdkBullJob): Promise<vo
     }));
     const completed = await runComplete(files, {
       ...data.run,
-      partialFieldRecovery: createNyvPartialFieldRecoveryProvider(),
-      cloudOcr: createNyvCloudOcrProvider(),
+      partialFieldRecovery: createJrxPartialFieldRecoveryProvider(),
+      cloudOcr: createJrxCloudOcrProvider(),
       onPage: async (detail) => {
         const rec: DocparseJobRecord = {
           jobId,

@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * Jurexio Shared Document Processing — delegates to NV-EDJ-001 durable jobs.
  * @deprecated Prefer POST /api/jrx/v1/sdk/ecosystem-documents/jobs
@@ -62,7 +62,7 @@ router.post('/process', nvClientAuth, dualSdkOrJwt, consentGate({ purpose: 'ai_p
     const inlineB64 = typeof body.contentBase64 === 'string' ? String(body.contentBase64).trim() : '';
     const inlineText = typeof body.content === 'string' ? String(body.content) : (typeof body.text === 'string' ? String(body.text) : '');
     if (!hasStorageKey && (inlineB64 || inlineText)) {
-      const { nyvDocumentStorage } = await import('../services/nyv-document-storage-service.js');
+      const { nyvDocumentStorage } = await import('../services/jrx-document-storage-service.js');
       const buf = inlineB64
         ? Buffer.from(inlineB64, 'base64')
         : Buffer.from(inlineText, 'utf8');

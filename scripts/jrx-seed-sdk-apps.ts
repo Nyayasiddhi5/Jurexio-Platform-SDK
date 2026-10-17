@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — Demo SDK Applications Seed
- * NYV-SCRIPT-SEED-SDK-001
+ * Jurexio Platform 3.1.2 — Demo SDK Applications Seed
+ * JRX-SCRIPT-SEED-SDK-001
  */
 
 import { makePgSql } from './_pg-pool.js';
@@ -18,15 +18,15 @@ const REQUIRED_COLUMNS = {
 const SDK_APPS = [
   {
     id: 'nvsdkapp-demo-nsp-001',
-    name: 'Nyayasiddhi Professional™ Integration',
+    name: 'Jurexio Professional™ Integration',
     app_type: 'nyayasiddhi_professional',
     jurisdiction: 'IN',
     tier: 'pro'
   },
   {
     id: 'nvsdkapp-demo-nm-001',
-    name: 'Nyayamitra Citizen App Integration',
-    app_type: 'nyayamitra',
+    name: 'Jurexio Citizen Citizen App Integration',
+    app_type: 'jurexio-citizen',
     jurisdiction: 'IN',
     tier: 'plus'
   },
@@ -39,14 +39,14 @@ const SDK_APPS = [
   },
   {
     id: 'nvsdkapp-demo-nyi-001',
-    name: 'Nyayasiddhi Institutional™ Integration',
+    name: 'Jurexio Institutional™ Integration',
     app_type: 'nyayasiddhi_institutional',
     jurisdiction: 'IN',
     tier: 'enterprise'
   },
   {
     id: 'nvsdkapp-demo-academy-001',
-    name: 'Nyayasiddhi Academy™ Integration',
+    name: 'Jurexio Academy™ Integration',
     app_type: 'nyayasiddhi_academy',
     jurisdiction: 'IN',
     tier: 'pro'

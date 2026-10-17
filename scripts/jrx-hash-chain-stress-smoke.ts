@@ -1,12 +1,12 @@
 /**
- * nv-hash-chain-stress-smoke.ts — Hash chain at scale + tamper detection
+ * jrx-hash-chain-stress-smoke.ts — Hash chain at scale + tamper detection
  * NV-OPT+UAT-2026-05-09 P2 #12
  *
  * Two phases:
  *   1) Drive N audit appends (default N=1000), call verifyHashChain(N+100),
  *      assert verified=true and recordsChecked >= N.
  *   2) Tamper test: directly mutate one row's payload via SQL (under
- *      NYV_AUDIT_CHAIN_TOLERATE=1 guard), re-run verifyHashChain, assert
+ *      JRX_AUDIT_CHAIN_TOLERATE=1 guard), re-run verifyHashChain, assert
  *      verified=false and firstBrokenId is set.
  *
  * NOTE: Phase 2 is opt-in (set TAMPER=1) because it requires write access
@@ -48,9 +48,9 @@ async function main() {
 
   // Phase 2: tamper detection (opt-in)
   if (TAMPER) {
-    if (process.env.NYV_AUDIT_CHAIN_TOLERATE !== '1') {
-      console.warn('[hash-chain-stress] TAMPER=1 but NYV_AUDIT_CHAIN_TOLERATE not set; skipping mutation. Re-run with NYV_AUDIT_CHAIN_TOLERATE=1.');
-      phase2 = { skipped: true, reason: 'NYV_AUDIT_CHAIN_TOLERATE not set' };
+    if (process.env.JRX_AUDIT_CHAIN_TOLERATE !== '1') {
+      console.warn('[hash-chain-stress] TAMPER=1 but JRX_AUDIT_CHAIN_TOLERATE not set; skipping mutation. Re-run with JRX_AUDIT_CHAIN_TOLERATE=1.');
+      phase2 = { skipped: true, reason: 'JRX_AUDIT_CHAIN_TOLERATE not set' };
     } else {
       const target = await db.execute(sql`SELECT id, payload FROM nv_schema.nv_audit_logs WHERE event_type='SMOKE_EVENT' ORDER BY created_at DESC LIMIT 1 OFFSET 5`);
       const row = (target as any).rows?.[0];

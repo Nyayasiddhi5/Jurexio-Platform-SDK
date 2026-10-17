@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 import { db as _raw_db } from '../../db/index.js';
 import { lazyRequire } from '../../utils/jrx-type-helpers.js';
 const db = lazyRequire(() => _raw_db, 'db');

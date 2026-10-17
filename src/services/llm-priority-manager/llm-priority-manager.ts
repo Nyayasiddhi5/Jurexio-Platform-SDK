@@ -1,6 +1,6 @@
 /**
  * Jurexio LLM Priority Manager v3.1.2
- * NYV-SVC-LLM-PRIORITY-001
+ * JRX-SVC-LLM-PRIORITY-001
  *
  * Intelligent LLM provider selection and priority management.
  * Dynamically routes queries to the optimal LLM based on:

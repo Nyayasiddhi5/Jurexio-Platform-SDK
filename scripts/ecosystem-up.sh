@@ -6,10 +6,10 @@
 set -euo pipefail
 
 REGION="${AWS_REGION:-ap-south-1}"
-ACCOUNT="${NYV_ACCOUNT_ID:-789925699169}"
+ACCOUNT="${JRX_ACCOUNT_ID:-789925699169}"
 REGISTRY="${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com"
-COMPOSE="${NYV_COMPOSE:-docker-compose.ecosystem.yml}"
-ENV_FILE="${NYV_ENV_FILE:-.env}"
+COMPOSE="${JRX_COMPOSE:-docker-compose.ecosystem.yml}"
+ENV_FILE="${JRX_ENV_FILE:-.env}"
 HEALTH_URL="http://127.0.0.1/health"
 
 cd "$(dirname "$0")/.."

@@ -1,24 +1,24 @@
 /**
- * NYV-SCRIPT-AUDIT-RESET-001 (2026-05-08) — Reset broken hash chain on dev DB.
+ * JRX-SCRIPT-AUDIT-RESET-001 (2026-05-08) — Reset broken hash chain on dev DB.
  * The pre-fix records (hashed without canonical payload normalization) all
  * appear "broken" to the post-fix verifier. Truncates nv_audit_logs so the
  * fixed writer + verifier can establish a clean genesis chain.
  *
- * SAFETY: requires NYV_ALLOW_AUDIT_RESET=1 env var. NEVER use on production.
+ * SAFETY: requires JRX_ALLOW_AUDIT_RESET=1 env var. NEVER use on production.
  *
  * Guardrail compliance:
- *  - NV-NAMING-001: prefixed nv-, no duplicate (rg confirmed empty)
- *  - NV-SECRETS-001: uses canonical NYV_DATABASE_URL via existing db pool
+ *  - NV-NAMING-001: prefixed jrx-, no duplicate (rg confirmed empty)
+ *  - NV-SECRETS-001: uses canonical JRX_DATABASE_URL via existing db pool
  */
 
 import { db } from '../src/db/index.js';
 import { sql } from 'drizzle-orm';
 
-const ALLOW = process.env.NYV_ALLOW_AUDIT_RESET === '1';
+const ALLOW = process.env.JRX_ALLOW_AUDIT_RESET === '1';
 
 (async () => {
   if (!ALLOW) {
-    console.error('REFUSING: set NYV_ALLOW_AUDIT_RESET=1 to confirm. Production-safe by default.');
+    console.error('REFUSING: set JRX_ALLOW_AUDIT_RESET=1 to confirm. Production-safe by default.');
     process.exit(2);
   }
 

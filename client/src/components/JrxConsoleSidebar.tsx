@@ -158,7 +158,7 @@ function persistSidebarState(state: Record<string, boolean>): void {
 
 // ─── 7-section IA (B4 — task-179, 2026-05-12) ────────────────────────────────
 // Exported as the single source of truth for the sidebar tree. JrxBreadcrumbs /
-// NyvBreadcrumbs derive from this list.
+// JrxBreadcrumbs derive from this list.
 // (task-180/B5) derives its path → section/item index directly from this list,
 // so adding a sidebar item automatically gives that route a breadcrumb.
 
@@ -630,6 +630,6 @@ export function JrxConsoleSidebar({ className }: JrxConsoleSidebarProps) {
 }
 
 /** @deprecated Use JrxConsoleSidebar — removed next release */
-export const NyvSidebar = JrxConsoleSidebar;
+export const JrxSidebar = JrxConsoleSidebar;
 
 export default JrxConsoleSidebar;

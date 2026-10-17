@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — pg.Pool tagged-template shim
- * NYV-SCRIPT-PG-POOL-001 (T-DLR-02)
+ * Jurexio Platform 3.1.2 — pg.Pool tagged-template shim
+ * JRX-SCRIPT-PG-POOL-001 (T-DLR-02)
  *
  * Mimics the @neondatabase/serverless tagged-template API on top of node-postgres.
  *
@@ -37,10 +37,10 @@ export function makePgSql(connectionString?: string): SqlFn {
   // certs/rds-global-bundle.pem feeds `ssl: { ca, rejectUnauthorized:true }`
   // and the URL's sslmode is upgraded prefer/require/verify-ca →
   // verify-full so libpq-style tooling sees the same intent. Set
-  // NYV_PG_SSL_VERIFY=false (or PGSSLMODE=disable) to opt back to the
+  // JRX_PG_SSL_VERIFY=false (or PGSSLMODE=disable) to opt back to the
   // legacy un-verified posture from task-135.
   const normalized = normalizePgConnectionString(rawConn);
-  const conn = process.env.NYV_PG_SSL_VERIFY === 'false'
+  const conn = process.env.JRX_PG_SSL_VERIFY === 'false'
     ? normalized
     : upgradePgConnectionStringToVerifyFull(normalized);
 

@@ -218,7 +218,7 @@ async function flushPersistent(): Promise<void> {
       droppedAsUnwritable += batch.length;
       const sample = batch[0];
       logger.error('persistent decision-log batch is permanently unwritable — dropped (not retried)', {
-        alertCode: 'NYV-ROUTER-LOG-001',
+        alertCode: 'JRX-ROUTER-LOG-001',
         sqlstate: (err as { code?: string }).code,
         error: (err as Error).message,
         batchSize: batch.length,

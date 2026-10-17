@@ -16,13 +16,13 @@
  *                   This is a PASS, not a fail.
  *   FAIL          — unexpected 5xx, network error, or 4xx without flag-off.
  */
-import { NyvClient, NyvError } from '../dist/index.js';
+import { JrxClient, JrxError } from '../dist/index.js';
 
-const apiKey = process.env.NYV_SDK_KEY_NSP || process.env.NYV_SDK_KEY_NSI;
-const baseUrl = process.env.NYV_GATEWAY_URL || 'http://127.0.0.1:5000';
-if (!apiKey) { console.error('NYV_SDK_KEY_NSP missing'); process.exit(2); }
+const apiKey = process.env.JRX_SDK_KEY_NSP || process.env.JRX_SDK_KEY_NSI;
+const baseUrl = process.env.JRX_GATEWAY_URL || 'http://127.0.0.1:5000';
+if (!apiKey) { console.error('JRX_SDK_KEY_NSP missing'); process.exit(2); }
 
-const nyv = new NyvClient({ apiKey, baseUrl, timeout: 10_000 });
+const nyv = new JrxClient({ apiKey, baseUrl, timeout: 10_000 });
 
 // `flag` may be a single env name, a `'A|B'` OR-list, or the sentinel
 // `__ALWAYS_ON__` for namespaces with no flag gate.
@@ -34,14 +34,14 @@ const flagOn = (flag) => {
 
 const probes = [
   // ── READ probes ───────────────────────────────────────────────────────
-  { kind: 'read', batch: 'A', name: 'orch.kb.health',                       flag: 'NYV_F_AI_ORCH_KB',             run: () => nyv.orch.kb.health() },
+  { kind: 'read', batch: 'A', name: 'orch.kb.health',                       flag: 'JRX_F_AI_ORCH_KB',             run: () => nyv.orch.kb.health() },
   { kind: 'read', batch: 'C', name: 'workflows.health',                     flag: '__ALWAYS_ON__' /* always-on */, run: () => nyv.workflows.health() },
-  { kind: 'read', batch: 'C', name: 'docAi.health',                         flag: 'NYV_F_DOC_AI_CONVERT',         run: () => nyv.docAi.health() },
-  { kind: 'read', batch: 'C', name: 'docAi.supported',                      flag: 'NYV_F_DOC_AI_CONVERT',         run: () => nyv.docAi.supported() },
-  { kind: 'read', batch: 'D', name: 'gov.makerChecker.queue',               flag: 'NYV_F_GOV_MAKER_CHECKER',      run: () => nyv.gov.makerChecker.queue() },
-  { kind: 'read', batch: 'E', name: 'legalPipeline.chunker.capabilities',   flag: 'NYV_F_LEGAL_PIPELINE_CHUNKER', run: () => nyv.legalPipeline.chunker.capabilities() },
-  { kind: 'read', batch: 'F', name: 'complianceNv5.pqc.capabilities',       flag: 'NYV_F_COMPLIANCE_PQC',         run: () => nyv.complianceNv5.pqc.capabilities() },
-  { kind: 'read', batch: 'G+H+I+J', name: 'internal.capabilities',          flag: 'NYV_F_INTERNAL_SURFACE',       run: () => nyv.internal.capabilities() },
+  { kind: 'read', batch: 'C', name: 'docAi.health',                         flag: 'JRX_F_DOC_AI_CONVERT',         run: () => nyv.docAi.health() },
+  { kind: 'read', batch: 'C', name: 'docAi.supported',                      flag: 'JRX_F_DOC_AI_CONVERT',         run: () => nyv.docAi.supported() },
+  { kind: 'read', batch: 'D', name: 'gov.makerChecker.queue',               flag: 'JRX_F_GOV_MAKER_CHECKER',      run: () => nyv.gov.makerChecker.queue() },
+  { kind: 'read', batch: 'E', name: 'legalPipeline.chunker.capabilities',   flag: 'JRX_F_LEGAL_PIPELINE_CHUNKER', run: () => nyv.legalPipeline.chunker.capabilities() },
+  { kind: 'read', batch: 'F', name: 'complianceNv5.pqc.capabilities',       flag: 'JRX_F_COMPLIANCE_PQC',         run: () => nyv.complianceNv5.pqc.capabilities() },
+  { kind: 'read', batch: 'G+H+I+J', name: 'internal.capabilities',          flag: 'JRX_F_INTERNAL_SURFACE',       run: () => nyv.internal.capabilities() },
 
   // ── MUTATING probes — exercises body/path serialisation, not just GET ─
   // Each is a real POST/PATCH that either succeeds (flag ON) or returns
@@ -49,12 +49,12 @@ const probes = [
   // payload is intentionally minimal — we surface that as REACHED.
   // (Batches G+H+I+J are introspection-only — `InternalApi` exposes no
   // mutating methods, so they're covered by the read probe above.)
-  { kind: 'mut',  batch: 'A', name: 'orch.kb.create',                       flag: 'NYV_F_AI_ORCH_KB',             run: () => nyv.orch.kb.create({ name: 'smoke-' + Date.now(), ownerId: 'smoke-owner' }) },
-  { kind: 'mut',  batch: 'C', name: 'workflows.start',                      flag: 'NYV_F_WORKFLOW_AUTONOMOUS|NYV_F_WORKFLOW_CONTINUOUS' /* needs EITHER */, run: () => nyv.workflows.start() },
-  { kind: 'mut',  batch: 'C', name: 'docAi.submitJobBase64',                flag: 'NYV_F_DOC_AI_CONVERT',         run: () => nyv.docAi.submitJobBase64({ sourceBase64: Buffer.from('hello').toString('base64'), sourceFormat: 'txt', targetFormat: 'pdf' }) },
-  { kind: 'mut',  batch: 'D', name: 'gov.orgRateLimit.invalidateCache',     flag: 'NYV_F_GOV_ORG_RATE_LIMIT',     run: () => nyv.gov.orgRateLimit.invalidateCache('smoke-org') },
-  { kind: 'mut',  batch: 'E', name: 'legalPipeline.chunker.preview',        flag: 'NYV_F_LEGAL_PIPELINE_CHUNKER', run: () => nyv.legalPipeline.chunker.preview({ text: 'Smoke text for chunker preview.' }) },
-  { kind: 'mut',  batch: 'F', name: 'complianceNv5.pqc.kemKeygen',          flag: 'NYV_F_COMPLIANCE_PQC',         run: () => nyv.complianceNv5.pqc.kemKeygen() },
+  { kind: 'mut',  batch: 'A', name: 'orch.kb.create',                       flag: 'JRX_F_AI_ORCH_KB',             run: () => nyv.orch.kb.create({ name: 'smoke-' + Date.now(), ownerId: 'smoke-owner' }) },
+  { kind: 'mut',  batch: 'C', name: 'workflows.start',                      flag: 'JRX_F_WORKFLOW_AUTONOMOUS|JRX_F_WORKFLOW_CONTINUOUS' /* needs EITHER */, run: () => nyv.workflows.start() },
+  { kind: 'mut',  batch: 'C', name: 'docAi.submitJobBase64',                flag: 'JRX_F_DOC_AI_CONVERT',         run: () => nyv.docAi.submitJobBase64({ sourceBase64: Buffer.from('hello').toString('base64'), sourceFormat: 'txt', targetFormat: 'pdf' }) },
+  { kind: 'mut',  batch: 'D', name: 'gov.orgRateLimit.invalidateCache',     flag: 'JRX_F_GOV_ORG_RATE_LIMIT',     run: () => nyv.gov.orgRateLimit.invalidateCache('smoke-org') },
+  { kind: 'mut',  batch: 'E', name: 'legalPipeline.chunker.preview',        flag: 'JRX_F_LEGAL_PIPELINE_CHUNKER', run: () => nyv.legalPipeline.chunker.preview({ text: 'Smoke text for chunker preview.' }) },
+  { kind: 'mut',  batch: 'F', name: 'complianceNv5.pqc.kemKeygen',          flag: 'JRX_F_COMPLIANCE_PQC',         run: () => nyv.complianceNv5.pqc.kemKeygen() },
 ];
 
 const results = [];
@@ -64,7 +64,7 @@ for (const p of probes) {
     const resp = await p.run();
     results.push({ kind: p.kind, batch: p.batch, name: p.name, flag: p.flag, flagSet, outcome: 'OK', preview: resp && typeof resp === 'object' ? Object.keys(resp).slice(0, 6) : resp });
   } catch (e) {
-    if (e instanceof NyvError) {
+    if (e instanceof JrxError) {
       let outcome;
       const msg = String(e.message || '');
       // Pre-existing dev-DB schema gaps (e.g. `relation "knowledge_bases"

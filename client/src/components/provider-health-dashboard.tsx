@@ -50,13 +50,13 @@ export function ProviderHealthDashboard() {
 
   // Fetch provider health metrics
   const { data: healthData, isLoading, refetch } = useQuery({
-    queryKey: ['/api/nyayavigya/provider-health'],
+    queryKey: ['/api/jurexio/provider-health'],
     refetchInterval: 10000 // Auto-refresh every 10 seconds
   });
 
   // Fetch feedback statistics
   const { data: statsData } = useQuery({
-    queryKey: ['/api/nyayavigya/feedback-stats'],
+    queryKey: ['/api/jurexio/feedback-stats'],
     refetchInterval: 10000
   });
 
@@ -65,7 +65,7 @@ export function ProviderHealthDashboard() {
     mutationFn: async () => {
       if (!selectedProvider) return;
 
-      return apiRequest('/api/nyayavigya/quality-feedback', {
+      return apiRequest('/api/jurexio/quality-feedback', {
         method: 'POST',
         body: {
           providerId: selectedProvider,
@@ -79,8 +79,8 @@ export function ProviderHealthDashboard() {
         title: '✅ Feedback Submitted',
         description: 'Quality feedback recorded successfully'
       });
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya/provider-health'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya/feedback-stats'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio/provider-health'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio/feedback-stats'] });
       setSelectedProvider(null);
     },
     onError: (error) => {

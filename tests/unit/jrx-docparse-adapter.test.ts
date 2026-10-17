@@ -21,7 +21,7 @@ const docparseMock = vi.hoisted(() => ({
 vi.mock('@jurexio/docparse', () => docparseMock);
 
 vi.mock('../../src/config/jrx-feature-flags.js', () => ({
-  isNyvFeatureOn: vi.fn(() => true),
+  isJrxFeatureOn: vi.fn(() => true),
 }));
 
 vi.mock('../../src/services/document-pipeline/jrx-got-ocr-adapter-service.js', () => ({
@@ -56,8 +56,8 @@ describe('NV-DOCPARSE-ADAPTER-001', () => {
   });
 
   it('uses heuristic-only path when flag is off', async () => {
-    const { isNyvFeatureOn } = await import('../../src/config/jrx-feature-flags.js');
-    vi.mocked(isNyvFeatureOn).mockReturnValue(false);
+    const { isJrxFeatureOn } = await import('../../src/config/jrx-feature-flags.js');
+    vi.mocked(isJrxFeatureOn).mockReturnValue(false);
 
     const { runDocparseWithFallback } = await import('../../src/services/jrx-docparse-adapter-service.js');
     const result = await runDocparseWithFallback({
@@ -73,8 +73,8 @@ describe('NV-DOCPARSE-ADAPTER-001', () => {
   });
 
   it('maps docparse autofill and merges with heuristic', async () => {
-    const { isNyvFeatureOn } = await import('../../src/config/jrx-feature-flags.js');
-    vi.mocked(isNyvFeatureOn).mockReturnValue(true);
+    const { isJrxFeatureOn } = await import('../../src/config/jrx-feature-flags.js');
+    vi.mocked(isJrxFeatureOn).mockReturnValue(true);
 
     docparseMock.run.mockResolvedValue({
       batchId: 'b1',
@@ -130,8 +130,8 @@ describe('NV-DOCPARSE-ADAPTER-001', () => {
   });
 
   it('falls back to heuristic when docparse throws', async () => {
-    const { isNyvFeatureOn } = await import('../../src/config/jrx-feature-flags.js');
-    vi.mocked(isNyvFeatureOn).mockReturnValue(true);
+    const { isJrxFeatureOn } = await import('../../src/config/jrx-feature-flags.js');
+    vi.mocked(isJrxFeatureOn).mockReturnValue(true);
 
     docparseMock.run.mockRejectedValue(new Error('tesseract unavailable'));
 
@@ -150,8 +150,8 @@ describe('NV-DOCPARSE-ADAPTER-001', () => {
   });
 
   it('surfaces concordanceStatus DRAFT and tables from analysis', async () => {
-    const { isNyvFeatureOn } = await import('../../src/config/jrx-feature-flags.js');
-    vi.mocked(isNyvFeatureOn).mockReturnValue(true);
+    const { isJrxFeatureOn } = await import('../../src/config/jrx-feature-flags.js');
+    vi.mocked(isJrxFeatureOn).mockReturnValue(true);
 
     docparseMock.run.mockResolvedValue({
       batchId: 'b2',

@@ -9,8 +9,8 @@ import {
   Activity, ChevronRight, Layers, RefreshCw, Workflow, Sparkles, Users,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { p } from '@/lib/jrx-api-paths';
 import { nvFetchJson } from '@/lib/jrx-fetch-json';
 
@@ -270,9 +270,9 @@ export default function BMADWorkflowVisualizer() {
                 {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-24 w-full" />)}
               </div>
             ) : templatesQ.isError ? (
-              <NyvErrorState title="BMAD templates endpoint unavailable" size="sm" />
+              <JrxErrorState title="BMAD templates endpoint unavailable" size="sm" />
             ) : templates.length === 0 ? (
-              <NyvEmptyState title="No BMAD templates registered" size="sm" />
+              <JrxEmptyState title="No BMAD templates registered" size="sm" />
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4" data-testid="bmad-templates-list">
                 {templates.map((t) => {
@@ -377,7 +377,7 @@ export default function BMADWorkflowVisualizer() {
             {(() => {
               const clusters = bmadRuns.filter((c) => /^BMAD\s+Cluster/i.test(c.name || ''));
               if (chainsQ.isError) {
-                return <NyvErrorState title="Chains endpoint unavailable" size="sm" />;
+                return <JrxErrorState title="Chains endpoint unavailable" size="sm" />;
               }
               if (chainsQ.isLoading) {
                 return (
@@ -388,7 +388,7 @@ export default function BMADWorkflowVisualizer() {
               }
               if (clusters.length === 0) {
                 return (
-                  <NyvEmptyState
+                  <JrxEmptyState
                     title="No cross-border clusters in window"
                     description="Form one via POST {orchestration}/bmad/cluster/form."
                     size="sm"

@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Vendored into `nyayavigya-platform-312/packages/docparse` (NYV-DOCPARSE-ADAPTER-001).
+- Vendored into `Jurexio-Platform-SDK/packages/docparse` (JRX-DOCPARSE-ADAPTER-001).
 - Monorepo wiring via `file:packages/docparse`; CI entry `npm run docparse:test`.
 
 ## [0.2.0] — 2026-08-26

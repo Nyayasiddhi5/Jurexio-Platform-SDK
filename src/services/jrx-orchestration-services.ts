@@ -7,9 +7,9 @@ import {
   searchAgents,
 } from './agent-registry-service.js';
 
-// NYV-NS-005 (2026-05-01): rebind db locally so every db.* call site below
+// JRX-NS-005 (2026-05-01): rebind db locally so every db.* call site below
 // is type-safe (was: ~114 TS18047 'db is possibly null' errors).
-// NYV-NS-022 (2026-05-07): Proxy defers requireDb() until first property
+// JRX-NS-022 (2026-05-07): Proxy defers requireDb() until first property
 // access. Eager `const db = requireDb(rawDb)` at module init crashed prod
 // because routes static-import this module BEFORE initializeDatabase()
 // runs in src/index.ts. Each `db.foo` now does a fresh `requireDb(rawDb).foo`
@@ -1135,7 +1135,7 @@ export class NvMemoryService {
      * Expiring rows (`expires_at`) are excluded from the count so a TTL'd session
      * burst cannot evict durable matter memory. */
     if (Math.random() < 0.05) {
-      const cap = Math.max(500, Number(process.env.NYV_MEMORY_MAX_ROWS_PER_USER || 20_000));
+      const cap = Math.max(500, Number(process.env.JRX_MEMORY_MAX_ROWS_PER_USER || 20_000));
       void db
         .execute(sql`
           DELETE FROM nv_schema.memory_entries
@@ -1223,7 +1223,7 @@ export class NvMemoryService {
 
     /* NV-MEM-RECALL-INDEX-001 — one batched UPDATE, not one per row.
      *
-     * This loop previously issued an AWAITED UPDATE per returned row: with the
+     * This loop previously issued an AJRXTED UPDATE per returned row: with the
      * default limit of 20 that is 20 sequential round trips on the critical path of
      * every leaf, for pure bookkeeping. Now a single statement, and not awaited —
      * access accounting must never delay an answer the caller is already holding.
@@ -1325,7 +1325,7 @@ export class NvRAGService {
      * Measured on live RDS (2026-08-17): `public.rag_documents` holds **757 rows**;
      * `nv_schema.rag_documents` and `nv_schema.rag_chunks` hold **0**. The app role's
      * `search_path` is `"$user", public`, so every UNQUALIFIED `rag_documents` query in the
-     * codebase (e.g. `nv-rag-live-service.ts`, `nv-statute-rag-backfill-service.ts`)
+     * codebase (e.g. `jrx-rag-live-service.ts`, `jrx-statute-rag-backfill-service.ts`)
      * resolves to `public` — while this method is explicitly schema-qualified to
      * `nv_schema` and therefore writes somewhere nothing reads.
      *
@@ -1462,7 +1462,7 @@ export class NvProtocolRegistryService {
       }
     }
 
-    // NYV-PROTOCOL-MANIFEST-001 (Task #32 round 7): also bind every capability
+    // JRX-PROTOCOL-MANIFEST-001 (Task #32 round 7): also bind every capability
     // from the SSoT manifest into the protocol registry so both surfaces
     // (tool-exec + protocol registry) are manifest-initialized and every
     // catalog capability is callable via one registry contract.
@@ -1470,10 +1470,10 @@ export class NvProtocolRegistryService {
   }
 
   /**
-   * NYV-PROTOCOL-MANIFEST-001 (Task #32 round 7) — Manifest-driven boot.
+   * JRX-PROTOCOL-MANIFEST-001 (Task #32 round 7) — Manifest-driven boot.
    * Delegates to the standalone `initializeProtocolRegistryFromManifest`
    * helper (extracted to its own module to avoid the
-   * `nv-orchestration-services ↔ nv-client` circular dependency, and to
+   * `jrx-orchestration-services ↔ jrx-client` circular dependency, and to
    * keep the protocol-registry/manifest binding directly unit-testable).
    * Idempotent: capabilities already present (by `CAP_<id>` name) are
    * skipped.
@@ -1541,7 +1541,7 @@ export class NvToolExecutionService {
   }
 
   /**
-   * NYV-ORCH-MANIFEST-001 (Task #32) — Manifest-bound execution.
+   * JRX-ORCH-MANIFEST-001 (Task #32) — Manifest-bound execution.
    * Looks up the requested capability id in the SSoT manifest and invokes
    * its bound implementation. Records the call in `tool_executions` so the
    * audit trail is identical to the legacy executeToolCall path.
@@ -1587,7 +1587,7 @@ export class NvToolExecutionService {
     } catch (e: any) {
       success = false;
       errorMessage = e?.message ?? String(e);
-      // NYV-TOOLEXEC-FAILLOUD-001 (Task #32 round 5): in production, every
+      // JRX-TOOLEXEC-FAILLOUD-001 (Task #32 round 5): in production, every
       // capability invocation failure must propagate so the orchestrator
       // surfaces the failed branch (and runWithConcurrency / evaluateFailures
       // see r.error). Previously only safety/hitl/audit categories rethrew,

@@ -5,7 +5,7 @@
 // voice paths (STT/TTS) delegate to the canonical /api/jrx/voice/* +
 // /api/jrx/sdk/multimodal/* pipelines per NV-ARCH-001.
 import { Router, type Request, type Response, type NextFunction } from 'express';
-import { isNyvFeatureOn, type NyvFeatureFlag } from '../../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn, type JrxFeatureFlag } from '../../../config/jrx-feature-flags.js';
 import streamingRouter from './streaming-routes.js';
 import synthesisRouter from './synthesis-routes.js';
 import enhancedRouter  from './enhanced-routes.js';
@@ -21,17 +21,17 @@ router.get('/health', (_req: Request, res: Response) => {
     version: 'v5.0.1',
     uptimeSec: Math.floor(process.uptime()),
     flags: {
-      streamRt:  isNyvFeatureOn('voiceStreamRt'),
-      synth:     isNyvFeatureOn('voiceSynth'),
-      enhanced:  isNyvFeatureOn('voiceEnhanced'),
+      streamRt:  isJrxFeatureOn('voiceStreamRt'),
+      synth:     isJrxFeatureOn('voiceSynth'),
+      enhanced:  isJrxFeatureOn('voiceEnhanced'),
     },
     note: 'Provider-emitting voice paths live at /api/jrx/voice/* + /api/jrx/sdk/multimodal/* (canonical NV-ARCH-001 pipeline).',
   });
 });
 
-const gate = (flag: NyvFeatureFlag, sub: Router) =>
+const gate = (flag: JrxFeatureFlag, sub: Router) =>
   (req: Request, res: Response, next: NextFunction) =>
-    isNyvFeatureOn(flag) ? sub(req, res, next) : next();
+    isJrxFeatureOn(flag) ? sub(req, res, next) : next();
 
 router.use('/streaming', gate('voiceStreamRt', streamingRouter));
 router.use('/synthesis', gate('voiceSynth',    synthesisRouter));

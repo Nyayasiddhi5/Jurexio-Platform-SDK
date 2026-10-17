@@ -2,18 +2,18 @@
  * European Union (EU) citation authority adapter.
  *
  * Authority source: EUR-Lex (CELEX-numbered instruments). Live lookup gated by
- * JRX_F_CITATION_LIVE_EU (+ optional NYV_EURLEX_API_BASE). Recognises
+ * JRX_F_CITATION_LIVE_EU (+ optional JRX_EURLEX_API_BASE). Recognises
  * Regulations, Directives, Decisions and Article references to named acts.
  */
 
-import { isNyvFeatureOn } from '../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../../config/jrx-feature-flags.js';
 import {
   BaseAuthorityAdapter,
   authorityFetch,
   type AuthorityCitationCandidate,
 } from './jrx-authority-adapter.js';
 
-const EURLEX_BASE = (process.env.NYV_EURLEX_API_BASE || 'https://eur-lex.europa.eu').replace(/\/+$/, '');
+const EURLEX_BASE = (process.env.JRX_EURLEX_API_BASE || 'https://eur-lex.europa.eu').replace(/\/+$/, '');
 const LOOKUP_TIMEOUT_MS = 4000;
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -111,6 +111,6 @@ export const euAuthorityAdapter = new BaseAuthorityAdapter({
     /\bCase\s+(?:C|T|F)-\d+\/(?<year>\d+)/g,
   ],
   knownInstruments: EU_KNOWN_INSTRUMENTS,
-  liveApiEnabled: () => isNyvFeatureOn('citationLiveEu'),
+  liveApiEnabled: () => isJrxFeatureOn('citationLiveEu'),
   liveLookup: eurLexLookup,
 });

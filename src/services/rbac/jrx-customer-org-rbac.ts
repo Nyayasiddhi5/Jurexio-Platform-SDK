@@ -21,7 +21,7 @@
  * and computes the SQL filter that should be applied to tenant-scoped
  * queries. Adding a new layer or changing the matrix MUST happen here.
  *
- * NV-NAMING-001: nv- prefix; pre-flight grep confirms no prior file at
+ * NV-NAMING-001: jrx- prefix; pre-flight grep confirms no prior file at
  *   this path.
  */
 

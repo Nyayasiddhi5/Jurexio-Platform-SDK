@@ -1,5 +1,5 @@
 /**
- * nv-aux-cost-estimator.ts — NV-CREDIT-COST-DIM-001
+ * jrx-aux-cost-estimator.ts — NV-CREDIT-COST-DIM-001
  *
  * Pre-spend money estimate, in integer micro-USD, for the paid surfaces that spend
  * without consuming chat tokens: embeddings, speech-to-text, text-to-speech, and
@@ -16,7 +16,7 @@
  * integer to keep the budget arithmetic exact.
  *
  * NV-NO-DUPLICATE-001: the per-token/per-1k model price table stays in
- * `nv-llm-pricing.ts` and is not restated here. This module adds only the
+ * `jrx-llm-pricing.ts` and is not restated here. This module adds only the
  * non-token rates (per audio second, per character, per page), which had no home.
  *
  * MEASURABILITY IS PART OF THE RESULT — deliberately.
@@ -55,7 +55,7 @@ export interface NvAuxCostEstimate {
 }
 
 /**
- * Public list rates, 2026-Q3 snapshot. Same status as `nv-llm-pricing.ts`: rough
+ * Public list rates, 2026-Q3 snapshot. Same status as `jrx-llm-pricing.ts`: rough
  * list prices for gateway-side estimation, NOT a billing source of truth — billing
  * is the provider-reported `cost_usd` the recorder persists.
  *
@@ -66,7 +66,7 @@ export interface NvAuxCostEstimate {
 export const NV_AUX_RATES = {
   /**
    * $0.00002 per 1k input tokens — OpenAI text-embedding-3-small, the platform
-   * default in `nv-embedding-cascade.ts`. Bedrock Titan v2 (`amazon.titan-embed-
+   * default in `jrx-embedding-cascade.ts`. Bedrock Titan v2 (`amazon.titan-embed-
    * text-v2:0`, 1024 dims) lists at $0.00002/1k for the same shape, so one rate
    * covers the configured cascade's first two paid hops without pretending to a
    * precision the cascade does not have (it may fall through providers per call).
@@ -74,7 +74,7 @@ export const NV_AUX_RATES = {
   embeddingMicroUsdPer1kTokens: 20,
   /** $0.006/min ≈ $0.0001/s — OpenAI whisper-1 / gpt-4o-mini-transcribe. */
   sttMicroUsdPerSecond: 100,
-  /** $0.000015/char — OpenAI tts-1, the rate `nv-phase4-services` already applies. */
+  /** $0.000015/char — OpenAI tts-1, the rate `jrx-phase4-services` already applies. */
   ttsMicroUsdPerCharacter: 15,
   /**
    * $0.005/image — gpt-4o vision, one ~1.1k-image-token tile plus the ~2k

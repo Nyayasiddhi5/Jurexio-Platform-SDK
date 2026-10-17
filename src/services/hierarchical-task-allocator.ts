@@ -1,6 +1,6 @@
 /**
  * Hierarchical Task Allocator — REAL DELEGATION SEAM
- * NYV-ORCH-SEAM-002 (Task #32) + NYV-ORCH-SMART-003 (Task #33)
+ * JRX-ORCH-SEAM-002 (Task #32) + JRX-ORCH-SMART-003 (Task #33)
  *
  * Routes allocation through:
  *   - agent-registry-service.getAgentsByCapability  (eligibility)

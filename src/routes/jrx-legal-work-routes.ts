@@ -4,7 +4,7 @@
  */
 import { Router, type Request, type Response } from 'express';
 import { dualSdkOrJwt } from '../middleware/jrx-dual-auth.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import {
   createLegalWorkRun,
   evaluateLegalWorkRun,
@@ -25,10 +25,10 @@ const router = Router();
 router.use(dualSdkOrJwt);
 
 function requirePlane(res: Response): boolean {
-  if (!isNyvFeatureOn('nysKnowledgePlane')) {
+  if (!isJrxFeatureOn('nysKnowledgePlane')) {
     sendApiError(res, 'FORBIDDEN', {
       status: 503,
-      overrideMessage: 'JRX_F_NYS_KNOWLEDGE_PLANE is off',
+      overrideMessage: 'JRX_F_JRX_ECOSYSTEM_KNOWLEDGE_PLANE is off',
     });
     return false;
   }
@@ -45,7 +45,7 @@ router.get('/tasks', async (req, res) => {
     workType: req.query.workType ? String(req.query.workType) : undefined,
   });
   if (!result.ok) {
-    res.status(result.status).json({ success: false, error: { code: 'NYS_UPSTREAM', message: result.error } });
+    res.status(result.status).json({ success: false, error: { code: 'JRX_ECOSYSTEM_UPSTREAM', message: result.error } });
     return;
   }
   sendApiSuccess(res, result.data);
@@ -55,7 +55,7 @@ router.get('/tasks/:id', async (req, res) => {
   if (!requirePlane(res)) return;
   const result = await getLegalWorkTask(req.params.id);
   if (!result.ok) {
-    res.status(result.status).json({ success: false, error: { code: 'NYS_UPSTREAM', message: result.error } });
+    res.status(result.status).json({ success: false, error: { code: 'JRX_ECOSYSTEM_UPSTREAM', message: result.error } });
     return;
   }
   sendApiSuccess(res, result.data);
@@ -171,7 +171,7 @@ router.post('/chat', async (req, res) => {
     forwardApiKey: forwardKeyFromReq(req),
   });
   if (!result.ok) {
-    res.status(result.status).json({ success: false, error: { code: 'NYS_UPSTREAM', message: result.error } });
+    res.status(result.status).json({ success: false, error: { code: 'JRX_ECOSYSTEM_UPSTREAM', message: result.error } });
     return;
   }
   sendApiSuccess(res, result.data);
@@ -191,7 +191,7 @@ router.post('/chat/conversations', async (req, res) => {
     forwardApiKey: forwardKeyFromReq(req),
   });
   if (!result.ok) {
-    res.status(result.status).json({ success: false, error: { code: 'NYS_UPSTREAM', message: result.error } });
+    res.status(result.status).json({ success: false, error: { code: 'JRX_ECOSYSTEM_UPSTREAM', message: result.error } });
     return;
   }
   sendApiSuccess(res, result.data);
@@ -207,7 +207,7 @@ router.post('/chat/conversations/:id/messages', async (req, res) => {
     forwardApiKey: forwardKeyFromReq(req),
   });
   if (!result.ok) {
-    res.status(result.status).json({ success: false, error: { code: 'NYS_UPSTREAM', message: result.error } });
+    res.status(result.status).json({ success: false, error: { code: 'JRX_ECOSYSTEM_UPSTREAM', message: result.error } });
     return;
   }
   sendApiSuccess(res, result.data);

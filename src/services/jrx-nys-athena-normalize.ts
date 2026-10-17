@@ -1,6 +1,6 @@
 /**
  * NYS Athena OpenAPI expects: { q, year?, court?, archive?: 'sc'|'hc', limit? }
- * NYV SDK / matrix historically sent { query, archive: 'all' } → Zod 400.
+ * JRX SDK / matrix historically sent { query, archive: 'all' } → Zod 400.
  */
 export function normalizeNysAthenaSearchBody(
   body: Record<string, unknown> | null | undefined,

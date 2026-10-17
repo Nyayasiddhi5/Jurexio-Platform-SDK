@@ -44,8 +44,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
-import { NyvErrorState } from '@/components/NyvErrorState';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   Activity, AlertTriangle, CheckCircle2, GitBranch, RefreshCw,
@@ -352,7 +352,7 @@ export default function SuperAdminProviderFailover() {
         <CardContent>
           {statsQ.isError && (
             <div className="mb-3" data-testid="state-error-stats">
-              <NyvErrorState
+              <JrxErrorState
                 title="Could not load router stats"
                 error={statsQ.error}
                 onRetry={() => statsQ.refetch()}
@@ -439,7 +439,7 @@ export default function SuperAdminProviderFailover() {
               )}
               {health.length === 0 && !statsQ.isLoading && (
                 <div data-testid="state-empty-health">
-                  <NyvEmptyState
+                  <JrxEmptyState
                     title="No model health data yet"
                     description="The router has not been exercised this process lifetime."
                     size="sm"

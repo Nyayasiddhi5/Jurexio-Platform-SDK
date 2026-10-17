@@ -1,13 +1,13 @@
 /**
  * Jurexio Enterprise Platform 3.1.2 — Audit-log hash-chain self-test
- * NYV-NS-010  ·  2026-05-01
+ * JRX-NS-010  ·  2026-05-01
  *
  * Verifies on boot that the nv_audit_logs hash-chain is intact:
  *   record_hash[N] == sha256(id|trace_id|route|method|event_type|previous_hash[N])
  *
  * The check samples the most recent N entries (default 50) so it stays cheap
  * even for large audit tables. Any tamper / hash mismatch is logged at ERROR
- * level and the boot is aborted unless NYV_AUDIT_CHAIN_TOLERATE=1 (operator
+ * level and the boot is aborted unless JRX_AUDIT_CHAIN_TOLERATE=1 (operator
  * override for emergency boots, logged loudly).
  *
  * The genesis block is seeded by scripts/jrx-seed-rag-and-audit.ts.
@@ -19,8 +19,8 @@ import { sql as dsql } from 'drizzle-orm';
 import { createLogger } from '../utils/logger.js';
 
 const logger = createLogger('./jrx-audit-chain-self-test');
-const SAMPLE_SIZE = Number(process.env.NYV_AUDIT_CHAIN_SAMPLE ?? 50);
-const TOLERATE = process.env.NYV_AUDIT_CHAIN_TOLERATE === '1';
+const SAMPLE_SIZE = Number(process.env.JRX_AUDIT_CHAIN_SAMPLE ?? 50);
+const TOLERATE = process.env.JRX_AUDIT_CHAIN_TOLERATE === '1';
 
 interface AuditRow {
   id: string;
@@ -149,22 +149,22 @@ export async function runAuditChainSelfTest(): Promise<AuditChainSelfTestResult>
 
 /**
  * Wrapper for the bootstrap pipeline. Aborts boot on tamper unless
- * NYV_AUDIT_CHAIN_TOLERATE=1.
+ * JRX_AUDIT_CHAIN_TOLERATE=1.
  */
 export async function assertAuditChainIntegrityOnBoot(): Promise<void> {
   const result = await runAuditChainSelfTest();
   if (result.ok) {
-    logger.info(`[NYV-NS-010] ${result.message}`);
+    logger.info(`[JRX-NS-010] ${result.message}`);
     return;
   }
   if (TOLERATE) {
-    logger.error(`[NYV-NS-010] ${result.message} — proceeding because NYV_AUDIT_CHAIN_TOLERATE=1`, {
+    logger.error(`[JRX-NS-010] ${result.message} — proceeding because JRX_AUDIT_CHAIN_TOLERATE=1`, {
       mismatches: result.mismatches.slice(0, 5),
     });
     return;
   }
-  logger.error(`[NYV-NS-010] ${result.message} — refusing to boot. Set NYV_AUDIT_CHAIN_TOLERATE=1 to override (and investigate immediately).`, {
+  logger.error(`[JRX-NS-010] ${result.message} — refusing to boot. Set JRX_AUDIT_CHAIN_TOLERATE=1 to override (and investigate immediately).`, {
     mismatches: result.mismatches.slice(0, 5),
   });
-  throw new Error(`[NYV-NS-010] Audit hash-chain integrity check failed: ${result.mismatches.length} mismatches`);
+  throw new Error(`[JRX-NS-010] Audit hash-chain integrity check failed: ${result.mismatches.length} mismatches`);
 }

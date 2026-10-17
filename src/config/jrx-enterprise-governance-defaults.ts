@@ -2,7 +2,7 @@
  * NV-ENTERPRISE-GOV-DEFAULTS-001 — Enterprise / government pack governance flag policy.
  *
  * Flags listed here default ON when the host is configured as an enterprise pack
- * (`NYV_ENTERPRISE_TIER=1` or `NYV_PACK=enterprise|government`). They remain
+ * (`JRX_ENTERPRISE_TIER=1` or `JRX_PACK=enterprise|government`). They remain
  * overrideable via DB overlay or explicit JRX_F_*=0.
  *
  * Deliberate split from FLAG_DEFAULT_ON_IN_NON_DEV:
@@ -10,16 +10,16 @@
  *   govMakerChecker  — enterprise-pack ONLY (extra synthesis cost per request)
  */
 
-import type { NyvFeatureFlag } from './jrx-feature-flags.js';
+import type { JrxFeatureFlag } from './jrx-feature-flags.js';
 
 /** Logical flags that flip ON for enterprise / government pack hosts. */
-export const ENTERPRISE_PACK_FLAG_DEFAULT_ON: ReadonlySet<NyvFeatureFlag> = new Set([
+export const ENTERPRISE_PACK_FLAG_DEFAULT_ON: ReadonlySet<JrxFeatureFlag> = new Set([
   'govMakerChecker',
 ]);
 
 export function isEnterprisePackHost(): boolean {
-  const tier = (process.env.NYV_ENTERPRISE_TIER ?? '').trim().toLowerCase();
-  const pack = (process.env.NYV_PACK ?? '').trim().toLowerCase();
+  const tier = (process.env.JRX_ENTERPRISE_TIER ?? '').trim().toLowerCase();
+  const pack = (process.env.JRX_PACK ?? '').trim().toLowerCase();
   return (
     tier === '1' ||
     tier === 'true' ||
@@ -29,7 +29,7 @@ export function isEnterprisePackHost(): boolean {
   );
 }
 
-export function shouldDefaultOnEnterprisePack(logical: NyvFeatureFlag): boolean {
+export function shouldDefaultOnEnterprisePack(logical: JrxFeatureFlag): boolean {
   if (!ENTERPRISE_PACK_FLAG_DEFAULT_ON.has(logical)) return false;
   return isEnterprisePackHost();
 }

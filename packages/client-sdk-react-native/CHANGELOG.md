@@ -10,7 +10,7 @@ Versioning: aligned with `@jurexio/client-sdk` per [SEMVER.md](../client-sdk/SEM
 ### Changed
 - Bumped to `5.1.1` to align with `@jurexio/client-sdk@5.1.1`; dependency
   range on `@jurexio/client-sdk` raised to `^5.1.1`.
-- Reconciled drifted version strings: `NyvClientRN.VERSION` was stale `1.0.0`,
+- Reconciled drifted version strings: `JrxClientRN.VERSION` was stale `1.0.0`,
   the `package.json` description said "v5.0.0", and the index header referenced
   `client-sdk@^6.0.0` — all corrected to `5.1.1` / `^5.1.1`. No API surface change.
 
@@ -30,11 +30,11 @@ Versioning: aligned with `@jurexio/client-sdk` per [SEMVER.md](../client-sdk/SEM
 First public release.
 
 ### Added
-- `NyvClientRN.create({ baseUrl, ... })` — async factory that restores any
-  saved API key from secure storage and constructs an underlying `NyvClient`.
+- `JrxClientRN.create({ baseUrl, ... })` — async factory that restores any
+  saved API key from secure storage and constructs an underlying `JrxClient`.
 - `createSecureStorage()` — picks the best available backend at runtime
   (`expo-secure-store` → `react-native-keychain` → AsyncStorage → memory).
-- `NyvRNStreamReader` — streaming reader using `react-native-sse` with a
+- `JrxRNStreamReader` — streaming reader using `react-native-sse` with a
   long-poll fallback (`?stream=poll` NDJSON) for builds without SSE.
 - `requestCameraPermission`, `requestMicrophonePermission`,
   `requestMediaLibraryPermission`, `requestPushNotificationPermission`,
@@ -43,7 +43,7 @@ First public release.
 - `registerForHITLPushNotifications` — registers the device for HITL push
   notifications, persists incoming payloads to a secure inbox, and
   invokes a foreground callback.
-- Re-exports of the underlying `NyvClient`, `NyvError`, `NyvStreamReader`,
+- Re-exports of the underlying `JrxClient`, `JrxError`, `JrxStreamReader`,
   and the most-used types so consumers only need this one package.
 
 ### Pairs with
@@ -53,4 +53,4 @@ First public release.
 ### Verification (2026-04-25)
 - `tsc --noEmit` against `src/**/*` — **PASS** (0 errors). Run from repo root:
   `node_modules/.bin/tsc --project /tmp/tsc-verify.json`.
-- `npm pack --dry-run` — **PASS**. Tarball: `nyayavigya-client-sdk-react-native-1.0.0.tgz` (3 files, 2.5 kB).
+- `npm pack --dry-run` — **PASS**. Tarball: `jurexio-client-sdk-react-native-1.0.0.tgz` (3 files, 2.5 kB).

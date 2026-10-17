@@ -10,20 +10,20 @@
 //                  the *imported* signWebhookBody() helper so they share the
 //                  exact format the receiver verifies.
 //
-// Run: NYV_WEBHOOK_ALLOW_PRIVATE=true tsx scripts/uat-fire-webhook.mjs
+// Run: JRX_WEBHOOK_ALLOW_PRIVATE=true tsx scripts/uat-fire-webhook.mjs
 
 import { handleWebhookDelivery, signWebhookBody } from '../src/services/queue/webhook-dispatcher.ts';
 
-const URL_TARGET = process.env.UAT_WEBHOOK_URL || 'http://localhost:3000/api/nyv-webhook';
-const SECRET     = process.env.NYV_WEBHOOK_SECRET || 'test_webhook_secret_uat44_aa11bb22cc33dd44';
+const URL_TARGET = process.env.UAT_WEBHOOK_URL || 'http://localhost:3000/api/jrx-webhook';
+const SECRET     = process.env.JRX_WEBHOOK_SECRET || 'test_webhook_secret_uat44_aa11bb22cc33dd44';
 
-if (process.env.NYV_WEBHOOK_ALLOW_PRIVATE !== 'true') {
-  console.error('Set NYV_WEBHOOK_ALLOW_PRIVATE=true (localhost target).');
+if (process.env.JRX_WEBHOOK_ALLOW_PRIVATE !== 'true') {
+  console.error('Set JRX_WEBHOOK_ALLOW_PRIVATE=true (localhost target).');
   process.exit(2);
 }
 
 // ── 1. Valid signature: real in-process dispatcher path ──────────────────────
-const correlationId = 'NYV-UAT44-' + Date.now();
+const correlationId = 'JRX-UAT44-' + Date.now();
 const positiveJob = {
   appId: 'app_42',
   platform: 'nsp',
@@ -67,12 +67,12 @@ async function fireRaw({ tamperBody = false, tsOverride = null, label }) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'User-Agent': 'Nyayavigya-Webhook/5.0.0',
-      'X-NYV-Event': 'orchestration.completed',
-      'X-NYV-Platform': 'nsp',
-      'X-NYV-Timestamp': ts,
-      'X-NYV-Signature': sig,
-      'X-NYV-Correlation-Id': correlationId,
+      'User-Agent': 'Jurexio-Webhook/5.0.0',
+      'X-JRX-Event': 'orchestration.completed',
+      'X-JRX-Platform': 'nsp',
+      'X-JRX-Timestamp': ts,
+      'X-JRX-Signature': sig,
+      'X-JRX-Correlation-Id': correlationId,
     },
     body,
     redirect: 'manual',

@@ -15,7 +15,7 @@
  * Rendered with react-dom directly rather than @testing-library/react: that
  * package's `@testing-library/dom` peer is not installed in this tree, so every
  * `tests/console` tsx suite fails to collect. Same 20-line harness as
- * `nv-reasoning-trail-panel.test.tsx`.
+ * `jrx-reasoning-trail-panel.test.tsx`.
  */
 import { act } from 'react';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';

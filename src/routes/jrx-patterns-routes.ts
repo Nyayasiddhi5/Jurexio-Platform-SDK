@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
+// JRX-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
 // file. Runtime is unaffected (gateway runs via tsx). Opt out of strict-null
 // for the v5.0.0 deploy gate; track follow-up cleanup in INV-CLEANUP-001.
 /**
@@ -34,8 +34,8 @@ import { writeAuditLog, writePatternAuditLog } from '../middleware/jrx-sdk-track
 import { wrapAiResponse, buildBlockedResponse } from '../utils/jrx-ai-response-wrapper.js';
 import { JURISDICTION_PROFILES } from '../services/jrx-jurisdiction-binding-service.js';
 import { callLLM, extractJSON, makeRequestId, type JurisdictionCode, type PatternKey } from '../utils/jrx-llm-gateway.js';
-import { nyvRagPipeline } from '../services/rag/nyv-rag-pipeline-enhanced.js';
-import { getLightRAGPipeline } from '../services/rag/nyv-lightrag-pipeline.js';
+import { nyvRagPipeline } from '../services/rag/jrx-rag-pipeline-enhanced.js';
+import { getLightRAGPipeline } from '../services/rag/jrx-lightrag-pipeline.js';
 import { isMcpToolExecutable } from '../data/jrx-mcp-tools-registry.js';
 import { safetyPipeline } from '../services/safety-pipeline.js';
 import { pipelinePreExecutionMiddleware } from '../middleware/jrx-pipeline-audit-middleware.js';
@@ -200,7 +200,7 @@ router.use((req: Request, res: Response, next) => {
       };
 
       // Risk Engine Blocking Gate + _nyv_metadata injection
-      // wrapAiResponse() runs NyvAiRiskEngine internally and returns governance metadata.
+      // wrapAiResponse() runs JrxAiRiskEngine internally and returns governance metadata.
       // §3.3.1 Jurisdiction Binding: prohibited phrases are read from JURISDICTION_PROFILES
       // §3.3.2 Template Mode: STRICT/GUIDED/MENTOR enforcement applied to output
       try {
@@ -354,7 +354,7 @@ router.use((req: Request, res: Response, next) => {
 // ──────────────────────────────────────────────
 
 function makePatternTraceId(): string {
-  return `NYV-PAT-${Date.now()}-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
+  return `JRX-PAT-${Date.now()}-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
 }
 
 function estimateComplexity(task: string): number {
@@ -438,7 +438,7 @@ The last step must have a non-null conclusion. Use specific section numbers, rea
   P09: `You are Jurexio, India's sovereign legal AI. For this Function Router task, classify the query and route to the most appropriate specialist agent. Output valid JSON:
 {
   "classification": {"domain":"contract/litigation/compliance/corporate/IP/criminal","confidence":0.94},
-  "routing": {"selectedAgent":"NYV-AGT-XXX-001","score":0.91,"reasoning":"why this agent"},
+  "routing": {"selectedAgent":"JRX-AGT-XXX-001","score":0.91,"reasoning":"why this agent"},
   "agentOutput": "complete legal analysis from the specialist agent perspective with domain-specific depth"
 }`,
 
@@ -492,7 +492,7 @@ Output valid JSON:
 
   P16: `You are Jurexio, India's sovereign legal AI. For this Swarm task, coordinate multiple specialist agents in parallel. Output valid JSON:
 {
-  "swarmAgents": [{"agentId":"NYV-AGT-001","specialisation":"...","contribution":"...","confidence":0.9}],
+  "swarmAgents": [{"agentId":"JRX-AGT-001","specialisation":"...","contribution":"...","confidence":0.9}],
   "aggregatedPositions": [{"dimension":"statutory analysis","consensus":"...","agreement":0.85}],
   "swarmConsensus": "final legal position from swarm consensus with majority and minority views noted"
 }`,
@@ -594,7 +594,7 @@ async function groundPatternTask(
     const { agentRetrievalPolicyDirective } = await import(
       '../services/jrx-agent-retrieval-policy.js'
     );
-    const { isNyvFeatureOn } = await import('../config/jrx-feature-flags.js');
+    const { isJrxFeatureOn } = await import('../config/jrx-feature-flags.js');
     const rag = await autoRagRetrieve({
       query: task,
       jurisdiction: jurisdiction || 'IN',
@@ -602,7 +602,7 @@ async function groundPatternTask(
     });
     const policy = agentRetrievalPolicyDirective({
       jurisdiction: jurisdiction || 'IN',
-      nysPlaneOn: isNyvFeatureOn('nysKnowledgePlane'),
+      nysPlaneOn: isJrxFeatureOn('nysKnowledgePlane'),
     });
     const body = rag.contextBlock || '';
     return {
@@ -1214,7 +1214,7 @@ router.post('/mcp-chain', dualSdkOrJwt, async (req: Request, res: Response) => {
     // NV-PATTERN-REAL-001 (Session-33): execute each tool FOR REAL via the
     // canonical MCP executor (NV-MCP-SSOT-EXEC-001), feeding each output into the
     // next step's input. Catalog-only tools surface the executor's honest status
-    // — no fabricated latencies / data points / findings. nv-allow-placeholder: honest status mirrored from canonical MCP executor, not a stub
+    // — no fabricated latencies / data points / findings. jrx-allow-placeholder: honest status mirrored from canonical MCP executor, not a stub
     const { executeMcpTool } = await import('./jrx-completions-routes.js');
     let prevOutput: unknown = null;
     const chainResults: Array<Record<string, unknown>> = [];
@@ -1225,7 +1225,7 @@ router.post('/mcp-chain', dualSdkOrJwt, async (req: Request, res: Response) => {
         : { query: input.task, jurisdiction: input.jurisdiction, upstream: prevOutput };
       const exec = await executeMcpTool(tool, stepInput, { userId, sessionId: traceId });
       const rStatus = (exec.result as any)?.status;
-      const status = rStatus === 'not_implemented' ? 'NOT_IMPLEMENTED' // nv-allow-placeholder: honest executor status, not a stub
+      const status = rStatus === 'not_implemented' ? 'NOT_IMPLEMENTED' // jrx-allow-placeholder: honest executor status, not a stub
         : rStatus === 'not_found' || !exec.found ? 'NOT_FOUND'
         : 'SUCCESS';
       chainResults.push({
@@ -1279,7 +1279,7 @@ router.post('/nyayarag', dualSdkOrJwt, async (req: Request, res: Response) => {
     const traceId = makePatternTraceId();
     const userId = (req as any).user?.id ?? 'anon';
 
-    // ── Unified Auto-RAG (includes nys_global when JRX_F_NYS_KNOWLEDGE_PLANE=1) ─
+    // ── Unified Auto-RAG (includes nys_global when JRX_F_JRX_ECOSYSTEM_KNOWLEDGE_PLANE=1) ─
     let ragResult: any = null;
     let usedRealRAG = false;
     let layersUsed: string[] = [];

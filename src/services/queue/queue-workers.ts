@@ -1,7 +1,7 @@
 /**
  * Worker bootstrapper — wires every queue handler to its consumer.
  *
- * Called once at startup from src/index.ts (gated by NYV_QUEUE_WORKERS env).
+ * Called once at startup from src/index.ts (gated by JRX_QUEUE_WORKERS env).
  * Returns a stop() handle so we can drain on SIGTERM cleanly.
  */
 
@@ -33,7 +33,7 @@ import { createLogger } from '../../utils/logger.js';
 const logger = createLogger('queue-workers');
 
 export async function startQueueWorkers(): Promise<{ stop: () => Promise<void> }> {
-  // NYV-OPS-WORKERS-DISABLE-001 (Task #28 round 6): use isQueueLive()
+  // JRX-OPS-WORKERS-DISABLE-001 (Task #28 round 6): use isQueueLive()
   // (runtime-aware) instead of the boot-time isQueueEnabled flag, so
   // workers are also skipped if the connection was disabled mid-flight
   // by a runtime WRONGPASS/NOAUTH trip — not just at boot. Without
@@ -60,7 +60,7 @@ export async function startQueueWorkers(): Promise<{ stop: () => Promise<void> }
   registerWorker<WebhookDeliveryJob>({
     name: QueueNames.WEBHOOK_DELIVERY,
     dlq: QueueNames.WEBHOOK_DLQ,
-    concurrency: Number(process.env.NYV_WORKER_WEBHOOK_CONCURRENCY ?? 10),
+    concurrency: Number(process.env.JRX_WORKER_WEBHOOK_CONCURRENCY ?? 10),
     handler: (data) => handleWebhookDelivery(data),
   });
 
@@ -68,14 +68,14 @@ export async function startQueueWorkers(): Promise<{ stop: () => Promise<void> }
   registerWorker<DocParseJob>({
     name: QueueNames.DOC_PARSE,
     dlq: QueueNames.DOC_PARSE_DLQ,
-    concurrency: Number(process.env.NYV_WORKER_DOC_PARSE_CONCURRENCY ?? 4),
+    concurrency: Number(process.env.JRX_WORKER_DOC_PARSE_CONCURRENCY ?? 4),
     handler: (data, job) => handleDocParse(data, job),
   });
 
   registerWorker<DocparseSdkBullJob>({
     name: QueueNames.DOCPARSE_SDK,
     dlq: QueueNames.DOCPARSE_SDK_DLQ,
-    concurrency: Number(process.env.NYV_WORKER_DOCPARSE_SDK_CONCURRENCY ?? 3),
+    concurrency: Number(process.env.JRX_WORKER_DOCPARSE_SDK_CONCURRENCY ?? 3),
     handler: (data) => handleDocparseSdkJob(data),
   });
 
@@ -83,7 +83,7 @@ export async function startQueueWorkers(): Promise<{ stop: () => Promise<void> }
   registerWorker<DocSummarizeJob>({
     name: QueueNames.DOC_SUMMARIZE,
     dlq: QueueNames.DOC_SUMMARIZE_DLQ,
-    concurrency: Number(process.env.NYV_WORKER_DOC_SUMMARIZE_CONCURRENCY ?? 3),
+    concurrency: Number(process.env.JRX_WORKER_DOC_SUMMARIZE_CONCURRENCY ?? 3),
     handler: (data, job) => handleDocSummarize(data, job),
   });
 
@@ -91,27 +91,27 @@ export async function startQueueWorkers(): Promise<{ stop: () => Promise<void> }
   registerWorker<PlatformRelayJob>({
     name: QueueNames.PLATFORM_RELAY,
     dlq: QueueNames.PLATFORM_RELAY_DLQ,
-    concurrency: Number(process.env.NYV_WORKER_PLATFORM_RELAY_CONCURRENCY ?? 8),
+    concurrency: Number(process.env.JRX_WORKER_PLATFORM_RELAY_CONCURRENCY ?? 8),
     handler: (data) => handlePlatformRelay(data),
   });
 
   // 4b. Doc-AI convert (Task #130) — durable, cross-pod doc conversion.
   //
   // Concurrency model (cluster-wide):
-  //   - NYV_DOC_AI_GLOBAL_CONCURRENCY  → BullMQ Queue.setGlobalConcurrency,
+  //   - JRX_DOC_AI_GLOBAL_CONCURRENCY  → BullMQ Queue.setGlobalConcurrency,
   //                                       enforced by the broker across ALL
   //                                       worker pods. THIS is the real
   //                                       global cap (replaces the old
-  //                                       per-pod NYV_DOC_CONVERT_CONCURRENCY
+  //                                       per-pod JRX_DOC_CONVERT_CONCURRENCY
   //                                       × pod count problem).
-  //   - NYV_WORKER_DOC_AI_CONVERT_CONCURRENCY → per-worker fetch parallelism,
+  //   - JRX_WORKER_DOC_AI_CONVERT_CONCURRENCY → per-worker fetch parallelism,
   //                                       defaults to the global cap so a
   //                                       single pod can saturate it. With
   //                                       multiple pods, the queue-level
   //                                       cap dominates regardless of how
   //                                       many fetches a worker keeps open.
-  const docAiGlobal = Number(process.env.NYV_DOC_AI_GLOBAL_CONCURRENCY ?? 4);
-  const docAiPerWorker = Number(process.env.NYV_WORKER_DOC_AI_CONVERT_CONCURRENCY ?? docAiGlobal);
+  const docAiGlobal = Number(process.env.JRX_DOC_AI_GLOBAL_CONCURRENCY ?? 4);
+  const docAiPerWorker = Number(process.env.JRX_WORKER_DOC_AI_CONVERT_CONCURRENCY ?? docAiGlobal);
   registerWorker<DocAiConvertJob>({
     name: QueueNames.DOC_AI_CONVERT,
     dlq: QueueNames.DOC_AI_CONVERT_DLQ,
@@ -136,7 +136,7 @@ export async function startQueueWorkers(): Promise<{ stop: () => Promise<void> }
   registerWorker<PqcSignJob>({
     name: QueueNames.PQC_SIGN,
     dlq: QueueNames.PQC_SIGN_DLQ,
-    concurrency: Number(process.env.NYV_WORKER_PQC_SIGN_CONCURRENCY ?? 4),
+    concurrency: Number(process.env.JRX_WORKER_PQC_SIGN_CONCURRENCY ?? 4),
     handler: async (data) => {
       const { signArtifact } = await import('../security/jrx-pqc-service.js');
       // Scope keys per platform+artifact-class so a memory dump cannot expose
@@ -150,7 +150,7 @@ export async function startQueueWorkers(): Promise<{ stop: () => Promise<void> }
   registerWorker({
     name: QueueNames.ORCH_RETRY,
     dlq: QueueNames.ORCH_RETRY_DLQ,
-    concurrency: Number(process.env.NYV_WORKER_ORCH_RETRY_CONCURRENCY ?? 3),
+    concurrency: Number(process.env.JRX_WORKER_ORCH_RETRY_CONCURRENCY ?? 3),
     handler: async (data) => {
       const { handleOrchestrationRetry } = await import('./orch-retry-queue.js');
       return handleOrchestrationRetry(data as any);
@@ -161,7 +161,7 @@ export async function startQueueWorkers(): Promise<{ stop: () => Promise<void> }
   registerWorker<EcosystemDocJobPayload>({
     name: QueueNames.ECOSYSTEM_DOC_JOB,
     dlq: QueueNames.ECOSYSTEM_DOC_JOB_DLQ,
-    concurrency: Number(process.env.NYV_WORKER_EDJ_CONCURRENCY ?? 2),
+    concurrency: Number(process.env.JRX_WORKER_EDJ_CONCURRENCY ?? 2),
     handler: async (data) => {
       const {
         processEcosystemDocumentJob,
@@ -213,18 +213,18 @@ export async function startQueueWorkers(): Promise<{ stop: () => Promise<void> }
  * delete() calls against already-gone keys.
  */
 function startDocAiSweeper(): { stop: () => void } {
-  const enabled = (process.env.NYV_DOC_AI_SWEEPER_ENABLED ?? 'true').toLowerCase() !== 'false';
+  const enabled = (process.env.JRX_DOC_AI_SWEEPER_ENABLED ?? 'true').toLowerCase() !== 'false';
   if (!enabled) {
-    logger.info('doc-ai blob sweeper disabled via NYV_DOC_AI_SWEEPER_ENABLED=false');
+    logger.info('doc-ai blob sweeper disabled via JRX_DOC_AI_SWEEPER_ENABLED=false');
     return { stop: () => {} };
   }
   const intervalMs = Math.max(
     60_000,
-    Number.parseInt(process.env.NYV_DOC_AI_SWEEP_INTERVAL_SEC ?? '3600', 10) * 1000 || 3_600_000,
+    Number.parseInt(process.env.JRX_DOC_AI_SWEEP_INTERVAL_SEC ?? '3600', 10) * 1000 || 3_600_000,
   );
   const initialDelayMs = Math.max(
     1_000,
-    Number.parseInt(process.env.NYV_DOC_AI_SWEEP_INITIAL_DELAY_SEC ?? '60', 10) * 1000 || 60_000,
+    Number.parseInt(process.env.JRX_DOC_AI_SWEEP_INITIAL_DELAY_SEC ?? '60', 10) * 1000 || 60_000,
   );
 
   let timer: NodeJS.Timeout | null = null;

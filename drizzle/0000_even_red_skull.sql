@@ -939,7 +939,7 @@ CREATE TABLE "wai_emails" (
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE "nyayamitra_cases" (
+CREATE TABLE "jurexio-citizen_cases" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer,
 	"case_type" varchar(100),
@@ -952,7 +952,7 @@ CREATE TABLE "nyayamitra_cases" (
 	"updated_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE "nyayamitra_users" (
+CREATE TABLE "jurexio-citizen_users" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"email" varchar(255),
 	"full_name" varchar(255),
@@ -962,7 +962,7 @@ CREATE TABLE "nyayamitra_users" (
 	"metadata" jsonb DEFAULT '{}'::jsonb,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now(),
-	CONSTRAINT "nyayamitra_users_email_unique" UNIQUE("email")
+	CONSTRAINT "jurexio-citizen_users_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
 CREATE TABLE "institutional_cases" (

@@ -1,7 +1,7 @@
 /**
- * Catch-all reverse proxy from /api/nyv-proxy/* → ${NYV_BASE_URL}/*.
+ * Catch-all reverse proxy from /api/jrx-proxy/* → ${JRX_BASE_URL}/*.
  *
- * - Injects the server-only `NYV_API_KEY` as a Bearer token.
+ * - Injects the server-only `JRX_API_KEY` as a Bearer token.
  * - Forwards method, headers (allow-listed), query string, and body.
  * - Streams the response back to the browser so SSE / NDJSON keeps working.
  *
@@ -12,27 +12,27 @@
 
 import { NextRequest } from 'next/server';
 
-const NYV_BASE_URL = process.env.NEXT_PUBLIC_NYV_BASE_URL ?? 'https://api.nyayasiddhi.online';
-const NYV_API_KEY  = process.env.NYV_API_KEY;
+const JRX_BASE_URL = process.env.NEXT_PUBLIC_JRX_BASE_URL ?? 'https://api.jurexio.com';
+const JRX_API_KEY  = process.env.JRX_API_KEY;
 
-const SAFE_REQUEST_HEADERS = ['content-type', 'accept', 'x-nyv-correlation-id', 'x-nyv-platform', 'x-nyv-jurisdiction'];
+const SAFE_REQUEST_HEADERS = ['content-type', 'accept', 'x-jrx-correlation-id', 'x-jrx-platform', 'x-jrx-jurisdiction'];
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 async function proxy(req: NextRequest, ctx: { params: { path?: string[] } }) {
-  if (!NYV_API_KEY) {
-    return new Response(JSON.stringify({ error: 'NYV_API_KEY missing on server' }), {
+  if (!JRX_API_KEY) {
+    return new Response(JSON.stringify({ error: 'JRX_API_KEY missing on server' }), {
       status: 500, headers: { 'content-type': 'application/json' },
     });
   }
   const path = (ctx.params.path ?? []).join('/');
-  const url = new URL(`${NYV_BASE_URL.replace(/\/$/, '')}/${path}`);
+  const url = new URL(`${JRX_BASE_URL.replace(/\/$/, '')}/${path}`);
   // Forward query string verbatim.
   for (const [k, v] of req.nextUrl.searchParams) url.searchParams.append(k, v);
 
   const headers = new Headers();
-  headers.set('Authorization', `Bearer ${NYV_API_KEY}`);
+  headers.set('Authorization', `Bearer ${JRX_API_KEY}`);
   for (const h of SAFE_REQUEST_HEADERS) {
     const v = req.headers.get(h);
     if (v) headers.set(h, v);

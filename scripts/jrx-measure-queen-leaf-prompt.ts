@@ -9,19 +9,19 @@
  *
  * It assembles the REAL leaf system prompt — real IN agent-registry prompts, the
  * real legal-intelligence overlay, the real layered L0/L1 builder — through the
- * exact code path `nv-queen-orchestrator.callAgentInner()` now uses, and reports
+ * exact code path `jrx-queen-orchestrator.callAgentInner()` now uses, and reports
  * the estimated token count of each. "Before" is not a projection: it is the
- * same assembler run with `NYV_PROMPT_BUDGET=0`, which is byte-for-byte the
+ * same assembler run with `JRX_PROMPT_BUDGET=0`, which is byte-for-byte the
  * pre-fix behaviour (full overlay tier, non-lean L1, L0 permitted).
  *
  * It does NOT measure provider-billed prompt tokens. Those include the RAG /
  * memory context blocks that the middleware ring injects at runtime and the
  * provider's own tokenizer, neither of which exist offline. Numbers here are
  * therefore SYSTEM-PROMPT tokens under the platform's single estimator
- * (`NyvTokenBudgetManager.estimateTokens`) — comparable to each other and to the
+ * (`JrxTokenBudgetManager.estimateTokens`) — comparable to each other and to the
  * Phase-3 component table, not directly to a provider invoice line.
  *
- * Live measured reference (nysdev deploy `2026-08-16T0910Z-aws-ssm`, forced-Queen
+ * Live measured reference (jrx-prod deploy `2026-08-16T0910Z-aws-ssm`, forced-Queen
  * probe): exploration leaves 19,938 / 19,938 / 19,936 / 13,570 and the synthesis
  * leg 11,696 prompt tokens — 89,610 across 7 completions.
  */
@@ -37,7 +37,7 @@ import { buildQueenLeafSystemPrompt } from '../src/orchestration/jrx-queen-leaf-
 import { __clearAgentPromptBundleCache } from '../src/services/jrx-agent-prompt-bundle.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const REGISTRY = path.join(HERE, '..', 'config', 'agent-registries', 'Nyayavigya-Legal-registry-IN.json');
+const REGISTRY = path.join(HERE, '..', 'config', 'agent-registries', 'Jurexio-Legal-registry-IN.json');
 
 interface RegistryAgent {
   id: string;
@@ -121,9 +121,9 @@ async function assemble(
   sessionId: string,
   shape: SessionShape,
 ) {
-  const prior = process.env.NYV_PROMPT_BUDGET;
-  if (!enforced) process.env.NYV_PROMPT_BUDGET = '0';
-  else delete process.env.NYV_PROMPT_BUDGET;
+  const prior = process.env.JRX_PROMPT_BUDGET;
+  if (!enforced) process.env.JRX_PROMPT_BUDGET = '0';
+  else delete process.env.JRX_PROMPT_BUDGET;
   try {
     __clearAgentPromptBundleCache();
     const policy = budgetForQueenNode({ role, prompt });
@@ -137,8 +137,8 @@ async function assemble(
       resolveTurn: async () => ({ mode: 'turn1_full', turnNumber: 1 }),
     });
   } finally {
-    if (prior === undefined) delete process.env.NYV_PROMPT_BUDGET;
-    else process.env.NYV_PROMPT_BUDGET = prior;
+    if (prior === undefined) delete process.env.JRX_PROMPT_BUDGET;
+    else process.env.JRX_PROMPT_BUDGET = prior;
   }
 }
 
@@ -161,7 +161,7 @@ function mean(xs: number[]): number {
 async function main(): Promise<void> {
   const asJson = process.argv.includes('--json');
   const l0Downgrade = ['1', 'true', 'on', 'yes'].includes(
-    String(process.env.NYV_QUEEN_LEAF_L0_DOWNGRADE ?? '').trim().toLowerCase(),
+    String(process.env.JRX_QUEEN_LEAF_L0_DOWNGRADE ?? '').trim().toLowerCase(),
   );
   const agents = loadAgents(8);
   const rows: Row[] = [];
@@ -206,8 +206,8 @@ async function main(): Promise<void> {
   const out: string[] = [];
   out.push('');
   out.push('NV-TOKEN-BUDGET-001 — Queen leaf prompt tokens, before vs after');
-  out.push(`registry: config/agent-registries/Nyayavigya-Legal-registry-IN.json (${agents.length} agents sampled)`);
-  out.push(`NYV_QUEEN_LEAF_L0_DOWNGRADE=${l0Downgrade ? '1 (L0 withheld from exploration leaves)' : '0 (default — L0 retained)'}`);
+  out.push(`registry: config/agent-registries/Jurexio-Legal-registry-IN.json (${agents.length} agents sampled)`);
+  out.push(`JRX_QUEEN_LEAF_L0_DOWNGRADE=${l0Downgrade ? '1 (L0 withheld from exploration leaves)' : '0 (default — L0 retained)'}`);
   out.push('MEASURED (assembled system prompt, platform estimator). Not provider-billed tokens.');
 
   for (const shape of SHAPES) {
@@ -265,7 +265,7 @@ async function main(): Promise<void> {
     over.length === 0
       ? '  every assembled prompt fits its declared budget.'
       : `  ${over.length}/${rows.length} rows still exceed their declared cap. Largest single term is the `
-        + 'L0 constitution on session turn 1 — set NYV_QUEEN_LEAF_L0_DOWNGRADE=1 to withhold it '
+        + 'L0 constitution on session turn 1 — set JRX_QUEEN_LEAF_L0_DOWNGRADE=1 to withhold it '
         + 'from exploration leaves, after the §11 eval gate.',
   );
   out.push('');
@@ -273,6 +273,6 @@ async function main(): Promise<void> {
 }
 
 main().catch((err: unknown) => {
-  process.stderr.write(`nv-measure-queen-leaf-prompt failed: ${err instanceof Error ? err.stack : String(err)}\n`);
+  process.stderr.write(`jrx-measure-queen-leaf-prompt failed: ${err instanceof Error ? err.stack : String(err)}\n`);
   process.exit(1);
 });

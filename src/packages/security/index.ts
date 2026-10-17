@@ -18,11 +18,11 @@ export { SecurityAuditService } from './security-audit-service.js';
 export * from './security-audit-persistence-service.js';
 export * from './security-mcp-tools.js';
 export * from './dependency-scanner.js';
-export * from './nyayavigya-comprehensive-security-integration.js';
-export * from './nyayavigya-security-monitoring-system.js';
+export * from './jurexio-comprehensive-security-integration.js';
+export * from './jurexio-security-monitoring-system.js';
 
 export const securityPackageInfo = {
-  name: 'nyayavigya-sdk-security',
+  name: 'jurexio-sdk-security',
   version: '3.1.0',
   services: [
     'encryption-service',
@@ -33,8 +33,8 @@ export const securityPackageInfo = {
     'security-audit-persistence-service',
     'security-mcp-tools',
     'dependency-scanner',
-    'nyayavigya-comprehensive-security-integration',
-    'nyayavigya-security-monitoring-system'
+    'jurexio-comprehensive-security-integration',
+    'jurexio-security-monitoring-system'
   ],
   capabilities: [
     'Data Encryption',

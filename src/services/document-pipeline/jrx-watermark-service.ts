@@ -28,7 +28,7 @@ class NvWatermarkService {
     const encoded = this.steganographicEncode(metadataStr);
     const verificationHash = crypto.createHash('sha256').update(Buffer.concat([document, Buffer.from(metadataStr)])).digest('hex');
 
-    const watermarkHeader = Buffer.from(`\x00NYV-WM:${verificationHash}:${encoded}\x00`);
+    const watermarkHeader = Buffer.from(`\x00JRX-WM:${verificationHash}:${encoded}\x00`);
     return Buffer.concat([document, watermarkHeader]);
   }
 
@@ -60,7 +60,7 @@ class NvWatermarkService {
     logger.info({ method: 'verifyWatermark', docSize: document.length });
 
     const content = document.toString('utf-8');
-    const wmPattern = /\x00NYV-WM:([a-f0-9]+):([^\x00]+)\x00/;
+    const wmPattern = /\x00JRX-WM:([a-f0-9]+):([^\x00]+)\x00/;
     const match = content.match(wmPattern);
 
     if (!match) {

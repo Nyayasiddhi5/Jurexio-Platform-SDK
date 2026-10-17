@@ -2,7 +2,7 @@
 # =============================================================================
 # preflight.sh — gate every deploy with a fast, repeatable quality check.
 #
-# Steps (each one is a hard gate; set NYV_PREFLIGHT_<step>=skip to bypass):
+# Steps (each one is a hard gate; set JRX_PREFLIGHT_<step>=skip to bypass):
 #   1. type-check         pnpm type-check
 #   2. lint               pnpm lint
 #   3. test-unit          pnpm vitest run --reporter=dot
@@ -11,7 +11,7 @@
 #   5. dep-audit          pnpm audit --prod --audit-level=high
 #   6. env-coverage       every required key in .env.example must be present
 #                         either in the local .env, AWS Secrets Manager
-#                         (NYV_PREFLIGHT_CHECK_SM=1) or both.
+#                         (JRX_PREFLIGHT_CHECK_SM=1) or both.
 #
 # Exit codes:
 #   0 — all checks pass
@@ -36,15 +36,15 @@ fail() { printf "${C_ERR}[FAIL]${C_RST} %s\n" "$*" >&2; FAILED=1; }
 FAILED=0
 
 # ── 1. type-check ────────────────────────────────────────────────────────────
-if [ "${NYV_PREFLIGHT_TYPECHECK:-run}" = "run" ]; then
+if [ "${JRX_PREFLIGHT_TYPECHECK:-run}" = "run" ]; then
   log "type-check"
   if pnpm -s type-check; then ok "type-check"; else fail "type-check"; fi
 else
-  warn "type-check skipped (NYV_PREFLIGHT_TYPECHECK=skip)"
+  warn "type-check skipped (JRX_PREFLIGHT_TYPECHECK=skip)"
 fi
 
 # ── 2. lint ──────────────────────────────────────────────────────────────────
-if [ "${NYV_PREFLIGHT_LINT:-run}" = "run" ]; then
+if [ "${JRX_PREFLIGHT_LINT:-run}" = "run" ]; then
   log "lint"
   if pnpm -s lint; then ok "lint"; else fail "lint"; fi
 else
@@ -52,7 +52,7 @@ else
 fi
 
 # ── 3. tests ─────────────────────────────────────────────────────────────────
-if [ "${NYV_PREFLIGHT_TEST:-run}" = "run" ]; then
+if [ "${JRX_PREFLIGHT_TEST:-run}" = "run" ]; then
   log "vitest"
   if pnpm -s vitest run --reporter=dot --passWithNoTests; then ok "tests"; else fail "tests"; fi
 else
@@ -60,11 +60,11 @@ else
 fi
 
 # ── 4. secret-scan (gitleaks if available, else regex fallback) ─────────────
-if [ "${NYV_PREFLIGHT_SECRETSCAN:-run}" = "run" ]; then
+if [ "${JRX_PREFLIGHT_SECRETSCAN:-run}" = "run" ]; then
   log "secret-scan"
   if command -v gitleaks >/dev/null 2>&1; then
     if gitleaks detect --no-git --source . --redact --exit-code 1 \
-         --config "${NYV_GITLEAKS_CONFIG:-/dev/null}" \
+         --config "${JRX_GITLEAKS_CONFIG:-/dev/null}" \
          --report-format json --report-path /tmp/gitleaks.json 2>/dev/null; then
       ok "gitleaks"
     else
@@ -91,7 +91,7 @@ else
 fi
 
 # ── 5. dep-audit ─────────────────────────────────────────────────────────────
-if [ "${NYV_PREFLIGHT_AUDIT:-run}" = "run" ]; then
+if [ "${JRX_PREFLIGHT_AUDIT:-run}" = "run" ]; then
   log "dep-audit (high+)"
   # `pnpm audit` returns non-zero on findings; we DON'T fail on moderate/low.
   if pnpm audit --prod --audit-level=high >/tmp/pnpm-audit.txt 2>&1; then
@@ -105,7 +105,7 @@ else
 fi
 
 # ── 6. env-coverage ──────────────────────────────────────────────────────────
-if [ "${NYV_PREFLIGHT_ENV:-run}" = "run" ] && [ -f .env.example ]; then
+if [ "${JRX_PREFLIGHT_ENV:-run}" = "run" ] && [ -f .env.example ]; then
   log "env-coverage"
   REQUIRED=$(grep -Eho '^[A-Z][A-Z0-9_]+=' .env.example | sed 's/=$//' | sort -u)
   MISSING=()
@@ -119,9 +119,9 @@ if [ "${NYV_PREFLIGHT_ENV:-run}" = "run" ] && [ -f .env.example ]; then
 
   # AWS SM covers (only if explicitly opted in — needs AWS creds)
   REMOTE=""
-  if [ "${NYV_PREFLIGHT_CHECK_SM:-0}" = "1" ] && command -v aws >/dev/null 2>&1; then
+  if [ "${JRX_PREFLIGHT_CHECK_SM:-0}" = "1" ] && command -v aws >/dev/null 2>&1; then
     REMOTE=$(aws secretsmanager list-secrets \
-              --filters "Key=tag-key,Values=Project" "Key=tag-value,Values=Nyayavigya" \
+              --filters "Key=tag-key,Values=Project" "Key=tag-value,Values=Jurexio" \
               --query 'SecretList[].Name' --output text 2>/dev/null \
               | tr '\t' '\n' | sed 's:.*/::' | tr 'a-z' 'A-Z' | sort -u || true)
   fi
@@ -146,11 +146,11 @@ fi
 
 # ── 7. staging smoke gate (optional but ON by default for prod deploys) ─────
 # Hits a known set of paths against staging and asserts each returns the
-# expected status. Requires NYV_STAGING_BASE_URL or defaults to the public
-# staging host. Set NYV_PREFLIGHT_STAGING_SMOKE=skip to bypass (audited).
-if [ "${NYV_PREFLIGHT_STAGING_SMOKE:-run}" = "run" ]; then
+# expected status. Requires JRX_STAGING_BASE_URL or defaults to the public
+# staging host. Set JRX_PREFLIGHT_STAGING_SMOKE=skip to bypass (audited).
+if [ "${JRX_PREFLIGHT_STAGING_SMOKE:-run}" = "run" ]; then
   log "staging-smoke"
-  STG_BASE="${NYV_STAGING_BASE_URL:-https://staging.nyayasiddhi.online}"
+  STG_BASE="${JRX_STAGING_BASE_URL:-https://staging.jurexio.com}"
   if ! command -v curl >/dev/null 2>&1; then
     warn "curl missing — staging-smoke skipped"
   else
@@ -176,7 +176,7 @@ EOF
     if [ "$SMOKE_FAIL" -eq 0 ]; then ok "staging-smoke ($STG_BASE)"; else fail "staging-smoke against $STG_BASE"; fi
   fi
 else
-  warn "staging-smoke skipped (NYV_PREFLIGHT_STAGING_SMOKE=skip)"
+  warn "staging-smoke skipped (JRX_PREFLIGHT_STAGING_SMOKE=skip)"
 fi
 
 if [ "$FAILED" -eq 0 ]; then

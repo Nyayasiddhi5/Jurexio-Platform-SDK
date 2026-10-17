@@ -103,13 +103,13 @@ export async function runMigrationSafetyChecks(): Promise<MigrationSafetyResult>
       const dbIndices = [
         `CREATE INDEX IF NOT EXISTS idx_legal_agents_category ON legal_agents(category)`,
         `CREATE INDEX IF NOT EXISTS idx_legal_agents_practice_area ON legal_agents(practice_area)`,
-        `CREATE INDEX IF NOT EXISTS idx_nyayamitra_cases_user_id ON nyayamitra_cases(user_id)`,
+        `CREATE INDEX IF NOT EXISTS idx_jurexio-citizen_cases_user_id ON jurexio-citizen_cases(user_id)`,
         `CREATE INDEX IF NOT EXISTS idx_academy_enrollments_course_id ON academy_enrollments(course_id)`,
       ];
       for (const ddl of dbIndices) {
         try { await db.execute(sql.raw(ddl)); } catch { /* table may not exist */ }
       }
-      logger.info('✓ DB-03 B-tree indices verified (legal_agents, nyayamitra_cases, academy_enrollments)');
+      logger.info('✓ DB-03 B-tree indices verified (legal_agents, jurexio-citizen_cases, academy_enrollments)');
     } catch {
       /* non-fatal */
     }

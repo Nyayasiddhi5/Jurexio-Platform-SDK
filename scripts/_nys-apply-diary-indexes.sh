@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Diary lookup hot-path indexes on nyv-caselaw-pg (case_no equality scans).
+# Diary lookup hot-path indexes on jrx-caselaw-pg (case_no equality scans).
 set -euo pipefail
 cd /opt/nyv/api
-export NYS_ENV_FILE=/opt/nyv/api/.env
-if [ -f "$NYS_ENV_FILE" ]; then
-  RDS_CA_BUNDLE=$(grep -E '^RDS_CA_BUNDLE=' "$NYS_ENV_FILE" | head -1 | cut -d= -f2- | tr -d '\r\n')
+export JRX_ECOSYSTEM_ENV_FILE=/opt/nyv/api/.env
+if [ -f "$JRX_ECOSYSTEM_ENV_FILE" ]; then
+  RDS_CA_BUNDLE=$(grep -E '^RDS_CA_BUNDLE=' "$JRX_ECOSYSTEM_ENV_FILE" | head -1 | cut -d= -f2- | tr -d '\r\n')
   RDS_CA_BUNDLE="${RDS_CA_BUNDLE%\"}"; RDS_CA_BUNDLE="${RDS_CA_BUNDLE#\"}"
   export RDS_CA_BUNDLE
 fi
@@ -17,7 +17,7 @@ import { RDSClient, DescribeDBInstancesCommand } from "@aws-sdk/client-rds";
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
 
 const REGION = "ap-south-1";
-const DB_INSTANCE_ID = "nyv-caselaw-pg";
+const DB_INSTANCE_ID = "jrx-caselaw-pg";
 
 function sslConfig() {
   const caPath = process.env.RDS_CA_BUNDLE;

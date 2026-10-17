@@ -2,10 +2,10 @@
  * Partner LLM catalog + router explain — /api/jrx/v1/sdk/llm/*
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export class LlmRouterApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   catalog(query?: Record<string, string>): Promise<unknown> {
     const qs = query ? `?${new URLSearchParams(query).toString()}` : '';

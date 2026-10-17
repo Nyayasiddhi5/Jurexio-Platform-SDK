@@ -4,7 +4,7 @@
  * prose, not an assistant reply.
  *
  * Runs after LLM + fast-delivery polish; never on counsel-grade Queen paths.
- * Skips Nyayamitra agents — their disclaimer flow is owned by the Mitra backend.
+ * Skips Jurexio Citizen agents — their disclaimer flow is owned by the Mitra backend.
  */
 import {
   isPartnerExplicitFastAlias,
@@ -51,7 +51,7 @@ export function countPartnerPlaceholders(content: string): number {
 
 export interface PartnerHumanPolishOpts {
   taskType?: string;
-  /** Resolved agent key — skip Nyayamitra paths. */
+  /** Resolved agent key — skip Jurexio Citizen paths. */
   agentKey?: string;
   partnerLean?: boolean;
   /** When true, preserve disclaimer blocks (Mitra backend appends canonical copy). */

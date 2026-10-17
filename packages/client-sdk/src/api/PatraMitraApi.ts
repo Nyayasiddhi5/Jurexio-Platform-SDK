@@ -2,7 +2,7 @@
  * PatraMitraApi — Document companion for NSP/NYM (Parse · Understand · Ask).
  * Canonical path: /api/jrx/v1/sdk/patra-mitra/*
  */
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export interface PatraMitraHealthData {
   product: string;
@@ -53,7 +53,7 @@ export interface PatraMitraToolInput {
 }
 
 export class PatraMitraApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   health(): Promise<{ success: boolean; data: PatraMitraHealthData }> {
     return this.http.get('/api/jrx/v1/sdk/patra-mitra/health');

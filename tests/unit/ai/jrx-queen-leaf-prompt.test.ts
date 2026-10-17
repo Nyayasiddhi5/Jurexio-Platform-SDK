@@ -2,7 +2,7 @@
  * NV-TOKEN-BUDGET-001 (Queen leaf lane) — the guardrail test that would have
  * caught the defect measured in plan §12.2 at build time.
  *
- * Measured live on nysdev (deploy `2026-08-16T0910Z-aws-ssm`, forced-Queen probe):
+ * Measured live on jrx-prod (deploy `2026-08-16T0910Z-aws-ssm`, forced-Queen probe):
  *
  * | Path                                    | Prompt tokens |
  * |-----------------------------------------|--------------:|
@@ -71,9 +71,9 @@ const BAIL_QUERY =
   'Is anticipatory bail available under BNSS 482 for a BNS 318(4) cheating case in Karnataka?';
 
 const ENV_KEYS = [
-  'NYV_PROMPT_BUDGET',
-  'NYV_QUEEN_LEAF_L0_DOWNGRADE',
-  'NYV_QUEEN_EXPLORATION_PROMPT_CLASS',
+  'JRX_PROMPT_BUDGET',
+  'JRX_QUEEN_LEAF_L0_DOWNGRADE',
+  'JRX_QUEEN_EXPLORATION_PROMPT_CLASS',
 ] as const;
 let savedEnv: Record<string, string | undefined> = {};
 
@@ -166,7 +166,7 @@ describe('NV-TOKEN-BUDGET-001 — exploration is lean, synthesis is wide (plan �
     // leaves rather than made them lean — hence the `chat` floor.
     expect(resolveQueenNodePromptClass({ role: 'exploration', prompt: 'bail?' })).toBe('chat');
     for (const bad of ['micro_faq', 'classify', 'nonsense', '']) {
-      process.env.NYV_QUEEN_EXPLORATION_PROMPT_CLASS = bad;
+      process.env.JRX_QUEEN_EXPLORATION_PROMPT_CLASS = bad;
       expect(resolveQueenNodePromptClass({ role: 'exploration', prompt: BAIL_QUERY }), bad).toBe('chat');
     }
   });
@@ -176,12 +176,12 @@ describe('NV-TOKEN-BUDGET-001 — exploration is lean, synthesis is wide (plan �
     // Default ceiling clamps it to the lean tier…
     expect(resolveQueenNodePromptClass({ role: 'exploration', prompt: RESEARCH_LEAF })).toBe('chat');
     // …and raising the ceiling lets it keep its naturally-classified tier.
-    process.env.NYV_QUEEN_EXPLORATION_PROMPT_CLASS = 'research';
+    process.env.JRX_QUEEN_EXPLORATION_PROMPT_CLASS = 'research';
     expect(resolveQueenNodePromptClass({ role: 'exploration', prompt: RESEARCH_LEAF })).toBe('research');
   });
 
-  it('restores pre-Phase-3 behaviour when NYV_PROMPT_BUDGET=0 (A/B escape hatch)', () => {
-    process.env.NYV_PROMPT_BUDGET = '0';
+  it('restores pre-Phase-3 behaviour when JRX_PROMPT_BUDGET=0 (A/B escape hatch)', () => {
+    process.env.JRX_PROMPT_BUDGET = '0';
     const leaf = budgetForQueenNode({ role: 'exploration', prompt: BAIL_QUERY });
     expect(leaf.enforced).toBe(false);
     expect(leaf.overlayDepth).toBe('full');
@@ -200,9 +200,9 @@ describe('NV-TOKEN-BUDGET-001 — measured reduction in assembled leaf prompt', 
 
   it('an exploration leaf assembles materially fewer tokens than the pre-fix path', async () => {
     // Pre-fix = the exact shape the orchestrator used: full overlay, non-lean L1.
-    process.env.NYV_PROMPT_BUDGET = '0';
+    process.env.JRX_PROMPT_BUDGET = '0';
     const before = await buildBudgetedQueenLeafPrompt({ ...base, role: 'exploration' });
-    delete process.env.NYV_PROMPT_BUDGET;
+    delete process.env.JRX_PROMPT_BUDGET;
     __clearAgentPromptBundleCache();
     const after = await buildBudgetedQueenLeafPrompt({ ...base, role: 'exploration' });
 
@@ -231,7 +231,7 @@ describe('NV-TOKEN-BUDGET-001 — measured reduction in assembled leaf prompt', 
     expect(withL0.l0Downgraded).toBe(false);
     expect(withL0.assemblyMode).toBe('turn1_full');
 
-    process.env.NYV_QUEEN_LEAF_L0_DOWNGRADE = '1';
+    process.env.JRX_QUEEN_LEAF_L0_DOWNGRADE = '1';
     __clearAgentPromptBundleCache();
     const withoutL0 = await buildBudgetedQueenLeafPrompt({
       ...base,
@@ -246,7 +246,7 @@ describe('NV-TOKEN-BUDGET-001 — measured reduction in assembled leaf prompt', 
   });
 
   it('never withholds L0 from the synthesis leg, flag on or off', async () => {
-    process.env.NYV_QUEEN_LEAF_L0_DOWNGRADE = '1';
+    process.env.JRX_QUEEN_LEAF_L0_DOWNGRADE = '1';
     const synth = await buildBudgetedQueenLeafPrompt({
       ...base,
       role: 'synthesis',
@@ -279,7 +279,7 @@ describe('NV-TOKEN-BUDGET-001 — correctness floor survives EVERY tier', () => 
 
   for (const c of cases) {
     it(`retains every correctness-critical instruction — ${c.label}`, async () => {
-      if (c.l0Downgrade) process.env.NYV_QUEEN_LEAF_L0_DOWNGRADE = '1';
+      if (c.l0Downgrade) process.env.JRX_QUEEN_LEAF_L0_DOWNGRADE = '1';
       __clearAgentPromptBundleCache();
       const assembled = await buildBudgetedQueenLeafPrompt({
         agentId: './jrx-criminal-karnataka',
@@ -305,7 +305,7 @@ describe('NV-TOKEN-BUDGET-001 — correctness floor survives EVERY tier', () => 
   }
 
   it('keeps the anti-hallucination section verbatim in the lean L1 tier', async () => {
-    process.env.NYV_QUEEN_LEAF_L0_DOWNGRADE = '1';
+    process.env.JRX_QUEEN_LEAF_L0_DOWNGRADE = '1';
     const leaf = await buildBudgetedQueenLeafPrompt({
       agentId: './jrx-criminal-karnataka',
       registrySystemPrompt: registryPrompt(),

@@ -19,7 +19,7 @@ const router = Router();
 const logger = createLogger('./jrx-rag-audit-routes');
 
 // NV-RBAC-HIERARCHY-001: delegate to the canonical hierarchy gate
-// (`roleSatisfies` + ROLE_HIERARCHY in nv-auth.ts) so this route never drifts
+// (`roleSatisfies` + ROLE_HIERARCHY in jrx-auth.ts) so this route never drifts
 // from the platform role ladder. The previous local `order` array omitted
 // `admin`/`platform_admin`, which wrongly denied those roles.
 function requireRole(role: string) {

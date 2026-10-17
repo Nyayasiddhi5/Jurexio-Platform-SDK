@@ -118,7 +118,7 @@ async function proxy(
     res.status(upstreamStatus).json({
       success: false,
       error: {
-        code: isTimeout || isBusy ? 'CNR_UPSTREAM_TIMEOUT' : 'NYS_UPSTREAM',
+        code: isTimeout || isBusy ? 'CNR_UPSTREAM_TIMEOUT' : 'JRX_ECOSYSTEM_UPSTREAM',
         message: safeMsg,
         retryable: isTimeout || isBusy || result.status === 503,
       },
@@ -658,7 +658,7 @@ router.post('/resolve', async (req, res) => {
       res.status(upstreamStatus).json({
         success: false,
         error: {
-          code: isTimeout || isBusy ? 'CNR_UPSTREAM_TIMEOUT' : 'NYS_UPSTREAM',
+          code: isTimeout || isBusy ? 'CNR_UPSTREAM_TIMEOUT' : 'JRX_ECOSYSTEM_UPSTREAM',
           message: safeMsg,
           retryable: isTimeout || isBusy || result.status === 503,
         },

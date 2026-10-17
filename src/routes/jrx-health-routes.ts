@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Health Check API Endpoints
  * Real-time monitoring and status endpoints for Jurexio Orchestration System
@@ -9,9 +9,9 @@ import * as fs from 'fs';
 import { getAgentRegistry } from '../index.js';
 import { createLogger } from '../utils/logger.js';
 import { getRegistryStats } from '../services/agent-registry-service.js';
-import { NYV_PLATFORM_VERSION } from '../config/nyv-master-config.js';
+import { JRX_PLATFORM_VERSION } from '../config/jrx-master-config.js';
 
-// NYV-AUDIT-F2 (2026-05-05): canonical map of LLM-provider env-var names →
+// JRX-AUDIT-F2 (2026-05-05): canonical map of LLM-provider env-var names →
 // provider id. Used by checkAllProviders to mark missing-key providers as
 // `unconfigured` (informational) instead of `degraded` (false alarm).
 const PROVIDER_ENV_MAP: Record<string, { name: string; envKeys: string[]; costPerToken: number }> = {
@@ -20,7 +20,7 @@ const PROVIDER_ENV_MAP: Record<string, { name: string; envKeys: string[]; costPe
   google:        { name: 'Google Gemini',       envKeys: ['GEMINI_API_KEY', 'GOOGLE_API_KEY'], costPerToken: 0.02 },
   openrouter:    { name: 'OpenRouter',          envKeys: ['OPENROUTER_API_KEY'],    costPerToken: 0.02 },
   sarvam:        { name: 'Sarvam AI',           envKeys: ['SARVAM_API_KEY'],        costPerToken: 0.01 },
-  // ── Unconfigured by design (NYV-AUDIT-F2: surface honestly, do not lie). ──
+  // ── Unconfigured by design (JRX-AUDIT-F2: surface honestly, do not lie). ──
   'kimi-k2':     { name: 'Kimi K2 (Moonshot)',  envKeys: ['MOONSHOT_API_KEY', 'KIMI_API_KEY'], costPerToken: 0.01 },
   'together-ai': { name: 'Together AI',         envKeys: ['TOGETHER_API_KEY'],      costPerToken: 0.015 },
   groq:          { name: 'Groq',                envKeys: ['GROQ_API_KEY'],          costPerToken: 0.01 },
@@ -83,7 +83,7 @@ healthRouter.get('/', async (req: Request, res: Response) => {
       status: overallStatus,
       timestamp: new Date().toISOString(),
       responseTime,
-      version: NYV_PLATFORM_VERSION,
+      version: JRX_PLATFORM_VERSION,
       registryVersion: registryStats.registryVersion,
       registryFormat: registryStats.registryFormat,
       totalAgents: registryStats.totalAgents,
@@ -248,7 +248,7 @@ async function checkOrchestrationHealth(): Promise<any> {
     const orchestrationStatus = {
       status: 'healthy',
       responseTime: Date.now() - startTime,
-      version: NYV_PLATFORM_VERSION,
+      version: JRX_PLATFORM_VERSION,
       activeConnections: 24,
       totalRequests: Math.floor(process.uptime() * 10) + 1000,
       uptime: process.uptime()
@@ -294,7 +294,7 @@ async function checkDatabaseHealth(): Promise<any> {
 }
 
 async function checkLLMProviderHealth(): Promise<any> {
-  // NYV-AUDIT-F2 (2026-05-05): the 'configured providers' count is what
+  // JRX-AUDIT-F2 (2026-05-05): the 'configured providers' count is what
   // actually matters for healthy gateway operation. Unconfigured providers
   // are NOT counted as failures.
   try {
@@ -349,7 +349,7 @@ async function checkAgentHealth(): Promise<any> {
 }
 
 async function checkStorageHealth(): Promise<any> {
-  // NYV-AUDIT-F4 (2026-05-05): real disk-space probe. Replaces hardcoded
+  // JRX-AUDIT-F4 (2026-05-05): real disk-space probe. Replaces hardcoded
   // 100GB/45GB mock. Uses fs.statfs (Node 18+) on the gateway working dir.
   try {
     const stats = await checkStorageStatus();
@@ -377,7 +377,7 @@ async function checkStorageHealth(): Promise<any> {
 }
 
 async function checkAllProviders(): Promise<any[]> {
-  // NYV-AUDIT-F2 (2026-05-05): replaced hardcoded healthy/degraded lists with
+  // JRX-AUDIT-F2 (2026-05-05): replaced hardcoded healthy/degraded lists with
   // a real env-var probe. A provider with no API key is `unconfigured`
   // (informational), NOT `degraded` (which used to falsely alarm operators).
   // For configured providers we report `healthy` — deep liveness probes are
@@ -465,7 +465,7 @@ async function checkStorageStatus(): Promise<{
   availableSpace: number;
   mountPath?: string;
 }> {
-  // NYV-AUDIT-F4 (2026-05-05): real fs.statfs probe. Falls back gracefully
+  // JRX-AUDIT-F4 (2026-05-05): real fs.statfs probe. Falls back gracefully
   // on platforms (e.g. some Windows configs) where statfs is unavailable.
   const mountPath = process.cwd();
   try {
@@ -536,11 +536,11 @@ async function checkCoreModules(): Promise<any> {
   return {
     status: 'healthy',
     modules: [
-      { name: 'Agent Runtime', status: 'healthy', version: NYV_PLATFORM_VERSION },
-      { name: 'Task Router', status: 'healthy', version: NYV_PLATFORM_VERSION },
-      { name: 'Event Bus', status: 'healthy', version: NYV_PLATFORM_VERSION },
-      { name: 'Provider Registry', status: 'healthy', version: NYV_PLATFORM_VERSION },
-      { name: 'Storage Interface', status: 'healthy', version: NYV_PLATFORM_VERSION }
+      { name: 'Agent Runtime', status: 'healthy', version: JRX_PLATFORM_VERSION },
+      { name: 'Task Router', status: 'healthy', version: JRX_PLATFORM_VERSION },
+      { name: 'Event Bus', status: 'healthy', version: JRX_PLATFORM_VERSION },
+      { name: 'Provider Registry', status: 'healthy', version: JRX_PLATFORM_VERSION },
+      { name: 'Storage Interface', status: 'healthy', version: JRX_PLATFORM_VERSION }
     ]
   };
 }
@@ -606,8 +606,8 @@ async function checkCertificates(): Promise<any> {
   return {
     status: 'healthy',
     certificates: [
-      { name: 'api.nyayavigya-orchestration.com', expiresIn: '89 days', status: 'valid' },
-      { name: 'auth.nyayavigya-orchestration.com', expiresIn: '156 days', status: 'valid' }
+      { name: 'api.jurexio-orchestration.com', expiresIn: '89 days', status: 'valid' },
+      { name: 'auth.jurexio-orchestration.com', expiresIn: '156 days', status: 'valid' }
     ]
   };
 }

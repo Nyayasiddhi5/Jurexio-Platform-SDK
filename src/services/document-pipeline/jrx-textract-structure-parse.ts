@@ -1,6 +1,6 @@
 /**
  * NV-TEXTRACT-STRUCTURE-001 — parse TABLES/FORMS blocks from Textract AnalyzeDocument.
- * Text flattening stays in nv-textract-ocr-service; this module preserves structure for merge (T3).
+ * Text flattening stays in jrx-textract-ocr-service; this module preserves structure for merge (T3).
  */
 export type TextractBlockRef = {
   BlockType?: string;

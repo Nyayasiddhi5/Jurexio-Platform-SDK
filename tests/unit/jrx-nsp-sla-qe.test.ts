@@ -14,8 +14,8 @@ import {
 
 describe('NV-NSP-SLA-QE-001: reconcilePartnerSlaQualityEnvelope', () => {
   it('legal-draft-fast shape: llm_route_budget failed → ok after reconcile', () => {
-    const prev = process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED;
-    process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED = '1';
+    const prev = process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED;
+    process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED = '1';
     try {
       const env = createQualityEnvelope({
         requestId: 'draft-fast',
@@ -48,8 +48,8 @@ describe('NV-NSP-SLA-QE-001: reconcilePartnerSlaQualityEnvelope', () => {
       });
       expect(() => assertQualityEnvelope(env)).not.toThrow();
     } finally {
-      if (prev === undefined) delete process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED;
-      else process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED = prev;
+      if (prev === undefined) delete process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED;
+      else process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED = prev;
     }
   });
 

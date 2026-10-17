@@ -7,7 +7,7 @@
  * - Department modules (Finance, HR, Marketing, Engineering)
  * - ROMA L1-L4 autonomy levels
  * - Corporate DNA system prompt configuration
- * - Auto-generate nyayavigya.config.json
+ * - Auto-generate jurexio.config.json
  * - Team templates (Startup MVP, Enterprise, Agency, Department, Research)
  */
 
@@ -425,13 +425,13 @@ export default function ArchitectWorkflowBuilder() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'nyayavigya.config.json';
+    a.download = 'jurexio.config.json';
     a.click();
     URL.revokeObjectURL(url);
     
     toast({
       title: "Configuration Exported",
-      description: "nyayavigya.config.json has been downloaded",
+      description: "jurexio.config.json has been downloaded",
     });
   };
 

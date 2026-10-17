@@ -19,7 +19,7 @@
  * Durable, embedding-backed Postgres backing (nv_schema.mem0_memories) is now
  * available behind JRX_F_MEM0_DURABLE (default OFF): when enabled, store()/
  * recall() survive a restart and span replicas via the SAME API used here, so
- * these hooks need no change. (NYV-SVC-MEM0-DURABLE-001 — supersedes the
+ * these hooks need no change. (JRX-SVC-MEM0-DURABLE-001 — supersedes the
  * "out of scope for Task #156" note.)
  */
 

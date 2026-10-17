@@ -74,7 +74,7 @@ export interface Advanced3DConfig {
   kimiK2: KimiK2Config;
   liveKit: LiveKitConfig;
   cultural: CulturalConfig;
-  nyayavigyaOrchestration: {
+  jurexioOrchestration: {
     specializedAgents: number;
     llmProviders: number;
     agentIntegration: number;
@@ -134,7 +134,7 @@ class Advanced3DImmersiveService {
     const culturalStatus = await this.setupCulturalFeatures(config.cultural);
     
     // Integrate with Jurexio Orchestration
-    const waiStatus = await this.integrateJurexioOrchestration(config.nyayavigyaOrchestration);
+    const waiStatus = await this.integrateJurexioOrchestration(config.jurexioOrchestration);
     
     const assistantId = `3d-immersive-${Date.now()}`;
     const capabilities = this.buildCapabilitiesList(config);
@@ -537,7 +537,7 @@ export const advanced3DImmersiveRoutes = {
           kimiK2: { status: 'PASS', spatialComputing: 'ACTIVE', costSavings: '95%' },
           liveKit: { status: 'PASS', audioLatency: '35ms', videoLatency: '45ms' },
           cultural: { status: 'PASS', languages: 6, gestures: 'ACTIVE' },
-          nyayavigyaOrchestration: { status: 'PASS', agents: 39, providers: 13 }
+          jurexioOrchestration: { status: 'PASS', agents: 39, providers: 13 }
         },
         overallScore: 'EXCELLENT',
         performanceGrade: 'A+',

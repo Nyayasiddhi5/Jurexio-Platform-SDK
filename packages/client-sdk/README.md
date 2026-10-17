@@ -2,7 +2,7 @@
 
 > Official TypeScript SDK for the **Jurexio Legal AI Platform** — v5.0.0.
 
-Powers all Jurexio platforms (NSP web/mobile, Nyayamitra, Institutional,
+Powers all Jurexio platforms (NSP web/mobile, Jurexio Citizen, Institutional,
 Academy, Ministry) and external developer integrations.
 
 | | |
@@ -11,7 +11,7 @@ Academy, Ministry) and external developer integrations.
 | Version | **5.0.0** (2026-07-05) — production GA line |
 | Min Node | 22.x |
 | Modules | ESM + CJS, full `.d.ts`, tree-shakeable |
-| Companion | `@jurexio/types`, `@jurexio/react-hooks`, `@jurexio/client-sdk-react-native`, `@jurexio/nyayamitra-sdk` |
+| Companion | `@jurexio/types`, `@jurexio/react-hooks`, `@jurexio/client-sdk-react-native`, `@jurexio/jurexio-citizen-sdk` |
 
 ---
 
@@ -24,11 +24,11 @@ npm install @jurexio/client-sdk @jurexio/types
 ## 60-second quickstart
 
 ```ts
-import { NyvClient } from '@jurexio/client-sdk';
+import { JrxClient } from '@jurexio/client-sdk';
 
-const nyv = new NyvClient({
+const nyv = new JrxClient({
   apiKey:  process.env.JRX_API_KEY!,        // nyv_live_sk_...
-  baseUrl: 'https://app.nyayavigya.in',
+  baseUrl: 'https://app.jurexio.com',
 });
 
 // 1) Ask a legal question (P11 NyayaRAG)
@@ -61,7 +61,7 @@ const usage   = await nyv.usage.getTokens();        // daily tokens + cost + bud
 
 ## API surface
 
-`NyvClient` exposes 25 API classes — 18 covering the `/api/jrx/*` gateway plus 7 wrapping the additive `/api/nv5/*` admin surface (Sessions 10–12):
+`JrxClient` exposes 25 API classes — 18 covering the `/api/jrx/*` gateway plus 7 wrapping the additive `/api/nv5/*` admin surface (Sessions 10–12):
 
 | Property | Class | Purpose |
 |---|---|---|
@@ -90,7 +90,7 @@ const usage   = await nyv.usage.getTokens();        // daily tokens + cost + bud
 | `nyv.legalPipeline` | `LegalPipelineApi` | `/api/nv5/legal-pipeline/*` — chunker, embedding catalog, RRF reranker, summarizer, readability (Batch E) |
 | `nyv.complianceNv5` | `ComplianceNv5Api` | `/api/nv5/compliance/*` — EU AI Act, PQC keygen, federated-privacy (Batch F) |
 | `nyv.internal` | `InternalApi` | `/api/nv5/internal/*` — 17 routing / docs / quality / adapter introspection endpoints (Batches G+H+I+J) |
-| `nyv.stream` | `NyvStreamReader` | AG-UI SSE streaming for any pattern |
+| `nyv.stream` | `JrxStreamReader` | AG-UI SSE streaming for any pattern |
 
 > **`/api/nv5/*` reachability.** Every namespace defaults OFF behind a
 > `JRX_F_*` flag — calling these wrappers without the matching flag set on
@@ -111,19 +111,19 @@ await nyv.stream.streamPattern('react', { task: '...' }, {
 ```
 
 The reader handles SSE reconnect, AG-UI v1 + legacy event shapes, and resolves
-on `run_finished`. See [`NyvStreamReader`](./src/NyvStreamReader.ts) for full
+on `run_finished`. See [`JrxStreamReader`](./src/JrxStreamReader.ts) for full
 options.
 
 ## Error handling
 
-Every error is a `NyvError` with a stable `code`:
+Every error is a `JrxError` with a stable `code`:
 
 ```ts
-import { NyvClient, NyvError } from '@jurexio/client-sdk';
+import { JrxClient, JrxError } from '@jurexio/client-sdk';
 
 try { await nyv.ask('...'); }
 catch (e) {
-  if (e instanceof NyvError) {
+  if (e instanceof JrxError) {
     console.error(e.code, e.status, e.traceId, e.message);
     if (e.code === 'RATE_LIMITED') await sleep(60_000);
     if (e.code === 'AUTH_INVALID') refreshKey();
@@ -137,10 +137,10 @@ Configure a webhook URL + secret in the developer console (`/console/apps`).
 On orchestration completion you'll receive a `POST` to your URL with:
 
 ```
-X-NYV-Event: orchestration.completed
-X-NYV-Timestamp: 2026-04-25T10:15:42.123Z
-X-NYV-Signature: sha256=<hex hmac of `${ts}.${body}`>
-X-NYV-Correlation-Id: <correlationId>
+X-JRX-Event: orchestration.completed
+X-JRX-Timestamp: 2026-04-25T10:15:42.123Z
+X-JRX-Signature: sha256=<hex hmac of `${ts}.${body}`>
+X-JRX-Correlation-Id: <correlationId>
 ```
 
 Verify with:
@@ -150,8 +150,8 @@ import { verifyWebhookSignature } from '@jurexio/client-sdk';
 
 const ok = verifyWebhookSignature({
   rawBody,
-  signature: req.headers['x-nyv-signature'],
-  timestamp: req.headers['x-nyv-timestamp'],
+  signature: req.headers['x-jrx-signature'],
+  timestamp: req.headers['x-jrx-timestamp'],
   secret: process.env.JRX_WEBHOOK_SECRET!,
 });
 ```
@@ -184,7 +184,7 @@ Queen SSE may emit **two phases** of `text_delta`:
 | Gated | `provisional: false`, `gated: true` | Post-`stampSafetyVerdict` authoritative text | **Replace** UI buffer (do not append onto provisional) |
 | Final | `synthesis_final` / `run_completed` | Sentinel after gated chunks | Prefer this as source of truth |
 
-`NyvStreamReader` (5.0.6+) **resets** its accumulated buffer on the first gated event so `onTextDelta` never double-paints. Hand-rolled EventSource clients must do the same:
+`JrxStreamReader` (5.0.6+) **resets** its accumulated buffer on the first gated event so `onTextDelta` never double-paints. Hand-rolled EventSource clients must do the same:
 
 ```ts
 let ui = '';
@@ -206,10 +206,10 @@ Partner alias: `POST /api/jrx/v1/sdk/orchestrate/stream` is equivalent to `/api/
 
 ## Documentation
 
-- [v6 API Reference](../../docs/v3.1.2/completed_docs/NYV-SDK-v6-API-REFERENCE.md)
-- [v6 Integration Guide](../../docs/v3.1.2/completed_docs/NYV-SDK-v6-INTEGRATION-GUIDE.md)
-- [v5 → v6 Deprecation Policy](../../docs/v3.1.2/superseded/NYV-SDK-v5-DEPRECATION-POLICY.md)
-- [Mobile Integration Guide](../../docs/v3.1.2/completed_docs/NYV-MOBILE-INTEGRATION-GUIDE.md)
+- [v6 API Reference](../../docs/v3.1.2/completed_docs/JRX-SDK-v6-API-REFERENCE.md)
+- [v6 Integration Guide](../../docs/v3.1.2/completed_docs/JRX-SDK-v6-INTEGRATION-GUIDE.md)
+- [v5 → v6 Deprecation Policy](../../docs/v3.1.2/superseded/JRX-SDK-v5-DEPRECATION-POLICY.md)
+- [Mobile Integration Guide](../../docs/v3.1.2/completed_docs/JRX-MOBILE-INTEGRATION-GUIDE.md)
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md) · [`CHANGELOG.md`](./CHANGELOG.md) · [`SEMVER.md`](./SEMVER.md)
 
 ## License

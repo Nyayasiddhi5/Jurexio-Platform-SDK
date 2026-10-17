@@ -2,11 +2,11 @@
 /**
  * NV-FB399-001 — counsel-grade durable probe (Queen comprehensive path).
  *
- * Default identity: superadmin@demo.nyayasiddhi.online (ssadmin demo org).
- * Loads password from NV_DEMO_PASSWORD env or /opt/Nyayavigya/secrets/.env.production on EC2.
+ * Default identity: superadmin@demo.jurexio.com (ssadmin demo org).
+ * Loads password from NV_DEMO_PASSWORD env or /opt/Jurexio/secrets/.env.production on EC2.
  *
  * Flow:
- *   1) JWT login (demo ssadmin) OR NSP SDK key (NYV_PROBE_USE_NSP=1)
+ *   1) JWT login (demo ssadmin) OR NSP SDK key (JRX_PROBE_USE_NSP=1)
  *   2) POST /api/nv/orchestrate — legal-draft + draftLength comprehensive (counsel worker path)
  *   3) Poll /api/nv/queue/status/:jobId when 202+jobId; else treat sync body as completed
  *   4) PASS when status=completed and word_count >= MIN_WORDS (default 80)
@@ -16,23 +16,23 @@
 import fs from 'node:fs';
 import process from 'node:process';
 
-const BASE = process.env.NYV_API_BASE || 'https://api.nyayasiddhi.online';
-const CONSOLE_ORIGIN = process.env.NYV_CONSOLE_ORIGIN || 'https://console.nyayasiddhi.online';
-const EMAIL = process.env.NYV_PROBE_EMAIL || 'superadmin@demo.nyayasiddhi.online';
-const MIN_WORDS = Number(process.env.NYV_PROBE_MIN_WORDS || 80);
-const MAX_POLLS = Number(process.env.NYV_PROBE_MAX_POLLS || 120);
-const POLL_MS = Number(process.env.NYV_PROBE_POLL_MS || 5000);
-const ORCH_TIMEOUT_MS = Number(process.env.NYV_PROBE_ORCH_TIMEOUT_MS || 600_000);
-const USE_NSP = ['1', 'true', 'yes'].includes(String(process.env.NYV_PROBE_USE_NSP || '').toLowerCase());
+const BASE = process.env.JRX_API_BASE || 'https://api.jurexio.com';
+const CONSOLE_ORIGIN = process.env.JRX_CONSOLE_ORIGIN || 'https://console.jurexio.com';
+const EMAIL = process.env.JRX_PROBE_EMAIL || 'superadmin@demo.jurexio.com';
+const MIN_WORDS = Number(process.env.JRX_PROBE_MIN_WORDS || 80);
+const MAX_POLLS = Number(process.env.JRX_PROBE_MAX_POLLS || 120);
+const POLL_MS = Number(process.env.JRX_PROBE_POLL_MS || 5000);
+const ORCH_TIMEOUT_MS = Number(process.env.JRX_PROBE_ORCH_TIMEOUT_MS || 600_000);
+const USE_NSP = ['1', 'true', 'yes'].includes(String(process.env.JRX_PROBE_USE_NSP || '').toLowerCase());
 
 const WS_PROMPT =
-  process.env.NYV_PROBE_PROMPT ||
+  process.env.JRX_PROBE_PROMPT ||
   'Draft a comprehensive written statement for a commercial suit in Delhi. Include cause title, preliminary objections, para-wise traverse, and verification. Use placeholders for dates and amounts.';
 
 function loadCanonicalEnv() {
   const paths = [
-    process.env.NYV_CANONICAL_ENV,
-    '/opt/Nyayavigya/secrets/.env.production',
+    process.env.JRX_CANONICAL_ENV,
+    '/opt/Jurexio/secrets/.env.production',
     '../.local/secrets/runtime.env',
   ].filter(Boolean);
   for (const p of paths) {
@@ -108,7 +108,7 @@ function authHeaders(token, nspKey) {
     return {
       'Content-Type': 'application/json',
       'X-API-Key': nspKey,
-      'X-NYV-Platform': 'nsp',
+      'X-JRX-Platform': 'nsp',
     };
   }
   return {
@@ -173,8 +173,8 @@ async function main() {
   let token;
   let nspKey;
   if (USE_NSP) {
-    nspKey = process.env.NYV_SDK_KEY_NSP;
-    if (!nspKey || nspKey.length < 16) throw new Error('NYV_PROBE_USE_NSP=1 but NYV_SDK_KEY_NSP missing');
+    nspKey = process.env.JRX_SDK_KEY_NSP;
+    if (!nspKey || nspKey.length < 16) throw new Error('JRX_PROBE_USE_NSP=1 but JRX_SDK_KEY_NSP missing');
     console.log(`AUTH mode=NSP key_len=${nspKey.length}`);
   } else {
     const password = process.env.NV_DEMO_PASSWORD;
@@ -191,7 +191,7 @@ async function main() {
   console.log(`SUBMIT http=${status} ms=${ms} success=${body?.success}`);
 
   if (status === 429 || body?.error?.code === 'CREDIT_CAP_EXCEEDED' || body?.details?.code === 'CREDIT_CAP_EXCEEDED') {
-    console.log('FAIL credit_cap_exceeded — reset org credits on NYV and retry');
+    console.log('FAIL credit_cap_exceeded — reset org credits on JRX and retry');
     process.exit(10);
   }
 

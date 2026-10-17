@@ -1,6 +1,6 @@
--- NYV-OPS-DB-INDEX-001 (2026-05-01)
+-- JRX-OPS-DB-INDEX-001 (2026-05-01)
 -- Index sdk_app_api_keys.key_hash to remove the per-SDK-request full-table
--- scan in src/middleware/nv-sdk-gateway.ts:sdkGatewayAuth().
+-- scan in src/middleware/jrx-sdk-gateway.ts:sdkGatewayAuth().
 --
 -- Migration is idempotent (CREATE INDEX IF NOT EXISTS) and uses CONCURRENTLY
 -- so it can be applied to live RDS without holding a write lock on the
@@ -9,7 +9,7 @@
 -- it sees the comment marker below.
 --
 -- Apply: npx drizzle-kit push   (Replit dev)
---        ssh ec2 + run via psql (EC2 dev/prod, see scripts/nv-apply-prod-migration.sh)
+--        ssh ec2 + run via psql (EC2 dev/prod, see scripts/jrx-apply-prod-migration.sh)
 
 -- @nvkit:no-transaction
 CREATE INDEX CONCURRENTLY IF NOT EXISTS sdk_app_api_keys_key_hash_idx

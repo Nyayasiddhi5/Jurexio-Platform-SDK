@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # Prove the SDK archive-document defect and its fix against the LIVE NYS host,
-# from the host itself (curl is present here; it is NOT in the nyv-gateway
+# from the host itself (curl is present here; it is NOT in the jrx-gateway
 # container). Read-only: two GETs against /athena/document.
 set -uo pipefail
 echo "probe-positive-control 5150"
 cd /opt/nyv/api || { echo "PROBE FAIL: /opt/nyv/api missing"; exit 1; }
 
-KEY=$(grep -m1 '^NYS_SDK_API_KEYS=' .env 2>/dev/null | cut -d= -f2- | tr -d '"' | cut -d, -f1)
+KEY=$(grep -m1 '^JRX_ECOSYSTEM_SDK_API_KEYS=' .env 2>/dev/null | cut -d= -f2- | tr -d '"' | cut -d, -f1)
 if [ -z "$KEY" ]; then
-  KEY=$(grep -m1 '^NYS_KNOWLEDGE_API_KEY=' .env 2>/dev/null | cut -d= -f2- | tr -d '"')
+  KEY=$(grep -m1 '^JRX_ECOSYSTEM_KNOWLEDGE_API_KEY=' .env 2>/dev/null | cut -d= -f2- | tr -d '"')
 fi
 echo "api_key_len=${#KEY}"
 [ "${#KEY}" -lt 8 ] && { echo "PROBE INVALID: no usable key found"; exit 1; }

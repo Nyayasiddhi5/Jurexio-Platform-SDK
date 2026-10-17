@@ -11,7 +11,7 @@ export { ResponseEngineeringPipeline, responseEngineeringPipeline } from './jrx-
 export type { ResponseConfig, RawResponse, EngineeredResponse, QualityMetrics, QualityIssue, TranslationRequest, FormattingRule } from './jrx-response-engineering-pipeline.js';
 
 // Note: OrchestrationFacade legacy facade is superseded by capability-manifest +
-// orchestration-middleware + nv-queen-orchestrator. The old facade is excluded
+// orchestration-middleware + jrx-queen-orchestrator. The old facade is excluded
 // from compilation (see tsconfig.json) and is retained only for reference.
 
 export { RuntimeAgentFactory } from './jrx-runtime-agent-factory.js';

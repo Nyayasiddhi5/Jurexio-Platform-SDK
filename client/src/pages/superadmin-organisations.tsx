@@ -24,8 +24,8 @@ import {
   CreditCard, Lock, Power, Edit2,
 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 
 function cn(...classes: (string | undefined | false)[]): string {
   return classes.filter(Boolean).join(' ');
@@ -334,7 +334,7 @@ export default function SuperAdminOrganisations() {
             </div>
           )}
           {!isLoading && isError && (
-            <NyvErrorState
+            <JrxErrorState
               title="Unable to load organisations"
               description="The organisation list could not be retrieved."
               onRetry={() => refetch()}
@@ -342,7 +342,7 @@ export default function SuperAdminOrganisations() {
             />
           )}
           {!isLoading && !isError && orgs.length === 0 && (
-            <NyvEmptyState icon={Building2} title="No organisations found" description="Try adjusting filters or invite a new organisation." />
+            <JrxEmptyState icon={Building2} title="No organisations found" description="Try adjusting filters or invite a new organisation." />
           )}
           <div className="space-y-2" role="list" aria-label="Organisation list">
             {orgs.map(org => (
@@ -414,7 +414,7 @@ export default function SuperAdminOrganisations() {
                     {platformsLoading ? (
                       <p className="text-center py-8 text-slate-600 text-sm">Loading platforms…</p>
                     ) : orgPlatforms.length === 0 ? (
-                      <NyvEmptyState title="No platforms" description="No platform apps are registered for this organisation yet." />
+                      <JrxEmptyState title="No platforms" description="No platform apps are registered for this organisation yet." />
                     ) : (
                       <div className="space-y-2">
                         {orgPlatforms.map((p: { id: string; display_name?: string; name?: string; platform_type?: string; tier?: string; is_active?: boolean }) => (

@@ -9,7 +9,7 @@ import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-sec
 const REGION = "ap-south-1";
 function ssl(){const p=process.env.RDS_CA_BUNDLE;if(p&&existsSync(p))return{rejectUnauthorized:true,ca:readFileSync(p,"utf8")};return{rejectUnauthorized:false};}
 const rds=new RDSClient({region:REGION});
-const inst=(await rds.send(new DescribeDBInstancesCommand({DBInstanceIdentifier:"nyv-caselaw-pg"}))).DBInstances?.[0];
+const inst=(await rds.send(new DescribeDBInstancesCommand({DBInstanceIdentifier:"jrx-caselaw-pg"}))).DBInstances?.[0];
 const creds=JSON.parse((await new SecretsManagerClient({region:REGION}).send(new GetSecretValueCommand({SecretId:inst.MasterUserSecret.SecretArn}))).SecretString??"{}");
 const pool=new pg.Pool({host:inst.Endpoint.Address,port:inst.Endpoint.Port??5432,database:inst.DBName??"nyv_caselaw",user:creds.username,password:creds.password,ssl:ssl(),max:1});
 const client=await pool.connect();

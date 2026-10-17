@@ -2,7 +2,7 @@
  * NV-HEAP-PRESSURE-DENOM-001 / NV-HEAP-LIMIT-CONTRADICTION-001
  *
  * Two compounding config/measurement defects found while RCA-ing an HTTP 500 on
- * live nysdev, where the gateway logged "CRITICAL heap pressure heapPct=92" while
+ * live jrx-prod, where the gateway logged "CRITICAL heap pressure heapPct=92" while
  * holding 499 MB of a 2 GB container limit with 13.8 GB free on the host.
  *
  * These are asserted structurally (source + arithmetic) rather than by forcing a
@@ -48,7 +48,7 @@ describe('NV-HEAP-PRESSURE-DENOM-001 — pressure must measure headroom, not V8 
 
   it('does not hardcode a 512 MB RSS ceiling below the container limit', () => {
     expect(managerSrc).not.toMatch(/rssLimitMb\s*=\s*512\s*;/);
-    expect(managerSrc).toContain('NYV_RSS_LIMIT_MB');
+    expect(managerSrc).toContain('JRX_RSS_LIMIT_MB');
   });
 
   it('derives the RSS ceiling from the heap limit with non-heap headroom', () => {

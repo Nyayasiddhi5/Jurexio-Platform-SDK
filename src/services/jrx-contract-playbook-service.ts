@@ -1,7 +1,7 @@
 /**
- * Contract playbook analysis — extracted from nv-orchestration-services
+ * Contract playbook analysis — extracted from jrx-orchestration-services
  * so capability-manifest leaf factories can bind without loading the full
- * orchestration monolith (avoids circular init with nv-client).
+ * orchestration monolith (avoids circular init with jrx-client).
  */
 import { db as rawDb } from '../db/index.js';
 import { sql } from 'drizzle-orm';

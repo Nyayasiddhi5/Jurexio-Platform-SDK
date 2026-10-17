@@ -5,15 +5,15 @@ set -uo pipefail
 log() { echo "=== $* ==="; }
 
 log "STALL DETECTOR"
-systemctl is-active nyv-embed-stall-detector.timer 2>/dev/null || true
+systemctl is-active jrx-embed-stall-detector.timer 2>/dev/null || true
 tail -15 /opt/nyv/embed-stall.log 2>/dev/null || echo "no stall log"
-journalctl -u nyv-embed-stall-detector.service --since '2 hours ago' --no-pager 2>/dev/null | tail -10
+journalctl -u jrx-embed-stall-detector.service --since '2 hours ago' --no-pager 2>/dev/null | tail -10
 
 log "SHARD2 RESTARTS (why every 11min?)"
-journalctl -u nyv-caselaw-embed-loop@2 --since '2 hours ago' --no-pager 2>/dev/null | grep -E 'Started|Stopped|STALL|stall|Killing' | tail -20
+journalctl -u jrx-caselaw-embed-loop@2 --since '2 hours ago' --no-pager 2>/dev/null | grep -E 'Started|Stopped|STALL|stall|Killing' | tail -20
 
 log "EMBED LOOP UNIT (template)"
-systemctl cat nyv-caselaw-embed-loop@2.service 2>/dev/null | head -60
+systemctl cat jrx-caselaw-embed-loop@2.service 2>/dev/null | head -60
 
 log "THROUGHPUT via node probe"
 node --env-file=/opt/nyv/api/.env - <<'JS'
@@ -21,7 +21,7 @@ import { RDSClient, DescribeDBInstancesCommand } from "@aws-sdk/client-rds";
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
 import pg from "pg";
 const R = "ap-south-1";
-const d = await new RDSClient({ region: R }).send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "nyv-caselaw-pg" }));
+const d = await new RDSClient({ region: R }).send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "jrx-caselaw-pg" }));
 const i = d.DBInstances?.[0];
 const s = await new SecretsManagerClient({ region: R }).send(new GetSecretValueCommand({ SecretId: i.MasterUserSecret.SecretArn }));
 const cr = JSON.parse(s.SecretString);
@@ -57,7 +57,7 @@ await c.end();
 JS
 
 log "MONITOR KEY NAMES (lengths only)"
-grep -E '^(NYS_SDK_API_KEYS|NYS_KNOWLEDGE_API_KEY|MCP_TOKEN|NYV_SDK_KEY|AUTH_REQUIRED)=' /opt/nyv/api/.env 2>/dev/null | while IFS= read -r line; do
+grep -E '^(JRX_ECOSYSTEM_SDK_API_KEYS|JRX_ECOSYSTEM_KNOWLEDGE_API_KEY|MCP_TOKEN|JRX_SDK_KEY|AUTH_REQUIRED)=' /opt/nyv/api/.env 2>/dev/null | while IFS= read -r line; do
   k="${line%%=*}"; v="${line#*=}"; echo "$k len=${#v}"
 done
 
@@ -70,7 +70,7 @@ for line in pathlib.Path("/opt/nyv/api/.env").read_text(errors="replace").splitl
     if not line or line.startswith("#") or "=" not in line: continue
     k,v=line.split("=",1); env[k.strip()]=v.strip().strip("'\"")
 key = ""
-for k in ("NYS_SDK_API_KEYS","NYS_KNOWLEDGE_API_KEY","MCP_TOKEN","NYV_SDK_KEY"):
+for k in ("JRX_ECOSYSTEM_SDK_API_KEYS","JRX_ECOSYSTEM_KNOWLEDGE_API_KEY","MCP_TOKEN","JRX_SDK_KEY"):
     if env.get(k):
         key = env[k].split(",")[0].strip(); break
 print(f"key_found={bool(key)} key_len={len(key)} AUTH_REQUIRED={env.get('AUTH_REQUIRED','')}")
@@ -86,4 +86,4 @@ log "EMBED LOG TAIL (actual throughput lines)"
 for f in /opt/nyv/logs/embed.log /opt/nyv/api/logs/embed.log; do
   [ -f "$f" ] && echo "file=$f" && grep -E 'batch|embedded|rows|complete|57014|Throttl' "$f" 2>/dev/null | tail -25 && break
 done
-journalctl -u 'nyv-caselaw-embed-loop@*' --since '30 min ago' --no-pager 2>/dev/null | grep -iE 'batch|embedded|error|57014|throttl' | tail -15
+journalctl -u 'jrx-caselaw-embed-loop@*' --since '30 min ago' --no-pager 2>/dev/null | grep -iE 'batch|embedded|error|57014|throttl' | tail -15

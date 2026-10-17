@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — Demo Users Seed
- * NYV-SCRIPT-SEED-USERS-001
+ * Jurexio Platform 3.1.2 — Demo Users Seed
+ * JRX-SCRIPT-SEED-USERS-001
  * Seeds demo users with various roles (idempotent)
  */
 
@@ -12,7 +12,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const sql = makePgSql(process.env.DATABASE_URL_ADMIN || process.env.DATABASE_URL);
-// NYV-SECURITY-DOC-CREDS-001: demo password is operator-managed.
+// JRX-SECURITY-DOC-CREDS-001: demo password is operator-managed.
 // Set NV_DEMO_PASSWORD before running this seed (Replit Secret in dev,
 // SSM Parameter Store in EC2). NV-SEED-LOG-AND-SKIP-2026-05-11 (task-135):
 // boot must not regress when the secret is absent on first deploy — log a
@@ -23,7 +23,7 @@ const DEMO_PASSWORD = process.env.NV_DEMO_PASSWORD;
 const MIN_DEMO_PW_LEN = process.env.NODE_ENV === 'development' ? 8 : 12;
 if (!DEMO_PASSWORD || DEMO_PASSWORD.length < MIN_DEMO_PW_LEN) {
   console.warn(
-    `  ⚠ NYV-SEED-SKIP-PW: NV_DEMO_PASSWORD not set (or < ${MIN_DEMO_PW_LEN} chars). ` +
+    `  ⚠ JRX-SEED-SKIP-PW: NV_DEMO_PASSWORD not set (or < ${MIN_DEMO_PW_LEN} chars). ` +
       'Skipping demo-user seed cleanly — set the secret and re-run ' +
       '`npm run seed:all` (or `npx tsx scripts/jrx-seed-users.ts`) to populate nv_users.',
   );
@@ -33,12 +33,12 @@ if (!DEMO_PASSWORD || DEMO_PASSWORD.length < MIN_DEMO_PW_LEN) {
 }
 
 const DEMO_USERS = [
-  { email: 'admin@nyayavigya.in',         name: 'SDK Administrator',  role: 'super_admin',    tier: 'enterprise' },
-  { email: 'dev@demo.nyayavigya.in',      name: 'Demo Developer',     role: 'developer',      tier: 'pro' },
-  { email: 'analyst@demo.nyayavigya.in',  name: 'Demo Analyst',       role: 'analyst',        tier: 'plus' },
-  { email: 'operator@demo.nyayavigya.in', name: 'Demo Operator',      role: 'operator',       tier: 'pro' },
-  { email: 'manager@demo.nyayavigya.in',  name: 'Demo Manager',       role: 'manager',        tier: 'enterprise' },
-  { email: 'user@demo.nyayavigya.in',     name: 'Demo User',          role: 'user',           tier: 'solo' },
+  { email: 'admin@jurexio.com',         name: 'SDK Administrator',  role: 'super_admin',    tier: 'enterprise' },
+  { email: 'dev@demo.jurexio.com',      name: 'Demo Developer',     role: 'developer',      tier: 'pro' },
+  { email: 'analyst@demo.jurexio.com',  name: 'Demo Analyst',       role: 'analyst',        tier: 'plus' },
+  { email: 'operator@demo.jurexio.com', name: 'Demo Operator',      role: 'operator',       tier: 'pro' },
+  { email: 'manager@demo.jurexio.com',  name: 'Demo Manager',       role: 'manager',        tier: 'enterprise' },
+  { email: 'user@demo.jurexio.com',     name: 'Demo User',          role: 'user',           tier: 'solo' },
 ];
 
 // task #347: schema-drift guard — fail loud before any INSERT.

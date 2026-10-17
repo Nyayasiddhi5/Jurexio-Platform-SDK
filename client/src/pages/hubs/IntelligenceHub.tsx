@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/contexts/AuthContext';
 import { hasAccess, type RoleLevel } from '@/lib/rbac-registry';
-import { NyvPageShell } from '@/components/NyvPageShell';
+import { JrxPageShell } from '@/components/JrxPageShell';
 
 const IntelligenceDashboard = lazy(() => import('../intelligence-dashboard'));
 const IntelligenceClassify = lazy(() => import('../intelligence-classify'));
@@ -55,7 +55,7 @@ export default function IntelligenceHub() {
   }
 
   return (
-    <NyvPageShell
+    <JrxPageShell
       title="Intelligence"
       description="Instant Search, Live Legal Feed, classify, predict, research, sentiment, translate and guardrails. SDK 5.0.7+ · NSP/NYM orchestrate uses full Queen depth."
       className="./jrx-light-scope"
@@ -82,6 +82,6 @@ export default function IntelligenceHub() {
           );
         })}
       </Tabs>
-    </NyvPageShell>
+    </JrxPageShell>
   );
 }

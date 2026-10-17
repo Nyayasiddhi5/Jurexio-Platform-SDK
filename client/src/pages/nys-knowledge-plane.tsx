@@ -2,7 +2,7 @@
  * NYS Knowledge Plane hub — Console launchpad + live probes.
  * Full manage/browse UI remains at nyayasearch.jurexio.example (NYS SPA).
  * This page: federation status, SSO deep-links to every NYS dashboard page,
- * embedding SLOs, and operator probes via NYV /api/jrx/knowledge/* proxies.
+ * embedding SLOs, and operator probes via JRX /api/jrx/knowledge/* proxies.
  */
 import { useCallback, useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -26,9 +26,9 @@ import {
 import { getAuthToken } from '@/lib/jrx-auth-token';
 import { nv } from '@/lib/jrx-api-paths';
 
-const NYS_UI = 'https://nyayasearch.jurexio.example';
+const JRX_ECOSYSTEM_UI = 'https://nyayasearch.jurexio.example';
 
-const NYS_PAGES: { path: string; label: string; desc: string; icon: typeof BookOpen }[] = [
+const JRX_ECOSYSTEM_PAGES: { path: string; label: string; desc: string; icon: typeof BookOpen }[] = [
   { path: '/', label: 'Dashboard', desc: 'Summary, usage, embed progress', icon: Activity },
   { path: '/chat', label: 'Legal Chat', desc: 'Conversations + document upload', icon: MessageSquare },
   { path: '/library', label: 'Task Library', desc: '240 legal-work benchmark tasks', icon: Library },
@@ -118,13 +118,13 @@ export default function NysKnowledgePlaneHub() {
         window.open(j.url, '_blank', 'noopener,noreferrer');
         return;
       }
-      const bare = `${NYS_UI}${path === '/' ? '' : path}`;
+      const bare = `${JRX_ECOSYSTEM_UI}${path === '/' ? '' : path}`;
       window.open(bare, '_blank', 'noopener,noreferrer');
       if (j?.error?.code === 'QUEUE_UNAVAILABLE' || j?.details?.code === 'SSO_NOT_CONFIGURED') {
         setError('SSO secret not set on gateway — opened nyayasearch without session handoff');
       }
     } catch {
-      window.open(`${NYS_UI}${path === '/' ? '' : path}`, '_blank', 'noopener,noreferrer');
+      window.open(`${JRX_ECOSYSTEM_UI}${path === '/' ? '' : path}`, '_blank', 'noopener,noreferrer');
     } finally {
       setSsoBusy(null);
     }
@@ -375,7 +375,7 @@ export default function NysKnowledgePlaneHub() {
       <div>
         <h2 className="text-lg font-semibold text-slate-900 mb-3">NYS dashboard launchpad (SSO)</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {NYS_PAGES.map((p) => {
+          {JRX_ECOSYSTEM_PAGES.map((p) => {
             const Icon = p.icon;
             return (
               <button
@@ -415,7 +415,7 @@ export default function NysKnowledgePlaneHub() {
       <Card>
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
-            <Search className="w-4 h-4" /> Live federation probes (via NYV)
+            <Search className="w-4 h-4" /> Live federation probes (via JRX)
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">

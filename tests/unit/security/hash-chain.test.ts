@@ -230,7 +230,7 @@ describe('Universal hash-chain enforcement — no direct audit-log INSERTs', () 
     return out;
   }
 
-  it('only nv-sdk-tracking-middleware.ts may INSERT INTO (nv_schema.)nv_audit_logs', () => {
+  it('only jrx-sdk-tracking-middleware.ts may INSERT INTO (nv_schema.)nv_audit_logs', () => {
     const root = path.join(process.cwd(), 'src');
     const tsFiles = walk(root);
     const offenders: string[] = [];
@@ -277,7 +277,7 @@ describe('Universal hash-chain enforcement — no direct audit-log INSERTs', () 
       'utf8',
     );
     expect(src).toMatch(/UPDATE\s+nv_api_keys\s+SET\s+is_active\s*=\s*false/i);
-    expect(src).toMatch(/return\s+res\.status\(500\)\.json\([^)]*NYV-KEYLIFE-AUDIT-001/);
+    expect(src).toMatch(/return\s+res\.status\(500\)\.json\([^)]*JRX-KEYLIFE-AUDIT-001/);
     // No "log-and-continue" pattern — the catch must end with a return.
     expect(src).not.toMatch(/Audit log write failed[^}]*key_id:[^}]*\}\);\s*\}\s*\n\s*res\.status\(201\)/);
   });
@@ -290,7 +290,7 @@ describe('Universal hash-chain enforcement — no direct audit-log INSERTs', () 
       'utf8',
     );
     expect(src).toMatch(
-      /if\s*\(!parsed\.success\)\s*\{[\s\S]*?return\s+res\.status\(400\)\.json\([^)]*NYV-KEYLIFE-VAL-001/,
+      /if\s*\(!parsed\.success\)\s*\{[\s\S]*?return\s+res\.status\(400\)\.json\([^)]*JRX-KEYLIFE-VAL-001/,
     );
   });
 });
@@ -492,9 +492,9 @@ describe('Audit chain Redis lock — graceful degradation', () => {
 });
 
 describe('Audit chain Redis lock helper — direct contract', () => {
-  it('returns a degraded handle when NYV_REDIS_TCP_URL is unset', async () => {
-    const original = process.env.NYV_REDIS_TCP_URL;
-    delete process.env.NYV_REDIS_TCP_URL;
+  it('returns a degraded handle when JRX_REDIS_TCP_URL is unset', async () => {
+    const original = process.env.JRX_REDIS_TCP_URL;
+    delete process.env.JRX_REDIS_TCP_URL;
     try {
       vi.resetModules();
       vi.doUnmock('../../../src/services/audit-chain-lock.js');
@@ -505,7 +505,7 @@ describe('Audit chain Redis lock helper — direct contract', () => {
       // Release must be a callable no-op even when unacquired.
       await expect(handle.release()).resolves.toBeUndefined();
     } finally {
-      if (original !== undefined) process.env.NYV_REDIS_TCP_URL = original;
+      if (original !== undefined) process.env.JRX_REDIS_TCP_URL = original;
     }
   });
 

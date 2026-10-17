@@ -1,6 +1,6 @@
 /**
- * NYV-UAT-v3.2 Comprehensive Test Pack — Scenario Definitions
- * NYV-UAT-PACK-001
+ * JRX-UAT-v3.2 Comprehensive Test Pack — Scenario Definitions
+ * JRX-UAT-PACK-001
  *
  * 200+ scenarios spanning 7 jurisdictions, 6 orchestration patterns, 5 CI modes,
  * RAG, Memory, Voice, OCR, Gates, HITL, SDK Gateway, AG-UI streaming,
@@ -17,7 +17,7 @@ export interface Scenario {
   jurisdiction?: string;
   pattern?: string;
   userRole?: string;     // lawyer-pro | citizen-mitra | enterprise-counsel | paralegal | super-admin
-  sdkVariant?: string;   // nsp-web | nsp-mobile | nyayamitra-mobile
+  sdkVariant?: string;   // nsp-web | nsp-mobile | jurexio-citizen-mobile
   description: string;
   request: {
     method: 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -223,7 +223,7 @@ const MEMORY_TC: SimpleTestCase[] = [
   { id: 'RECALL',     desc: 'recall by semantic query',                      path: '/api/jrx/memory/recall',   method: 'POST', body: { userId: 'uat-mem-001', query: 'language preference', limit: 5 } },
   { id: 'STATS',      desc: 'memory stats per user',                         path: '/api/jrx/memory/stats',    method: 'GET' },
   { id: 'MULTITURN',  desc: 'multi-turn continuity within a session',        path: '/api/jrx/orchestrate',     method: 'POST', body: { prompt: 'Follow up on the prior Hindi preference — what statute mandates language access?', sessionId: 'uat-mem-sess-001', enableMemory: true, jurisdiction: 'IN' } },
-  { id: 'MATTER',     desc: 'matter-scoped recall across sessions',          path: '/api/jrx/orchestrate',     method: 'POST', body: { prompt: 'Recall facts of matter NYV-MAT-001 from prior sessions.', matterId: 'NYV-MAT-001', enableMemory: true } },
+  { id: 'MATTER',     desc: 'matter-scoped recall across sessions',          path: '/api/jrx/orchestrate',     method: 'POST', body: { prompt: 'Recall facts of matter JRX-MAT-001 from prior sessions.', matterId: 'JRX-MAT-001', enableMemory: true } },
   { id: 'CROSS-SESS', desc: 'cross-session recall for same client',          path: '/api/jrx/orchestrate',     method: 'POST', body: { prompt: 'Recall my last 3 questions across all sessions.', userId: 'uat-mem-001', enableMemory: true } },
   { id: 'TENANT-ISO', desc: 'tenant A cannot read tenant B memory',          path: '/api/jrx/memory/recall',   method: 'POST', body: { userId: 'uat-mem-tenantB-001', query: 'tenant A secret', limit: 5 } },
   { id: 'ERASE',      desc: 'right-to-erasure (DPDPA / GDPR)',                path: '/api/jrx/memory/user/uat-mem-001', method: 'DELETE' },
@@ -256,7 +256,7 @@ VOICE_LANGS.forEach((lang, i) => {
     id: `VOICE-TTS-${(i + 1).toString().padStart(3, '0')}`,
     category: 'voice',
     userRole: 'citizen-mitra',
-    sdkVariant: 'nyayamitra-mobile',
+    sdkVariant: 'jurexio-citizen-mobile',
     description: `Sarvam TTS round-trip in ${lang}`,
     request: {
       method: 'POST',
@@ -273,7 +273,7 @@ VOICE_LANGS.forEach((lang, i) => {
     id: `VOICE-STT-${(i + 1).toString().padStart(3, '0')}`,
     category: 'voice',
     userRole: 'citizen-mitra',
-    sdkVariant: 'nyayamitra-mobile',
+    sdkVariant: 'jurexio-citizen-mobile',
     description: `Sarvam STT in ${lang} (synthetic input)`,
     request: {
       method: 'POST',
@@ -516,7 +516,7 @@ const langCases: Scenario[] = LANG_CODES.map((l, i) => ({
   id: `LANG-${l.toUpperCase()}-${(i + 1).toString().padStart(3, '0')}`,
   category: 'multi-language',
   userRole: 'citizen-mitra',
-  sdkVariant: 'nyayamitra-mobile',
+  sdkVariant: 'jurexio-citizen-mobile',
   description: `Output in ${l} for Indian legal Q&A`,
   request: {
     method: 'POST', path: '/api/jrx/orchestrate', auth: 'jwt',

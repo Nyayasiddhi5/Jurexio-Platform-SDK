@@ -22,8 +22,8 @@
  *    when the API is disabled or unreachable.
  *
  * This file is the interface + a config-driven `BaseAuthorityAdapter`.
- * Per-jurisdiction adapters live in `nv-<code>-authority-adapter.ts` and are
- * registered in `nv-authority-registry.ts`.
+ * Per-jurisdiction adapters live in `jrx-<code>-authority-adapter.ts` and are
+ * registered in `jrx-authority-registry.ts`.
  */
 
 import { createLogger } from '../../utils/logger.js';
@@ -33,7 +33,7 @@ const logger = createLogger('./jrx-authority-adapter');
 /* ── Public jurisdiction codes ─────────────────────────────────────────────
  * Note: the agent-registry uses `GC` for the Gulf overlay while the
  * jurisdiction-binding profile uses `GCC`. The registry (see
- * nv-authority-registry.ts) accepts both and normalizes to `GC`.
+ * jrx-authority-registry.ts) accepts both and normalizes to `GC`.
  */
 export type JurisdictionCode = 'IN' | 'UK' | 'US' | 'EU' | 'GC' | 'SG';
 

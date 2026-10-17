@@ -1,5 +1,5 @@
 /**
- * Nyayavigya Platform — Canonical Policies Seeder
+ * Jurexio Platform — Canonical Policies Seeder
  * Seeds nv_policies + nv_policy_versions + nv_policy_assignments + nv_policy_violations
  * with the platform's standing operational policies.
  */
@@ -153,7 +153,7 @@ const POLICIES: PolicyDef[] = [
     code:'POL-PRI-001', name:'PII Redaction Before LLM Call', category:'privacy', jurisdiction:'ALL',
     severity:'critical', status:'active', owner:'AI Safety',
     description:'Detected PII MUST be redacted/tokenised before any external LLM provider call.',
-    rules:['redactPII() runs in nv-sdk-orchestration-wrapper.','Detection log persisted in nv_pii_detections.','Vault tokens are reversible only via vault service with break-glass audit.'],
+    rules:['redactPII() runs in jrx-sdk-orchestration-wrapper.','Detection log persisted in nv_pii_detections.','Vault tokens are reversible only via vault service with break-glass audit.'],
     framework_refs:['DPDP-2023:§4','GDPR:Art-25','HIPAA:164.502','CCPA-CPRA:1798.100'],
     body_md:'# PII Redaction\n\nNo raw PII ever leaves the safety ring.',
     assignments:[{ scope_type:'team', scope_value:'AI Safety', ack_required:true }],
@@ -349,7 +349,7 @@ async function seed() {
     // version 1
     await sql`
       INSERT INTO nv_policy_versions (policy_id, version, body_md, changelog, published_by, published_at)
-      VALUES (${policyId}, '1.0.0', ${p.body_md}, 'Initial publication.', 'platform-security@nyayavigya', NOW() - interval '60 days')
+      VALUES (${policyId}, '1.0.0', ${p.body_md}, 'Initial publication.', 'platform-security@jurexio', NOW() - interval '60 days')
       ON CONFLICT (policy_id, version) DO NOTHING
     `;
 
@@ -357,7 +357,7 @@ async function seed() {
     for (const a of p.assignments) {
       await sql`
         INSERT INTO nv_policy_assignments (policy_id, scope_type, scope_value, assigned_by, assigned_at, ack_required, ack_count)
-        VALUES (${policyId}, ${a.scope_type}, ${a.scope_value}, 'compliance@nyayavigya',
+        VALUES (${policyId}, ${a.scope_type}, ${a.scope_value}, 'compliance@jurexio',
                 NOW() - interval '50 days', ${a.ack_required}, 0)
         ON CONFLICT (policy_id, scope_type, scope_value) DO NOTHING
       `;

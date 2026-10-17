@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * SkillShop™ REST Routes — /api/jrx/skillshop/*
  * Legal Skills Marketplace | Jurexio Enterprise Platform 312
@@ -72,7 +72,7 @@ interface InstalledSkill {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const SKILL_CATALOGUE: Skill[] = [
-  { skillId: 'sk-legal-research-pro', name: 'Legal Research Pro', tagline: 'AI-powered case law research across 6 jurisdictions', description: 'Deep-search over Supreme Court, High Court, tribunal and foreign court databases using semantic vector search. Auto-citations, relevance scoring, and PDF export.', category: 'Research', version: '2.1.0', tier: 'pro', price: 1299, publisher: { name: 'Jurexio Labs', verified: true, badge: 'Official' }, rating: 4.8, reviewCount: 312, installCount: 4820, tags: ['case-law', 'citations', 'semantic-search'], compatiblePatterns: ['P01', 'P03', 'P12'], jurisdictions: ['IN', 'UK', 'US', 'EU', 'SG', 'GC'], isFeatured: true, lastUpdated: '2025-04-01', status: 'active', docsUrl: 'https://docs.nyayavigya.in/skills/legal-research-pro' },
+  { skillId: 'sk-legal-research-pro', name: 'Legal Research Pro', tagline: 'AI-powered case law research across 6 jurisdictions', description: 'Deep-search over Supreme Court, High Court, tribunal and foreign court databases using semantic vector search. Auto-citations, relevance scoring, and PDF export.', category: 'Research', version: '2.1.0', tier: 'pro', price: 1299, publisher: { name: 'Jurexio Labs', verified: true, badge: 'Official' }, rating: 4.8, reviewCount: 312, installCount: 4820, tags: ['case-law', 'citations', 'semantic-search'], compatiblePatterns: ['P01', 'P03', 'P12'], jurisdictions: ['IN', 'UK', 'US', 'EU', 'SG', 'GC'], isFeatured: true, lastUpdated: '2025-04-01', status: 'active', docsUrl: 'https://docs.jurexio.com/skills/legal-research-pro' },
   { skillId: 'sk-contract-drafter', name: 'Contract Drafter AI', tagline: 'Generate jurisdiction-compliant contracts in seconds', description: 'Templates for 200+ contract types: NDA, MSA, Employment, Lease, SPA, SHA, Term Sheet, and more. Auto-fills boilerplate, highlights negotiation points.', category: 'Drafting', version: '3.0.2', tier: 'pro', price: 999, publisher: { name: 'Jurexio Labs', verified: true, badge: 'Official' }, rating: 4.7, reviewCount: 248, installCount: 3940, tags: ['contracts', 'templates', 'drafting'], compatiblePatterns: ['P02', 'P05', 'P11'], jurisdictions: ['IN', 'UK', 'US'], isFeatured: true, lastUpdated: '2025-03-28', status: 'active' },
   { skillId: 'sk-dpdpa-compliance', name: 'DPDPA Compliance Suite', tagline: 'End-to-end DPDPA 2023 & GDPR compliance toolkit', description: 'Privacy notices, consent management, DPIA templates, breach notification workflows, and real-time compliance scoring for Indian data protection law.', category: 'Compliance', version: '1.4.1', tier: 'enterprise', price: 2499, publisher: { name: 'Jurexio Labs', verified: true, badge: 'Official' }, rating: 4.9, reviewCount: 187, installCount: 1820, tags: ['dpdpa', 'gdpr', 'privacy', 'data-protection'], compatiblePatterns: ['P06', 'P07', 'P18'], jurisdictions: ['IN', 'EU'], isFeatured: true, lastUpdated: '2025-04-02', status: 'active' },
   { skillId: 'sk-court-filing-assistant', name: 'Court Filing Assistant', tagline: 'Prepare, validate and track eCourt filings', description: 'Integrates with eCourts API. Generates cause lists, validates pleading format, tracks filing deadlines, and sends court date reminders.', category: 'Litigation', version: '2.3.0', tier: 'pro', price: 1599, publisher: { name: 'LexTech India', verified: true }, rating: 4.6, reviewCount: 142, installCount: 2380, tags: ['ecourts', 'filings', 'deadlines'], compatiblePatterns: ['P09', 'P13'], jurisdictions: ['IN'], lastUpdated: '2025-03-15', status: 'active' },
@@ -284,7 +284,7 @@ router.post('/publish', async (req: Request, res: Response) => {
       message: 'Skill submitted for review. Our team will evaluate within 3–5 business days.',
       status: 'pending_review',
       estimatedReviewDate: new Date(Date.now() + 5 * 24 * 3600 * 1000).toISOString(),
-      guidelines: 'https://docs.nyayavigya.in/skillshop/publisher-guidelines',
+      guidelines: 'https://docs.jurexio.com/skillshop/publisher-guidelines',
     });
   } catch (err: any) {
     if (err instanceof ZodError) { res.status(400).json({ error: err.errors }); return; }

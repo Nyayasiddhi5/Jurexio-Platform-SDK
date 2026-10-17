@@ -1,19 +1,19 @@
 import { useState, useCallback } from 'react';
-import { useNyvClient } from './useNyvClient.js';
-import type { NyvAmendmentImpactResult } from '@jurexio/types';
+import { useJrxClient } from './useJrxClient.js';
+import type { JrxAmendmentImpactResult } from '@jurexio/types';
 
 export interface UseAmendmentImpactReturn {
   loading: boolean;
   error: string | null;
-  result: NyvAmendmentImpactResult | null;
-  analyze: (amendmentId: string, jurisdiction: string) => Promise<NyvAmendmentImpactResult>;
+  result: JrxAmendmentImpactResult | null;
+  analyze: (amendmentId: string, jurisdiction: string) => Promise<JrxAmendmentImpactResult>;
 }
 
 export function useAmendmentImpact(): UseAmendmentImpactReturn {
-  const { authHeaders, baseUrl } = useNyvClient({});
+  const { authHeaders, baseUrl } = useJrxClient({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<NyvAmendmentImpactResult | null>(null);
+  const [result, setResult] = useState<JrxAmendmentImpactResult | null>(null);
 
   const analyze = useCallback(async (amendmentId: string, jurisdiction: string) => {
     setLoading(true);

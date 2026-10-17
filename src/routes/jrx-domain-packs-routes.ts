@@ -23,7 +23,7 @@ router.get('/', (_req: Request, res: Response) => {
         ragFixtureConfigured: Boolean(p.ragFixtureRelPath),
         ragFixturePresent: !!resolveDomainRagFixture(p),
       })),
-      note: 'Set NYV_DOMAIN_PACK=legal|general|finance|healthcare to select vertical defaults. Legal is GA; others are scaffolds. RAG fixtures ship in-repo for CI soak (may be absent from gateway image cwd).',
+      note: 'Set JRX_DOMAIN_PACK=legal|general|finance|healthcare to select vertical defaults. Legal is GA; others are scaffolds. RAG fixtures ship in-repo for CI soak (may be absent from gateway image cwd).',
     },
   });
 });

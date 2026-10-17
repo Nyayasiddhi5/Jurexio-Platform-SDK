@@ -16,7 +16,7 @@ npm install @jurexio/enterprise-sdk
 import { NyayavignyaEnterpriseClient } from '@jurexio/enterprise-sdk';
 
 const enterprise = new NyayavignyaEnterpriseClient({
-  baseUrl: 'https://app.nyayavigya.in',
+  baseUrl: 'https://app.jurexio.com',
   apiKey: 'nyv_live_sk_your_enterprise_key',
   orgId: 'org-your-org-id',
 });
@@ -149,7 +149,7 @@ const gst = await enterprise.billing.computeGst(100000, '27', '29');
 
 ## Auth Model
 
-The enterprise SDK uses `Authorization: Bearer <apiKey>` headers with an `X-NYV-Org-ID` header for organization-scoped requests. API keys follow the format `nyv_live_sk_*` for production and `nyv_test_sk_*` for sandbox.
+The enterprise SDK uses `Authorization: Bearer <apiKey>` headers with an `X-JRX-Org-ID` header for organization-scoped requests. API keys follow the format `nyv_live_sk_*` for production and `nyv_test_sk_*` for sandbox.
 
 ## Version
 

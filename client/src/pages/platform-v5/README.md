@@ -5,7 +5,7 @@ Task #109 (2026-05-11). Operator-facing admin pages for the nine
 shares the same scaffolding from `_shared.tsx` and renders four panels:
 
 1. **Feature-flag chips** — read from `GET /api/jrx/admin/feature-flags`
-   (added in this task; backed by `getNyvFeatureFlagSnapshot()` in
+   (added in this task; backed by `getJrxFeatureFlagSnapshot()` in
    `src/config/jrx-feature-flags.ts`).
 2. **Service inventory** — live HTTP probe of each sub-route's
    `/health` or `/capabilities` endpoint. A `404` chip means the

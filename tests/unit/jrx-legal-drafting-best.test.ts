@@ -113,9 +113,9 @@ describe('applyLegalResponseFormatting for drafts', () => {
     expect(out).toMatch(/Counsel structure \(NV-LEGAL-STRUCTURE-ATTACH-001/);
   });
 
-  it('skips heading stubs when NYV_LEGAL_COMPREHENSIVE=0', () => {
-    const prev = process.env.NYV_LEGAL_COMPREHENSIVE;
-    process.env.NYV_LEGAL_COMPREHENSIVE = '0';
+  it('skips heading stubs when JRX_LEGAL_COMPREHENSIVE=0', () => {
+    const prev = process.env.JRX_LEGAL_COMPREHENSIVE;
+    process.env.JRX_LEGAL_COMPREHENSIVE = '0';
     try {
       const out = applyLegalResponseFormatting('Bail may be granted on facts.', {
         jurisdiction: 'IN',
@@ -123,8 +123,8 @@ describe('applyLegalResponseFormatting for drafts', () => {
       });
       expect(out).not.toMatch(/Counsel completeness/);
     } finally {
-      if (prev === undefined) delete process.env.NYV_LEGAL_COMPREHENSIVE;
-      else process.env.NYV_LEGAL_COMPREHENSIVE = prev;
+      if (prev === undefined) delete process.env.JRX_LEGAL_COMPREHENSIVE;
+      else process.env.JRX_LEGAL_COMPREHENSIVE = prev;
     }
   });
 });

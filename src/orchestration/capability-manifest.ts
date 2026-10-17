@@ -1,6 +1,6 @@
 /**
  * NV Capability Manifest — Single Source of Truth
- * NYV-ORCH-CAPMAN-001 (Task #32)
+ * JRX-ORCH-CAPMAN-001 (Task #32)
  *
  * One declarative manifest consumed by:
  *   - Queen Orchestrator (decomposition + dispatch)
@@ -1234,7 +1234,7 @@ const CAPABILITIES: CapabilityDescriptor[] = [
   // New intent-facing ids are thin wrappers over existing live leaves:
   // templates.*, digital_twin.simulate, clm.playbook, efiling.steps,
   // intelligence.precedent. They exist so Queen can bind by intent without
-  // inventing stubbed capabilities. nv-allow-placeholder: these wrap LIVE leaves.
+  // inventing stubbed capabilities. jrx-allow-placeholder: these wrap LIVE leaves.
   {
     id: 'templates.catalog',
     displayName: 'Templates Catalog (NSP / ecosystem)',
@@ -1535,12 +1535,12 @@ const CAPABILITIES: CapabilityDescriptor[] = [
     id: 'governance.model-policy',
     displayName: 'Model Governance Policy Check',
     category: 'compliance',
-    // NYV-CAP-MODEL-POLICY-LITE-001 (2026-04-30): model-policy is a SECURITY control
+    // JRX-CAP-MODEL-POLICY-LITE-001 (2026-04-30): model-policy is a SECURITY control
     // (5-provider lockdown enforcement + verified-model gate). It must run on every tier,
     // not just paid ones — otherwise lite-tier users bypass the lockdown entirely and the
     // orchestrate route fails closed with `capability not exposed to tier lite` and falls
     // back to single-agent (which then bypasses the Queen memory wiring shipped in
-    // NYV-ORCH-MEM-001/002/003). Adding 'lite' and 'mitra' so all tiers are governed.
+    // JRX-ORCH-MEM-001/002/003). Adding 'lite' and 'mitra' so all tiers are governed.
     tiers: ['lite', 'mitra', 'enterprise', 'sovereign', 'white-label'],
     supportedJurisdictions: 'all',
     costClass: 'free',
@@ -1701,7 +1701,7 @@ const CAPABILITIES: CapabilityDescriptor[] = [
         });
         return {
           session,
-          providerNote: 'NYV e-sign session persisted; external DocuSign/iManage OAuth not live until partner credentials + /oauth/start route.',
+          providerNote: 'JRX e-sign session persisted; external DocuSign/iManage OAuth not live until partner credentials + /oauth/start route.',
         } as CapabilityInvocationOutput;
       },
     ),
@@ -2379,9 +2379,9 @@ const CAPABILITIES: CapabilityDescriptor[] = [
     safetyClass: 'review',
     supportedPatterns: ['sequential', 'parallel', 'dag'],
     tags: ['rag', 'graph', 'graphrag', 'knowledge-graph', 'legal'],
-    source: 'src/services/rag/nyv-graphrag-legal-service.ts',
+    source: 'src/services/rag/jrx-graphrag-legal-service.ts',
     factory: fromMethod(
-      () => import('../services/rag/nyv-graphrag-legal-service.js'),
+      () => import('../services/rag/jrx-graphrag-legal-service.js'),
       (mod: LoadedModule) => async (input: CapabilityInvocationInput, ctx: CapabilityContext) => {
         const svc = pickModuleService(mod, ['nyvGraphRAGLegal', 'default']);
         const fn = pickServiceMethod(svc, ['search']);
@@ -2400,9 +2400,9 @@ const CAPABILITIES: CapabilityDescriptor[] = [
     safetyClass: 'review',
     supportedPatterns: ['sequential', 'parallel'],
     tags: ['rag', 'lightrag', 'hybrid', 'retrieval'],
-    source: 'src/services/rag/nyv-lightrag-pipeline.ts',
+    source: 'src/services/rag/jrx-lightrag-pipeline.ts',
     factory: fromMethod(
-      () => import('../services/rag/nyv-lightrag-pipeline.js'),
+      () => import('../services/rag/jrx-lightrag-pipeline.js'),
       (mod: LoadedModule) => async (input: CapabilityInvocationInput) => {
         const helper = mod.getLightRAGPipeline;
         if (typeof helper !== 'function') {
@@ -2828,11 +2828,11 @@ const CAPABILITIES: CapabilityDescriptor[] = [
  *
  *     fn.call(svc, { ...input, tenantId, userId, jurisdiction })
  *
- * No nyaya-tools service implements that interface. Every one of them takes
+ * No jrx-legal-tools service implements that interface. Every one of them takes
  * either positional typed arguments (`calculateLimitation(causeOfAction,
  * jurisdiction, eventDate)`) or a specific input interface (`CompareInput`).
  * The generic builder therefore produced two failure modes, verified at
- * runtime with `scripts/jrx-probe-nyaya-tools-binding.ts`:
+ * runtime with `scripts/jrx-probe-jrx-legal-tools-binding.ts`:
  *
  *  1. **Hard failure (7 of 9)** — the declared method names (`build`, `query`,
  *     `process`, `analyze`, `render`, `record`, `onboard`) exist on no class, so
@@ -2929,15 +2929,15 @@ function buildNyayaToolsCapabilities(): CapabilityDescriptor[] {
 
   const metas: ToolMeta[] = [
     {
-      id: 'nyaya-tools.amend',
+      id: 'jrx-legal-tools.amend',
       displayName: 'NyayaAmend — Statute Amendment Tracker',
-      source: 'src/services/nyaya-tools/jrx-nyayaamend-service.ts',
+      source: 'src/services/jrx-legal-tools/jrx-nyayaamend-service.ts',
       tags: ['amendment', 'statute', 'tracking'],
       cost: 'medium', safety: 'review',
       tiers: ['mitra', 'enterprise', 'sovereign', 'white-label'],
       patterns: ['sequential', 'parallel', 'dag'],
       factory: fromMethod(
-        () => import('../services/nyaya-tools/jrx-nyayaamend-service.js')
+        () => import('../services/jrx-legal-tools/jrx-nyayaamend-service.js')
           .then(m => m.nvNyayaAmendService),
         (svc) => async (input, ctx) => {
           const i = coerceInput<ToolInput>(input);
@@ -2955,15 +2955,15 @@ function buildNyayaToolsCapabilities(): CapabilityDescriptor[] {
       ),
     },
     {
-      id: 'nyaya-tools.compare',
+      id: 'jrx-legal-tools.compare',
       displayName: 'NyayaCompare — Document Diff & Compare',
-      source: 'src/services/nyaya-tools/jrx-nyayacompare-service.ts',
+      source: 'src/services/jrx-legal-tools/jrx-nyayacompare-service.ts',
       tags: ['compare', 'diff', 'documents'],
       cost: 'low', safety: 'safe',
       tiers: ['lite', 'mitra', 'enterprise', 'sovereign', 'white-label'],
       patterns: ['sequential', 'parallel', 'dag', 'simple'],
       factory: fromMethod(
-        () => import('../services/nyaya-tools/jrx-nyayacompare-service.js')
+        () => import('../services/jrx-legal-tools/jrx-nyayacompare-service.js')
           .then(m => m.nvNyayaCompareService),
         (svc) => async (input, ctx) => {
           const i = coerceInput<ToolInput>(input);
@@ -2980,26 +2980,26 @@ function buildNyayaToolsCapabilities(): CapabilityDescriptor[] {
           const c = (i.compare ?? {}) as Record<string, string>;
           const jur = jurOf(i, ctx);
           return svc.compareSections({
-            sourceJurisdiction: need(c.sourceJurisdiction ?? jur, 'nyaya-tools.compare', 'sourceJurisdiction'),
-            targetJurisdiction: need(c.targetJurisdiction, 'nyaya-tools.compare', 'targetJurisdiction'),
-            sourceSectionNumber: need(c.sourceSectionNumber, 'nyaya-tools.compare', 'sourceSectionNumber'),
+            sourceJurisdiction: need(c.sourceJurisdiction ?? jur, 'jrx-legal-tools.compare', 'sourceJurisdiction'),
+            targetJurisdiction: need(c.targetJurisdiction, 'jrx-legal-tools.compare', 'targetJurisdiction'),
+            sourceSectionNumber: need(c.sourceSectionNumber, 'jrx-legal-tools.compare', 'sourceSectionNumber'),
             targetSectionNumber: c.targetSectionNumber,
-            sourceStatuteId: need(c.sourceStatuteId, 'nyaya-tools.compare', 'sourceStatuteId'),
+            sourceStatuteId: need(c.sourceStatuteId, 'jrx-legal-tools.compare', 'sourceStatuteId'),
             targetStatuteId: c.targetStatuteId,
           } as Parameters<typeof svc.compareSections>[0]);
         },
       ),
     },
     {
-      id: 'nyaya-tools.forensic',
+      id: 'jrx-legal-tools.forensic',
       displayName: 'NyayaForensic — Document Forensics',
-      source: 'src/services/nyaya-tools/jrx-nyayaforensic-service.ts',
+      source: 'src/services/jrx-legal-tools/jrx-nyayaforensic-service.ts',
       tags: ['forensic', 'integrity', 'audit'],
       cost: 'medium', safety: 'high-risk',
       tiers: ['enterprise', 'sovereign', 'white-label'],
       patterns: ['sequential', 'dag'],
       factory: fromMethod(
-        () => import('../services/nyaya-tools/jrx-nyayaforensic-service.js')
+        () => import('../services/jrx-legal-tools/jrx-nyayaforensic-service.js')
           .then(m => m.nvNyayaForensicService),
         (svc) => async (input) => {
           const i = coerceInput<ToolInput>(input);
@@ -3007,7 +3007,7 @@ function buildNyayaToolsCapabilities(): CapabilityDescriptor[] {
           const content = i.document || i.content || i.text || '';
           // Forensics on an empty document would report a clean verdict on
           // nothing. Refuse instead.
-          need(content, 'nyaya-tools.forensic', 'document');
+          need(content, 'jrx-legal-tools.forensic', 'document');
           return svc.verifyDocument({
             content,
             mimeType: i.mimeType || 'text/plain',
@@ -3017,15 +3017,15 @@ function buildNyayaToolsCapabilities(): CapabilityDescriptor[] {
       ),
     },
     {
-      id: 'nyaya-tools.graph',
+      id: 'jrx-legal-tools.graph',
       displayName: 'NyayaGraph — Citation / Entity Graph',
-      source: 'src/services/nyaya-tools/jrx-nyayagraph-service.ts',
+      source: 'src/services/jrx-legal-tools/jrx-nyayagraph-service.ts',
       tags: ['graph', 'citation', 'entities'],
       cost: 'medium', safety: 'safe',
       tiers: ['mitra', 'enterprise', 'sovereign', 'white-label'],
       patterns: ['sequential', 'parallel', 'dag'],
       factory: fromMethod(
-        () => import('../services/nyaya-tools/jrx-nyayagraph-service.js')
+        () => import('../services/jrx-legal-tools/jrx-nyayagraph-service.js')
           .then(m => m.nvNyayaGraphService),
         (svc) => async (input, ctx) => {
           const i = coerceInput<ToolInput>(input);
@@ -3043,15 +3043,15 @@ function buildNyayaToolsCapabilities(): CapabilityDescriptor[] {
       ),
     },
     {
-      id: 'nyaya-tools.template',
+      id: 'jrx-legal-tools.template',
       displayName: 'NyayaTemplate — Legal Template Generator',
-      source: 'src/services/nyaya-tools/jrx-nyayatemplate-service.ts',
+      source: 'src/services/jrx-legal-tools/jrx-nyayatemplate-service.ts',
       tags: ['template', 'generation', 'drafting'],
       cost: 'low', safety: 'review',
       tiers: ['lite', 'mitra', 'enterprise', 'sovereign', 'white-label'],
       patterns: ['sequential', 'simple'],
       factory: fromMethod(
-        () => import('../services/nyaya-tools/jrx-nyayatemplate-service.js')
+        () => import('../services/jrx-legal-tools/jrx-nyayatemplate-service.js')
           .then(m => m.nvNyayaTemplateService),
         (svc) => async (input, ctx) => {
           const i = coerceInput<ToolInput>(input);
@@ -3067,15 +3067,15 @@ function buildNyayaToolsCapabilities(): CapabilityDescriptor[] {
       ),
     },
     {
-      id: 'nyaya-tools.timeline',
+      id: 'jrx-legal-tools.timeline',
       displayName: 'NyayaTimeline — Case Timeline Builder',
-      source: 'src/services/nyaya-tools/jrx-nyayatimeline-service.ts',
+      source: 'src/services/jrx-legal-tools/jrx-nyayatimeline-service.ts',
       tags: ['timeline', 'chronology', 'case'],
       cost: 'low', safety: 'safe',
       tiers: ['mitra', 'enterprise', 'sovereign', 'white-label'],
       patterns: ['sequential', 'parallel', 'dag'],
       factory: fromMethod(
-        () => import('../services/nyaya-tools/jrx-nyayatimeline-service.js')
+        () => import('../services/jrx-legal-tools/jrx-nyayatimeline-service.js')
           .then(m => m.nvNyayaTimelineService),
         (svc) => async (input, ctx) => {
           const i = coerceInput<ToolInput>(input);
@@ -3087,12 +3087,12 @@ function buildNyayaToolsCapabilities(): CapabilityDescriptor[] {
           // A limitation period is computed FROM a date. Defaulting that date
           // to "now" would silently produce a wrong deadline, so require it.
           const cause = i.causeOfAction || textOf(i);
-          need(cause, 'nyaya-tools.timeline', 'causeOfAction');
-          const eventDate = need(i.eventDate, 'nyaya-tools.timeline', 'eventDate');
+          need(cause, 'jrx-legal-tools.timeline', 'causeOfAction');
+          const eventDate = need(i.eventDate, 'jrx-legal-tools.timeline', 'eventDate');
           const parsed = new Date(eventDate);
           if (Number.isNaN(parsed.getTime())) {
             throw new Error(
-              `[CapabilityManifest] structured-input failure: nyaya-tools.timeline `
+              `[CapabilityManifest] structured-input failure: jrx-legal-tools.timeline `
               + `'eventDate' is not a valid date: ${eventDate}`,
             );
           }
@@ -3101,21 +3101,21 @@ function buildNyayaToolsCapabilities(): CapabilityDescriptor[] {
       ),
     },
     {
-      id: 'nyaya-tools.trail',
+      id: 'jrx-legal-tools.trail',
       displayName: 'NyayaTrail — Audit Trail',
-      source: 'src/services/nyaya-tools/jrx-nyayatrail-service.ts',
+      source: 'src/services/jrx-legal-tools/jrx-nyayatrail-service.ts',
       tags: ['audit', 'trail', 'evidence'],
       cost: 'free', safety: 'high-risk',
       tiers: ['mitra', 'enterprise', 'sovereign', 'white-label'],
       patterns: ['sequential', 'simple'],
       factory: fromMethod(
-        () => import('../services/nyaya-tools/jrx-nyayatrail-service.js')
+        () => import('../services/jrx-legal-tools/jrx-nyayatrail-service.js')
           .then(m => m.nvNyayaTrailService),
         (svc) => async (input, ctx) => {
           const i = coerceInput<ToolInput>(input);
           // Every trail operation is scoped to a matter. There is no sane
           // default — a privilege log for the wrong matter is a disclosure risk.
-          const matterId = need(i.matterId, 'nyaya-tools.trail', 'matterId');
+          const matterId = need(i.matterId, 'jrx-legal-tools.trail', 'matterId');
           switch (i.op) {
             case 'privilege-log':
               return svc.generatePrivilegeLog(matterId);
@@ -3133,15 +3133,15 @@ function buildNyayaToolsCapabilities(): CapabilityDescriptor[] {
       ),
     },
     {
-      id: 'nyaya-tools.watch',
+      id: 'jrx-legal-tools.watch',
       displayName: 'NyayaWatch — Regulatory & Case Watch',
-      source: 'src/services/nyaya-tools/jrx-nyayawatch-service.ts',
+      source: 'src/services/jrx-legal-tools/jrx-nyayawatch-service.ts',
       tags: ['watch', 'monitor', 'alerts', 'regulatory'],
       cost: 'low', safety: 'safe',
       tiers: ['mitra', 'enterprise', 'sovereign', 'white-label'],
       patterns: ['sequential', 'parallel'],
       factory: fromMethod(
-        () => import('../services/nyaya-tools/jrx-nyayawatch-service.js')
+        () => import('../services/jrx-legal-tools/jrx-nyayawatch-service.js')
           .then(m => m.nvNyayaWatchService),
         (svc) => async (input, ctx) => {
           const i = coerceInput<ToolInput>(input);
@@ -3155,15 +3155,15 @@ function buildNyayaToolsCapabilities(): CapabilityDescriptor[] {
       ),
     },
     {
-      id: 'nyaya-tools.agent-lifecycle',
+      id: 'jrx-legal-tools.agent-lifecycle',
       displayName: 'Nyaya Agent Lifecycle Manager',
-      source: 'src/services/nyaya-tools/jrx-agent-lifecycle-service.ts',
+      source: 'src/services/jrx-legal-tools/jrx-agent-lifecycle-service.ts',
       tags: ['agent', 'lifecycle', 'governance'],
       cost: 'free', safety: 'high-risk',
       tiers: ['enterprise', 'sovereign', 'white-label'],
       patterns: ['sequential', 'simple'],
       factory: fromMethod(
-        () => import('../services/nyaya-tools/jrx-agent-lifecycle-service.js')
+        () => import('../services/jrx-legal-tools/jrx-agent-lifecycle-service.js')
           .then(m => m.nvAgentLifecycleService),
         (svc) => async () => {
           // Read-only by design. `spawn`/`terminate`/`transition` mutate live
@@ -4241,7 +4241,7 @@ function buildSdkSurfaceCapabilities(): CapabilityDescriptor[] {
             if (!i.content || !i.format) throw new Error('[sdk.document-pipeline] content and format required for parse');
             return fn.call(svc, i.content, i.format, i.jurisdiction ?? sctx.jurisdiction, i.language ?? 'en', sctx) as Promise<CapabilityInvocationOutput>;
           }
-          // Doc A/B compare (NOT nyaya-tools.compare which is statute-section compare)
+          // Doc A/B compare (NOT jrx-legal-tools.compare which is statute-section compare)
           if (op === 'compare') {
             const a = String(i.documentA || i.textA || '').trim();
             const b = String(i.documentB || i.textB || '').trim();
@@ -4618,7 +4618,7 @@ class CapabilityManifest {
   /**
    * Convenience: resolve + invoke + best-effort metering.
    *
-   * NYV-CB-INVOKE-001 (Task #32 round 4): every outbound capability call now
+   * JRX-CB-INVOKE-001 (Task #32 round 4): every outbound capability call now
    * goes through the shared circuit-breaker policy `outbound:capability` so
    * misbehaving services trip a uniform breaker instead of silently retrying.
    */
@@ -4637,7 +4637,7 @@ class CapabilityManifest {
     const { runWithRetryAndBreaker } = await import('../services/circuit-breaker.js');
     const { withSlots } = await import('./concurrency-governor.js');
     const breakerName = `cap:${id}`;
-    // NYV-CB-RETRY-001 / NV-COMPLETION-DRIVEN-001: every capability invocation
+    // JRX-CB-RETRY-001 / NV-COMPLETION-DRIVEN-001: every capability invocation
     // flows through the SAME shared breaker + retry helper. Retries fire on
     // ECONN* / 502-504 only. Timeouts and aborts are NOT retried (one hang
     // must not become 3× the breaker budget). Caller bugs fail immediately.
@@ -4836,7 +4836,7 @@ export const INTENT_CAPABILITY_MAP: readonly IntentCapabilityBinding[] = [
   { intent: 'tools',              capabilityIds: ['tools.execute'],                                           rationale: 'Sandboxed tool exec.' },
   // Wave B6 Mesh v1: high-value leaf aliases driven by prompt hints / Queen binding.
   // Each keyword maps to the first matching capability in the list that is in the candidate set.
-  { intent: 'template',           capabilityIds: ['templates.generate', 'templates.catalog', 'nyaya-tools.template'], rationale: 'Template requests should bind to live template leaves.' },
+  { intent: 'template',           capabilityIds: ['templates.generate', 'templates.catalog', 'jrx-legal-tools.template'], rationale: 'Template requests should bind to live template leaves.' },
   { intent: 'templates',          capabilityIds: ['templates.catalog', 'templates.generate'],                 rationale: 'Templates (plural) → catalog first.' },
   { intent: 'catalog',            capabilityIds: ['templates.catalog'],                                       rationale: 'Catalog/list requests should bind to the catalog leaf.' },
   { intent: 'generate',           capabilityIds: ['templates.generate'],                                      rationale: 'Explicit generate + templateId → catalog fill; freeform draft uses agents.' },
@@ -4915,11 +4915,11 @@ export const INTENT_CAPABILITY_MAP: readonly IntentCapabilityBinding[] = [
   { intent: 'ocr',                capabilityIds: ['docs.ocr', 'enterprise.ocr-pipeline'],                     rationale: 'OCR / Got-OCR document text extraction.' },
   { intent: 'parse',              capabilityIds: ['docs.parse', 'docs.parse-legal', 'docs.process'],          rationale: 'Document parse / legal parse.' },
   { intent: 'parsing',            capabilityIds: ['docs.parse', 'docs.parse-legal'],                          rationale: 'Document parsing.' },
-  // Doc A/B compare → sdk.document-pipeline; statute section compare stays nyaya-tools.compare
-  { intent: 'compare',            capabilityIds: ['sdk.document-pipeline', 'nyaya-tools.compare'],            rationale: 'Doc A/B via SDK pipeline; statute section via nyaya-tools.compare.' },
-  { intent: 'comparison',         capabilityIds: ['sdk.document-pipeline', 'nyaya-tools.compare'],            rationale: 'Document comparison.' },
-  { intent: 'diff',               capabilityIds: ['sdk.document-pipeline', 'nyaya-tools.compare'],            rationale: 'Document diff / redline compare.' },
-  { intent: 'statute_compare',    capabilityIds: ['nyaya-tools.compare'],                                     rationale: 'Statute/IPC-BNS section compare only.' },
+  // Doc A/B compare → sdk.document-pipeline; statute section compare stays jrx-legal-tools.compare
+  { intent: 'compare',            capabilityIds: ['sdk.document-pipeline', 'jrx-legal-tools.compare'],            rationale: 'Doc A/B via SDK pipeline; statute section via jrx-legal-tools.compare.' },
+  { intent: 'comparison',         capabilityIds: ['sdk.document-pipeline', 'jrx-legal-tools.compare'],            rationale: 'Document comparison.' },
+  { intent: 'diff',               capabilityIds: ['sdk.document-pipeline', 'jrx-legal-tools.compare'],            rationale: 'Document diff / redline compare.' },
+  { intent: 'statute_compare',    capabilityIds: ['jrx-legal-tools.compare'],                                     rationale: 'Statute/IPC-BNS section compare only.' },
   { intent: 'classify',           capabilityIds: ['intelligence.doc-analyze', 'workflow.email-classify'],     rationale: 'Legal doc classify first; email classify secondary.' },
   { intent: 'classification',     capabilityIds: ['intelligence.doc-analyze', 'workflow.email-classify'],     rationale: 'Document classification.' },
   { intent: 'multilingual',       capabilityIds: ['intelligence.summarize', 'sdk.multimodal-voice'],          rationale: 'Multilingual legal processing.' },
@@ -4940,12 +4940,12 @@ export const INTENT_CAPABILITY_MAP: readonly IntentCapabilityBinding[] = [
   { intent: 'a2a',                capabilityIds: ['protocol.a2a.handoff'],                                    rationale: 'A2A agent-to-agent handoff.' },
   { intent: 'agent_to_agent',     capabilityIds: ['protocol.a2a.handoff'],                                    rationale: 'A2A agent-to-agent handoff.' },
   { intent: 'handoff',            capabilityIds: ['protocol.a2a.handoff'],                                    rationale: 'A2A task handoff.' },
-  { intent: 'amend',              capabilityIds: ['nyaya-tools.amend'],                                       rationale: 'Nyaya-tools amend.' },
-  { intent: 'forensic',           capabilityIds: ['nyaya-tools.forensic'],                                    rationale: 'Nyaya-tools forensic.' },
-  { intent: 'timeline',           capabilityIds: ['nyaya-tools.timeline'],                                    rationale: 'Nyaya-tools timeline.' },
-  { intent: 'trail',              capabilityIds: ['nyaya-tools.trail'],                                       rationale: 'Nyaya-tools audit trail.' },
-  { intent: 'watch',              capabilityIds: ['nyaya-tools.watch'],                                       rationale: 'Nyaya-tools regulatory watch.' },
-  { intent: 'graph',              capabilityIds: ['nyaya-tools.graph', 'rag.graph'],                          rationale: 'Knowledge graph / GraphRAG.' },
+  { intent: 'amend',              capabilityIds: ['jrx-legal-tools.amend'],                                       rationale: 'Nyaya-tools amend.' },
+  { intent: 'forensic',           capabilityIds: ['jrx-legal-tools.forensic'],                                    rationale: 'Nyaya-tools forensic.' },
+  { intent: 'timeline',           capabilityIds: ['jrx-legal-tools.timeline'],                                    rationale: 'Nyaya-tools timeline.' },
+  { intent: 'trail',              capabilityIds: ['jrx-legal-tools.trail'],                                       rationale: 'Nyaya-tools audit trail.' },
+  { intent: 'watch',              capabilityIds: ['jrx-legal-tools.watch'],                                       rationale: 'Nyaya-tools regulatory watch.' },
+  { intent: 'graph',              capabilityIds: ['jrx-legal-tools.graph', 'rag.graph'],                          rationale: 'Knowledge graph / GraphRAG.' },
   { intent: 'graphrag',           capabilityIds: ['rag.graph'],                                               rationale: 'GraphRAG retrieval leaf.' },
   { intent: 'rag_graph',          capabilityIds: ['rag.graph'],                                               rationale: 'GraphRAG retrieval leaf.' },
   { intent: 'web_search',         capabilityIds: ['enterprise.web-search'],                                   rationale: 'Enterprise web search.' },
@@ -4972,7 +4972,7 @@ export const INTENT_CAPABILITY_MAP: readonly IntentCapabilityBinding[] = [
   { intent: 'calendar_extract',   capabilityIds: ['workflow.calendar-extract'],                               rationale: 'Calendar extraction workflow.' },
   { intent: 'workflow_protocol',  capabilityIds: ['sdk.workflow-protocol'],                                   rationale: 'SDK workflow protocol.' },
   { intent: 'usage_metering',     capabilityIds: ['sdk.usage-metering', 'metering.usage-log'],                rationale: 'SDK / platform usage metering.' },
-  { intent: 'agent_lifecycle',    capabilityIds: ['nyaya-tools.agent-lifecycle'],                             rationale: 'Nyaya-tools agent lifecycle.' },
+  { intent: 'agent_lifecycle',    capabilityIds: ['jrx-legal-tools.agent-lifecycle'],                             rationale: 'Nyaya-tools agent lifecycle.' },
   { intent: 'openbot_send',       capabilityIds: ['openbot.send'],                                            rationale: 'OpenBot outbound send.' },
   { intent: 'general',            capabilityIds: ['agent.auto-select'],                                          rationale: 'Generic catch-all.' },
 ] as const;

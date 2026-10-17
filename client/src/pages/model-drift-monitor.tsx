@@ -12,7 +12,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Label } from '@/components/ui/label';
 import { Activity, AlertTriangle, CheckCircle, TrendingUp, TrendingDown, RefreshCw, Play, BellOff, Database } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { formatDistanceToNow } from 'date-fns';
@@ -219,7 +219,7 @@ export default function ModelDriftMonitor() {
                     {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-16 w-full" />)}
                   </div>
                 ) : (report?.activeAlerts || []).length === 0 ? (
-                  <NyvEmptyState
+                  <JrxEmptyState
                     icon={CheckCircle}
                     title="No active drift alerts"
                     description="Drift checks run continuously — alerts will surface here when triggered."
@@ -273,7 +273,7 @@ export default function ModelDriftMonitor() {
               <CardContent className="p-0">
                 <ScrollArea className="h-64" aria-label="Scrollable content">
                   {(report?.baselines || []).length === 0 ? (
-                    <NyvEmptyState title="No baselines yet" description="Capture a baseline above to start drift detection for a model." size="sm" />
+                    <JrxEmptyState title="No baselines yet" description="Capture a baseline above to start drift detection for a model." size="sm" />
                   ) : (
                     <div className="divide-y">
                       {(report?.baselines || []).map((b: any) => (
@@ -302,7 +302,7 @@ export default function ModelDriftMonitor() {
             <CardContent className="p-0">
               <ScrollArea className="h-80" aria-label="Scrollable content">
                 {(report?.recentChecks || []).length === 0 ? (
-                  <NyvEmptyState title="No check history yet" description="Drift checks will appear here once they run." size="sm" />
+                  <JrxEmptyState title="No check history yet" description="Drift checks will appear here once they run." size="sm" />
                 ) : (
                   <div className="divide-y text-sm">
                     {(report?.recentChecks || []).map((check: any, idx: number) => (

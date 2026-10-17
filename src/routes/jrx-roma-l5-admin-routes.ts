@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * ROMA L5 Admin Backend Routes
  * @version 3.1.2
@@ -25,7 +25,7 @@ import { createLogger } from '../utils/logger.js';
 import { nvSwarmTopologyService } from '../services/jrx-swarm-topology-service.js';
 import { getAgent, getAllAgents, getRegistryStats } from '../services/agent-registry-service.js';
 import { MCP_REGISTRY_STATS } from '../data/jrx-mcp-tools-registry.js';
-import { NYV_PLATFORM_VERSION } from '../config/nyv-master-config.js';
+import { JRX_PLATFORM_VERSION } from '../config/jrx-master-config.js';
 
 const router = Router();
 const logger = createLogger('roma-l5-admin');
@@ -139,7 +139,7 @@ function mockAgentMetrics(agentCount = getRegistryStats().totalAgents) {
   return Array.from({ length: agentCount }, (_, i) => {
     const grpoScore = 65 + (i % 30);
     return {
-      agentId: `nv-agent-${String(i + 1).padStart(3, '0')}`,
+      agentId: `jrx-agent-${String(i + 1).padStart(3, '0')}`,
       agentKey: `NV_AGENT_${String(i + 1).padStart(3, '0')}`,
       name: `Legal Agent ${String(i + 1).padStart(3, '0')}`,
       romaLevel: (i % 5) + 1,
@@ -258,7 +258,7 @@ router.get('/stats', authenticateToken, async (req: Request, res: Response) => {
         supportedLanguages: 47,
         mcpToolsCatalog: MCP_REGISTRY_STATS.catalogTotal,
         mcpToolsExecutable: MCP_REGISTRY_STATS.executableTotal,
-        sdkVersion: NYV_PLATFORM_VERSION,
+        sdkVersion: JRX_PLATFORM_VERSION,
         registryVersion: registryStats.registryVersion,
         registryFormat: registryStats.registryFormat,
       },
@@ -288,7 +288,7 @@ router.get('/grpo/episodes', authenticateToken, async (req: Request, res: Respon
     if (!episodes.length) {
       episodes = Array.from({ length: limit }, (_, i) => ({
         episodeId: `grpo-ep-${Date.now()}-${i}`,
-        agentId: `nv-agent-${String((i % 148) + 1).padStart(3, '0')}`,
+        agentId: `jrx-agent-${String((i % 148) + 1).padStart(3, '0')}`,
         rewardScore: Math.round((0.60 + (i % 40) / 100) * 100) / 100,
         groupSize: (i % 7) + 2,
         taskType: ['contract_analysis', 'compliance_check', 'statute_lookup', 'case_research'][i % 4],

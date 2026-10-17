@@ -1,9 +1,9 @@
 /**
- * nv-check-schema-drift.ts — NV-SCHEMA-DRIFT-001 (CI guardrail)
+ * jrx-check-schema-drift.ts — NV-SCHEMA-DRIFT-001 (CI guardrail)
  *
  * Catches the failure mode that produced tasks #263 and #265: the TS Drizzle
  * schema in `shared/**` and the checked-in SQL migrations
- * (`drizzle/000*.sql` + `nyayavigya-platform-312/migrations/*.sql`) silently
+ * (`drizzle/000*.sql` + `Jurexio-Platform-SDK/migrations/*.sql`) silently
  * drift apart, and the divergence only surfaces when runtime writes fail
  * against a freshly-bootstrapped database.
  *
@@ -40,7 +40,7 @@
  * Usage
  *   npm run guardrail:schema-drift          # fails on drift
  *   npm run guardrail:schema-drift -- --warn-only  # report only, exit 0
- *   NYV_DRIFT_KEEP_PG=1 npm run guardrail:schema-drift  # leave the temp
+ *   JRX_DRIFT_KEEP_PG=1 npm run guardrail:schema-drift  # leave the temp
  *     Postgres + data dir running for manual inspection
  */
 
@@ -60,9 +60,9 @@ const __dirname = dirname(__filename);
 // ── Args / env ─────────────────────────────────────────────────────────────
 
 const WARN_ONLY = process.argv.includes('--warn-only');
-const DEFER_NV_SCHEMA_PARITY = process.env.NYV_DRIFT_STRICT_NV_SCHEMA !== '1';
-const KEEP_PG = process.env.NYV_DRIFT_KEEP_PG === '1';
-const VERBOSE = process.argv.includes('--verbose') || process.env.NYV_DRIFT_VERBOSE === '1';
+const DEFER_NV_SCHEMA_PARITY = process.env.JRX_DRIFT_STRICT_NV_SCHEMA !== '1';
+const KEEP_PG = process.env.JRX_DRIFT_KEEP_PG === '1';
+const VERBOSE = process.argv.includes('--verbose') || process.env.JRX_DRIFT_VERBOSE === '1';
 
 const ROOT = resolve(__dirname, '..');
 const DRIZZLE_DIR = join(ROOT, 'drizzle');
@@ -181,7 +181,7 @@ async function startPostgres(): Promise<PgHandle> {
 
 function stopPostgres(h: PgHandle): void {
   if (KEEP_PG) {
-    console.log(`[drift] NYV_DRIFT_KEEP_PG=1 — leaving Postgres running:`);
+    console.log(`[drift] JRX_DRIFT_KEEP_PG=1 — leaving Postgres running:`);
     console.log(`        socket: ${h.socketDir}`);
     console.log(`        port:   ${h.port}`);
     console.log(`        data:   ${h.dataDir}`);
@@ -317,7 +317,7 @@ async function loadAllDrizzleTables(schemaFiles: string[]): Promise<DrizzleTable
   return tables;
 }
 
-// ── Type compatibility (mirrors nv-schema-parity-check.ts) ─────────────────
+// ── Type compatibility (mirrors jrx-schema-parity-check.ts) ─────────────────
 
 const TYPE_COMPAT: Record<string, RegExp> = {
   PgText: /^text$/,
@@ -378,8 +378,8 @@ async function compare(h: PgHandle, drizzleTables: DrizzleTableSpec[]): Promise<
 
   for (const [qname, group] of byQname) {
     // Multiple exports for the same table is fine when they all declare the
-    // same shape (some tables are re-exported from nv-schema-tables.ts and
-    // nv-governance-schema.ts). We compare each one independently against the
+    // same shape (some tables are re-exported from jrx-schema-tables.ts and
+    // jrx-governance-schema.ts). We compare each one independently against the
     // DB and dedupe the resulting messages.
     const [schemaName, tableName] = qname.split('.');
     // A table whose every declaration comes from an R-SCHEMA-B-deferred file
@@ -496,14 +496,14 @@ async function compare(h: PgHandle, drizzleTables: DrizzleTableSpec[]): Promise<
     'public.__drizzle_migrations',
     'public.drizzle_migrations',
     'public.sdk_key_legacy_id_map',
-    'public.nyv_sdk_legacy_id_map', // NYV-NS-002 backfill map (0006)
+    'public.nyv_sdk_legacy_id_map', // JRX-NS-002 backfill map (0006)
     'public.nv_rls_sentinel',
     'public.nv_rls_sentinel_v2',
     'public.nv_runtime_flag_overrides', // 0007
     'public.nv_model_catalog', // seeded by migrations/nv_model_catalog_2026-05-09.sql
-    'public.nv_llm_providers', // created+seeded by migrations/2026-06-25-nv-llm-providers-courts.sql (raw-SQL master data, not Drizzle-managed)
-    'public.nv_courts', // created+seeded by migrations/2026-06-25-nv-llm-providers-courts.sql (raw-SQL master data, not Drizzle-managed)
-    'public.nv_statutes', // runtime-seeded by nv-statute-seeding-service + migrations/2026-06-25-statutes-expansion.sql (raw-SQL/FTS table, not Drizzle-managed)
+    'public.nv_llm_providers', // created+seeded by migrations/2026-06-25-jrx-llm-providers-courts.sql (raw-SQL master data, not Drizzle-managed)
+    'public.nv_courts', // created+seeded by migrations/2026-06-25-jrx-llm-providers-courts.sql (raw-SQL master data, not Drizzle-managed)
+    'public.nv_statutes', // runtime-seeded by jrx-statute-seeding-service + migrations/2026-06-25-statutes-expansion.sql (raw-SQL/FTS table, not Drizzle-managed)
     'public.rag_documents', // created by migrations/2026-06-26-rag-documents.sql (pgvector secondary RAG store, raw-SQL, not Drizzle-managed)
   ]);
   for (const row of allDbTables.rows) {
@@ -543,7 +543,7 @@ async function main() {
       violations.push(
         `MIGRATION FAILS ON FRESH DB: ${apply.failedAt} — ${apply.failureSummary ?? 'see psql output above'}. ` +
         `The migration set is not self-contained: a fresh \`createdb\` + \`psql -f\` of the checked-in files cannot reach the schema declared in shared/**. ` +
-        `Fix by adding the missing CREATE/ALTER to an earlier migration (or a hand-written file under nyayavigya-platform-312/migrations/) so this file applies cleanly.`,
+        `Fix by adding the missing CREATE/ALTER to an earlier migration (or a hand-written file under Jurexio-Platform-SDK/migrations/) so this file applies cleanly.`,
       );
     } else {
       console.log('[drift] loading schema file list from drizzle.config.ts…');
@@ -591,7 +591,7 @@ async function main() {
       exitCode = 0;
     } else {
       console.log('\n✗ DRIFT DETECTED — see violations above.');
-      console.log('  Fix by either adding the missing migrations under nyayavigya-platform-312/migrations/');
+      console.log('  Fix by either adding the missing migrations under Jurexio-Platform-SDK/migrations/');
       console.log('  (additive ALTER TABLE … ADD COLUMN IF NOT EXISTS …) or by removing the column');
       console.log('  from the TS schema if it was declared in error.');
       exitCode = 1;

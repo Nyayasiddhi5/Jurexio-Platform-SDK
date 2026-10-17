@@ -1,7 +1,7 @@
 /**
  * NV-MCP-CONNECTOR-CATALOG-001 — Priority legaltech integration connectors.
  * OAuth/API-key connectors for storage, collaboration, drafting, CRM, finance.
- * Linked MCP tool IDs route through nv-mcp-connector-service + nv-mcp-legal-delegate.
+ * Linked MCP tool IDs route through jrx-mcp-connector-service + jrx-mcp-legal-delegate.
  */
 
 export type ConnectorAuthType = 'oauth2' | 'api_key' | 'platform' | 'webhook';
@@ -29,7 +29,7 @@ export const LEGALTECH_CONNECTORS: LegaltechConnectorDef[] = [
   { id: 'google-drive', name: 'Google Drive', category: 'storage', authType: 'oauth2', envKey: 'GOOGLE_DRIVE_CLIENT_ID', jurisdictions: ['IN', 'UK', 'US', 'EU', 'GC', 'SG'], mcpToolIds: ['google_drive_list', 'google_drive_download'], oauthScopes: ['https://www.googleapis.com/auth/drive.readonly'], docsUrl: 'https://developers.google.com/drive', description: 'List and fetch legal matter files from Google Drive.', implementationStatus: 'stub' },
   { id: 'microsoft-onedrive', name: 'Microsoft OneDrive', category: 'storage', authType: 'oauth2', envKey: 'MICROSOFT_CLIENT_ID', jurisdictions: ['IN', 'UK', 'US', 'EU', 'GC', 'SG'], mcpToolIds: ['microsoft_onedrive_list', 'microsoft_onedrive_download'], oauthScopes: ['Files.Read'], docsUrl: 'https://learn.microsoft.com/graph/onedrive', description: 'OneDrive document access for M365 legal teams.', implementationStatus: 'stub' },
   { id: 'sharepoint', name: 'Microsoft SharePoint', category: 'storage', authType: 'oauth2', envKey: 'MICROSOFT_CLIENT_ID', jurisdictions: ['IN', 'UK', 'US', 'EU', 'GC', 'SG'], mcpToolIds: ['sharepoint_list', 'sharepoint_download'], oauthScopes: ['Sites.Read.All'], description: 'SharePoint matter libraries and DMS sites.', implementationStatus: 'stub' },
-  { id: 'aws-s3', name: 'AWS S3 (Platform)', category: 'storage', authType: 'platform', jurisdictions: ['IN', 'UK', 'US', 'EU', 'GC', 'SG'], mcpToolIds: ['aws_s3_list', 'aws_s3_download'], description: 'Platform document bucket — live when NYV_STORAGE_BACKEND=s3.', implementationStatus: 'platform' },
+  { id: 'aws-s3', name: 'AWS S3 (Platform)', category: 'storage', authType: 'platform', jurisdictions: ['IN', 'UK', 'US', 'EU', 'GC', 'SG'], mcpToolIds: ['aws_s3_list', 'aws_s3_download'], description: 'Platform document bucket — live when JRX_STORAGE_BACKEND=s3.', implementationStatus: 'platform' },
   { id: 'box', name: 'Box', category: 'storage', authType: 'oauth2', envKey: 'BOX_CLIENT_ID', jurisdictions: ['US', 'UK', 'EU'], mcpToolIds: ['box_storage_list'], description: 'Enterprise legal DMS on Box.', implementationStatus: 'stub' },
   { id: 'dropbox', name: 'Dropbox Business', category: 'storage', authType: 'oauth2', envKey: 'DROPBOX_APP_KEY', jurisdictions: ['US', 'UK', 'EU'], mcpToolIds: ['dropbox_list_files'], description: 'Dropbox shared folders for legal teams.', implementationStatus: 'stub' },
   { id: 'imanage', name: 'iManage Work', category: 'storage', authType: 'oauth2', envKey: 'IMANAGE_CLIENT_ID', jurisdictions: ['US', 'UK', 'EU', 'IN'], mcpToolIds: ['imanage_workspace_list', 'imanage_document_download'], oauthScopes: ['user'], docsUrl: 'https://developers.imanage.com/', description: 'iManage Work DMS — matter workspaces and document export. OAuth stub until IMANAGE_CLIENT_ID + provider REST handlers are configured.', implementationStatus: 'stub' },

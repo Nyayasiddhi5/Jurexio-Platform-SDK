@@ -4,10 +4,10 @@
  * Partner best-outcome cascade (2026-08-14 Bedrock-default):
  *   Bedrock (us-east-1 → ap-south-1) → Gemini 3.x → OpenRouter paid / direct → :free → AgentZero
  *
- * Escape NYV_PARTNER_LEGAL_PREMIUM_FIRST=1 to try Claude/Gemini APIs before Bedrock.
+ * Escape JRX_PARTNER_LEGAL_PREMIUM_FIRST=1 to try Claude/Gemini APIs before Bedrock.
 
  * Task-class: extract/summarize stay Nova-fast on Bedrock.
- * Speculative catalog ids only when NYV_LLM_ALLOW_SPECULATIVE=1.
+ * Speculative catalog ids only when JRX_LLM_ALLOW_SPECULATIVE=1.
  *
  * Indian legal default: Bedrock Claude (us-east-1) then Gemini 3.x; OpenRouter/direct last.
  */
@@ -180,7 +180,7 @@ const ECOSYSTEM_LEGAL_LEADS = [
 
 /**
  * Direct Claude/Gemini leads used after Bedrock (or before it when
- * NYV_PARTNER_LEGAL_PREMIUM_FIRST=1). Unavailable providers are skipped.
+ * JRX_PARTNER_LEGAL_PREMIUM_FIRST=1). Unavailable providers are skipped.
  */
 const PARTNER_LEGAL_PREMIUM_LEAD = [
   'us.anthropic.claude-opus-5',
@@ -215,7 +215,7 @@ const PLATFORM_OVERRIDES: Record<string, PlatformRoutingOverride> = {
   NSA: { primaryAggregator: 'bedrock', qualityFirst: true },
   NSM: { primaryAggregator: 'bedrock', qualityFirst: true },
   NSPM: { primaryAggregator: 'bedrock', qualityFirst: true },
-  NYV: { primaryAggregator: 'bedrock', qualityFirst: true },
+  JRX: { primaryAggregator: 'bedrock', qualityFirst: true },
   MIN: { primaryAggregator: 'bedrock', sovereignOnly: true },
   INS: { primaryAggregator: 'bedrock', sovereignOnly: true },
 };
@@ -231,7 +231,7 @@ const OPENROUTER_PROVEN_LEAD = [
   'google/gemini-3-1-pro-preview',
 ];
 
-/** Speculative frontier — only when NYV_LLM_ALLOW_SPECULATIVE=1. */
+/** Speculative frontier — only when JRX_LLM_ALLOW_SPECULATIVE=1. */
 const OPENROUTER_SPECULATIVE_LEAD = [
   'anthropic/claude-opus-4-7',
   'openai/gpt-5.5',
@@ -283,22 +283,22 @@ function envTruthy(v: string | undefined, defaultWhenUnset = false): boolean {
 
 /** Speculative / unproven frontier model ids — opt-in only. */
 export function isSpeculativeLlmAllowed(): boolean {
-  return envTruthy(process.env.NYV_LLM_ALLOW_SPECULATIVE, false);
+  return envTruthy(process.env.JRX_LLM_ALLOW_SPECULATIVE, false);
 }
 
 /**
  * Prefer OpenRouter free models first until quota.
- * Default OFF (quality-first for NSP/NYM). Set NYV_LLM_OPENROUTER_FREE_FIRST=1 for cost burn.
+ * Default OFF (quality-first for NSP/NYM). Set JRX_LLM_OPENROUTER_FREE_FIRST=1 for cost burn.
  */
 export function isOpenRouterFreeFirst(): boolean {
-  return envTruthy(process.env.NYV_LLM_OPENROUTER_FREE_FIRST, false)
+  return envTruthy(process.env.JRX_LLM_OPENROUTER_FREE_FIRST, false)
     && isProviderAvailable('openrouter');
 }
 
 /** NV-OMNIROUTE-004: per-platform allowlist. Default = all platforms allowed.
- *  Set NYV_OMNIROUTE_ALLOWED_PLATFORMS=NSP,NYS,NYM to restrict. */
+ *  Set JRX_OMNIROUTE_ALLOWED_PLATFORMS=NSP,NYS,NYM to restrict. */
 export function isOmniRouteAllowedForPlatform(app?: string): boolean {
-  const allowed = String(process.env.NYV_OMNIROUTE_ALLOWED_PLATFORMS ?? '').trim();
+  const allowed = String(process.env.JRX_OMNIROUTE_ALLOWED_PLATFORMS ?? '').trim();
   if (!allowed) return true;
   const list = allowed.split(',').map((s) => s.trim().toUpperCase()).filter(Boolean);
   const key = normalizePlatform(app);
@@ -307,21 +307,21 @@ export function isOmniRouteAllowedForPlatform(app?: string): boolean {
 
 /** Bedrock enabled — default ON in production when AWS region is configured (EC2 IAM role). */
 export function isBedrockRoutingEnabled(): boolean {
-  const explicit = process.env.NYV_BEDROCK_ENABLED;
+  const explicit = process.env.JRX_BEDROCK_ENABLED;
   if (explicit != null && explicit !== '') {
     return envTruthy(explicit, false);
   }
-  if (process.env.NYV_BEDROCK_DISABLED === 'true') return false;
+  if (process.env.JRX_BEDROCK_DISABLED === 'true') return false;
   const hasAws =
     !!(process.env.AWS_REGION || process.env.AWS_BEDROCK_REGION) ||
     process.env.NODE_ENV === 'production';
   return hasAws;
 }
 
-/** Bedrock-first routing (aggregator before direct APIs). Override with NYV_ROUTER_BEDROCK_FIRST=off. */
+/** Bedrock-first routing (aggregator before direct APIs). Override with JRX_ROUTER_BEDROCK_FIRST=off. */
 export function isBedrockFirstPolicy(): boolean {
   if (!isBedrockRoutingEnabled()) return false;
-  const v = process.env.NYV_ROUTER_BEDROCK_FIRST;
+  const v = process.env.JRX_ROUTER_BEDROCK_FIRST;
   if (v != null && v !== '') return envTruthy(v, true);
   return true;
 }
@@ -331,14 +331,14 @@ export function isBedrockFirstPolicy(): boolean {
  * Default OFF (Bedrock us-east-1 first, Gemini fallback). Set 1 to restore API-first.
  */
 export function isPartnerLegalPremiumFirst(): boolean {
-  return envTruthy(process.env.NYV_PARTNER_LEGAL_PREMIUM_FIRST, false);
+  return envTruthy(process.env.JRX_PARTNER_LEGAL_PREMIUM_FIRST, false);
 }
 
 function normalizePlatform(app?: string): string {
   if (!app) return 'NSP';
   const u = app.toUpperCase();
   if (u === 'NYAYAMITRA' || u.startsWith('NYM')) return 'NYM';
-  if (u === 'NYAYAVIGYA' || u.startsWith('NYV')) return 'NYV';
+  if (u === 'NYAYAVIGYA' || u.startsWith('JRX')) return 'JRX';
   if (u.startsWith('NSPM')) return 'NSPM';
   if (u.startsWith('NSP')) return 'NSP';
   if (u.startsWith('NSI')) return 'NSI';
@@ -464,9 +464,9 @@ export function bedrockLeadIdsForTier(tier: TierLevel, taskKind?: TaskKind, req?
      * left alone: those are the tasks where the marginal quality genuinely matters and
      * where a cheaper fallback is the wrong trade.
      *
-     * `NYV_LADDER_COST_FIRST=0` restores the previous all-Claude-then-value order. */
+     * `JRX_LADDER_COST_FIRST=0` restores the previous all-Claude-then-value order. */
     const costFirst =
-      isLlmCostProfileActive() || String(process.env.NYV_LADDER_COST_FIRST ?? '1') !== '0';
+      isLlmCostProfileActive() || String(process.env.JRX_LADDER_COST_FIRST ?? '1') !== '0';
     const value = [
       'deepseek.v3.2',                        // legalQuality 96 @ 0.27/1.1
       'qwen.qwen3-vl-235b-a22b',              // 94 @ 0.22/0.88
@@ -530,9 +530,9 @@ function partnerLegalPremiumLeads(): string[] {
  * Quality-first partners (legal tasks, default 2026-08-14):
  *   env lead → Bedrock → Gemini 3.x → OpenRouter/direct → :free → AgentZero
  *
- * NYV_PARTNER_LEGAL_PREMIUM_FIRST=1 restores Claude/Gemini API before Bedrock.
+ * JRX_PARTNER_LEGAL_PREMIUM_FIRST=1 restores Claude/Gemini API before Bedrock.
  *
- * Cost-burn when NYV_LLM_OPENROUTER_FREE_FIRST=1 (non-quality platforms only):
+ * Cost-burn when JRX_LLM_OPENROUTER_FREE_FIRST=1 (non-quality platforms only):
  *   env lead → :free → Bedrock → Gemini → paid → AgentZero
  */
 export function applyRoutingPolicy(sequence: ModelEntry[], req: RouterRequest, tier: TierLevel, taskKind: TaskKind): ModelEntry[] {

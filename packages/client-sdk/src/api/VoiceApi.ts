@@ -5,24 +5,24 @@
  */
 
 import type {
-  NyvVoiceSynthesisRequest,
-  NyvVoiceSynthesisResponse,
-  NyvVoiceTranscriptionResponse,
+  JrxVoiceSynthesisRequest,
+  JrxVoiceSynthesisResponse,
+  JrxVoiceTranscriptionResponse,
 } from '../types/index.js';
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export interface VoiceCommandOptions {
-  language?: NyvVoiceSynthesisRequest['language'];
+  language?: JrxVoiceSynthesisRequest['language'];
   jurisdiction?: string;
   context?: string;
   returnAudio?: boolean;
 }
 
 export class VoiceApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   /** Convert text to speech in the specified language */
-  synthesize(req: NyvVoiceSynthesisRequest): Promise<NyvVoiceSynthesisResponse> {
+  synthesize(req: JrxVoiceSynthesisRequest): Promise<JrxVoiceSynthesisResponse> {
     return this.http.post('/api/jrx/voice/synthesize', req);
   }
 
@@ -30,7 +30,7 @@ export class VoiceApi {
   transcribe(
     audioBase64: string,
     options: { language?: string; format?: 'mp3' | 'wav' | 'ogg' | 'webm' } = {}
-  ): Promise<NyvVoiceTranscriptionResponse> {
+  ): Promise<JrxVoiceTranscriptionResponse> {
     return this.http.post('/api/jrx/voice/transcribe', { audioBase64, ...options });
   }
 

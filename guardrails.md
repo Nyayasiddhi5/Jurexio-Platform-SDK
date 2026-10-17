@@ -1,4 +1,4 @@
-# Nyayavigya Platform — MANDATORY SESSION GUARDRAILS
+# Jurexio Platform — MANDATORY SESSION GUARDRAILS
 
 **Purpose:** The permanent, non-negotiable contract that every session (Replit Agent main, task agent, human contributor) MUST follow **before** writing a single line of code, creating a session plan, proposing tasks, or marking work complete.
 
@@ -30,7 +30,7 @@ Before ANY of: creating `.local/session_plan.md`, calling `proposeFollowUpTasks`
 | 6 | `docs/canonical/00-README.md` | Canonical doc index, full guardrail registry, gotchas archive, provider lockdown recipe, NV-LLM-001 whitelist | full file |
 | 7 | `docs/canonical/04-sdk-and-api-canonical-2026-05-07.md` + `04c-sdk-troubleshooting-2026-05-11.md` | The **frozen** API surface + every recent endpoint addition | full both |
 
-**One-shot command** (preferred): `bash scripts/nv-session-preflight.sh` — prints all 7 in a session-start brief, plus drift since last snapshot.
+**One-shot command** (preferred): `bash scripts/jrx-session-preflight.sh` — prints all 7 in a session-start brief, plus drift since last snapshot.
 
 ---
 
@@ -72,11 +72,11 @@ Before ANY of: creating `.local/session_plan.md`, calling `proposeFollowUpTasks`
 >
 > | Claimed from reading | Actual, once executed |
 > |---|---|
-> | `NYV_SPECIALIST_PROMPT_COMPILER=1` is the biggest quality lever | A no-op for all 164 XML agents — the gate tests for a section the assembler always embeds |
+> | `JRX_SPECIALIST_PROMPT_COMPILER=1` is the biggest quality lever | A no-op for all 164 XML agents — the gate tests for a section the assembler always embeds |
 > | `nvGatewayRouter` is unmounted, a wiring defect | Superseded dead code; `sdkGatewayRoutes` serves a near-superset; the unique paths have no caller and no contract |
 > | Quality is not measured at all | A full harness with per-jurisdiction release gates, LLM judge and 6-jurisdiction golden set already existed |
 >
-> The one finding from that session that survived — 7 of 9 `nyaya-tools`
+> The one finding from that session that survived — 7 of 9 `jrx-legal-tools`
 > capabilities unreachable — came from a runtime probe, and it also **changed the
 > fix**: reading suggested renaming method names, while executing revealed the
 > arguments were wrong too, so a rename alone would have converted hard failures
@@ -97,7 +97,7 @@ src/services/         (29 sub-dirs incl. intelligent-router, llm-providers,
                        enterprise-platform, digital-twin, skills, e-filing,
                        white-label, rbac, contract-lifecycle, regulatory-monitor,
                        llm-priority-manager, clawdbot, openbot, automateai,
-                       twindesk, nyaya-tools, intelligence, testing, security,
+                       twindesk, jrx-legal-tools, intelligence, testing, security,
                        compliance, microservice-contracts, queue, orchestration,
                        persistence, multi-org)
 src/orchestration/    (queen orchestrator, NS LRM core v9, wire-chain, lifecycle)
@@ -113,15 +113,15 @@ src/guardrails/, src/india-first/, src/integrations/, src/rest/, src/schemas/,
 src/startup/, src/storage/, src/system-prompts/, src/systems/, src/types/,
 src/utils/
 client/src/             (121 page files, 151 routes — the React 19 console)
-packages/               (root-level: client-sdk, nyayamitra-sdk,
+packages/               (root-level: client-sdk, jurexio-citizen-sdk,
                          client-sdk-react-native, enterprise-sdk)
 config/                 (agent-registries × 7 jurisdictions, llm/, integrations/,
                          platforms/, security/, storage/, agents/, cache/,
-                         memory/, rate-limits/, nyv-master-config.json)
+                         memory/, rate-limits/, jrx-master-config.json)
 docs/canonical/         (the 19 active canonical docs — 00..11 + EC2-* + 04c)
 docs/audit/             (feature-inventory, feature-matrix-and-status,
                          feature-wiring-matrix.csv, console-cpo-audit,
-                         verification-appendix, nv-orphan-{allowlist,
+                         verification-appendix, jrx-orphan-{allowlist,
                          disposition,budget})
 ```
 
@@ -129,23 +129,23 @@ docs/audit/             (feature-inventory, feature-matrix-and-status,
 
 | Source | Tool | What to check |
 |---|---|---|
-| Postgres (199 tables across `public` + `nv_schema`) | `psql "$NYV_DATABASE_URL" -c "\dt nv_schema.*"` and `\dt public.*` | Is the feature's table present? Is `nv_llm_providers.is_active` correct? Is `nv_agents` count = 1,299? |
-| Redis (Upstash dev / ElastiCache prod) | `redis-cli -u "$NYV_REDIS_TCP_URL" --tls --insecure ping` | Cache layer reachable? |
-| Agent registries (7 JSON files) | `wc -l config/agent-registries/Nyayavigya-Legal-registry-*.json` | All 7 jurisdictions present? Flat registry rebuild fresh? (`npm run guardrail:flat-registry`) |
-| Feature flags | `rg "NYV_F_" src/config/nv-feature-flags.ts` | Is the gate ON or OFF? |
+| Postgres (199 tables across `public` + `nv_schema`) | `psql "$JRX_DATABASE_URL" -c "\dt nv_schema.*"` and `\dt public.*` | Is the feature's table present? Is `nv_llm_providers.is_active` correct? Is `nv_agents` count = 1,299? |
+| Redis (Upstash dev / ElastiCache prod) | `redis-cli -u "$JRX_REDIS_TCP_URL" --tls --insecure ping` | Cache layer reachable? |
+| Agent registries (7 JSON files) | `wc -l config/agent-registries/Jurexio-Legal-registry-*.json` | All 7 jurisdictions present? Flat registry rebuild fresh? (`npm run guardrail:flat-registry`) |
+| Feature flags | `rg "JRX_F_" src/config/jrx-feature-flags.ts` | Is the gate ON or OFF? |
 | Env / secrets | List `available_secrets` from system + `cat .env.example` | What's set vs unset? Never print values. |
 
 ### Pass 3 — Wiring + product/architecture docs
 
 | Source | Tool | What to verify |
 |---|---|---|
-| Wiring audit (BFS reachability from `src/index.ts`) | `npm run audit:wiring && cat docs/audit/nv-wiring-audit.json \| jq '.summary'` | WIRED / USED-INTERNAL / ORPHAN counts; orphan budget at `docs/audit/nv-orphan-budget.json` |
-| Orphan disposition | `head -40 docs/audit/nv-orphan-disposition.md` | Per-orphan WIRE-ROUTE / WIRE-CHAIN / WIRE-INTERNAL / MERGE-DUPLICATE / KEEP-BARREL / KEEP-CLI / KEEP-CONTRACT / KEEP-DYNAMIC-IMPORT / REVIEW-* classification |
-| Product Notes (3 files, root) | `ls -la Full-Final-Nyayavigya-ProductNote-*.md` | 312-April2026 (205 KB), BUSINESS (44 KB), TECHNICAL (65 KB) — grep before claiming a product feature doesn't exist |
+| Wiring audit (BFS reachability from `src/index.ts`) | `npm run audit:wiring && cat docs/audit/jrx-wiring-audit.json \| jq '.summary'` | WIRED / USED-INTERNAL / ORPHAN counts; orphan budget at `docs/audit/jrx-orphan-budget.json` |
+| Orphan disposition | `head -40 docs/audit/jrx-orphan-disposition.md` | Per-orphan WIRE-ROUTE / WIRE-CHAIN / WIRE-INTERNAL / MERGE-DUPLICATE / KEEP-BARREL / KEEP-CLI / KEEP-CONTRACT / KEEP-DYNAMIC-IMPORT / REVIEW-* classification |
+| Product Notes (3 files, root) | `ls -la Full-Final-Jurexio-ProductNote-*.md` | 312-April2026 (205 KB), BUSINESS (44 KB), TECHNICAL (65 KB) — grep before claiming a product feature doesn't exist |
 | Roadmap | `head -100 Roadmap.md` | What's planned vs shipped |
 | Architecture | `docs/canonical/03-architecture-slim-2026-05-11.md` + `11-agentic-architecture-2026-05-10.md` | Two-tier AI, 22 patterns, 1,299 agents, safety ring |
 | EC2 / infra | `docs/canonical/EC2-INTEGRATION-STATUS.md` + `EC2-PUSH-RUNBOOK-2026-05-08.md` | What's behind on prod-dev, per-deploy network bridge gotcha |
-| Replit infra | `replit.md` § "Run & Operate" + `.replit` workflows | Gateway port 5000, Console port 3004, NYV_* secrets |
+| Replit infra | `replit.md` § "Run & Operate" + `.replit` workflows | Gateway port 5000, Console port 3004, JRX_* secrets |
 
 **Verdict rule:** A feature is "missing" only if **all three passes** confirm absence. If any pass finds it (even if mis-named or in a different subtree), the verdict is "found, possibly mis-located/mis-wired" — NOT "missing".
 
@@ -158,16 +158,16 @@ When the upcoming change touches a file family, also read these:
 | If you're touching… | Read first |
 |---|---|
 | Any LLM-emitting code | `docs/canonical/05-llm-dedicated-2026-05-11.md` + NV-LLM-001 whitelist in `docs/canonical/00-README.md` |
-| Any auth middleware | `src/middleware/nv-sdk-auth-header.ts` + NV-AUTH-HEADER-001 in `replit.md` |
+| Any auth middleware | `src/middleware/jrx-sdk-auth-header.ts` + NV-AUTH-HEADER-001 in `replit.md` |
 | Any standalone script under `scripts/` | `scripts/_pg-pool.ts` + NV-DB-SCRIPT-001 in `replit.md` |
 | Any new HTTP route | NV-API-CONTRACT-001 in `replit.md` + run `npm run guardrail:api-contract` after |
 | Any agent registry edit | NV-AGENT-REGISTRY-FRESH-001 gotcha + `npm run build:flat-registry` after |
 | Any new file under `src/{services,orchestration,routes,middleware,config}/` | NV-NAMING-001: `rg -l '<concept>' src/` first; edit existing if found |
-| Any service file you're "completing" | NV-WIRING-001: it's NOT done until imported by `src/routes/`, `src/index.ts`, `nv-queen-orchestrator.ts`, `nv-client.ts`, or another wired service |
+| Any service file you're "completing" | NV-WIRING-001: it's NOT done until imported by `src/routes/`, `src/index.ts`, `jrx-queen-orchestrator.ts`, `jrx-client.ts`, or another wired service |
 | Any markdown doc | NV-DOC-001: only `replit.md`, `README.md`, `docs/canonical/{01..11}-*.md` are active; everything else → `archive/` or `docs/audit/` |
 | Any vendor wrapper (Sarvam, OpenRouter, Bedrock, etc) | NV-CONTRACT-001: pre-flight grep for method/route/schema names; vendor 404 = `curl` probe vendor base URL |
 | Any test failure | NV-OWNERSHIP-001: reproduce with `curl`/`psql`/`redis-cli`, trace to ONE owning component, fix in our layer |
-| Any Redis URL | `src/utils/redis-tcp-url.ts` + NV-SECRETS-001 (canonical names: `NYV_REDIS_TCP_URL` write, `NYV_REDIS_READ_URL` read) |
+| Any Redis URL | `src/utils/redis-tcp-url.ts` + NV-SECRETS-001 (canonical names: `JRX_REDIS_TCP_URL` write, `JRX_REDIS_READ_URL` read) |
 
 ---
 
@@ -186,10 +186,10 @@ These already exist in `replit.md` § Hard architectural guardrails. **This file
 9. **NV-AUTH-HEADER-001** — `X-API-Key` (with `Authorization: Bearer` fallback) only; east-west uses `X-NV-API-Key`
 10. **NV-DB-SCRIPT-001** — Standalone scripts use `makePgSql()` from `scripts/_pg-pool.ts`
 11. **NV-API-CONTRACT-001** — Frozen v5 API surface; additions OK, removals/method-changes fail CI
-12. **NV-WIRING-BUDGET-001** — Effective orphan budget at `docs/audit/nv-orphan-budget.json` = 1; CI fails if grown
+12. **NV-WIRING-BUDGET-001** — Effective orphan budget at `docs/audit/jrx-orphan-budget.json` = 1; CI fails if grown
 13. **NV-AGENT-REGISTRY-FRESH-001** — Per-jurisdiction edit + `npm run build:flat-registry` + commit merged file
-14. **NV-MESH-001** — Catalog / factory / registry **≠** Queen-schedulable until: (a) capability leaf exists in `capability-manifest.ts`, (b) at least one `INTENT_CAPABILITY_MAP` alias, (c) `analyzePrompt` hint when user-facing keywords exist, (d) agent `tools`/`mcpToolsAllowed` pass through `nv-agent-tool-bridge`. **Never re-implement a leaf that already has a factory.** Run `npm run guardrail:intent-mesh` (wired into `npm run guardrail`).
-15. **NV-FEATURE-FULL-001** — Before planning or implementing ANY new feature: classify NYV/NYS/BOTH; run `session:preflight`; triple-pass audit (source + DB/registries + wiring from `src/index.ts`); read FEATURES-REGISTRY; design DB + memory + RAG + cache + jobs + INTENT/capability/analyzePrompt + NV-LLM-001 path + SDK SemVer **before** writing code. Done only when `npm run guardrail` + live smoke pass.
+14. **NV-MESH-001** — Catalog / factory / registry **≠** Queen-schedulable until: (a) capability leaf exists in `capability-manifest.ts`, (b) at least one `INTENT_CAPABILITY_MAP` alias, (c) `analyzePrompt` hint when user-facing keywords exist, (d) agent `tools`/`mcpToolsAllowed` pass through `jrx-agent-tool-bridge`. **Never re-implement a leaf that already has a factory.** Run `npm run guardrail:intent-mesh` (wired into `npm run guardrail`).
+15. **NV-FEATURE-FULL-001** — Before planning or implementing ANY new feature: classify JRX/NYS/BOTH; run `session:preflight`; triple-pass audit (source + DB/registries + wiring from `src/index.ts`); read FEATURES-REGISTRY; design DB + memory + RAG + cache + jobs + INTENT/capability/analyzePrompt + NV-LLM-001 path + SDK SemVer **before** writing code. Done only when `npm run guardrail` + live smoke pass.
 16. **NV-NO-DUPLICATE-001** — Never build a parallel pipeline for an existing business job. Pick one SSoT service; redirect/alias other HTTP/SDK/Queen entry points to it; document deprecations.
 17. **NV-NO-STUB-001** — Never ship stubs/skeletons for new or “completed” features. Forbidden: hardcoded empty success without `reason`, fake gazette IDs, capability factories that cannot resolve exports. Ascertain STUB only after reading service body + DB writes + Queen factory + SDK path (not a single grep). FEATURES-REGISTRY “WIRED” ≠ LIVE.
 
@@ -214,7 +214,7 @@ For any change to `/api/nv/v1/sdk/**` or any partner-facing surface:
 
 ```
 Step 1. Read all 7 mandatory pre-session docs (§1)
-Step 2. Run `bash scripts/nv-session-preflight.sh` for the consolidated brief
+Step 2. Run `bash scripts/jrx-session-preflight.sh` for the consolidated brief
 Step 3. Run the triple-pass audit (§2) for any folder you're about to touch
 Step 4. Cross-check the named feature against FEATURES-REGISTRY.md
 Step 5. Identify the relevant NV-* guardrails from §4 and the per-family rules from §3

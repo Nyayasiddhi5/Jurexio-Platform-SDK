@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — DB Migration Runner
- * NYV-SCRIPT-MIGRATE-001
+ * Jurexio Platform 3.1.2 — DB Migration Runner
+ * JRX-SCRIPT-MIGRATE-001
  * Runs safe schema migrations — never drops existing columns
  */
 
@@ -24,16 +24,16 @@ const sql = makePgSql(process.env.DATABASE_URL!);
  * connection so DO blocks and multi-statement scripts execute correctly.
  *
  * Phased rollout:
- *   • app.field_encryption_key is bound from process.env.NYV_FIELD_ENCRYPTION_KEY
+ *   • app.field_encryption_key is bound from process.env.JRX_FIELD_ENCRYPTION_KEY
  *     (or ENCRYPTION_KEY) so the in-migration backfill DO block actually runs
  *     when a key is configured. Without a key, the backfill self-skips with a
  *     RAISE NOTICE — no plaintext is touched.
- *   • app.nyv_rls_enforce is bound from process.env.NYV_RLS_ENFORCE. When
+ *   • app.nyv_rls_enforce is bound from process.env.JRX_RLS_ENFORCE. When
  *     'true', the migration enables + forces strict RLS on every
  *     nv_, ns_, ni_, nm_ table with an org_id column. When unset/'false'
  *     (default), policies are installed but RLS is left disabled — safe to
  *     deploy without wiring all 80+ DB call sites first.
- *     See docs/v3.1.2/completed_docs/NYV-COMPLIANCE-ATTESTATION.md for the operator runbook.
+ *     See docs/v3.1.2/completed_docs/JRX-COMPLIANCE-ATTESTATION.md for the operator runbook.
  */
 async function applyRlsAndFieldEncryptionMigration(): Promise<void> {
   const pool = new Pool({
@@ -43,8 +43,8 @@ async function applyRlsAndFieldEncryptionMigration(): Promise<void> {
   });
   const client = await pool.connect();
   try {
-    const key = process.env.NYV_FIELD_ENCRYPTION_KEY ?? process.env.ENCRYPTION_KEY ?? '';
-    const enforce = (process.env.NYV_RLS_ENFORCE ?? '').toLowerCase() === 'true' ? 'true' : 'false';
+    const key = process.env.JRX_FIELD_ENCRYPTION_KEY ?? process.env.ENCRYPTION_KEY ?? '';
+    const enforce = (process.env.JRX_RLS_ENFORCE ?? '').toLowerCase() === 'true' ? 'true' : 'false';
 
     // SET — not SET LOCAL — so the GUC is visible to the DO blocks below.
     // We never SET app.field_encryption_key when no key is configured, so a
@@ -61,10 +61,10 @@ async function applyRlsAndFieldEncryptionMigration(): Promise<void> {
     if (enforce === 'true') {
       console.log('  ✓ 0004 RLS + field encryption (RLS ENFORCED — strict policy active)');
     } else {
-      console.log('  ✓ 0004 RLS + field encryption (RLS policies installed; enforcement OFF — set NYV_RLS_ENFORCE=true to enforce)');
+      console.log('  ✓ 0004 RLS + field encryption (RLS policies installed; enforcement OFF — set JRX_RLS_ENFORCE=true to enforce)');
     }
     if (!key) {
-      console.log('  ⚠ NYV_FIELD_ENCRYPTION_KEY not set — encrypted backfill skipped (existing plaintext untouched)');
+      console.log('  ⚠ JRX_FIELD_ENCRYPTION_KEY not set — encrypted backfill skipped (existing plaintext untouched)');
     }
 
     // task-354 (2026-05-13): 0012_customer_organizations.sql adds the
@@ -89,7 +89,7 @@ async function applyRlsAndFieldEncryptionMigration(): Promise<void> {
     if (enforce === 'true') {
       console.log('  ✓ 0013 customer_org RLS (ENFORCED — strict (platform_id, customer_org_id) policy active)');
     } else {
-      console.log('  ✓ 0013 customer_org RLS (policies installed; enforcement OFF — set NYV_RLS_ENFORCE=true to enforce)');
+      console.log('  ✓ 0013 customer_org RLS (policies installed; enforcement OFF — set JRX_RLS_ENFORCE=true to enforce)');
     }
 
     // Task #385 — 0015_customer_org_platform_fk.sql adds the missing FK +
@@ -111,7 +111,7 @@ async function applyRlsAndFieldEncryptionMigration(): Promise<void> {
 }
 
 async function migrate() {
-  console.log('\n  Running Nyayavigya Platform 5.0.0 migrations...\n');
+  console.log('\n  Running Jurexio Platform 5.0.0 migrations...\n');
 
   try {
     // Enable UUID extension
@@ -1081,7 +1081,7 @@ async function migrate() {
 
     // ── Context Engineering Tables ────────────────────────────
     await sql`
-      CREATE TABLE IF NOT EXISTS nyayavigya_founder_context_profiles (
+      CREATE TABLE IF NOT EXISTS jurexio_founder_context_profiles (
         id              SERIAL PRIMARY KEY,
         user_id         VARCHAR(100),
         profile_data    JSONB DEFAULT '{}',
@@ -1090,10 +1090,10 @@ async function migrate() {
         created_at      TIMESTAMP NOT NULL DEFAULT NOW(),
         updated_at      TIMESTAMP NOT NULL DEFAULT NOW()
       )`;
-    console.log('  ✓ nyayavigya_founder_context_profiles');
+    console.log('  ✓ jurexio_founder_context_profiles');
 
     await sql`
-      CREATE TABLE IF NOT EXISTS nyayavigya_context_learning_history (
+      CREATE TABLE IF NOT EXISTS jurexio_context_learning_history (
         id              SERIAL PRIMARY KEY,
         user_id         VARCHAR(100),
         session_id      VARCHAR(100),
@@ -1102,10 +1102,10 @@ async function migrate() {
         feedback        JSONB DEFAULT '{}',
         created_at      TIMESTAMP NOT NULL DEFAULT NOW()
       )`;
-    console.log('  ✓ nyayavigya_context_learning_history');
+    console.log('  ✓ jurexio_context_learning_history');
 
     await sql`
-      CREATE TABLE IF NOT EXISTS nyayavigya_orchestration_jobs (
+      CREATE TABLE IF NOT EXISTS jurexio_orchestration_jobs (
         id              SERIAL PRIMARY KEY,
         job_type        VARCHAR(100),
         status          VARCHAR(50) DEFAULT 'pending',
@@ -1119,7 +1119,7 @@ async function migrate() {
         created_at      TIMESTAMP NOT NULL DEFAULT NOW(),
         updated_at      TIMESTAMP NOT NULL DEFAULT NOW()
       )`;
-    console.log('  ✓ nyayavigya_orchestration_jobs');
+    console.log('  ✓ jurexio_orchestration_jobs');
 
     // ── Legal Agents (full schema for registry service) ──────────────────────
     await sql`
@@ -1253,7 +1253,7 @@ async function migrate() {
       )`;
     console.log('  ✓ nv_identity_extractions');
 
-    // ── NS Document Processing Jobs (Nyayasiddhi doc pipeline poller) ────────
+    // ── NS Document Processing Jobs (Jurexio doc pipeline poller) ────────
     await sql`
       CREATE TABLE IF NOT EXISTS ns_doc_processing_jobs (
         id              VARCHAR(36) PRIMARY KEY DEFAULT gen_random_uuid()::text,
@@ -1356,13 +1356,13 @@ async function migrate() {
     // tokens_in/tokens_out, request_id, metadata jsonb).
     //
     // See: scripts/consolidate-sdk-api-request-logs.sql for the migration,
-    //      docs/v3.1.2/NYV-DATABASE-CANONICAL-2026-05-05.md §3 for the
+    //      docs/v3.1.2/JRX-DATABASE-CANONICAL-2026-05-05.md §3 for the
     //      full table-of-truth, and scripts/jrx-schema-parity-check.ts for
     //      the runtime guardrail asserting nv_schema.sdk_api_request_logs
     //      MUST NOT exist.
     console.log('  ✓ nv_schema.sdk_api_request_logs (B2: now public.sdk_api_request_logs — see canonical DB doc)');
 
-    // ── nv_schema.hitl_reviews — Human-In-The-Loop review queue (NYV-UAT-BUG-001 fix) ──
+    // ── nv_schema.hitl_reviews — Human-In-The-Loop review queue (JRX-UAT-BUG-001 fix) ──
     // Used by src/services/jrx-orchestration-services.ts (lines 102, 114, 122-128, 142, 569).
     // Routes: GET /api/jrx/hitl/pending, GET /api/jrx/hitl/stats, GET /api/jrx/hitl/:reviewId,
     // POST /api/jrx/hitl/:reviewId/decision, GET /api/jrx/agent/metrics.
@@ -1390,7 +1390,7 @@ async function migrate() {
     await sql`CREATE INDEX IF NOT EXISTS idx_hitl_reviews_request  ON nv_schema.hitl_reviews (request_id)`;
     console.log('  ✓ nv_schema.hitl_reviews (HITL review queue)');
 
-    // ── nv_schema.compliance_evidence — Compliance evidence packages (NYV-UAT-BUG-001 fix) ──
+    // ── nv_schema.compliance_evidence — Compliance evidence packages (JRX-UAT-BUG-001 fix) ──
     // Used by src/services/jrx-orchestration-services.ts (lines 581, 590, 594, 597).
     // Routes: GET/POST /api/jrx/compliance/evidence.
     await sql`
@@ -1410,7 +1410,7 @@ async function migrate() {
     await sql`CREATE INDEX IF NOT EXISTS idx_compl_evid_created    ON nv_schema.compliance_evidence (created_at DESC)`;
     console.log('  ✓ nv_schema.compliance_evidence (compliance audit chain)');
 
-    // ── nv_schema.memory_entries — Long-running memory across sessions (NYV-UAT-BUG-001 fix) ──
+    // ── nv_schema.memory_entries — Long-running memory across sessions (JRX-UAT-BUG-001 fix) ──
     // Used by src/services/jrx-orchestration-services.ts (lines 993, 1010, 1021, 1035-1036),
     // src/services/rag/adaptive-rag-service.ts line 545, and the memory stats route.
     await sql`
@@ -1438,7 +1438,7 @@ async function migrate() {
     await sql`CREATE INDEX IF NOT EXISTS idx_memory_expires   ON nv_schema.memory_entries (expires_at)`;
     console.log('  ✓ nv_schema.memory_entries (cross-session memory)');
 
-    // ── nv_schema.protocol_registry — Capability manifest registry (NYV-UAT-BUG-001 fix) ──
+    // ── nv_schema.protocol_registry — Capability manifest registry (JRX-UAT-BUG-001 fix) ──
     // Used by src/services/jrx-protocol-registry-manifest.ts (line 53) and
     // src/services/jrx-orchestration-services.ts (lines 1138, 1147, 1154, 1167).
     // Bootstrapped at gateway startup; previously logged "Manifest registry bootstrap failed".
@@ -1460,7 +1460,7 @@ async function migrate() {
     await sql`CREATE INDEX IF NOT EXISTS idx_protocol_name    ON nv_schema.protocol_registry (protocol_name)`;
     console.log('  ✓ nv_schema.protocol_registry (capability manifest)');
 
-    // ── nv_schema.agent_metrics — Per-agent telemetry roll-ups (NYV-UAT-BUG-001 fix) ──
+    // ── nv_schema.agent_metrics — Per-agent telemetry roll-ups (JRX-UAT-BUG-001 fix) ──
     // Used by src/services/jrx-orchestration-services.ts (lines 300, 311, 315-316).
     // Route: GET /api/jrx/agent/metrics. INSERT writes per-period roll-ups; SELECTs aggregate.
     await sql`
@@ -1483,7 +1483,7 @@ async function migrate() {
     await sql`CREATE INDEX IF NOT EXISTS idx_agent_metrics_period  ON nv_schema.agent_metrics (period_start DESC)`;
     console.log('  ✓ nv_schema.agent_metrics (per-agent telemetry)');
 
-    // ── nv_schema.model_governance — Approved-models registry (NYV-UAT-FIX-003) ──
+    // ── nv_schema.model_governance — Approved-models registry (JRX-UAT-FIX-003) ──
     // Used by NvModelGovernanceService.{getRegistry,registerModel,updateModelStatus}
     // (src/services/jrx-orchestration-services.ts L536-552) and the ISO_42001 evidence
     // generator. Without this table GET /api/jrx/model-governance returned a 500 with
@@ -1505,7 +1505,7 @@ async function migrate() {
     await sql`CREATE INDEX IF NOT EXISTS idx_model_gov_provider ON nv_schema.model_governance (provider)`;
     console.log('  ✓ nv_schema.model_governance (approved models registry)');
 
-    // ── nv_schema.ai_consents — DPDPA / GDPR consent ledger (NYV-UAT-FIX-003) ──
+    // ── nv_schema.ai_consents — DPDPA / GDPR consent ledger (JRX-UAT-FIX-003) ──
     // Used by NvConsentService (recordConsent, getUserConsents, revokeConsent,
     // checkConsent). Without this table /api/jrx/consent and /api/jrx/consent/check
     // returned PG 42P01 "System configuration error" 500.
@@ -1527,7 +1527,7 @@ async function migrate() {
     await sql`CREATE INDEX IF NOT EXISTS idx_ai_consents_created    ON nv_schema.ai_consents (created_at DESC)`;
     console.log('  ✓ nv_schema.ai_consents (consent ledger)');
 
-    // ── nv_schema.ai_incidents — incident reporting & resolution log (NYV-UAT-FIX-003) ──
+    // ── nv_schema.ai_incidents — incident reporting & resolution log (JRX-UAT-FIX-003) ──
     // Used by NvIncidentService (reportIncident, resolveIncident, getIncidents).
     // Routes: GET/POST /api/jrx/incidents.
     // NOTE: an older shape of this table may exist with `org_id`/integer-id;
@@ -1820,7 +1820,7 @@ async function migrate() {
     // and was never updated to include nv_twindesk_chat_sessions. Result:
     // every gateway boot logged
     //   `relation "nv_schema.nv_twindesk_chat_sessions" does not exist`
-    // from `nv-persistence` while TwinDeskService.hydrate() ran its
+    // from `jrx-persistence` while TwinDeskService.hydrate() ran its
     //   SELECT session_id, data FROM nv_schema.nv_twindesk_chat_sessions ...
     // Create the table here so a fresh dev DB boots warning-free; the
     // service then hydrates 0 rows silently and write-through upserts land.
@@ -1842,7 +1842,7 @@ async function migrate() {
     // #248 added only nv_twindesk_chat_sessions to this embedded runner; the
     // other nine tables defined in 0010 were still missing on a fresh dev DB,
     // so ClaWdBot™/OpenBot™/AutomateAI™/TwinDesk™ hydrate paths kept emitting
-    // `relation "nv_schema.nv_*" does not exist` warnings from nv-persistence,
+    // `relation "nv_schema.nv_*" does not exist` warnings from jrx-persistence,
     // and write-through upserts silently no-op'd (state lost across restart).
     // Mirror 0010 exactly so a fresh boot produces zero such warnings and
     // upserts persist. Schema kept identical to drizzle/0010_*.sql.

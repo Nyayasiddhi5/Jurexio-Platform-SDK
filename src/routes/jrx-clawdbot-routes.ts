@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * ClaWdBot™ REST Routes — /api/jrx/clawdbot/*
  * Legal Chatbot Builder | Jurexio Enterprise Platform 312

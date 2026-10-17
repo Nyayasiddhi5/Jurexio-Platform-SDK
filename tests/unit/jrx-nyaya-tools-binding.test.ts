@@ -30,15 +30,15 @@ async function invoke(id: string, input: Record<string, unknown>): Promise<unkno
 }
 
 const NYAYA_TOOL_IDS = [
-  'nyaya-tools.amend',
-  'nyaya-tools.compare',
-  'nyaya-tools.forensic',
-  'nyaya-tools.graph',
-  'nyaya-tools.template',
-  'nyaya-tools.timeline',
-  'nyaya-tools.trail',
-  'nyaya-tools.watch',
-  'nyaya-tools.agent-lifecycle',
+  'jrx-legal-tools.amend',
+  'jrx-legal-tools.compare',
+  'jrx-legal-tools.forensic',
+  'jrx-legal-tools.graph',
+  'jrx-legal-tools.template',
+  'jrx-legal-tools.timeline',
+  'jrx-legal-tools.trail',
+  'jrx-legal-tools.watch',
+  'jrx-legal-tools.agent-lifecycle',
 ];
 
 describe('NV-NYAYA-TOOLS-BINDING-001: every nyaya-tool is invocable', () => {
@@ -66,30 +66,30 @@ describe('NV-NYAYA-TOOLS-BINDING-001: every nyaya-tool is invocable', () => {
 });
 
 describe('NV-NYAYA-TOOLS-BINDING-001: refuses to fabricate on missing identifiers', () => {
-  it('nyaya-tools.trail requires an explicit matterId', async () => {
+  it('jrx-legal-tools.trail requires an explicit matterId', async () => {
     // A privilege log built for the wrong matter is a disclosure risk, so
     // there is no safe default here.
-    await expect(invoke('nyaya-tools.trail', { query: 'privilege log' }))
+    await expect(invoke('jrx-legal-tools.trail', { query: 'privilege log' }))
       .rejects.toThrow(/structured-input failure.*matterId/);
   });
 
-  it('nyaya-tools.timeline requires an explicit eventDate', async () => {
+  it('jrx-legal-tools.timeline requires an explicit eventDate', async () => {
     // Defaulting the event date to "now" would silently produce a wrong
     // limitation deadline — the worst possible failure for this tool.
-    await expect(invoke('nyaya-tools.timeline', { causeOfAction: 'breach of contract' }))
+    await expect(invoke('jrx-legal-tools.timeline', { causeOfAction: 'breach of contract' }))
       .rejects.toThrow(/structured-input failure.*eventDate/);
   });
 
-  it('nyaya-tools.timeline rejects an unparseable eventDate', async () => {
-    await expect(invoke('nyaya-tools.timeline', {
+  it('jrx-legal-tools.timeline rejects an unparseable eventDate', async () => {
+    await expect(invoke('jrx-legal-tools.timeline', {
       causeOfAction: 'breach of contract',
       eventDate: 'last Tuesday-ish',
     })).rejects.toThrow(/structured-input failure.*not a valid date/);
   });
 
-  it('nyaya-tools.forensic refuses to verify an empty document', async () => {
+  it('jrx-legal-tools.forensic refuses to verify an empty document', async () => {
     // Verifying nothing would report a clean integrity verdict on nothing.
-    await expect(invoke('nyaya-tools.forensic', { query: 'check this' }))
+    await expect(invoke('jrx-legal-tools.forensic', { query: 'check this' }))
       .rejects.toThrow(/structured-input failure.*document/);
   });
 
@@ -98,10 +98,10 @@ describe('NV-NYAYA-TOOLS-BINDING-001: refuses to fabricate on missing identifier
     let attempts = 0;
 
     await expect(
-      runWithRetryAndBreaker('test:nyaya-tools-binding', async () => {
+      runWithRetryAndBreaker('test:jrx-legal-tools-binding', async () => {
         attempts += 1;
         throw new Error(
-          '[CapabilityManifest] structured-input failure: nyaya-tools.trail requires \'matterId\'',
+          '[CapabilityManifest] structured-input failure: jrx-legal-tools.trail requires \'matterId\'',
         );
       }),
     ).rejects.toThrow(/structured-input failure/);
@@ -113,8 +113,8 @@ describe('NV-NYAYA-TOOLS-BINDING-001: refuses to fabricate on missing identifier
 });
 
 describe('NV-NYAYA-TOOLS-BINDING-001: real inputs reach real methods', () => {
-  it('nyaya-tools.timeline computes a limitation period from a real date', async () => {
-    const out = await invoke('nyaya-tools.timeline', {
+  it('jrx-legal-tools.timeline computes a limitation period from a real date', async () => {
+    const out = await invoke('jrx-legal-tools.timeline', {
       causeOfAction: 'breach of contract',
       eventDate: '2024-01-15',
     }) as Record<string, unknown>;
@@ -124,8 +124,8 @@ describe('NV-NYAYA-TOOLS-BINDING-001: real inputs reach real methods', () => {
     expect(Object.keys(out).length).toBeGreaterThan(0);
   });
 
-  it('nyaya-tools.compare diffs two supplied texts without needing statute ids', async () => {
-    const out = await invoke('nyaya-tools.compare', {
+  it('jrx-legal-tools.compare diffs two supplied texts without needing statute ids', async () => {
+    const out = await invoke('jrx-legal-tools.compare', {
       sourceText: 'The party shall indemnify the counterparty.',
       targetText: 'The party shall indemnify and hold harmless the counterparty.',
     }) as { diffs?: unknown[]; similarity?: number };
@@ -134,8 +134,8 @@ describe('NV-NYAYA-TOOLS-BINDING-001: real inputs reach real methods', () => {
     expect(typeof out.similarity).toBe('number');
   });
 
-  it('nyaya-tools.graph resolves related concepts from free text', async () => {
-    const out = await invoke('nyaya-tools.graph', {
+  it('jrx-legal-tools.graph resolves related concepts from free text', async () => {
+    const out = await invoke('jrx-legal-tools.graph', {
       query: 'anticipatory bail',
     }) as { relatedConcepts?: unknown[] };
 
@@ -143,10 +143,10 @@ describe('NV-NYAYA-TOOLS-BINDING-001: real inputs reach real methods', () => {
     expect(Array.isArray(out.relatedConcepts)).toBe(true);
   });
 
-  it('nyaya-tools.agent-lifecycle exposes only the read-only health report', async () => {
+  it('jrx-legal-tools.agent-lifecycle exposes only the read-only health report', async () => {
     // spawn/terminate/transition mutate live agent state and must not be
     // reachable from an LLM-authored plan.
-    const out = await invoke('nyaya-tools.agent-lifecycle', { op: 'terminate' }) as Record<string, unknown>;
+    const out = await invoke('jrx-legal-tools.agent-lifecycle', { op: 'terminate' }) as Record<string, unknown>;
     expect(out).toBeTruthy();
     expect(Object.keys(out).length).toBeGreaterThan(0);
   });

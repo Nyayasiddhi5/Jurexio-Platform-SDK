@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — Feature Flags Seed
- * NYV-SCRIPT-SEED-FLAGS-001
+ * Jurexio Platform 3.1.2 — Feature Flags Seed
+ * JRX-SCRIPT-SEED-FLAGS-001
  */
 
 import { makePgSql } from './_pg-pool.js';

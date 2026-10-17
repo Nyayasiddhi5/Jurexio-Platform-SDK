@@ -11,10 +11,10 @@ import {
   type RegistryAgent,
 } from '../config/agent-registry-loader.js';
 import {
-  NYV_ARCHIVED_REGISTRY,
-  NYV_MCP_TOOLS,
-  NYV_REGISTRY_TOTALS,
-  NYV_TOPOLOGY_CATALOG,
+  JRX_ARCHIVED_REGISTRY,
+  JRX_MCP_TOOLS,
+  JRX_REGISTRY_TOTALS,
+  JRX_TOPOLOGY_CATALOG,
 } from '../constants/jrx-registry-stats.js';
 import { db } from '../db/index.js';
 import { sql } from 'drizzle-orm';
@@ -229,7 +229,7 @@ export async function getAgentFromDb(agentId: string): Promise<Record<string, un
 
   try {
     /* NV-MEMORY-ACCESS-ACCOUNTING-001 — same Drizzle/`ANY` trap as
-     * nv-orchestration-services.ts: interpolating a JS array expands to a parameter
+     * jrx-orchestration-services.ts: interpolating a JS array expands to a parameter
      * LIST `($1, $2, …)`, and Postgres rejects it with "op ANY/ALL (array) requires
      * array on right side" (verified live). The `::text[]` cast on a delimited string
      * is the form that actually works. This lookup is inside a try/catch fallback, so
@@ -351,7 +351,7 @@ export function getRegistryStats(): {
 } {
   const summary = getRegistrySummary();
   const config = getRegistryConfig();
-  const forensicMode = config.defaultRegistryPath.includes(NYV_ARCHIVED_REGISTRY.archiveSubdir);
+  const forensicMode = config.defaultRegistryPath.includes(JRX_ARCHIVED_REGISTRY.archiveSubdir);
   return {
     totalAgents: config.totalAgents,
     jurisdictions: summary.activeJurisdiction === 'DEFAULT' ? 1 : 2,
@@ -363,10 +363,10 @@ export function getRegistryStats(): {
     loaded: true,
     romaDistribution: getRomaDistribution(),
     aliasCount: summary.aliasCount,
-    mcpTools: NYV_MCP_TOOLS.totalTools,
-    mcpCategories: NYV_MCP_TOOLS.categories,
-    topologyCatalog: NYV_TOPOLOGY_CATALOG.totalTopologies,
-    archivedBackupAgents: NYV_ARCHIVED_REGISTRY.totalAgentsFlat,
+    mcpTools: JRX_MCP_TOOLS.totalTools,
+    mcpCategories: JRX_MCP_TOOLS.categories,
+    topologyCatalog: JRX_TOPOLOGY_CATALOG.totalTopologies,
+    archivedBackupAgents: JRX_ARCHIVED_REGISTRY.totalAgentsFlat,
     forensicMode,
   };
 }
@@ -374,20 +374,20 @@ export function getRegistryStats(): {
 /** Static fallbacks when the loader has not booted yet. */
 export function getRegistryStatsFallback(): ReturnType<typeof getRegistryStats> {
   return {
-    totalAgents: NYV_REGISTRY_TOTALS.totalAgents,
+    totalAgents: JRX_REGISTRY_TOTALS.totalAgents,
     jurisdictions: 1,
-    practiceAreas: NYV_REGISTRY_TOTALS.practiceAreas,
-    registryFormat: NYV_REGISTRY_TOTALS.registryFormat,
-    registryVersion: NYV_REGISTRY_TOTALS.registryVersion,
-    section23Coverage: NYV_REGISTRY_TOTALS.section23Coverage,
-    byJurisdiction: { DEFAULT: NYV_REGISTRY_TOTALS.defaultAgents },
+    practiceAreas: JRX_REGISTRY_TOTALS.practiceAreas,
+    registryFormat: JRX_REGISTRY_TOTALS.registryFormat,
+    registryVersion: JRX_REGISTRY_TOTALS.registryVersion,
+    section23Coverage: JRX_REGISTRY_TOTALS.section23Coverage,
+    byJurisdiction: { DEFAULT: JRX_REGISTRY_TOTALS.defaultAgents },
     loaded: false,
     romaDistribution: {},
     aliasCount: 0,
-    mcpTools: NYV_MCP_TOOLS.totalTools,
-    mcpCategories: NYV_MCP_TOOLS.categories,
-    topologyCatalog: NYV_TOPOLOGY_CATALOG.totalTopologies,
-    archivedBackupAgents: NYV_ARCHIVED_REGISTRY.totalAgentsFlat,
+    mcpTools: JRX_MCP_TOOLS.totalTools,
+    mcpCategories: JRX_MCP_TOOLS.categories,
+    topologyCatalog: JRX_TOPOLOGY_CATALOG.totalTopologies,
+    archivedBackupAgents: JRX_ARCHIVED_REGISTRY.totalAgentsFlat,
     forensicMode: false,
   };
 }

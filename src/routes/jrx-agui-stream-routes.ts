@@ -1,8 +1,8 @@
 /**
- * NYV AG-UI Streaming Routes v1.0.0
- * NYV-SVC-AGUI-STREAM-001
+ * JRX AG-UI Streaming Routes v1.0.0
+ * JRX-SVC-AGUI-STREAM-001
  *
- * Provides AG-UI protocol Server-Sent Events (SSE) streaming for ALL 22 NYV
+ * Provides AG-UI protocol Server-Sent Events (SSE) streaming for ALL 22 JRX
  * agentic patterns. Clients receive real-time events as the agent reasons,
  * thinks, retrieves, and generates — no more waiting for the full response.
  *
@@ -32,10 +32,10 @@ import { authenticateToken } from '../middleware/auth.js';
 import { dualSdkOrJwt } from '../middleware/jrx-dual-auth.js';
 import { sanitizeErrorForClient } from '../utils/error-sanitizer.js';
 import { createLogger } from '../utils/logger.js';
-import { NYV_PLATFORM_VERSION } from '../config/nyv-master-config.js';
+import { JRX_PLATFORM_VERSION } from '../config/jrx-master-config.js';
 import crypto from 'crypto';
 import { callLLM, streamLLM, makeRequestId, type JurisdictionCode } from '../utils/jrx-llm-gateway.js';
-// NYV-AGUI-QUEEN-001 (Task #27): the AG-UI streaming endpoint now wraps the
+// JRX-AGUI-QUEEN-001 (Task #27): the AG-UI streaming endpoint now wraps the
 // real Queen Orchestrator instead of issuing a single static-prompt LLM call.
 // This routes the request through the full middleware ring (consent → memory
 // → RAG → safety → exec → hallucination → bias → memory persist → metering
@@ -221,7 +221,7 @@ function generateThinkingSteps(pattern: string, task: string, jurisdiction: stri
     ],
     // P08 — Tool-Retry: resilient tool invocation with backoff
     P08: [
-      `Calling primary legal database tool: nyayavigya-legal-kb`,
+      `Calling primary legal database tool: jurexio-legal-kb`,
       `Tool timeout detected (>3s) — initiating exponential backoff`,
       `Retry attempt 1 (wait 1s): tool still unresponsive`,
       `Retry attempt 2 (wait 2s): SUCCESS — statute data retrieved`,
@@ -230,14 +230,14 @@ function generateThinkingSteps(pattern: string, task: string, jurisdiction: stri
     // P09 — Function Router: intelligent agent/tool routing
     P09: [
       `Classifying legal query domain — scoring all 15 legal specialisations`,
-      `Scoring candidate agents: NYV-AGT-CONTRACT-001 (0.91), NYV-AGT-COMPLIANCE-001 (0.67), NYV-AGT-LITIGATION-001 (0.72)`,
-      `Routing decision: dispatching to NYV-AGT-CONTRACT-001 (highest relevance score)`,
+      `Scoring candidate agents: JRX-AGT-CONTRACT-001 (0.91), JRX-AGT-COMPLIANCE-001 (0.67), JRX-AGT-LITIGATION-001 (0.72)`,
+      `Routing decision: dispatching to JRX-AGT-CONTRACT-001 (highest relevance score)`,
       `Specialist agent invoked — processing legal analysis in specialist context`,
     ],
     // P10 — MCP Chain: multi-tool Model Context Protocol
     P10: [
-      `Connecting to MCP server: nyayavigya-ecourts (tool: getCaseStatus)`,
-      `MCP tool invocation: nyayavigya-legal-kb.searchStatutes({jurisdiction: "${jurisdiction}"})`,
+      `Connecting to MCP server: jurexio-ecourts (tool: getCaseStatus)`,
+      `MCP tool invocation: jurexio-legal-kb.searchStatutes({jurisdiction: "${jurisdiction}"})`,
       `MCP result received — chaining to next tool: citation-verifier.verify(citations)`,
       `MCP chain complete — all 3 tool results aggregated and validated`,
     ],
@@ -346,7 +346,7 @@ function generatePatternToolCalls(
   const sequences: Record<string, Array<{ tool: string; input: Record<string, unknown>; resultSummary: string; latencyMs: number }>> = {
     // P01 — ReAct: Reason→Act loop — legal search + citation verify
     P01: [
-      { tool: 'nyayavigya-legal-search', input: { query: taskSnip, jurisdiction, k: 10 }, resultSummary: `Retrieved 8 statutes and 6 precedents`, latencyMs: 210 },
+      { tool: 'jurexio-legal-search', input: { query: taskSnip, jurisdiction, k: 10 }, resultSummary: `Retrieved 8 statutes and 6 precedents`, latencyMs: 210 },
       { tool: 'citation-verifier', input: { citations: ['BNS 2023 §105', 'CA 2013 §166'], jurisdiction }, resultSummary: 'All citations verified against primary sources — 0 hallucinations detected', latencyMs: 140 },
     ],
     // P02 — CoT: structured precedent search across 6 reasoning steps
@@ -381,8 +381,8 @@ function generatePatternToolCalls(
     ],
     // P08 — Tool-Retry: retry mechanism with exponential backoff
     P08: [
-      { tool: 'nyayavigya-legal-kb', input: { query: taskSnip, jurisdiction, attempt: 1 }, resultSummary: 'Attempt 1: TIMEOUT (>3s) — initiating exponential backoff', latencyMs: 3010 },
-      { tool: 'nyayavigya-legal-kb', input: { query: taskSnip, jurisdiction, attempt: 2 }, resultSummary: 'Attempt 2: SUCCESS — statute data retrieved after 2s backoff', latencyMs: 320 },
+      { tool: 'jurexio-legal-kb', input: { query: taskSnip, jurisdiction, attempt: 1 }, resultSummary: 'Attempt 1: TIMEOUT (>3s) — initiating exponential backoff', latencyMs: 3010 },
+      { tool: 'jurexio-legal-kb', input: { query: taskSnip, jurisdiction, attempt: 2 }, resultSummary: 'Attempt 2: SUCCESS — statute data retrieved after 2s backoff', latencyMs: 320 },
     ],
     // P09 — Function Router: classifier + agent dispatcher
     P09: [
@@ -391,7 +391,7 @@ function generatePatternToolCalls(
     ],
     // P10 — MCP Chain: multi-tool sequential protocol execution
     P10: [
-      { tool: 'mcp:nyayavigya-legal-kb.searchStatutes', input: { query: taskSnip, jurisdiction }, resultSummary: `Statutes retrieved — 8 relevant provisions found`, latencyMs: 185 },
+      { tool: 'mcp:jurexio-legal-kb.searchStatutes', input: { query: taskSnip, jurisdiction }, resultSummary: `Statutes retrieved — 8 relevant provisions found`, latencyMs: 185 },
       { tool: 'mcp:ecourts.getCaseStatus', input: { jurisdiction, query: taskSnip }, resultSummary: 'eCourts case status verified — matter status current', latencyMs: 290 },
       { tool: 'mcp:citation-verifier.verify', input: { citations: ['BNS 2023', 'BNSS 2023', 'CA 2013'], jurisdiction }, resultSummary: 'MCP chain complete — all 3 tools executed, all citations validated', latencyMs: 120 },
     ],
@@ -467,8 +467,8 @@ function generatePatternSpecializedEvents(
     ],
     // P08 — Tool-Retry: expose attempt state
     P08: [
-      { subtype: 'tool_attempt', label: 'Attempt 1 — TIMEOUT', data: { attempt: 1, tool: 'nyayavigya-legal-kb', status: 'TIMEOUT', latencyMs: 3010, backoffMs: 2000 }, delayMs: 80 },
-      { subtype: 'tool_attempt', label: 'Attempt 2 — SUCCESS', data: { attempt: 2, tool: 'nyayavigya-legal-kb', status: 'SUCCESS', latencyMs: 320, backoffMs: 0 }, delayMs: 80 },
+      { subtype: 'tool_attempt', label: 'Attempt 1 — TIMEOUT', data: { attempt: 1, tool: 'jurexio-legal-kb', status: 'TIMEOUT', latencyMs: 3010, backoffMs: 2000 }, delayMs: 80 },
+      { subtype: 'tool_attempt', label: 'Attempt 2 — SUCCESS', data: { attempt: 2, tool: 'jurexio-legal-kb', status: 'SUCCESS', latencyMs: 320, backoffMs: 0 }, delayMs: 80 },
     ],
     // P09 — Function Router: expose routing decision
     P09: [
@@ -476,7 +476,7 @@ function generatePatternSpecializedEvents(
     ],
     // P10 — MCP Chain: expose each MCP tool step
     P10: [
-      { subtype: 'mcp_step', label: 'MCP Step 1 — Legal KB', data: { step: 1, tool: 'mcp:nyayavigya-legal-kb.searchStatutes', status: 'COMPLETE', results: 8 }, delayMs: 90 },
+      { subtype: 'mcp_step', label: 'MCP Step 1 — Legal KB', data: { step: 1, tool: 'mcp:jurexio-legal-kb.searchStatutes', status: 'COMPLETE', results: 8 }, delayMs: 90 },
       { subtype: 'mcp_step', label: 'MCP Step 2 — eCourts', data: { step: 2, tool: 'mcp:ecourts.getCaseStatus', status: 'COMPLETE', results: 1 }, delayMs: 120 },
       { subtype: 'mcp_step', label: 'MCP Step 3 — Citation Verifier', data: { step: 3, tool: 'mcp:citation-verifier.verify', status: 'COMPLETE', verified: 3, failed: 0 }, delayMs: 80 },
     ],
@@ -516,12 +516,12 @@ const StreamRequestSchema = z.object({
   includeThinking: z.boolean().optional().default(true),
   includeCitations: z.boolean().optional().default(true),
   maxThinkingSteps: z.number().int().min(1).max(10).optional().default(5),
-  /** Console trace playground — default 16k (env NYV_STREAM_MAX_OUTPUT_TOKENS). */
+  /** Console trace playground — default 16k (env JRX_STREAM_MAX_OUTPUT_TOKENS). */
   maxOutputTokens: z.number().int().min(256).max(65_536).optional(),
 });
 
 function resolveStreamMaxOutputTokens(requested?: number): number {
-  const envDefault = Number(process.env.NYV_STREAM_MAX_OUTPUT_TOKENS || 16_384);
+  const envDefault = Number(process.env.JRX_STREAM_MAX_OUTPUT_TOKENS || 16_384);
   const base = Number.isFinite(envDefault) && envDefault > 0 ? envDefault : 16_384;
   const req = typeof requested === 'number' && requested > 0 ? requested : base;
   return Math.min(Math.max(req, 256), 65_536);
@@ -532,7 +532,7 @@ function resolveStreamMaxOutputTokens(requested?: number): number {
 router.get('/health', (_req: Request, res: Response) => {
   res.json({
     success: true,
-    service: 'NYV-SVC-AGUI-STREAM-001',
+    service: 'JRX-SVC-AGUI-STREAM-001',
     version: '1.0.0',
     protocol: 'AG-UI v1 (SSE)',
     patterns: Object.keys(PATTERN_NAMES).length,
@@ -543,7 +543,7 @@ router.get('/health', (_req: Request, res: Response) => {
 
 // ─── Main Streaming Endpoint ──────────────────────────────────────────────────
 
-// SDK clients (e.g. NyvStreamReader.streamPattern('cot', ...)) call
+// SDK clients (e.g. JrxStreamReader.streamPattern('cot', ...)) call
 // `POST /api/jrx/stream/<short-name>`. Translate the short name into the
 // canonical Pxx code expected by the request schema, then delegate to the
 // existing handler. Unknown aliases are passed through unchanged so the
@@ -570,7 +570,7 @@ router.post('/:pattern', dualSdkOrJwt, async (req: Request, res: Response, next)
 });
 
 const streamHandler = async (req: Request, res: Response): Promise<void> => {
-  const runId = `NYV-RUN-${Date.now()}-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
+  const runId = `JRX-RUN-${Date.now()}-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
   const myOrchestrationId = `orch-${Date.now().toString(36)}-${crypto.randomBytes(4).toString('hex')}`;
   const streamStartedAt = Date.now();
 
@@ -590,8 +590,8 @@ const streamHandler = async (req: Request, res: Response): Promise<void> => {
     res.setHeader('Cache-Control', 'no-cache, no-transform');
     res.setHeader('Connection', 'keep-alive');
     res.setHeader('X-Accel-Buffering', 'no');
-    res.setHeader('X-NYV-Run-ID', runId);
-    res.setHeader('X-NYV-Orchestration-Id', myOrchestrationId);
+    res.setHeader('X-JRX-Run-ID', runId);
+    res.setHeader('X-JRX-Orchestration-Id', myOrchestrationId);
     res.flushHeaders();
 
     const ts = () => new Date().toISOString();
@@ -650,13 +650,13 @@ const streamHandler = async (req: Request, res: Response): Promise<void> => {
       courts: JURISDICTION_COURTS[jurisdiction] || [],
     });
 
-    // NYV-AGUI-PRE-QUEEN-GATE-001 (Task #27, post-architect):
+    // JRX-AGUI-PRE-QUEEN-GATE-001 (Task #27, post-architect):
     // The pre-Queen synthetic thinking / tool_call / pattern_event blocks
     // were decorative scaffolding from the static-callLLM era. Queen now
     // emits REAL lifecycle events for the same milestones (decomposition,
     // per-agent tool_call/tool_result, synthesis). Firing the synthetic
     // versions in front of Queen produced misleading duplicates that
-    // pretended work happened (e.g. fake `nyayavigya-legal-kb` tool_result)
+    // pretended work happened (e.g. fake `jurexio-legal-kb` tool_result)
     // before Queen actually started. We gate them behind fallback-only:
     // they re-appear if Queen throws and we fall back to the single-prompt
     // LLM path (see catch-block below), which has no real lifecycle of its
@@ -688,13 +688,13 @@ const streamHandler = async (req: Request, res: Response): Promise<void> => {
       } else {
         sendEvent(res, {
           type: 'tool_call', runId, timestamp: ts(),
-          tool: 'nyayavigya-legal-kb',
+          tool: 'jurexio-legal-kb',
           input: { query: input.task.substring(0, 200), jurisdiction, language: input.language },
         });
         await new Promise(r => setTimeout(r, 50));
         sendEvent(res, {
           type: 'tool_result', runId, timestamp: ts(),
-          tool: 'nyayavigya-legal-kb',
+          tool: 'jurexio-legal-kb',
           resultSummary: `Retrieved relevant statutes and precedents for ${jurisdiction} jurisdiction`,
           documentsFound: 15,
         });
@@ -711,7 +711,7 @@ const streamHandler = async (req: Request, res: Response): Promise<void> => {
       }
     }
 
-    // ── NYV-AGUI-QUEEN-001 (Task #27): real Queen Orchestration ──────────────
+    // ── JRX-AGUI-QUEEN-001 (Task #27): real Queen Orchestration ──────────────
     // Replaces the previous single-prompt callLLM with the full multi-agent
     // Queen Orchestrator path. Queen emits lifecycle events as it runs; we
     // forward each one as an AG-UI event so the client sees REAL progress
@@ -723,7 +723,7 @@ const streamHandler = async (req: Request, res: Response): Promise<void> => {
     let streamIsRealLLM = false;
     let queenMeta: { agentCount?: number; pattern?: string; totalMs?: number; totalTokens?: { input: number; output: number } } = {};
 
-    // NYV-ORCH-PER-REQUEST-EMITTER-001 (Task #64): each AG-UI request owns
+    // JRX-ORCH-PER-REQUEST-EMITTER-001 (Task #64): each AG-UI request owns
     // a private `QueenLifecycleEmitter` that is passed to the Queen via
     // `OrchestrationRequest.lifecycleEvents`. The Queen emits all six
     // lifecycle events onto THIS emitter — never onto the singleton
@@ -1032,7 +1032,7 @@ const streamHandler = async (req: Request, res: Response): Promise<void> => {
         model:           streamModel,
         provider:        streamProvider,
         isRealLLM:       streamIsRealLLM,
-        platformVersion: NYV_PLATFORM_VERSION,
+        platformVersion: JRX_PLATFORM_VERSION,
         maxOutputTokens: streamMaxOutputTokens,
         queen: queenMeta.agentCount !== undefined ? {
           agentCount:           queenMeta.agentCount,
@@ -1142,7 +1142,7 @@ function buildPatternResponse(pattern: string, task: string, jurisdiction: strin
     // P09 — Function Router
     P09: `${baseIntro} The Function Router has intelligently classified this legal query and dispatched it to the most appropriate specialist agent. Classification: Contract & Drafting domain. Routing decision: highest-scoring specialist agent selected (confidence: 93%). The specialist agent has analysed the matter within its domain expertise and returned a grounded, jurisdiction-specific legal position. Cross-domain routing path logged for audit trail.`,
     // P10 — MCP Chain
-    P10: `${baseIntro} A multi-tool MCP chain has been executed sequentially to build a comprehensive legal research result. Tool 1 (nyayavigya-legal-kb): statutes and case law retrieved. Tool 2 (ecourts-case-status): current case status verified. Tool 3 (citation-verifier): all citations validated against primary sources. The MCP chain ensured that each tool's output fed as structured input to the next, eliminating data inconsistency between tools. All 3 MCP tools returned clean results — no fallback was required.`,
+    P10: `${baseIntro} A multi-tool MCP chain has been executed sequentially to build a comprehensive legal research result. Tool 1 (jurexio-legal-kb): statutes and case law retrieved. Tool 2 (ecourts-case-status): current case status verified. Tool 3 (citation-verifier): all citations validated against primary sources. The MCP chain ensured that each tool's output fed as structured input to the next, eliminating data inconsistency between tools. All 3 MCP tools returned clean results — no fallback was required.`,
     // P11 — NyayaRAG
     P11: `${baseIntro} Based on the NyayaRAG legal intelligence analysis, the matter engages multiple provisions across the applicable statutes. The retrieval-augmented generation pipeline has identified the most relevant case law and statutory provisions for this jurisdiction. A comprehensive legal position requires consideration of the primary statute, any applicable amendments, and the trajectory of judicial interpretation. The relevant courts have consistently held that strict compliance with procedural requirements is mandatory, while allowing equitable relief in appropriate circumstances.`,
     // P12 — GraphRAG

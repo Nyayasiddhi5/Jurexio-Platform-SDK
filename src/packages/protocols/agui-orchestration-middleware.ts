@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * AG-UI Orchestration Middleware
  * 
@@ -36,7 +36,7 @@
  */
 
 import type { Request, Response, NextFunction } from 'express';
-import { aguiJurexioIntegrationService } from './agui-nyayavigya-integration-service.js';
+import { aguiJurexioIntegrationService } from './agui-jurexio-integration-service.js';
 import { createLogger } from '../../utils/logger.js';
 
 

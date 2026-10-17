@@ -14,7 +14,7 @@ import { runWithRetryAndBreaker, getRetryBreakerStats, listBreakers } from './ci
 
 const logger = createLogger('real-llm-service');
 
-// NYV-OPS-LLM-BREAKER-001 (Task #28): exposed so /api/jrx/health/full and
+// JRX-OPS-LLM-BREAKER-001 (Task #28): exposed so /api/jrx/health/full and
 // the smoke test can inspect per-provider breaker state without poking
 // the registry directly.
 export function llmBreakerName(providerId: string): string {
@@ -254,7 +254,7 @@ export class RealLLMService extends EventEmitter {
           baseURL: openrouterBase,
           apiKey: openrouterKey || '',
           defaultHeaders: {
-            'HTTP-Referer': 'https://nyayavigya.in',
+            'HTTP-Referer': 'https://jurexio.com',
             'X-Title': 'Jurexio Legal OS',
           },
         });
@@ -652,8 +652,8 @@ export class RealLLMService extends EventEmitter {
         priority: 20,
         sovereign: true,
         piiSafe: true,
-        apiKey: process.env.NYV_AZENTZERO_API_KEY,
-        endpoint: process.env.NYV_AZENTZERO_BASE_URL ?? 'https://azentzero.nyayavigya.in/v1',
+        apiKey: process.env.JRX_AZENTZERO_API_KEY,
+        endpoint: process.env.JRX_AZENTZERO_BASE_URL ?? 'https://azentzero.jurexio.com/v1',
         description: 'FINAL BACKUP — sovereign self-hosted LLM, no external data egress. Engaged only when all 19 upstream providers fail.',
       }
     ];
@@ -713,7 +713,7 @@ export class RealLLMService extends EventEmitter {
     // documented "fails fast with explicit error" contract.
     if (request.provider) {
       const { isAllowedProvider, ProviderNotAllowedError } = await import(
-        '../config/nyv-allowed-providers.js'
+        '../config/jrx-allowed-providers.js'
       );
       if (!isAllowedProvider(request.provider)) {
         this.activeRequests.delete(requestId);
@@ -881,7 +881,7 @@ export class RealLLMService extends EventEmitter {
   private async executeWithProvider(providerId: string, request: LLMRequest): Promise<LLMResponse> {
     // T8b: Provider lockdown — only the 5 canonical providers may be invoked.
     // Lazy import to avoid circular deps at module load time.
-    const { isAllowedProvider, ProviderNotAllowedError } = await import('../config/nyv-allowed-providers.js');
+    const { isAllowedProvider, ProviderNotAllowedError } = await import('../config/jrx-allowed-providers.js');
     if (!isAllowedProvider(providerId)) {
       throw new ProviderNotAllowedError(providerId);
     }
@@ -1254,7 +1254,7 @@ export class RealLLMService extends EventEmitter {
     
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://nyayavigya-orchestration.com',
+      'HTTP-Referer': 'https://jurexio-orchestration.com',
       'X-Title': 'Jurexio Orchestration Platform v9.0',
       'Authorization': `Bearer ${apiKey}`
     };
@@ -1912,15 +1912,15 @@ export class RealLLMService extends EventEmitter {
    * Sovereign endpoint — PII can remain un-redacted (no external data egress).
    */
   private async executeAzentzeroSovereign(request: LLMRequest, config: any): Promise<LLMResponse> {
-    const apiKey = process.env.NYV_AZENTZERO_API_KEY;
+    const apiKey = process.env.JRX_AZENTZERO_API_KEY;
     if (!apiKey) {
-      logger.warn('[Azentzero] NYV_AZENTZERO_API_KEY not configured — returning schema-valid mock LLMResponse (no external egress).');
+      logger.warn('[Azentzero] JRX_AZENTZERO_API_KEY not configured — returning schema-valid mock LLMResponse (no external egress).');
       const fallbackId = `aztz_mock_${Date.now()}`;
       const response: LLMResponse = {
         id: fallbackId,
         requestId: request.id ?? fallbackId,
-        content: '[NYV Sovereign Fallback] Azentzero is not configured in this environment. ' +
-                 'Configure NYV_AZENTZERO_API_KEY to enable the sovereign final backup. ' +
+        content: '[JRX Sovereign Fallback] Azentzero is not configured in this environment. ' +
+                 'Configure JRX_AZENTZERO_API_KEY to enable the sovereign final backup. ' +
                  'This response is a deterministic mock so callers degrade gracefully instead of crashing.',
         model: request.model || 'azentzero-mock-v1',
         provider: 'azentzero-mock',
@@ -1941,9 +1941,9 @@ export class RealLLMService extends EventEmitter {
       return response;
     }
 
-    const baseUrl = (process.env.NYV_AZENTZERO_BASE_URL ?? 'https://azentzero.nyayavigya.in/v1').replace(/\/$/, '');
+    const baseUrl = (process.env.JRX_AZENTZERO_BASE_URL ?? 'https://azentzero.jurexio.com/v1').replace(/\/$/, '');
     const model   = request.model || 'azentzero-legal-v1';
-    const timeoutMs = Number(process.env.NYV_AZENTZERO_TIMEOUT_MS ?? '60000');
+    const timeoutMs = Number(process.env.JRX_AZENTZERO_TIMEOUT_MS ?? '60000');
 
     const controller = new AbortController();
     const timeoutHandle = setTimeout(() => controller.abort(), timeoutMs);
@@ -1955,8 +1955,8 @@ export class RealLLMService extends EventEmitter {
         headers: {
           'Content-Type':   'application/json',
           'Authorization':  `Bearer ${apiKey}`,
-          'X-NYV-Platform': '3.1.2',
-          'X-NYV-Sovereign': 'true',
+          'X-JRX-Platform': '3.1.2',
+          'X-JRX-Sovereign': 'true',
           'X-Request-ID':   request.id,
         },
         body: JSON.stringify({
@@ -1966,7 +1966,7 @@ export class RealLLMService extends EventEmitter {
           temperature: request.temperature || 0.3,
           stream: false,
           metadata: {
-            platform:      'nyayavigya-3.1.2',
+            platform:      'jurexio-3.1.2',
             fallback_level: 20,
             sovereign:      true,
           },
@@ -2019,7 +2019,7 @@ export class RealLLMService extends EventEmitter {
     }
 
     if (userAgent) {
-      headers['HTTP-Referer'] = 'https://nyayavigya-orchestration.com';
+      headers['HTTP-Referer'] = 'https://jurexio-orchestration.com';
       headers['X-Title'] = 'Jurexio Orchestration Platform';
     }
 
@@ -2400,7 +2400,7 @@ export class RealLLMService extends EventEmitter {
     // T8b: 5-provider lockdown — every candidate set is filtered through ALLOWED_PROVIDERS.
     // Lazy require to avoid circular deps at module load.
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { isAllowedProvider: _isAllowed } = require('../config/nyv-allowed-providers');
+    const { isAllowedProvider: _isAllowed } = require('../config/jrx-allowed-providers');
     const allowedAndHealthy = (id: string) => _isAllowed(id) && isHealthy(id);
 
     if (complexity === 'simple') {
@@ -2434,7 +2434,7 @@ export class RealLLMService extends EventEmitter {
   private getFallbackProviders(primaryProvider?: string): string[] {
     // T8b: 5-provider lockdown — fallback chain only includes canonical allowed providers.
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { ALLOWED_PROVIDERS } = require('../config/nyv-allowed-providers');
+    const { ALLOWED_PROVIDERS } = require('../config/jrx-allowed-providers');
     return (ALLOWED_PROVIDERS as readonly string[])
       .filter((p) => p !== primaryProvider && this.providerConfigs.has(p));
   }
@@ -2553,7 +2553,7 @@ export class RealLLMService extends EventEmitter {
     try {
       // T8b: 5-provider lockdown on the streaming surface — explicit disallowed provider fails fast.
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const { isAllowedProvider: _isAllowedStream, ProviderNotAllowedError: _PNAEStream } = require('../config/nyv-allowed-providers');
+      const { isAllowedProvider: _isAllowedStream, ProviderNotAllowedError: _PNAEStream } = require('../config/jrx-allowed-providers');
       if (request.provider && !_isAllowedStream(request.provider)) {
         this.activeRequests.delete(requestId);
         throw new _PNAEStream(request.provider);
@@ -2564,7 +2564,7 @@ export class RealLLMService extends EventEmitter {
 
       const enhancedRequest = this.applyContextEngineering(request);
 
-      // NYV-OPS-LLM-STREAM-FALLBACK-001 (Task #28 round 11): build the
+      // JRX-OPS-LLM-STREAM-FALLBACK-001 (Task #28 round 11): build the
       // ordered chain {primary, ...getFallbackProviders()} and walk it
       // until one provider streams successfully. Earlier this path
       // wrapped only the primary in a breaker and surfaced any

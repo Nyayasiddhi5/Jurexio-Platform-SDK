@@ -1,5 +1,5 @@
 // ════════════════════════════════════════════════════════════════════════════
-//  nv-schema-tables.ts — Drizzle parity for the `nv_schema` Postgres namespace
+//  jrx-schema-tables.ts — Drizzle parity for the `nv_schema` Postgres namespace
 // ════════════════════════════════════════════════════════════════════════════
 //
 //  Source of truth: AWS RDS production (api.jurexio.example), introspected
@@ -220,7 +220,7 @@ export const nvAsyncJobQueue = nvSchema.table('async_job_queue', {
 
 // ────────────────────────────────────────────────────────────────────────────
 // 9b. nv_matter_vaults — durable Matter Vault metadata (NV-MATTER-VAULT-PG-001)
-//     Mirrors migrations/2026-07-14-nv-matter-vaults.sql column-for-column:
+//     Mirrors migrations/2026-07-14-jrx-matter-vaults.sql column-for-column:
 //     VARCHAR-typed identifier/enum columns (not text) and NOT NULL timestamps.
 // ────────────────────────────────────────────────────────────────────────────
 export const nvMatterVaults = nvSchema.table('nv_matter_vaults', {
@@ -244,7 +244,7 @@ export const nvMatterVaults = nvSchema.table('nv_matter_vaults', {
 
 // ────────────────────────────────────────────────────────────────────────────
 // 9c. nv_edj_access_denials — EDJ access-deny audit trail
-//     Mirrors migrations/2026-07-05-nv-drift-b-telemetry.sql (lines 87-97).
+//     Mirrors migrations/2026-07-05-jrx-drift-b-telemetry.sql (lines 87-97).
 //     Declared here to close NV-SCHEMA-DRIFT-001 "EXTRA DB TABLE": the
 //     migration created it on 2026-07-05 with no TS counterpart.
 // ────────────────────────────────────────────────────────────────────────────
@@ -450,7 +450,7 @@ export const nvOrgMemoryEntries = nvSchema.table('org_memory_entries', {
   createdAt:        timestamp('created_at', { withTimezone: true }).defaultNow(),
   expiresAt:        timestamp('expires_at', { withTimezone: true }),
 });
-// HNSW index on embedding_vector — see nv-pgvector-init.sql.
+// HNSW index on embedding_vector — see jrx-pgvector-init.sql.
 
 // ────────────────────────────────────────────────────────────────────────────
 // 21. pii_vault — encrypted PII tokens with TTL
@@ -559,7 +559,7 @@ export const nvWorkflowExecutions = nvSchema.table('workflow_executions', {
 
 // ────────────────────────────────────────────────────────────────────────────
 // 26b. nv_patra_mitra_sessions — durable Patra Mitra document companion sessions
-//      (NV-PATRA-MITRA-PG-001). Replaces Map-only state in nv-patra-mitra-service.ts.
+//      (NV-PATRA-MITRA-PG-001). Replaces Map-only state in jrx-patra-mitra-service.ts.
 // ────────────────────────────────────────────────────────────────────────────
 export const nvPatraMitraSessions = nvSchema.table('nv_patra_mitra_sessions', {
   sessionId:    text('session_id').primaryKey(),
@@ -579,7 +579,7 @@ export const nvPatraMitraSessions = nvSchema.table('nv_patra_mitra_sessions', {
 //     Replaces the previous in-process Map-only state in
 //     src/services/maker-checker-service.ts so completed loops + human decisions
 //     survive a restart and are auditable. Created by
-//     migrations/2026-06-29-nv-maker-checker-sessions.sql.
+//     migrations/2026-06-29-jrx-maker-checker-sessions.sql.
 // ────────────────────────────────────────────────────────────────────────────
 export const nvMakerCheckerSessions = nvSchema.table('nv_maker_checker_sessions', {
   sessionId:       uuid('session_id').primaryKey().notNull(),
@@ -605,14 +605,14 @@ export const nvMakerCheckerSessions = nvSchema.table('nv_maker_checker_sessions'
 // 28. mem0_memories — durable backing for src/services/mem0-persistence-service.ts
 //     (Mem0PersistenceService). Previously the service held every memory only in
 //     a per-process Map, so store()/recall() did not survive a restart and were
-//     invisible across replicas (nv-sme-mem0-hooks.ts called this "out of scope
+//     invisible across replicas (jrx-sme-mem0-hooks.ts called this "out of scope
 //     for Task #156"). This table is the long-term store; the in-process Map is
 //     kept as a hot cache over it. Recall is embedding-backed (cosine over the
-//     `embedding` array produced by the existing nv-legal-embedding-service);
+//     `embedding` array produced by the existing jrx-legal-embedding-service);
 //     when no embedding provider is configured the service degrades EXPLICITLY to
 //     lexical scoring (never random vectors). The durable path is flag-gated by
 //     JRX_F_MEM0_DURABLE (default OFF). Created by
-//     migrations/2026-06-29-nv-mem0-memories.sql.
+//     migrations/2026-06-29-jrx-mem0-memories.sql.
 //
 //     `embedding` is double precision[] (NOT pgvector) so a fresh-DB migration
 //     applies without the `vector` extension and the schema-drift guardrail can

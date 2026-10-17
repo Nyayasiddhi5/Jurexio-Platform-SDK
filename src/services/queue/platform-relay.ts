@@ -1,7 +1,7 @@
 /**
  * Platform Relay — when one Jurexio platform requests work that should be
- * delivered asynchronously to another (e.g. NYS-INS triggers an audit ping
- * on NYS-MIN, or NYM acks a long-running brief back to the WhatsApp gateway),
+ * delivered asynchronously to another (e.g. JRX-INS triggers an audit ping
+ * on JRX-MIN, or NYM acks a long-running brief back to the WhatsApp gateway),
  * the request is enqueued here so the producer never blocks and we never lose
  * the delivery.
  *
@@ -31,7 +31,7 @@ export async function handlePlatformRelay(data: PlatformRelayJob): Promise<{ sta
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${data.apiKey}`,
-        'X-NYV-Platform': data.platform,
+        'X-JRX-Platform': data.platform,
         'X-Correlation-ID': data.correlationId,
         ...(data.headers || {}),
       },

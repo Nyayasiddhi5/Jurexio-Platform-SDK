@@ -339,7 +339,7 @@ export class SarvamAIService extends EventEmitter {
   constructor(options?: { cacheTTL?: number }) {
     super();
     this.cacheTTL = options?.cacheTTL ?? DEFAULT_TTL_MS;
-    this.apiKey = process.env.SARVAM_API_KEY || process.env.NYV_SARVAM_API_KEY || '';
+    this.apiKey = process.env.SARVAM_API_KEY || process.env.JRX_SARVAM_API_KEY || '';
     this.startTime = Date.now();
 
     this.translateBucket = {
@@ -372,7 +372,7 @@ export class SarvamAIService extends EventEmitter {
   private async geminiLanguageCall(prompt: string): Promise<string> {
     const key = resolveGeminiApiKey();
     if (!key) return '';
-    const model = toGeminiApiModelId(process.env.NYV_GEMINI_LANGUAGE_MODEL || getGeminiLanguageModel());
+    const model = toGeminiApiModelId(process.env.JRX_GEMINI_LANGUAGE_MODEL || getGeminiLanguageModel());
     const url =
       `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`
       + `?key=${encodeURIComponent(key)}`;
@@ -845,7 +845,7 @@ export class SarvamAIService extends EventEmitter {
             metadata: {
               domain: request.domain || 'legal',
               qualityScore: 0.88,
-              model: process.env.NYV_GEMINI_LANGUAGE_MODEL || getGeminiLanguageModel(),
+              model: process.env.JRX_GEMINI_LANGUAGE_MODEL || getGeminiLanguageModel(),
             },
           };
         }

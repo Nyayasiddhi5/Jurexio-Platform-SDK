@@ -18,14 +18,14 @@
  *      OPENROUTER_API_KEY here would only affect this script, not the
  *      live Gateway, so we cannot force-open from a black-box runner.
  *      That prerequisite is enforced at the documentation level (this
- *      docstring + docs/v3.1.2/completed_docs/NYV-OBSERVABILITY.md "Smoke test" section).
+ *      docstring + docs/v3.1.2/completed_docs/JRX-OBSERVABILITY.md "Smoke test" section).
  *
  * NOTE: This is a black-box runner — it pokes the live Gateway via HTTP.
  * Section presence + latency assertions run on every invocation;
  * end-to-end breaker-open verification requires the env override above.
  */
 
-const BASE = process.env.NYV_GATEWAY_BASE || `http://127.0.0.1:${process.env.NYV_PORT_GATEWAY || 5000}`;
+const BASE = process.env.JRX_GATEWAY_BASE || `http://127.0.0.1:${process.env.JRX_PORT_GATEWAY || 5000}`;
 
 interface OrchSample {
   i: number;
@@ -100,17 +100,17 @@ async function main() {
   console.log(`  ▸ ok=${okCount}/10  p50=${pct(okMs, 50)}ms  p95=${pct(okMs, 95)}ms  max=${Math.max(0, ...okMs)}ms`);
 
   // 3. Health snapshot
-  // NYV-OBS-SMOKE-ADMIN-AUTH-001 (Task #28 round 10): the
+  // JRX-OBS-SMOKE-ADMIN-AUTH-001 (Task #28 round 10): the
   // /admin/health/full path is now gated by authenticateToken +
   // requireAdmin (round 8/9), so the smoke runner has to forward
   // the JWT it minted in step 1. The first registered user gets
   // the default 'user' role — for CI you can either (a) seed
-  // NYV_SMOKE_ADMIN_TOKEN with a token from a pre-promoted admin
+  // JRX_SMOKE_ADMIN_TOKEN with a token from a pre-promoted admin
   // user, in which case we use that, or (b) fall back to the
   // public /health/full path which now returns a redacted view
   // sufficient to verify the gateway is up. Section-presence
   // assertions further down are skipped on the public path.
-  const adminTok = process.env.NYV_SMOKE_ADMIN_TOKEN || '';
+  const adminTok = process.env.JRX_SMOKE_ADMIN_TOKEN || '';
   const healthPath = adminTok ? '/api/jrx/admin/health/full' : '/api/jrx/health/full';
   const h = await jget(healthPath, adminTok || undefined);
   if (h.status !== 200 && h.status !== 503) {
@@ -119,7 +119,7 @@ async function main() {
   }
   const sections = h.json || {};
 
-  // NYV-OBS-SMOKE-COND-ASSERT-001 (Task #28 round 11): operator-only
+  // JRX-OBS-SMOKE-COND-ASSERT-001 (Task #28 round 11): operator-only
   // sections (breakers, queues, llm_providers, tracer) only exist on
   // the admin payload — the public /health/full path returns a
   // redacted view by design (round 9). Gate the section-presence
@@ -165,7 +165,7 @@ async function main() {
       console.error('✗ public /health/full missing core envelope (status/platform/services)');
       process.exit(3);
     }
-    console.log(`  ℹ skipping operator-section assertions (no NYV_SMOKE_ADMIN_TOKEN — using public redacted path)`);
+    console.log(`  ℹ skipping operator-section assertions (no JRX_SMOKE_ADMIN_TOKEN — using public redacted path)`);
   }
 
   console.log(`✔ Task #28 smoke complete  (registered=${email}, ok=${okCount}/10)`);

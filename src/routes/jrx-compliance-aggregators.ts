@@ -159,7 +159,7 @@ router.get('/dpdpa', async (req: Request, res: Response): Promise<void> => {
       : sql``;
 
   // task-298: read from the explicit DPDPA projection layer
-  // (nv_dpdpa_consent_registry — view created by nv-policy-engine.bootstrap)
+  // (nv_dpdpa_consent_registry — view created by jrx-policy-engine.bootstrap)
   // which joins consent records with the latest CAM-writer event for the
   // (user, purpose) pair, instead of querying the consent table directly.
   type PurposeCount = { purpose: string; status: string; count: number };

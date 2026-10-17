@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — RAG Embedding Backfill
- * NYV-SCRIPT-RAG-EMBED-BACKFILL-001
+ * Jurexio Platform 3.1.2 — RAG Embedding Backfill
+ * JRX-SCRIPT-RAG-EMBED-BACKFILL-001
  *
  * Idempotently fills the `embedding` column on every knowledge_chunks row
  * that is missing one. Uses OpenAI text-embedding-3-small (1536 dims) which
@@ -26,7 +26,7 @@
  * Usage
  *   tsx scripts/jrx-rag-backfill-embeddings.ts
  *   # Or against prod:
- *   sudo docker exec nyv-gateway tsx scripts/jrx-rag-backfill-embeddings.ts
+ *   sudo docker exec jrx-gateway tsx scripts/jrx-rag-backfill-embeddings.ts
  */
 
 import 'dotenv/config';

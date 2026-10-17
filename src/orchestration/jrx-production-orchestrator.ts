@@ -131,7 +131,7 @@ const createClaudeFlowCoordinator = async (_opts?: any) => {
   const workflowService = new SdkWorkflowProtocolService();
   const ctx = {
     applicationId: 'internal-production-orchestrator',
-    organizationId: 'nyv-platform',
+    organizationId: 'jrx-platform',
     appName: 'ProductionOrchestrator',
   };
   return {
@@ -501,7 +501,7 @@ export class ProductionOrchestrator extends EventEmitter {
         agentId: 'chief-orchestrator',
         taskType: request.type,
         query: request.task,
-        requiredLayers: ['global-nyayavigya-system', 'development-domain'],
+        requiredLayers: ['global-jurexio-system', 'development-domain'],
         optionalLayers: ['user-context', 'session-context'],
         constraints: {
           maxTokens: 4000,

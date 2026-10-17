@@ -14,7 +14,7 @@
  *
  * Guardrails honored:
  *   - NV-ARCH-001: outside the safety ring, post-response only.
- *   - NV-NAMING-001: grep showed no existing publisher; new file with `nv-` prefix.
+ *   - NV-NAMING-001: grep showed no existing publisher; new file with `jrx-` prefix.
  *   - NV-AUTH-HEADER-001: reads `req.sdkContext` populated upstream; never
  *     reads X-API-Key directly.
  */
@@ -58,7 +58,7 @@ export function activityPublisher(req: Request, res: Response, next: NextFunctio
       const status = res.statusCode;
       if (status < 100 || status >= 600) return;
       const ctx: SdkContext = (req as Request & { sdkContext?: SdkContext }).sdkContext ?? {};
-      const headerJur = (req.headers['x-jurisdiction'] || req.headers['x-nv-jurisdiction']) as string | undefined;
+      const headerJur = (req.headers['x-jurisdiction'] || req.headers['x-jrx-jurisdiction']) as string | undefined;
       const routedAgent = (req as Request & { routedAgent?: string }).routedAgent;
       const route = path.split('?')[0];
       // Fall back to JWT-session orgId when there's no SDK context (e.g. console

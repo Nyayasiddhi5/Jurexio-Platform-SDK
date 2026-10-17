@@ -1,19 +1,19 @@
 import { useState, useCallback } from 'react';
-import { useNyvClient } from './useNyvClient.js';
-import type { NyvConflictDetectResult } from '@jurexio/types';
+import { useJrxClient } from './useJrxClient.js';
+import type { JrxConflictDetectResult } from '@jurexio/types';
 
 export interface UseConflictDetectorReturn {
   loading: boolean;
   error: string | null;
-  result: NyvConflictDetectResult | null;
-  detect: (parties: { name: string; role: string }[], matterId?: string) => Promise<NyvConflictDetectResult>;
+  result: JrxConflictDetectResult | null;
+  detect: (parties: { name: string; role: string }[], matterId?: string) => Promise<JrxConflictDetectResult>;
 }
 
 export function useConflictDetector(): UseConflictDetectorReturn {
-  const { authHeaders, baseUrl } = useNyvClient({});
+  const { authHeaders, baseUrl } = useJrxClient({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<NyvConflictDetectResult | null>(null);
+  const [result, setResult] = useState<JrxConflictDetectResult | null>(null);
 
   const detect = useCallback(async (parties: { name: string; role: string }[], matterId?: string) => {
     setLoading(true);

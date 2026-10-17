@@ -17,7 +17,7 @@ function ssl() {
   return { rejectUnauthorized: false };
 }
 const rds = new RDSClient({ region: REGION });
-const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "nyv-caselaw-pg" }));
+const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "jrx-caselaw-pg" }));
 const inst = desc.DBInstances[0];
 const sm = new SecretsManagerClient({ region: REGION });
 const secret = await sm.send(new GetSecretValueCommand({ SecretId: inst.MasterUserSecret.SecretArn }));

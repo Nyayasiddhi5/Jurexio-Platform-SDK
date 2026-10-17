@@ -3,7 +3,7 @@
  * Canonical path: /api/jrx/v1/sdk/cnr/*
  * claimEcourts is always false (judgment corpus / Open Data only).
  */
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export interface CnrResolveOptions {
   includeDocuments?: boolean;
@@ -354,7 +354,7 @@ export interface CnrDocumentBundleResponse {
 }
 
 export class CnrApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   health(): Promise<{ success: boolean; data: unknown }> {
     return this.http.get('/api/jrx/v1/sdk/cnr/health');

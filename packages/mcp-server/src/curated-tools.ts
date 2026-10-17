@@ -1,7 +1,7 @@
 /**
  * Curated executable MCP tool catalog — partner honesty surface (Wave A).
  * Gateway tools = PARTNER_CURATED_MCP_TOOL_IDS (~109 live handlers).
- * API tools = NYV partner REST wrappers. Total target: 120–140.
+ * API tools = JRX partner REST wrappers. Total target: 120–140.
  * OAuth stubs (DocuSign/Drive/etc.) are intentionally excluded.
  */
 
@@ -201,7 +201,7 @@ export const CURATED_TOOLS: CuratedToolDef[] = [
   apiTool(
     'nyv_legal_work_create_run',
     'Legal Work Run (async)',
-    'Queue grounded legal work product via NYV legal-work service.',
+    'Queue grounded legal work product via JRX legal-work service.',
     objectSchema({
       instruction: { type: 'string' },
       context: { type: 'string' },
@@ -393,7 +393,7 @@ export const CURATED_TOOLS: CuratedToolDef[] = [
   gatewayTool('nys_check_citations', 'NYS Citation Check', 'Regex citation extract + corpus verify against NYS caselaw/statutes.'),
   gatewayTool('nys_compare_ipc_bns', 'NYS IPC↔BNS Compare', 'Old↔new Indian criminal code comparator (IPC→BNS) for Gate 8 remediation.'),
   gatewayTool('nys_get_statute', 'NYS Get Statute Section', 'Fetch a specific statute section by code + section number from NYS corpus.'),
-  gatewayTool('nys_perform_legal_work', 'NYS Legal Work Run', 'Queue grounded legal work product (draft/analyze/review/research) via NYV legal-work + NYS retrieval.'),
+  gatewayTool('nys_perform_legal_work', 'NYS Legal Work Run', 'Queue grounded legal work product (draft/analyze/review/research) via JRX legal-work + NYS retrieval.'),
   gatewayTool('nys_retrieve', 'NYS Retrieval Planner', 'Deterministic retrieval-first planner (citations, statutes, caselaw) before LLM.'),
   gatewayTool('nys_search_caselaw', 'NYS Caselaw Search', 'Search Indian SC/HC RDS corpus or US CourtListener via NYS Knowledgesearch plane.'),
   gatewayTool('nys_search_statutes', 'NYS Statute Search', 'Hybrid FTS+vector statute search over India Code / BNS / USC via NYS plane.'),

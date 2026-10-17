@@ -24,24 +24,24 @@ describe('Environment — secrets verification', () => {
     expect(key!.startsWith('sk-or-')).toBe(true);
   });
 
-  it('NYV_JWT_SECRET is set', () => {
-    expect(process.env.NYV_JWT_SECRET).toBeTruthy();
+  it('JRX_JWT_SECRET is set', () => {
+    expect(process.env.JRX_JWT_SECRET).toBeTruthy();
   });
 
-  it('NYV_JWT_REFRESH_SECRET is set', () => {
-    expect(process.env.NYV_JWT_REFRESH_SECRET).toBeTruthy();
+  it('JRX_JWT_REFRESH_SECRET is set', () => {
+    expect(process.env.JRX_JWT_REFRESH_SECRET).toBeTruthy();
   });
 
   it('DATABASE_URL is set', () => {
     expect(process.env.DATABASE_URL).toBeTruthy();
   });
 
-  it('NYV_REDIS_TCP_URL is set', () => {
-    expect(process.env.NYV_REDIS_TCP_URL).toBeTruthy();
+  it('JRX_REDIS_TCP_URL is set', () => {
+    expect(process.env.JRX_REDIS_TCP_URL).toBeTruthy();
   });
 
-  it('NYV_REDIS_TCP_URL auto-corrects ediss:// to rediss://', () => {
-    const raw = process.env.NYV_REDIS_TCP_URL || '';
+  it('JRX_REDIS_TCP_URL auto-corrects ediss:// to rediss://', () => {
+    const raw = process.env.JRX_REDIS_TCP_URL || '';
     let corrected = raw.trim();
     if (corrected.startsWith('ediss://')) {
       corrected = 'rediss://' + corrected.slice('ediss://'.length);
@@ -54,8 +54,8 @@ describe('Environment — secrets verification', () => {
     if (url) {
       const isHttps = url.startsWith('https://');
       if (isHttps) {
-        // This is the Upstash REST URL — must use NYV_REDIS_TCP_URL for ioredis
-        expect(process.env.NYV_REDIS_TCP_URL).toBeTruthy();
+        // This is the Upstash REST URL — must use JRX_REDIS_TCP_URL for ioredis
+        expect(process.env.JRX_REDIS_TCP_URL).toBeTruthy();
       }
     }
   });
@@ -149,7 +149,7 @@ describe('RLS service — multi-org isolation', () => {
 // ─── WhatsApp service graceful degradation ────────────────────────────────────
 describe('WhatsApp service — graceful degradation', () => {
   it('returns not_configured when token missing', () => {
-    const token = process.env.NYV_WHATSAPP_TOKEN;
+    const token = process.env.JRX_WHATSAPP_TOKEN;
     if (!token) {
       const result = { success: false, status: 'not_configured', error: 'WhatsApp not configured' };
       expect(result.status).toBe('not_configured');
@@ -166,7 +166,7 @@ describe('WhatsApp service — graceful degradation', () => {
   });
 
   it('webhook verify token is set correctly', () => {
-    const verifyToken = process.env.NYV_WHATSAPP_VERIFY_TOKEN || 'nyv-webhook-verify';
+    const verifyToken = process.env.JRX_WHATSAPP_VERIFY_TOKEN || 'jrx-webhook-verify';
     expect(typeof verifyToken).toBe('string');
     expect(verifyToken.length).toBeGreaterThan(0);
   });
@@ -180,15 +180,15 @@ describe('WhatsApp service — graceful degradation', () => {
 // ─── eCourts client graceful degradation ─────────────────────────────────────
 describe('eCourts client — graceful degradation', () => {
   it('returns error when API key not configured', () => {
-    const apiKey = process.env.NYV_ECOURTS_API_KEY;
+    const apiKey = process.env.JRX_ECOURTS_API_KEY;
     if (!apiKey) {
-      const result = { error: 'NYV_ECOURTS_API_KEY not configured. Contact eCourts NIC for API access.' };
-      expect(result.error).toContain('NYV_ECOURTS_API_KEY');
+      const result = { error: 'JRX_ECOURTS_API_KEY not configured. Contact eCourts NIC for API access.' };
+      expect(result.error).toContain('JRX_ECOURTS_API_KEY');
     }
   });
 
   it('eCourts base URL points to NIC services', () => {
-    const base = process.env.NYV_ECOURTS_BASE_URL || 'https://services.ecourts.gov.in/ecourtindiaapi/api';
+    const base = process.env.JRX_ECOURTS_BASE_URL || 'https://services.ecourts.gov.in/ecourtindiaapi/api';
     expect(base).toContain('ecourts');
   });
 

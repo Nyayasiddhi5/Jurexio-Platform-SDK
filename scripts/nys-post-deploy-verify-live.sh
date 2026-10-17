@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -uo pipefail
 echo "index_md5=$(md5sum /opt/nyv/api/index.mjs 2>/dev/null | awk '{print $1}' || echo missing)"
-echo "api_status=$(systemctl is-active nyv-api 2>/dev/null || echo inactive)"
+echo "api_status=$(systemctl is-active jrx-api 2>/dev/null || echo inactive)"
 HC=$(curl -sf -o /dev/null -w '%{http_code}' localhost:8080/api/healthz 2>/dev/null || curl -s -o /dev/null -w '%{http_code}' localhost:8080/api/caselaw/stats 2>/dev/null || echo 000)
 echo "health_http=$HC"
 node -e "

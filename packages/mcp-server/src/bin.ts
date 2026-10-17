@@ -14,7 +14,7 @@ async function main(): Promise<void> {
     process.stdout.write(`@jurexio/mcp-server v5.0.0
 
 Usage:
-  nyayavigya-mcp-server [--stdio|--sse] [--list-tools]
+  jurexio-mcp-server [--stdio|--sse] [--list-tools]
 
 Environment:
   JRX_BASE_URL          Gateway base URL (default: https://api.jurexio.example)
@@ -45,7 +45,7 @@ Environment:
     for (const t of tools) {
       process.stdout.write(`${t.id}\t${t.kind}\t${t.name}\n`);
     }
-    process.stderr.write(`[nyayavigya-mcp-server] ${tools.length} curated tools (sku=${config.sku})\n`);
+    process.stderr.write(`[jurexio-mcp-server] ${tools.length} curated tools (sku=${config.sku})\n`);
     return;
   }
 
@@ -53,6 +53,6 @@ Environment:
 }
 
 main().catch((err) => {
-  process.stderr.write(`[nyayavigya-mcp-server] fatal: ${err instanceof Error ? err.message : String(err)}\n`);
+  process.stderr.write(`[jurexio-mcp-server] fatal: ${err instanceof Error ? err.message : String(err)}\n`);
   process.exit(1);
 });

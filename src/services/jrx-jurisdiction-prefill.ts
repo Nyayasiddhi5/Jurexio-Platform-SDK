@@ -2,14 +2,14 @@
  * NV-CASE-MASTER-DATA-001 — jurisdiction master prefill for CNR resolve.
  *
  * Fills ONLY empty resolve fields (courtType / courtName / stateName /
- * districtName / complexName) from the static NYV jurisdiction master tables
+ * districtName / complexName) from the static JRX jurisdiction master tables
  * (nv_cnr_prefix_rules, nv_court_jurisdictions, nv_district_master,
  * nv_case_type_codes). These are deterministic reference joins — they NEVER
  * set claimEcourts and NEVER overwrite a non-empty corpus value. Prefilled
  * values carry source:"nyv_master" + a note so NSP can distinguish
  * reference-derived from corpus-published.
  *
- * Ref: documents/working/NYV-CASE-CORPUS-FIELD-GAP-PLAN-2026-09.md Appendix F.
+ * Ref: documents/working/JRX-CASE-CORPUS-FIELD-GAP-PLAN-2026-09.md Appendix F.
  */
 import { pool } from '../db/index.js';
 import { createLogger } from '../utils/logger.js';
@@ -20,7 +20,7 @@ const logger = createLogger('./jrx-jurisdiction-prefill');
 export const PREFILL_SOURCE = 'nyv_master';
 const PREFILL_CONFIDENCE = 0.8;
 const PREFILL_NOTE =
-  'prefilled from NYV jurisdiction master (reference join, not live eCourts)';
+  'prefilled from JRX jurisdiction master (reference join, not live eCourts)';
 
 /** eCourts CNR positions 1–2 (state code) → canonical state name. */
 const STATE_CODE_TO_NAME: Record<string, string> = {

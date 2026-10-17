@@ -4,8 +4,8 @@
  *
  * Mounts a tiny Express app whose only route uses the canonical
  * `lazyRequire(() => rawDb, 'db', ...)` Proxy, calls `db.execute(...)` on
- * it, and lets the resulting `NyvMissingDependencyError` propagate to the
- * shared `nv-error-handler` middleware (the same chain used by every
+ * it, and lets the resulting `JrxMissingDependencyError` propagate to the
+ * shared `jrx-error-handler` middleware (the same chain used by every
  * production route).
  *
  * Prints a single JSON line on stdout: `{"status":<httpStatus>,"body":<obj>}`
@@ -21,9 +21,9 @@ async function main() {
     if (process.env[k]) throw new Error(`${k} is still set: ${process.env[k]}`);
   }
 
-  const { lazyRequire } = await import('../../../src/utils/nv-type-helpers.js');
+  const { lazyRequire } = await import('../../../src/utils/jrx-type-helpers.js');
   const { db: rawDb } = await import('../../../src/db/index.js');
-  const { errorHandler } = await import('../../../src/middleware/nv-error-handler.js');
+  const { errorHandler } = await import('../../../src/middleware/jrx-error-handler.js');
 
   if (rawDb !== null) throw new Error(`expected rawDb === null, got ${typeof rawDb}`);
 
@@ -33,7 +33,7 @@ async function main() {
   app.get('/db-backed', async (_req, _res, next) => {
     try {
       // First property access on the Proxy → requireDb(rawDb) → throws
-      // NyvMissingDependencyError because rawDb is null.
+      // JrxMissingDependencyError because rawDb is null.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await /** @type {any} */ (lazyDb).execute('SELECT 1');
       next(new Error('lazyRequire did NOT throw — regression: lazy Proxy contract broken'));

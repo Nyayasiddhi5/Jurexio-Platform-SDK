@@ -140,7 +140,7 @@ export class SdkMultimodalVoiceService {
         capabilities: ['legal_consultation', 'document_explanation', 'case_discussion', 'jurisdiction_guidance'],
         contextWindow: 8192, maxSessionDuration: 3600,
       },
-      wsUrl: `wss://api.nyayavigya.com/avatar/ws/${sessionId}`,
+      wsUrl: `wss://api.jurexio.com/avatar/ws/${sessionId}`,
       expiresAt: new Date(Date.now() + 3600000), timestamp: new Date(),
     };
   }
@@ -249,7 +249,7 @@ export class SdkMultimodalVoiceService {
     await this.recordUsage(ctx, '/voice/synthesize', 200, latency + 50, Math.ceil(text.length / 4), 0.001);
 
     return {
-      synthesisId, audioUrl: `https://cdn.nyayavigya.com/audio/${synthesisId}.${format || 'mp3'}`,
+      synthesisId, audioUrl: `https://cdn.jurexio.com/audio/${synthesisId}.${format || 'mp3'}`,
       duration: estimatedDuration, format: format || 'mp3', sampleRate: 44100, channels: 1,
       voiceId: voiceId || `default_${language}`, speed: speed || 1.0, language,
       textLength: text.length, wordCount: text.split(/\s+/).length,
@@ -327,7 +327,7 @@ export class SdkMultimodalVoiceService {
     await this.recordUsage(ctx, '/voice/stream/start', 200, 50, 0, 0);
 
     return {
-      sessionId, wsUrl: `wss://api.nyayavigya.com/voice/ws/${sessionId}`, language, mode, jurisdiction,
+      sessionId, wsUrl: `wss://api.jurexio.com/voice/ws/${sessionId}`, language, mode, jurisdiction,
       config: { sampleRate: 16000, encoding: 'LINEAR16', channels: 1, interimResults: true, punctuation: true, speakerDiarization: mode === 'courtroom', legalTerminology: true },
       maxDuration: 7200, expiresAt: new Date(Date.now() + 7200000), timestamp: new Date(),
     };
@@ -357,7 +357,7 @@ export class SdkMultimodalVoiceService {
     await this.recordUsage(ctx, '/voice/voiceover/generate', 200, 200, Math.ceil(script.length / 4), 0.005);
 
     return {
-      voiceoverId, audioUrl: `https://cdn.nyayavigya.com/voiceover/${voiceoverId}.${outputFormat}`,
+      voiceoverId, audioUrl: `https://cdn.jurexio.com/voiceover/${voiceoverId}.${outputFormat}`,
       duration: estimatedDuration, format: outputFormat, sampleRate: 48000, channels: 2, bitrate: '320kbps',
       voiceProfile, language, scriptLength: script.length, wordCount: script.split(/\s+/).length,
       processingTime: 8500, timestamp: new Date(),

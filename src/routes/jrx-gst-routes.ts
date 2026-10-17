@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Jurexio Enterprise Platform 3.1.2 — GST Engine Routes
- * NYV-ROUTE-GST-001
+ * JRX-ROUTE-GST-001
  *
  * Routes:
  *   POST /api/jrx/gst/compute          — compute GST for an amount
@@ -14,7 +14,7 @@
 import { Router, Request, Response } from 'express';
 import { z, ZodError } from 'zod';
 import { authenticateToken } from '../middleware/auth.js';
-import { gstEngine, NYV_GST_DETAILS } from '../services/jrx-gst-engine.js';
+import { gstEngine, JRX_GST_DETAILS } from '../services/jrx-gst-engine.js';
 import { gstInvoicePdfService } from '../services/gst-invoice-pdf-service.js';
 
 const router = Router();
@@ -50,11 +50,11 @@ router.get('/rates', (_req: Request, res: Response): void => {
   res.json({
     success: true,
     data: {
-      supplier: NYV_GST_DETAILS,
-      gst_rate: NYV_GST_DETAILS.gst_rate_percent,
-      tds_rate: NYV_GST_DETAILS.tds_rate_percent,
+      supplier: JRX_GST_DETAILS,
+      gst_rate: JRX_GST_DETAILS.gst_rate_percent,
+      tds_rate: JRX_GST_DETAILS.tds_rate_percent,
       tds_threshold_inr: 30000,
-      sac_code: NYV_GST_DETAILS.sac_code,
+      sac_code: JRX_GST_DETAILS.sac_code,
       invoice_format: 'INV-YYYY-NNNNNN',
       payment_format: 'PAY-YYYY-NNNNNN',
       intra_state: { cgst: 9, sgst: 9, igst: 0 },

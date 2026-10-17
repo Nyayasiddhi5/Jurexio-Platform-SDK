@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Install NSP CNR peak/off-peak embed cron on caselaw-worker (SSM). No docker prune.
-# Usage: cd nyayavigya-platform-312 && npm run protect:secrets:ec2 && bash scripts/_nys-embed-cnr-cron-install.sh
+# Usage: cd Jurexio-Platform-SDK && npm run protect:secrets:ec2 && bash scripts/_nys-embed-cnr-cron-install.sh
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"

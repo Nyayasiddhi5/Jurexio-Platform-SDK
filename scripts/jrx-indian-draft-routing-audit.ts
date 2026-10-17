@@ -1,5 +1,5 @@
 /**
- * NV-INDIAN-DRAFT-ROUTING-AUDIT-001 — NSP wire vs NYV token/Queen resolution (no network).
+ * NV-INDIAN-DRAFT-ROUTING-AUDIT-001 — NSP wire vs JRX token/Queen resolution (no network).
  */
 import type { Request } from 'express';
 import {
@@ -25,7 +25,7 @@ export type SmeCaseRef = {
 function nspRequest(body: Record<string, unknown>): Request {
   return {
     body,
-    headers: { 'x-nyv-platform': 'NSP' },
+    headers: { 'x-jrx-platform': 'NSP' },
     sdkContext: { partnerCode: 'NSP', tenantId: 't-nsp' },
   } as unknown as Request;
 }

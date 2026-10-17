@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 import { createLogger } from '../../utils/logger.js';
 import { secureRandom, secureRandomInt, secureRandomBool, secureRandomChoice } from '../../utils/jrx-secure-random.js';
 

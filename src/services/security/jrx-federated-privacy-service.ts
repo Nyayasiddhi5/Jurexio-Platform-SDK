@@ -295,9 +295,9 @@ class NvFederatedPrivacyService {
     return {
       clientId, jurisdiction,
       deploymentType: 'hybrid',
-      requiredServices: ['NYV-GATEWAY', 'NYV-DOC-SERVICE', 'NYV-AGENT-SERVICE', 'NYV-RAG-SERVICE', 'PostgreSQL', 'Redis', 'Qdrant'],
+      requiredServices: ['JRX-GATEWAY', 'JRX-DOC-SERVICE', 'JRX-AGENT-SERVICE', 'JRX-RAG-SERVICE', 'PostgreSQL', 'Redis', 'Qdrant'],
       networkConfig: {
-        internalEndpoints: ['http://nyv-gateway:5000', 'http://nyv-doc:5001', 'http://nyv-agent:5002', 'http://nyv-rag:5003'],
+        internalEndpoints: ['http://jrx-gateway:5000', 'http://jrx-doc:5001', 'http://jrx-agent:5002', 'http://jrx-rag:5003'],
         externalWhitelist: ['api.openai.com', 'api.anthropic.com', 'api.deepseek.com'],
       },
       dataResidency: {
@@ -328,18 +328,18 @@ class NvFederatedPrivacyService {
 }
 
 // NV-ENTERPRISE-GATE (R4 — 2026-05-07): FederatedPrivacy is an enterprise-tier
-// feature (per audit Appendix A). Gate behind NYV_ENTERPRISE_TIER=true.
+// feature (per audit Appendix A). Gate behind JRX_ENTERPRISE_TIER=true.
 // Below-tier callers receive a no-op proxy that throws on first use and logs
 // a single startup warning, so non-enterprise dev environments don't pay the
 // ε-budget hydration cost or accidentally enable DP-FL flows.
 const ENTERPRISE_TIER_ENABLED =
-  process.env.NYV_ENTERPRISE_TIER === 'true' ||
-  process.env.NYV_ENTERPRISE_TIER === '1';
+  process.env.JRX_ENTERPRISE_TIER === 'true' ||
+  process.env.JRX_ENTERPRISE_TIER === '1';
 
 function makeDisabledProxy(): NvFederatedPrivacyService {
   const err = () => {
     throw new Error(
-      'FederatedPrivacy is an enterprise-tier feature. Set NYV_ENTERPRISE_TIER=true to enable.',
+      'FederatedPrivacy is an enterprise-tier feature. Set JRX_ENTERPRISE_TIER=true to enable.',
     );
   };
   return new Proxy({} as NvFederatedPrivacyService, {
@@ -357,6 +357,6 @@ function makeDisabledProxy(): NvFederatedPrivacyService {
 export const nvFederatedPrivacyService: NvFederatedPrivacyService = ENTERPRISE_TIER_ENABLED
   ? new NvFederatedPrivacyService()
   : (logger.warn(
-      'FederatedPrivacy disabled (NYV_ENTERPRISE_TIER!=true). Service returns a stub proxy.',
+      'FederatedPrivacy disabled (JRX_ENTERPRISE_TIER!=true). Service returns a stub proxy.',
     ),
     makeDisabledProxy());

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 
 import { getAuthToken } from '@/lib/jrx-auth-token';
 import { nv } from '@/lib/jrx-api-paths';
@@ -78,7 +78,7 @@ export default function BillingLedger() {
     return (
       <div className="min-h-screen p-8" style={{ background: 'linear-gradient(135deg, #0E1830 0%, #152448 40%, #152448 100%)' }} data-testid="error-ledger">
         <div className="max-w-3xl mx-auto pt-12">
-          <NyvErrorState
+          <JrxErrorState
             variant="card"
             title="Unable to load billing ledger"
             description="We couldn't fetch your subscription and credit history."
@@ -197,7 +197,7 @@ export default function BillingLedger() {
             </div>
             {creditTxns.length === 0 ? (
               <div style={{ padding: 16 }}>
-                <NyvEmptyState title="No transactions yet" description="Credit transactions will appear here as you use the platform." size="sm" />
+                <JrxEmptyState title="No transactions yet" description="Credit transactions will appear here as you use the platform." size="sm" />
               </div>
             ) : creditTxns.map(tx => (
               <div key={tx.transaction_id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '13px 20px', borderBottom: `1px solid ${BORDER}` }}>

@@ -6,7 +6,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/contexts/AuthContext';
 import { hasAccess, type RoleLevel } from '@/lib/rbac-registry';
 import ErrorBoundary from '@/components/ErrorBoundary';
-import { NyvPageShell } from '@/components/NyvPageShell';
+import { JrxPageShell } from '@/components/JrxPageShell';
 
 const UniversalChat = lazy(() => import('../UniversalChat'));
 const GlobalAgentChat = lazy(() => import('../GlobalAgentChat'));
@@ -67,7 +67,7 @@ export default function ChatHub() {
   };
 
   return (
-    <NyvPageShell
+    <JrxPageShell
       title="Chat Workspace"
       description="Legal Chat is the default workspace. Universal/Agent tabs stay on /api/chat/* until migrated."
       className="./jrx-light-scope"
@@ -103,6 +103,6 @@ export default function ChatHub() {
           );
         })}
       </Tabs>
-    </NyvPageShell>
+    </JrxPageShell>
   );
 }

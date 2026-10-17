@@ -73,7 +73,7 @@ export default function TemplateLibrary({ selectedPlatform, onTemplateSelect }: 
       lastUpdated: '2 days ago',
       author: 'Jurexio DevStudio',
       preview: '/templates/saas-starter.png',
-      demoUrl: 'https://saas-demo.nyayavigya.dev',
+      demoUrl: 'https://saas-demo.jurexio.dev',
       price: 'free',
       rating: 4.8,
       reviews: 324
@@ -93,7 +93,7 @@ export default function TemplateLibrary({ selectedPlatform, onTemplateSelect }: 
       lastUpdated: '1 week ago',
       author: 'Jurexio AI Labs',
       preview: '/templates/ai-chatbot.png',
-      demoUrl: 'https://chatbot-demo.nyayavigya.dev',
+      demoUrl: 'https://chatbot-demo.jurexio.dev',
       price: 'premium',
       rating: 4.9,
       reviews: 156

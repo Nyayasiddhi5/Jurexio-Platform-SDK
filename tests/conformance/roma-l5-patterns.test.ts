@@ -1,6 +1,6 @@
 /**
  * ROMA-L5 conformance — 22 orchestration patterns
- * NYV-T013 (Stream D conformance, 2026-05-06).
+ * JRX-T013 (Stream D conformance, 2026-05-06).
  *
  * Loads the canonical pattern allocation for the most expansive variant
  * (`nys-institutional`, which carries all 22 ROMA-L5 patterns the platform

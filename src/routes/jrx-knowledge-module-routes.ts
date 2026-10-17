@@ -1,6 +1,6 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
- * NYV-SVC-KM-MODULES Routes — /api/jrx/knowledge-modules/*
+ * JRX-SVC-KM-MODULES Routes — /api/jrx/knowledge-modules/*
  */
 
 import { Router, Request, Response } from 'express';

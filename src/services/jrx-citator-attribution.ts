@@ -2,7 +2,7 @@
  * NV-CITATOR-ATTRIBUTION-001 (2026-08-20) — bind a treatment verb to the authority it acts on.
  *
  * THE PROBLEM THIS SOLVES
- * `nv-citator-treatment.ts` detects that adverse language EXISTS. It cannot say what the
+ * `jrx-citator-treatment.ts` detects that adverse language EXISTS. It cannot say what the
  * language was said ABOUT. Over short retrieved passages that gap is tolerable because the
  * passage was retrieved for the authority. Over a full judgment body it is fatal: Sushila
  * Aggarwal (2020) overrules nine authorities and *relies on* Gurbaksh Singh Sibbia, all

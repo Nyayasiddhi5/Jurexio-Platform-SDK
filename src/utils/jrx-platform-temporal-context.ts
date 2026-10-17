@@ -9,7 +9,7 @@ const PLATFORM_TZ = 'Asia/Kolkata';
 
 /** Override for tests only — ISO date or datetime (e.g. 2026-08-20). */
 export function getPlatformReferenceDate(): Date {
-  const raw = String(process.env.NYV_REFERENCE_DATE ?? '').trim();
+  const raw = String(process.env.JRX_REFERENCE_DATE ?? '').trim();
   if (raw) {
     const parsed = new Date(raw);
     if (!Number.isNaN(parsed.getTime())) return parsed;

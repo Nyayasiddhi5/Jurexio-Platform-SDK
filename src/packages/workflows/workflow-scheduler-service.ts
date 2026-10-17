@@ -5,9 +5,9 @@ const logger = createLogger('workflow-scheduler-service');
 // Database dependency - uses external db
 const db: any = { select: () => ({ from: () => ({ where: () => ({ orderBy: () => ({ limit: () => Promise.resolve([]) }) }) }) }) };
 // Schema tables - external dependency
-const nyayavigyaJourneyTimeline: any = {};
-const nyayavigyaStartups: any = {};
-const nyayavigyaOrchestrationJobs: any = {};
+const jurexioJourneyTimeline: any = {};
+const jurexioStartups: any = {};
+const jurexioOrchestrationJobs: any = {};
 // Drizzle ORM operators
 const eq = (a: any, b: any) => ({});
 const and = (...args: any[]) => ({});
@@ -16,7 +16,7 @@ const lt = (a: any, b: any) => ({});
 const or = (...args: any[]) => ({});
 const isNull = (a: any) => ({});
 // 14-day workflow phase execution service - lazy loaded to avoid circular dependencies
-const nyayavigya14DayWorkflowService: any = {
+const jurexio14DayWorkflowService: any = {
   async executePhase(startupId: number, sessionId: string, phase: number, data: any) {
     logger.info(`[WorkflowScheduler] Phase ${phase} execution requested for startup ${startupId}`);
     logger.info(`[WorkflowScheduler] Phase execution delegated to workflow service`);
@@ -71,18 +71,18 @@ class WorkflowSchedulerService {
       // Find only active workflows (not completed, not paused) - database-level filtering
       const activeStartups = await db
         .select()
-        .from(nyayavigyaStartups)
+        .from(jurexioStartups)
         .where(
           and(
             // Handle both legacy NULL values and explicit false (not paused)
             or(
-              isNull(nyayavigyaStartups.isPaused),
-              eq(nyayavigyaStartups.isPaused, false)
+              isNull(jurexioStartups.isPaused),
+              eq(jurexioStartups.isPaused, false)
             ),
             // Only check startups with progress < 100 (or null/0)
             or(
-              isNull(nyayavigyaStartups.progress),
-              lt(nyayavigyaStartups.progress, 100)
+              isNull(jurexioStartups.progress),
+              lt(jurexioStartups.progress, 100)
             )
           )
         );
@@ -125,9 +125,9 @@ class WorkflowSchedulerService {
     // Get the latest timeline event for this startup
     const [latestEvent] = await db
       .select()
-      .from(nyayavigyaJourneyTimeline)
-      .where(eq(nyayavigyaJourneyTimeline.startupId, startup.id))
-      .orderBy(desc(nyayavigyaJourneyTimeline.id))
+      .from(jurexioJourneyTimeline)
+      .where(eq(jurexioJourneyTimeline.startupId, startup.id))
+      .orderBy(desc(jurexioJourneyTimeline.id))
       .limit(1);
 
     if (!latestEvent) {
@@ -146,8 +146,8 @@ class WorkflowSchedulerService {
       // Check if the orchestration job is complete
       const [job] = await db
         .select()
-        .from(nyayavigyaOrchestrationJobs)
-        .where(eq(nyayavigyaOrchestrationJobs.id, orchestrationJobId))
+        .from(jurexioOrchestrationJobs)
+        .where(eq(jurexioOrchestrationJobs.id, orchestrationJobId))
         .limit(1);
 
       if (!job) {
@@ -164,11 +164,11 @@ class WorkflowSchedulerService {
           // Check if next phase already exists in timeline
           const [existingNextPhase] = await db
             .select()
-            .from(nyayavigyaJourneyTimeline)
+            .from(jurexioJourneyTimeline)
             .where(
               and(
-                eq(nyayavigyaJourneyTimeline.startupId, startup.id),
-                eq(nyayavigyaJourneyTimeline.dayNumber, nextPhase)
+                eq(jurexioJourneyTimeline.startupId, startup.id),
+                eq(jurexioJourneyTimeline.dayNumber, nextPhase)
               )
             )
             .limit(1);
@@ -181,7 +181,7 @@ class WorkflowSchedulerService {
             
             if (sessionId) {
               // Execute next phase
-              await nyayavigya14DayWorkflowService.executePhase(
+              await jurexio14DayWorkflowService.executePhase(
                 startup.id,
                 sessionId,
                 nextPhase,
@@ -193,12 +193,12 @@ class WorkflowSchedulerService {
           }
         } else if (nextPhase > 14) {
           // Workflow complete
-          await db.update(nyayavigyaStartups)
+          await db.update(jurexioStartups)
             .set({ 
               currentPhase: 'launched',
               progress: 100
             })
-            .where(eq(nyayavigyaStartups.id, startup.id));
+            .where(eq(jurexioStartups.id, startup.id));
           
           logger.info(`🎉 Workflow completed for startup ${startup.id}`);
         }
@@ -216,8 +216,8 @@ class WorkflowSchedulerService {
     try {
       const [startup] = await db
         .select()
-        .from(nyayavigyaStartups)
-        .where(eq(nyayavigyaStartups.id, startupId))
+        .from(jurexioStartups)
+        .where(eq(jurexioStartups.id, startupId))
         .limit(1);
 
       if (!startup) {
@@ -239,8 +239,8 @@ class WorkflowSchedulerService {
     try {
       const [startup] = await db
         .select()
-        .from(nyayavigyaStartups)
-        .where(eq(nyayavigyaStartups.id, startupId))
+        .from(jurexioStartups)
+        .where(eq(jurexioStartups.id, startupId))
         .limit(1);
       
       if (!startup) {
@@ -256,14 +256,14 @@ class WorkflowSchedulerService {
         return;
       }
 
-      await db.update(nyayavigyaStartups)
+      await db.update(jurexioStartups)
         .set({ 
           isPaused: true,
           pausedAt: new Date(),
           pausedProgress: startup.progress,
           updatedAt: new Date()
         })
-        .where(eq(nyayavigyaStartups.id, startupId));
+        .where(eq(jurexioStartups.id, startupId));
       
       this.logOperation('workflow_paused', { 
         startupId,
@@ -284,8 +284,8 @@ class WorkflowSchedulerService {
     try {
       const [startup] = await db
         .select()
-        .from(nyayavigyaStartups)
-        .where(eq(nyayavigyaStartups.id, startupId))
+        .from(jurexioStartups)
+        .where(eq(jurexioStartups.id, startupId))
         .limit(1);
 
       if (!startup) {
@@ -301,13 +301,13 @@ class WorkflowSchedulerService {
         return;
       }
 
-      await db.update(nyayavigyaStartups)
+      await db.update(jurexioStartups)
         .set({ 
           isPaused: false,
           pausedAt: null,
           updatedAt: new Date()
         })
-        .where(eq(nyayavigyaStartups.id, startupId));
+        .where(eq(jurexioStartups.id, startupId));
       
       this.logOperation('workflow_resumed', { 
         startupId,

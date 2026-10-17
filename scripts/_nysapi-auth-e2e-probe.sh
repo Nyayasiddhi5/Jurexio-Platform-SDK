@@ -84,7 +84,7 @@ PY
 }
 
 BASE_LOCAL="http://127.0.0.1:8090"
-BASE_PUB="https://nysapi.nyayasiddhi.online"
+BASE_PUB="https://nysapi.jurexio.com"
 
 echo "=== LOCAL 8090 authenticated ==="
 probe_get "cnr-TSWL" "$BASE_LOCAL/v1/cases/TSWL000000742024"

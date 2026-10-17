@@ -334,7 +334,7 @@ export function pickSequence(req: RouterRequest): RouterDecision {
   // still reach it and get a Devanagari answer (and modern frontier minis
   // handle Devanagari natively too). Bounded by a score window + a health
   // gate, env-overridable, and fully reversible (set the window to 0).
-  const SARVAM_PRIMARY_DEMOTE_WINDOW = Number(process.env.NYV_ROUTER_SARVAM_DEMOTE_WINDOW) || 12;
+  const SARVAM_PRIMARY_DEMOTE_WINDOW = Number(process.env.JRX_ROUTER_SARVAM_DEMOTE_WINDOW) || 12;
   if (
     SARVAM_PRIMARY_DEMOTE_WINDOW > 0 &&
     scored.length > 1 &&

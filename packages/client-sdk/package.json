@@ -20,9 +20,9 @@
       "types": "./dist/api/PatternsApi.d.ts"
     },
     "./streaming": {
-      "import": "./dist/NyvStreamReader.js",
-      "require": "./dist/NyvStreamReader.js",
-      "types": "./dist/NyvStreamReader.d.ts"
+      "import": "./dist/JrxStreamReader.js",
+      "require": "./dist/JrxStreamReader.js",
+      "types": "./dist/JrxStreamReader.d.ts"
     }
   },
   "scripts": {

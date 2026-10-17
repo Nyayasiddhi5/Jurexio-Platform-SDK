@@ -1,19 +1,19 @@
 import { useState, useCallback } from 'react';
-import { useNyvClient } from './useNyvClient.js';
-import type { NyvRegulatoryDigest } from '@jurexio/types';
+import { useJrxClient } from './useJrxClient.js';
+import type { JrxRegulatoryDigest } from '@jurexio/types';
 
 export interface UseRegulatoryFeedReturn {
   loading: boolean;
   error: string | null;
-  digest: NyvRegulatoryDigest | null;
-  fetchFeed: (jurisdiction: string, limit?: number) => Promise<NyvRegulatoryDigest>;
+  digest: JrxRegulatoryDigest | null;
+  fetchFeed: (jurisdiction: string, limit?: number) => Promise<JrxRegulatoryDigest>;
 }
 
 export function useRegulatoryFeed(): UseRegulatoryFeedReturn {
-  const { authHeaders, baseUrl } = useNyvClient({});
+  const { authHeaders, baseUrl } = useJrxClient({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [digest, setDigest] = useState<NyvRegulatoryDigest | null>(null);
+  const [digest, setDigest] = useState<JrxRegulatoryDigest | null>(null);
 
   const fetchFeed = useCallback(async (jurisdiction: string, limit?: number) => {
     setLoading(true);

@@ -1,6 +1,6 @@
 /**
  * OpenRouter Universal Gateway — REAL IMPLEMENTATION (was stub)
- * NYV-ORCH-SEAM-006 (Task #32)
+ * JRX-ORCH-SEAM-006 (Task #32)
  *
  * SCOPE — IMPORTANT (round 10d clarification):
  *   This module is a MODEL-SELECTION engine, NOT a transport gateway.

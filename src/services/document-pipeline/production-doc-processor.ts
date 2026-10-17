@@ -1,9 +1,9 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 import crypto from 'crypto';
 import fs from 'fs/promises';
 import path from 'path';
 import { pool } from '../../db/index.js';
-import { NyvDocumentStorageService } from '../nyv-document-storage-service.js';
+import { JrxDocumentStorageService } from '../jrx-document-storage-service.js';
 import { createLogger } from '../../utils/logger.js';
 import { extractDocumentText } from '../sdk/jrx-doc-content-extractor.js';
 
@@ -680,7 +680,7 @@ export async function storeParsedJsonToObjectStorage(
 
     const objectName = `${privateDir.replace(/^\//, '').replace(/\/$/, '')}/parsed-docs/org-${orgId}/${jobId}.json`;
 
-    const storage = NyvDocumentStorageService.getInstance();
+    const storage = JrxDocumentStorageService.getInstance();
     const jsonContent = JSON.stringify({
       jobId,
       orgId,
@@ -730,7 +730,7 @@ export async function storeRawContentToObjectStorage(
     const safeName = fileName.replace(/[^a-zA-Z0-9._-]/g, '_');
     const objectName = `${privateDir.replace(/^\//, '').replace(/\/$/, '')}/raw-docs/org-${orgId}/${jobId}_${safeName}`;
 
-    const storage = NyvDocumentStorageService.getInstance();
+    const storage = JrxDocumentStorageService.getInstance();
     await storage.uploadRaw(objectName, Buffer.from(content, 'utf-8'), getMimeType(ext.replace('.', '')));
 
     const storagePath = `/${objectName}`;
@@ -769,7 +769,7 @@ export async function resolveJobContentWithBinary(job: DocJobRecord): Promise<Re
       const privateDir = process.env.PRIVATE_OBJECT_DIR;
       if (privateDir) {
         const objectName = storedPath.replace(/^\//, '');
-        const storage = NyvDocumentStorageService.getInstance();
+        const storage = JrxDocumentStorageService.getInstance();
         const buf = await storage.downloadRaw(objectName);
         const extracted = await extractDocumentText({
           base64: buf.toString('base64'),
@@ -1129,7 +1129,7 @@ export async function startJobPoller(intervalMs = 3000): Promise<void> {
           pollerDisabledForSchemaDrift = true;
           logger.warn(
             '⚠️  Document job poller DISABLED — ns_doc_processing_jobs missing (PG 42P01/3F000). ' +
-            'Run `npm run db:push --force` or set NYV_DOC_PROCESSOR_ENABLED=0.',
+            'Run `npm run db:push --force` or set JRX_DOC_PROCESSOR_ENABLED=0.',
           );
           stopJobPoller();
         }

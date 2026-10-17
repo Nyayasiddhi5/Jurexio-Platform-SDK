@@ -1,4 +1,4 @@
-# AGENTS.md — Nyayavigya Platform Guardrails
+# AGENTS.md — Jurexio Platform Guardrails
 
 > Audience: every Replit Agent (main / task / design subagent), every
 > human collaborator, every CI job that runs against this repository.
@@ -8,17 +8,17 @@ breaks our audit trail and our deployment safety story.
 
 ---
 
-## 0. Dual-project ops (Nyayavigya + NYS-Agentic-AI)
+## 0. Dual-project ops (Jurexio + JRX-Agentic-AI)
 
 This workspace contains **two products** deployed to **two EC2 instances**:
 
 | Tag | Tree | EC2 | URL |
 |---|---|---|---|
-| **NYV** | `nyayavigya-platform-312/` | nysdev `i-0df71e5ea1df8f588` | api / console |
-| **NYS** | `NYS-Agentic-AI/` | nyv-caselaw-worker `i-000115b19219bb766` | `nyayasearch.nyayasiddhi.online` |
+| **JRX** | `Jurexio-Platform-SDK/` | jrx-prod `i-0df71e5ea1df8f588` | api / console |
+| **NYS** | `JRX-Agentic-AI/` | jrx-caselaw-worker `i-000115b19219bb766` | `nyayasearch.jurexio.com` |
 
-Before any edit: classify **NYV / NYS / BOTH**. Full operating contract:
-`documents/working/DUAL-PROJECT-OPS-NYV-NYS-2026-07.md`. Production deploy needs explicit **GO**.
+Before any edit: classify **JRX / NYS / BOTH**. Full operating contract:
+`documents/working/DUAL-PROJECT-OPS-JRX-JRX-2026-07.md`. Production deploy needs explicit **GO**.
 
 ---
 

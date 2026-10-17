@@ -6,7 +6,7 @@ import {
   CPC_APPEALABLE_ORDERS_BOOK,
   hintAppealMaintainability,
 } from '../../src/config/jrx-cpc-appealable-orders-pack.js';
-import { resolveLimitationRule } from '../../src/services/nyaya-tools/jrx-nyayatimeline-service.js';
+import { resolveLimitationRule } from '../../src/services/jrx-legal-tools/jrx-nyayatimeline-service.js';
 import { assembleDraftProfile } from '../../src/orchestration/jrx-draft-profile-assembler.js';
 
 describe('CPC appealable orders pack (book O.43 R.1 index)', () => {

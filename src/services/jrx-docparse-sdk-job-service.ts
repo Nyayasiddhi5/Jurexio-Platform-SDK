@@ -3,7 +3,7 @@
  */
 import crypto from 'node:crypto';
 import type { DocparseJobRecord, DocparseJobSubmitRequest } from '@jurexio/docparse-sdk';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import { enqueueDocparseSdk, isQueueLive, type DocparseSdkBullJob } from './queue/bullmq-queue.js';
 import {
   loadDocparseSdkJobRecord,
@@ -73,7 +73,7 @@ async function submitDocparseSdkJobInProcess(req: DocparseJobSubmitRequest): Pro
 }
 
 export async function submitDocparseSdkJob(req: DocparseJobSubmitRequest): Promise<string> {
-  const useRedis = isNyvFeatureOn('docparseJobs') && isQueueLive();
+  const useRedis = isJrxFeatureOn('docparseJobs') && isQueueLive();
   if (useRedis) {
     const jobId = crypto.randomUUID();
     const createdAt = new Date().toISOString();

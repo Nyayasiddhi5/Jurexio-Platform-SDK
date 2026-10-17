@@ -59,7 +59,7 @@ export interface RequestUsage {
    * `nv_schema.ai_credit_usage` by a route-level helper (`recordOrchestrateCredit`
    * / `recordLegalChatCredit`).
    *
-   * The response-finish recorder in `nv-usage-metering-middleware` is a backstop
+   * The response-finish recorder in `jrx-usage-metering-middleware` is a backstop
    * for the surfaces that have no route-level helper. Both reading the same
    * accumulator means, without this marker, a request that already recorded would
    * be billed a second time — and double-billing a customer is a worse failure

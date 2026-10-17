@@ -163,10 +163,10 @@ export default function ArchitectTab() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'nyayavigya.config.json';
+    a.download = 'jurexio.config.json';
     a.click();
     
-    toast({ title: 'Config Exported', description: 'nyayavigya.config.json downloaded' });
+    toast({ title: 'Config Exported', description: 'jurexio.config.json downloaded' });
   };
 
   return (

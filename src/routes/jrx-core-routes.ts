@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
+// JRX-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
 // file. Runtime is unaffected (gateway runs via tsx). Opt out of strict-null
 // for the v5.0.0 deploy gate; track follow-up cleanup in INV-CLEANUP-001.
 import { Router, Request, Response } from 'express';
@@ -7,9 +7,9 @@ import { extractRows, requireDb, lazyRequire, type SqlRow } from '../utils/jrx-t
 import { sendApiError, safeError } from '../utils/jrx-api-error.js';
 import type { AuthRequest } from '../middleware/jrx-auth.js';
 import { getRegistryStats } from '../services/agent-registry-service.js';
-import { NYV_MCP_TOOLS } from '../constants/jrx-registry-stats.js';
-import { NYV_PLATFORM_VERSION } from '../config/nyv-master-config.js';
-// NYV-NS-005 (2026-05-01): rebind db locally; was ~57 TS18047 errors here.
+import { JRX_MCP_TOOLS } from '../constants/jrx-registry-stats.js';
+import { JRX_PLATFORM_VERSION } from '../config/jrx-master-config.js';
+// JRX-NS-005 (2026-05-01): rebind db locally; was ~57 TS18047 errors here.
 const db = requireDb(rawDb);
 
 // task-260 (round 3): typed row contracts for every aggregate query in this
@@ -110,7 +110,7 @@ import { sanitizeErrorForClient } from '../utils/error-sanitizer.js';
 import { authenticateToken, requireRole } from '../middleware/auth.js';
 import { dualSdkOrJwt } from '../middleware/jrx-dual-auth.js';
 import { extractSdkApiKey } from '../middleware/jrx-sdk-auth-header.js';
-import { getNyvFeatureFlagSnapshot, getFlagEnvName } from '../config/jrx-feature-flags.js';
+import { getJrxFeatureFlagSnapshot, getFlagEnvName } from '../config/jrx-feature-flags.js';
 import {
   setOverride as setFlagOverride,
   clearOverride as clearFlagOverride,
@@ -191,7 +191,7 @@ function getCount(result: any): number {
   return Number(rows?.[0]?.count || 0);
 }
 
-// ── GET /api/jrx/models resilience (NYV-MODELS-500 fix, 2026-06-02) ────────────
+// ── GET /api/jrx/models resilience (JRX-MODELS-500 fix, 2026-06-02) ────────────
 // EC2 dev-edge drift: the RDS was missing `nv_llm_providers` entirely, so the
 // LEFT JOIN in this handler 500'd with `relation "nv_llm_providers" does not
 // exist`, breaking the console Model Catalog and making the new `:free`-hide
@@ -369,8 +369,8 @@ router.get('/dashboard', authenticateToken, async (req: Request, res: Response) 
           healthy: providerTotal
         },
         tools: {
-          total: NYV_MCP_TOOLS.totalTools,
-          categories: NYV_MCP_TOOLS.categories
+          total: JRX_MCP_TOOLS.totalTools,
+          categories: JRX_MCP_TOOLS.categories
         },
         statutes: {
           total: statuteTotal,
@@ -400,7 +400,7 @@ router.get('/dashboard', authenticateToken, async (req: Request, res: Response) 
           practiceAreas: getRegistryStats().practiceAreas,
         },
         providers: { total: 20, enabled: 20, healthy: 20 },
-        tools: { total: NYV_MCP_TOOLS.totalTools, categories: NYV_MCP_TOOLS.categories },
+        tools: { total: JRX_MCP_TOOLS.totalTools, categories: JRX_MCP_TOOLS.categories },
         statutes: { total: 15, sections: 2849 },
         courts: { total: 12, eFilingEnabled: 12 },
         usage: { totalTokens: 0, totalCost: 0, requests: 0 }
@@ -488,7 +488,7 @@ router.get('/providers', authenticateToken, async (req: Request, res: Response) 
   } catch (error: any) {
     // Last-resort: derive from the model catalog; only mark degraded if even
     // that is unavailable, so the overview poller isn't flooded with 500s.
-    logger.warn('[nv-core] /providers primary path failed; deriving from catalog', { error: error?.message });
+    logger.warn('[jrx-core] /providers primary path failed; deriving from catalog', { error: error?.message });
     try {
       const rows = await deriveProvidersFromCatalog();
       res.json({ success: true, data: rows, ...(rows.length === 0 ? { degraded: true } : {}) });
@@ -619,7 +619,7 @@ router.get('/tools', authenticateToken, (req: Request, res: Response) => {
     success: true,
     data: {
       summary: {
-        totalTools: NYV_MCP_TOOLS.totalTools,
+        totalTools: JRX_MCP_TOOLS.totalTools,
         categories: toolCategories.length
       },
       categories: toolCategories
@@ -1126,8 +1126,8 @@ router.get('/documentation', (req: Request, res: Response) => {
   res.json({
     success: true,
     data: {
-      version: NYV_PLATFORM_VERSION,
-      title: `Jurexio Legal SDK v${NYV_PLATFORM_VERSION} Documentation`,
+      version: JRX_PLATFORM_VERSION,
+      title: `Jurexio Legal SDK v${JRX_PLATFORM_VERSION} Documentation`,
       sections: [
         { id: 'quickstart', title: 'Quick Start Guide' },
         { id: 'api', title: 'API Reference' },
@@ -1146,7 +1146,7 @@ router.get('/health', (req: Request, res: Response) => {
   res.json({
     success: true,
     status: 'healthy',
-    version: NYV_PLATFORM_VERSION,
+    version: JRX_PLATFORM_VERSION,
     timestamp: new Date().toISOString()
   });
 });
@@ -1754,7 +1754,7 @@ router.get('/admin/stats', authenticateToken, requireRole('admin','org_admin','s
 router.get('/admin/feature-flags', authenticateToken, requireRole('admin','org_admin','super_admin'), (req: Request, res: Response) => {
   try {
     const sdkKeyPresent = Boolean(extractSdkApiKey(req));
-    const flags = getNyvFeatureFlagSnapshot();
+    const flags = getJrxFeatureFlagSnapshot();
     res.json({
       success: true,
       data: {
@@ -1901,7 +1901,7 @@ router.patch('/admin/feature-flags/:logical', authenticateToken, requireRole('su
 
   // 3) Both succeeded — return the post-state snapshot.
   const after = getFlagOverrideRow(logical);
-  const snapshot = getNyvFeatureFlagSnapshot();
+  const snapshot = getJrxFeatureFlagSnapshot();
   return res.json({
     success: true,
     data: {
@@ -2314,8 +2314,8 @@ router.get('/audit/guardrail-stats', authenticateToken, async (req: Request, res
 // EC2 bundles all 6 ecosystem platforms behind the gateway — external localhost
 // pings always fail. Derive status from gateway health + optional live probes.
 router.get('/admin/platform-health', authenticateToken, requireRole('admin', 'super_admin'), async (_req: Request, res: Response) => {
-  const gatewayBase = process.env.NYV_GATEWAY_INTERNAL_URL
-    || process.env.NYV_INTERNAL_GATEWAY_URL
+  const gatewayBase = process.env.JRX_GATEWAY_INTERNAL_URL
+    || process.env.JRX_INTERNAL_GATEWAY_URL
     || 'http://gateway:5000';
 
   let gatewayHealthy = false;
@@ -2329,7 +2329,7 @@ router.get('/admin/platform-health', authenticateToken, requireRole('admin', 'su
 
   const platforms = [
     { id: './jrx-sdk',      name: 'Jurexio Enterprise Platform SDK',                badge: 'CORE' },
-    { id: 'nyayamitra',  name: 'Nyayamitra™',                   badge: 'BETA' },
+    { id: 'jurexio-citizen',  name: 'Jurexio Citizen',                   badge: 'BETA' },
     { id: 'nsp',         name: 'Jurexio Professional™',     badge: 'LIVE' },
     { id: 'nsp-mobile',  name: 'NSP Mobile',                    badge: 'LIVE' },
     { id: 'jrx',         name: 'JRX (Gate 8)',                  badge: 'LIVE' },

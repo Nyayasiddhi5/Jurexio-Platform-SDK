@@ -1,5 +1,5 @@
 /**
- * NYV-NS-025 (2026-05-05): Remove duplicate IN legal_agents rows.
+ * JRX-NS-025 (2026-05-05): Remove duplicate IN legal_agents rows.
  *
  * Background:
  *   Every jurisdiction has 149 canonical agents (XX::xx-* pattern).

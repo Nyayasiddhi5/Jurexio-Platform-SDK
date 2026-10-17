@@ -1,9 +1,9 @@
 #!/usr/bin/env tsx
 /**
- * NYV-OPS-PW-ROTATE-001 (2026-05-01)
+ * JRX-OPS-PW-ROTATE-001 (2026-05-01)
  *
  * Rotate the demo-account password across all 9 demo accounts in the
- * gateway database (6 @demo.nyayavigya.in + 3 @demo.nyayasiddhi.online,
+ * gateway database (6 @demo.jurexio.com + 3 @demo.jurexio.com,
  * 9th account list set in task-145 / 2026-05-11). Idempotent. Reads new
  * password from NV_NEW_DEMO_PASSWORD (>= 12 chars). Prints success/fail
  * per account.
@@ -26,28 +26,28 @@ import bcrypt from 'bcrypt';
 
 dotenv.config();
 
-// task-145 (2026-05-11): added the 3 console-demo @demo.nyayasiddhi.online
+// task-145 (2026-05-11): added the 3 console-demo @demo.jurexio.com
 // accounts (org_id=1) so the demo team's console login restores along with
-// the API/SDK demo accounts. The platform super_admin (admin@nyayavigya.in)
+// the API/SDK demo accounts. The platform super_admin (admin@jurexio.com)
 // stays in the list because end-to-end demo flows historically log in as it
 // for governance/admin tabs.
 const DEMO_EMAILS = [
-  'admin@nyayavigya.in',
-  'dev@demo.nyayavigya.in',
-  'analyst@demo.nyayavigya.in',
-  'operator@demo.nyayavigya.in',
-  'manager@demo.nyayavigya.in',
-  'user@demo.nyayavigya.in',
-  'superadmin@demo.nyayasiddhi.online',
-  'admin@demo.nyayasiddhi.online',
-  'sme@demo.nyayasiddhi.online',
+  'admin@jurexio.com',
+  'dev@demo.jurexio.com',
+  'analyst@demo.jurexio.com',
+  'operator@demo.jurexio.com',
+  'manager@demo.jurexio.com',
+  'user@demo.jurexio.com',
+  'superadmin@demo.jurexio.com',
+  'admin@demo.jurexio.com',
+  'sme@demo.jurexio.com',
 ];
 
 async function main() {
   const newPw = process.env.NV_NEW_DEMO_PASSWORD;
   if (!newPw || newPw.length < 12) {
     console.error(
-      'NYV-ROTATE-MISSING-PW: NV_NEW_DEMO_PASSWORD env var (>= 12 chars) required.',
+      'JRX-ROTATE-MISSING-PW: NV_NEW_DEMO_PASSWORD env var (>= 12 chars) required.',
     );
     process.exit(1);
   }
@@ -84,6 +84,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error('NYV-ROTATE-FATAL:', err);
+  console.error('JRX-ROTATE-FATAL:', err);
   process.exit(1);
 });

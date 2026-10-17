@@ -1,8 +1,8 @@
 /**
- * nv-iso-compliance-routes.ts — Task #299
+ * jrx-iso-compliance-routes.ts — Task #299
  *
- * Mounts under /api/jrx/compliance (alongside nv-compliance-routes.ts and
- * nv-compliance-aggregators.ts).
+ * Mounts under /api/jrx/compliance (alongside jrx-compliance-routes.ts and
+ * jrx-compliance-aggregators.ts).
  *
  *   GET /iso                      — six framework summaries with per-control verdicts
  *   GET /iso/control/:id          — drilldown payload (text, verdict, evidence, remediation)
@@ -13,9 +13,9 @@
  * (Task #311 added the privacy / AI-regulation frameworks alongside the
  * original ISO/SOC2 trio so the Console has one pane of glass).
  *
- * NV-NAMING-001: nv- prefix.
+ * NV-NAMING-001: jrx- prefix.
  * NV-WIRING-001: mounted in src/index.ts under /api/jrx/compliance.
- * NV-CONTRACT-001: response shape documented inline; surfaced in nv-api-paths.ts.
+ * NV-CONTRACT-001: response shape documented inline; surfaced in jrx-api-paths.ts.
  */
 import { Router, Request, Response } from 'express';
 import { createHash } from 'node:crypto';
@@ -291,12 +291,12 @@ router.get('/iso/export', async (req: Request, res: Response): Promise<void> => 
     // ── Build PDF ────────────────────────────────────────────────────────
     const filenameJur = jurisdiction.toLowerCase();
     const filenameFw = onlyFramework ? `-${onlyFramework}` : '';
-    const filename = `nyayavigya-compliance-${filenameJur}${filenameFw}-${generatedAt.slice(0, 10)}.pdf`;
+    const filename = `jurexio-compliance-${filenameJur}${filenameFw}-${generatedAt.slice(0, 10)}.pdf`;
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-    res.setHeader('X-Nyv-IronLedger-Hash', ledgerHash);
-    res.setHeader('X-Nyv-IronLedger-Prev', ledgerPrev);
-    res.setHeader('X-Nyv-IronLedger-Generated-At', ledgerCreatedAt);
+    res.setHeader('X-Jrx-IronLedger-Hash', ledgerHash);
+    res.setHeader('X-Jrx-IronLedger-Prev', ledgerPrev);
+    res.setHeader('X-Jrx-IronLedger-Generated-At', ledgerCreatedAt);
 
     const doc = new PDFDocument({
       size: 'A4',
@@ -305,7 +305,7 @@ router.get('/iso/export', async (req: Request, res: Response): Promise<void> => 
         Title: `Jurexio Compliance Posture (${jurisdiction})`,
         Author: 'Jurexio Enterprise Platform',
         Subject: 'ISO 42001 / ISO 27001 / SOC 2 — auditor pack',
-        Keywords: `iso42001,iso27001,soc2,${jurisdiction},nyayavigya,ironledger`,
+        Keywords: `iso42001,iso27001,soc2,${jurisdiction},jurexio,ironledger`,
         CreationDate: new Date(ledgerCreatedAt),
       },
     });

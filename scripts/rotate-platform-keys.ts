@@ -2,7 +2,7 @@
 /**
  * scripts/rotate-platform-keys.ts — operator-only one-shot
  *
- * 2026-04-25T14:30Z (NYV-PLATFORMS-KEYS-ROTATE-001):
+ * 2026-04-25T14:30Z (JRX-PLATFORMS-KEYS-ROTATE-001):
  * Rotates all 4 key types (sdk_api_key, publishable_key, signing_key,
  * webhook_secret) for the 3 ecosystem platforms and prints raw values.
  *
@@ -14,16 +14,16 @@
  *   1. Looks up the 3 platform apps by name.
  *   2. Marks all existing nv_api_keys for those apps is_active=false.
  *   3. Issues 4 fresh raw keys per platform with the same hash format
- *      that nv-sdk-keylife-routes.ts uses (nyv_test_sk_<32hex>, etc.).
+ *      that jrx-sdk-keylife-routes.ts uses (nyv_test_sk_<32hex>, etc.).
  *   4. Updates nv_sdk_applications.{publishable_key_hash,signing_key_hash,
  *      webhook_secret_hash} so authentication via those fields keeps working.
  *   5. Prints raw values to stdout AND writes them to
  *      .local/run/platform-keys-rotated-<timestamp>.json
  *
  * Usage:
- *   cd nyayavigya-platform-312
+ *   cd Jurexio-Platform-SDK
  *   npx tsx scripts/rotate-platform-keys.ts
- *   NYV_PLATFORM_ENV=production npx tsx scripts/rotate-platform-keys.ts
+ *   JRX_PLATFORM_ENV=production npx tsx scripts/rotate-platform-keys.ts
  */
 
 import crypto from 'crypto';
@@ -32,7 +32,7 @@ import path from 'path';
 import { Pool } from 'pg';
 import { normalizePgConnectionString } from '../src/utils/jrx-pg-url.js';
 
-const env = (process.env.NYV_PLATFORM_ENV ?? 'sandbox') as 'sandbox' | 'production';
+const env = (process.env.JRX_PLATFORM_ENV ?? 'sandbox') as 'sandbox' | 'production';
 const dbUrl = process.env.DATABASE_URL;
 if (!dbUrl) { console.error('FATAL: DATABASE_URL not set'); process.exit(1); }
 
@@ -49,7 +49,7 @@ async function q<T = any>(text: string, values: any[] = []): Promise<T[]> {
 
 type KeyType = 'sdk_api_key' | 'webhook_secret' | 'publishable_key' | 'signing_key';
 
-const PLATFORM_NAMES = ['nsp-web', 'nsp-mobile', 'nyayamitra'];
+const PLATFORM_NAMES = ['nsp-web', 'nsp-mobile', 'jurexio-citizen'];
 
 function secureRandomHex(b: number) { return crypto.randomBytes(b).toString('hex'); }
 function hashKey(raw: string) { return crypto.createHash('sha256').update(raw).digest('hex'); }
@@ -142,7 +142,7 @@ async function rotateForApp(appId: string, name: string): Promise<IssuedKey[]> {
   const outFile = path.join(outDir, `platform-keys-rotated-${ts}.json`);
 
   console.log(`\n══════════════════════════════════════════════════════════════════════`);
-  console.log(`  NYV Platform Key ROTATION — env=${env}  ${new Date().toISOString()}`);
+  console.log(`  JRX Platform Key ROTATION — env=${env}  ${new Date().toISOString()}`);
   console.log(`══════════════════════════════════════════════════════════════════════\n`);
 
   const out: PlatformOut[] = [];

@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
  * NV-TREATMENT-GRAPH-001 — ingest graph JSONL batches from S3 into nv_legal_graph_*.
- * Run on nysdev (background):
- *   nohup node /opt/nyayavigya/repo/current/scripts/nv-treatment-graph-ingest.mjs >> /opt/nyv/logs/graph-ingest.log 2>&1 &
+ * Run on jrx-prod (background):
+ *   nohup node /opt/jurexio/repo/current/scripts/jrx-treatment-graph-ingest.mjs >> /opt/jrx/logs/graph-ingest.log 2>&1 &
  *
- * Requires DATABASE_URL / NYV_DATABASE_URL pointing at gateway Postgres.
+ * Requires DATABASE_URL / JRX_DATABASE_URL pointing at gateway Postgres.
  */
 import pg from "pg";
 import {
@@ -15,14 +15,14 @@ import {
   PutObjectCommand,
 } from "@aws-sdk/client-s3";
 
-const REGION = process.env.NYV_AWS_REGION ?? "ap-south-1";
-const BUCKET = process.env.NYV_DEPLOY_BUCKET ?? "nyv-sdk-distribution";
+const REGION = process.env.JRX_AWS_REGION ?? "ap-south-1";
+const BUCKET = process.env.JRX_DEPLOY_BUCKET ?? "jrx-sdk-distribution";
 const PREFIX = "caselaw-worker/graph-edges/";
 const POLL_MS = Number(process.env.GRAPH_INGEST_POLL_MS ?? "120000");
 const CHECKPOINT_KEY = `${PREFIX}.ingest-checkpoint.json`;
 
 function dbUrl() {
-  return process.env.NYV_DATABASE_URL ?? process.env.DATABASE_URL;
+  return process.env.JRX_DATABASE_URL ?? process.env.DATABASE_URL;
 }
 
 async function loadCheckpoint(s3) {
@@ -122,7 +122,7 @@ async function pollOnce(client, s3, state) {
 
 async function main() {
   const url = dbUrl();
-  if (!url) throw new Error("NYV_DATABASE_URL or DATABASE_URL required");
+  if (!url) throw new Error("JRX_DATABASE_URL or DATABASE_URL required");
   const client = new pg.Client({ connectionString: url });
   await client.connect();
   const s3 = new S3Client({ region: REGION });

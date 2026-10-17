@@ -50,7 +50,7 @@ const make = (
   tags: string[] = [],
   usage_count = 0,
 ): CuratedPrompt => ({
-  id: `nv-prompt-${slug}`,
+  id: `jrx-prompt-${slug}`,
   slug,
   name,
   category,

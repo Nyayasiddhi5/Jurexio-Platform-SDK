@@ -4,7 +4,7 @@ import fs from 'fs';
 import { servePlatformHomepage } from './platform-homepage.js';
 
 const DIST_PATHS = {
-  nyayamitra: path.resolve(process.cwd(), 'nyayamitra-citizen/dist'),
+  jurexio-citizen: path.resolve(process.cwd(), 'jurexio-citizen-citizen/dist'),
   professional: path.resolve(process.cwd(), 'nyayasiddhi-professional/dist'),
   console: path.resolve(process.cwd(), 'dist/public'),
 };
@@ -67,7 +67,7 @@ export function mountStaticFrontends(app: Express) {
     });
     app.get('*', (req: Request, res: Response, next: NextFunction) => {
       const reqPath = req.path;
-      if (reqPath.startsWith('/api') || reqPath.startsWith('/health') || reqPath.startsWith('/nys') || reqPath.startsWith('/nyv') || reqPath.startsWith('/professional') || reqPath.startsWith('/nyayamitra') || reqPath.startsWith('/institutional') || reqPath.startsWith('/governance') || reqPath.startsWith('/academy')) {
+      if (reqPath.startsWith('/api') || reqPath.startsWith('/health') || reqPath.startsWith('/nys') || reqPath.startsWith('/nyv') || reqPath.startsWith('/professional') || reqPath.startsWith('/jurexio-citizen') || reqPath.startsWith('/institutional') || reqPath.startsWith('/governance') || reqPath.startsWith('/academy')) {
         return next();
       }
       res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
@@ -86,9 +86,9 @@ export function mountStaticFrontends(app: Express) {
     }
   }
 
-  app.get('/institutional', placeholderPage('Jurexio Institutional™', 'Enterprise Legal Governance Platform', '#059669', '/api/nys/ins'));
-  app.get('/governance', placeholderPage('Jurexio Ministry™', 'Sovereign Regulatory Infrastructure', '#DC2626', '/api/nys/gov'));
-  app.get('/academy', placeholderPage('Jurexio Academy™', 'Legal Intelligence Training Platform', '#D97706', '/api/nys/ace'));
+  app.get('/institutional', placeholderPage('Jurexio Institutional™', 'Enterprise Legal Governance Platform', '#059669', '/api/jrx/ins'));
+  app.get('/governance', placeholderPage('Jurexio Ministry™', 'Sovereign Regulatory Infrastructure', '#DC2626', '/api/jrx/gov'));
+  app.get('/academy', placeholderPage('Jurexio Academy™', 'Legal Intelligence Training Platform', '#D97706', '/api/jrx/ace'));
 }
 
 function placeholderPage(name: string, subtitle: string, color: string, apiPrefix: string) {

@@ -27,12 +27,12 @@ const arg = (n: string, d: string) => {
 };
 const N           = parseInt(arg('calls', '100'));
 const CONC        = parseInt(arg('concurrency', '4'));
-const BASE        = arg('base', process.env.NYV_UAT_BASE || 'http://localhost:5000');
-const SDK_KEY     = process.env.NYV_SDK_KEY_NSP || '';
-const DB_URL      = process.env.NYV_DATABASE_URL || process.env.DATABASE_URL || '';
+const BASE        = arg('base', process.env.JRX_UAT_BASE || 'http://localhost:5000');
+const SDK_KEY     = process.env.JRX_SDK_KEY_NSP || '';
+const DB_URL      = process.env.JRX_DATABASE_URL || process.env.DATABASE_URL || '';
 
-if (!SDK_KEY)  { console.error('NYV_SDK_KEY_NSP not set'); process.exit(2); }
-if (!DB_URL)   { console.error('NYV_DATABASE_URL not set'); process.exit(2); }
+if (!SDK_KEY)  { console.error('JRX_SDK_KEY_NSP not set'); process.exit(2); }
+if (!DB_URL)   { console.error('JRX_DATABASE_URL not set'); process.exit(2); }
 
 const RESEARCH_PROMPTS = [
   'Section 138 NI Act limitation period',

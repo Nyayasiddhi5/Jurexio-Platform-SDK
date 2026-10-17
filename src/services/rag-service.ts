@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * RAG Service — Retrieval-Augmented Generation with pgvector
  * @version 5.2.0
@@ -349,7 +349,7 @@ async function bm25Search(
   }));
 }
 
-// NYV-OBS-RAG-HITRATE-001 (Task #28 round 11): track RAG retrieval
+// JRX-OBS-RAG-HITRATE-001 (Task #28 round 11): track RAG retrieval
 // hit-rate + recall latency in-process so /admin/health/full can
 // surface them as first-class operator KPIs (the reviewer flagged
 // these as missing — span latencies on `queen.rag` exist but a
@@ -490,7 +490,7 @@ export async function retrieveKnowledge(
     method = method === 'none' ? 'bm25' : method;
   }
 
-  // NYV-OBS-RAG-HITRATE-001 (Task #28 round 11): record retrieval
+  // JRX-OBS-RAG-HITRATE-001 (Task #28 round 11): record retrieval
   // outcome + recall latency for the operator dashboard. Hit =
   // ≥1 chunk returned. Bucketing by method ('vector', 'hybrid',
   // 'bm25', 'none') makes vector-search degradation visible

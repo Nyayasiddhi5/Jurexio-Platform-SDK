@@ -1,9 +1,9 @@
 /**
- * Nyayavigya Platform — Flat-registry builder
+ * Jurexio Platform — Flat-registry builder
  * NV-AGENT-REGISTRY-MERGE-2026-05-11 (task-135)
  *
  * Merges the 7 canonical jurisdiction registries
- *   config/agent-registries/Nyayavigya-Legal-registry-{Default,IN,UK,US,GC,EU,SG}.json
+ *   config/agent-registries/Jurexio-Legal-registry-{Default,IN,UK,US,GC,EU,SG}.json
  * into the single flat file
  *   src/data/jrx-agents-registry.json
  *
@@ -37,7 +37,7 @@ function buildFlatRegistry(): void {
   const counts: Record<string, number> = {};
 
   for (const code of CODES) {
-    const file = resolve(SRC_DIR, `Nyayavigya-Legal-registry-${code}.json`);
+    const file = resolve(SRC_DIR, `Jurexio-Legal-registry-${code}.json`);
     const raw = JSON.parse(readFileSync(file, 'utf-8'));
     const agents: any[] = Array.isArray(raw.agents) ? raw.agents : [];
     counts[code] = agents.length;
@@ -52,10 +52,10 @@ function buildFlatRegistry(): void {
 
   const out = {
     metadata: {
-      name: 'Nyayavigya Legal Agents — Merged Flat Registry',
+      name: 'Jurexio Legal Agents — Merged Flat Registry',
       marker: 'NV-AGENT-REGISTRY-MERGE-2026-05-11',
       description:
-        'Auto-merged from config/agent-registries/Nyayavigya-Legal-registry-{Default,IN,UK,US,GC,EU,SG}.json by scripts/jrx-build-flat-registry.ts. Consumed by scripts/jrx-seed-agents.ts to populate nv_agents at deploy time. Runtime agent loading still goes through src/services/agent-registry-service.ts which reads the per-jurisdiction files directly.',
+        'Auto-merged from config/agent-registries/Jurexio-Legal-registry-{Default,IN,UK,US,GC,EU,SG}.json by scripts/jrx-build-flat-registry.ts. Consumed by scripts/jrx-seed-agents.ts to populate nv_agents at deploy time. Runtime agent loading still goes through src/services/agent-registry-service.ts which reads the per-jurisdiction files directly.',
       generatedAt: new Date().toISOString().slice(0, 10),
       sourceCounts: counts,
       totalAgents: merged.length,

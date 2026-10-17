@@ -29,7 +29,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import {
   AlertTriangle, Building2, Eye, EyeOff, Palette, Save, Trash2,
   RefreshCw, CheckCircle2, XCircle, Plus,
@@ -243,7 +243,7 @@ export default function OrgConsoleLayout() {
 
       {/* Status */}
       {layoutQ.isError && (
-        <NyvErrorState
+        <JrxErrorState
           title="Could not load layout"
           error={layoutQ.error}
           onRetry={() => layoutQ.refetch()}

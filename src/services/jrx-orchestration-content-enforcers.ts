@@ -74,7 +74,7 @@ export function applyOrchestrationContentEnforcers(
 }
 
 const counselPlaceholderExitThreshold = (): number =>
-  Number(process.env.NYV_COUNSEL_EXIT_PLACEHOLDER_THRESHOLD || 10);
+  Number(process.env.JRX_COUNSEL_EXIT_PLACEHOLDER_THRESHOLD || 10);
 
 /** R-DRAFT-NSP-QUALITY P3 — counsel exit needs deterministic closure before optional Sonnet checker. */
 export function counselDraftExitNeedsPolish(

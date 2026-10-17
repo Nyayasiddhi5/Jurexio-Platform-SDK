@@ -225,12 +225,12 @@ describe('./jrx-case-api-adapter mapper', () => {
   });
 
   it('lookupCnrViaCaseApi returns fallback when unconfigured', async () => {
-    const prevKey = process.env.NYS_CASE_API_KEY;
-    delete process.env.NYS_CASE_API_KEY;
+    const prevKey = process.env.JRX_ECOSYSTEM_CASE_API_KEY;
+    delete process.env.JRX_ECOSYSTEM_CASE_API_KEY;
     const res = await lookupCnrViaCaseApi({ cnr: 'GJHC240256342024' });
     expect(res.kind).toBe('fallback');
-    if (prevKey === undefined) delete process.env.NYS_CASE_API_KEY;
-    else process.env.NYS_CASE_API_KEY = prevKey;
+    if (prevKey === undefined) delete process.env.JRX_ECOSYSTEM_CASE_API_KEY;
+    else process.env.JRX_ECOSYSTEM_CASE_API_KEY = prevKey;
   });
 
   it('shouldFallbackToLegacyCnr on 404/401/429/504/503', () => {
@@ -250,25 +250,25 @@ describe('./jrx-case-api-adapter mapper', () => {
   });
 
   it('isCaseApiConfigured false without key', () => {
-    const prevUrl = process.env.NYS_CASE_API_BASE_URL;
-    const prevKey = process.env.NYS_CASE_API_KEY;
-    process.env.NYS_CASE_API_BASE_URL = 'https://nysapi.jurexio.example';
-    delete process.env.NYS_CASE_API_KEY;
+    const prevUrl = process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL;
+    const prevKey = process.env.JRX_ECOSYSTEM_CASE_API_KEY;
+    process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL = 'https://nysapi.jurexio.example';
+    delete process.env.JRX_ECOSYSTEM_CASE_API_KEY;
     expect(isCaseApiConfigured()).toBe(false);
-    if (prevUrl === undefined) delete process.env.NYS_CASE_API_BASE_URL;
-    else process.env.NYS_CASE_API_BASE_URL = prevUrl;
-    if (prevKey === undefined) delete process.env.NYS_CASE_API_KEY;
-    else process.env.NYS_CASE_API_KEY = prevKey;
+    if (prevUrl === undefined) delete process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL;
+    else process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL = prevUrl;
+    if (prevKey === undefined) delete process.env.JRX_ECOSYSTEM_CASE_API_KEY;
+    else process.env.JRX_ECOSYSTEM_CASE_API_KEY = prevKey;
   });
 
   it('fetchCaseByCnr returns 503 when unconfigured', async () => {
-    const prevKey = process.env.NYS_CASE_API_KEY;
-    delete process.env.NYS_CASE_API_KEY;
+    const prevKey = process.env.JRX_ECOSYSTEM_CASE_API_KEY;
+    delete process.env.JRX_ECOSYSTEM_CASE_API_KEY;
     const res = await fetchCaseByCnr('GJHC240256342024');
     expect(res.ok).toBe(false);
     if (!res.ok) expect(res.status).toBe(503);
-    if (prevKey === undefined) delete process.env.NYS_CASE_API_KEY;
-    else process.env.NYS_CASE_API_KEY = prevKey;
+    if (prevKey === undefined) delete process.env.JRX_ECOSYSTEM_CASE_API_KEY;
+    else process.env.JRX_ECOSYSTEM_CASE_API_KEY = prevKey;
   });
 
   it('parseCaseApiCourtType maps sc|hc|dc hints', () => {
@@ -279,20 +279,20 @@ describe('./jrx-case-api-adapter mapper', () => {
   });
 
   describe('lookupDiaryViaCaseApi courtType default', () => {
-    const prevCaseApiKey = process.env.NYS_CASE_API_KEY;
-    const prevCaseApiUrl = process.env.NYS_CASE_API_BASE_URL;
+    const prevCaseApiKey = process.env.JRX_ECOSYSTEM_CASE_API_KEY;
+    const prevCaseApiUrl = process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL;
 
     beforeEach(() => {
-      process.env.NYS_CASE_API_KEY = 'test-key-len-32-chars-minimum-xx';
-      process.env.NYS_CASE_API_BASE_URL = 'https://nysapi.test';
+      process.env.JRX_ECOSYSTEM_CASE_API_KEY = 'test-key-len-32-chars-minimum-xx';
+      process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL = 'https://nysapi.test';
     });
 
     afterEach(() => {
       vi.unstubAllGlobals();
-      if (prevCaseApiKey === undefined) delete process.env.NYS_CASE_API_KEY;
-      else process.env.NYS_CASE_API_KEY = prevCaseApiKey;
-      if (prevCaseApiUrl === undefined) delete process.env.NYS_CASE_API_BASE_URL;
-      else process.env.NYS_CASE_API_BASE_URL = prevCaseApiUrl;
+      if (prevCaseApiKey === undefined) delete process.env.JRX_ECOSYSTEM_CASE_API_KEY;
+      else process.env.JRX_ECOSYSTEM_CASE_API_KEY = prevCaseApiKey;
+      if (prevCaseApiUrl === undefined) delete process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL;
+      else process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL = prevCaseApiUrl;
     });
 
     function mockCaseApiSearch(cases: CaseApiCase[]): ReturnType<typeof vi.fn> {
@@ -976,22 +976,22 @@ describe('./jrx-case-api-adapter mapper', () => {
   });
 
   describe('enrichCaseApiResolveData timeline fetch', () => {
-    const prevCaseApiKey = process.env.NYS_CASE_API_KEY;
-    const prevCaseApiUrl = process.env.NYS_CASE_API_BASE_URL;
+    const prevCaseApiKey = process.env.JRX_ECOSYSTEM_CASE_API_KEY;
+    const prevCaseApiUrl = process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL;
     const prevLegacyEnrich = process.env.JRX_F_CASE_API_LEGACY_ENRICH;
 
     beforeEach(() => {
-      process.env.NYS_CASE_API_KEY = 'test-key-len-32-chars-minimum-xx';
-      process.env.NYS_CASE_API_BASE_URL = 'https://nysapi.test';
+      process.env.JRX_ECOSYSTEM_CASE_API_KEY = 'test-key-len-32-chars-minimum-xx';
+      process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL = 'https://nysapi.test';
       delete process.env.JRX_F_CASE_API_LEGACY_ENRICH;
     });
 
     afterEach(() => {
       vi.unstubAllGlobals();
-      if (prevCaseApiKey === undefined) delete process.env.NYS_CASE_API_KEY;
-      else process.env.NYS_CASE_API_KEY = prevCaseApiKey;
-      if (prevCaseApiUrl === undefined) delete process.env.NYS_CASE_API_BASE_URL;
-      else process.env.NYS_CASE_API_BASE_URL = prevCaseApiUrl;
+      if (prevCaseApiKey === undefined) delete process.env.JRX_ECOSYSTEM_CASE_API_KEY;
+      else process.env.JRX_ECOSYSTEM_CASE_API_KEY = prevCaseApiKey;
+      if (prevCaseApiUrl === undefined) delete process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL;
+      else process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL = prevCaseApiUrl;
       if (prevLegacyEnrich === undefined) delete process.env.JRX_F_CASE_API_LEGACY_ENRICH;
       else process.env.JRX_F_CASE_API_LEGACY_ENRICH = prevLegacyEnrich;
     });
@@ -1202,7 +1202,7 @@ function timelineFromMerged(data: ReturnType<typeof mapCaseApiToCnrResolveData>)
   return Array.isArray(value) ? value : [];
 }
 
-describe('NYS-CNR-SEARCH-FILTERS-001', () => {
+describe('JRX-CNR-SEARCH-FILTERS-001', () => {
   it('buildCaseApiSearchForwardQuery forwards nysapi-native filter surface', () => {
     const forward = buildCaseApiSearchForwardQuery({
       courtType: 'dc',

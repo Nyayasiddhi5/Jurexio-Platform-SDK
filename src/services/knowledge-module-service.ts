@@ -1,6 +1,6 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
- * NYV-SVC-KM-MODULES — Knowledge Module Plugin System
+ * JRX-SVC-KM-MODULES — Knowledge Module Plugin System
  * Ported from SIA open-source agentic framework.
  *
  * Capabilities:
@@ -115,9 +115,9 @@ async function ensureTables(): Promise<void> {
 
     tablesReady = true;
   } catch (err: any) {
-    // NV-KM-DDL-PERM-001 — match nv-orchestration-services: skip repeated DDL when
+    // NV-KM-DDL-PERM-001 — match jrx-orchestration-services: skip repeated DDL when
     // the gateway role lacks CREATE on nv_schema (tables provisioned via migration).
-    logger.warn('[NYV-SVC-KM-MODULES] ensureTables DDL skipped (tables provisioned via migration; role may lack CREATE on nv_schema)', {
+    logger.warn('[JRX-SVC-KM-MODULES] ensureTables DDL skipped (tables provisioned via migration; role may lack CREATE on nv_schema)', {
       err: err?.message,
     });
     tablesReady = true;
@@ -131,7 +131,7 @@ interface FeedItem { title: string; link: string; description: string; pubDate?:
 async function fetchRSSFeed(url: string): Promise<FeedItem[]> {
   try {
     const res = await fetch(url, {
-      headers: { 'User-Agent': 'Jurexio-LegalKM/5.0 (+https://nyayavigya.com)' },
+      headers: { 'User-Agent': 'Jurexio-LegalKM/5.0 (+https://jurexio.com)' },
       signal: AbortSignal.timeout(10000),
     });
     if (!res.ok) return [];
@@ -150,7 +150,7 @@ async function fetchRSSFeed(url: string): Promise<FeedItem[]> {
     }
     return items;
   } catch (err: any) {
-    logger.error(`[NYV-SVC-KM-MODULES] RSS fetch error for ${url}:`, err.message);
+    logger.error(`[JRX-SVC-KM-MODULES] RSS fetch error for ${url}:`, err.message);
     return [];
   }
 }
@@ -229,7 +229,7 @@ async function updateModuleSettings(orgId: string, moduleName: ModuleName, setti
             updated_at = NOW()
     `);
   } catch (err: any) {
-    logger.error('[NYV-SVC-KM-MODULES] updateModuleSettings error:', err.message);
+    logger.error('[JRX-SVC-KM-MODULES] updateModuleSettings error:', err.message);
   }
 }
 
@@ -370,7 +370,7 @@ async function getLatestContextForModule(moduleName: ModuleName, orgId: string, 
 
     return `\n\n--- LIVE LEGAL INTELLIGENCE (${moduleName}) ---\n${lines}\n--- END LEGAL INTELLIGENCE ---`;
   } catch (err: any) {
-    logger.error('[NYV-SVC-KM-MODULES] getLatestContextForModule error:', err.message);
+    logger.error('[JRX-SVC-KM-MODULES] getLatestContextForModule error:', err.message);
     return '';
   }
 }
@@ -409,10 +409,10 @@ async function runModule(moduleName: ModuleName, orgId: string): Promise<{ modul
     const nextRunAt = new Date(Date.now() + 86400000).toISOString();
     await updateModuleSettings(orgId, moduleName, { nextRunAt });
 
-    logger.info(`[NYV-SVC-KM-MODULES] ${moduleName} ran for org ${orgId}: ${itemsIngested} items ingested`);
+    logger.info(`[JRX-SVC-KM-MODULES] ${moduleName} ran for org ${orgId}: ${itemsIngested} items ingested`);
     return { moduleName, itemsIngested };
   } catch (err: any) {
-    logger.error(`[NYV-SVC-KM-MODULES] ${moduleName} error:`, err.message);
+    logger.error(`[JRX-SVC-KM-MODULES] ${moduleName} error:`, err.message);
     return { moduleName, itemsIngested: 0, error: err.message };
   }
 }
@@ -480,7 +480,7 @@ export async function getIngestedContent(
       jurisdiction: row.jurisdiction,
     }));
   } catch (err: any) {
-    logger.error('[NYV-SVC-KM-MODULES] getIngestedContent error:', err.message);
+    logger.error('[JRX-SVC-KM-MODULES] getIngestedContent error:', err.message);
     return [];
   }
 }
@@ -493,7 +493,7 @@ export async function deleteContentItem(itemId: string, orgId: string): Promise<
       WHERE id = ${itemId} AND org_id = ${orgId}
     `);
   } catch (err: any) {
-    logger.error('[NYV-SVC-KM-MODULES] deleteContentItem error:', err.message);
+    logger.error('[JRX-SVC-KM-MODULES] deleteContentItem error:', err.message);
     throw err;
   }
 }

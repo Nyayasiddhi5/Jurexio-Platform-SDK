@@ -1,7 +1,7 @@
 /**
  * NV-FIRM-CLAUSE-DRAFT-001 — firm clause library → drafting prompt.
  *
- * ── What the clause library actually is on the NYV side ─────────────────────
+ * ── What the clause library actually is on the JRX side ─────────────────────
  * There is no org-scoped firm clause library table in this repository. The
  * audited state (2026-08-19):
  *   • `sdk_clause_library`   — 15 seeded rows, NO `org_id` column, `is_system`
@@ -17,7 +17,7 @@
  * a RECEIVING CONTRACT plus an injection layer, not a wrapper over a local
  * table we do not have. Two sources are supported, both tenant-bound:
  *   A. caller-supplied (`parameters._firmClauseLibrary`) — the NSP path;
- *   B. `nv_organizations.settings->'clauseLibrary'` — the NYV-native path,
+ *   B. `nv_organizations.settings->'clauseLibrary'` — the JRX-native path,
  *      an existing org-scoped row, so no new table and no migration.
  *
  * ── Why tenant identity travels WITH each clause ────────────────────────────
@@ -106,7 +106,7 @@ export type FirmClauseCaps = {
  * Measured, not guessed. The `full` legal-intelligence overlay for a drafting
  * instruction is 2,100 prompt tokens and the `compact` tier is 1,093; the
  * tightest ceiling a drafting prompt can legitimately land in is the `chat`
- * tier's 2,500 (`nv-prompt-budget.ts`, where a Queen exploration leaf is
+ * tier's 2,500 (`jrx-prompt-budget.ts`, where a Queen exploration leaf is
  * clamped). 4 x 600 chars costs ~873 tokens, which does not fit next to the
  * compact overlay with room for retrieval. 2 x 400 costs ~456.
  *
@@ -297,7 +297,7 @@ export function formatFirmClauseOverlay(clauses: FirmClause[]): string {
 }
 
 /**
- * Tenant-scoped read of the NYV-native source.
+ * Tenant-scoped read of the JRX-native source.
  *
  * MUST be given the `TenantTx` handle from `withTenantTx` / `req.withTenant`.
  * A zero-argument `withTenant(async () => …)` callback would leave this read on
@@ -399,7 +399,7 @@ export function runWithFirmClauseContext<T>(ctx: FirmClauseRequestContext, fn: (
 
 /**
  * The `*-fast` task types are the interactive ones §3.4 documents a 90 s SLA
- * for, and `nv-prompt-budget` clamps a Queen exploration leaf on them to the
+ * for, and `jrx-prompt-budget` clamps a Queen exploration leaf on them to the
  * `chat` tier (2,500 prompt tokens). They get the reduced payload.
  */
 const FAST_TASK_TYPE_RE = /(^|[-_])fast($|[-_])/i;

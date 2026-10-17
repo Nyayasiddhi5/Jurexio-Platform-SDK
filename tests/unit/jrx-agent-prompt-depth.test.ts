@@ -143,7 +143,7 @@ describe('NV-AGENT-PROMPT-DEPTH-001 — single-shot partner path carries §3', (
 });
 
 describe('NV-AGENT-PROMPT-DEPTH-001 — ops override / A-B lever', () => {
-  const KEY = 'NYV_AGENT_PROMPT_DEPTH';
+  const KEY = 'JRX_AGENT_PROMPT_DEPTH';
   const restore = process.env[KEY];
   afterEach(() => {
     if (restore === undefined) delete process.env[KEY];
@@ -218,7 +218,7 @@ describe('NV-COT-AUTO-STRATEGY-001 — dispatch sites must not pin the strategy'
    * The selector is only reachable when callers leave `cotStrategy` undefined.
    * The first version of this fix shipped with the dispatch sites still doing
    * `cotStrategy: cotStrategy || 'zero_shot_cot'`, which made the option always
-   * truthy and kept all seven other strategies dead — the live A/B on nysdev
+   * truthy and kept all seven other strategies dead — the live A/B on jrx-prod
    * logged `strategy=zero_shot_cot` even for research and drafting. These are
    * source-level assertions so the default cannot be reintroduced silently.
    */

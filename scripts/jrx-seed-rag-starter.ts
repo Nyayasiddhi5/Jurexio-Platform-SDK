@@ -11,7 +11,7 @@
  * nv_document_embeddings.text) returns 0 rows and legal-chat returns
  * citations:[].
  *
- * Run: cd nyayavigya-platform-312 && npx tsx scripts/jrx-seed-rag-starter.ts
+ * Run: cd Jurexio-Platform-SDK && npx tsx scripts/jrx-seed-rag-starter.ts
  */
 import 'dotenv/config';
 import { Pool } from 'pg';

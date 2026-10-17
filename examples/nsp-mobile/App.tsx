@@ -3,28 +3,28 @@ import { StyleSheet, ScrollView, Text, TextInput, View, Pressable, Alert } from 
 import { StatusBar } from 'expo-status-bar';
 import Constants from 'expo-constants';
 import type {
-  NyvDocumentAnalysis,
-  NyvPatternResponse,
-  NyvPrecedentSearchResult,
-  NyvVoiceSynthesisResponse,
+  JrxDocumentAnalysis,
+  JrxPatternResponse,
+  JrxPrecedentSearchResult,
+  JrxVoiceSynthesisResponse,
 } from '@nyayavigya/client-sdk';
-import { NyvClientRN, requestStandardSdkPermissions } from '@nyayavigya/client-sdk-react-native';
+import { JrxClientRN, requestStandardSdkPermissions } from '@nyayavigya/client-sdk-react-native';
 
-const NYV_BASE_URL = (Constants.expoConfig?.extra?.NYV_BASE_URL as string) ?? 'https://api.nyayavigya.com';
+const JRX_BASE_URL = (Constants.expoConfig?.extra?.JRX_BASE_URL as string) ?? 'https://api.nyayavigya.com';
 
 function errMessage(e: unknown): string {
   return e instanceof Error ? e.message : String(e);
 }
 
 export default function App() {
-  const [client, setClient] = useState<NyvClientRN | null>(null);
+  const [client, setClient] = useState<JrxClientRN | null>(null);
   const [keyInput, setKeyInput] = useState('');
   const [haveKey, setHaveKey] = useState(false);
   const [tab, setTab] = useState<'chat' | 'doc' | 'voice' | 'intel'>('chat');
 
   useEffect(() => {
     (async () => {
-      const c = await NyvClientRN.create({ baseUrl: NYV_BASE_URL });
+      const c = await JrxClientRN.create({ baseUrl: JRX_BASE_URL });
       setClient(c);
       setHaveKey(!!c.getApiKey());
     })();
@@ -52,7 +52,7 @@ export default function App() {
       <ScrollView contentContainerStyle={styles.root}>
         <StatusBar style="auto" />
         <Text style={styles.h1}>NSP Mobile (sample)</Text>
-        <Text style={styles.muted}>Paste your Nyayavigya SDK key to begin.</Text>
+        <Text style={styles.muted}>Paste your Jurexio SDK key to begin.</Text>
         <TextInput
           value={keyInput}
           onChangeText={setKeyInput}
@@ -93,14 +93,14 @@ export default function App() {
   );
 }
 
-function ChatTab({ client }: { client: NyvClientRN }) {
+function ChatTab({ client }: { client: JrxClientRN }) {
   const [q, setQ] = useState('What is BNS Section 103?');
   const [a, setA] = useState<string>('');
   const [busy, setBusy] = useState(false);
   async function ask() {
     setBusy(true);
     try {
-      const res: NyvPatternResponse = await client.client.ask(q);
+      const res: JrxPatternResponse = await client.client.ask(q);
       setA(String(res.result ?? JSON.stringify(res, null, 2)));
     } catch (e) {
       setA('Error: ' + errMessage(e));
@@ -137,7 +137,7 @@ interface ExpoImagePickerModule {
   MediaTypeOptions: { Images: unknown };
 }
 
-function DocTab({ client }: { client: NyvClientRN }) {
+function DocTab({ client }: { client: JrxClientRN }) {
   const [out, setOut] = useState<string>('');
   async function pickAndAnalyze() {
     try {
@@ -156,13 +156,13 @@ function DocTab({ client }: { client: NyvClientRN }) {
       // RN FormData accepts { uri, name, type } as a file part. The DOM lib
       // typings don't model this, so we cast through `unknown`.
       fd.append('file', { uri: a.uri, name: 'capture.jpg', type: 'image/jpeg' } as unknown as Blob);
-      const res = await fetch(`${NYV_BASE_URL}/api/nv/documents/ocr`, {
+      const res = await fetch(`${JRX_BASE_URL}/api/nv/documents/ocr`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${apiKey}` },
         body: fd,
       });
       if (!res.ok) throw new Error(`OCR HTTP ${res.status}`);
-      const json: NyvDocumentAnalysis = await res.json();
+      const json: JrxDocumentAnalysis = await res.json();
       setOut(JSON.stringify(json, null, 2));
     } catch (e) {
       setOut('Error: ' + errMessage(e));
@@ -179,12 +179,12 @@ function DocTab({ client }: { client: NyvClientRN }) {
   );
 }
 
-function VoiceTab({ client }: { client: NyvClientRN }) {
+function VoiceTab({ client }: { client: JrxClientRN }) {
   const [text, setText] = useState('यह एक नमूना उत्तर है।');
   const [out, setOut] = useState<string>('');
   async function synth() {
     try {
-      const res: NyvVoiceSynthesisResponse = await client.client.voice.synthesize({
+      const res: JrxVoiceSynthesisResponse = await client.client.voice.synthesize({
         text, language: 'hi', voice: 'sarvam-meera',
       });
       setOut(`format=${res.format} duration=${res.durationMs}ms chars=${res.characters} (audioBase64 length=${res.audioBase64.length})`);
@@ -204,12 +204,12 @@ function VoiceTab({ client }: { client: NyvClientRN }) {
   );
 }
 
-function IntelTab({ client }: { client: NyvClientRN }) {
+function IntelTab({ client }: { client: JrxClientRN }) {
   const [q, setQ] = useState('right to privacy supreme court India');
   const [out, setOut] = useState<string>('');
   async function search() {
     try {
-      const res: NyvPrecedentSearchResult = await client.client.intelligence.findPrecedents(q, 'IN', { maxResults: 5 });
+      const res: JrxPrecedentSearchResult = await client.client.intelligence.findPrecedents(q, 'IN', { maxResults: 5 });
       setOut(JSON.stringify(res, null, 2));
     } catch (e) {
       setOut('Error: ' + errMessage(e));

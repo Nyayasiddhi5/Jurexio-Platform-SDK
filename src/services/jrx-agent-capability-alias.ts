@@ -3,7 +3,7 @@
  *
  * ## The defect this closes
  *
- * `resolveAgentByCapability()` in `nv-client.ts` matched a caller's `taskType`
+ * `resolveAgentByCapability()` in `jrx-client.ts` matched a caller's `taskType`
  * against an agent's `capabilities[]` with a raw substring test:
  *
  *     capability.toLowerCase().includes(taskType.toLowerCase())
@@ -127,7 +127,7 @@ export const TASK_TYPE_CAPABILITY_ALIASES: Readonly<Record<string, readonly stri
   // ── Partner NSP/NYM orchestrate taskTypes (NV-PARTNER-TASKTYPE-ALIAS-001) ───
   // Bare + explicit `-fast` must share the same capability set so
   // `resolveAgentByCapability()` binds a named specialist (e.g. A-047 research,
-  // A-001 drafting). Queen vs specialist *depth* stays in nv-partner-platform.
+  // A-001 drafting). Queen vs specialist *depth* stays in jrx-partner-platform.
   'legal-chat': ['case-law-research', 'statute-retrieval'],
   'legal-chat-fast': ['case-law-research', 'statute-retrieval'],
   'legal-draft': ['document-generation', 'clause-drafting', 'template-management'],
@@ -277,7 +277,7 @@ export const SUBJECT_AGENT_NAME_HINTS: Readonly<Record<string, readonly string[]
  * Subject keywords → area, mirroring the live classifier's vocabulary.
  *
  * Kept beside the name hints so a query can be classified wherever the registry
- * is consulted, without importing `nv-orchestration-services` (which needs a DB
+ * is consulted, without importing `jrx-orchestration-services` (which needs a DB
  * handle for its audit write and cannot be imported from the hot path).
  */
 export const SUBJECT_KEYWORDS: Readonly<Record<string, readonly string[]>> = {

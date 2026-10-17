@@ -25,7 +25,7 @@ describe('NV-PROMPT-IMPROVE-FAST-001', () => {
     expect(result.metadata.complexity).toBeTruthy();
   });
 
-  it('does not leak internal NYV system overlays (NV-PROMPT-IMPROVE-USER-001)', async () => {
+  it('does not leak internal JRX system overlays (NV-PROMPT-IMPROVE-USER-001)', async () => {
     const result = await improvePromptFast({
       prompt: 'Draft bail application for FIR 123/2026',
       taskType: 'legal-draft-fast',

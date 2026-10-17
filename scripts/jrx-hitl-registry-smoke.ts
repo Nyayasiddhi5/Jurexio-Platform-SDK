@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 /**
- * NYV_F_HITL_REGISTRY integration smoke — registry-driven HITL thresholds + reviewer routing.
+ * JRX_F_HITL_REGISTRY integration smoke — registry-driven HITL thresholds + reviewer routing.
  *
  * Probes:
  *   1. POST /api/jrx/orchestration/hitl/workflow/execute (registry flag surfaced)
@@ -8,14 +8,14 @@
  *   3. POST /api/jrx/orchestrate with high-risk taskType (HITL path when flag ON)
  *
  * Usage:
- *   GATEWAY=http://localhost:5000 TOKEN=<jwt> NYV_F_HITL_REGISTRY=true \
+ *   GATEWAY=http://localhost:5000 TOKEN=<jwt> JRX_F_HITL_REGISTRY=true \
  *     npx tsx scripts/jrx-hitl-registry-smoke.ts
  *
  * Exit 0 on pass, non-zero on failure.
  */
 const GATEWAY = (process.env.GATEWAY || 'http://localhost:5000').replace(/\/+$/, '');
 const TOKEN = process.env.TOKEN || process.env.SME_TOKEN || '';
-const HITL_FLAG = process.env.NYV_F_HITL_REGISTRY === 'true' || process.env.NYV_F_HITL_REGISTRY === '1';
+const HITL_FLAG = process.env.JRX_F_HITL_REGISTRY === 'true' || process.env.JRX_F_HITL_REGISTRY === '1';
 
 async function authFetch(path: string, init: RequestInit = {}): Promise<Response> {
   const headers: Record<string, string> = {
@@ -29,7 +29,7 @@ async function authFetch(path: string, init: RequestInit = {}): Promise<Response
 async function main(): Promise<void> {
   const failures: string[] = [];
 
-  console.log(`[hitl-smoke] gateway=${GATEWAY} NYV_F_HITL_REGISTRY=${HITL_FLAG}`);
+  console.log(`[hitl-smoke] gateway=${GATEWAY} JRX_F_HITL_REGISTRY=${HITL_FLAG}`);
 
   // 1 — workflow execute endpoint
   const wf = await authFetch('/api/jrx/orchestration/hitl/workflow/execute', {
@@ -80,7 +80,7 @@ async function main(): Promise<void> {
     const hasHitl = !!(orchJson.data?.hitlStatus || orchJson.hitlStatus || orchJson.data?.hitlRegistryExecution);
     console.log(`  ✓ orchestrate status=${orch.status} hitlSurfaced=${hasHitl}`);
     if (HITL_FLAG && !hasHitl && orch.ok) {
-      failures.push('orchestrate: expected hitlStatus or hitlRegistryExecution when NYV_F_HITL_REGISTRY=true');
+      failures.push('orchestrate: expected hitlStatus or hitlRegistryExecution when JRX_F_HITL_REGISTRY=true');
     }
   }
 

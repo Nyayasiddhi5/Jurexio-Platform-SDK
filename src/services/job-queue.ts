@@ -1,10 +1,10 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
- * @deprecated NYV-NS-009 (2026-05-01)
+ * @deprecated JRX-NS-009 (2026-05-01)
  *
  * Legacy Postgres-backed job queue. New code MUST use BullMQ (5 queues
  * registered in src/services/jrx-bullmq-queues.ts). This file remains live
- * because nv-job-worker.ts and nv-document-intelligence-orchestrator.ts
+ * because jrx-job-worker.ts and jrx-document-intelligence-orchestrator.ts
  * still consume it; deletion is gated on:
  *
  *   1. Migrating the two consumer files to BullMQ producers.
@@ -13,7 +13,7 @@
  *   3. Adding a vitest contract suite that asserts no `from './job-queue.js'`
  *      imports exist outside this file.
  *
- * That work is queued under NYV-NS-009 in NYV-TECH-SPEC-MASTER §14.
+ * That work is queued under JRX-NS-009 in JRX-TECH-SPEC-MASTER §14.
  *
  * A single-shot deprecation warning is logged at module load so anyone
  * touching the file in dev sees the migration breadcrumb in the console.
@@ -24,13 +24,13 @@ import { createLogger } from '../utils/logger.js';
 
 const logger = createLogger('job-queue');
 
-logger.warn('[NYV-NS-009] DEPRECATED: src/services/job-queue.ts is the legacy '
-  + 'Postgres queue. New code must use BullMQ (nv-bullmq-queues.ts). '
-  + 'See NYV-TECH-SPEC-MASTER §14 NYV-NS-009 for the migration plan.');
+logger.warn('[JRX-NS-009] DEPRECATED: src/services/job-queue.ts is the legacy '
+  + 'Postgres queue. New code must use BullMQ (jrx-bullmq-queues.ts). '
+  + 'See JRX-TECH-SPEC-MASTER §14 JRX-NS-009 for the migration plan.');
 
 const WORKER_ID = `worker-${process.pid}-${Date.now()}`;
-/** Faster claim for EDJ / document jobs — override with NYV_PG_JOB_POLL_MS. */
-const POLL_INTERVAL = Math.max(500, Number(process.env.NYV_PG_JOB_POLL_MS) || 1500);
+/** Faster claim for EDJ / document jobs — override with JRX_PG_JOB_POLL_MS. */
+const POLL_INTERVAL = Math.max(500, Number(process.env.JRX_PG_JOB_POLL_MS) || 1500);
 const LOCK_TIMEOUT_MS = 5 * 60 * 1000;
 const MAX_BATCH_SIZE = 10;
 

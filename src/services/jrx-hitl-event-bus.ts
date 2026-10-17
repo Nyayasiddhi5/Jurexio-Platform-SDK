@@ -6,7 +6,7 @@
  * so the four stat tiles + 7-day sparkline update the instant a reviewer
  * approves / rejects / modifies a card (was: 30s polling).
  *
- * Mirrors `nv-activity-event-bus.ts` so anyone touching one understands the
+ * Mirrors `jrx-activity-event-bus.ts` so anyone touching one understands the
  * other:
  *   - Single in-memory EventEmitter.
  *   - Never throws to publishers; a misbehaving subscriber cannot block the
@@ -16,7 +16,7 @@
  *
  * Guardrails honored:
  *   - NV-ARCH-001: no LLM emission, pure metadata fan-out.
- *   - NV-NAMING-001: grep `nv-hitl-event-bus` showed no existing file.
+ *   - NV-NAMING-001: grep `jrx-hitl-event-bus` showed no existing file.
  *   - NV-LLM-001: not in the LLM-emit path.
  */
 

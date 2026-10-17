@@ -19,12 +19,12 @@ let _legalIntelStop: (() => void) | null = null;
 let _grpoExportStop: (() => void) | null = null;
 
 function pgWorkerEnabled(): boolean {
-  const v = String(process.env.NYV_PG_JOB_WORKER ?? 'on').toLowerCase();
+  const v = String(process.env.JRX_PG_JOB_WORKER ?? 'on').toLowerCase();
   return v !== 'off' && v !== '0' && v !== 'false';
 }
 
 function docProcessorEnabled(): boolean {
-  const v = String(process.env.NYV_DOC_PROCESSOR_ENABLED ?? 'on').toLowerCase();
+  const v = String(process.env.JRX_DOC_PROCESSOR_ENABLED ?? 'on').toLowerCase();
   return v !== 'off' && v !== '0' && v !== 'false';
 }
 
@@ -52,7 +52,7 @@ export async function startPlatformJobs(): Promise<PlatformJobsHandle> {
   if (docProcessorEnabled()) {
     try {
       const { startJobPoller } = await import('../services/document-pipeline/production-doc-processor.js');
-      const interval = Number(process.env.NYV_DOC_POLL_INTERVAL_MS ?? 3000);
+      const interval = Number(process.env.JRX_DOC_POLL_INTERVAL_MS ?? 3000);
       await startJobPoller(interval);
       _status.nsDocProcessor = 'running';
     } catch (e: unknown) {
@@ -63,7 +63,7 @@ export async function startPlatformJobs(): Promise<PlatformJobsHandle> {
     _status.nsDocProcessor = 'disabled';
   }
 
-  if (process.env.NYV_QUEUE_WORKERS !== 'off') {
+  if (process.env.JRX_QUEUE_WORKERS !== 'off') {
     try {
       const { startQueueWorkers } = await import('../services/queue/queue-workers.js');
       const { stop } = await startQueueWorkers();
@@ -86,7 +86,7 @@ export async function startPlatformJobs(): Promise<PlatformJobsHandle> {
     _status.sdkWebhookListener = 'disabled';
   }
 
-  if (process.env.NYV_HITL_SLA_TIMER !== 'off') {
+  if (process.env.JRX_HITL_SLA_TIMER !== 'off') {
     try {
       const { startHitlSlaTimer } = await import('../services/jrx-hitl-sla-timer.js');
       _hitlSlaStop = startHitlSlaTimer().stop;
@@ -140,7 +140,7 @@ export async function startPlatformJobs(): Promise<PlatformJobsHandle> {
   try {
     const { startGrpoNightlyExport } = await import('../services/jrx-grpo-nightly-export-scheduler.js');
     _grpoExportStop = startGrpoNightlyExport().stop;
-    _status.grpoNightlyExport = process.env.NYV_GRPO_NIGHTLY_EXPORT === 'off' ? 'disabled' : 'running';
+    _status.grpoNightlyExport = process.env.JRX_GRPO_NIGHTLY_EXPORT === 'off' ? 'disabled' : 'running';
   } catch (e: unknown) {
     _status.grpoNightlyExport = 'skipped';
     logger.warn('platform_jobs_grpo_export_skipped', { err: e instanceof Error ? e.message : String(e) });

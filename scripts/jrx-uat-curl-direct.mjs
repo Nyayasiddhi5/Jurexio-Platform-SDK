@@ -1,17 +1,17 @@
 #!/usr/bin/env node
-// nv-uat-curl-direct.mjs — direct fetch-based UAT verifier (NYV-UAT-DIRECT-001).
+// jrx-uat-curl-direct.mjs — direct fetch-based UAT verifier (JRX-UAT-DIRECT-001).
 // Bypasses the cartesian smoke runner (which has been silently exiting after
 // batch 1) and hits each scenario via plain fetch. Reads the SAME scenario
 // JSON files the cartesian runner reads, so anchors / httpStatus / passCriteria
 // stay canonical. Usage:
-//   node scripts/nv-uat-curl-direct.mjs --files=tests/uat/scenarios/IN/legaltech-extras.json,tests/uat/scenarios/IN/contract-review.json
-//   node scripts/nv-uat-curl-direct.mjs                      # all IN/*.json
+//   node scripts/jrx-uat-curl-direct.mjs --files=tests/uat/scenarios/IN/legaltech-extras.json,tests/uat/scenarios/IN/contract-review.json
+//   node scripts/jrx-uat-curl-direct.mjs                      # all IN/*.json
 import fs from 'node:fs';
 import path from 'node:path';
 
-const BASE = process.env.NYV_UAT_BASE || 'http://localhost:5000';
-const KEY = process.env.NYV_SDK_KEY_NSP;
-if (!KEY) { console.error('NYV_SDK_KEY_NSP missing'); process.exit(2); }
+const BASE = process.env.JRX_UAT_BASE || 'http://localhost:5000';
+const KEY = process.env.JRX_SDK_KEY_NSP;
+if (!KEY) { console.error('JRX_SDK_KEY_NSP missing'); process.exit(2); }
 
 const args = process.argv.slice(2);
 const filesArg = args.find(a => a.startsWith('--files='));
@@ -146,7 +146,7 @@ let results = await pool(scenarios, concurrency, runOne);
 // NV-PRE-DEPLOY-SMOKE-002 (Session-13) — retry-once for transient LLM
 // content-quality misses (atLeast:N/M) and rate-limit (429) failures so a
 // single flaky invocation doesn't drop the strict pass count.
-const RETRY_FAILED = String(process.env.NYV_UAT_RETRY_FAILED || '1') === '1';
+const RETRY_FAILED = String(process.env.JRX_UAT_RETRY_FAILED || '1') === '1';
 if (RETRY_FAILED) {
   const retryable = (r) => !r.pass && (
     r.status === 429 ||

@@ -39,7 +39,7 @@ export default function HelpButton() {
               <ExternalLink className="h-3 w-3 ml-auto" />
             </a>
             <a
-              href="mailto:support@nyayavigya.in"
+              href="mailto:support@jurexio.com"
               className="flex items-center gap-3 p-3 rounded-lg text-sm transition-colors hover:bg-white/10"
             >
               <Mail className="h-4 w-4 text-yellow-400" />

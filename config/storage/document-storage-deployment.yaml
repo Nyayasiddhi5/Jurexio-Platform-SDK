@@ -1,8 +1,8 @@
-# Nyayavigya Document Management Storage Deployment Config
+# Jurexio Document Management Storage Deployment Config
 # ─────────────────────────────────────────────────────────────────────────────
 # Source of truth for storage backend selection + DMS knobs.
-# Loaded once at boot by src/config/nyv-dms-config.ts.
-# Env vars (NYV_*) override anything declared here at runtime.
+# Loaded once at boot by src/config/jrx-dms-config.ts.
+# Env vars (JRX_*) override anything declared here at runtime.
 #
 # Cursor / AWS EC2 development and production: backend.active = s3
 # Local dev without S3:                        backend.active = local
@@ -16,10 +16,10 @@ last_reviewed: "2026-07-23"
 backend:
   # active backend selection — s3 for all AWS/Cursor Cloud stacks; local for dev-only
   active: s3                          # one of: s3 | local
-  shared_bucket: nyv-shared-documents   # Nyayavigya-mediated cross-platform doc bucket
+  shared_bucket: jrx-shared-documents   # Jurexio-mediated cross-platform doc bucket
   fallback: local                       # used only if active backend init fails
 
-# Per-platform upload caps (MB). Hard ceiling; per-tier limits in nv-sdk-variants.ts
+# Per-platform upload caps (MB). Hard ceiling; per-tier limits in jrx-sdk-variants.ts
 # also apply (whichever is smaller wins).
 uploads:
   per_platform_max_mb:
@@ -37,7 +37,7 @@ uploads:
   multipart_threshold_mb: 50           # above this → multipart upload to S3
   presigned_url_ttl_sec: 3600
 
-# BullMQ queue concurrency — every value also overridable by NYV_* env vars
+# BullMQ queue concurrency — every value also overridable by JRX_* env vars
 # (see src/services/queue/queue-workers.ts for the env override mapping).
 queues:
   doc_parse:
@@ -71,10 +71,10 @@ queues:
     timeout_ms: 600000
     retry_attempts: 3
 
-# Cross-platform sharing — Nyayavigya-mediated, NOT peer-to-peer.
+# Cross-platform sharing — Jurexio-mediated, NOT peer-to-peer.
 # Default = private (uploader-platform-only).
 # Documents above auto_share_threshold_mb are auto-promoted to ecosystem-shared
-# (Nyayavigya issues read grants to all 7 platforms via nv_doc_share_grants),
+# (Jurexio issues read grants to all 7 platforms via nv_doc_share_grants),
 # eliminating per-platform duplication for large documents.
 sharing:
   default_policy: private              # private | org-shared | ecosystem-shared

@@ -7,15 +7,15 @@ import {
 } from '../../src/utils/jrx-platform-temporal-context.js';
 
 describe('./jrx-platform-temporal-context', () => {
-  const prev = process.env.NYV_REFERENCE_DATE;
+  const prev = process.env.JRX_REFERENCE_DATE;
 
   beforeEach(() => {
-    process.env.NYV_REFERENCE_DATE = '2026-08-20T12:00:00+05:30';
+    process.env.JRX_REFERENCE_DATE = '2026-08-20T12:00:00+05:30';
   });
 
   afterEach(() => {
-    if (prev === undefined) delete process.env.NYV_REFERENCE_DATE;
-    else process.env.NYV_REFERENCE_DATE = prev;
+    if (prev === undefined) delete process.env.JRX_REFERENCE_DATE;
+    else process.env.JRX_REFERENCE_DATE = prev;
   });
 
   it('injects authoritative 2026 reference date', () => {

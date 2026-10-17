@@ -3,7 +3,7 @@ import * as fs from 'fs';
 
 const lines: string[] = ['BEGIN;'];
 for (const t of NV_MCP_TOOLS_REGISTRY) {
-  const tid = 'NYV-MCP-' + t.id.toUpperCase().replace(/[^A-Z0-9]+/g, '-') + '-001';
+  const tid = 'JRX-MCP-' + t.id.toUpperCase().replace(/[^A-Z0-9]+/g, '-') + '-001';
   const cfg = JSON.stringify({
     slug: t.id, category: t.category, jurisdictions: t.jurisdictions, inputSchema: t.inputSchema,
   }).replace(/'/g, "''");

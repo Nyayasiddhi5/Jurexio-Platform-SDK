@@ -30,7 +30,7 @@ function hashToken(raw: string): string {
 }
 
 function publicBaseUrl(req: Request): string {
-  const env = process.env.NYV_PUBLIC_BASE_URL;
+  const env = process.env.JRX_PUBLIC_BASE_URL;
   if (env) return env.replace(/\/+$/, '');
   const host = req.get('host');
   const proto = (req.headers['x-forwarded-proto'] as string) || req.protocol || 'https';

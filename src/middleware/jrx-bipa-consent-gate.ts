@@ -22,7 +22,7 @@
  * On block: returns HTTP 403 with code `BIPA_CONSENT_REQUIRED` and a
  * `consent_url` pointing the data subject at the Console grant flow.
  *
- * @module nv-bipa-consent-gate
+ * @module jrx-bipa-consent-gate
  */
 import type { Request, Response, NextFunction, RequestHandler } from 'express';
 import {
@@ -72,7 +72,7 @@ export function resolveBipaSubject(req: Request): string | null {
   const ctx = (req as any).sdkContext;
   if (ctx?.userId) return String(ctx.userId);
   if (ctx?.customerUserId) return String(ctx.customerUserId);
-  const customerHdr = req.headers?.['x-nv-user-id'] as string | undefined;
+  const customerHdr = req.headers?.['x-jrx-user-id'] as string | undefined;
   if (customerHdr) return String(customerHdr);
   if (ctx?.applicationId) return `sdk:app:${ctx.applicationId}`;
   if (ctx?.organizationId) return `sdk:org:${ctx.organizationId}`;
@@ -100,7 +100,7 @@ function looksLikeIllinois(req: Request): boolean {
   candidates.push(body?.jurisdiction, body?.usState, body?.state);
   const q = (req as any).query;
   candidates.push(q?.jurisdiction as string | undefined, q?.usState as string | undefined, q?.state as string | undefined);
-  candidates.push(req.headers['x-nv-jurisdiction'] as string | undefined, req.headers['x-nv-us-state'] as string | undefined);
+  candidates.push(req.headers['x-jrx-jurisdiction'] as string | undefined, req.headers['x-jrx-us-state'] as string | undefined);
   for (const c of candidates) {
     if (!c) continue;
     const v = String(c).toUpperCase();

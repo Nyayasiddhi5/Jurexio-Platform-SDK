@@ -5,24 +5,24 @@ import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 import {
-  NyayamitraClient,
+  Jurexio CitizenClient,
   OfflineDraftQueue,
   NYAYAMITRA_LANGUAGE_LIST,
   detectLanguage,
   isRTL,
   t,
-  type NyayamitraLanguage,
+  type Jurexio CitizenLanguage,
   type MitraChatMessage,
-} from '@nyayavigya/nyayamitra-sdk';
-import { NyvClientRN } from '@nyayavigya/client-sdk-react-native';
+} from '@nyayavigya/jurexio-citizen-sdk';
+import { JrxClientRN } from '@nyayavigya/client-sdk-react-native';
 
-const NYV_BASE_URL = (Constants.expoConfig?.extra?.NYV_BASE_URL as string) ?? 'https://api.nyayavigya.com';
+const JRX_BASE_URL = (Constants.expoConfig?.extra?.JRX_BASE_URL as string) ?? 'https://api.nyayavigya.com';
 const SESSION_KEY  = 'nymd.sessionId';
 
 export default function App() {
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [keyInput, setKeyInput] = useState('');
-  const [lang, setLang] = useState<NyayamitraLanguage>('hi');
+  const [lang, setLang] = useState<Jurexio CitizenLanguage>('hi');
   const [online, setOnline] = useState(true);
   const [tab, setTab] = useState<'chat' | 'classify' | 'brief' | 'patra'>('chat');
   const [sessionId, setSessionId] = useState<string>('sess_local_1');
@@ -30,7 +30,7 @@ export default function App() {
   // Pick up the API key persisted by the RN wrapper's secure storage.
   useEffect(() => {
     (async () => {
-      const rn = await NyvClientRN.create({ baseUrl: NYV_BASE_URL });
+      const rn = await JrxClientRN.create({ baseUrl: JRX_BASE_URL });
       const k = rn.getApiKey();
       if (k) setApiKey(k);
       const sid = await AsyncStorage.getItem(SESSION_KEY);
@@ -45,14 +45,14 @@ export default function App() {
     return () => unsub();
   }, []);
 
-  const nym = useMemo(() => apiKey ? new NyayamitraClient({ apiKey, baseUrl: NYV_BASE_URL, defaultLanguage: lang }) : null, [apiKey, lang]);
+  const nym = useMemo(() => apiKey ? new Jurexio CitizenClient({ apiKey, baseUrl: JRX_BASE_URL, defaultLanguage: lang }) : null, [apiKey, lang]);
   const queue = useMemo(() => new OfflineDraftQueue({ store: AsyncStorage }), []);
 
   async function saveKey() {
     if (!keyInput.startsWith('nyv_live_sk_')) {
       return Alert.alert('Invalid key', 'API keys start with `nyv_live_sk_`.');
     }
-    const rn = await NyvClientRN.create({ baseUrl: NYV_BASE_URL });
+    const rn = await JrxClientRN.create({ baseUrl: JRX_BASE_URL });
     await rn.setApiKey(keyInput.trim());
     setApiKey(keyInput.trim());
     setKeyInput('');
@@ -62,7 +62,7 @@ export default function App() {
     return (
       <ScrollView contentContainerStyle={styles.root}>
         <StatusBar style="auto" />
-        <Text style={styles.h1}>Nyayamitra (sample)</Text>
+        <Text style={styles.h1}>Jurexio Citizen (sample)</Text>
         <Text style={styles.muted}>{t('disclaimerLegalNotLawyer', lang)}</Text>
         <TextInput
           value={keyInput}
@@ -84,7 +84,7 @@ export default function App() {
     <ScrollView contentContainerStyle={styles.root}>
       <StatusBar style="auto" />
       <View style={styles.headerRow}>
-        <Text style={styles.h1}>Nyayamitra</Text>
+        <Text style={styles.h1}>Jurexio Citizen</Text>
         <Text style={[styles.statusPill, { backgroundColor: online ? '#0a8' : '#a44' }]}>
           {online ? t('syncing', lang) : t('offline', lang)}
         </Text>
@@ -108,7 +108,7 @@ export default function App() {
   );
 }
 
-function LanguagePicker({ lang, onChange }: { lang: NyayamitraLanguage; onChange: (l: NyayamitraLanguage) => void }) {
+function LanguagePicker({ lang, onChange }: { lang: Jurexio CitizenLanguage; onChange: (l: Jurexio CitizenLanguage) => void }) {
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 12 }}>
       {NYAYAMITRA_LANGUAGE_LIST.map(l => (
@@ -130,7 +130,7 @@ function ChatView({ nym, lang, sessionId, online, queue }: any) {
     setHistory(h => [...h, { role: 'user', content: message }]);
     setInput('');
     const detected = detectLanguage(message);
-    const useLang: NyayamitraLanguage = detected === 'en' ? lang : detected;
+    const useLang: Jurexio CitizenLanguage = detected === 'en' ? lang : detected;
     if (!online) {
       await queue.enqueue({ kind: 'chat', payload: { message, language: useLang, sessionId, history } }, { language: useLang });
       setHistory(h => [...h, { role: 'assistant', content: t('savedOffline', useLang) }]);

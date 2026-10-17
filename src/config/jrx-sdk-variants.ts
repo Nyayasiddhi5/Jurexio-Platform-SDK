@@ -1,11 +1,11 @@
 import crypto from 'crypto';
 
-export const NYV_SDK_VERSION = '5.0.0';
+export const JRX_SDK_VERSION = '5.0.0';
 
-export type NyvPlatformVariant = 'nyayamitra' | 'nys-professional' | 'nys-institutional' | 'nys-academy' | 'nys-ministry';
+export type JrxPlatformVariant = 'jurexio-citizen' | 'nys-professional' | 'nys-institutional' | 'nys-academy' | 'nys-ministry';
 
-export interface NyvSDKVariantConfig {
-  platformCode: NyvPlatformVariant;
+export interface JrxSDKVariantConfig {
+  platformCode: JrxPlatformVariant;
   displayName: string;
   fullName: string;
   audience: string;
@@ -31,14 +31,14 @@ export interface NyvSDKVariantConfig {
   temperature: number;
   allocatedAgentCategories: string[];
   allocatedPatterns: string[];
-  features: NyvSDKFeatureSet;
+  features: JrxSDKFeatureSet;
   scopes: string[];
   webhookSupport: boolean;
   sandboxMode: boolean;
   complianceLevel: 'standard' | 'enhanced' | 'sovereign';
 }
 
-export interface NyvSDKFeatureSet {
+export interface JrxSDKFeatureSet {
   orchestration: boolean;
   streaming: boolean;
   rag: boolean;
@@ -66,16 +66,16 @@ export interface NyvSDKFeatureSet {
   creditSystem: boolean;
 }
 
-export const SDK_VARIANTS: Record<NyvPlatformVariant, NyvSDKVariantConfig> = {
-  'nyayamitra': {
-    platformCode: 'nyayamitra',
-    displayName: 'Nyayamitra',
-    fullName: 'Nyayamitra™ — Citizen Legal Intake',
+export const SDK_VARIANTS: Record<JrxPlatformVariant, JrxSDKVariantConfig> = {
+  'jurexio-citizen': {
+    platformCode: 'jurexio-citizen',
+    displayName: 'Jurexio Citizen',
+    fullName: 'Jurexio Citizen — Citizen Legal Intake',
     audience: 'Citizens seeking legal assistance',
     description: 'Consumer-facing legal intake platform. Simplified AI interactions for citizens navigating the Indian legal system. Supports 22 Indian languages via Sarvam AI.',
     appType: 'consumer_intake',
-    sdkClientId: 'nyv_app_nyayamitra_consumer_intake_v1',
-    apiPrefix: '/api/nys/nym',
+    sdkClientId: 'nyv_app_jurexio-citizen_consumer_intake_v1',
+    apiPrefix: '/api/jrx/nym',
     dbPrefix: 'nym_',
     tier: 'plus',
     defaultJurisdiction: 'IN',
@@ -96,7 +96,7 @@ export const SDK_VARIANTS: Record<NyvPlatformVariant, NyvSDKVariantConfig> = {
       'legal-intake', 'citizen-guidance', 'document-assistant',
       'fir-drafting', 'complaint-drafting', 'rti-assistant',
       'consumer-protection', 'family-law', 'property-law',
-      'labour-law', 'criminal-law-basics', 'nyayamitra-bot',
+      'labour-law', 'criminal-law-basics', 'jurexio-citizen-bot',
     ],
     allocatedPatterns: [
       'NyayaRAG', 'HumanInTheLoop', 'MultiModalLegal',
@@ -146,7 +146,7 @@ export const SDK_VARIANTS: Record<NyvPlatformVariant, NyvSDKVariantConfig> = {
     description: 'Full-featured legal practice management platform. Case management, client billing, document automation, AI-powered research, and court calendar integration.',
     appType: 'lawyer_platform',
     sdkClientId: 'nyv_app_nyayasiddhi_professional_v1',
-    apiPrefix: '/api/nys/pro',
+    apiPrefix: '/api/jrx/pro',
     dbPrefix: 'nys_pro_',
     tier: 'pro',
     defaultJurisdiction: 'IN',
@@ -218,7 +218,7 @@ export const SDK_VARIANTS: Record<NyvPlatformVariant, NyvSDKVariantConfig> = {
     description: 'Enterprise-grade legal governance platform. Multi-tenant architecture, advanced compliance, federated privacy, GRPO optimization, BMAD clusters, and sovereign AI deployment.',
     appType: 'institutional',
     sdkClientId: 'nyv_app_nyayasiddhi_institutional_v1',
-    apiPrefix: '/api/nys/ins',
+    apiPrefix: '/api/jrx/ins',
     dbPrefix: 'nys_ins_',
     tier: 'enterprise',
     defaultJurisdiction: 'IN',
@@ -298,7 +298,7 @@ export const SDK_VARIANTS: Record<NyvPlatformVariant, NyvSDKVariantConfig> = {
     description: 'Legal education and training platform. Moot court simulation, exam preparation, case study analysis, and professional development with AI tutoring.',
     appType: 'education',
     sdkClientId: 'nyv_app_nyayasiddhi_academy_v1',
-    apiPrefix: '/api/nys/ace',
+    apiPrefix: '/api/jrx/ace',
     dbPrefix: 'nys_ace_',
     tier: 'pro',
     defaultJurisdiction: 'IN',
@@ -370,7 +370,7 @@ export const SDK_VARIANTS: Record<NyvPlatformVariant, NyvSDKVariantConfig> = {
     description: 'Sovereign government infrastructure platform. PQC-ready encryption, air-gapped deployment option, regulatory compliance automation, and judicial analytics.',
     appType: 'government',
     sdkClientId: 'nyv_app_nyayasiddhi_governance_v1',
-    apiPrefix: '/api/nys/gov',
+    apiPrefix: '/api/jrx/gov',
     dbPrefix: 'nys_min_',
     tier: 'government',
     defaultJurisdiction: 'IN',
@@ -440,18 +440,18 @@ export const SDK_VARIANTS: Record<NyvPlatformVariant, NyvSDKVariantConfig> = {
   },
 };
 
-export function getVariant(platform: NyvPlatformVariant): NyvSDKVariantConfig {
+export function getVariant(platform: JrxPlatformVariant): JrxSDKVariantConfig {
   return SDK_VARIANTS[platform];
 }
 
-export function getAllVariants(): NyvSDKVariantConfig[] {
+export function getAllVariants(): JrxSDKVariantConfig[] {
   return Object.values(SDK_VARIANTS);
 }
 
-export function generateDemoApiKey(platform: NyvPlatformVariant, environment: 'live' | 'test'): string {
+export function generateDemoApiKey(platform: JrxPlatformVariant, environment: 'live' | 'test'): string {
   const prefix = environment === 'live' ? 'nyv_live_sk_' : 'nyv_test_sk_';
   const platformShort = {
-    'nyayamitra': 'nym',
+    'jurexio-citizen': 'nym',
     'nys-professional': 'nsp',
     'nys-institutional': 'nsi',
     'nys-academy': 'nsa',

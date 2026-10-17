@@ -1,15 +1,15 @@
 /**
- * nv-rag-smoke.ts — RAG / GraphRAG end-to-end smoke
+ * jrx-rag-smoke.ts — RAG / GraphRAG end-to-end smoke
  * NV-OPT+UAT-2026-05-09 P2 #9
  *
- * Asserts NyvLightRAGPipeline (graphRAG) returns non-empty hits with
+ * Asserts JrxLightRAGPipeline (graphRAG) returns non-empty hits with
  * citation provenance for 30 representative queries (10 statute / 10 case /
  * 10 template). PASS if ≥ 25/30 return ≥ 1 chunk with non-empty docId.
  *
- * Usage: NYV_DATABASE_URL=… npx tsx scripts/jrx-rag-smoke.ts
+ * Usage: JRX_DATABASE_URL=… npx tsx scripts/jrx-rag-smoke.ts
  */
 // @ts-nocheck
-import { NyvLightRAGPipeline } from '../src/services/rag/nyv-lightrag-pipeline.js';
+import { JrxLightRAGPipeline } from '../src/services/rag/jrx-lightrag-pipeline.js';
 import fs from 'fs';
 import path from 'path';
 
@@ -65,7 +65,7 @@ async function main() {
   const startedAt = new Date().toISOString();
   console.log(`[rag-smoke] started ${startedAt}`);
 
-  const pipeline = new NyvLightRAGPipeline({});
+  const pipeline = new JrxLightRAGPipeline({});
   await pipeline.initialize();
 
   const out: Hit[] = [];

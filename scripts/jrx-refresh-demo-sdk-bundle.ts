@@ -1,5 +1,5 @@
 /**
- * nv-refresh-demo-sdk-bundle.ts (task-150, 2026-05-11)
+ * jrx-refresh-demo-sdk-bundle.ts (task-150, 2026-05-11)
  * ─────────────────────────────────────────────────────────────────────────────
  * One-shot canonical SDK-key bundle refresh for the 7 demo platforms.
  *
@@ -36,11 +36,11 @@
  *
  * Usage
  *   # Replit dev DB
- *   NYV_PLATFORM_ENV=sandbox npx tsx scripts/jrx-refresh-demo-sdk-bundle.ts
+ *   JRX_PLATFORM_ENV=sandbox npx tsx scripts/jrx-refresh-demo-sdk-bundle.ts
  *
- *   # EC2 against RDS (from inside nyv-gateway container)
- *   docker exec nyv-gateway sh -c \
- *     'cd /app && NYV_PLATFORM_ENV=production npx tsx \
+ *   # EC2 against RDS (from inside jrx-gateway container)
+ *   docker exec jrx-gateway sh -c \
+ *     'cd /app && JRX_PLATFORM_ENV=production npx tsx \
  *      /app/scripts/jrx-refresh-demo-sdk-bundle.ts'
  *
  * NV-DB-SCRIPT-001 compliant — uses makePgSql() (real pg.Pool + SSL).
@@ -55,7 +55,7 @@ import type pg from 'pg';
 
 dotenv.config();
 
-const env = (process.env.NYV_PLATFORM_ENV ?? 'sandbox') as 'sandbox' | 'production';
+const env = (process.env.JRX_PLATFORM_ENV ?? 'sandbox') as 'sandbox' | 'production';
 const liveTest = env === 'production' ? 'live' : 'test';
 
 interface PlatformDef {
@@ -81,9 +81,9 @@ interface PlatformDef {
  */
 const PLATFORMS: PlatformDef[] = [
   {
-    envVar: 'NYV_SDK_KEY_NSP',
+    envVar: 'JRX_SDK_KEY_NSP',
     short: 'nsp',
-    appName: 'Nyayasiddhi Professional™',
+    appName: 'Jurexio Professional™',
     appType: 'nyayasiddhi_professional',
     clientId: 'nyv_app_nsp_v5',
     scopes: ['agents:read', 'agents:execute', 'documents:read', 'documents:write', 'research:read', 'usage:read'],
@@ -93,10 +93,10 @@ const PLATFORMS: PlatformDef[] = [
     allowedAgents: ['*'],
   },
   {
-    envVar: 'NYV_SDK_KEY_NYM',
+    envVar: 'JRX_SDK_KEY_NYM',
     short: 'nym',
-    appName: 'Nyayamitra™ Citizen App',
-    appType: 'nyayamitra',
+    appName: 'Jurexio Citizen Citizen App',
+    appType: 'jurexio-citizen',
     clientId: 'nyv_app_nym_v5',
     // task-150: added usage:read so /usage, /cache/stats, /guardrails/stats clear.
     // partner smoke (research/query) also requires research:read on all 7 SKUs.
@@ -107,9 +107,9 @@ const PLATFORMS: PlatformDef[] = [
     allowedAgents: ['nym-*', 'consumer-*'],
   },
   {
-    envVar: 'NYV_SDK_KEY_NSI',
+    envVar: 'JRX_SDK_KEY_NSI',
     short: 'nsi',
-    appName: 'Nyayasiddhi Institutional™',
+    appName: 'Jurexio Institutional™',
     appType: 'nyayasiddhi_institutional',
     clientId: 'nyv_app_nsi_v5',
     scopes: ['*'],
@@ -119,9 +119,9 @@ const PLATFORMS: PlatformDef[] = [
     allowedAgents: ['*'],
   },
   {
-    envVar: 'NYV_SDK_KEY_NSA',
+    envVar: 'JRX_SDK_KEY_NSA',
     short: 'nsa',
-    appName: 'Nyayasiddhi Academy™',
+    appName: 'Jurexio Academy™',
     appType: 'nyayasiddhi_academy',
     clientId: 'nyv_app_nsa_v5',
     scopes: ['agents:read', 'agents:execute', 'research:read', 'usage:read'],
@@ -131,9 +131,9 @@ const PLATFORMS: PlatformDef[] = [
     allowedAgents: ['*'],
   },
   {
-    envVar: 'NYV_SDK_KEY_NSM',
+    envVar: 'JRX_SDK_KEY_NSM',
     short: 'nsm',
-    appName: 'Nyayasiddhi Ministry™',
+    appName: 'Jurexio Ministry™',
     appType: 'government',
     clientId: 'nyv_app_nsm_v5',
     scopes: ['*'],
@@ -143,9 +143,9 @@ const PLATFORMS: PlatformDef[] = [
     allowedAgents: ['*'],
   },
   {
-    envVar: 'NYV_SDK_KEY_NSPM',
+    envVar: 'JRX_SDK_KEY_NSPM',
     short: 'nspm',
-    appName: 'Nyayasiddhi Professional Mobile™',
+    appName: 'Jurexio Professional Mobile™',
     appType: 'nys_professional_mobile',
     clientId: 'nyv_app_nspm_v5',
     scopes: ['agents:read', 'agents:execute', 'documents:read', 'documents:write', 'research:read', 'usage:read', 'voice:read', 'voice:execute'],
@@ -155,7 +155,7 @@ const PLATFORMS: PlatformDef[] = [
     allowedAgents: ['*'],
   },
   {
-    envVar: 'NYV_SDK_KEY_JRX',
+    envVar: 'JRX_SDK_KEY_JRX',
     short: 'jrx',
     appName: 'JurisX™',
     appType: 'jurisx',
@@ -173,7 +173,7 @@ function sha256Hex(s: string): string {
 }
 
 function buildRawKey(short: string): string {
-  // Same shape as nv-seed-sdk-keys.ts: nyv_<env>_sk_<short>_<48hex>
+  // Same shape as jrx-seed-sdk-keys.ts: nyv_<env>_sk_<short>_<48hex>
   const random = crypto.randomBytes(24).toString('hex');
   return `nyv_${liveTest}_sk_${short}_${random}`;
 }
@@ -236,7 +236,7 @@ async function refreshOne(client: pg.PoolClient, p: PlatformDef): Promise<Minted
          updated_at = NOW()`,
       [
         p.appName, p.appType,
-        'Demo bundle entry — refreshed by nv-refresh-demo-sdk-bundle.ts (task-150).',
+        'Demo bundle entry — refreshed by jrx-refresh-demo-sdk-bundle.ts (task-150).',
         p.clientId, clientSecretHash, clientSecretPrefix,
         JSON.stringify(p.allowedAgents),
         JSON.stringify({ primary: 'auto', fallback: 'auto', budget_mode: 'balanced' }),
@@ -317,7 +317,7 @@ async function main() {
   const startedAt = new Date();
 
   console.log('══════════════════════════════════════════════════════════════════════════════');
-  console.log(`  NYV Demo SDK-Key Bundle Refresh — task-150 (${env} / ${liveTest})`);
+  console.log(`  JRX Demo SDK-Key Bundle Refresh — task-150 (${env} / ${liveTest})`);
   console.log(`  ${startedAt.toISOString()}`);
   console.log('══════════════════════════════════════════════════════════════════════════════');
   console.log('');
@@ -352,7 +352,7 @@ async function main() {
   }
 
   // Emit canonical bundle files. Plain-text outputs are written 0600.
-  const outDir = process.env.NYV_BUNDLE_OUT_DIR
+  const outDir = process.env.JRX_BUNDLE_OUT_DIR
     ?? path.resolve(process.cwd(), '.local', 'run');
   fs.mkdirSync(outDir, { recursive: true });
 
@@ -368,10 +368,10 @@ async function main() {
     sourceScript: 'scripts/jrx-refresh-demo-sdk-bundle.ts',
     task: 'task-150',
     notes: [
-      'Plain-text keys are shown ONCE here. Store in SSM /nyv/<env>/NYV_SDK_KEY_<PLAT> as SecureString.',
+      'Plain-text keys are shown ONCE here. Store in SSM /nyv/<env>/JRX_SDK_KEY_<PLAT> as SecureString.',
       'Re-running this script ROTATES — every call deactivates prior keys for the same app.',
       'Scopes are sufficient for all 7 documented gateway endpoints (info/health/agents/practice-areas/usage/cache/stats/guardrails/stats).',
-      'Supersedes /opt/Nyayavigya/secrets/sdk-keys-2026-05-02.txt (stale — keys never seeded on RDS).',
+      'Supersedes /opt/Jurexio/secrets/sdk-keys-2026-05-02.txt (stale — keys never seeded on RDS).',
     ],
     platforms: minted,
   };
@@ -380,15 +380,15 @@ async function main() {
   try { fs.chmodSync(jsonPath, 0o600); } catch { /* non-fatal on Windows */ }
 
   const handoutLines: string[] = [];
-  handoutLines.push('# Nyayavigya — Demo SDK-Key Bundle (task-150)');
+  handoutLines.push('# Jurexio — Demo SDK-Key Bundle (task-150)');
   handoutLines.push(`# Generated:  ${startedAt.toISOString()}`);
   handoutLines.push(`# Env:        ${env} (${liveTest})`);
   handoutLines.push(`# Source:     scripts/jrx-refresh-demo-sdk-bundle.ts`);
   handoutLines.push('# ─────────────────────────────────────────────────────────────');
   handoutLines.push('# Plain-text keys appear ONCE. Paste into:');
   handoutLines.push('#   • Replit Secrets (dev)');
-  handoutLines.push('#   • AWS SSM /nyv/<env>/NYV_SDK_KEY_<PLAT> as SecureString (prod)');
-  handoutLines.push('#   • /opt/Nyayavigya/secrets/.env.production on EC2 (prod)');
+  handoutLines.push('#   • AWS SSM /nyv/<env>/JRX_SDK_KEY_<PLAT> as SecureString (prod)');
+  handoutLines.push('#   • /opt/Jurexio/secrets/.env.production on EC2 (prod)');
   handoutLines.push('# Rotate by re-running this script — old keys flip to is_active=false.');
   handoutLines.push('');
   for (const m of minted) {
@@ -412,7 +412,7 @@ async function main() {
   console.log('    3. Smoke (replace NSP key):');
   console.log('       for p in /api/jrx/gateway/{info,health,agents,practice-areas,usage,cache/stats,guardrails/stats}; do');
   console.log('         curl -sS -o /dev/null -w "[%{http_code}] $p\\n" \\');
-  console.log('           -H "X-API-Key: $NYV_SDK_KEY_NSP" "https://api.nyayasiddhi.online$p"');
+  console.log('           -H "X-API-Key: $JRX_SDK_KEY_NSP" "https://api.jurexio.com$p"');
   console.log('       done');
   console.log('    4. Securely delete the .txt + .json bundle files after use.');
   console.log('══════════════════════════════════════════════════════════════════════════════');

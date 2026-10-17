@@ -35,7 +35,7 @@ interface HistoryEntry {
 
 const PLATFORMS: PlatformDef[] = [
   {
-    id: 'core', name: 'NYV Core SDK', color: '#f59e0b', icon: '⚡', baseTag: '/api/jrx',
+    id: 'core', name: 'JRX Core SDK', color: '#f59e0b', icon: '⚡', baseTag: '/api/jrx',
     endpoints: [
       { id: 'health', label: 'Health Check', method: 'GET', path: nv('health'), description: 'System health, agent count, provider status.', sampleResponse: '{"status":"operational","agents":148}' },
       { id: 'health-full', label: 'Full Health', method: 'GET', path: nv('health/full'), description: 'Extended health including RAG and provider matrix.' },
@@ -43,7 +43,7 @@ const PLATFORMS: PlatformDef[] = [
       { id: 'agents-list', label: 'List Agents', method: 'GET', path: nv('agents'), description: 'Full ROMA L5 agent registry.' },
       { id: 'orchestrate', label: 'Orchestrate', method: 'POST', path: nv('orchestrate'), description: 'Queen orchestration (console JWT).', sampleBody: '{\n  "prompt": "Summarise IPC Section 302",\n  "jurisdiction": "IN"\n}' },
       { id: 'stream', label: 'Stream (AG-UI)', method: 'POST', path: nv('stream'), description: 'AG-UI Queen stream with 16-step trace.', sampleBody: '{\n  "prompt": "Explain habeas corpus",\n  "jurisdiction": "IN"\n}' },
-      { id: 'mcp-catalog', label: 'MCP Catalog', method: 'GET', path: nv('nyaya-tools/catalog?limit=100'), description: 'Full Nyaya Tools MCP catalog.' },
+      { id: 'mcp-catalog', label: 'MCP Catalog', method: 'GET', path: nv('jrx-legal-tools/catalog?limit=100'), description: 'Full Nyaya Tools MCP catalog.' },
       { id: 'mcp-invoke', label: 'Invoke MCP Tool', method: 'POST', path: nv('tools/mcp/invoke'), description: 'Invoke an executable MCP tool.', sampleBody: '{\n  "toolId": "statute_lookup",\n  "input": {"query": "IPC 302", "jurisdiction": "IN"}\n}' },
       { id: 'topologies', label: 'Swarm Topologies', method: 'GET', path: nv('swarm/topologies'), description: 'Swarm topology definitions.' },
       { id: 'token-stats', label: 'Token Stats', method: 'GET', path: nv('analytics/tokens'), description: 'Token usage and cost analytics.' },

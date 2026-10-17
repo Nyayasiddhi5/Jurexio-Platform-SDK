@@ -29,7 +29,7 @@ vi.mock('@jurexio/docparse-sdk', () => ({
 }));
 
 vi.mock('../../src/config/jrx-feature-flags.js', () => ({
-  isNyvFeatureOn: vi.fn((k: string) => k === 'docparse' || k === 'docparseSdk'),
+  isJrxFeatureOn: vi.fn((k: string) => k === 'docparse' || k === 'docparseSdk'),
 }));
 
 vi.mock('../../src/services/document-pipeline/jrx-got-ocr-adapter-service.js', () => ({

@@ -4,7 +4,7 @@
  */
 import { useQuery } from '@tanstack/react-query';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { p } from '@/lib/jrx-api-paths';
 import { useOpsJurisdiction } from './useOpsJurisdiction';
 
@@ -31,7 +31,7 @@ export default function ActiveSessions() {
   });
 
   if (q.isLoading) return <div className="p-4 space-y-3"><Skeleton className="h-10 w-full"/><Skeleton className="h-64 w-full"/></div>;
-  if (q.isError) return <NyvErrorState title="Could not load active sessions" error={q.error} onRetry={() => q.refetch()} variant="card"/>;
+  if (q.isError) return <JrxErrorState title="Could not load active sessions" error={q.error} onRetry={() => q.refetch()} variant="card"/>;
 
   const d = q.data;
   return (

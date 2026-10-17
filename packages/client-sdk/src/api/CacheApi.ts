@@ -1,10 +1,10 @@
-import type { NyvHttpClient } from '../NyvClient.js';
-import type { NyvCacheEntry, NyvCacheStats } from '../types/index.js';
+import type { JrxHttpClient } from '../JrxClient.js';
+import type { JrxCacheEntry, JrxCacheStats } from '../types/index.js';
 
 export class CacheApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
 
-  async lookup(query: string, jurisdiction?: string): Promise<NyvCacheEntry> {
+  async lookup(query: string, jurisdiction?: string): Promise<JrxCacheEntry> {
     return this.http.post('/api/jrx/cache/lookup', { query, jurisdiction });
   }
 
@@ -16,7 +16,7 @@ export class CacheApi {
     return this.http.post('/api/jrx/cache/invalidate-jurisdiction', { jurisdiction });
   }
 
-  async getStats(): Promise<NyvCacheStats> {
+  async getStats(): Promise<JrxCacheStats> {
     return this.http.get('/api/jrx/cache/stats');
   }
 

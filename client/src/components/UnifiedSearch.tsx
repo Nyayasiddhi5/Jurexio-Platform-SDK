@@ -131,7 +131,7 @@ export default function UnifiedSearch({ isOpen, onClose, onNavigate }: UnifiedSe
   };
 
   const loadSearchHistory = () => {
-    const history = localStorage.getItem('nyayavigya-search-history');
+    const history = localStorage.getItem('jurexio-search-history');
     if (history) {
       setSearchHistory(JSON.parse(history).slice(0, 5));
     }
@@ -167,7 +167,7 @@ export default function UnifiedSearch({ isOpen, onClose, onNavigate }: UnifiedSe
         // Save to search history
         const newHistory = [query, ...searchHistory.filter(h => h !== query)].slice(0, 10);
         setSearchHistory(newHistory);
-        localStorage.setItem('nyayavigya-search-history', JSON.stringify(newHistory));
+        localStorage.setItem('jurexio-search-history', JSON.stringify(newHistory));
       }
     } catch (error) {
       // Fallback to local search

@@ -2,7 +2,7 @@
  * NV-DRAFT-PROFILE-LIMITATION-001 / -COURTFEE-001 / NV-DRAFT-FORMATTED-BLOCKS-001
  *
  * The NSP AI wire: draftProfile.limitation, draftProfile.courtFee and
- * formattedBlocks[] emitted from LIVE NYV SSoT (nyayatimeline limitation schedule
+ * formattedBlocks[] emitted from LIVE JRX SSoT (nyayatimeline limitation schedule
  * + shared court-fee slab), with honest applicability flags (never invented).
  */
 import { describe, it, expect } from 'vitest';
@@ -10,7 +10,7 @@ import { assembleDraftProfile } from '../../src/orchestration/jrx-draft-profile-
 import {
   resolveLimitationRule,
   listLimitationCauses,
-} from '../../src/services/nyaya-tools/jrx-nyayatimeline-service.js';
+} from '../../src/services/jrx-legal-tools/jrx-nyayatimeline-service.js';
 import { computeCourtFee } from '../../src/services/jrx-court-fee.js';
 
 describe('nyayatimeline — limitation rule resolver (date-free)', () => {

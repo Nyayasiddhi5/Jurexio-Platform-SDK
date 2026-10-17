@@ -2,7 +2,7 @@
  * GST Engine Tests — Jurexio Enterprise Platform 3.1.2
  */
 import { describe, it, expect } from 'vitest';
-import { gstEngine, NYV_GST_DETAILS } from '../src/services/jrx-gst-engine.js';
+import { gstEngine, JRX_GST_DETAILS } from '../src/services/jrx-gst-engine.js';
 
 describe('GST Engine', () => {
   it('computes CGST+SGST for intra-state transactions', () => {
@@ -41,7 +41,7 @@ describe('GST Engine', () => {
     });
     expect(invoice.invoice_number).toMatch(/^INV-\d{4}-\d{6}$/);
     expect(invoice.total_amount).toBeGreaterThan(2500);
-    expect(invoice.supplier_name).toBe(NYV_GST_DETAILS.companyName);
+    expect(invoice.supplier_name).toBe(JRX_GST_DETAILS.companyName);
   });
 
   it('validates correct GSTIN format', () => {
@@ -59,9 +59,9 @@ describe('GST Engine', () => {
     expect(id).toMatch(/^PAY-\d{4}-\d{6}$/);
   });
 
-  it('NYV GST Details are set', () => {
-    expect(NYV_GST_DETAILS.gstin).toBeDefined();
-    expect(NYV_GST_DETAILS.sacCode).toBe('998399');
-    expect(NYV_GST_DETAILS.gstRate).toBe(18);
+  it('JRX GST Details are set', () => {
+    expect(JRX_GST_DETAILS.gstin).toBeDefined();
+    expect(JRX_GST_DETAILS.sacCode).toBe('998399');
+    expect(JRX_GST_DETAILS.gstRate).toBe(18);
   });
 });

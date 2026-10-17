@@ -1,9 +1,9 @@
 /**
- * NV-GATE8-NYS-001 — Old-law remediation via NYS IPC↔BNS / CrPC↔BNSS / IEA↔BSA.
+ * NV-GATE8-JRX-001 — Old-law remediation via NYS IPC↔BNS / CrPC↔BNSS / IEA↔BSA.
  * Used by citation/hallucination gates when Gate 8 blocks post-2024 IPC cites.
  */
 import { nysCompareOldNew } from './jrx-nys-knowledge-retriever.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 
 export async function suggestModernEquivalent(citationText: string): Promise<{
   fromCode?: 'IPC' | 'CrPC' | 'IEA';
@@ -11,7 +11,7 @@ export async function suggestModernEquivalent(citationText: string): Promise<{
   suggestion?: unknown;
   source: string;
 } | null> {
-  if (!isNyvFeatureOn('nysKnowledgePlane')) return null;
+  if (!isJrxFeatureOn('nysKnowledgePlane')) return null;
 
   const ipc = citationText.match(/\b(?:IPC|Indian\s+Penal\s+Code)\b.*?(\d+[A-Za-z]?)/i)
     || citationText.match(/Section\s+(\d+[A-Za-z]?)\s+IPC/i);

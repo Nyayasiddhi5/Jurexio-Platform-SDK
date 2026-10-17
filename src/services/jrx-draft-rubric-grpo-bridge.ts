@@ -1,6 +1,6 @@
 /**
  * NV-DRAFT-RUBRIC-GRPO-BRIDGE-001 — optional offline observation log for SME rubric scores
- * (Phase 4 Option B). Gated by NYV_DRAFT_RUBRIC_GRPO_LOG=1; never stores full draft bodies.
+ * (Phase 4 Option B). Gated by JRX_DRAFT_RUBRIC_GRPO_LOG=1; never stores full draft bodies.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -16,11 +16,11 @@ export type DraftRubricObservation = {
 };
 
 function logEnabled(): boolean {
-  return process.env.NYV_DRAFT_RUBRIC_GRPO_LOG === '1';
+  return process.env.JRX_DRAFT_RUBRIC_GRPO_LOG === '1';
 }
 
 function logPath(): string {
-  const root = process.env.NYV_DRAFT_RUBRIC_GRPO_DIR
+  const root = process.env.JRX_DRAFT_RUBRIC_GRPO_DIR
     || path.join(process.cwd(), '.local/grpo');
   return path.join(root, 'draft-rubric-observations.jsonl');
 }

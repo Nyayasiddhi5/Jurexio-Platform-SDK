@@ -1,6 +1,6 @@
 /**
  * Jurexio Enterprise Platform 3.1.2 — Template Mode Enforcement Middleware
- * NYV-MW-TEMPLATEMODE-001
+ * JRX-MW-TEMPLATEMODE-001
  *
  * Handover §3.3.2 — Template control modes:
  *   STRICT  (default — all tiers): AI CANNOT restructure template. Fill only designated fields.

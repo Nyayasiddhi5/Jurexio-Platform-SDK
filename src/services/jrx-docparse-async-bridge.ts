@@ -2,7 +2,7 @@
  * NV-DOCPARSE-ASYNC-BRIDGE-001 — route large binary ingest through BullMQ docparse-sdk
  * when JRX_F_DOCPARSE_JOBS=1 (production-doc-processor + adapter share this gate).
  */
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import { getDocparseSdkJob, submitDocparseSdkJob } from './jrx-docparse-sdk-job-service.js';
 import type { ExtractionResult } from '@jurexio/docparse-sdk';
 
@@ -11,12 +11,12 @@ const POLL_MS = 2_000;
 const DEFAULT_TIMEOUT_MS = 45 * 60 * 1000;
 
 export function docparseAsyncMinBytes(): number {
-  const raw = Number(process.env.NYV_DOCPARSE_ASYNC_MIN_BYTES);
+  const raw = Number(process.env.JRX_DOCPARSE_ASYNC_MIN_BYTES);
   return Number.isFinite(raw) && raw > 0 ? raw : DEFAULT_MIN_BYTES;
 }
 
 export function shouldUseAsyncDocparseJob(totalBytes: number): boolean {
-  if (!isNyvFeatureOn('docparseJobs')) return false;
+  if (!isJrxFeatureOn('docparseJobs')) return false;
   return totalBytes >= docparseAsyncMinBytes();
 }
 

@@ -4,7 +4,7 @@
  *
  * Exports all types used by:
  *  - @jurexio/client-sdk
- *  - NYV Gateway API
+ *  - JRX Gateway API
  *  - All 5 Jurexio platforms
  *  - ROMA L5 agents
  */

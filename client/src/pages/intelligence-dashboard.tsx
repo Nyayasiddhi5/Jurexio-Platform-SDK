@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import { NV_API } from '@/lib/jrx-api-paths';
 import {
   Brain, TrendingUp, TrendingDown, AlertTriangle, CheckCircle2,
@@ -227,7 +227,7 @@ export default function IntelligenceDashboard() {
         </div>
       ) : (
         <div className="mb-6">
-          <NyvEmptyState
+          <JrxEmptyState
             icon={Briefcase}
             title="Firm snapshot warming up"
             description="The dashboard is connected to your organisation. Live firm metrics (active cases, hearings this week, overdue tasks, revenue YTD) appear here once the org has matter / hearing / invoice rows. Click 'Generate Insights' anyway — the LRM will produce a briefing from the available demo data."

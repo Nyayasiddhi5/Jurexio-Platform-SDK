@@ -1,8 +1,8 @@
 #!/usr/bin/env tsx
 /**
- * nv-smoke-all-platforms.ts
+ * jrx-smoke-all-platforms.ts
  *
- * End-to-end SDK API smoke against ALL 7 Nyayasiddhi Ecosystem Platforms
+ * End-to-end SDK API smoke against ALL 7 Jurexio Ecosystem Platforms
  * (NSP, NSPM, NSI, NSM, NSA, NYM, JRX) using one SDK key per platform
  * loaded once from env. Tests every endpoint family in the canonical
  * matrix `docs/v3.1.2/SDK-ENDPOINTS-CANONICAL-2026-05-05.md` and asserts
@@ -11,11 +11,11 @@
  * Usage:
  *   tsx scripts/jrx-smoke-all-platforms.ts                     # local gateway
  *   tsx scripts/jrx-smoke-all-platforms.ts http://localhost:5000
- *   tsx scripts/jrx-smoke-all-platforms.ts https://api.nyayasiddhi.online
+ *   tsx scripts/jrx-smoke-all-platforms.ts https://api.jurexio.com
  *
  * Required env vars (one per platform, see canonical doc §1):
- *   NYV_SDK_KEY_NSP   NYV_SDK_KEY_NSPM  NYV_SDK_KEY_NSI
- *   NYV_SDK_KEY_NSM   NYV_SDK_KEY_NSA   NYV_SDK_KEY_NYM   NYV_SDK_KEY_JRX
+ *   JRX_SDK_KEY_NSP   JRX_SDK_KEY_NSPM  JRX_SDK_KEY_NSI
+ *   JRX_SDK_KEY_NSM   JRX_SDK_KEY_NSA   JRX_SDK_KEY_NYM   JRX_SDK_KEY_JRX
  *
  * Outputs:
  *   - colored human summary on stdout
@@ -26,7 +26,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const GATEWAY = process.argv[2] ?? process.env.NYV_GATEWAY ?? 'http://localhost:5000';
+const GATEWAY = process.argv[2] ?? process.env.JRX_GATEWAY ?? 'http://localhost:5000';
 const STAMP = new Date().toISOString().replace(/[:.]/g, '-');
 const AUDIT_DIR = process.env.AUDIT_DIR ?? 'audit';
 mkdirSync(AUDIT_DIR, { recursive: true });
@@ -38,13 +38,13 @@ const PLATFORMS: Platform[] = ['NSP', 'NSPM', 'NSI', 'NSM', 'NSA', 'NYM', 'JRX']
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 const KEYS: Record<Platform, string | undefined> = {
-  NSP: process.env.NYV_SDK_KEY_NSP,
-  NSPM: process.env.NYV_SDK_KEY_NSPM,
-  NSI: process.env.NYV_SDK_KEY_NSI,
-  NSM: process.env.NYV_SDK_KEY_NSM,
-  NSA: process.env.NYV_SDK_KEY_NSA,
-  NYM: process.env.NYV_SDK_KEY_NYM,
-  JRX: process.env.NYV_SDK_KEY_JRX,
+  NSP: process.env.JRX_SDK_KEY_NSP,
+  NSPM: process.env.JRX_SDK_KEY_NSPM,
+  NSI: process.env.JRX_SDK_KEY_NSI,
+  NSM: process.env.JRX_SDK_KEY_NSM,
+  NSA: process.env.JRX_SDK_KEY_NSA,
+  NYM: process.env.JRX_SDK_KEY_NYM,
+  JRX: process.env.JRX_SDK_KEY_JRX,
 };
 
 // Scope expectations — DB is source of truth (per replit.md "SDK key scopes" gotcha).
@@ -191,7 +191,7 @@ function skipPlatform(platform: Platform, reason: string) {
 
 async function main() {
   console.log(c.bold('═'.repeat(78)));
-  console.log(c.bold(`  Nyayavigya All-Platforms SDK Smoke — ${STAMP}`));
+  console.log(c.bold(`  Jurexio All-Platforms SDK Smoke — ${STAMP}`));
   console.log(c.bold(`  Gateway: ${GATEWAY}`));
   console.log(c.bold(`  Output:  ${OUT}`));
   console.log(c.bold('═'.repeat(78)));
@@ -206,7 +206,7 @@ async function main() {
   console.log();
 
   // ── Section 2: Negative-path auth gating (no key) ─────────────────────────
-  console.log(c.cyan('── 2. Negative-path auth gating (NYV-NS-012/013/015) ──'));
+  console.log(c.cyan('── 2. Negative-path auth gating (JRX-NS-012/013/015) ──'));
   await probe({ platform: 'PUBLIC', label: 'gateway/health → 401 w/o key',     method: 'GET',  path: '/api/jrx/gateway/health',         expected: 401 });
   await probe({ platform: 'PUBLIC', label: 'gateway/agents → 401 w/o key',     method: 'GET',  path: '/api/jrx/gateway/agents',         expected: 401 });
   await probe({ platform: 'PUBLIC', label: 'docs-pipeline → 401 w/o key',      method: 'GET',  path: '/api/jrx/sdk/docs-pipeline/clauses/library', expected: 401 });
@@ -218,7 +218,7 @@ async function main() {
   console.log(c.cyan('── 3. Per-platform SDK key validation (T6 provision/validate) ──'));
   for (const p of PLATFORMS) {
     const key = KEYS[p];
-    if (!key) { skipPlatform(p, `NYV_SDK_KEY_${p} not set in env`); continue; }
+    if (!key) { skipPlatform(p, `JRX_SDK_KEY_${p} not set in env`); continue; }
     await probe({ platform: p, label: 'provision/validate',  method: 'POST', path: '/api/jrx/sdk/provision/validate', expected: 200, body: { api_key: key } });
   }
   console.log();
@@ -227,7 +227,7 @@ async function main() {
   console.log(c.cyan('── 4. Common SDK-key surface (gateway/* + provision/health + multimodal/capabilities) ──'));
   await Promise.all(PLATFORMS.map(async (p) => {
     const key = KEYS[p];
-    if (!key) { skipPlatform(p, `NYV_SDK_KEY_${p} not set`); return; }
+    if (!key) { skipPlatform(p, `JRX_SDK_KEY_${p} not set`); return; }
     await probe({ platform: p, label: 'gateway/health',           method: 'GET',  path: '/api/jrx/gateway/health',                            expected: 200, apiKey: key });
     await probe({ platform: p, label: 'gateway/agents',           method: 'GET',  path: '/api/jrx/gateway/agents',                            expected: 200, apiKey: key });
     await probe({ platform: p, label: 'gateway/translate/langs',  method: 'GET',  path: '/api/jrx/gateway/translate/languages',               expected: 200, apiKey: key });
@@ -243,7 +243,7 @@ async function main() {
   console.log(c.cyan('── 5. Document AI surface (docs-pipeline) — scope gate ──'));
   await Promise.all(PLATFORMS.map(async (p) => {
     const key = KEYS[p];
-    if (!key) { skipPlatform(p, `NYV_SDK_KEY_${p} not set`); return; }
+    if (!key) { skipPlatform(p, `JRX_SDK_KEY_${p} not set`); return; }
     const expectGrant = HAS_DOCS_SCOPE.includes(p) ? 200 : 403;
     await probe({ platform: p, label: `clauses/library (T11) → ${expectGrant}`,    method: 'GET', path: '/api/jrx/sdk/docs-pipeline/clauses/library',    expected: expectGrant, apiKey: key });
     await probe({ platform: p, label: `documents/templates (T12) → ${expectGrant}`, method: 'GET', path: '/api/jrx/sdk/docs-pipeline/documents/templates', expected: expectGrant, apiKey: key });
@@ -255,7 +255,7 @@ async function main() {
   console.log(c.cyan('── 6. Enterprise research surface — wildcard scope gate ──'));
   await Promise.all(PLATFORMS.map(async (p) => {
     const key = KEYS[p];
-    if (!key) { skipPlatform(p, `NYV_SDK_KEY_${p} not set`); return; }
+    if (!key) { skipPlatform(p, `JRX_SDK_KEY_${p} not set`); return; }
     const expectGrant = HAS_ENTERPRISE_WILDCARD.includes(p) ? [200, 400] : [403];
     await probe({ platform: p, label: `enterprise/research/legal → ${expectGrant.join('|')}`, method: 'POST', path: '/api/jrx/sdk/enterprise/research/domain/legal', expected: expectGrant, apiKey: key, body: { query: 'data protection', jurisdiction: 'IN' } });
   }));
@@ -266,13 +266,13 @@ async function main() {
   // (200 OR 4xx-with-graceful-payload) so we measure REACHABILITY of the
   // full pipeline, not strict success of every backing provider.
   // Pace: 65s pause to respect the 120/min authenticated per-IP limiter
-  // (NYV-RATE-002) since the prior 5 sections have burned the window.
+  // (JRX-RATE-002) since the prior 5 sections have burned the window.
   console.log(c.cyan('── 6b. O6 OCR / multilingual / multimodal verification ──'));
   console.log(c.yellow('     pacing: 65s pause for IP rate window…'));
   await sleep(65_000);
   await Promise.all(PLATFORMS.map(async (p) => {
     const key = KEYS[p];
-    if (!key) { skipPlatform(p, `NYV_SDK_KEY_${p} not set`); return; }
+    if (!key) { skipPlatform(p, `JRX_SDK_KEY_${p} not set`); return; }
     // OCR — POST text/base64 sample; backend returns 200 (ok) or 400 (bad input)
     await probe({ platform: p, label: 'O6.OCR ocr/process',          method: 'POST', path: '/api/jrx/gateway/ocr/process',                          expected: [200, 400, 413, 422, 500], apiKey: key, body: { imageUrl: 'https://example.com/sample.png', languages: ['en','hi'] } });
     // Multilingual translate batch (EN → HI/TA/BN)

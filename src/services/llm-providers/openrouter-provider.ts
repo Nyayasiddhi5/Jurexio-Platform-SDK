@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * Enhanced OpenRouter Provider - Real API Integration
  * 
@@ -178,7 +178,7 @@ export class OpenRouterProvider extends UnifiedLLMAdapter {
       const response = await fetch('https://openrouter.ai/api/v1/models', {
         headers: {
           'Authorization': `Bearer ${this.apiKey}`,
-          'HTTP-Referer': 'https://nyayavigya-devstudio.com',
+          'HTTP-Referer': 'https://jurexio-devstudio.com',
           'X-Title': 'Jurexio DevStudio Enhanced'
         }
       });
@@ -226,7 +226,7 @@ export class OpenRouterProvider extends UnifiedLLMAdapter {
       const response = await fetch('https://openrouter.ai/api/v1/auth/key', {
         headers: {
           'Authorization': `Bearer ${this.apiKey}`,
-          'HTTP-Referer': 'https://nyayavigya-devstudio.com',
+          'HTTP-Referer': 'https://jurexio-devstudio.com',
           'X-Title': 'Jurexio DevStudio Enhanced'
         }
       });
@@ -265,7 +265,7 @@ export class OpenRouterProvider extends UnifiedLLMAdapter {
         headers: {
           'Authorization': `Bearer ${this.apiKey}`,
           'Content-Type': 'application/json',
-          'HTTP-Referer': 'https://nyayavigya-devstudio.com',
+          'HTTP-Referer': 'https://jurexio-devstudio.com',
           'X-Title': 'Jurexio DevStudio Enhanced',
           'X-Correlation-ID': correlationId
         },
@@ -519,7 +519,7 @@ export class OpenRouterProvider extends UnifiedLLMAdapter {
         headers: {
           'Authorization': `Bearer ${this.apiKey}`,
           'Content-Type': 'application/json',
-          'HTTP-Referer': 'https://nyayavigya-devstudio.com',
+          'HTTP-Referer': 'https://jurexio-devstudio.com',
           'X-Title': 'Jurexio DevStudio Enhanced',
           'X-Correlation-ID': correlationId
         },
@@ -588,7 +588,7 @@ export class OpenRouterProvider extends UnifiedLLMAdapter {
       const response = await fetch('https://openrouter.ai/api/v1/generation/stats', {
         headers: {
           'Authorization': `Bearer ${this.apiKey}`,
-          'HTTP-Referer': 'https://nyayavigya-devstudio.com',
+          'HTTP-Referer': 'https://jurexio-devstudio.com',
           'X-Title': 'Jurexio DevStudio Enhanced'
         }
       });

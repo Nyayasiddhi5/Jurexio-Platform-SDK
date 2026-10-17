@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — Statute DB Seeder
- * NYV-SCRIPT-SEED-STATUTES
+ * Jurexio Platform 3.1.2 — Statute DB Seeder
+ * JRX-SCRIPT-SEED-STATUTES
  * Seeds all 6 jurisdiction statute databases. Idempotent — safe to run multiple times.
  */
 
@@ -8,7 +8,7 @@ import { seedStatuteDatabase } from '../src/services/jrx-statute-seeding-service
 
 async function main() {
   console.log('\n══════════════════════════════════════════════════════');
-  console.log('  Nyayavigya — Statute DB Seeding (All 6 Jurisdictions)');
+  console.log('  Jurexio — Statute DB Seeding (All 6 Jurisdictions)');
   console.log('  IN | UK | US | EU | GCC | SG');
   console.log('══════════════════════════════════════════════════════\n');
 

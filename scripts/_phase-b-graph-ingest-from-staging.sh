@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# Ingest graph JSONL from worker private IP into NYV RDS (runs on nysdev)
+# Ingest graph JSONL from worker private IP into JRX RDS (runs on jrx-prod)
 set -uo pipefail
-CANON="/opt/Nyayavigya/secrets/.env.production"
+CANON="/opt/Jurexio/secrets/.env.production"
 DB="$(grep -E '^DATABASE_URL=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')"
 WORKER_IP=$(aws ec2 describe-instances --instance-ids i-000115b19219bb766 --region ap-south-1 --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text 2>/dev/null || echo "")
 JSONL="/tmp/graph-edges-pending.jsonl"
 
 echo "=== FETCH JSONL from worker $WORKER_IP ==="
-# Worker exposes no HTTP for file; use SSM on worker to write to shared S3 via nysdev role
-# Fallback: nysdev uploads from developer-staged S3 object
-if aws s3 cp s3://nyayavigya-sdk-devapp/deploys/phase-b/graph-edges-pending.jsonl "$JSONL" --region ap-south-1 2>/dev/null; then
+# Worker exposes no HTTP for file; use SSM on worker to write to shared S3 via jrx-prod role
+# Fallback: jrx-prod uploads from developer-staged S3 object
+if aws s3 cp s3://jurexio-sdk-devapp/deploys/phase-b/graph-edges-pending.jsonl "$JSONL" --region ap-south-1 2>/dev/null; then
   echo "Fetched from S3 staging"
 else
   echo "S3 staging missing — run: aws s3 cp from worker via manual staging"
@@ -17,10 +17,10 @@ else
 fi
 
 echo "=== INGEST $(wc -l < "$JSONL") lines ==="
-docker exec -i -e NYV_DATABASE_URL="$DB" -w /app nyv-gateway node --input-type=module - <<'NODE'
+docker exec -i -e JRX_DATABASE_URL="$DB" -w /app jrx-gateway node --input-type=module - <<'NODE'
 import pg from 'pg';
 import fs from 'fs';
-const client = new pg.Client({ connectionString: process.env.NYV_DATABASE_URL, ssl: { rejectUnauthorized: false } });
+const client = new pg.Client({ connectionString: process.env.JRX_DATABASE_URL, ssl: { rejectUnauthorized: false } });
 await client.connect();
 const lines = fs.readFileSync('/dev/stdin', 'utf8').split('\n');
 let n = 0;

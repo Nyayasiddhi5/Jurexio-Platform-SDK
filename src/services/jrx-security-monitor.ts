@@ -1,6 +1,6 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
- * nv-security-monitor.ts — Jurexio Enterprise Platform SDK v5.0.0 / Phase C / T-07
+ * jrx-security-monitor.ts — Jurexio Enterprise Platform SDK v5.0.0 / Phase C / T-07
  * ─────────────────────────────────────────────────────────────────────────────
  * Deterministic SecurityAgent service.  Not an LLM agent — pure TypeScript.
  * Adds A2A boundary enforcement, cross-session attack detection, execution
@@ -15,9 +15,9 @@
  *     (mounted gated in src/index.ts).
  *
  * CONFIG (env, all optional):
- *   NYV_MAX_EXEC_DEPTH       default 12     — max A2A recursion depth
- *   NYV_ATTACK_WINDOW_MS     default 3600000 — cross-session detection window
- *   NYV_ATTACK_THRESHOLD     default 5      — violations within window
+ *   JRX_MAX_EXEC_DEPTH       default 12     — max A2A recursion depth
+ *   JRX_ATTACK_WINDOW_MS     default 3600000 — cross-session detection window
+ *   JRX_ATTACK_THRESHOLD     default 5      — violations within window
  *   A2A_HMAC_SECRET          optional       — when set, enforces HMAC on A2A
  */
 
@@ -25,9 +25,9 @@ import { createHmac } from 'crypto';
 import type { Request, Response, NextFunction } from 'express';
 
 // ── Config ────────────────────────────────────────────────────────────────────
-const MAX_DEPTH     = parseInt(process.env.NYV_MAX_EXEC_DEPTH ?? '12', 10);
-const ATTACK_WINDOW = parseInt(process.env.NYV_ATTACK_WINDOW_MS ?? '3600000', 10);
-const ATTACK_THRESH = parseInt(process.env.NYV_ATTACK_THRESHOLD ?? '5', 10);
+const MAX_DEPTH     = parseInt(process.env.JRX_MAX_EXEC_DEPTH ?? '12', 10);
+const ATTACK_WINDOW = parseInt(process.env.JRX_ATTACK_WINDOW_MS ?? '3600000', 10);
+const ATTACK_THRESH = parseInt(process.env.JRX_ATTACK_THRESHOLD ?? '5', 10);
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 export interface A2AMessage {
@@ -108,7 +108,7 @@ function findAgent(registry: any, id: string): any | null {
 // ── 1. A2A Boundary Enforcement ───────────────────────────────────────────────
 export async function validateA2AMessage(
   msg: A2AMessage,
-  product: 'nyayavigya' | 'jurexio' = 'nyayavigya',
+  product: 'jurexio' | 'jurexio' = 'jurexio',
 ): Promise<void> {
   const registry = await getRegistry();
 
@@ -273,7 +273,7 @@ export async function enforceCapabilityBoundary(
 // ── 4. Security Event Logger → IronLedger hash chain ─────────────────────────
 export async function logSecurityEvent(evt: SecurityEvent): Promise<void> {
   try {
-    const jwtSecret = process.env.NYV_JWT_SECRET ?? 'default-secret-do-not-use';
+    const jwtSecret = process.env.JRX_JWT_SECRET ?? 'default-secret-do-not-use';
     const orgKey = evt.orgId ?? 'system';
 
     let prevHash = '0x00';

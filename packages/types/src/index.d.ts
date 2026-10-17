@@ -4,66 +4,66 @@
  *
  * Exports all types used by:
  *  - @jurexio/client-sdk
- *  - NYV Gateway API
+ *  - JRX Gateway API
  *  - All 5 Jurexio platforms
  *  - ROMA L5 agents
  */
-export type NyvJurisdiction = 'IN' | 'UK' | 'US' | 'EU' | 'GC' | 'SG';
-export type NyvSubscriptionTier = 'free' | 'solo' | 'plus' | 'pro' | 'enterprise' | 'government' | 'internal';
-export type NyvTemplateMode = 'STRICT' | 'GUIDED' | 'MENTOR';
-export type NyvPlatform = 'nyayamitra' | 'nys-professional' | 'nys-institutional' | 'nys-academy' | 'nys-ministry';
-export type NyvPatternKey = 'P01_REACT' | 'P02_COT' | 'P03_TOT' | 'P04_REFLECT' | 'P05_PLAN_EXEC' | 'P06_REFINE' | 'P07_MAKER_CHECKER' | 'P08_TOOL_RETRY' | 'P09_FUNCTION_ROUTER' | 'P10_MCP_CHAIN' | 'P11_NYAYARAG' | 'P12_GRAPHRAG' | 'P13_MEM0' | 'P14_SEMANTIC_CACHE' | 'P15_HTA' | 'P16_SWARM' | 'P17_ACONIC' | 'P18_MOAT' | 'P19_ADAPT' | 'P20_COMPUTER_USE' | 'P21_GRPO' | 'P22_DIGITAL_TWIN';
-export interface NyvPatternRequest {
+export type JrxJurisdiction = 'IN' | 'UK' | 'US' | 'EU' | 'GC' | 'SG';
+export type JrxSubscriptionTier = 'free' | 'solo' | 'plus' | 'pro' | 'enterprise' | 'government' | 'internal';
+export type JrxTemplateMode = 'STRICT' | 'GUIDED' | 'MENTOR';
+export type JrxPlatform = 'jurexio-citizen' | 'nys-professional' | 'nys-institutional' | 'nys-academy' | 'nys-ministry';
+export type JrxPatternKey = 'P01_REACT' | 'P02_COT' | 'P03_TOT' | 'P04_REFLECT' | 'P05_PLAN_EXEC' | 'P06_REFINE' | 'P07_MAKER_CHECKER' | 'P08_TOOL_RETRY' | 'P09_FUNCTION_ROUTER' | 'P10_MCP_CHAIN' | 'P11_NYAYARAG' | 'P12_GRAPHRAG' | 'P13_MEM0' | 'P14_SEMANTIC_CACHE' | 'P15_HTA' | 'P16_SWARM' | 'P17_ACONIC' | 'P18_MOAT' | 'P19_ADAPT' | 'P20_COMPUTER_USE' | 'P21_GRPO' | 'P22_DIGITAL_TWIN';
+export interface JrxPatternRequest {
     task: string;
-    jurisdiction?: NyvJurisdiction;
+    jurisdiction?: JrxJurisdiction;
     agentId?: string;
-    template_mode?: NyvTemplateMode;
+    template_mode?: JrxTemplateMode;
     context?: Record<string, unknown>;
     metadata?: Record<string, unknown>;
     ragConfidence?: number;
 }
-export interface NyvPatternResponse {
+export interface JrxPatternResponse {
     success: boolean;
     data?: {
         result: string;
-        pattern: NyvPatternKey;
+        pattern: JrxPatternKey;
         agentId?: string;
-        jurisdiction?: NyvJurisdiction;
+        jurisdiction?: JrxJurisdiction;
         executionTime?: number;
     };
-    ai_metadata?: NyvAIMetadataBlock;
-    grpoTelemetry?: NyvGRPOTelemetry;
-    credit_warning?: NyvCreditWarning;
+    ai_metadata?: JrxAIMetadataBlock;
+    grpoTelemetry?: JrxGRPOTelemetry;
+    credit_warning?: JrxCreditWarning;
     error?: string;
 }
-export interface NyvRiskComponents {
+export interface JrxRiskComponents {
     jurisdiction_mismatch: number;
     clause_absence: number;
     structural_deviation: number;
     hallucination_probability: number;
     unsupported_references: number;
 }
-export interface NyvRiskScore {
+export interface JrxRiskScore {
     score: number;
     blocked: boolean;
     block_reason: string | null;
     confidence: number;
-    components: NyvRiskComponents;
+    components: JrxRiskComponents;
     prompt_hash: string;
 }
-export interface NyvAIMetadataBlock {
+export interface JrxAIMetadataBlock {
     trace_id: string;
     generated_at: string;
     jurisdiction: {
-        code: NyvJurisdiction;
+        code: JrxJurisdiction;
         name: string;
         currency: string;
         legal_system: string;
         disclosure_appended: boolean;
     };
-    template_mode: NyvTemplateMode;
+    template_mode: JrxTemplateMode;
     strict_mode_violations: string[];
-    risk: NyvRiskScore;
+    risk: JrxRiskScore;
     model: {
         provider: string;
         model: string;
@@ -72,7 +72,7 @@ export interface NyvAIMetadataBlock {
     };
     governance: {
         jurisdiction_validated: boolean;
-        jurisdiction_code: NyvJurisdiction;
+        jurisdiction_code: JrxJurisdiction;
         jurisdiction_name: string;
         currency: string;
         legal_system: string;
@@ -81,16 +81,16 @@ export interface NyvAIMetadataBlock {
     disclosure: string;
     nyv_version: string;
 }
-export interface NyvGRPOTelemetry {
+export interface JrxGRPOTelemetry {
     patternKey: string;
     agentId: string;
-    jurisdiction: NyvJurisdiction;
+    jurisdiction: JrxJurisdiction;
     episodeCount: number;
     avgReward: number;
     policyUpdates: number;
     note?: string;
 }
-export interface NyvCreditWallet {
+export interface JrxCreditWallet {
     wallet_id: string;
     user_id: string;
     credits_balance: number;
@@ -99,32 +99,32 @@ export interface NyvCreditWallet {
     credits_expiry: string | null;
     last_updated: string;
 }
-export type NyvCreditTransactionType = 'DEBIT' | 'CREDIT' | 'RESERVE' | 'RELEASE';
-export type NyvCreditTransactionSource = 'AI_TOOL' | 'PURCHASE' | 'REFUND' | 'MANUAL' | 'SYSTEM';
-export interface NyvCreditTransaction {
+export type JrxCreditTransactionType = 'DEBIT' | 'CREDIT' | 'RESERVE' | 'RELEASE';
+export type JrxCreditTransactionSource = 'AI_TOOL' | 'PURCHASE' | 'REFUND' | 'MANUAL' | 'SYSTEM';
+export interface JrxCreditTransaction {
     transaction_id: string;
     user_id: string;
-    type: NyvCreditTransactionType;
+    type: JrxCreditTransactionType;
     credits: number;
-    source: NyvCreditTransactionSource;
+    source: JrxCreditTransactionSource;
     tool_name: string;
     reference_id: string | null;
     immutable_hash: string;
     created_at: string;
 }
-export interface NyvCreditWarning {
+export interface JrxCreditWarning {
     warning: boolean;
     remaining_credits: number;
     message: string;
 }
-export type NyvSubscriptionStatus = 'active' | 'paused' | 'cancelled' | 'past_due' | 'trialing';
-export type NyvBillingCycle = 'monthly' | 'quarterly' | 'annual';
-export interface NyvSubscription {
+export type JrxSubscriptionStatus = 'active' | 'paused' | 'cancelled' | 'past_due' | 'trialing';
+export type JrxBillingCycle = 'monthly' | 'quarterly' | 'annual';
+export interface JrxSubscription {
     subscription_id: string;
     user_id: string;
-    plan_id: NyvSubscriptionTier;
-    status: NyvSubscriptionStatus;
-    billing_cycle: NyvBillingCycle;
+    plan_id: JrxSubscriptionTier;
+    status: JrxSubscriptionStatus;
+    billing_cycle: JrxBillingCycle;
     amount_inr: number;
     currency: 'INR';
     razorpay_sub_id?: string;
@@ -137,12 +137,12 @@ export interface NyvSubscription {
     created_at: string;
     updated_at: string;
 }
-export type NyvCaseUpdateType = 'HEARING' | 'FILING' | 'DOCUMENT' | 'COMMUNICATION' | 'TASK' | 'NOTE';
-export interface NyvCaseUpdate {
+export type JrxCaseUpdateType = 'HEARING' | 'FILING' | 'DOCUMENT' | 'COMMUNICATION' | 'TASK' | 'NOTE';
+export interface JrxCaseUpdate {
     update_id: string;
     case_id: string;
     user_id: string;
-    update_type: NyvCaseUpdateType;
+    update_type: JrxCaseUpdateType;
     title: string;
     description: string;
     metadata: Record<string, unknown>;
@@ -151,7 +151,7 @@ export interface NyvCaseUpdate {
     created_at: string;
     updated_at: string;
 }
-export interface NyvGSTBreakdown {
+export interface JrxGSTBreakdown {
     base_amount: number;
     cgst_rate: number;
     cgst_amount: number;
@@ -163,10 +163,10 @@ export interface NyvGSTBreakdown {
     total_amount: number;
     is_interstate: boolean;
 }
-export interface NyvInvoice {
+export interface JrxInvoice {
     invoice_id: string;
     invoice_type: 'TAX_INVOICE' | 'PROFORMA' | 'CREDIT_NOTE';
-    gst: NyvGSTBreakdown;
+    gst: JrxGSTBreakdown;
     tds_applicable: boolean;
     tds_amount: number;
     net_payable: number;
@@ -174,15 +174,15 @@ export interface NyvInvoice {
     due_date: string;
     currency: 'INR';
 }
-export type NyvOrgType = 'law_firm' | 'corporate_legal' | 'judiciary' | 'government' | 'law_school' | 'legal_tech' | 'ngo' | 'other';
-export interface NyvInstitutionalLead {
+export type JrxOrgType = 'law_firm' | 'corporate_legal' | 'judiciary' | 'government' | 'law_school' | 'legal_tech' | 'ngo' | 'other';
+export interface JrxInstitutionalLead {
     lead_id: string;
     org_name: string;
-    org_type: NyvOrgType;
+    org_type: JrxOrgType;
     contact_name: string;
     contact_email: string;
     contact_phone?: string;
-    jurisdiction: NyvJurisdiction;
+    jurisdiction: JrxJurisdiction;
     team_size?: string;
     use_case: string;
     monthly_volume?: string;
@@ -195,32 +195,32 @@ export interface NyvInstitutionalLead {
     created_at: string;
     updated_at: string;
 }
-export interface NyvAgent {
+export interface JrxAgent {
     agentId: string;
     name: string;
     domain: string;
-    jurisdiction: NyvJurisdiction[];
+    jurisdiction: JrxJurisdiction[];
     tier: string;
     romaLevel: number;
     capabilities: string[];
     languages: string[];
     status: 'active' | 'maintenance' | 'deprecated';
 }
-export interface NyvClientConfig {
+export interface JrxClientConfig {
     apiKey: string;
     baseUrl?: string;
-    jurisdiction?: NyvJurisdiction;
+    jurisdiction?: JrxJurisdiction;
     timeout?: number;
     retries?: number;
-    defaultTemplateMode?: NyvTemplateMode;
+    defaultTemplateMode?: JrxTemplateMode;
     enableStreaming?: boolean;
 }
-export interface NyvApiResponse<T = unknown> {
+export interface JrxApiResponse<T = unknown> {
     success: boolean;
     data?: T;
     error?: string;
     code?: string;
-    ai_metadata?: NyvAIMetadataBlock;
-    grpoTelemetry?: NyvGRPOTelemetry;
+    ai_metadata?: JrxAIMetadataBlock;
+    grpoTelemetry?: JrxGRPOTelemetry;
 }
 //# sourceMappingURL=index.d.ts.map

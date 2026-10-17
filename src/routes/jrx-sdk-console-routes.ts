@@ -529,7 +529,7 @@ router.post('/apps/:appId/webhook/test', async (req: Request, res: Response): Pr
 
     res.status(202).json({
       success: true,
-      message: 'Test webhook enqueued. Check your endpoint for X-NYV-Event: orchestration.completed.',
+      message: 'Test webhook enqueued. Check your endpoint for X-JRX-Event: orchestration.completed.',
       target: app.webhookUrl,
     });
   } catch (err: any) {

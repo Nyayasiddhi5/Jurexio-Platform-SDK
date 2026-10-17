@@ -8,7 +8,7 @@
  *     stamps `expires_at = NOW + grace` on the old row, leaving `is_active = true`.
  *   - During the grace window the old key still authenticates because the SDK
  *     gateway's check is `expires_at < NOW()` (already implemented in
- *     nv-sdk-gateway.ts) — we assert that the stamped expiry is strictly in
+ *     jrx-sdk-gateway.ts) — we assert that the stamped expiry is strictly in
  *     the future so the gateway will accept the old key until then.
  */
 

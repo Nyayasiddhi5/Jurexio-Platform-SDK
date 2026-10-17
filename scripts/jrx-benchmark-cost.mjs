@@ -2,7 +2,7 @@
 /**
  * NV-BENCH-COST-001 — the instrument behind the "70 % cost reduction" claim.
  *
- * Measures the NYV orchestrated path against a REAL direct provider call on a
+ * Measures the JRX orchestrated path against a REAL direct provider call on a
  * frozen set under `docs/audit/eval/` (`--set`, default v1), reads spend from
  * the repaired metering (M1–M4), cross-checks the envelope's `cost.completions`
  * against an independent count from provider log lines, and reports per-class and
@@ -13,16 +13,16 @@
  * (NV-NO-STUB-001) — every number is derived from a live response, a provider log
  * line, or the deployed model catalog's own prices.
  *
- * Usage (nysdev, via SSM):
- *   source scripts/nv-source-dev-deploy-env.sh
- *   node scripts/nv-benchmark-cost.mjs --label before-leaf-budget-fix
- *   node scripts/nv-benchmark-cost.mjs --only statute-faq,single-issue-advice --runs 2
- *   node scripts/nv-benchmark-cost.mjs --offline .local/benchmarks/<run>/raw.json
+ * Usage (jrx-prod, via SSM):
+ *   source scripts/jrx-source-dev-deploy-env.sh
+ *   node scripts/jrx-benchmark-cost.mjs --label before-leaf-budget-fix
+ *   node scripts/jrx-benchmark-cost.mjs --only statute-faq,single-issue-advice --runs 2
+ *   node scripts/jrx-benchmark-cost.mjs --offline .local/benchmarks/<run>/raw.json
  *
  * Flags:
  *   --label <s>     names the pass (use it to pair a before/after)
  *   --set <file>    benchmark set under docs/audit/eval, or an absolute path
- *                   (default nv-cost-benchmark-set.v1.json). The v2 set adds
+ *                   (default jrx-cost-benchmark-set.v1.json). The v2 set adds
  *                   distinct topics per class, a per-run resolution signal and a
  *                   cold/warm split; see its `_meta` for what it can prove.
  *   --runs N        repetitions per prompt. NOTE: repeats of the SAME prompt hit
@@ -33,7 +33,7 @@
  *                   provides.
  *   --only a,b      restrict to class ids
  *   --skip a,b      exclude class ids
- *   --no-direct     skip the direct baseline (cost figures become NYV-only)
+ *   --no-direct     skip the direct baseline (cost figures become JRX-only)
  *   --out <dir>     artifact dir (default .local/benchmarks/<label>-<ts>)
  *   --offline <p>   re-derive the report from a saved raw.json, spending nothing
  *   --dry-run       print the dispatch plan and exit
@@ -50,11 +50,11 @@ import { renderReport } from './_nv-benchmark-cost-render.mjs';
 const HERE = path.dirname(new URL(import.meta.url).pathname);
 const ROOT = path.resolve(HERE, '..');
 const SET_DIR = path.join(ROOT, 'docs/audit/eval');
-const DEFAULT_SET = 'nv-cost-benchmark-set.v1.json';
+const DEFAULT_SET = 'jrx-cost-benchmark-set.v1.json';
 const RUNNER = path.join(HERE, '_ec2-bench-cost-run.sh');
 const EXTRACTOR = path.join(HERE, '_nv-provider-usage-extract.py');
 const PRICES = path.join(HERE, '_nv-catalog-prices.py');
-const HOST_WORK = '/tmp/nv-bench';
+const HOST_WORK = '/tmp/jrx-bench';
 
 function arg(name, fallback = null) {
   const i = process.argv.indexOf(`--${name}`);
@@ -211,8 +211,8 @@ function main() {
   if (offline) {
     raw = JSON.parse(fs.readFileSync(String(offline), 'utf8'));
   } else {
-    const instanceId = process.env.NYV_EC2_INSTANCE_ID;
-    if (!instanceId) die('NYV_EC2_INSTANCE_ID unset — run `source scripts/nv-source-dev-deploy-env.sh` first');
+    const instanceId = process.env.JRX_EC2_INSTANCE_ID;
+    if (!instanceId) die('JRX_EC2_INSTANCE_ID unset — run `source scripts/jrx-source-dev-deploy-env.sh` first');
 
     let items = set.prompts.filter((p) => (!only || only.includes(p.classId)) && !skip.includes(p.classId));
     // A `runAfter` prompt measures a cache hit on its predecessor; running it out
@@ -350,7 +350,7 @@ function main() {
     fs.writeFileSync(
       path.join(outDir, 'answers', `${safe}.md`),
       `# item ${a.itemId} (${a.classId}) run ${a.run}\n\n## prompt\n\n${a.prompt}\n\n` +
-      `## NYV answer${a.nyvAnswerTruncated ? ' (TRUNCATED)' : ''}\n\n${a.nyvAnswer}\n\n` +
+      `## JRX answer${a.nyvAnswerTruncated ? ' (TRUNCATED)' : ''}\n\n${a.nyvAnswer}\n\n` +
       `## direct baseline answer${a.directAnswerTruncated ? ' (TRUNCATED)' : ''}\n\n${a.directAnswer}\n`,
     );
   }

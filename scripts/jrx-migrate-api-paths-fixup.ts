@@ -1,7 +1,7 @@
 /**
  * scripts/jrx-migrate-api-paths-fixup.ts
  *
- * Companion to `nv-migrate-api-paths.ts`. Cleans up cases where the first-pass
+ * Companion to `jrx-migrate-api-paths.ts`. Cleans up cases where the first-pass
  * migrator wrapped a *descriptive* string (label, placeholder, error message,
  * comment-style description) that happens to mention `/api/jrx/...` as text —
  * the resulting `nv('POST /api/jrx/completions')` is both wrong (would prefix
@@ -12,7 +12,7 @@
  *   nv('<text containing /api/jrx/...>')   ->   `<text with /api/jrx/ → ${NV_BASE}>`
  *   {nv('<text...>')}  (JSX expr-attr)    ->   {`<...${NV_BASE}...>`}
  *
- * Adds NV_BASE to the existing nv-api-paths import.
+ * Adds NV_BASE to the existing jrx-api-paths import.
  */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -85,9 +85,9 @@ function fixupFile(file: string): number {
   }
 
   if (usedBase) {
-    // Make sure NV_BASE is in the existing nv-api-paths import.
+    // Make sure NV_BASE is in the existing jrx-api-paths import.
     out = out.replace(
-      /import\s*\{([^}]*)\}\s*from\s*(['"][^'"]*nv-api-paths['"]);?/m,
+      /import\s*\{([^}]*)\}\s*from\s*(['"][^'"]*jrx-api-paths['"]);?/m,
       (_full, names: string, src: string) => {
         const list = names.split(',').map(s => s.trim()).filter(Boolean);
         if (!list.includes('NV_BASE')) list.push('NV_BASE');

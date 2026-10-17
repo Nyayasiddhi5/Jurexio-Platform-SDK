@@ -3,10 +3,10 @@
  * Wraps: /api/jrx/legal-work/*, /api/jrx/knowledge/*
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export class LegalWorkApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   listTasks(params?: {
     q?: string;

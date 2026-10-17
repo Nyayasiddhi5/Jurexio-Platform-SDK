@@ -8,8 +8,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Activity, Zap, DollarSign, AlertTriangle, CheckCircle, XCircle, RefreshCw, BarChart3, Shield } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 
@@ -137,7 +137,7 @@ export default function LLMPriorityDashboard() {
               {Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-32 w-full" />)}
             </div>
           ) : modelsError ? (
-            <NyvErrorState
+            <JrxErrorState
               title="Unable to load model catalogue"
               description="The LLM Priority Manager could not return the model list."
               onRetry={() => refetchModels()}
@@ -202,7 +202,7 @@ export default function LLMPriorityDashboard() {
                 </div>
               ))}
               {modelsArr.length === 0 && (
-                <NyvEmptyState
+                <JrxEmptyState
                   icon={BarChart3}
                   title="Model catalogue loading"
                   description="The LLM Priority Manager hasn't reported any models yet."
@@ -219,14 +219,14 @@ export default function LLMPriorityDashboard() {
                 {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-20 w-full" />)}
               </div>
             ) : healthStatusError ? (
-              <NyvErrorState
+              <JrxErrorState
                 title="Unable to load provider health"
                 description="Health status could not be retrieved."
                 onRetry={() => refetchHealth()}
                 variant="card"
               />
             ) : providersArr.length === 0 ? (
-              <NyvEmptyState
+              <JrxEmptyState
                 icon={Activity}
                 title="No provider health data yet"
                 description="Health checks run every 30 seconds — data will appear shortly."
@@ -294,14 +294,14 @@ export default function LLMPriorityDashboard() {
                     ))}
                   </div>
                 ) : analyticsError ? (
-                  <NyvErrorState
+                  <JrxErrorState
                     title="Unable to load analytics"
                     description="Cost analytics could not be retrieved."
                     onRetry={() => refetchAnalytics()}
                     size="sm"
                   />
                 ) : (
-                  <NyvEmptyState title="No analytics data yet" description="Routing analytics will appear once the LLM Priority Manager has data to report." size="sm" />
+                  <JrxEmptyState title="No analytics data yet" description="Routing analytics will appear once the LLM Priority Manager has data to report." size="sm" />
                 )}
               </CardContent>
             </Card>

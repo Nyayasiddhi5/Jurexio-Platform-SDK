@@ -8,11 +8,11 @@
  *
  * Mounts:
  *   /api/jrx/v1/sdk/cam/*           — partner-facing, sdkGatewayAuth (X-API-Key)
- *   /api/nyayavigya/cam/*          — internal UI, authenticateToken (JWT)
+ *   /api/jurexio/cam/*          — internal UI, authenticateToken (JWT)
  *
  * Both expose the SAME shape so the existing
  * `client/src/components/CAMMonitoringDashboard.tsx` (queryKey
- * `['/api/nyayavigya/cam/dashboard', startupId]`) keeps working without
+ * `['/api/jurexio/cam/dashboard', startupId]`) keeps working without
  * client changes.
  *
  * NV-API-CONTRACT-001: additive routes only.
@@ -25,13 +25,13 @@ import { authenticateToken } from '../middleware/jrx-auth.js';
 import { pool } from '../db/index.js';
 import { secureRandomHex } from '../utils/jrx-secure-random.js';
 import { createLogger } from '../utils/logger.js';
-import { NYV_PLATFORM_VERSION } from '../config/nyv-master-config.js';
+import { JRX_PLATFORM_VERSION } from '../config/jrx-master-config.js';
 import { getRegistryStats } from '../services/agent-registry-service.js';
 import { romaL5Engine } from '../packages/protocols/roma/roma-l5-engine.js';
 import { resolveCamTotalAgents } from '../utils/jrx-cam-total-agents.js';
 
 const logger = createLogger('sdk-cam');
-const PLATFORM_VERSION = NYV_PLATFORM_VERSION;
+const PLATFORM_VERSION = JRX_PLATFORM_VERSION;
 const DOCS_URL = 'https://docs.jurexio.example/canonical/04c-sdk-troubleshooting';
 
 interface CAMOverview {
@@ -272,7 +272,7 @@ sdkRouter.use(sdkGatewayAuth);
 sdkRouter.get('/dashboard', dashboardHandler);
 sdkRouter.get('/dashboard/:startupId', dashboardHandler);
 
-// Internal UI router (JWT) — mounted at /api/nyayavigya/cam to satisfy the
+// Internal UI router (JWT) — mounted at /api/jurexio/cam to satisfy the
 // existing CAMMonitoringDashboard.tsx queryKey.
 const uiRouter = Router();
 uiRouter.use(authenticateToken);

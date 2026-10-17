@@ -1,61 +1,61 @@
 /**
- * Unit Tests — NyvJurisdictionBindingService
+ * Unit Tests — JrxJurisdictionBindingService
  * Tests: 6 jurisdiction profiles, prohibited phrases, statute replacement detection
  * Coverage target: 100% branches on jurisdiction binding logic
  */
 import { describe, it, expect } from 'vitest';
-import { NyvJurisdictionBindingService, JURISDICTION_PROFILES } from '../../../src/services/jrx-jurisdiction-binding-service.js';
+import { JrxJurisdictionBindingService, JURISDICTION_PROFILES } from '../../../src/services/jrx-jurisdiction-binding-service.js';
 
-describe('NyvJurisdictionBindingService', () => {
+describe('JrxJurisdictionBindingService', () => {
   describe('bind() — profile lookup', () => {
     it('binds correct currency for India', () => {
-      const profile = NyvJurisdictionBindingService.bind('IN');
+      const profile = JrxJurisdictionBindingService.bind('IN');
       expect(profile.currency.code).toBe('INR');
       expect(profile.currency.symbol).toBe('₹');
       expect(profile.currency.name).toBe('Indian Rupees');
     });
 
     it('binds correct currency for UK', () => {
-      const profile = NyvJurisdictionBindingService.bind('UK');
+      const profile = JrxJurisdictionBindingService.bind('UK');
       expect(profile.currency.code).toBe('GBP');
       expect(profile.currency.symbol).toBe('£');
     });
 
     it('binds correct currency for US', () => {
-      const profile = NyvJurisdictionBindingService.bind('US');
+      const profile = JrxJurisdictionBindingService.bind('US');
       expect(profile.currency.code).toBe('USD');
       expect(profile.currency.symbol).toBe('$');
     });
 
     it('binds correct currency for EU', () => {
-      const profile = NyvJurisdictionBindingService.bind('EU');
+      const profile = JrxJurisdictionBindingService.bind('EU');
       expect(profile.currency.code).toBe('EUR');
       expect(profile.currency.symbol).toBe('€');
     });
 
     it('binds correct currency for GCC', () => {
-      const profile = NyvJurisdictionBindingService.bind('GCC');
+      const profile = JrxJurisdictionBindingService.bind('GCC');
       expect(profile.currency.code).toBe('AED');
     });
 
     it('binds correct currency for Singapore', () => {
-      const profile = NyvJurisdictionBindingService.bind('SG');
+      const profile = JrxJurisdictionBindingService.bind('SG');
       expect(profile.currency.code).toBe('SGD');
     });
 
     it('is case-insensitive', () => {
-      const profileLower = NyvJurisdictionBindingService.bind('in');
-      const profileUpper = NyvJurisdictionBindingService.bind('IN');
+      const profileLower = JrxJurisdictionBindingService.bind('in');
+      const profileUpper = JrxJurisdictionBindingService.bind('IN');
       expect(profileLower.code).toBe(profileUpper.code);
     });
 
     it('throws JURISDICTION_NOT_FOUND for unknown code', () => {
-      expect(() => NyvJurisdictionBindingService.bind('XY')).toThrow('JURISDICTION_NOT_FOUND');
+      expect(() => JrxJurisdictionBindingService.bind('XY')).toThrow('JURISDICTION_NOT_FOUND');
     });
 
     it('throws with valid jurisdiction list in error message', () => {
       try {
-        NyvJurisdictionBindingService.bind('UNKNOWN');
+        JrxJurisdictionBindingService.bind('UNKNOWN');
       } catch (err: any) {
         expect(err.message).toContain('Valid:');
         expect(err.message).toContain('IN');
@@ -65,7 +65,7 @@ describe('NyvJurisdictionBindingService', () => {
 
   describe('validateOutput() — prohibited phrase detection', () => {
     it('detects IPC as prohibited phrase for India', () => {
-      const { valid, violations } = NyvJurisdictionBindingService.validateOutput(
+      const { valid, violations } = JrxJurisdictionBindingService.validateOutput(
         'Under IPC Section 302, the accused is liable.',
         'IN'
       );
@@ -75,7 +75,7 @@ describe('NyvJurisdictionBindingService', () => {
     });
 
     it('detects CrPC as prohibited phrase for India', () => {
-      const { valid, violations } = NyvJurisdictionBindingService.validateOutput(
+      const { valid, violations } = JrxJurisdictionBindingService.validateOutput(
         'The CrPC provision shall apply.',
         'IN'
       );
@@ -84,7 +84,7 @@ describe('NyvJurisdictionBindingService', () => {
     });
 
     it('detects Indian Penal Code as prohibited for India', () => {
-      const { valid, violations } = NyvJurisdictionBindingService.validateOutput(
+      const { valid, violations } = JrxJurisdictionBindingService.validateOutput(
         'Under the Indian Penal Code, Section 420.',
         'IN'
       );
@@ -93,7 +93,7 @@ describe('NyvJurisdictionBindingService', () => {
     });
 
     it('detects pre-trial discovery as prohibited for India', () => {
-      const { valid, violations } = NyvJurisdictionBindingService.validateOutput(
+      const { valid, violations } = JrxJurisdictionBindingService.validateOutput(
         'The parties shall proceed with pre-trial discovery.',
         'IN'
       );
@@ -102,7 +102,7 @@ describe('NyvJurisdictionBindingService', () => {
     });
 
     it('returns valid for clean BNS-compliant Indian output', () => {
-      const { valid, violations } = NyvJurisdictionBindingService.validateOutput(
+      const { valid, violations } = JrxJurisdictionBindingService.validateOutput(
         'Under Bharatiya Nyaya Sanhita (BNS) 2023 Section 302, the High Court of Delhi held.',
         'IN'
       );
@@ -111,7 +111,7 @@ describe('NyvJurisdictionBindingService', () => {
     });
 
     it('detects INR as prohibited for US output', () => {
-      const { valid, violations } = NyvJurisdictionBindingService.validateOutput(
+      const { valid, violations } = JrxJurisdictionBindingService.validateOutput(
         'The settlement amount is INR 10,00,000.',
         'US'
       );
@@ -122,7 +122,7 @@ describe('NyvJurisdictionBindingService', () => {
 
   describe('validateOutput() — statute replacement detection', () => {
     it('flags outdated Evidence Act for India (should be BSA 2023)', () => {
-      const { valid, violations } = NyvJurisdictionBindingService.validateOutput(
+      const { valid, violations } = JrxJurisdictionBindingService.validateOutput(
         'Section 65B of the Evidence Act applies.',
         'IN'
       );
@@ -142,7 +142,7 @@ describe('NyvJurisdictionBindingService', () => {
   describe('buildSystemPromptInjection()', () => {
     it('returns non-empty string for all 6 jurisdictions', () => {
       for (const code of ['IN', 'UK', 'US', 'EU', 'GCC', 'SG']) {
-        const injection = NyvJurisdictionBindingService.buildSystemPromptInjection(code);
+        const injection = JrxJurisdictionBindingService.buildSystemPromptInjection(code);
         expect(injection.length).toBeGreaterThan(50);
         expect(injection).toContain('JURISDICTION BINDING');
         expect(injection).toContain('ABSOLUTE RULE');
@@ -150,19 +150,19 @@ describe('NyvJurisdictionBindingService', () => {
     });
 
     it('includes correct currency for India', () => {
-      const injection = NyvJurisdictionBindingService.buildSystemPromptInjection('IN');
+      const injection = JrxJurisdictionBindingService.buildSystemPromptInjection('IN');
       expect(injection).toContain('₹');
       expect(injection).toContain('INR');
     });
 
     it('lists prohibited phrases', () => {
-      const injection = NyvJurisdictionBindingService.buildSystemPromptInjection('IN');
+      const injection = JrxJurisdictionBindingService.buildSystemPromptInjection('IN');
       expect(injection).toContain('PROHIBITED');
       expect(injection).toContain('IPC');
     });
 
     it('shows statute replacements for India', () => {
-      const injection = NyvJurisdictionBindingService.buildSystemPromptInjection('IN');
+      const injection = JrxJurisdictionBindingService.buildSystemPromptInjection('IN');
       expect(injection).toContain('BNS 2023');
       expect(injection).toContain('BNSS 2023');
     });
@@ -170,7 +170,7 @@ describe('NyvJurisdictionBindingService', () => {
 
   describe('getAvailableJurisdictions()', () => {
     it('returns all 6 supported jurisdictions', () => {
-      const jurisdictions = NyvJurisdictionBindingService.getAvailableJurisdictions();
+      const jurisdictions = JrxJurisdictionBindingService.getAvailableJurisdictions();
       expect(jurisdictions).toHaveLength(6);
       expect(jurisdictions).toContain('IN');
       expect(jurisdictions).toContain('UK');

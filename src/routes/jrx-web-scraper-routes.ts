@@ -1,5 +1,5 @@
 /**
- * NYV Web Scraper Routes — agent-callable HTTP adapter
+ * JRX Web Scraper Routes — agent-callable HTTP adapter
  * Mounted at /api/jrx/tools/scrape
  */
 

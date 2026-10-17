@@ -2,7 +2,7 @@
  * Real web search for the enterprise SDK research surface.
  *
  * NV-WEB-SEARCH-CASCADE-001: never invent results. Try providers in order
- * (config via NYV_WEB_SEARCH_CASCADE):
+ * (config via JRX_WEB_SEARCH_CASCADE):
  *   tavily → serper → perplexity → openrouter → gemini
  *
  * Gemini uses Grounding with Google Search (`tools: [{ google_search: {} }]`)
@@ -58,7 +58,7 @@ const DEFAULT_CASCADE: WebSearchProviderId[] = [
 ];
 
 function parseCascade(): WebSearchProviderId[] {
-  const raw = String(process.env.NYV_WEB_SEARCH_CASCADE || '').trim();
+  const raw = String(process.env.JRX_WEB_SEARCH_CASCADE || '').trim();
   const list = (raw
     ? raw.split(',').map((s) => s.trim().toLowerCase())
     : DEFAULT_CASCADE) as WebSearchProviderId[];
@@ -230,8 +230,8 @@ class RealWebSearchService {
     const key = viaOpenRouter ? process.env.OPENROUTER_API_KEY : process.env.PERPLEXITY_API_KEY;
     if (!key) throw new Error('missing key');
     const model = viaOpenRouter
-      ? (process.env.NYV_WEB_SEARCH_OPENROUTER_MODEL || 'perplexity/sonar-pro')
-      : (process.env.NYV_WEB_SEARCH_PERPLEXITY_MODEL || 'sonar-pro');
+      ? (process.env.JRX_WEB_SEARCH_OPENROUTER_MODEL || 'perplexity/sonar-pro')
+      : (process.env.JRX_WEB_SEARCH_PERPLEXITY_MODEL || 'sonar-pro');
 
     const response = await fetch(url, {
       method: 'POST',

@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Graph-Based Memory Service (Mem0ᵍ Pattern)
  * Jurexio Legal SDK v5.0.0 - Memory System
@@ -214,7 +214,7 @@ class GraphMemoryService {
    * first, which threw "there is no parameter $1", was swallowed by its own catch, and never
    * reached the real `pool.query`. So every consumer of this helper had been silently losing
    * writes (`nv_openbot_channels` and `nv_openbot_routes` were both empty on the live DB).
-   * Fixed in `nv-persistence-helper.ts` as NV-PERSIST-UPSERT-001; without that fix this
+   * Fixed in `jrx-persistence-helper.ts` as NV-PERSIST-UPSERT-001; without that fix this
    * write-through would have been just as silent.
    */
   private static readonly MEMORY_TABLE = 'nv_schema.memory_entries';

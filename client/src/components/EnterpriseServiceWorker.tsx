@@ -266,7 +266,7 @@ export default function EnterpriseServiceWorker() {
       
       // Skip waiting and activate immediately
       if (swRegistration.waiting) {
-        swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
+        swRegistration.waiting.postMessage({ type: 'SKIP_JRXTING' });
       }
 
       setTimeout(() => {

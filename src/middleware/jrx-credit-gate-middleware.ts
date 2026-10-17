@@ -1,6 +1,6 @@
 /**
  * Jurexio Enterprise Platform 3.1.2 — Credit Gate Middleware
- * NYV-MW-CREDITGATE-001
+ * JRX-MW-CREDITGATE-001
  *
  * Handover §6.3 — Zero balance IMMEDIATELY disables ALL AI tools.
  * Returns HTTP 402 Payment Required with specific error codes.

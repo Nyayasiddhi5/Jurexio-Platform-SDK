@@ -1,7 +1,7 @@
 [
   {
     "id": "domain-general-change-policy",
-    "source": "nyv-document",
+    "source": "jrx-document",
     "jurisdiction_code": "GLOBAL",
     "document_type": "policy",
     "category": "ops",
@@ -10,7 +10,7 @@
   },
   {
     "id": "domain-finance-vendor-dd",
-    "source": "nyv-document",
+    "source": "jrx-document",
     "jurisdiction_code": "GLOBAL",
     "document_type": "checklist",
     "category": "finance",
@@ -19,7 +19,7 @@
   },
   {
     "id": "domain-healthcare-incident-intake",
-    "source": "nyv-document",
+    "source": "jrx-document",
     "jurisdiction_code": "GLOBAL",
     "document_type": "form",
     "category": "healthcare",

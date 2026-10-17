@@ -151,7 +151,7 @@ function toOtlpSpan(span: ExportableSpan): Record<string, unknown> {
 
 function resourceAttributes(): OtlpKeyValue[] {
   const attrs: Record<string, string | number | boolean> = {
-    'service.name': process.env.OTEL_SERVICE_NAME || 'nyayavigya',
+    'service.name': process.env.OTEL_SERVICE_NAME || 'jurexio',
     'service.version': process.env.SERVICE_VERSION || '5.1.0',
     'service.namespace': 'ai-platform',
     'deployment.environment': process.env.NODE_ENV || 'development',
@@ -218,7 +218,7 @@ export async function flush(): Promise<void> {
         resource: { attributes: resourceAttributes() },
         scopeSpans: [
           {
-            scope: { name: 'nyayavigya-llm-tracer', version: '1.0.0' },
+            scope: { name: 'jurexio-llm-tracer', version: '1.0.0' },
             spans: batch,
           },
         ],

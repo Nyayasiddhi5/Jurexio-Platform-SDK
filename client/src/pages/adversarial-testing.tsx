@@ -13,7 +13,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Label } from '@/components/ui/label';
 import { Shield, Play, AlertTriangle, CheckCircle, XCircle, BarChart3, RefreshCw, Target } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { formatDistanceToNow } from 'date-fns';
@@ -258,7 +258,7 @@ export default function AdversarialTesting() {
                   {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-10 w-full" />)}
                 </div>
               ) : historyArr.length === 0 ? (
-                <NyvEmptyState icon={Shield} title="No test history yet" description="Run an attack simulation to populate this list." size="sm" />
+                <JrxEmptyState icon={Shield} title="No test history yet" description="Run an attack simulation to populate this list." size="sm" />
               ) : (
                 <div className="divide-y text-sm">
                   {historyArr.map((test: any, idx: number) => (

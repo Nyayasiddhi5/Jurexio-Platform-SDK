@@ -1,5 +1,5 @@
 /**
- * nv-openapi-routes.ts — serves the auto-generated OpenAPI 3.1 spec
+ * jrx-openapi-routes.ts — serves the auto-generated OpenAPI 3.1 spec
  * (produced by `scripts/generate-openapi-spec.ts`) plus a Swagger UI
  * shell that loads it.
  *
@@ -18,7 +18,7 @@ import * as path from 'node:path';
 
 const router = Router();
 
-const SPEC_PATH = path.resolve(process.cwd(), 'docs', 'openapi', 'nyayavigya-v5.openapi.json');
+const SPEC_PATH = path.resolve(process.cwd(), 'docs', 'openapi', 'jurexio-v5.openapi.json');
 
 function loadSpec(): unknown {
   try {

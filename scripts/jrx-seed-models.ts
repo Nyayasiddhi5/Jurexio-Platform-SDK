@@ -2,7 +2,7 @@
  * Seed nv_llm_providers (23 platform-supported, 6 active) and
  * nv_model_catalog (~80 latest models across 6 active providers).
  *
- * Idempotent — safe to re-run. Mirrors `src/config/nyv-allowed-providers.ts`.
+ * Idempotent — safe to re-run. Mirrors `src/config/jrx-allowed-providers.ts`.
  *
  * Run: npx tsx scripts/jrx-seed-models.ts
  */
@@ -64,7 +64,7 @@ const PROVIDERS = [
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MODEL CATALOG — only models for the 6 ACTIVE providers, latest as of May 2026
-// Mirrors PROVIDER_MODEL_CATALOG in src/config/nyv-allowed-providers.ts
+// Mirrors PROVIDER_MODEL_CATALOG in src/config/jrx-allowed-providers.ts
 // ─────────────────────────────────────────────────────────────────────────────
 const MODELS = [
   // ── ANTHROPIC (3) ──

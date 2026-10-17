@@ -11,10 +11,10 @@
  * Input windows were harvested from the live NYS corpus (43,505 embedded SC judgments) on
  * 2026-08-20 via /athena/extract over the judgment PDFs. Provenance and the two landmarks that
  * could NOT be sourced (413 above the 20 MB extraction cap) are recorded in
- * docs/audit/eval/nv-treatment-attribution-2026-08-20.md.
+ * docs/audit/eval/jrx-treatment-attribution-2026-08-20.md.
  *
  * Usage:
- *   node scripts/nv-build-attribution-goldset.mjs --windows <windows.json> [--out <path>]
+ *   node scripts/jrx-build-attribution-goldset.mjs --windows <windows.json> [--out <path>]
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -25,8 +25,8 @@ const argOf = (flag, dflt) => {
   return i === -1 || i + 1 >= args.length ? dflt : args[i + 1];
 };
 
-const ANNOTATIONS = resolve('docs/audit/eval/nv-treatment-attribution-annotations.v1.json');
-const OUT = resolve(argOf('--out', 'docs/audit/eval/nv-treatment-attribution-set.v1.json'));
+const ANNOTATIONS = resolve('docs/audit/eval/jrx-treatment-attribution-annotations.v1.json');
+const OUT = resolve(argOf('--out', 'docs/audit/eval/jrx-treatment-attribution-set.v1.json'));
 const WINDOWS = argOf('--windows', null);
 
 if (!WINDOWS) {
@@ -109,7 +109,7 @@ for (const it of items) {
 }
 
 const out = {
-  id: 'nv-treatment-attribution-set',
+  id: 'jrx-treatment-attribution-set',
   version: 1,
   builtAt: new Date().toISOString(),
   provenance: {

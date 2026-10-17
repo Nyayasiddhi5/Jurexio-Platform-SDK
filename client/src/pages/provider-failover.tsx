@@ -5,7 +5,7 @@
  * Backend: src/routes/jrx-operations-aggregators.ts → GET /api/jrx/providers/failover
  * Auth:    analyst+; 15s refetch.
  *
- * Path imported via `p('PROVIDER_FAILOVER')` from nv-api-paths.ts. The aggregator
+ * Path imported via `p('PROVIDER_FAILOVER')` from jrx-api-paths.ts. The aggregator
  * returns providers (with `lastFailoverAt`, latency, error rate, env-key presence)
  * and the live model-health snapshot.
  */
@@ -13,8 +13,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { NyvErrorState } from "@/components/NyvErrorState";
-import { NyvEmptyState } from "@/components/NyvEmptyState";
+import { JrxErrorState } from "@/components/JrxErrorState";
+import { JrxEmptyState } from "@/components/JrxEmptyState";
 import { Progress } from "@/components/ui/progress";
 import { formatDistanceToNow } from "date-fns";
 import { p } from "@/lib/jrx-api-paths";
@@ -89,7 +89,7 @@ export default function ProviderFailoverPage() {
       )}
 
       {q.isError && (
-        <NyvErrorState
+        <JrxErrorState
           title="Could not load provider failover data"
           description={`Unable to retrieve ${FAILOVER_PATH}. You may not have analyst+ access.`}
           error={q.error}
@@ -121,7 +121,7 @@ export default function ProviderFailoverPage() {
             </thead>
             <tbody>
               {providers.length === 0 ? (
-                <tr><td colSpan={7} className="p-0"><NyvEmptyState title="No provider data yet" description="Provider failover statistics will appear once requests have been routed." size="sm" /></td></tr>
+                <tr><td colSpan={7} className="p-0"><JrxEmptyState title="No provider data yet" description="Provider failover statistics will appear once requests have been routed." size="sm" /></td></tr>
               ) : providers.map((p) => (
                 <tr key={p.name} className="border-b hover:bg-muted/30" data-testid={`provider-row-${p.name}`}>
                   <td className="p-2 font-mono text-xs">
@@ -160,7 +160,7 @@ export default function ProviderFailoverPage() {
             </thead>
             <tbody>
               {health.length === 0 ? (
-                <tr><td colSpan={5} className="p-0"><NyvEmptyState title="No model health data yet" description="Per-model health metrics will appear once the orchestrator reports them." size="sm" /></td></tr>
+                <tr><td colSpan={5} className="p-0"><JrxEmptyState title="No model health data yet" description="Per-model health metrics will appear once the orchestrator reports them." size="sm" /></td></tr>
               ) : health.map((h) => (
                 <tr key={h.modelId} className="border-b hover:bg-muted/30">
                   <td className="p-2 font-mono text-xs">{h.modelId}</td>

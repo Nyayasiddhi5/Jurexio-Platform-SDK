@@ -3,8 +3,8 @@
  * Legal-first engine (@jurexio/docparse-sdk) with async jobs for large PDFs/scans.
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
-import type { DocparseMetaPartner } from '../types/NyvLegalDocparse.js';
+import type { JrxHttpClient } from '../JrxClient.js';
+import type { DocparseMetaPartner } from '../types/JrxLegalDocparse.js';
 
 export interface DocparseJobSubmitBody {
   base64?: string;
@@ -42,7 +42,7 @@ export interface DomainPackCatalogEntry {
 }
 
 export class DocparseApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   listPacks(): Promise<{ packs: DomainPackCatalogEntry[] }> {
     return this.http.get('/api/jrx/v1/sdk/docparse/packs') as Promise<{ packs: DomainPackCatalogEntry[] }>;
@@ -57,7 +57,7 @@ export class DocparseApi {
   }
 
   /**
-   * NSP-only gap recovery (requires X-NYV-Platform: nsp on the HTTP client).
+   * NSP-only gap recovery (requires X-JRX-Platform: nsp on the HTTP client).
    * Call when local docparse left empty pages or could not map autofill fields.
    */
   nspAgentRecover(body: DocparseJobSubmitBody & {
@@ -67,7 +67,7 @@ export class DocparseApi {
     return this.http.post('/api/jrx/v1/sdk/docparse/nsp/agent-recover', body) as Promise<Record<string, unknown>>;
   }
 
-  /** NSP-only vision depiction for case photos / medical imaging (requires X-NYV-Platform: nsp). */
+  /** NSP-only vision depiction for case photos / medical imaging (requires X-JRX-Platform: nsp). */
   nspEvidenceDepict(body: DocparseJobSubmitBody & {
     localVisibleText?: string;
     userQuestion?: string;
@@ -76,7 +76,7 @@ export class DocparseApi {
     return this.http.post('/api/jrx/v1/sdk/docparse/nsp/evidence-depict', body) as Promise<Record<string, unknown>>;
   }
 
-  /** NSP Pro onboarding — PAN / Bar Council / firm cert → autofill JSON (OCR on NYV). */
+  /** NSP Pro onboarding — PAN / Bar Council / firm cert → autofill JSON (OCR on JRX). */
   nspOnboardingExtract(body: DocparseJobSubmitBody & {
     ingestRole?: string;
     documentHint?: 'panCard' | 'barCert' | 'firmCert' | 'auto';

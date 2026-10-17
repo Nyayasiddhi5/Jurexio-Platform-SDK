@@ -105,9 +105,9 @@ def copy_agents_registry() -> None:
     if dest.exists():
         return
     text = src.read_text(encoding="utf-8")
-    text = text.replace("Nyayavigya SDK", "Jurexio Enterprise Platform SDK")
-    text = text.replace("Nyayavigya", "Jurexio")
-    text = text.replace("Nyayasiddhi", "Jurexio")
+    text = text.replace("Jurexio SDK", "Jurexio Enterprise Platform SDK")
+    text = text.replace("Jurexio", "Jurexio")
+    text = text.replace("Jurexio", "Jurexio")
     text = text.replace("jurexioModule", "jrxModule")
     dest.write_text(text, encoding="utf-8")
 

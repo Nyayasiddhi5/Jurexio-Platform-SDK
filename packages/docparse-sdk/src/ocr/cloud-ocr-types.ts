@@ -1,6 +1,6 @@
 /**
  * Optional cloud OCR when local Tesseract/Paddle cannot rasterise or fails a page.
- * NSP/NYV inject implementation — core stays deterministic-first.
+ * NSP/JRX inject implementation — core stays deterministic-first.
  */
 export interface CloudOcrPageRequest {
   documentId: string;

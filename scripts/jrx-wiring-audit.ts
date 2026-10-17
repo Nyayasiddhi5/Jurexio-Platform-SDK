@@ -1,5 +1,5 @@
 /**
- * nv-wiring-audit.ts
+ * jrx-wiring-audit.ts
  * Read-only auditor: classifies every TS file under
  *   src/packages, src/services, src/orchestration, src/middleware, src/integrations
  * into one of:
@@ -86,8 +86,8 @@ function parseImports(file: string): string[] {
   // NV-WIRING-AUDIT-DYNAMIC-001: dynamic `import('…')` — including
   // `await import(…)` and `() => import(…)`. Omitting this shape made the
   // auditor report live code as ORPHAN: the capability manifest loads every
-  // leaf lazily, and `nv-queen-leaf-prompt.ts` is pulled in at
-  // `nv-queen-orchestrator.ts` via `await import('./jrx-queen-leaf-prompt.js')`.
+  // leaf lazily, and `jrx-queen-leaf-prompt.ts` is pulled in at
+  // `jrx-queen-orchestrator.ts` via `await import('./jrx-queen-leaf-prompt.js')`.
   // Both were reachable at runtime while being counted as dead, which makes an
   // "is everything wired?" answer from this tool wrong in the unsafe direction.
   const dynamicRe = /\bimport\s*\(\s*['"]([^'"]+)['"]\s*\)/g;

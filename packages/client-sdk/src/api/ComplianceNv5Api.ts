@@ -11,13 +11,13 @@
  * additive `/api/nv5/compliance/*` admin surface.
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 /* ─── EU AI Act envelopes (server: src/routes/nv5/compliance/eu-ai-act-routes.ts) ─── */
 
 export interface EuAiActCapabilities {
   success: boolean;
-  service: 'nv-eu-ai-act';
+  service: 'jrx-eu-ai-act';
   articles: string[];
   documents: string[];
 }
@@ -44,7 +44,7 @@ export interface EuAiActBiasAuditResponse {
 
 export interface PqcCapabilities {
   success: boolean;
-  service: 'nv-pqc';
+  service: 'jrx-pqc';
   primitives: string[];
   operations: string[];
   note?: string;
@@ -119,7 +119,7 @@ export interface FederatedSessionsListResponse {
 }
 
 class EuAiActSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   capabilities(): Promise<EuAiActCapabilities> {
     return this.http.get('/api/nv5/compliance/eu-ai-act/capabilities');
   }
@@ -135,7 +135,7 @@ class EuAiActSubApi {
 }
 
 class PqcSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   capabilities(): Promise<PqcCapabilities> {
     return this.http.get('/api/nv5/compliance/pqc/capabilities');
   }
@@ -160,7 +160,7 @@ class PqcSubApi {
 }
 
 class FederatedPrivacySubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   capabilities(): Promise<FederatedPrivacyCapabilities> {
     return this.http.get('/api/nv5/compliance/federated-privacy/capabilities');
   }
@@ -184,7 +184,7 @@ export class ComplianceNv5Api {
   public readonly pqc: PqcSubApi;
   public readonly federatedPrivacy: FederatedPrivacySubApi;
 
-  constructor(http: NyvHttpClient) {
+  constructor(http: JrxHttpClient) {
     this.euAiAct = new EuAiActSubApi(http);
     this.pqc = new PqcSubApi(http);
     this.federatedPrivacy = new FederatedPrivacySubApi(http);

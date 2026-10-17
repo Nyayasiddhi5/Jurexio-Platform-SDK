@@ -1,5 +1,5 @@
 /**
- * NYV Credits Router — /api/jrx/credits/*
+ * JRX Credits Router — /api/jrx/credits/*
  * Jurexio Enterprise Platform 312
  *
  * ENDPOINTS:

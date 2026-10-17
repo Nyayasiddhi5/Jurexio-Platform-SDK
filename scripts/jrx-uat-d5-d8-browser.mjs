@@ -13,9 +13,9 @@ const ROOT = join(__dirname, '..');
 const OUT = join(ROOT, 'test-results', 'd5-d8-uat-' + new Date().toISOString().slice(0, 10));
 mkdirSync(OUT, { recursive: true });
 
-const CONSOLE = (process.env.CONSOLE_URL || 'https://console.nyayasiddhi.online').replace(/\/+$/, '');
-const GATEWAY = (process.env.GATEWAY || 'https://api.nyayasiddhi.online').replace(/\/+$/, '');
-const ADMIN_EMAIL = process.env.UAT_ADMIN_EMAIL || 'admin@nyayavigya.in';
+const CONSOLE = (process.env.CONSOLE_URL || 'https://console.jurexio.com').replace(/\/+$/, '');
+const GATEWAY = (process.env.GATEWAY || 'https://api.jurexio.com').replace(/\/+$/, '');
+const ADMIN_EMAIL = process.env.UAT_ADMIN_EMAIL || 'admin@jurexio.com';
 const ADMIN_PASSWORD = process.env.UAT_ADMIN_PASSWORD || process.env.NV_DEMO_PASSWORD || '';
 
 const results = [];

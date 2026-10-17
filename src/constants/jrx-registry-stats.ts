@@ -21,7 +21,7 @@
 
 import { MCP_REGISTRY_STATS } from '../data/jrx-mcp-tools-registry.js';
 
-export const NYV_REGISTRY_TOTALS = {
+export const JRX_REGISTRY_TOTALS = {
   /** Total active agents in the runtime registry. */
   totalAgents: 164,
   /** Canonical user-facing jurisdictions available as overlays. */
@@ -41,7 +41,7 @@ export const NYV_REGISTRY_TOTALS = {
 } as const;
 
 /** Historical flat-merge backup — forensic mode only (NV_REGISTRY_FORENSIC_MODE). */
-export const NYV_ARCHIVED_REGISTRY = {
+export const JRX_ARCHIVED_REGISTRY = {
   totalAgentsFlat: 1042,
   registryVersion: '5.0.0' as const,
   archiveSubdir: 'archive/v5.0.0' as const,
@@ -49,19 +49,19 @@ export const NYV_ARCHIVED_REGISTRY = {
 } as const;
 
 /** In-code MCP tool definitions (`src/data/jrx-mcp-tools-registry.ts`). */
-export const NYV_MCP_TOOLS = {
+export const JRX_MCP_TOOLS = {
   totalTools: MCP_REGISTRY_STATS.total,
   categories: MCP_REGISTRY_STATS.categories,
   version: MCP_REGISTRY_STATS.version,
 } as const;
 
-/** Swarm topology catalog (`nv-swarm-topology-service.ts`). */
-export const NYV_TOPOLOGY_CATALOG = {
+/** Swarm topology catalog (`jrx-swarm-topology-service.ts`). */
+export const JRX_TOPOLOGY_CATALOG = {
   totalTopologies: 107,
 } as const;
 
-export type NyvRegistryTotals = typeof NYV_REGISTRY_TOTALS;
+export type JrxRegistryTotals = typeof JRX_REGISTRY_TOTALS;
 
 /** Canonical jurisdiction codes (excludes DEFAULT). */
-export const NYV_CANONICAL_JURISDICTIONS = ['IN', 'UK', 'GC', 'EU', 'US', 'SG'] as const;
-export type NyvCanonicalJurisdiction = typeof NYV_CANONICAL_JURISDICTIONS[number];
+export const JRX_CANONICAL_JURISDICTIONS = ['IN', 'UK', 'GC', 'EU', 'US', 'SG'] as const;
+export type JrxCanonicalJurisdiction = typeof JRX_CANONICAL_JURISDICTIONS[number];

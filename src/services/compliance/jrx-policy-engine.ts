@@ -3,7 +3,7 @@
  *
  * One-shot bootstrap that:
  *   1. Ensures the four nv_policies* tables exist (mirrors
- *      scripts/migrations/2026-05-14-nv-governance-tables.sql so a fresh
+ *      scripts/migrations/2026-05-14-jrx-governance-tables.sql so a fresh
  *      Replit/Neon DB also gets them without running the full
  *      governance migration bundle).
  *   2. Seeds ≥ 12 jurisdiction-tagged policies covering the US (CCPA,
@@ -15,7 +15,7 @@
  *
  * Idempotent — safe to call on every cold start.
  *
- * NV-NAMING-001: nv- prefix.
+ * NV-NAMING-001: jrx- prefix.
  * NV-WIRING-001: invoked from src/index.ts startup (see below).
  */
 import { sql } from 'drizzle-orm';
@@ -350,7 +350,7 @@ const DEMO_POLICIES: PolicySeed[] = [
     description: 'Declarative mapping of the Jurexio security posture to the six Functions of NIST Cybersecurity Framework 2.0 (NIST CSWP 29, February 2024). All six Functions are covered today via the controls already declared on `POL-US-FEDRAMP-MOD` (NIST 800-53 Rev 5 Moderate baseline) and `POL-US-SOC2-CC6.1` (logical access + audit hash chain), plus the multi-tenant RLS topology, FIPS 140-3 modules, the breach-notification pipeline, and RDS PITR backups. This policy is mapping/declaration only — no new enforcement code is introduced; it cross-references existing FedRAMP Moderate and SOC 2 CC6.1 controls under each CSF Function so procurement teams can answer the CSF 2.0 self-assessment without parsing the underlying 800-53 family list.',
     rules: [
       'GV (Govern, new in 2.0) — AI Safety + Platform Security own the policy stack; 13 CI-enforced NV-* hard guardrails + the audit hash chain operationalise GV.OC (organizational context), GV.RM (risk management strategy), GV.SC (supply-chain risk for the 6 LLM providers), GV.RR (roles & responsibilities), GV.OV (oversight). Cross-ref: POL-US-FEDRAMP-MOD framework_refs lines 178-192.',
-      'ID (Identify) — DB schema (`src/db/schema.ts`) + agent registries (`config/agent-registries/`) + master config (`src/config/nyv-master-config.ts`) constitute the asset inventory; the gap-analysis doc (`docs/canonical/16-us-compliance-gap-analysis-2026-05-14.md`) is the risk register. Maps to ID.AM, ID.RA, ID.IM. Cross-ref: NIST-800-53r5:CM-8 on POL-US-FEDRAMP-MOD.',
+      'ID (Identify) — DB schema (`src/db/schema.ts`) + agent registries (`config/agent-registries/`) + master config (`src/config/jrx-master-config.ts`) constitute the asset inventory; the gap-analysis doc (`docs/canonical/16-us-compliance-gap-analysis-2026-05-14.md`) is the risk register. Maps to ID.AM, ID.RA, ID.IM. Cross-ref: NIST-800-53r5:CM-8 on POL-US-FEDRAMP-MOD.',
       'PR (Protect) — Multi-tenant RLS topology (`drizzle/0013_customer_org_rls.sql` + `src/middleware/jrx-org-rls-middleware.ts`) + 7-tier RBAC + MFA + AES-256 at rest + TLS 1.3 + FIPS 140-3 modules. Maps to PR.AA (identity & access), PR.DS (data security), PR.PS (platform security), PR.IR (technology infrastructure resilience). Cross-ref: POL-US-SOC2-CC6.1 (lines 86-98) + POL-US-FEDRAMP-MOD (lines 178-192).',
       'DE (Detect) — Safety pipeline + regulatory-monitor sweeps (`src/services/regulatory-monitor/regulatory-monitor-service.ts`) + audit hash chain anomaly detection + per-tier rate-limit + circuit-breakers. Maps to DE.CM (continuous monitoring), DE.AE (adverse events). Cross-ref: NIST-800-53r5:AU-2 + SI family on POL-US-FEDRAMP-MOD.',
       'RS (Respond) — Breach-notification pipeline (`src/services/compliance/jrx-breach-notice-service.ts`, NY/MA recipient sets), HITL decision-card queue, incident-response runbook in `docs/canonical/EC2-DEVOPS-SOP-2026-05-14.md`. Maps to RS.MA (incident management), RS.AN (analysis), RS.CO (communication), RS.MI (mitigation). Cross-ref: NIST-800-53r5:IR-4 on POL-US-FEDRAMP-MOD.',
@@ -738,7 +738,7 @@ async function seedPoliciesIfMissing(): Promise<void> {
     await db.execute(sql`
       INSERT INTO nv_policy_versions (policy_id, version, body_md, changelog, published_by, published_at)
       VALUES (${policyId}, '1.0.0', ${p.body_md}, 'Demo G1B initial publication.',
-              'compliance@nyayavigya', NOW() - interval '90 days')
+              'compliance@jurexio', NOW() - interval '90 days')
       ON CONFLICT (policy_id, version) DO NOTHING
     `);
     // task-298 review-fix v8: deterministic minimum-guarantee seeding.

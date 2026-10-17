@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * Jurexio New Services API Routes v3.1.2
- * NYV-ROUTE-NEW-SERVICES-001
+ * JRX-ROUTE-NEW-SERVICES-001
  *
  * Routes for all new production services:
  *   - Digital Twin API         /api/jrx/digital-twin/*

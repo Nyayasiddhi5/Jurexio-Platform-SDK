@@ -113,7 +113,7 @@ describe('breach-notice real outbound transport (SMTP via nodemailer)', () => {
     // 1 email recipient — actually sent via nodemailer.
     expect(sentSpy).toHaveBeenCalledTimes(1);
     const call = sentSpy.mock.calls[0]![0]!;
-    expect(call.to).toBe('ny-resident-letter@notice.nyayasiddhi.online');
+    expect(call.to).toBe('ny-resident-letter@notice.jurexio.com');
     expect(call.headers['X-Jurexio-Notice-Id']).toBe(out.notices[0]!.noticeId);
     expect(call.headers['X-Jurexio-Org-Id']).toBe('org-tx-A');
 
@@ -156,7 +156,7 @@ describe('breach-notice real outbound transport (SMTP via nodemailer)', () => {
     const portals = out.notices.filter((n) => n.channel === 'web_portal');
 
     // NY > 500 fan-out (4) + MA fan-out (3) = 7 notices total.
-    // Email-channel destinations (4): NY_RESIDENTS, NYS_POLICE, MA_RESIDENTS,
+    // Email-channel destinations (4): NY_RESIDENTS, JRX_ECOSYSTEM_POLICE, MA_RESIDENTS,
     // MA_OCABR. Web-portal destinations (3): NY_OAG, NY_DOS, MA_AG.
     expect(emails.length + portals.length).toBe(out.notices.length);
     expect(sentSpy).toHaveBeenCalledTimes(emails.length);

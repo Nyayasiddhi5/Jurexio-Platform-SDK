@@ -104,7 +104,7 @@ export class APIClient {
    * Jurexio-specific API methods
    */
   static async orchestrateProject<T>(request: any): Promise<APIResponse<T>> {
-    return this.post<T>('/nyayavigya/orchestrate', request);
+    return this.post<T>('/jurexio/orchestrate', request);
   }
 
   static async getAgentStatus<T>(agentId: string): Promise<APIResponse<T>> {

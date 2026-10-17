@@ -1,12 +1,12 @@
 /**
- * NYV SDK Security + Tracking Middleware v1.0.0
+ * JRX SDK Security + Tracking Middleware v1.0.0
  * ─────────────────────────────────────────────────────────────────────────────
  * Applied to all /api/jrx/gateway/* (SDK API key authenticated) routes.
  *
  * SECURITY LAYERS:
  *   1. API Key validation (token lookup in nv_schema.sdk_app_api_keys)
  *   2. HMAC-SHA256 request signing validation (optional, for enterprise tier)
- *      Header: X-NYV-Signature: hmac-sha256=<hex>
+ *      Header: X-JRX-Signature: hmac-sha256=<hex>
  *      Signed string: "{method}\n{path}\n{timestamp}\n{bodyHash}"
  *   3. Subscription tier enforcement (Free / Pro / Enterprise)
  *   4. Per-tier rate limiting (Free=10/min, Pro=60/min, Enterprise=600/min)
@@ -22,8 +22,8 @@
  *
  * HMAC SIGNING (Enterprise only — optional):
  *   Client must set header:
- *     X-NYV-Signature: hmac-sha256=<HMAC(apiSecret, signedString)>
- *     X-NYV-Timestamp: <Unix timestamp (must be within 5min)>
+ *     X-JRX-Signature: hmac-sha256=<HMAC(apiSecret, signedString)>
+ *     X-JRX-Timestamp: <Unix timestamp (must be within 5min)>
  *   If present and tier=enterprise, must be valid. Replay attacks rejected.
  *
  * TELEMETRY:
@@ -31,7 +31,7 @@
  *   On completion, a span record is written to public.sdk_api_request_logs
  *   with: traceId, appId, orgId, route, method, statusCode, latencyMs, tokens, cost.
  *
- * @module nv-sdk-tracking-middleware
+ * @module jrx-sdk-tracking-middleware
  * @version 1.0.0
  */
 
@@ -147,11 +147,11 @@ async function resolveApiKey(rawKey: string): Promise<ApiKeyCacheEntry | null> {
     const keyPrefix = rawKey.slice(0, 12);
     const hashedKey = crypto.createHash('sha256').update(rawKey).digest('hex');
 
-    // NYV-AUDIT-A2 (2026-05-05): canonical SDK key store is `public.sdk_app_api_keys`
-    // (7 rows, NYV-NS-016). The previous query against `nv_schema.sdk_app_api_keys`
+    // JRX-AUDIT-A2 (2026-05-05): canonical SDK key store is `public.sdk_app_api_keys`
+    // (7 rows, JRX-NS-016). The previous query against `nv_schema.sdk_app_api_keys`
     // (0 rows, orphan) silently failed every API-key lookup performed via this
     // tracking middleware path. The legacy `nv_sdk_applications` (40 rows,
-    // DEPRECATED) is now superseded by `sdk_applications` per the NYV-NS-016
+    // DEPRECATED) is now superseded by `sdk_applications` per the JRX-NS-016
     // unify migration; both are read-aliased to keep tracking working during
     // the v3.x → v5.x sunset window.
     interface ApiKeyLookupRow {
@@ -210,8 +210,8 @@ async function resolveApiKey(rawKey: string): Promise<ApiKeyCacheEntry | null> {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function validateHmacSignature(req: Request, apiSecret: string): boolean {
-  const sig = req.headers['x-nyv-signature'] as string;
-  const ts = req.headers['x-nyv-timestamp'] as string;
+  const sig = req.headers['x-jrx-signature'] as string;
+  const ts = req.headers['x-jrx-timestamp'] as string;
   if (!sig || !ts) return false;
 
   // Reject timestamps older than 5 minutes
@@ -508,8 +508,8 @@ export async function writeAuditLog(params: {
   statusCode: number;
   latencyMs: number;
   tokensUsed?: number;
-  // NYV-P1-ORCH-CORE-001 (item B): real per-request usage from
-  // nv-request-usage-context. tokensIn/tokensOut split the (legacy)
+  // JRX-P1-ORCH-CORE-001 (item B): real per-request usage from
+  // jrx-request-usage-context. tokensIn/tokensOut split the (legacy)
   // tokensUsed total; costUsd carries the accumulated provider cost. All
   // optional + best-effort so existing callers that omit them are unaffected.
   tokensIn?: number;
@@ -522,7 +522,7 @@ export async function writeAuditLog(params: {
   // Boot hash chain from DB on first call
   await bootHashChain();
 
-  // NYV-AUDIT-B2 (2026-05-05): canonical = public.sdk_api_request_logs.
+  // JRX-AUDIT-B2 (2026-05-05): canonical = public.sdk_api_request_logs.
   // The legacy nv_schema.sdk_api_request_logs table was dropped after row
   // diff confirmed its 71 rows were pattern-detector synthetic traffic
   // (app_id values like 'pattern:REACT' that have no FK to sdk_applications).
@@ -530,13 +530,13 @@ export async function writeAuditLog(params: {
   //   app_id (text)    → application_id (int, NULL when non-numeric)
   //   tokens_used      → tokens_in (tokens_out=0; tracking middleware does
   //                                   not split in/out — gateway writer at
-  //                                   nv-sdk-gateway.ts:566 sets both)
+  //                                   jrx-sdk-gateway.ts:566 sets both)
   //   trace_id         → request_id
   //   route            → endpoint
   //   raw appId / orgId / errorMessage → metadata (jsonb), so pattern logs
   //                                       are still queryable.
   const numericAppId = /^\d+$/.test(params.appId) ? Number(params.appId) : null;
-  // NYV-P1-ORCH-CORE-001 (item B): derive the real token split + cost. When a
+  // JRX-P1-ORCH-CORE-001 (item B): derive the real token split + cost. When a
   // caller supplies tokensIn/tokensOut we use them verbatim; otherwise the
   // (legacy) single tokensUsed total is written to tokens_in with tokens_out=0
   // so older call sites keep working unchanged.
@@ -576,7 +576,7 @@ export async function writeAuditLog(params: {
   // Write to nv_audit_logs with full hash chain for tamper-evidence —
   // real-time enforcement: throws AuditChainBrokenError on tampering.
   const eventType = `sdk_request:${params.method}:${params.statusCode}`;
-  // NYV-P1-ORCH-CORE-001 (item B): the tamper-evident hash chain now carries
+  // JRX-P1-ORCH-CORE-001 (item B): the tamper-evident hash chain now carries
   // the REAL token split + cost (not the previous hard 0), so the audit
   // record is a faithful, immutable witness of what each SDK request actually
   // consumed.
@@ -613,7 +613,7 @@ export async function writeAuditLog(params: {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PATTERN AUDIT LOG WRITER (hash-chain, pattern-execution specific)
-// Called by nv-patterns-routes.ts router middleware for all 22 patterns (T003).
+// Called by jrx-patterns-routes.ts router middleware for all 22 patterns (T003).
 // Uses the same SHA-256 hash chain as writeAuditLog to maintain tamper evidence.
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -675,8 +675,8 @@ export function sdkTrackingMiddleware(options: {
     const startMs = Date.now();
 
     // Inject trace ID into request and response headers
-    req.headers['x-nyv-trace-id'] = traceId;
-    res.setHeader('X-NYV-Trace-Id', traceId);
+    req.headers['x-jrx-trace-id'] = traceId;
+    res.setHeader('X-JRX-Trace-Id', traceId);
 
     // NV-AUTH-HEADER-001 (2026-05-10): canonical SDK API-key extractor.
     // Reads X-API-Key, falls back to Authorization: Bearer <key>.
@@ -702,7 +702,7 @@ export function sdkTrackingMiddleware(options: {
 
       // HMAC signature validation (enterprise tier, when required)
       if (keyEntry.requiresSigning && !options.skipSignatureValidation) {
-        const apiSecret = process.env[`NYV_SDK_SECRET_${keyEntry.apiKeyId}`] ?? '';
+        const apiSecret = process.env[`JRX_SDK_SECRET_${keyEntry.apiKeyId}`] ?? '';
         if (apiSecret && !validateHmacSignature(req, apiSecret)) {
           logger.warn('hmac_validation_failed', { appId: keyEntry.appId });
           void res.status(401).json({ success: false, error: "Request signature validation failed.", traceId }); return;
@@ -747,8 +747,8 @@ export function sdkTrackingMiddleware(options: {
       req.nvSdk = sdkCtx;
 
       // Add tier info to response headers
-      res.setHeader('X-NYV-App-Id', keyEntry.appId);
-      res.setHeader('X-NYV-Tier', keyEntry.tier);
+      res.setHeader('X-JRX-App-Id', keyEntry.appId);
+      res.setHeader('X-JRX-Tier', keyEntry.tier);
     }
 
     // Hook into response finish to write audit log
@@ -759,8 +759,8 @@ export function sdkTrackingMiddleware(options: {
         const current = concurrentRequests.get(concKey) ?? 1;
         concurrentRequests.set(concKey, Math.max(0, current - 1));
 
-        // NYV-P1-ORCH-CORE-001 (item B): read the real per-request usage
-        // accumulated by nv-request-usage-context (recordLlmUsage →
+        // JRX-P1-ORCH-CORE-001 (item B): read the real per-request usage
+        // accumulated by jrx-request-usage-context (recordLlmUsage →
         // res.locals.nvUsage) so the tamper-evident chain records actual
         // tokens/cost instead of 0. The AsyncLocalStorage context does not
         // survive to 'finish', so we read the object pinned on res.locals.
@@ -779,7 +779,7 @@ export function sdkTrackingMiddleware(options: {
         // we log the chain failure at ERROR level with `audit_chain_failure`
         // and the full identifying context so an alert can be wired against
         // it. (The fail-closed path that DOES exist is in
-        // `nv-sdk-keylife-routes.ts`, where the audit write happens BEFORE
+        // `jrx-sdk-keylife-routes.ts`, where the audit write happens BEFORE
         // the raw key is returned and a chain failure deactivates the key
         // and returns 500.)
         writeAuditLog({
@@ -807,7 +807,7 @@ export function sdkTrackingMiddleware(options: {
             errorName: err?.name ?? 'unknown',
             errorMessage: err?.message ?? String(err),
             severity: 'CRITICAL',
-            alertCode: 'NYV-AUDIT-CHAIN-001',
+            alertCode: 'JRX-AUDIT-CHAIN-001',
           });
         });
 
@@ -855,7 +855,7 @@ export async function verifyHashChain(limit = 1000): Promise<{
   report: string;
 }> {
   try {
-    // NYV-AUDIT-HASH-004 (2026-05-09, architect caveat): pull the LATEST N
+    // JRX-AUDIT-HASH-004 (2026-05-09, architect caveat): pull the LATEST N
     // (DESC + LIMIT), then reverse in-memory for chain walk. Prior ASC LIMIT
     // grabbed the oldest N which would miss recent corruption once the table
     // exceeds N rows.
@@ -889,11 +889,11 @@ export async function verifyHashChain(limit = 1000): Promise<{
     let firstBrokenId: string | undefined;
 
     for (const rec of records) {
-      // NYV-AUDIT-HASH-003 (2026-05-08): pg returns timestamptz as STRING
+      // JRX-AUDIT-HASH-003 (2026-05-08): pg returns timestamptz as STRING
       // ("2026-05-08 18:42:12.052+00") but writer hashed ISO format
       // ("2026-05-08T18:42:12.052Z"). Always re-normalize to ISO so writer
       // and verifier agree byte-for-byte. computeAuditHash already canonicalizes
-      // payload (NYV-AUDIT-HASH-002).
+      // payload (JRX-AUDIT-HASH-002).
       const createdAtIso = normalizeAuditCreatedAt(rec.created_at);
       const expected = computeAuditHash(
         rec.id,

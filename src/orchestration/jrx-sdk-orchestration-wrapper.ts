@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 /**
- * nv-sdk-orchestration-wrapper.ts — R2 deliverable for NV-LLM-001 / NV-ARCH-001.
+ * jrx-sdk-orchestration-wrapper.ts — R2 deliverable for NV-LLM-001 / NV-ARCH-001.
  *
  * Single canonical entry point that EVERY SDK service (doc pipeline, workflow,
  * voice, AutomateAI, identity-extraction, gateway routes) MUST use instead of
@@ -156,7 +156,7 @@ export async function executeWithFullSafetyRing(
     matterId: ctx.matterId,
     enableCoT: ctx.enableCoT ?? false,
     // NV-COT-AUTO-STRATEGY-001 — forward only a caller-supplied strategy so
-    // nv-client can pick from the task shape. Defaulting here pinned every SDK
+    // jrx-client can pick from the task shape. Defaulting here pinned every SDK
     // request to zero_shot_cot regardless of task.
     cotStrategy: (ctx.cotStrategy as any) || undefined,
     softPolicy: Boolean(ctx.softPolicy ?? ctx.ctx?.softPolicy) || isSoftPolicyActive(),
@@ -207,7 +207,7 @@ export async function executeWithFullSafetyRing(
 
   // H1 (R5 architect-fix 2026-05-07): normalize NvResponse.tokens (prompt/completion)
   // to LLMResponse.tokens (input/output) — emit BOTH shapes so legacy callers that
-  // read .tokens.prompt/.completion (e.g. nv-gateway-routes:167, nv-orchestration-
+  // read .tokens.prompt/.completion (e.g. jrx-gateway-routes:167, jrx-orchestration-
   // routes:400) and new callers that destructure LLMResponse.tokens.input/output
   // both work without breakage.
   const t = nvResp.tokens || ({} as any);

@@ -12,11 +12,11 @@
  *     re-emitted on every gap-analysis call) don't create duplicates.
  *   - Best-effort: persistence failures must NEVER break the upstream
  *     request path. We swallow + log warnings only.
- *   - Table shape: kept in sync with `nv-cam-routes.ts::ensureTable()`.
+ *   - Table shape: kept in sync with `jrx-cam-routes.ts::ensureTable()`.
  *     This helper also runs CREATE TABLE IF NOT EXISTS so writers can
  *     fire before any reviewer ever hits GET /reviews.
  *
- * NV-NAMING-001: nv- prefix.
+ * NV-NAMING-001: jrx- prefix.
  * NV-WIRING-001: imported by middleware/services that produce signals.
  */
 import { createHash } from 'crypto';

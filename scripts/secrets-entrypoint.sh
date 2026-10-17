@@ -7,10 +7,10 @@
 #
 #   1. Per-key reference: any env var whose value starts with `secret://` is
 #      resolved by reading that secret name and assigning the plaintext.
-#      Example: NYV_SDK_API_KEY=secret://nyayavigya/prod/nym/sdk_api_key
+#      Example: JRX_SDK_API_KEY=secret://nyayavigya/prod/nym/sdk_api_key
 #
-#   2. Bulk prefix sync: if NYV_SECRETS_BACKEND=aws-secrets-manager and
-#      NYV_SECRETS_PREFIX is set, every secret under that prefix is fetched and
+#   2. Bulk prefix sync: if JRX_SECRETS_BACKEND=aws-secrets-manager and
+#      JRX_SECRETS_PREFIX is set, every secret under that prefix is fetched and
 #      exported using the last `/`-separated segment as the env var name
 #      (uppercased, dashes -> underscores).
 #      Example: prefix `nyayavigya/prod/gateway`
@@ -35,13 +35,13 @@ fi
 REGION="${AWS_REGION:-ap-south-1}"
 
 # 1. Bulk prefix sync ---------------------------------------------------------
-if [ "${NYV_SECRETS_BACKEND:-}" = "aws-secrets-manager" ] && [ -n "${NYV_SECRETS_PREFIX:-}" ]; then
-  LOG "Syncing secrets under prefix: ${NYV_SECRETS_PREFIX}"
+if [ "${JRX_SECRETS_BACKEND:-}" = "aws-secrets-manager" ] && [ -n "${JRX_SECRETS_PREFIX:-}" ]; then
+  LOG "Syncing secrets under prefix: ${JRX_SECRETS_PREFIX}"
   NAMES=$(aws secretsmanager list-secrets --region "$REGION" \
-            --filters "Key=name,Values=${NYV_SECRETS_PREFIX}/" \
+            --filters "Key=name,Values=${JRX_SECRETS_PREFIX}/" \
             --query 'SecretList[].Name' --output text 2>/dev/null || true)
   if [ -z "$NAMES" ]; then
-    LOG "WARN: no secrets matched prefix ${NYV_SECRETS_PREFIX}/"
+    LOG "WARN: no secrets matched prefix ${JRX_SECRETS_PREFIX}/"
   fi
   for name in $NAMES; do
     leaf=$(echo "$name" | sed 's:.*/::')

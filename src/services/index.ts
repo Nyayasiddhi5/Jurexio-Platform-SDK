@@ -433,7 +433,7 @@ export {
   LLMProviders
 };
 
-// NYV SDK LDA+SIA Phase 6 Service Exports
+// JRX SDK LDA+SIA Phase 6 Service Exports
 export { legalDocAnalyzeService } from './legal-doc-analyze-service.js';
 export { agentPersonaService } from './agent-persona-service.js';
 export { socialMemoryService } from './social-memory-service.js';

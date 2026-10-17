@@ -2,7 +2,7 @@
  * CotApi — Chain-of-Thought reasoning for SDK legal/agentic tasks.
  * Wraps POST /api/jrx/v1/sdk/sampling/chain-of-thought and strategy catalog.
  */
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export type CotStrategy =
   | 'zero_shot_cot' | 'few_shot_cot' | 'self_consistency' | 'tree_of_thought'
@@ -25,7 +25,7 @@ export interface CotExecuteResponse {
 }
 
 export class CotApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   /** List available CoT strategies. */
   listStrategies(): Promise<{ count: number; strategies: Array<{ id: string; label: string; legalUse: string }> }> {

@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { p } from '@/lib/jrx-api-paths';
 import { DollarSign, RefreshCw, TrendingUp, ExternalLink, Coins } from 'lucide-react';
 
@@ -78,7 +78,7 @@ export default function TokenMetricsPanel() {
       )}
 
       {overviewQ.isError && (
-        <NyvErrorState
+        <JrxErrorState
           title="Cost overview unavailable"
           description="Requires super_admin role."
           onRetry={() => overviewQ.refetch()}

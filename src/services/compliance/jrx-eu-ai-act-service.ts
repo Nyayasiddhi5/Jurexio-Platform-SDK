@@ -121,7 +121,7 @@ class NvEuAiActService {
 
     return {
       jurisdiction,
-      dataGovernanceFramework: 'NYV Data Governance Framework v3.1.2',
+      dataGovernanceFramework: 'JRX Data Governance Framework v3.1.2',
       dataSources: [
         'Official gazette publications',
         'Court judgment databases (eCourts, SCC Online, Manupatra)',

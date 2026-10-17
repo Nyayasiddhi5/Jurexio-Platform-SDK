@@ -50,7 +50,7 @@ describe('buildCourtDocFieldBlock — one shape for every path', () => {
     for (const k of CONTRACT_KEYS) {
       expect(block, `missing key ${k}`).toHaveProperty(k);
     }
-    // A null extraction must never claim NYV provenance.
+    // A null extraction must never claim JRX provenance.
     expect(block.fieldSource).toBe('none');
     expect(block.fieldCount).toBe(0);
   });
@@ -146,7 +146,7 @@ describe('NV-ANALYZE-STATUS-005 — all four analyze paths pass an outcome', () 
   it('analyzeDocument returns the DERIVED status, not a hardcoded one', () => {
     /* Source-level by necessity: `analyzeDocument` needs Postgres and six LLM calls, so
      * the derivation was extracted into the pure `deriveAnalysisStatus` (tested
-     * behaviourally in nv-nsp-analyze-status-and-breaker.test.ts) and this asserts only
+     * behaviourally in jrx-nsp-analyze-status-and-breaker.test.ts) and this asserts only
      * the wiring between them. A mutation replacing the spread with literal values is
      * invisible to the behavioural tests, so this is the instrument that catches it. */
     const SVC = read('src/services/legal-doc-analyze-service.ts');

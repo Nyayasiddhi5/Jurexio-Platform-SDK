@@ -55,9 +55,9 @@ const PLATFORMS: Array<{
     serviceFiles: ['src/services/nyayasiddhi-lite-service.ts'],
   },
   {
-    name: 'Nyayamitra (Citizen Legal Aid)',
+    name: 'Jurexio Citizen (Citizen Legal Aid)',
     routeGlobs: [
-      'src/routes/nyayamitra-routes.ts',
+      'src/routes/jurexio-citizen-routes.ts',
       'src/routes/nm-chat-routes.ts',
       'src/routes/nm-casebrief-routes.ts',
       'src/routes/nm-quiz-routes.ts',
@@ -66,7 +66,7 @@ const PLATFORMS: Array<{
       'src/routes/nm-literacy-routes.ts',
       'src/routes/nm-script-routes.ts',
     ],
-    serviceFiles: ['src/services/nyayamitra-service.ts'],
+    serviceFiles: ['src/services/jurexio-citizen-service.ts'],
   },
   {
     name: 'Jurexio Institutional (Enterprise)',
@@ -103,8 +103,8 @@ const PLATFORMS: Array<{
   {
     name: 'Jurexio Core (AI Engine)',
     routeGlobs: [
-      'src/routes/nyayavigya-routes.ts',
-      'src/routes/nyayavigya-v311-routes.ts',
+      'src/routes/jurexio-routes.ts',
+      'src/routes/jurexio-v311-routes.ts',
       'src/routes/jrx-gateway-routes.ts',
     ],
     serviceFiles: [

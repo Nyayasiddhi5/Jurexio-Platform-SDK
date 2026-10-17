@@ -3,7 +3,7 @@
  * NV-QUALITY-TREND-001 — legal-answer quality tracked over time.
  *
  * The quality *harness* already exists (`scripts/jrx-eval-legal-accuracy.ts`,
- * plus `nv-ragas-eval.ts` and `nv-rerank-ndcg-eval.ts`) and it already writes a
+ * plus `jrx-ragas-eval.ts` and `jrx-rerank-ndcg-eval.ts`) and it already writes a
  * timestamped scoreboard per run into `docs/audit/eval/`. What did not exist was
  * any way to answer the only question that matters over a release cycle:
  *
@@ -29,7 +29,7 @@
 import fs from 'fs';
 import path from 'path';
 
-/** Per-jurisdiction row as emitted by nv-eval-legal-accuracy.ts. */
+/** Per-jurisdiction row as emitted by jrx-eval-legal-accuracy.ts. */
 type JurisdictionRow = {
   jurisdiction: string;
   itemsEvaluated?: number;
@@ -214,7 +214,7 @@ function main(): void {
   console.log(
     `Absolute release gate on the latest run: `
     + `${curr.releaseGatePassed === true ? 'PASS' : 'FAIL'} `
-    + `(owned by nv-eval-legal-accuracy.ts, not by this trend check)`,
+    + `(owned by jrx-eval-legal-accuracy.ts, not by this trend check)`,
   );
 
   if (gate && regressions.length > 0) {

@@ -7,21 +7,21 @@
 // CLIENT CONFIG
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvClientConfig {
+export interface JrxClientConfig {
   apiKey: string;
   baseUrl?: string;
   timeout?: number;
   /** Queen /api/jrx/orchestrate timeout (default 600_000 ms). */
   orchestrateTimeoutMs?: number;
-  defaultJurisdiction?: NyvJurisdiction;
-  defaultPlatform?: NyvPlatform;
+  defaultJurisdiction?: JrxJurisdiction;
+  defaultPlatform?: JrxPlatform;
   defaultAgentId?: string;
   debug?: boolean;
   /** NSP shared-docs header, e.g. nyayasiddhi-professional/1.0.0 */
   platformClient?: string;
   /** East-west inter-service secret → `X-NSP-Inter-Secret` (alias `X-Inter-Service-Secret`). */
   interServiceSecret?: string;
-  /** SDK version override (defaults to NyvClient.VERSION). */
+  /** SDK version override (defaults to JrxClient.VERSION). */
   version?: string;
 }
 
@@ -29,51 +29,51 @@ export interface NyvClientConfig {
 // DOMAIN ENUMS
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type NyvJurisdiction = 'IN' | 'UK' | 'US' | 'GC' | 'EU' | 'SG';
+export type JrxJurisdiction = 'IN' | 'UK' | 'US' | 'GC' | 'EU' | 'SG';
 
-export type NyvPlatform =
-  | 'nyayamitra'
+export type JrxPlatform =
+  | 'jurexio-citizen'
   | 'nys-professional'
   | 'nys-institutional'
   | 'nys-academy'
   | 'nys-ministry';
 
-export type NyvAgentPattern =
+export type JrxAgentPattern =
   | 'P01' | 'P02' | 'P03' | 'P04' | 'P05' | 'P06' | 'P07' | 'P08'
   | 'P09' | 'P10' | 'P11' | 'P12' | 'P13' | 'P14' | 'P15' | 'P16'
   | 'P17' | 'P18' | 'P19' | 'P20' | 'P21' | 'P22';
 
-export type NyvRiskLevel = 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW' | 'MINIMAL';
+export type JrxRiskLevel = 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW' | 'MINIMAL';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PATTERN TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvBasePatternRequest {
+export interface JrxBasePatternRequest {
   task: string;
   agentId?: string;
-  jurisdiction?: NyvJurisdiction;
-  platform?: NyvPlatform;
+  jurisdiction?: JrxJurisdiction;
+  platform?: JrxPlatform;
   context?: Record<string, unknown>;
 }
 
-export interface NyvPatternResponse {
+export interface JrxPatternResponse {
   pattern: string;
   traceId: string;
   agentId?: string;
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   result?: string;
   legalPosition?: string;
   reasoning?: string | string[];
-  citations?: NyvCitation[];
-  risks?: NyvRiskAssessment[];
+  citations?: JrxCitation[];
+  risks?: JrxRiskAssessment[];
   recommendation?: string;
   confidenceScore?: number;
   performanceMs?: number;
   [key: string]: unknown;
 }
 
-export interface NyvCitation {
+export interface JrxCitation {
   statute?: string;
   section?: string;
   case?: string;
@@ -83,26 +83,26 @@ export interface NyvCitation {
   url?: string;
 }
 
-export interface NyvRiskAssessment {
+export interface JrxRiskAssessment {
   type: string;
-  level: NyvRiskLevel;
+  level: JrxRiskLevel;
   description: string;
   mitigation?: string;
   probability?: number;
 }
 
 // Pattern-specific request extensions
-export interface ReActRequest extends NyvBasePatternRequest {
+export interface ReActRequest extends JrxBasePatternRequest {
   maxIterations?: number;
   tools?: string[];
 }
 
-export interface ToTRequest extends NyvBasePatternRequest {
+export interface ToTRequest extends JrxBasePatternRequest {
   numBranches?: number;
   evaluationDepth?: number;
 }
 
-export interface GRPORequest extends NyvBasePatternRequest {
+export interface GRPORequest extends JrxBasePatternRequest {
   outputId?: string;
   outputContent?: string;
   advocateScores?: {
@@ -115,7 +115,7 @@ export interface GRPORequest extends NyvBasePatternRequest {
   };
 }
 
-export interface DigitalTwinRequest extends NyvBasePatternRequest {
+export interface DigitalTwinRequest extends JrxBasePatternRequest {
   twinPersona?: 'managing-partner' | 'senior-litigator' | 'compliance-head';
   domainExpertise?: string;
   yearsExperience?: number;
@@ -126,7 +126,7 @@ export interface DigitalTwinRequest extends NyvBasePatternRequest {
 // DOCUMENT TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvDocumentUploadResponse {
+export interface JrxDocumentUploadResponse {
   success: boolean;
   docId: string;
   jobId: string;
@@ -135,7 +135,7 @@ export interface NyvDocumentUploadResponse {
   message?: string;
 }
 
-export interface NyvDocumentStatus {
+export interface JrxDocumentStatus {
   docId: string;
   jobId: string;
   status: 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED';
@@ -147,14 +147,14 @@ export interface NyvDocumentStatus {
   completedAt?: string;
 }
 
-export interface NyvDocumentSearchResult {
-  results: NyvDocumentChunk[];
+export interface JrxDocumentSearchResult {
+  results: JrxDocumentChunk[];
   query: string;
   totalResults: number;
   searchTimeMs: number;
 }
 
-export interface NyvDocumentChunk {
+export interface JrxDocumentChunk {
   docId: string;
   chunkId: string;
   content: string;
@@ -164,7 +164,7 @@ export interface NyvDocumentChunk {
   pageNumber?: number;
 }
 
-export interface NyvDocumentAnalysis {
+export interface JrxDocumentAnalysis {
   success: boolean;
   analysis: {
     summary?: string;
@@ -172,7 +172,7 @@ export interface NyvDocumentAnalysis {
     parties?: string[];
     clauses?: Array<{ type: string; content: string; risk?: string }>;
     obligations?: Array<{ party: string; obligation: string; deadline?: string }>;
-    risks?: NyvRiskAssessment[];
+    risks?: JrxRiskAssessment[];
     missingTerms?: string[];
     privacyAlerts?: string[];
   };
@@ -182,23 +182,23 @@ export interface NyvDocumentAnalysis {
 // AGENT TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvAgent {
+export interface JrxAgent {
   agentId: string;
   name: string;
   type: string;
-  pattern?: NyvAgentPattern;
-  jurisdiction?: NyvJurisdiction[];
+  pattern?: JrxAgentPattern;
+  jurisdiction?: JrxJurisdiction[];
   status: 'active' | 'inactive' | 'training';
   description?: string;
   capabilities?: string[];
 }
 
-export interface NyvAgentExecution {
+export interface JrxAgentExecution {
   executionId: string;
   agentId: string;
   task: string;
   status: 'running' | 'completed' | 'failed';
-  result?: NyvPatternResponse;
+  result?: JrxPatternResponse;
   startedAt: string;
   completedAt?: string;
   latencyMs?: number;
@@ -208,13 +208,13 @@ export interface NyvAgentExecution {
 // SKILL TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvSkill {
+export interface JrxSkill {
   skillId: string;
   name: string;
   description: string;
   category: string;
-  agentPattern?: NyvAgentPattern;
-  jurisdiction?: NyvJurisdiction[];
+  agentPattern?: JrxAgentPattern;
+  jurisdiction?: JrxJurisdiction[];
   version: string;
   author?: string;
   rating?: number;
@@ -226,7 +226,7 @@ export interface NyvSkill {
   outputSchema?: Record<string, unknown>;
 }
 
-export interface NyvSkillExecution {
+export interface JrxSkillExecution {
   executionId: string;
   skillId: string;
   input: Record<string, unknown>;
@@ -240,18 +240,18 @@ export interface NyvSkillExecution {
 // DIGITAL TWIN TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvDigitalTwin {
+export interface JrxDigitalTwin {
   twinId: string;
   name: string;
   persona: string;
   expertise: string;
-  jurisdiction: NyvJurisdiction;
+  jurisdiction: JrxJurisdiction;
   state: Record<string, unknown>;
   createdAt: string;
   lastSimulatedAt?: string;
 }
 
-export interface NyvTwinSimulationResult {
+export interface JrxTwinSimulationResult {
   twinId: string;
   scenarioId: string;
   scenario: string;
@@ -260,7 +260,7 @@ export interface NyvTwinSimulationResult {
     probability: number;
     reasoning: string;
     timeline?: string;
-    risks?: NyvRiskAssessment[];
+    risks?: JrxRiskAssessment[];
   }>;
   recommendation: string;
   confidence: number;
@@ -271,9 +271,9 @@ export interface NyvTwinSimulationResult {
 // KNOWLEDGE / RAG TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvKnowledgeSearchRequest {
+export interface JrxKnowledgeSearchRequest {
   query: string;
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   limit?: number;
   searchMode?: 'hybrid' | 'semantic' | 'keyword';
   filters?: {
@@ -284,19 +284,19 @@ export interface NyvKnowledgeSearchRequest {
   };
 }
 
-export interface NyvKnowledgeSearchResponse {
-  results: NyvDocumentChunk[];
+export interface JrxKnowledgeSearchResponse {
+  results: JrxDocumentChunk[];
   query: string;
   totalResults: number;
   searchTimeMs: number;
-  jurisdiction: NyvJurisdiction;
+  jurisdiction: JrxJurisdiction;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // STREAMING / AG-UI TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type NyvStreamEventType =
+export type JrxStreamEventType =
   | 'run_started'
   | 'agent_started'
   | 'agent_selected'
@@ -320,8 +320,8 @@ export type NyvStreamEventType =
   | 'run_error'
   | 'metadata';
 
-export interface NyvStreamEvent {
-  type: NyvStreamEventType;
+export interface JrxStreamEvent {
+  type: JrxStreamEventType;
   traceId?: string;
   agentId?: string;
   pattern?: string;
@@ -330,12 +330,12 @@ export interface NyvStreamEvent {
   sequence?: number;
 }
 
-export interface NyvThinkingStepEvent extends NyvStreamEvent {
+export interface JrxThinkingStepEvent extends JrxStreamEvent {
   type: 'thinking_step';
   data: { step: string; index: number; total: number };
 }
 
-export interface NyvTextDeltaEvent extends NyvStreamEvent {
+export interface JrxTextDeltaEvent extends JrxStreamEvent {
   type: 'text_delta';
   data: {
     delta: string;
@@ -350,13 +350,13 @@ export interface NyvTextDeltaEvent extends NyvStreamEvent {
   };
 }
 
-export interface NyvRunFinishedEvent extends NyvStreamEvent {
+export interface JrxRunFinishedEvent extends JrxStreamEvent {
   type: 'run_finished';
-  data: { result: NyvPatternResponse; latencyMs: number };
+  data: { result: JrxPatternResponse; latencyMs: number };
 }
 
 /** T002 — Specialized pattern mechanics event (P01-P10) */
-export interface NyvPatternSpecializedEvent {
+export interface JrxPatternSpecializedEvent {
   type: 'pattern_event';
   subtype: string;
   label: string;
@@ -366,10 +366,10 @@ export interface NyvPatternSpecializedEvent {
   [key: string]: unknown;
 }
 
-export interface NyvStreamHandlers {
-  onStart?: (event: NyvStreamEvent) => void;
+export interface JrxStreamHandlers {
+  onStart?: (event: JrxStreamEvent) => void;
   /** Fired when Queen selects / starts a specialist agent (AG-UI agent_selected). */
-  onAgentSelected?: (agent: string, event: NyvStreamEvent) => void;
+  onAgentSelected?: (agent: string, event: JrxStreamEvent) => void;
   onThinking?: (step: string, index: number, total: number) => void;
   onToolCall?: (tool: string, input: unknown) => void;
   onToolResult?: (tool: string, result: unknown) => void;
@@ -378,12 +378,12 @@ export interface NyvStreamHandlers {
     accumulated: string,
     meta?: { provisional?: boolean; gated?: boolean },
   ) => void;
-  onComplete?: (result: NyvPatternResponse) => void;
-  onError?: (error: NyvApiError) => void;
+  onComplete?: (result: JrxPatternResponse) => void;
+  onError?: (error: JrxApiError) => void;
   /** T002 — Fired for P01-P10 specialized events (react_cycle, reasoning_step, branch_evaluated, etc.) */
-  onPatternEvent?: (event: NyvPatternSpecializedEvent) => void;
+  onPatternEvent?: (event: JrxPatternSpecializedEvent) => void;
   /** Fired for all metadata events emitted during AG-UI streaming */
-  onMetadata?: (event: NyvStreamEvent) => void;
+  onMetadata?: (event: JrxStreamEvent) => void;
   /** Fired for each citation block emitted during streaming */
   onCitationBlock?: (citations: unknown[]) => void;
 }
@@ -392,7 +392,7 @@ export interface NyvStreamHandlers {
 // VOICE TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvVoiceSynthesisRequest {
+export interface JrxVoiceSynthesisRequest {
   text: string;
   voice?: string;
   language?: 'en' | 'hi' | 'ta' | 'te' | 'ml' | 'kn' | 'mr' | 'bn';
@@ -401,7 +401,7 @@ export interface NyvVoiceSynthesisRequest {
   format?: 'mp3' | 'wav' | 'ogg';
 }
 
-export interface NyvVoiceSynthesisResponse {
+export interface JrxVoiceSynthesisResponse {
   audioBase64: string;
   format: string;
   durationMs: number;
@@ -409,7 +409,7 @@ export interface NyvVoiceSynthesisResponse {
   voice: string;
 }
 
-export interface NyvVoiceTranscriptionResponse {
+export interface JrxVoiceTranscriptionResponse {
   text: string;
   language: string;
   confidence: number;
@@ -421,7 +421,7 @@ export interface NyvVoiceTranscriptionResponse {
 // ERROR TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvApiError {
+export interface JrxApiError {
   code: string;
   message: string;
   status: number;
@@ -429,15 +429,15 @@ export interface NyvApiError {
   details?: unknown;
 }
 
-export class NyvError extends Error {
+export class JrxError extends Error {
   public readonly code: string;
   public readonly status: number;
   public readonly traceId?: string;
   public readonly details?: unknown;
 
-  constructor(err: NyvApiError) {
+  constructor(err: JrxApiError) {
     super(err.message);
-    this.name = 'NyvError';
+    this.name = 'JrxError';
     this.code = err.code;
     this.status = err.status;
     this.traceId = err.traceId;
@@ -449,7 +449,7 @@ export class NyvError extends Error {
 // PAGINATION
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvListResponse<T> {
+export interface JrxListResponse<T> {
   data: T[];
   total: number;
   page: number;
@@ -457,7 +457,7 @@ export interface NyvListResponse<T> {
   hasMore: boolean;
 }
 
-export interface NyvPaginationOptions {
+export interface JrxPaginationOptions {
   page?: number;
   pageSize?: number;
   sortBy?: string;
@@ -468,11 +468,11 @@ export interface NyvPaginationOptions {
 // D5-D6 INTELLIGENCE + TESTING + COMPLIANCE TYPES (SDK v6.0)
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type NyvLegalDomain =
+export type JrxLegalDomain =
   | 'criminal' | 'civil' | 'corporate' | 'tax' | 'ip'
   | 'family' | 'constitutional' | 'labour' | 'banking' | 'other';
 
-export interface NyvPrecedentMatch {
+export interface JrxPrecedentMatch {
   caseId: string;
   citation: string;
   court: string;
@@ -484,48 +484,48 @@ export interface NyvPrecedentMatch {
   relevantRatio: string;
 }
 
-export interface NyvPrecedentSearchResult {
-  matches: NyvPrecedentMatch[];
-  strongestPrecedent: NyvPrecedentMatch;
+export interface JrxPrecedentSearchResult {
+  matches: JrxPrecedentMatch[];
+  strongestPrecedent: JrxPrecedentMatch;
   overallPrecedentStrength: number;
-  jurisdiction: NyvJurisdiction;
+  jurisdiction: JrxJurisdiction;
 }
 
-export interface NyvRegulatoryUpdate {
+export interface JrxRegulatoryUpdate {
   id: string;
   title: string;
   source: string;
-  jurisdiction: NyvJurisdiction;
-  domain: NyvLegalDomain;
+  jurisdiction: JrxJurisdiction;
+  domain: JrxLegalDomain;
   severity: 'informational' | 'moderate' | 'significant' | 'critical';
   effectiveDate: string;
   summary: string;
   affectedAreas: string[];
 }
 
-export interface NyvRegulatoryDigest {
-  jurisdiction: NyvJurisdiction;
+export interface JrxRegulatoryDigest {
+  jurisdiction: JrxJurisdiction;
   period: { start: string; end: string };
-  updates: NyvRegulatoryUpdate[];
+  updates: JrxRegulatoryUpdate[];
   totalUpdates: number;
   criticalCount: number;
 }
 
-export interface NyvComplianceDeadline {
+export interface JrxComplianceDeadline {
   date: string;
   description: string;
   authority: string;
-  domain: NyvLegalDomain;
+  domain: JrxLegalDomain;
   penalty: string;
   isRecurring: boolean;
 }
 
-export interface NyvComplianceCalendar {
-  jurisdiction: NyvJurisdiction;
-  deadlines: NyvComplianceDeadline[];
+export interface JrxComplianceCalendar {
+  jurisdiction: JrxJurisdiction;
+  deadlines: JrxComplianceDeadline[];
 }
 
-export interface NyvSecureSession {
+export interface JrxSecureSession {
   id: string;
   hostUserId: string;
   status: 'pending' | 'active' | 'closed';
@@ -534,7 +534,7 @@ export interface NyvSecureSession {
   expiresAt: string;
 }
 
-export interface NyvContractAnalysis {
+export interface JrxContractAnalysis {
   clauses: { clauseNumber: string; title: string; text: string; category: string; riskScore: number; riskReason: string }[];
   missingClauses: { name: string; category: string; reason: string }[];
   conflicts: { clauseA: string; clauseB: string; nature: string; severity: string }[];
@@ -543,7 +543,7 @@ export interface NyvContractAnalysis {
   recommendations: string[];
 }
 
-export interface NyvReadabilityScore {
+export interface JrxReadabilityScore {
   fleschKincaidGrade: number;
   fleschReadingEase: number;
   averageSentenceLength: number;
@@ -553,7 +553,7 @@ export interface NyvReadabilityScore {
   withinTarget: boolean;
 }
 
-export interface NyvLegalEntity {
+export interface JrxLegalEntity {
   text: string;
   type: string;
   start: number;
@@ -563,15 +563,15 @@ export interface NyvLegalEntity {
   valid: boolean;
 }
 
-export interface NyvLegalNerResult {
-  entities: NyvLegalEntity[];
+export interface JrxLegalNerResult {
+  entities: JrxLegalEntity[];
   entityCounts: Record<string, number>;
   confidence: number;
   model: string;
 }
 
-export interface NyvOracleTestReport {
-  jurisdiction: NyvJurisdiction;
+export interface JrxOracleTestReport {
+  jurisdiction: JrxJurisdiction;
   totalTested: number;
   passed: number;
   failed: number;
@@ -579,7 +579,7 @@ export interface NyvOracleTestReport {
   executedAt: string;
 }
 
-export interface NyvAdversarialTestReport {
+export interface JrxAdversarialTestReport {
   totalTests: number;
   passed: number;
   failed: number;
@@ -587,7 +587,7 @@ export interface NyvAdversarialTestReport {
   executedAt: string;
 }
 
-export interface NyvLlmJudgeResult {
+export interface JrxLlmJudgeResult {
   scores: {
     legalAccuracy: number;
     citationQuality: number;
@@ -601,8 +601,8 @@ export interface NyvLlmJudgeResult {
   flaggedIssues: string[];
 }
 
-export interface NyvAgentScorecard {
-  jurisdiction: NyvJurisdiction;
+export interface JrxAgentScorecard {
+  jurisdiction: JrxJurisdiction;
   oracleAccuracy: number;
   citationHallucinationRate: number;
   adversarialResistance: number;
@@ -612,14 +612,14 @@ export interface NyvAgentScorecard {
   overallPass: boolean;
 }
 
-export interface NyvEuComplianceReport {
+export interface JrxEuComplianceReport {
   totalEuAgents: number;
   compliantAgents: number;
   nonCompliantAgents: number;
   articles: Record<string, { compliant: number; total: number }>;
 }
 
-export interface NyvBiasAuditReport {
+export interface JrxBiasAuditReport {
   agentId: string;
   dimensionScores: Record<string, number>;
   overallBiasScore: number;
@@ -627,13 +627,13 @@ export interface NyvBiasAuditReport {
   remediation: string[];
 }
 
-export interface NyvWatermarkResult {
+export interface JrxWatermarkResult {
   watermarked: boolean;
   method: 'invisible' | 'visible' | 'both';
   verificationHash: string;
 }
 
-export interface NyvSigningSession {
+export interface JrxSigningSession {
   sessionId: string;
   documentHash: string;
   status: 'pending' | 'in-progress' | 'completed' | 'expired' | 'cancelled';
@@ -646,36 +646,36 @@ export interface NyvSigningSession {
 // NYAYA TOOLS TYPES (graph, diff, template, timeline, forensic, trail, amend)
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvGraphTraversalInput {
+export interface JrxGraphTraversalInput {
   startNodeId: string;
   depth?: number;
-  jurisdiction: NyvJurisdiction;
+  jurisdiction: JrxJurisdiction;
   includeRepealed?: boolean;
 }
 
-export interface NyvGraphNode {
+export interface JrxGraphNode {
   id: string;
   type: 'statute' | 'section' | 'amendment' | 'ruling' | 'notification';
   label: string;
-  jurisdiction: NyvJurisdiction;
+  jurisdiction: JrxJurisdiction;
   metadata: Record<string, unknown>;
 }
 
-export interface NyvGraphEdge {
+export interface JrxGraphEdge {
   source: string;
   target: string;
   relationship: 'amends' | 'repeals' | 'cites' | 'supersedes' | 'interprets';
   weight: number;
 }
 
-export interface NyvGraphTraversalResult {
-  nodes: NyvGraphNode[];
-  edges: NyvGraphEdge[];
+export interface JrxGraphTraversalResult {
+  nodes: JrxGraphNode[];
+  edges: JrxGraphEdge[];
   totalNodes: number;
   traversalDepth: number;
 }
 
-export interface NyvCitationCheckResult {
+export interface JrxCitationCheckResult {
   citation: string;
   valid: boolean;
   resolvedTitle: string;
@@ -684,23 +684,23 @@ export interface NyvCitationCheckResult {
   status: 'active' | 'overruled' | 'distinguished' | 'unknown';
 }
 
-export interface NyvLegalDiffResult {
+export interface JrxLegalDiffResult {
   sections: { sectionId: string; before: string; after: string; changeType: 'added' | 'removed' | 'modified' }[];
   totalChanges: number;
   effectiveDate: string;
   summary: string;
 }
 
-export interface NyvTemplateListItem {
+export interface JrxTemplateListItem {
   id: string;
   name: string;
   category: string;
-  jurisdiction: NyvJurisdiction;
+  jurisdiction: JrxJurisdiction;
   language: string;
   version: string;
 }
 
-export interface NyvTemplateGenerateResult {
+export interface JrxTemplateGenerateResult {
   documentId: string;
   content: string;
   templateId: string;
@@ -708,7 +708,7 @@ export interface NyvTemplateGenerateResult {
   missingFields: string[];
 }
 
-export interface NyvTemplateFillSession {
+export interface JrxTemplateFillSession {
   sessionId: string;
   templateId: string;
   status: 'active' | 'completed' | 'expired';
@@ -717,7 +717,7 @@ export interface NyvTemplateFillSession {
   createdAt: string;
 }
 
-export interface NyvLimitationResult {
+export interface JrxLimitationResult {
   sectionId: string;
   title: string;
   limitationPeriod: string;
@@ -727,7 +727,7 @@ export interface NyvLimitationResult {
   daysRemaining: number | null;
 }
 
-export interface NyvChecklistItem {
+export interface JrxChecklistItem {
   id: string;
   label: string;
   category: string;
@@ -736,7 +736,7 @@ export interface NyvChecklistItem {
   priority: 'high' | 'medium' | 'low';
 }
 
-export interface NyvForensicVerifyResult {
+export interface JrxForensicVerifyResult {
   documentId: string;
   authentic: boolean;
   confidenceScore: number;
@@ -746,7 +746,7 @@ export interface NyvForensicVerifyResult {
   anomalies: string[];
 }
 
-export interface NyvAuditTrailEntry {
+export interface JrxAuditTrailEntry {
   entryId: string;
   timestamp: string;
   userId: string;
@@ -757,7 +757,7 @@ export interface NyvAuditTrailEntry {
   metadata: Record<string, unknown>;
 }
 
-export interface NyvEDiscoveryResult {
+export interface JrxEDiscoveryResult {
   totalDocuments: number;
   relevantDocuments: number;
   privilegedDocuments: number;
@@ -765,14 +765,14 @@ export interface NyvEDiscoveryResult {
   batches: { batchId: string; status: string; documentCount: number }[];
 }
 
-export interface NyvGazetteProcessResult {
+export interface JrxGazetteProcessResult {
   gazetteId: string;
   amendments: { actId: string; sectionId: string; changeType: string; summary: string }[];
   effectiveDate: string;
   processedAt: string;
 }
 
-export interface NyvAffectedMattersResult {
+export interface JrxAffectedMattersResult {
   amendmentId: string;
   affectedMatters: { matterId: string; clientName: string; impactLevel: 'high' | 'medium' | 'low'; description: string }[];
   totalAffected: number;
@@ -782,13 +782,13 @@ export interface NyvAffectedMattersResult {
 // INTELLIGENCE EXTRA TYPES (conflict, amendment, litigation, statute)
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvConflictDetectResult {
+export interface JrxConflictDetectResult {
   conflicts: { partyA: string; partyB: string; nature: string; severity: 'critical' | 'high' | 'medium' | 'low'; recommendation: string }[];
   hasConflict: boolean;
   totalConflicts: number;
 }
 
-export interface NyvAmendmentImpactResult {
+export interface JrxAmendmentImpactResult {
   amendmentId: string;
   affectedSections: { sectionId: string; impact: 'direct' | 'indirect'; description: string }[];
   riskLevel: 'critical' | 'high' | 'medium' | 'low';
@@ -796,15 +796,15 @@ export interface NyvAmendmentImpactResult {
   recommendations: string[];
 }
 
-export interface NyvStatuteHistoryResult {
+export interface JrxStatuteHistoryResult {
   statuteId: string;
   title: string;
-  jurisdiction: NyvJurisdiction;
+  jurisdiction: JrxJurisdiction;
   timeline: { date: string; event: string; description: string; gazetteRef: string }[];
   currentStatus: 'active' | 'repealed' | 'amended' | 'suspended';
 }
 
-export interface NyvLitigationRiskResult {
+export interface JrxLitigationRiskResult {
   riskScore: number;
   riskLevel: 'critical' | 'high' | 'medium' | 'low';
   factors: { factor: string; weight: number; score: number; explanation: string }[];
@@ -817,18 +817,18 @@ export interface NyvLitigationRiskResult {
 // MEMORY MODULE TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvMatterMemory {
+export interface JrxMatterMemory {
   matterId: string;
   title: string;
-  jurisdiction: NyvJurisdiction;
-  domain: NyvLegalDomain;
+  jurisdiction: JrxJurisdiction;
+  domain: JrxLegalDomain;
   facts: Record<string, unknown>;
   documents: string[];
   lastAccessed: string;
   createdAt: string;
 }
 
-export interface NyvClientMemory {
+export interface JrxClientMemory {
   clientId: string;
   name: string;
   matters: string[];
@@ -841,8 +841,8 @@ export interface NyvClientMemory {
 // SLM TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvSlmAvailability {
-  jurisdiction: NyvJurisdiction;
+export interface JrxSlmAvailability {
+  jurisdiction: JrxJurisdiction;
   available: boolean;
   model: string;
   endpoint: string;
@@ -854,7 +854,7 @@ export interface NyvSlmAvailability {
 // CACHE TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvCacheEntry {
+export interface JrxCacheEntry {
   key: string;
   hit: boolean;
   value?: unknown;
@@ -863,7 +863,7 @@ export interface NyvCacheEntry {
   cachedAt?: string;
 }
 
-export interface NyvCacheStats {
+export interface JrxCacheStats {
   totalEntries: number;
   hitRate: number;
   missRate: number;
@@ -875,7 +875,7 @@ export interface NyvCacheStats {
 // CREDIT TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface NyvCreditWallet {
+export interface JrxCreditWallet {
   wallet_id: string;
   user_id: string;
   credits_balance: number;
@@ -885,15 +885,15 @@ export interface NyvCreditWallet {
   last_updated: string;
 }
 
-export type NyvCreditTransactionType = 'DEBIT' | 'CREDIT' | 'RESERVE' | 'RELEASE';
-export type NyvCreditTransactionSource = 'AI_TOOL' | 'PURCHASE' | 'REFUND' | 'MANUAL' | 'SYSTEM';
+export type JrxCreditTransactionType = 'DEBIT' | 'CREDIT' | 'RESERVE' | 'RELEASE';
+export type JrxCreditTransactionSource = 'AI_TOOL' | 'PURCHASE' | 'REFUND' | 'MANUAL' | 'SYSTEM';
 
-export interface NyvCreditTransaction {
+export interface JrxCreditTransaction {
   transaction_id: string;
   user_id: string;
-  type: NyvCreditTransactionType;
+  type: JrxCreditTransactionType;
   credits: number;
-  source: NyvCreditTransactionSource;
+  source: JrxCreditTransactionSource;
   tool_name: string;
   reference_id: string | null;
   immutable_hash: string;

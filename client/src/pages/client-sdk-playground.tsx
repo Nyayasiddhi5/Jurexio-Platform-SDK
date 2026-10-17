@@ -15,7 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { NyvPageShell } from '@/components/NyvPageShell';
+import { JrxPageShell } from '@/components/JrxPageShell';
 import { ExecutionTraceRail } from '@/components/execution/ExecutionTraceRail';
 import type { ExecutionOutcome } from '@/components/execution/ExecutionOutcomePanel';
 import { streamQueenAguiForConsole } from '@/services/jrx-admin-agui-adapter';
@@ -265,14 +265,14 @@ export default function ClientSdkPlayground() {
 
   if (!activePattern) {
     return (
-      <NyvPageShell testId="page-client-sdk-playground" title="Client SDK Playground" description="Loading patterns…">
+      <JrxPageShell testId="page-client-sdk-playground" title="Client SDK Playground" description="Loading patterns…">
         <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-      </NyvPageShell>
+      </JrxPageShell>
     );
   }
 
   return (
-    <NyvPageShell
+    <JrxPageShell
       testId="page-client-sdk-playground"
       title="@jurexio/client-sdk Playground"
       description={`Live pattern catalog (${patterns.length}) · agents from registry · models from SSoT`}
@@ -459,6 +459,6 @@ export default function ClientSdkPlayground() {
           </div>
         </div>
       </div>
-    </NyvPageShell>
+    </JrxPageShell>
   );
 }

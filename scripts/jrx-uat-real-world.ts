@@ -1,5 +1,5 @@
 /**
- * NYV-UAT-REAL-WORLD — Track-2B matrix runner
+ * JRX-UAT-REAL-WORLD — Track-2B matrix runner
  * NV-OPT+UAT-2026-05-08
  *
  * Reads `tests/uat/scenarios/{IN,US}/*.json` (60 real-world scenarios authored
@@ -43,8 +43,8 @@
  *   --out=PATH                 Override output ledger path
  *
  * Auth (NO HARDCODED FALLBACKS — explicit failure if missing):
- *   NYV_SDK_KEY_NSP    — SDK key for nsp-web variant (covers most scenarios)
- *   NYV_SDK_KEY_NSPM   — SDK key for nspm-enterprise variant
+ *   JRX_SDK_KEY_NSP    — SDK key for nsp-web variant (covers most scenarios)
+ *   JRX_SDK_KEY_NSPM   — SDK key for nspm-enterprise variant
  *   NV_UAT_INTER_KEY   — optional: inter-secret (super-admin) for /api/jrx/audit/*
  *
  * Acceptance for T7 (this file):
@@ -68,7 +68,7 @@ const arg = (name: string, fallback?: string): string | undefined => {
   return a.split('=').slice(1).join('=');
 };
 const DRY_RUN     = args.includes('--dry-run');
-const BASE        = arg('base', process.env.NYV_UAT_BASE || 'http://localhost:5000')!;
+const BASE        = arg('base', process.env.JRX_UAT_BASE || 'http://localhost:5000')!;
 const JUR_FILTER  = (arg('jurisdiction', 'all') || 'all').toLowerCase();
 const CAT_FILTER  = arg('category');
 const SCEN_FILTER = arg('scenario');
@@ -90,7 +90,7 @@ const INJECTIONS = (arg('inject') ||
   .split(',').map((s) => s.trim()).filter(Boolean);
 
 // 8 OpenRouter free models (subset of the 17-strong list in
-// src/config/nyv-allowed-providers.ts:106-126 — the 8 we benchmark).
+// src/config/jrx-allowed-providers.ts:106-126 — the 8 we benchmark).
 const FREE_MODELS = [
   'meta-llama/llama-4-maverick:free',
   'meta-llama/llama-3.3-70b-instruct:free',
@@ -103,13 +103,13 @@ const FREE_MODELS = [
 ];
 
 // ── Auth env ──────────────────────────────────────────────────────────────────
-const SDK_KEY_NSP  = process.env.NYV_SDK_KEY_NSP  || '';
-const SDK_KEY_NSPM = process.env.NYV_SDK_KEY_NSPM || '';
-const SDK_KEY_NSI  = process.env.NYV_SDK_KEY_NSI  || '';
-const SDK_KEY_NSA  = process.env.NYV_SDK_KEY_NSA  || '';
-const SDK_KEY_NSM  = process.env.NYV_SDK_KEY_NSM  || '';
-const SDK_KEY_NYM  = process.env.NYV_SDK_KEY_NYM  || '';
-const SDK_KEY_JRX  = process.env.NYV_SDK_KEY_JRX  || '';
+const SDK_KEY_NSP  = process.env.JRX_SDK_KEY_NSP  || '';
+const SDK_KEY_NSPM = process.env.JRX_SDK_KEY_NSPM || '';
+const SDK_KEY_NSI  = process.env.JRX_SDK_KEY_NSI  || '';
+const SDK_KEY_NSA  = process.env.JRX_SDK_KEY_NSA  || '';
+const SDK_KEY_NSM  = process.env.JRX_SDK_KEY_NSM  || '';
+const SDK_KEY_NYM  = process.env.JRX_SDK_KEY_NYM  || '';
+const SDK_KEY_JRX  = process.env.JRX_SDK_KEY_JRX  || '';
 
 function pickSdkKey(variant?: string): string {
   switch ((variant || 'nsp-web').toLowerCase()) {
@@ -117,7 +117,7 @@ function pickSdkKey(variant?: string): string {
     case 'nsi':             return SDK_KEY_NSI  || SDK_KEY_NSP;
     case 'nsa':             return SDK_KEY_NSA  || SDK_KEY_NSP;
     case 'nsm':             return SDK_KEY_NSM  || SDK_KEY_NSP;
-    case 'nyayamitra':      return SDK_KEY_NYM  || SDK_KEY_NSP;
+    case 'jurexio-citizen':      return SDK_KEY_NYM  || SDK_KEY_NSP;
     case 'jrx':             return SDK_KEY_JRX  || SDK_KEY_NSP;
     case 'nsp-web':
     default:                return SDK_KEY_NSP;
@@ -262,22 +262,22 @@ function buildHeaders(scen: Scenario, cell: Cell): Record<string, string> {
     }
     case 'inter-secret': {
       if (process.env.NV_UAT_INTER_KEY) {
-        h['X-NYV-Inter-Secret'] = process.env.NV_UAT_INTER_KEY;
+        h['X-JRX-Inter-Secret'] = process.env.NV_UAT_INTER_KEY;
       }
       break;
     }
     case 'jwt': {
-      // JWT path goes through nv-run-uat.ts seeded users — for real-world matrix
+      // JWT path goes through jrx-run-uat.ts seeded users — for real-world matrix
       // we keep it sdk-key-only. Skip jwt scenarios with a reason.
       break;
     }
   }
   // Matrix steering — gateway honors these test-only headers when env
-  // NYV_UAT_STEERING=on is set (no-op in prod).
-  h['X-NYV-UAT-Provider']   = cell.provider;
-  h['X-NYV-UAT-CoT']        = cell.cot;
-  h['X-NYV-UAT-Inject']     = cell.inject;
-  if (cell.freeModel) h['X-NYV-UAT-Model'] = cell.freeModel;
+  // JRX_UAT_STEERING=on is set (no-op in prod).
+  h['X-JRX-UAT-Provider']   = cell.provider;
+  h['X-JRX-UAT-CoT']        = cell.cot;
+  h['X-JRX-UAT-Inject']     = cell.inject;
+  if (cell.freeModel) h['X-JRX-UAT-Model'] = cell.freeModel;
   for (const [k, v] of Object.entries(scen.request.headers || {})) h[k] = v;
   return h;
 }
@@ -541,7 +541,7 @@ async function main() {
     if (done % 5 === 0 || done === jobs.length) {
       const pass = results.filter((x) => x.status === 'pass' || x.status === 'dry-run').length;
       console.log(`[uat-real-world] progress ${done}/${jobs.length} pass=${pass}`);
-      // NYV-UAT-INCREMENTAL-001 (2026-05-08): flush partial ledger every 5
+      // JRX-UAT-INCREMENTAL-001 (2026-05-08): flush partial ledger every 5
       // cells so the run survives bash-tool kill / SIGTERM. Atomic write
       // (write-tmp + rename) so external readers never see a half-written
       // file even when overlapping pool callbacks both trigger a flush.
@@ -578,7 +578,7 @@ async function main() {
     summary,
     results,
   };
-  // NYV-UAT-LEDGER-002 (2026-05-09, architect caveat): final flush must also
+  // JRX-UAT-LEDGER-002 (2026-05-09, architect caveat): final flush must also
   // be tmp+rename atomic — a SIGKILL during the last write would corrupt the
   // ledger that downstream T8s analysis depends on.
   const finalTmp = outPath + '.tmp';

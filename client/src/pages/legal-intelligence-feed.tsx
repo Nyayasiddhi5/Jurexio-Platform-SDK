@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation } from 'wouter';
 import { Newspaper, RefreshCw, AlertCircle, CheckCircle2 } from 'lucide-react';
-import { NyvPageShell } from '@/components/NyvPageShell';
+import { JrxPageShell } from '@/components/JrxPageShell';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -61,7 +61,7 @@ export default function LegalIntelligenceFeedPage() {
   const emptyHonest = !feed.isLoading && items.length === 0;
 
   return (
-    <NyvPageShell
+    <JrxPageShell
       title="Live Legal Feed"
       description="Daily legal intelligence digest (own RSS → S3/RDS/RAG). Top items feed Auto-RAG counsel research; breaking news also via live web search on orchestrate."
       className="./jrx-light-scope"
@@ -209,6 +209,6 @@ export default function LegalIntelligenceFeedPage() {
           ))}
         </CardContent>
       </Card>
-    </NyvPageShell>
+    </JrxPageShell>
   );
 }

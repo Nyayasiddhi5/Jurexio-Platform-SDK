@@ -8,7 +8,7 @@
  *   npm run eval:draft:india -- --live --lane=fast   # fast-medium only (shorter CI/QA slice)
  *   npm run eval:draft:india -- --live --lane=counsel
  *
- * Live mode needs NYV_SDK_KEY or NYV_SDK_KEY_NSP (length logged only). Never prints secrets.
+ * Live mode needs JRX_SDK_KEY or JRX_SDK_KEY_NSP (length logged only). Never prints secrets.
  * Scoreboards: docs/audit/eval/draft-scoreboard-*.json
  */
 import fs from 'node:fs';
@@ -96,7 +96,7 @@ async function orchestrateLiveViaCurl(
         '-H',
         'Content-Type: application/json',
         '-H',
-        'X-NYV-Platform: nsp',
+        'X-JRX-Platform: nsp',
         '-H',
         `X-API-Key: ${apiKey}`,
         '-d',
@@ -137,7 +137,7 @@ async function orchestrateLiveOnce(
   body: Record<string, unknown>,
   timeoutMs: number,
 ): Promise<{ http: number; ms: number; content: string; model?: string; path?: string }> {
-  if (timeoutMs > 180_000 || process.env.NYV_EVAL_USE_CURL === '1') {
+  if (timeoutMs > 180_000 || process.env.JRX_EVAL_USE_CURL === '1') {
     return orchestrateLiveViaCurl(baseUrl, apiKey, body, timeoutMs);
   }
   const ctrl = new AbortController();
@@ -149,7 +149,7 @@ async function orchestrateLiveOnce(
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': apiKey,
-        'X-NYV-Platform': 'nsp',
+        'X-JRX-Platform': 'nsp',
       },
       body: JSON.stringify(body),
       signal: ctrl.signal,
@@ -199,8 +199,8 @@ async function orchestrateLive(
 }
 
 function loadApiKey(): string {
-  const k = process.env.NYV_SDK_KEY_NSP || process.env.NYV_SDK_KEY || '';
-  if (k.length < 20) throw new Error('live mode requires NYV_SDK_KEY_NSP or NYV_SDK_KEY (len>20)');
+  const k = process.env.JRX_SDK_KEY_NSP || process.env.JRX_SDK_KEY || '';
+  if (k.length < 20) throw new Error('live mode requires JRX_SDK_KEY_NSP or JRX_SDK_KEY (len>20)');
   return k;
 }
 
@@ -215,7 +215,7 @@ async function main(): Promise<void> {
     | 'both'
     | undefined;
   const laneMode = laneArg === 'fast' || laneArg === 'counsel' ? laneArg : 'both';
-  const baseUrl = process.env.NYV_EVAL_BASE_URL || 'https://api.nyayasiddhi.online';
+  const baseUrl = process.env.JRX_EVAL_BASE_URL || 'https://api.jurexio.com';
 
   rubricSelfTest();
   const cases = loadCases(caseArg);
@@ -291,7 +291,7 @@ async function main(): Promise<void> {
           rubricPct: rubric.pct,
           rubric,
         });
-        if (process.env.NYV_DRAFT_RUBRIC_GRPO_LOG === '1') {
+        if (process.env.JRX_DRAFT_RUBRIC_GRPO_LOG === '1') {
           recordDraftRubricObservation({
             caseId: c.id,
             documentType: c.documentType,

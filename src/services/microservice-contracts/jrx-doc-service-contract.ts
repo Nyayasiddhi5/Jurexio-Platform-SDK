@@ -106,7 +106,7 @@ export class NvDocServiceAdapter implements NvDocServiceContract {
     return {
       text: '',
       confidence: 0,
-      model: process.env.NYV_DOC_OCR_MODEL || 'tesseract-indic-v5',
+      model: process.env.JRX_DOC_OCR_MODEL || 'tesseract-indic-v5',
       language: input.language || 'en',
       pages: [],
       costCategory: 'cheap',
@@ -115,7 +115,7 @@ export class NvDocServiceAdapter implements NvDocServiceContract {
 }
 
 export const HTTP_CONTRACT = {
-  serviceName: 'NYV-DOC-SERVICE',
+  serviceName: 'JRX-DOC-SERVICE',
   baseUrl: '/api/jrx/doc-service',
   endpoints: [
     { method: 'POST', path: '/parse', handler: 'parseDocument' },

@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Jurexio Enterprise Platform 3.1.2 — Admin Heap Snapshot route
- * NYV-NS-013  ·  P2 G1  ·  2026-05-01
+ * JRX-NS-013  ·  P2 G1  ·  2026-05-01
  *
  * POST /api/jrx/admin/heap          → write a v8 heap snapshot, return path
  * GET  /api/jrx/admin/heap/list     → list previously-taken snapshots
@@ -18,7 +18,7 @@
  *
  * Storage
  * -------
- *   Snapshots are written under `process.env.NYV_HEAP_DIR` if set, else
+ *   Snapshots are written under `process.env.JRX_HEAP_DIR` if set, else
  *   `./.local/heapdumps/`. The directory is auto-created.
  */
 
@@ -32,8 +32,8 @@ import type { AuthRequest } from '../middleware/jrx-auth.js';
 const logger = createLogger('./jrx-admin-heap');
 const router = Router();
 
-const HEAP_DIR = process.env.NYV_HEAP_DIR
-  ? path.resolve(process.env.NYV_HEAP_DIR)
+const HEAP_DIR = process.env.JRX_HEAP_DIR
+  ? path.resolve(process.env.JRX_HEAP_DIR)
   : path.resolve(process.cwd(), '.local', 'heapdumps');
 
 const MIN_INTERVAL_MS = 60_000;
@@ -98,16 +98,16 @@ router.post('/', async (req: Request, res: Response) => {
   try {
     ensureHeapDir();
     const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const filename = `nyv-${stamp}-pid${process.pid}.heapsnapshot`;
+    const filename = `jrx-${stamp}-pid${process.pid}.heapsnapshot`;
     const fullPath = path.join(HEAP_DIR, filename);
 
     // v8.writeHeapSnapshot blocks the event loop while serializing;
     // log before + after so SREs can correlate any latency spike.
-    logger.warn(`[NYV-NS-013] Heap snapshot starting → ${fullPath}`);
+    logger.warn(`[JRX-NS-013] Heap snapshot starting → ${fullPath}`);
     const written = v8.writeHeapSnapshot(fullPath);
     lastSnapshotAt = Date.now();
     const stat = fs.statSync(written);
-    logger.warn(`[NYV-NS-013] Heap snapshot complete (${stat.size} bytes)`);
+    logger.warn(`[JRX-NS-013] Heap snapshot complete (${stat.size} bytes)`);
 
     const heap = v8.getHeapStatistics();
     // NOTE: do NOT return the absolute filesystem path. Even though the route
@@ -125,7 +125,7 @@ router.post('/', async (req: Request, res: Response) => {
       downloadUrl: `/api/jrx/admin/heap/${filename}`,
     });
   } catch (err: any) {
-    logger.error(`[NYV-NS-013] Heap snapshot failed: ${err?.message || err}`);
+    logger.error(`[JRX-NS-013] Heap snapshot failed: ${err?.message || err}`);
     res.status(500).json({
       success: false,
       message: 'Heap snapshot failed',
@@ -176,7 +176,7 @@ router.get('/:file', (req: Request, res: Response) => {
   // Attach an error handler so a mid-stream FS error or a client disconnect
   // doesn't bubble up as an unhandled 'error' event and crash the process.
   stream.on('error', (err) => {
-    logger.error(`[NYV-NS-013] Heap snapshot stream error for ${safe}: ${err.message}`);
+    logger.error(`[JRX-NS-013] Heap snapshot stream error for ${safe}: ${err.message}`);
     if (!res.headersSent) {
       res.status(500).end();
     } else {
@@ -203,7 +203,7 @@ router.delete('/:file', (req: Request, res: Response) => {
   try {
     fs.unlinkSync(full);
   } catch (err: any) {
-    logger.error(`[NYV-NS-013] Heap snapshot delete failed for ${safe}: ${err?.message || err}`);
+    logger.error(`[JRX-NS-013] Heap snapshot delete failed for ${safe}: ${err?.message || err}`);
     res.status(500).json({
       success: false,
       message: 'Snapshot delete failed',
@@ -212,7 +212,7 @@ router.delete('/:file', (req: Request, res: Response) => {
     });
     return;
   }
-  logger.warn(`[NYV-NS-013] Heap snapshot deleted: ${safe}`);
+  logger.warn(`[JRX-NS-013] Heap snapshot deleted: ${safe}`);
   res.json({ success: true, deleted: safe });
 });
 

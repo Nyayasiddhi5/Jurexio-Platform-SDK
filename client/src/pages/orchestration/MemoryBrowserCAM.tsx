@@ -29,12 +29,12 @@ function FiveTierInspector() {
       }
     };
     const rows = await Promise.all([
-      pull('L1 working', nv(`nyaya-tools/memory/working/${encodeURIComponent(traceId || sessionId || 'none')}`)),
-      pull('L1 episodic', nv(`nyaya-tools/memory/episodic/${encodeURIComponent(sessionId || 'none')}`)),
-      pull('L2 matter', nv(`nyaya-tools/memory/matter/${encodeURIComponent(matterId || 'none')}`)),
-      pull('L3 client', nv(`nyaya-tools/memory/client/${encodeURIComponent(clientId || 'none')}`)),
-      pull('L4 jurisdictional', nv(`nyaya-tools/memory/jurisdictional/${encodeURIComponent(jurisdiction || 'IN')}`)),
-      pull('L5 precedent', nv(`nyaya-tools/memory/precedent/${encodeURIComponent(jurisdiction || 'IN')}`)),
+      pull('L1 working', nv(`jrx-legal-tools/memory/working/${encodeURIComponent(traceId || sessionId || 'none')}`)),
+      pull('L1 episodic', nv(`jrx-legal-tools/memory/episodic/${encodeURIComponent(sessionId || 'none')}`)),
+      pull('L2 matter', nv(`jrx-legal-tools/memory/matter/${encodeURIComponent(matterId || 'none')}`)),
+      pull('L3 client', nv(`jrx-legal-tools/memory/client/${encodeURIComponent(clientId || 'none')}`)),
+      pull('L4 jurisdictional', nv(`jrx-legal-tools/memory/jurisdictional/${encodeURIComponent(jurisdiction || 'IN')}`)),
+      pull('L5 precedent', nv(`jrx-legal-tools/memory/precedent/${encodeURIComponent(jurisdiction || 'IN')}`)),
     ]);
     const next: Record<string, { ok: boolean; count: number; note?: string }> = {};
     for (const r of rows) next[r.label] = { ok: r.ok, count: r.count, note: r.note };
@@ -45,7 +45,7 @@ function FiveTierInspector() {
   return (
     <div className="bg-white rounded-lg border border-slate-200 p-4 space-y-3" data-testid="memory-l1-l5">
       <div className="text-sm font-semibold text-[#152448]">5-tier memory inspector</div>
-      <p className="text-xs text-slate-600">Honest L1–L5 from <code>/api/jrx/nyaya-tools/memory/*</code>. mem0/CAM entries stay in the table below (preference strip).</p>
+      <p className="text-xs text-slate-600">Honest L1–L5 from <code>/api/jrx/jrx-legal-tools/memory/*</code>. mem0/CAM entries stay in the table below (preference strip).</p>
       <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
         <input className="border rounded px-2 py-1 text-xs" placeholder="sessionId (L1)" value={sessionId} onChange={(e) => setSessionId(e.target.value)} />
         <input className="border rounded px-2 py-1 text-xs" placeholder="traceId (L1 working)" value={traceId} onChange={(e) => setTraceId(e.target.value)} />

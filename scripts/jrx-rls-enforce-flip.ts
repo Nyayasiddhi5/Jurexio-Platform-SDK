@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 /**
- * nv-rls-enforce-flip.ts — Task #365
+ * jrx-rls-enforce-flip.ts — Task #365
  *
  * One-command "switch on tenant data isolation" helper. Designed to be the
  * single thing an operator runs against a target Postgres (dev OR prod) to
@@ -13,7 +13,7 @@
  *      Persists the GUC for every NEW session against this database, so
  *      the gateway picks it up on its next restart without any code edit.
  *   2. SET app.nyv_rls_enforce = 'true' on the running session and re-runs
- *      drizzle/0004 + 0012 + 0013 (the same code path nv-migrate.ts uses).
+ *      drizzle/0004 + 0012 + 0013 (the same code path jrx-migrate.ts uses).
  *      0004 covers the legacy org_id tables; 0013 covers the seven
  *      (platform_id, customer_org_id) tables listed in the task.
  *   3. Verifies all 7 target tables end up with relrowsecurity=true AND
@@ -34,7 +34,7 @@
  *   tsx scripts/jrx-rls-enforce-flip.ts
  *
  *   # Against prod (operator has user GO; pulls prod URL from a secret):
- *   DATABASE_URL="$NYV_PROD_DATABASE_URL" tsx scripts/jrx-rls-enforce-flip.ts
+ *   DATABASE_URL="$JRX_PROD_DATABASE_URL" tsx scripts/jrx-rls-enforce-flip.ts
  *
  * After this script reports OK against prod, the gateway on EC2 must be
  * restarted (bash scripts/deploy-replit-ssm.sh) so its existing pool
@@ -108,9 +108,9 @@ async function main(): Promise<void> {
       // the non-superuser app role (e.g. nv_app), which lacks ALTER DATABASE
       // and ALTER TABLE … FORCE privileges. Required by task #365 acceptance:
       // sentinel proof must be captured under the runtime app role.
-      const sentinelOnly = process.env.NYV_SENTINEL_ONLY === '1' || process.env.NYV_SENTINEL_ONLY === 'true';
+      const sentinelOnly = process.env.JRX_SENTINEL_ONLY === '1' || process.env.JRX_SENTINEL_ONLY === 'true';
       if (sentinelOnly) {
-        console.log('  ⓘ NYV_SENTINEL_ONLY=1 → skipping ALTER DATABASE + migration re-apply');
+        console.log('  ⓘ JRX_SENTINEL_ONLY=1 → skipping ALTER DATABASE + migration re-apply');
       }
 
       // ── Step 1: persist app.nyv_rls_enforce=true at the database level.
@@ -124,7 +124,7 @@ async function main(): Promise<void> {
       // ALTER DATABASE step is purely a convenience so future migration
       // re-runs default to enforce mode; the operator can achieve the same
       // by setting the GUC in the RDS parameter group or by always exporting
-      // NYV_RLS_ENFORCE=true before running nv-migrate.ts.
+      // JRX_RLS_ENFORCE=true before running jrx-migrate.ts.
       const safeDbName = report.databaseName.replace(/"/g, '""');
       if (sentinelOnly) {
         console.log('  ⏭ Step 1 skipped (sentinel-only)');
@@ -141,7 +141,7 @@ async function main(): Promise<void> {
             '  ⚠ ALTER DATABASE … SET skipped: permission denied (42501).\n' +
               '    Connected role is not superuser/db-owner — expected on managed RDS.\n' +
               '    Runtime enforcement is unaffected (driven by ALTER TABLE … FORCE).\n' +
-              '    To make NYV_RLS_ENFORCE the default for future migration runs,\n' +
+              '    To make JRX_RLS_ENFORCE the default for future migration runs,\n' +
               '    add `app.nyv_rls_enforce = on` to the RDS parameter group instead.',
           );
         } else {
@@ -156,7 +156,7 @@ async function main(): Promise<void> {
       // GUC inside DO blocks via current_setting('app.nyv_rls_enforce',true).
       await c.query(`SELECT set_config('app.nyv_rls_enforce', 'true', false)`);
 
-      const fieldKey = process.env.NYV_FIELD_ENCRYPTION_KEY ?? process.env.ENCRYPTION_KEY ?? '';
+      const fieldKey = process.env.JRX_FIELD_ENCRYPTION_KEY ?? process.env.ENCRYPTION_KEY ?? '';
       if (fieldKey) {
         await c.query(`SELECT set_config('app.field_encryption_key', $1, false)`, [fieldKey]);
       }
@@ -172,7 +172,7 @@ async function main(): Promise<void> {
           const sqlText = readFileSync(resolve(process.cwd(), 'drizzle', file), 'utf8');
           await c.query(sqlText);
           report.migrationsApplied.push(file);
-          console.log(`  ✓ re-applied drizzle/${file} (with NYV_RLS_ENFORCE=true)`);
+          console.log(`  ✓ re-applied drizzle/${file} (with JRX_RLS_ENFORCE=true)`);
         }
       }
 

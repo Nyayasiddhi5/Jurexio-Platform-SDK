@@ -23,15 +23,15 @@
  *
  * The `cache admin audit fail-closed policy` block at the bottom is still
  * blocked by the SAME class of defect one layer deeper: it imports
- * `nv-sdk-gateway-routes.ts`, whose graph pulls in `src/middleware/jrx-auth.js`
+ * `jrx-sdk-gateway-routes.ts`, whose graph pulls in `src/middleware/jrx-auth.js`
  * and `src/middleware/jrx-sdk-tracking-middleware.js` — two more committed
  * artifacts that shadow their `.ts` siblings and `require('../db/index.js')`.
  * Stubbing that graph out one module at a time was abandoned deliberately:
  * it would mean mocking half the gateway to assert a two-line env read, and the
  * resulting test would prove nothing. The real fix is to delete the 7 stray
- * compiled artifacts under `src/` (`nv-auth.js`, `nv-sdk-auth-header.js`,
- * `nv-sdk-tracking-middleware.js`, `platform-config.js`, `redis-tcp-url.js`,
- * `nv-cam-routes.js`, `audit-chain-lock.js`) or add a vitest `resolve.alias`
+ * compiled artifacts under `src/` (`jrx-auth.js`, `jrx-sdk-auth-header.js`,
+ * `jrx-sdk-tracking-middleware.js`, `platform-config.js`, `redis-tcp-url.js`,
+ * `jrx-cam-routes.js`, `audit-chain-lock.js`) or add a vitest `resolve.alias`
  * preferring `.ts` — both of which are outside this change's ownership.
  */
 
@@ -56,7 +56,7 @@ import {
 } from '../src/middleware/jrx-sdk-gateway.js';
 
 describe('cache namespace helper', () => {
-  it('builds the documented `nv-agent:tenant:<id>:juris:<JURIS>:agent:<id>` shape', () => {
+  it('builds the documented `jrx-agent:tenant:<id>:juris:<JURIS>:agent:<id>` shape', () => {
     expect(buildAgentCacheNamespace({ tenantId: 'acme', jurisdiction: 'in', agentId: 'litigation' }))
       .toBe('./jrx-agent:tenant:acme:juris:IN:agent:litigation');
   });

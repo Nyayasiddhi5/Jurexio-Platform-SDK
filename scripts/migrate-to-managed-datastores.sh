@@ -2,31 +2,31 @@
 # =============================================================================
 # migrate-to-managed-datastores.sh — Task #17 cutover runbook
 #
-# One-shot migration of the dev EC2 (nysdev) from container-local
+# One-shot migration of the dev EC2 (jrx-prod) from container-local
 # Postgres/Redis to AWS RDS Postgres + ElastiCache Redis. Run this *on the
-# nysdev EC2 box* (or via the Replit shell using `ssh ubuntu@nysdev '...'`)
+# jrx-prod EC2 box* (or via the Replit shell using `ssh ubuntu@jrx-prod '...'`)
 # inside a planned 15–30 min maintenance window.
 #
 # Prerequisites (verified by --preflight):
 #   1. Terraform applied in envs/dev-edge with `enable_managed_datastores=true`.
-#      RDS + ElastiCache endpoints exist and the SGs already allow the nysdev SG.
+#      RDS + ElastiCache endpoints exist and the SGs already allow the jrx-prod SG.
 #   2. awscli + jq + docker + psql (postgres-client) present on the EC2 box.
 #      psql 16 installs with: `sudo apt-get install -y postgresql-client-16`.
 #   3. The instance role (or AWS_PROFILE) can read secretsmanager for the two
-#      new secrets: `nyv-dev-edge-pg/rds/master`, `nyv-dev-edge-redis/redis/auth`.
-#   4. Container Postgres is named `nyv-postgres` and Redis is named `nyv-redis`
-#      (verify with: `docker ps --filter name=nyv-`).
+#      new secrets: `jrx-dev-edge-pg/rds/master`, `jrx-dev-edge-redis/redis/auth`.
+#   4. Container Postgres is named `jrx-postgres` and Redis is named `jrx-redis`
+#      (verify with: `docker ps --filter name=jrx-`).
 #
 # Phases:
 #   --preflight   verify prerequisites (no writes)
-#   --dump        pg_dump from nyv-postgres -> /opt/nyayavigya/migration/<ts>.sql
-#   --restore     psql restore the dump into RDS (runs inside `nyv-pg-migrator`
+#   --dump        pg_dump from jrx-postgres -> /opt/nyayavigya/migration/<ts>.sql
+#   --restore     psql restore the dump into RDS (runs inside `jrx-pg-migrator`
 #                 ephemeral container so we don't need psql on the host)
-#   --cutover     rewrite .env (DATABASE_URL / NYV_REDIS_TCP_URL / REDIS_URL),
+#   --cutover     rewrite .env (DATABASE_URL / JRX_REDIS_TCP_URL / REDIS_URL),
 #                 docker compose up -d (forces gateway recreate), verify /health,
-#                 then `docker stop nyv-postgres nyv-redis` + `docker rm`.
+#                 then `docker stop jrx-postgres jrx-redis` + `docker rm`.
 #   --rollback    restore .env.pre-rds (created by --cutover), restart
-#                 nyv-postgres + nyv-redis, recreate gateway containers.
+#                 jrx-postgres + jrx-redis, recreate gateway containers.
 #   --all         preflight -> dump -> restore -> cutover (default)
 #
 # This script is intentionally idempotent: each phase records a marker file in
@@ -36,17 +36,17 @@
 set -euo pipefail
 
 REGION="${AWS_REGION:-ap-south-1}"
-RDS_SECRET="${NYV_RDS_SECRET:-nyv-dev-edge-pg/rds/master}"
-REDIS_SECRET="${NYV_REDIS_SECRET:-nyv-dev-edge-redis/redis/auth}"
-PG_CONTAINER="${NYV_PG_CONTAINER:-nyv-postgres}"
-REDIS_CONTAINER="${NYV_REDIS_CONTAINER:-nyv-redis}"
-PG_USER_LOCAL="${NYV_PG_USER_LOCAL:-nyv}"
-PG_DB_LOCAL="${NYV_PG_DB_LOCAL:-nyayavigya}"
-ENV_FILE="${NYV_ENV_FILE:-/opt/nyayavigya/current/.env}"
-COMPOSE_FILE="${NYV_COMPOSE_FILE:-/opt/nyayavigya/current/docker-compose.ecosystem.yml}"
-WORK_DIR="${NYV_MIGRATION_DIR:-/opt/nyayavigya/migration}"
+RDS_SECRET="${JRX_RDS_SECRET:-jrx-dev-edge-pg/rds/master}"
+REDIS_SECRET="${JRX_REDIS_SECRET:-jrx-dev-edge-redis/redis/auth}"
+PG_CONTAINER="${JRX_PG_CONTAINER:-jrx-postgres}"
+REDIS_CONTAINER="${JRX_REDIS_CONTAINER:-jrx-redis}"
+PG_USER_LOCAL="${JRX_PG_USER_LOCAL:-nyv}"
+PG_DB_LOCAL="${JRX_PG_DB_LOCAL:-nyayavigya}"
+ENV_FILE="${JRX_ENV_FILE:-/opt/nyayavigya/current/.env}"
+COMPOSE_FILE="${JRX_COMPOSE_FILE:-/opt/nyayavigya/current/docker-compose.ecosystem.yml}"
+WORK_DIR="${JRX_MIGRATION_DIR:-/opt/nyayavigya/migration}"
 STATE_DIR="$WORK_DIR/state"
-HEALTH_URL="${NYV_HEALTH_URL:-http://127.0.0.1/health}"
+HEALTH_URL="${JRX_HEALTH_URL:-http://127.0.0.1/health}"
 
 LOG()  { printf "[migrate-managed] %s\n" "$*" >&2; }
 DIE()  { LOG "FATAL: $*"; exit 1; }
@@ -100,10 +100,10 @@ phase_preflight() {
   # not three retries. `timeout` + /dev/tcp is used for the SG reachability
   # probe, `python3` for the .env rewrite, `gunzip` for the dump pipe.
   for c in aws jq docker curl python3 timeout gunzip gzip; do require_cmd "$c"; done
-  [ -f "$ENV_FILE" ] || DIE "env file not found at $ENV_FILE (set NYV_ENV_FILE)"
+  [ -f "$ENV_FILE" ] || DIE "env file not found at $ENV_FILE (set JRX_ENV_FILE)"
   [ -f "$COMPOSE_FILE" ] || DIE "compose file not found at $COMPOSE_FILE"
   docker inspect "$PG_CONTAINER" >/dev/null 2>&1 \
-    || DIE "container $PG_CONTAINER not running (NYV_PG_CONTAINER overrides)"
+    || DIE "container $PG_CONTAINER not running (JRX_PG_CONTAINER overrides)"
   docker inspect "$REDIS_CONTAINER" >/dev/null 2>&1 \
     || LOG "WARN: container $REDIS_CONTAINER not running — proceeding (cache only)"
   # Resolve secrets (also acts as IAM check).
@@ -113,9 +113,9 @@ phase_preflight() {
   RDS_HOST=$(aws_secret_json "$RDS_SECRET" | jq -r .host)
   REDIS_HOST=$(aws_secret_json "$REDIS_SECRET" | jq -r .host)
   timeout 5 bash -c "</dev/tcp/$RDS_HOST/5432" \
-    || DIE "RDS $RDS_HOST:5432 not reachable from nysdev — check SG ingress."
+    || DIE "RDS $RDS_HOST:5432 not reachable from jrx-prod — check SG ingress."
   timeout 5 bash -c "</dev/tcp/$REDIS_HOST/6379" \
-    || DIE "Redis $REDIS_HOST:6379 not reachable from nysdev — check SG ingress."
+    || DIE "Redis $REDIS_HOST:6379 not reachable from jrx-prod — check SG ingress."
   DONE preflight
 }
 
@@ -164,7 +164,7 @@ import sys, re, pathlib
 path, db_url, r_url = sys.argv[1], sys.argv[2], sys.argv[3]
 overrides = {
   "DATABASE_URL": db_url,
-  "NYV_REDIS_TCP_URL": r_url,
+  "JRX_REDIS_TCP_URL": r_url,
   "REDIS_URL": r_url,
 }
 src = pathlib.Path(path).read_text().splitlines(True)
@@ -182,10 +182,10 @@ for k, v in overrides.items():
     out.append(f"{k}={v}\n")
 pathlib.Path(path).write_text(''.join(out))
 PY
-  LOG "rewrote $ENV_FILE — DATABASE_URL/NYV_REDIS_TCP_URL/REDIS_URL now point at managed endpoints"
+  LOG "rewrote $ENV_FILE — DATABASE_URL/JRX_REDIS_TCP_URL/REDIS_URL now point at managed endpoints"
 
   # Force-recreate every gateway-* service in the ecosystem compose so they pick
-  # up the new env. Keep nyv-postgres / nyv-redis containers running until the
+  # up the new env. Keep jrx-postgres / jrx-redis containers running until the
   # health check passes — we tear them down only on success.
   ( cd "$(dirname "$COMPOSE_FILE")" && \
     sg docker -c "docker compose -f $(basename "$COMPOSE_FILE") --env-file .env up -d --force-recreate gateway-a gateway-b" )
@@ -199,7 +199,7 @@ PY
     sleep 5
   done
   if [ "$ok" != "1" ]; then
-    LOG "health gate FAILED — keeping nyv-postgres + nyv-redis up. Run --rollback to revert."
+    LOG "health gate FAILED — keeping jrx-postgres + jrx-redis up. Run --rollback to revert."
     exit 1
   fi
 

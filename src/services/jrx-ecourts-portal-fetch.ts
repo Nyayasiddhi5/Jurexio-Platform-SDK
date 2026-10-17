@@ -6,10 +6,10 @@
  *
  * Env:
  *   JRX_F_ECOURTS_PORTAL_FETCH=0 (default off)
- *   NYV_ECOURTS_PORTAL_TIMEOUT_MS (default 45000)
- *   NYV_ECOURTS_PORTAL_BASE_URL (default services.ecourts v6 CNR search)
- *   NYV_ECOURTS_SESSION_COOKIE — ops-provided session (never logged)
- *   NYV_ECOURTS_CAPTCHA_SOLVER=stub|none (default stub — returns null)
+ *   JRX_ECOURTS_PORTAL_TIMEOUT_MS (default 45000)
+ *   JRX_ECOURTS_PORTAL_BASE_URL (default services.ecourts v6 CNR search)
+ *   JRX_ECOURTS_SESSION_COOKIE — ops-provided session (never logged)
+ *   JRX_ECOURTS_CAPTCHA_SOLVER=stub|none (default stub — returns null)
  */
 import { createLogger } from '../utils/logger.js';
 import type { CnrResolveData } from '../../packages/client-sdk/src/api/CnrApi.js';
@@ -33,17 +33,17 @@ export function isEcourtsPortalFetchEnabled(): boolean {
 }
 
 export function getEcourtsPortalTimeoutMs(): number {
-  const n = Number(process.env.NYV_ECOURTS_PORTAL_TIMEOUT_MS ?? '45000');
+  const n = Number(process.env.JRX_ECOURTS_PORTAL_TIMEOUT_MS ?? '45000');
   if (!Number.isFinite(n) || n <= 0) return 45_000;
   return Math.min(120_000, Math.max(5_000, Math.floor(n)));
 }
 
 export function getEcourtsPortalBaseUrl(): string {
-  return (process.env.NYV_ECOURTS_PORTAL_BASE_URL ?? DEFAULT_PORTAL_BASE).trim();
+  return (process.env.JRX_ECOURTS_PORTAL_BASE_URL ?? DEFAULT_PORTAL_BASE).trim();
 }
 
 function sessionCookieLen(): number {
-  return (process.env.NYV_ECOURTS_SESSION_COOKIE ?? '').trim().length;
+  return (process.env.JRX_ECOURTS_SESSION_COOKIE ?? '').trim().length;
 }
 
 /** Captcha solver hook — stub provider only; no keys in repo. */
@@ -69,7 +69,7 @@ let captchaSolver: EcourtsCaptchaSolver | null = null;
 
 export function getEcourtsCaptchaSolver(): EcourtsCaptchaSolver {
   if (captchaSolver) return captchaSolver;
-  const mode = (process.env.NYV_ECOURTS_CAPTCHA_SOLVER ?? 'stub').trim().toLowerCase();
+  const mode = (process.env.JRX_ECOURTS_CAPTCHA_SOLVER ?? 'stub').trim().toLowerCase();
   if (mode === 'none') {
     captchaSolver = { provider: 'none', solve: async () => null };
   } else {
@@ -187,7 +187,7 @@ export type EcourtsPortalAttempt =
 
 /**
  * Synchronous portal fetch — may take 30–120s; call only from async worker.
- * Requires NYV_ECOURTS_SESSION_COOKIE for captcha-gated portal.
+ * Requires JRX_ECOURTS_SESSION_COOKIE for captcha-gated portal.
  */
 export async function attemptEcourtsPortalFetch(input: {
   cnr?: string;
@@ -204,14 +204,14 @@ export async function attemptEcourtsPortalFetch(input: {
 
   const cookieLen = sessionCookieLen();
   if (cookieLen === 0) {
-    logger.info('[CNR] portal fetch enabled but NYV_ECOURTS_SESSION_COOKIE absent', {
+    logger.info('[CNR] portal fetch enabled but JRX_ECOURTS_SESSION_COOKIE absent', {
       cnrLen: cnr.length,
     });
     return {
       kind: 'attempted',
       tag: ECOURTS_PORTAL_ATTEMPTED,
       reason:
-        'NYV_ECOURTS_SESSION_COOKIE not configured — portal captcha requires ops session pool',
+        'JRX_ECOURTS_SESSION_COOKIE not configured — portal captcha requires ops session pool',
     };
   }
 
@@ -227,7 +227,7 @@ export async function attemptEcourtsPortalFetch(input: {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        Cookie: process.env.NYV_ECOURTS_SESSION_COOKIE!.trim(),
+        Cookie: process.env.JRX_ECOURTS_SESSION_COOKIE!.trim(),
         'User-Agent': 'Jurexio-Tier4b/1.0',
         Accept: 'text/html,application/json',
       },

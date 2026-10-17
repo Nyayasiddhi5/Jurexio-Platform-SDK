@@ -1,7 +1,7 @@
 -- ─────────────────────────────────────────────────────────────────────
 -- NV-UAT-DEFAULT-ORG-001 (2026-05-13)
 -- Until full RBAC sign-off, every user / SDK app / API key row defaults
--- to the platform-baseline org_id = 1 (Nyayavigya Technologies).
+-- to the platform-baseline org_id = 1 (Jurexio Technologies).
 -- Idempotent. Safe to re-run.
 -- Apply on: Replit dev DB, Replit deployment DB, EC2 RDS prod-dev DB.
 -- TO BE REVERTED before production cutover (see canonical doc 13).

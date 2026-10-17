@@ -3,7 +3,7 @@
  * NV-AUDIT-HASH-CHAIN-REPAIR — GAP-002 / UAT-SEC-002
  *
  * Diagnose and optionally repair nv_schema.nv_audit_logs hash chain.
- * Uses the canonical hash SSoT (nv-audit-hash.ts) — same as appendAuditRecord.
+ * Uses the canonical hash SSoT (jrx-audit-hash.ts) — same as appendAuditRecord.
  *
  * Usage:
  *   npx tsx scripts/jrx-audit-hash-chain-repair.ts --diagnose [--limit=10000]
@@ -31,9 +31,9 @@ const flag = (name: string) => args.includes(`--${name}`);
 const SAMPLE_LIMIT = parseInt(arg('limit', '10000'), 10);
 const DB_URL =
   process.env.DATABASE_URL_ADMIN ||
-  process.env.NYV_DATABASE_URL_ADMIN ||
+  process.env.JRX_DATABASE_URL_ADMIN ||
   process.env.DATABASE_URL ||
-  process.env.NYV_DATABASE_URL ||
+  process.env.JRX_DATABASE_URL ||
   '';
 
 if (!DB_URL) {

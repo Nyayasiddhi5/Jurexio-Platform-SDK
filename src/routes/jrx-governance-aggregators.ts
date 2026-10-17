@@ -1,5 +1,5 @@
 /**
- * nv-governance-aggregators.ts — Task #176 / B2 (2026-05-12)
+ * jrx-governance-aggregators.ts — Task #176 / B2 (2026-05-12)
  * ─────────────────────────────────────────────────────────────────────────────
  * Thin read-only aggregator routes that back ten Governance + Orchestration
  * console pages currently falling back to /api/jrx/admin/audit or

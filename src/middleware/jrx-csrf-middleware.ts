@@ -23,7 +23,7 @@ function buildAllowedOrigins(): Set<string> {
   // Always allow same-origin / no-origin (server-to-server or curl)
 
   // Explicit allow-list from env
-  const extra = (process.env.NYV_ALLOWED_ORIGINS ?? '').split(',').map(s => s.trim()).filter(Boolean);
+  const extra = (process.env.JRX_ALLOWED_ORIGINS ?? '').split(',').map(s => s.trim()).filter(Boolean);
   extra.forEach(o => origins.add(o));
 
   // Always allow localhost in development

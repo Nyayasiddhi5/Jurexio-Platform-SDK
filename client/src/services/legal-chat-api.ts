@@ -40,7 +40,7 @@ export type LegalChatTimelineStep =
   | 'audit_chain'
   | 'run_complete'
   | 'run_failed'
-  // Emitted by nv-legal-chat-routes.ts (rag / citations / persist).
+  // Emitted by jrx-legal-chat-routes.ts (rag / citations / persist).
   // llm_stream_token remains unused until Queen synthesis exposes onChunk.
   | 'rag_retrieval'
   | 'llm_stream_token'

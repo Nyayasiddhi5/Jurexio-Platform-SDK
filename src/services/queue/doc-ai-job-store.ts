@@ -8,7 +8,7 @@
  *   (a) a pod restart mid-conversion turned the jobId into a 404,
  *   (b) horizontal scale-out silently 404'd polls hitting a different
  *       pod from the one that received the POST,
- *   (c) per-pod NYV_DOC_CONVERT_CONCURRENCY × pod count = real
+ *   (c) per-pod JRX_DOC_CONVERT_CONCURRENCY × pod count = real
  *       concurrency — no global cap.
  *
  * This module gives the route handler a single coherent surface:
@@ -18,12 +18,12 @@
  *   - cleanup()                               → delete blobs + ledger
  *
  * Both backends are optional:
- *   - If `NYV_REDIS_TCP_URL` is unusable, the ledger falls back to an
+ *   - If `JRX_REDIS_TCP_URL` is unusable, the ledger falls back to an
  *     in-process Map (with the existing 10 min TTL). Polls then only
  *     resolve on the originating pod — same as pre-task-130 behaviour.
- *   - Blobs are stored on AWS S3 when `NYV_S3_BUCKET` / `AWS_S3_BUCKET` is set.
+ *   - Blobs are stored on AWS S3 when `JRX_S3_BUCKET` / `AWS_S3_BUCKET` is set.
  *     On local/dev environments without S3, blobs fall back to local-disk
- *     staging under `os.tmpdir()/nyv-doc-ai-blobs/`. Same caveat — only the
+ *     staging under `os.tmpdir()/jrx-doc-ai-blobs/`. Same caveat — only the
  *     originating pod can fulfil /jobs/:id/result in local-disk mode.
  *
  * `isDistributed()` reports the actual mode so the route can advertise
@@ -80,11 +80,11 @@ const KEY_PREFIX = 'nyv:doc-ai:job:';
 // 24h TTL on the ledger entry — long enough for clients to retrieve the
 // result, far longer than the previous 10 min in-memory TTL (the old TTL
 // was tuned for a single pod's heap; persisted state can outlive that).
-const LEDGER_TTL_SEC = Number.parseInt(process.env.NYV_DOC_AI_JOB_TTL_SEC ?? '86400', 10) || 86400;
+const LEDGER_TTL_SEC = Number.parseInt(process.env.JRX_DOC_AI_JOB_TTL_SEC ?? '86400', 10) || 86400;
 
-const BLOB_PREFIX = process.env.NYV_DOC_AI_BLOB_PREFIX || 'temp/doc-ai';
+const BLOB_PREFIX = process.env.JRX_DOC_AI_BLOB_PREFIX || 'temp/doc-ai';
 
-const LOCAL_BLOB_DIR = path.join(os.tmpdir(), 'nyv-doc-ai-blobs');
+const LOCAL_BLOB_DIR = path.join(os.tmpdir(), 'jrx-doc-ai-blobs');
 
 let _redisInited = false;
 let _redis: import('ioredis').Redis | null = null;
@@ -288,7 +288,7 @@ export async function getSourceToTempPath(jobId: string): Promise<{ path: string
   const client = await getObjectStore();
   if (client) {
     const key = blobKey(jobId, 'source');
-    const stagedDir = path.join(os.tmpdir(), 'nyv-doc-ai-stage');
+    const stagedDir = path.join(os.tmpdir(), 'jrx-doc-ai-stage');
     try { fs.mkdirSync(stagedDir, { recursive: true }); } catch { /* best-effort */ }
     const staged = path.join(stagedDir, `${jobId}_${Date.now()}`);
     // downloadAsStream so we never load the whole 1 GB source into RSS.
@@ -410,7 +410,7 @@ export function getLastSweepStats(): DocAiSweepStats | null {
  * this is only safe if you're sure no in-flight job is mid-upload.
  */
 function sweeperMinAgeMs(): number {
-  const override = Number.parseInt(process.env.NYV_DOC_AI_SWEEP_MIN_AGE_SEC ?? '', 10);
+  const override = Number.parseInt(process.env.JRX_DOC_AI_SWEEP_MIN_AGE_SEC ?? '', 10);
   if (Number.isFinite(override) && override > 0) return override * 1000;
   return (LEDGER_TTL_SEC + 3600) * 1000;
 }

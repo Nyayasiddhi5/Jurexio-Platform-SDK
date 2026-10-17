@@ -1,6 +1,6 @@
 /**
- * nv-llm-pricing.ts — simple per-model USD/1k-token price table used by
- * nv-usage-metering-middleware and the cost-optimizer suggester.
+ * jrx-llm-pricing.ts — simple per-model USD/1k-token price table used by
+ * jrx-usage-metering-middleware and the cost-optimizer suggester.
  *
  * Values are intentionally rough public-list prices (2025-Q4 snapshot). They
  * are NOT a billing source of truth — billing is computed from
@@ -9,7 +9,7 @@
  *
  * Add new models additively; default() falls back to the `default` row.
  *
- * NV-NAMING-001: nv- prefix.
+ * NV-NAMING-001: jrx- prefix.
  */
 
 export interface ModelPrice {

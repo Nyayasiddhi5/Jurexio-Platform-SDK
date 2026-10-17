@@ -4,7 +4,7 @@
  * include platform + org (+ user/doc) so RLS/app filters stay correct.
  */
 
-import { StoragePathBuilder } from '../services/nyv-document-storage-service.js';
+import { StoragePathBuilder } from '../services/jrx-document-storage-service.js';
 
 export interface TenantStorageIdentity {
   orgId: string | number;
@@ -20,7 +20,7 @@ export function normalizePlatformCode(platform: string | undefined | null): stri
 export function normalizeOrgId(orgId: string | number | undefined | null): string {
   const o = String(orgId ?? '').trim();
   if (!o || o === 'undefined' || o === 'null') {
-    throw new Error('[NYV-MT-001] orgId is required for tenant storage paths');
+    throw new Error('[JRX-MT-001] orgId is required for tenant storage paths');
   }
   return o.replace(/[^a-zA-Z0-9_-]/g, '_');
 }
@@ -66,9 +66,9 @@ export function assertKeyWithinTenant(
   ];
   const normalized = key.replace(/^\/+/, '');
   if (!allowed.some((p) => normalized.startsWith(p))) {
-    throw new Error(`[NYV-MT-002] storage key escapes tenant scope (platform=${platform}, org=${orgId})`);
+    throw new Error(`[JRX-MT-002] storage key escapes tenant scope (platform=${platform}, org=${orgId})`);
   }
   if (normalized.includes('..')) {
-    throw new Error('[NYV-MT-003] storage key must not contain path traversal');
+    throw new Error('[JRX-MT-003] storage key must not contain path traversal');
   }
 }

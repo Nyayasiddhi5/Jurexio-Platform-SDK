@@ -16,7 +16,7 @@
  * while platforms migrate to passing the header.
  *
  * NV-OWNERSHIP-001: queries our own `nv_customer_organizations` table.
- * NV-NAMING-001: nv- prefix; pre-flight grep confirms no prior file at this
+ * NV-NAMING-001: jrx- prefix; pre-flight grep confirms no prior file at this
  *   path.
  */
 
@@ -36,7 +36,7 @@ const HEADER_CUSTOMER_USER_EMAIL = 'x-customer-user-email';
  *
  * NSP sends `X-Customer-Session-Id` on every AI call. We were reading only the body
  * `sessionId`, so a partner that scoped its threads via the header was silently
- * given a NYV-minted session instead of its own — the same class of miss as not
+ * given a JRX-minted session instead of its own — the same class of miss as not
  * reading `x-customer-user-id`. Honouring the header means NSP's thread identity
  * wins, which is the correct precedence: the partner knows what a conversation is,
  * we do not.

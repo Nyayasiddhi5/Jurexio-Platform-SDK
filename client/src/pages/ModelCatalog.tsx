@@ -14,7 +14,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { AlertCircle, Activity, DollarSign, Zap, Globe, Eye, Settings, Filter, Search, Plus, BarChart3, TrendingUp, Clock, Shield, Database, Sparkles, Inbox } from 'lucide-react';
 import { queryClient, apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 
 import { nv } from '@/lib/jrx-api-paths';
 interface LLMProvider {
@@ -497,7 +497,7 @@ export default function ModelCatalog() {
             </div>
           ) : filteredProviders.length === 0 ? (
             <Card data-testid="empty-providers"><CardContent className="p-2">
-              <NyvEmptyState
+              <JrxEmptyState
                 icon={Database}
                 title={
                   rawModels.length === 0 && catalogError
@@ -644,7 +644,7 @@ export default function ModelCatalog() {
           )}
           {readinessProviders.length === 0 ? (
             <Card><CardContent className="p-2">
-              <NyvEmptyState
+              <JrxEmptyState
                 icon={Database}
                 title="Provider readiness unavailable"
                 description="GET /api/jrx/models/providers returned no data. Confirm the gateway is reachable."
@@ -711,7 +711,7 @@ export default function ModelCatalog() {
             </div>
           ) : filteredCreativeModels.length === 0 ? (
             <Card data-testid="empty-creative"><CardContent className="p-2">
-              <NyvEmptyState
+              <JrxEmptyState
                 icon={Sparkles}
                 title={creativeRaw.length === 0 ? 'No creative models registered' : 'No creative models match your filters'}
                 description={creativeRaw.length === 0
@@ -876,7 +876,7 @@ export default function ModelCatalog() {
             </CardHeader>
             <CardContent>
               {(!stats?.byProvider && !stats?.byType) ? (
-                <NyvEmptyState
+                <JrxEmptyState
                   icon={BarChart3}
                   title="No registry stats available"
                   description="The /api/jrx/models endpoint did not return a stats payload. Provider/type distribution will appear here once the registry exposes stats."

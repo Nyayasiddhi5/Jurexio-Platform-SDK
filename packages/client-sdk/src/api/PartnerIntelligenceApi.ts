@@ -2,18 +2,18 @@
  * NSP intelligence suite — /api/jrx/v1/sdk/intelligence/* (E1–E10, D7).
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
-import type { NyvJurisdiction } from '../types/index.js';
+import type { JrxHttpClient } from '../JrxClient.js';
+import type { JrxJurisdiction } from '../types/index.js';
 
 export interface ClassifyDocumentRequest {
   document_id?: string;
   text: string;
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   org_id?: string;
 }
 
 export class PartnerIntelligenceApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   capabilities(): Promise<unknown> {
     return this.http.get('/api/jrx/v1/sdk/intelligence/capabilities');

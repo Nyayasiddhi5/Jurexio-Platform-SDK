@@ -44,7 +44,7 @@ export function resolveGrpoOnlineNudge(opts: {
   jurisdiction?: string;
   taskKind?: string;
 }): GrpoOnlineNudge {
-  if (process.env.NYV_GRPO_ONLINE_POLICY === '0') return DEFAULT;
+  if (process.env.JRX_GRPO_ONLINE_POLICY === '0') return DEFAULT;
   const jur = String(opts.jurisdiction || 'IN').toUpperCase();
   const task = String(opts.taskKind || 'legal_research').toLowerCase();
   try {

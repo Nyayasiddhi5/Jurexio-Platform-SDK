@@ -2,7 +2,7 @@
 //
 // Local read-only voice catalogue from the package singleton. The actual
 // TTS call delegates to the canonical /api/jrx/voice/* router
-// (nv-voice-ws-routes) which traverses the safety ring + Sarvam/Deepgram
+// (jrx-voice-ws-routes) which traverses the safety ring + Sarvam/Deepgram
 // provider chain. Single-auth discipline (see streaming-routes).
 import { Router, type Request, type Response } from 'express';
 import canonicalVoice from '../../jrx-voice-ws-routes.js';

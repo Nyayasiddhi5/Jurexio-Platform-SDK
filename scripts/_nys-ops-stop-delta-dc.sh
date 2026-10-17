@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# NV-NYS-OPS-STOP-001 — gracefully stop delta-dc ingest on caselaw-worker.
+# NV-JRX-OPS-STOP-001 — gracefully stop delta-dc ingest on caselaw-worker.
 # Does NOT touch nysapi, embed units, or secrets.
 set -uo pipefail
 
@@ -48,9 +48,9 @@ pgrep -af "ingest-rds" || echo "ingest-rds (all): none"
 
 echo "--- nysapi health ---"
 curl -sS -m 10 -w " local_8080 http=%{http_code} ms=%{time_total}\n" http://127.0.0.1:8080/health 2>/dev/null | head -c 200 || echo "local health FAIL"
-curl -sS -m 10 -w " public_nysapi http=%{http_code} ms=%{time_total}\n" https://nysapi.nyayasiddhi.online/health 2>/dev/null | head -c 200 || echo "public health FAIL"
+curl -sS -m 10 -w " public_nysapi http=%{http_code} ms=%{time_total}\n" https://nysapi.jurexio.com/health 2>/dev/null | head -c 200 || echo "public health FAIL"
 
-echo "--- nyv-api service ---"
-systemctl is-active nyv-api 2>/dev/null || echo "nyv-api systemctl N/A"
+echo "--- jrx-api service ---"
+systemctl is-active jrx-api 2>/dev/null || echo "jrx-api systemctl N/A"
 
 echo "=== STOP DONE ==="

@@ -15,7 +15,7 @@ function envModel(name: string, fallback: string): string {
 
 /** Latest flagship reasoning / multilingual quality (catalog id). */
 export function getGeminiProModel(): string {
-  return envModel('NYV_GEMINI_PRO_MODEL', 'gemini-3-1-pro-preview');
+  return envModel('JRX_GEMINI_PRO_MODEL', 'gemini-3-1-pro-preview');
 }
 
 /** Fast high-quality flash for classify / volume / web-search. */
@@ -24,43 +24,43 @@ export function getGeminiFlashModel(): string {
   // on this account and is measurably the best speed/quality trade — 6.99s on a
   // real BNSS×PMLA legal question vs 20.79s for 3.1 Pro at the same answer depth
   // (`scripts/_ec2-model-bench.sh`, 2026-08-16).
-  return envModel('NYV_GEMINI_FLASH_MODEL', 'gemini-3.7-flash');
+  return envModel('JRX_GEMINI_FLASH_MODEL', 'gemini-3.7-flash');
 }
 
 /** Multimodal STT (audio → text). Flash accepts inline audio; Pro preview 400s on v1beta. */
 export function getGeminiSttModel(): string {
-  return envModel('NYV_GEMINI_STT_MODEL', getGeminiFlashModel());
+  return envModel('JRX_GEMINI_STT_MODEL', getGeminiFlashModel());
 }
 
 /** Translate / detect-language. Flash is sufficient and matches demo-week routing. */
 export function getGeminiLanguageModel(): string {
-  return envModel('NYV_GEMINI_LANGUAGE_MODEL', getGeminiFlashModel());
+  return envModel('JRX_GEMINI_LANGUAGE_MODEL', getGeminiFlashModel());
 }
 
 /** Classification / extraction / short structured tasks. */
 export function getGeminiClassifyModel(): string {
-  return envModel('NYV_GEMINI_CLASSIFY_MODEL', getGeminiFlashModel());
+  return envModel('JRX_GEMINI_CLASSIFY_MODEL', getGeminiFlashModel());
 }
 
 /**
  * Embeddings — gemini-embedding-2 with outputDimensionality=1536 to match
- * existing pgvector columns (see NYV_EMBEDDING_DIMS).
+ * existing pgvector columns (see JRX_EMBEDDING_DIMS).
  */
 export function getGeminiEmbedModel(): string {
-  return envModel('NYV_GEMINI_EMBED_MODEL', 'gemini-embedding-2');
+  return envModel('JRX_GEMINI_EMBED_MODEL', 'gemini-embedding-2');
 }
 
 /** Google Search grounding / hub web-search Gemini path. */
 export function getGeminiSearchModel(): string {
   return envModel(
-    'NYV_WEB_SEARCH_GEMINI_MODEL',
-    envModel('NYV_GEMINI_SEARCH_MODEL', getGeminiFlashModel()),
+    'JRX_WEB_SEARCH_GEMINI_MODEL',
+    envModel('JRX_GEMINI_SEARCH_MODEL', getGeminiFlashModel()),
   );
 }
 
 /** Ordered Gemini pool for LLM cascade (best → fast → proven). */
 export function getGeminiCascadeModels(): string[] {
-  const fromEnv = String(process.env.NYV_LLM_CASCADE_GEMINI || '')
+  const fromEnv = String(process.env.JRX_LLM_CASCADE_GEMINI || '')
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean);

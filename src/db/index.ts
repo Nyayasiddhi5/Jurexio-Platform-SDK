@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 import 'dotenv/config';
 /* ────────────────────────────────────────────────────────────────────────
  * Driver-aware DB init — DEF-003/007 fix (2026-04-23)
@@ -15,7 +15,7 @@ import { Pool as NeonPool, neonConfig } from '@neondatabase/serverless';
 import { Pool as PgPool } from 'pg';
 import ws from 'ws';
 import * as schema from '../../shared/schema.js';
-import * as nyayamitraSchema from '../../shared/nyayamitra-schema.js';
+import * as jrxCitizenSchema from '../../shared/jurexio-citizen-schema.js';
 import * as institutionalSchema from '../../shared/nyayasiddhi-institutional-schema.js';
 import * as ministrySchema from '../../shared/nyayasiddhi-ministry-schema.js';
 import * as academySchema from '../../shared/nyayasiddhi-academy-schema.js';
@@ -146,7 +146,7 @@ function attachTenantContextDefault(p: { on: (ev: string, cb: (...args: unknown[
 
 const allSchemas: SchemaRecord = {
   ...schema,
-  ...nyayamitraSchema,
+  ...jrxCitizenSchema,
   ...institutionalSchema,
   ...ministrySchema,
   ...academySchema,
@@ -175,13 +175,13 @@ function createPoolConfig(connectionString: string, product: string) {
 
   // NV-PG-SSL-VERIFY-2026-05-11 (task-142): upgrade sslmode=require/
   // prefer/verify-ca → sslmode=verify-full and pass the bundled AWS RDS
-  // CA via `ssl: { ca, rejectUnauthorized:true }` (see nv-pg-ssl.ts).
+  // CA via `ssl: { ca, rejectUnauthorized:true }` (see jrx-pg-ssl.ts).
   // The Neon driver ignores the `ssl` option (uses its own websocket
   // TLS); the pg driver enforces full server-cert verification.
-  // Opt out of verification with NYV_PG_SSL_VERIFY=false or
+  // Opt out of verification with JRX_PG_SSL_VERIFY=false or
   // PGSSLMODE=disable.
   const base = normalizePgConnectionString(connectionString);
-  const normalized = process.env.NYV_PG_SSL_VERIFY === 'false'
+  const normalized = process.env.JRX_PG_SSL_VERIFY === 'false'
     ? base
     : upgradePgConnectionStringToVerifyFull(base);
   return {
@@ -191,9 +191,9 @@ function createPoolConfig(connectionString: string, product: string) {
     min: sizes.min,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 10000,
-    // NV-TIMEOUT-POLICY-001: align with master config (60s); override via NYV_PG_STATEMENT_TIMEOUT_MS
+    // NV-TIMEOUT-POLICY-001: align with master config (60s); override via JRX_PG_STATEMENT_TIMEOUT_MS
     statement_timeout: (() => {
-      const n = Number(process.env.NYV_PG_STATEMENT_TIMEOUT_MS);
+      const n = Number(process.env.JRX_PG_STATEMENT_TIMEOUT_MS);
       return Number.isFinite(n) && n >= 10_000 ? Math.min(120_000, Math.floor(n)) : 60_000;
     })(),
     maxUses: 7500,
@@ -259,7 +259,7 @@ if (isSingleDbMode) {
 
   const nmUrl = process.env.NM_DATABASE_URL || fallbackUrl;
   if (nmUrl) {
-    const built = makeDb(nmUrl, 'nm', { ...schema, ...nyayamitraSchema } as SchemaRecord);
+    const built = makeDb(nmUrl, 'nm', { ...schema, ...jrxCitizenSchema } as SchemaRecord);
     const nmPool = built.pool;
     dbNm = built.drizzle;
     nmPool.on('error', (err: Error) => {
@@ -267,14 +267,14 @@ if (isSingleDbMode) {
     });
     databases.set('nm', { pool: nmPool, db: dbNm, product: 'nm' });
     nvDbPoolManager.register('nm', nmPool, createPoolConfig(nmUrl, 'nm').max);
-    logger.info('✅ Nyayamitra database pool initialized');
+    logger.info('✅ Jurexio Citizen database pool initialized');
   }
 
   db = dbNv || dbNs || dbNm;
 
   if (!dbNv) logger.warn('⚠️ NV_DATABASE_URL not set: Jurexio Core DB will use fallback');
   if (!dbNs) logger.warn('⚠️ NS_DATABASE_URL not set: Jurexio Professional™ DB will use fallback');
-  if (!dbNm) logger.warn('⚠️ NM_DATABASE_URL not set: Nyayamitra DB will use fallback');
+  if (!dbNm) logger.warn('⚠️ NM_DATABASE_URL not set: Jurexio Citizen DB will use fallback');
 
   logger.info(`✅ Multi-database mode: ${databases.size} product databases initialized`);
 }
@@ -385,9 +385,9 @@ function getPoolStats(): Record<string, { total: number; idle: number; waiting: 
 // instead of an explicit `Database not available` failure. Consumers now
 // either:
 //   (a) early-return `res.status(500).json({ error: 'Database not available' })`
-//       like `nv-enterprise-admin-routes.ts`, or
+//       like `jrx-enterprise-admin-routes.ts`, or
 //   (b) rebind locally via `requireDb(...)` (see `utils/jrx-type-helpers.ts`)
 //       — typically inside a lazy Proxy so module init never throws.
 export { db, pool, dbNv, dbNs, dbNm, getDbForProduct, getDatabaseMode, checkDatabaseHealth, closeDatabasePool, getPoolStats, nvDbPoolManager };
 export * from '../../shared/schema.js';
-export * from '../../shared/nyayamitra-schema.js';
+export * from '../../shared/jurexio-citizen-schema.js';

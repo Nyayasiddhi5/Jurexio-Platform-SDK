@@ -229,7 +229,7 @@ export default function SuperAdminCompliance() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `nyayavigya-compliance-${new Date().toISOString().slice(0, 10)}.pdf`;
+      a.download = `jurexio-compliance-${new Date().toISOString().slice(0, 10)}.pdf`;
       document.body.appendChild(a);
       a.click();
       a.remove();

@@ -2,7 +2,7 @@
  * NV-MEM-TENANT-001 — proof that the regression suite is not vacuous.
  *
  * These cases run the assertions from
- * `nv-graph-memory-tenant-isolation.test.ts` against the PRE-FIX implementation
+ * `jrx-graph-memory-tenant-isolation.test.ts` against the PRE-FIX implementation
  * (a verbatim copy of `graph-memory-service.ts` at the commit before the fix,
  * checked in under `tests/fixtures/`). Every `expect` here asserts the defective
  * behaviour, so this file passing is the evidence that the fixed suite would

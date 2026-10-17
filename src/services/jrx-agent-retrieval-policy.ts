@@ -4,7 +4,7 @@
  * Every Queen / orchestrate / legal-work / pattern path should follow:
  *   1. NYS (global public law SoT) — statutes, caselaw, retrieve, Athena
  *   2. Tenant RAG / knowledge base — org & matter corpora
- *   3. Matter memory — session / L1–L5 recall (NYV-backed, not NYS)
+ *   3. Matter memory — session / L1–L5 recall (JRX-backed, not NYS)
  *   4. LLM (safety ring only) — reason/synthesize; never invent citations
  *
  * This module is the canonical directive text + helper used by Queen Step-0
@@ -38,7 +38,7 @@ export function agentRetrievalPolicyDirective(opts?: {
       ? '1) NYS Knowledge Plane FIRST — statutes, caselaw, retrieve plan, Athena archive for global Indian public law. Prefer nys_global / grounded context over model memory.'
       : '1) NYS Knowledge Plane unavailable — use tenant RAG then memory; do not invent Indian statutes/cases.',
     '2) Tenant RAG / org knowledge base SECOND — matter documents, shared docs, private corpora.',
-    '3) Matter memory THIRD — prior turns, L1–L5 recall (tenant NYV memory; not NYS-backed).',
+    '3) Matter memory THIRD — prior turns, L1–L5 recall (tenant JRX memory; not JRX-backed).',
     '4) LLM LAST — synthesize only from retrieved context; cite only authorities present in context; if ungrounded, say so and ask for sources.',
     'Never claim SCC Online / eCourts live scrape unless those tools returned hits in this turn.',
   ].join('\n');

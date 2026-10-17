@@ -7,8 +7,8 @@
 
 | Name | Role |
 |------|------|
-| **Jurexio (NYV)** | India-centric platform (NSP, NYM, …) — unchanged |
-| **Legacy NYV partner JRX** | JuRiX tenant on NYV gateway (`/api/jrx/`, `JRX_SDK_KEY_JRX`) — **not** Jurexio Enterprise |
+| **Jurexio (JRX)** | India-centric platform (NSP, NYM, …) — unchanged |
+| **Legacy JRX partner JRX** | JuRiX tenant on JRX gateway (`/api/jrx/`, `JRX_SDK_KEY_JRX`) — **not** Jurexio Enterprise |
 | **Jurexio Enterprise Platform** | Global product — this repository |
 
 ## Naming
@@ -26,4 +26,4 @@
 ## Compliance
 
 - Forbidden in product paths: `Jurexio`, `Jurexio`, `jurexio.example`, `jrx-staging`, `/opt/Jurexio`.
-- Lineage only: `UPSTREAM-NYV-SHA.txt`, `documents/working/archive/upstream-nyv/`.
+- Lineage only: `UPSTREAM-JRX-SHA.txt`, `documents/working/archive/upstream-nyv/`.

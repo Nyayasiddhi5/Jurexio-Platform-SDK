@@ -10,7 +10,7 @@
  * Detects:
  *   - secrets: passwords, tokens, API keys hardcoded in source
  *   - emails: hardcoded email addresses (should come from config/env)
- *   - urls: hardcoded HTTP/HTTPS URLs (should come from nv-service-urls.ts)
+ *   - urls: hardcoded HTTP/HTTPS URLs (should come from jrx-service-urls.ts)
  *   - console_calls: console.log/error/warn/debug (must use logger.* instead)
  *   - magic_numbers: suspiciously large numeric literals
  *   - file_paths: absolute file paths hardcoded in source
@@ -119,7 +119,7 @@ export class HardcodedValueDetector {
       severity: 'WARNING',
       message: 'Hardcoded email address — use config or environment variable instead',
       exceptions: [
-        'example.com', 'test.com', 'placeholder', '@nyayavigya.in',
+        'example.com', 'test.com', 'placeholder', '@jurexio.com',
         'admin@', 'noreply@', 'support@', 'no-reply@',
       ],
       skipFiles: [/schema\.ts$/, /seed/, /demo/, /test/, /spec/, /migrations/],
@@ -129,11 +129,11 @@ export class HardcodedValueDetector {
         /https?:\/\/[^\s\)"'`]+/i,
       ],
       severity: 'WARNING',
-      message: 'Hardcoded URL — use nv-service-urls.ts or environment variable instead',
+      message: 'Hardcoded URL — use jrx-service-urls.ts or environment variable instead',
       exceptions: [
         'localhost', '127.0.0.1', 'example.com', '0.0.0.0',
         'schema.org', 'w3.org', 'xmlns', 'openapi', 'swagger',
-        'github.com/nyayavigya', 'replit.app', 'nyayavigya.in',
+        'github.com/jurexio', 'replit.app', 'jurexio.com',
       ],
     },
     console_calls: {

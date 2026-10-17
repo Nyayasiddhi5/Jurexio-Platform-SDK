@@ -21,7 +21,7 @@
 // has been REMOVED entirely from autonomous-continuous-execution-engine.ts
 // (architect review — no env-based boot-start path remains).
 import { Router, type Request, type Response, type NextFunction } from 'express';
-import { isNyvFeatureOn, type NyvFeatureFlag } from '../../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn, type JrxFeatureFlag } from '../../../config/jrx-feature-flags.js';
 import { requireSdkKeyStrict, safeError } from '../_auth.js';
 import { autonomousExecutionEngine } from '../../../packages/workflows/autonomous-continuous-execution-engine.js';
 import { continuousExecutionEngine } from '../../../packages/workflows/continuous-execution-engine.js';
@@ -42,8 +42,8 @@ router.get('/health', (_req: Request, res: Response) => {
     version: 'v5.0.1',
     uptimeSec: Math.floor(process.uptime()),
     flags: {
-      autonomous: isNyvFeatureOn('workflowAutonomous'),
-      continuous: isNyvFeatureOn('workflowContinuous'),
+      autonomous: isJrxFeatureOn('workflowAutonomous'),
+      continuous: isJrxFeatureOn('workflowContinuous'),
     },
     engines: {
       autonomousRunning: autonomousExecutionEngine.isExecutionRunning?.() ?? false,
@@ -59,11 +59,11 @@ router.get('/', (_req: Request, res: Response) => {
     namespace: 'workflows',
     engines: {
       autonomous: {
-        flagOn: isNyvFeatureOn('workflowAutonomous'),
+        flagOn: isJrxFeatureOn('workflowAutonomous'),
         running: autonomousExecutionEngine.isExecutionRunning?.() ?? false,
       },
       continuous: {
-        flagOn: isNyvFeatureOn('workflowContinuous'),
+        flagOn: isJrxFeatureOn('workflowContinuous'),
         running: continuousExecutionEngine.isEngineRunning?.() ?? false,
       },
     },
@@ -77,13 +77,13 @@ router.get('/', (_req: Request, res: Response) => {
   });
 });
 
-const gate = (flag: NyvFeatureFlag, sub: Router) =>
+const gate = (flag: JrxFeatureFlag, sub: Router) =>
   (req: Request, res: Response, next: NextFunction) =>
-    isNyvFeatureOn(flag) ? sub(req, res, next) : next();
+    isJrxFeatureOn(flag) ? sub(req, res, next) : next();
 
 // Root-level gate: at least one workflow flag ON for canonical lifecycle.
 const anyWorkflowFlagOn = (_req: Request, _res: Response, next: NextFunction) => {
-  if (isNyvFeatureOn('workflowAutonomous') || isNyvFeatureOn('workflowContinuous')) return next();
+  if (isJrxFeatureOn('workflowAutonomous') || isJrxFeatureOn('workflowContinuous')) return next();
   return next('route');
 };
 
@@ -91,11 +91,11 @@ const anyWorkflowFlagOn = (_req: Request, _res: Response, next: NextFunction) =>
 router.post('/start', anyWorkflowFlagOn, requireSdkKeyStrict, async (_req: Request, res: Response) => {
   try {
     const started: Record<string, boolean> = {};
-    if (isNyvFeatureOn('workflowContinuous')) {
+    if (isJrxFeatureOn('workflowContinuous')) {
       await continuousExecutionEngine.start();
       started.continuous = continuousExecutionEngine.isEngineRunning();
     }
-    if (isNyvFeatureOn('workflowAutonomous')) {
+    if (isJrxFeatureOn('workflowAutonomous')) {
       await autonomousExecutionEngine.startAutonomousExecution();
       started.autonomous = autonomousExecutionEngine.isExecutionRunning();
     }

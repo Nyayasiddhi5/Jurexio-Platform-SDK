@@ -1,6 +1,6 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
- * NYV Model Registry Routes
+ * JRX Model Registry Routes
  * /api/jrx/models/*
  * ─────────────────────────────────────────────────────────────────────────────
  * REST API for dynamic model management. Allows registering, disabling, and
@@ -9,11 +9,11 @@
  * Auth: Admin role required for write operations.
  * Read operations require API key or admin session.
  *
- * @module nv-model-registry-routes
+ * @module jrx-model-registry-routes
  */
 
 import { Router, Request, Response, NextFunction } from 'express';
-import { dynamicModelRegistry, ModelRegistryEntry, ModelTier, JurisdictionCode } from '../config/nyv-dynamic-model-registry.js';
+import { dynamicModelRegistry, ModelRegistryEntry, ModelTier, JurisdictionCode } from '../config/jrx-dynamic-model-registry.js';
 import {
   listModelCatalogAsRegistry,
   modelCatalogRegistryStats,
@@ -134,7 +134,7 @@ router.get('/providers', async (_req: Request, res: Response): Promise<void> => 
   try {
     const {
       ALLOWED_PROVIDERS, INACTIVE_PROVIDERS, PROVIDER_MODEL_CATALOG,
-    } = await import('../config/nyv-allowed-providers.js');
+    } = await import('../config/jrx-allowed-providers.js');
     const { isProviderAvailable, providerKeyRequirement } = await import('../services/intelligent-router/model-catalog.js');
 
     const build = (id: string, status: 'allowed' | 'inactive') => {
@@ -169,7 +169,7 @@ router.get('/providers', async (_req: Request, res: Response): Promise<void> => 
         },
         // NV-BEDROCK-LIVE-001: ops note surfaced to the console.
         notes: {
-          bedrock: 'Code-ready + IAM-verified (ap-south-1). Set NYV_BEDROCK_ENABLED=true after submitting the one-time Anthropic use-case form in the Bedrock console for the AWS account.',
+          bedrock: 'Code-ready + IAM-verified (ap-south-1). Set JRX_BEDROCK_ENABLED=true after submitting the one-time Anthropic use-case form in the Bedrock console for the AWS account.',
         },
       },
     });

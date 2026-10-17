@@ -1,5 +1,5 @@
 /**
- * NYV-OBS-REQMETRICS-001 (Task #28) — In-process request rate + error
+ * JRX-OBS-REQMETRICS-001 (Task #28) — In-process request rate + error
  * histogram for /api/jrx/admin/health/full.
  *
  * Why not Prometheus/StatsD: this platform runs single-process per pod

@@ -12,8 +12,8 @@ import {
   Activity, Network, RefreshCw, Share2, GitBranch, ShieldCheck, Clock,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { p } from '@/lib/jrx-api-paths';
 import { nvFetchJson } from '@/lib/jrx-fetch-json';
 
@@ -312,9 +312,9 @@ export default function A2ACollaborationDashboard() {
                 {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-10 w-full" />)}
               </div>
             ) : protocolsQ.isError ? (
-              <NyvErrorState title="Protocol registry unavailable" size="sm" />
+              <JrxErrorState title="Protocol registry unavailable" size="sm" />
             ) : collabProtocols.length === 0 ? (
-              <NyvEmptyState
+              <JrxEmptyState
                 title="No inter-agent protocols registered"
                 description="Bootstrap ROMA / MCP via POST {orchestration}/protocols/roma/initialize"
                 size="sm"
@@ -392,9 +392,9 @@ export default function A2ACollaborationDashboard() {
                   {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}
                 </div>
               ) : chainsQ.isError ? (
-                <NyvErrorState title="Chains endpoint unavailable" size="sm" />
+                <JrxErrorState title="Chains endpoint unavailable" size="sm" />
               ) : collabSessions.length === 0 ? (
-                <NyvEmptyState
+                <JrxEmptyState
                   title="No multi-agent sessions in window"
                   description="Sessions appear once a chain with ≥ 2 steps executes."
                   size="sm"
@@ -460,9 +460,9 @@ export default function A2ACollaborationDashboard() {
                   {Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-8 w-full" />)}
                 </div>
               ) : (chainsQ.isError && protocolsQ.isError) ? (
-                <NyvErrorState title="Orchestration timeline unavailable" size="sm" />
+                <JrxErrorState title="Orchestration timeline unavailable" size="sm" />
               ) : collabEvents.length === 0 ? (
-                <NyvEmptyState title="No recent collaboration events" size="sm" />
+                <JrxEmptyState title="No recent collaboration events" size="sm" />
               ) : (
                 <div className="space-y-2" data-testid="a2a-timeline-list">
                   {collabEvents.slice(0, 12).map((e) => (

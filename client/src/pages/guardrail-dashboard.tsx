@@ -13,7 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import {
   Shield, AlertTriangle, CheckCircle2, XCircle, RefreshCw,
   ChevronRight, BarChart3, Activity, Clock, Zap, Eye, MinusCircle,
@@ -427,7 +427,7 @@ export default function GuardrailDashboard() {
         </CardHeader>
         <CardContent>
           {filteredEvents.length === 0 ? (
-            <NyvEmptyState icon={Shield} title="No events match filters" description="Adjust severity or action filters to see more events." size="sm" />
+            <JrxEmptyState icon={Shield} title="No events match filters" description="Adjust severity or action filters to see more events." size="sm" />
           ) : (
             <div className="space-y-2">
               {filteredEvents.map((event: GuardrailEvent) => {

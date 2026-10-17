@@ -20,7 +20,7 @@ const GETTING_STARTED = {
   quickstart: {
     step1: 'Register your platform at POST /api/jrx/platforms',
     step2: 'Generate API keys at POST /api/jrx/sdk/keys/{appId}/generate',
-    step3: 'Initialize SDK: new NyvClient({ apiKey: "nyv_live_sk_...", baseUrl: "https://api.nyayavigya.in" })',
+    step3: 'Initialize SDK: new JrxClient({ apiKey: "nyv_live_sk_...", baseUrl: "https://api.jurexio.com" })',
     step4: 'Execute patterns: await client.patterns.execute("nyayarag", { task: "...", jurisdiction: "IN" })',
     step5: 'Stream responses: client.stream.pattern("cot", { task: "...", jurisdiction: "IN" })',
   },
@@ -171,8 +171,8 @@ const PLATFORM_QUICKSTARTS = {
   title: 'Platform Integration Quickstart Guides',
   platforms: [
     {
-      id: 'nyayamitra',
-      name: 'Nyayamitra™ — Citizens Legal AI',
+      id: 'jurexio-citizen',
+      name: 'Jurexio Citizen — Citizens Legal AI',
       code: 'NYM',
       targetUsers: 'Citizens, Rural India',
       integration: {
@@ -180,8 +180,8 @@ const PLATFORM_QUICKSTARTS = {
         primaryAgents: ['citizen-legal-advisor', 'rights-awareness-agent', 'legal-aid-navigator'],
         channels: ['WhatsApp (via ClaWdBot)', 'Web Chat', 'Voice (22 Indian languages)'],
         keyFeatures: ['Legal Q&A in 22 languages', 'Rights awareness', 'E-filing assistance', 'Nearest legal aid'],
-        sampleCode: `import { NyvClient } from '@jurexio/client-sdk';
-const client = new NyvClient({ apiKey: 'nyv_live_sk_...', jurisdiction: 'IN' });
+        sampleCode: `import { JrxClient } from '@jurexio/client-sdk';
+const client = new JrxClient({ apiKey: 'nyv_live_sk_...', jurisdiction: 'IN' });
 const response = await client.patterns.execute('nyayarag', {
   task: 'What are my rights if I am arrested?',
   language: 'hi',
@@ -192,7 +192,7 @@ const response = await client.patterns.execute('nyayarag', {
     {
       id: 'nyayasiddhi-professional',
       name: 'Jurexio Professional™ — Lawyers & Firms',
-      code: 'NYS-PRO',
+      code: 'JRX-PRO',
       targetUsers: 'Lawyers, Law Firms',
       integration: {
         primaryPatterns: ['P11 (NyayaRAG)', 'P07 (Maker-Checker)', 'P12 (GraphRAG)', 'P06 (Refine)'],
@@ -208,7 +208,7 @@ const response = await client.patterns.execute('nyayarag', {
     {
       id: 'nyayasiddhi-institutional',
       name: 'Jurexio Institutional™ — Enterprises',
-      code: 'NYS-INS',
+      code: 'JRX-INS',
       targetUsers: 'Enterprises, Large Firms',
       integration: {
         primaryPatterns: ['P16 (Swarm)', 'P15 (HTA)', 'P18 (MOAt)'],
@@ -222,7 +222,7 @@ const compliance = await enterprise.compliance.getIso42001Summary();`,
     {
       id: 'nyayasiddhi-academy',
       name: 'Jurexio Academy™ — Legal Education',
-      code: 'NYS-ACE',
+      code: 'JRX-ACE',
       targetUsers: 'Law Students, CPD',
       integration: {
         primaryPatterns: ['P04 (Reflection)', 'P02 (CoT)', 'P13 (Mem0)'],
@@ -233,7 +233,7 @@ const compliance = await enterprise.compliance.getIso42001Summary();`,
     {
       id: 'nyayasiddhi-ministry',
       name: 'Jurexio Ministry™ — Government',
-      code: 'NYS-MIN',
+      code: 'JRX-MIN',
       targetUsers: 'Government, Ministries',
       integration: {
         primaryPatterns: ['P19 (ADaPT)', 'P17 (ACONIC)', 'P05 (Plan+Execute)'],
@@ -251,7 +251,7 @@ const WEBHOOK_SPEC = {
   configuration: {
     setupEndpoint: 'POST /api/jrx/sdk/keys/{appId}/generate with key_type: "webhook_secret"',
     webhookUrlSetting: 'Set webhook_url in your platform configuration at POST /api/jrx/platforms',
-    signatureHeader: 'X-NYV-Signature: HMAC-SHA256 of payload using webhook secret (nyv_wh_*)',
+    signatureHeader: 'X-JRX-Signature: HMAC-SHA256 of payload using webhook secret (nyv_wh_*)',
     retryPolicy: '3 attempts with exponential backoff (1s, 5s, 30s)',
     timeout: '10 seconds per delivery attempt',
   },
@@ -303,8 +303,8 @@ router.get('/', (_req: Request, res: Response) => {
       { name: 'Error Codes', path: '/api/jrx/sdk/developer-portal/errors' },
     ],
     contact: {
-      email: 'sdk@nyayavigya.in',
-      docs: 'https://docs.nyayavigya.in',
+      email: 'sdk@jurexio.com',
+      docs: 'https://docs.jurexio.com',
     },
   });
 });
@@ -343,7 +343,7 @@ router.get('/packages', (_req: Request, res: Response) => {
         version: '3.1.2',
         description: 'Core TypeScript SDK for all platform integrations',
         install: 'npm install @jurexio/client-sdk',
-        exports: ['NyvClient', 'NyvStreamReader', 'PatternsAPI', 'DocumentsAPI', 'AgentsAPI', 'TwinsAPI', 'IntelligenceAPI', 'MemoryAPI', 'CacheAPI'],
+        exports: ['JrxClient', 'JrxStreamReader', 'PatternsAPI', 'DocumentsAPI', 'AgentsAPI', 'TwinsAPI', 'IntelligenceAPI', 'MemoryAPI', 'CacheAPI'],
         size: '~45KB minified',
       },
       {
@@ -359,7 +359,7 @@ router.get('/packages', (_req: Request, res: Response) => {
         version: '3.1.2',
         description: 'React hooks for legal AI UI components',
         install: 'npm install @jurexio/react-hooks',
-        exports: ['useNyvClient', 'usePatternStream', 'useCredits', 'useGovernanceBadge', 'useJurisdiction', 'useAuditLog'],
+        exports: ['useJrxClient', 'usePatternStream', 'useCredits', 'useGovernanceBadge', 'useJurisdiction', 'useAuditLog'],
         peerDependency: 'react >=18.0.0',
       },
       {
@@ -367,7 +367,7 @@ router.get('/packages', (_req: Request, res: Response) => {
         version: '3.1.2',
         description: 'Shared TypeScript types for all SDKs and platforms',
         install: 'npm install @jurexio/types',
-        exports: ['NyvJurisdiction', 'NyvSubscriptionTier', 'NyvPatternKey', 'NyvTemplateMode', 'NyvCreditTransaction', 'NyvAiMetadata'],
+        exports: ['JrxJurisdiction', 'JrxSubscriptionTier', 'JrxPatternKey', 'JrxTemplateMode', 'JrxCreditTransaction', 'JrxAiMetadata'],
       },
     ],
   });
@@ -442,7 +442,7 @@ router.get('/errors', (_req: Request, res: Response) => {
     ],
     format: {
       error: 'string — Error message',
-      code: 'string — NYV error code (e.g., NYV-401, NYV-402)',
+      code: 'string — JRX error code (e.g., JRX-401, JRX-402)',
       details: 'object (optional) — Additional error context',
     },
   });

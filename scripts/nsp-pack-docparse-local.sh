@@ -24,8 +24,8 @@ copy_tree() {
 copy_tree "${ROOT}/packages/docparse-sdk" "${WORK}/nsp-docparse-local/docparse-sdk"
 copy_tree "${ROOT}/packages/nsp-docparse" "${WORK}/nsp-docparse-local/nsp-docparse"
 mkdir -p "${WORK}/nsp-docparse-local/client-sdk-types"
-cp "${ROOT}/packages/client-sdk/src/types/NyvLegalDocparse.ts" \
-  "${WORK}/nsp-docparse-local/client-sdk-types/NyvLegalDocparse.ts"
+cp "${ROOT}/packages/client-sdk/src/types/JrxLegalDocparse.ts" \
+  "${WORK}/nsp-docparse-local/client-sdk-types/JrxLegalDocparse.ts"
 cp "${ROOT}/documents/working/NSP-DOCPARSE-INTEGRATION-ONE-PAGER.md" \
   "${WORK}/nsp-docparse-local/NSP-DOCPARSE-INTEGRATION-ONE-PAGER.md"
 cp "${ROOT}/documents/working/NSP-DOCPARSE-LOCAL-FIRST-HANDOFF.md" \
@@ -40,12 +40,12 @@ cp "${ROOT}/documents/working/DOCPARSE-TEXTRACT-BACKUP-ARCHITECTURE-2026-10.md" 
   "${WORK}/nsp-docparse-local/DOCPARSE-TEXTRACT-BACKUP-ARCHITECTURE-2026-10.md"
 cp "${ROOT}/../documents/working/NSP-UNIFIED-DOCUMENT-INTELLIGENCE-2026-10.md" \
   "${WORK}/nsp-docparse-local/NSP-UNIFIED-DOCUMENT-INTELLIGENCE-2026-10.md" 2>/dev/null || true
-for f in NYV-NSP-DOCPARSE-HANDOFF-TICKETS-2026-10-15.md \
-  NYV-NSP-DOCPARSE-OPENAPI-2026-10-15.yaml \
-  NYV-NSP-DOCPARSE-SCHEMAS-2026-10-15.json \
-  NYV-NSP-DOCPARSE-OPS-RUNBOOK-2026-10-15.md \
-  NYV-NSP-DOCPARSE-JOINT-SMOKE-2026-10-15.md \
-  NSP-NYV-DOCPARSE-PARTNER-REQUIREMENTS-ONE-PAGER-2026-10-15.md; do
+for f in JRX-NSP-DOCPARSE-HANDOFF-TICKETS-2026-10-15.md \
+  JRX-NSP-DOCPARSE-OPENAPI-2026-10-15.yaml \
+  JRX-NSP-DOCPARSE-SCHEMAS-2026-10-15.json \
+  JRX-NSP-DOCPARSE-OPS-RUNBOOK-2026-10-15.md \
+  JRX-NSP-DOCPARSE-JOINT-SMOKE-2026-10-15.md \
+  NSP-JRX-DOCPARSE-PARTNER-REQUIREMENTS-ONE-PAGER-2026-10-15.md; do
   cp "${ROOT}/documents/working/${f}" "${WORK}/nsp-docparse-local/${f}" 2>/dev/null || true
 done
 
@@ -65,7 +65,7 @@ Hybrid: @nyayavigya/nsp-docparse@${NSP_VER}
 3. \`cd ../nsp-docparse && npm install && npm run build && npm test\`
 4. Wire \`NspHybridDocparseClient\` in NSP BFF (see nsp-docparse/README.md).
 
-Optional NYV escalation: \`NYV_SDK_KEY\` + \`nyv.baseUrl\` on hybrid client (BFF only).
+Optional JRX escalation: \`JRX_SDK_KEY\` + \`nyv.baseUrl\` on hybrid client (BFF only).
 
 Other domains / non-NSP projects: **DOCPARSE-MULTI-DOMAIN-AND-DEPLOYMENT-GUIDE.md**
 EOF

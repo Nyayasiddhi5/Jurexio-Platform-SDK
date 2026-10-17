@@ -10,7 +10,7 @@
 --   nothing at the database level prevents a future migration or DML mistake
 --   from leaving an `sdk_applications` row with a NULL or invalid
 --   organization_id. That re-triggers the production fail-closed path
---   `sdk_application_missing_org_binding` in src/middleware/nv-sdk-gateway.ts
+--   `sdk_application_missing_org_binding` in src/middleware/jrx-sdk-gateway.ts
 --   and silently 500s the SKU.
 --
 -- This migration is ADDITIVE on the API contract (NV-API-CONTRACT-001):

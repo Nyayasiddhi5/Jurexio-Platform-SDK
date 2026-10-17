@@ -4,7 +4,7 @@
  *
  * Registry consistency regression check (Task #27/#28 close-out).
  *
- * Validates every agent in every config/agent-registries/Nyayavigya-Legal-registry-*.json
+ * Validates every agent in every config/agent-registries/Jurexio-Legal-registry-*.json
  * file against the post-T1-T12 contract:
  *
  *   1. preferredModels and fallbackModels MUST contain only models in PROVIDER_MODEL_CATALOG
@@ -16,7 +16,7 @@
  *      INSIDE <section_10_citation> (verified by extracting the section body first).
  *   5. Every agent MUST contain a <role_narrative> block INSIDE <section_1_identity>.
  *      Applies to all 1042 agents — the 6 *-ns-queen orchestrators were converted
- *      to the unified XML schema in NYV-QUEEN-XML-CLEANUP-001 and have NO exemption.
+ *      to the unified XML schema in JRX-QUEEN-XML-CLEANUP-001 and have NO exemption.
  *
  * Exits 0 on PASS, 1 on any violation. Designed for CI / pre-commit / pre-deploy.
  */
@@ -24,14 +24,14 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
-import { isAllowedModel } from '../src/config/nyv-allowed-providers.js';
+import { isAllowedModel } from '../src/config/jrx-allowed-providers.js';
 import { STALE_MODEL_REPLACEMENTS } from './lib/agent-model-tiers';
 import { getJurisdictionLanguages } from './lib/agent-languages';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REGISTRY_DIR = path.resolve(__dirname, '..', 'config', 'agent-registries');
 
-const REGISTRY_FILE_RE = /^Nyayavigya-Legal-registry-(IN|UK|EU|US|GC|SG|Default)\.json$/;
+const REGISTRY_FILE_RE = /^Jurexio-Legal-registry-(IN|UK|EU|US|GC|SG|Default)\.json$/;
 
 interface Violation {
   file: string;
@@ -122,7 +122,7 @@ function lintAgent(file: string, jurisdiction: string, agent: any): void {
   }
 
   // Rule 5: <role_narrative> present INSIDE <section_1_identity>.
-  // NS-Queen exemption removed in NYV-QUEEN-XML-CLEANUP-001 — all 1042 agents,
+  // NS-Queen exemption removed in JRX-QUEEN-XML-CLEANUP-001 — all 1042 agents,
   // including the 6 *-ns-queen orchestrators, now use the unified XML schema.
   // (Marker `isQueen` retained for diagnostic context but no longer skips.)
   void isQueen;

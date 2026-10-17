@@ -1,12 +1,12 @@
 /**
- * NYV-UAT-v3.2 Comprehensive Runner
- * NYV-UAT-RUNNER-001
+ * JRX-UAT-v3.2 Comprehensive Runner
+ * JRX-UAT-RUNNER-001
  *
  * Reads `scripts/jrx-uat-scenarios.ts`, executes each scenario against the
  * running gateway, records actual results, computes pass/fail against
  * criteria, and writes:
- *   docs/v3.1.2/pending_implementation_docs/uat/NYV-UAT-v3.2-COMPREHENSIVE.md   - full per-scenario record
- *   docs/v3.1.2/pending_implementation_docs/uat/NYV-UAT-v3.2-SUMMARY.md         - pass-rate per category + bugs
+ *   docs/v3.1.2/pending_implementation_docs/uat/JRX-UAT-v3.2-COMPREHENSIVE.md   - full per-scenario record
+ *   docs/v3.1.2/pending_implementation_docs/uat/JRX-UAT-v3.2-SUMMARY.md         - pass-rate per category + bugs
  *   docs/v3.1.2/pending_implementation_docs/uat/results.json                    - machine-readable results
  *
  * Modes:
@@ -42,7 +42,7 @@ const arg = (name: string, fallback?: string): string | undefined => {
   return a.split('=').slice(1).join('=');
 };
 const MODE     = arg('mode', 'run')!;
-const BASE     = arg('base', process.env.NYV_UAT_BASE || 'http://localhost:5000')!;
+const BASE     = arg('base', process.env.JRX_UAT_BASE || 'http://localhost:5000')!;
 const FILTER   = arg('filter');
 const EXCLUDE  = arg('exclude');
 const LIMIT    = parseInt(arg('limit', '0')!) || 0;
@@ -69,13 +69,13 @@ const NV_UAT_SDK_KEY = process.env.NV_UAT_SDK_KEY || NV_API_KEY;
 const UAT_EMAIL      = process.env.NV_UAT_EMAIL   || '';
 const UAT_PASS       = process.env.NV_UAT_PASSWORD || '';
 
-// NYV-UAT-MULTIUSER-001: per-role demo users + per-SDK-variant API keys.
+// JRX-UAT-MULTIUSER-001: per-role demo users + per-SDK-variant API keys.
 // All passwords come from the same NV_UAT_PASSWORD env (the demo seed uses
 // one shared password); per-variant API keys come from explicit env names so
 // they're never committed and the runner exits with a clear message if any
 // variant is missing.
 type UserRole = 'super-admin' | 'lawyer-pro' | 'citizen-mitra' | 'enterprise-counsel' | 'paralegal';
-type SdkVariant = 'nsp-web' | 'nsp-mobile' | 'nyayamitra-mobile';
+type SdkVariant = 'nsp-web' | 'nsp-mobile' | 'jurexio-citizen-mobile';
 
 const ROLE_TO_EMAIL_ENV: Record<UserRole, string> = {
   'super-admin':         'NV_UAT_EMAIL',
@@ -88,17 +88,17 @@ const ROLE_TO_EMAIL_ENV: Record<UserRole, string> = {
 // Defaults for the seeded demo users (these are seeded by scripts/jrx-seed-users.ts;
 // the env vars above let you override per-environment without changing code).
 const ROLE_DEFAULT_EMAIL: Record<UserRole, string> = {
-  'super-admin':         'admin@nyayavigya.in',
-  'lawyer-pro':          'dev@demo.nyayavigya.in',
-  'citizen-mitra':       'user@demo.nyayavigya.in',
-  'enterprise-counsel':  'manager@demo.nyayavigya.in',
-  'paralegal':           'analyst@demo.nyayavigya.in',
+  'super-admin':         'admin@jurexio.com',
+  'lawyer-pro':          'dev@demo.jurexio.com',
+  'citizen-mitra':       'user@demo.jurexio.com',
+  'enterprise-counsel':  'manager@demo.jurexio.com',
+  'paralegal':           'analyst@demo.jurexio.com',
 };
 
 const SDK_VARIANT_KEY_ENV: Record<SdkVariant, string> = {
   'nsp-web':            'NV_UAT_SDK_KEY_NSP_WEB',
   'nsp-mobile':         'NV_UAT_SDK_KEY_NSP_MOBILE',
-  'nyayamitra-mobile':  'NV_UAT_SDK_KEY_NYM_MOBILE',
+  'jurexio-citizen-mobile':  'NV_UAT_SDK_KEY_NYM_MOBILE',
 };
 
 const JWT_BY_ROLE = new Map<UserRole, string>();   // role -> bearer token
@@ -131,7 +131,7 @@ function requireAuthEnv(): void {
   if (missing.length > 0) {
     console.error(`Missing required env vars: ${missing.join(', ')}`);
     console.error(`Set them in your shell or via Replit Secrets before running. Example:`);
-    console.error(`  export NV_UAT_EMAIL=admin@nyayavigya.in`);
+    console.error(`  export NV_UAT_EMAIL=admin@jurexio.com`);
     console.error(`  export NV_UAT_PASSWORD=...   # never commit this value`);
     process.exit(2);
   }
@@ -157,7 +157,7 @@ async function loginAs(email: string, password: string): Promise<string | null> 
 
 async function login(): Promise<void> {
   if (DRY_RUN) return;
-  // NYV-UAT-MULTIUSER-001: log in as each of the 5 demo roles in parallel and
+  // JRX-UAT-MULTIUSER-001: log in as each of the 5 demo roles in parallel and
   // remember the per-role token. Scenarios then pick the right token for their
   // declared userRole — so the run actually exercises authorization layers
   // distinctly, not just one super-admin token everywhere.
@@ -329,7 +329,7 @@ async function executeScenario(s: Scenario): Promise<Result> {
   if (DRY_RUN) {
     return { ...s, status: 'blocked', actual: { error: 'dry-run' } };
   }
-  // NYV-UAT-MULTIUSER-001: skip-with-reason when an sdk-key scenario points at
+  // JRX-UAT-MULTIUSER-001: skip-with-reason when an sdk-key scenario points at
   // an SDK variant whose key is not bound to this environment. Failing such
   // scenarios would conflate a setup gap with a code defect; marking them
   // 'skipped' (and excluding from the pass-rate denominator below) keeps the
@@ -349,7 +349,7 @@ async function executeScenario(s: Scenario): Promise<Result> {
   }
   const t0 = Date.now();
   const controller = new AbortController();
-  // NYV-UAT-FIX-005: orchestrate scenarios talk to upstream LLM providers and
+  // JRX-UAT-FIX-005: orchestrate scenarios talk to upstream LLM providers and
   // 30s is too tight for first-token-on-cold-route, especially for SG/GC
   // jurisdictions that miss our hot LRU. Bump the floor to 60s for those
   // routes specifically; everything else keeps the original 30s default.
@@ -433,7 +433,7 @@ function assignBugTickets(results: Result[]): Result[] {
     if (r.status !== 'fail') return r;
     const sig = `${r.category}:${r.actual?.httpStatus || 'noresp'}:${(r.actual?.error || '').substring(0, 30)}`;
     if (!seen.has(sig)) {
-      seen.set(sig, `NYV-UAT-BUG-${String(nextId++).padStart(3, '0')}`);
+      seen.set(sig, `JRX-UAT-BUG-${String(nextId++).padStart(3, '0')}`);
     }
     return { ...r, bugTicketId: seen.get(sig)! };
   });
@@ -444,7 +444,7 @@ function assignBugTickets(results: Result[]): Result[] {
  *  field on each result. Schema:
  *  {
  *    "byScenarioId": { "HITL-PEND-001": { "kind": "fixed-in-pr", "ref": "abc123", "notes": "..." } },
- *    "byBugTicket":  { "NYV-UAT-BUG-001": { "kind": "deferred-to-task", "ref": "#47" } }
+ *    "byBugTicket":  { "JRX-UAT-BUG-001": { "kind": "deferred-to-task", "ref": "#47" } }
  *  } */
 type Resolution = NonNullable<Result['resolution']>;
 type ResolutionsFile = {
@@ -478,13 +478,13 @@ function genComprehensiveMd(results: Result[]): string {
     byCategory.get(r.category)!.push(r);
   }
   const lines: string[] = [];
-  lines.push('# NYV-UAT-v3.2 — Comprehensive End-to-End UAT Pack');
+  lines.push('# JRX-UAT-v3.2 — Comprehensive End-to-End UAT Pack');
   lines.push('');
   lines.push(`**Total scenarios:** ${results.length}`);
   lines.push(`**Jurisdictions:** IN · UK · US · EU · SG · GC · Default (7)`);
   lines.push(`**Orchestration patterns:** sequential · parallel · swarm · DAG · hierarchical · multi-agent (6)`);
   lines.push(`**Collective-intelligence modes:** brainstorm · consensus · vote · debate · synthesis (5)`);
-  lines.push(`**SDK variants exercised:** NSP web · NSP mobile · Nyayamitra mobile`);
+  lines.push(`**SDK variants exercised:** NSP web · NSP mobile · Jurexio Citizen mobile`);
   lines.push(`**User roles:** super-admin · lawyer-pro · citizen-mitra · enterprise-counsel · paralegal`);
   lines.push('');
   lines.push('## Status legend');
@@ -529,7 +529,7 @@ function genSummaryMd(results: Result[]): string {
   const totals = { pass: 0, partial: 0, fail: 0, blocked: 0, deferred: 0, skipped: 0, pending: 0 };
   results.forEach(r => totals[r.status]++);
   const total = results.length;
-  // NYV-UAT-FIX-004: pass-rate denominator excludes 'skipped' rows (those are
+  // JRX-UAT-FIX-004: pass-rate denominator excludes 'skipped' rows (those are
   // env-setup gaps documented per-row, not in scope for the code-quality bar)
   // — but they remain visible in both the overall table and the category roll-up.
   const executed = total - totals.skipped;
@@ -538,7 +538,7 @@ function genSummaryMd(results: Result[]): string {
   const passOrPartialPct = executed > 0 ? ((passOrPartial / executed) * 100).toFixed(1) : '0.0';
 
   const lines: string[] = [];
-  lines.push('# NYV-UAT-v3.2 — Auto-Generated Summary');
+  lines.push('# JRX-UAT-v3.2 — Auto-Generated Summary');
   lines.push('');
   lines.push(`> _Note: this auto-generated digest is overwritten on every run. The narrative summary with sign-off lives in the same file when \`--skip-summary\` is passed._`);
   lines.push('');
@@ -605,7 +605,7 @@ function genSummaryMd(results: Result[]): string {
 
 // ── Main ──────────────────────────────────────────────────────────────────────
 async function main() {
-  console.log(`NYV-UAT-v3.2 runner — mode=${MODE} base=${BASE} dry-run=${DRY_RUN}`);
+  console.log(`JRX-UAT-v3.2 runner — mode=${MODE} base=${BASE} dry-run=${DRY_RUN}`);
   requireAuthEnv();
   let scenarios = ALL_SCENARIOS;
   if (FILTER) {
@@ -637,8 +637,8 @@ async function main() {
   let results: Result[] = scenarios.map(s => ({ ...s, status: 'pending' as ScenarioStatus }));
 
   if (MODE === 'docs-only') {
-    fs.writeFileSync(path.join(OUT_DIR, 'NYV-UAT-v3.2-COMPREHENSIVE.md'), genComprehensiveMd(results));
-    console.log(`✓ Wrote docs/v3.1.2/pending_implementation_docs/uat/NYV-UAT-v3.2-COMPREHENSIVE.md (skeleton)`);
+    fs.writeFileSync(path.join(OUT_DIR, 'JRX-UAT-v3.2-COMPREHENSIVE.md'), genComprehensiveMd(results));
+    console.log(`✓ Wrote docs/v3.1.2/pending_implementation_docs/uat/JRX-UAT-v3.2-COMPREHENSIVE.md (skeleton)`);
     return;
   }
 
@@ -664,7 +664,7 @@ async function main() {
   finalResults = assignBugTickets(finalResults);
   finalResults = applyResolutions(finalResults);
 
-  // NYV-UAT-FIX-004: do NOT relabel `fail` → `deferred` based on the resolution
+  // JRX-UAT-FIX-004: do NOT relabel `fail` → `deferred` based on the resolution
   // overlay. The reviewer flagged that as gaming the metric — fails stay fails
   // until they're actually fixed in code, and the resolution column simply
   // shows the planned remediation owner. The only auto-status-change we now
@@ -685,17 +685,17 @@ async function main() {
 
   // Persist
   fs.writeFileSync(path.join(OUT_DIR, 'results.json'), JSON.stringify(finalResults, null, 2));
-  fs.writeFileSync(path.join(OUT_DIR, 'NYV-UAT-v3.2-COMPREHENSIVE.md'), genComprehensiveMd(finalResults));
+  fs.writeFileSync(path.join(OUT_DIR, 'JRX-UAT-v3.2-COMPREHENSIVE.md'), genComprehensiveMd(finalResults));
   if (!SKIP_SUMMARY) {
-    fs.writeFileSync(path.join(OUT_DIR, 'NYV-UAT-v3.2-SUMMARY.md'), genSummaryMd(finalResults));
-    console.log(`✓ Wrote docs/v3.1.2/pending_implementation_docs/uat/NYV-UAT-v3.2-SUMMARY.md`);
+    fs.writeFileSync(path.join(OUT_DIR, 'JRX-UAT-v3.2-SUMMARY.md'), genSummaryMd(finalResults));
+    console.log(`✓ Wrote docs/v3.1.2/pending_implementation_docs/uat/JRX-UAT-v3.2-SUMMARY.md`);
   } else {
     console.log(`(skipped writing SUMMARY.md — preserve the hand-written narrative)`);
   }
-  console.log(`✓ Wrote docs/v3.1.2/pending_implementation_docs/uat/NYV-UAT-v3.2-COMPREHENSIVE.md`);
+  console.log(`✓ Wrote docs/v3.1.2/pending_implementation_docs/uat/JRX-UAT-v3.2-COMPREHENSIVE.md`);
   console.log(`✓ Wrote docs/v3.1.2/pending_implementation_docs/uat/results.json`);
 
-  // NYV-UAT-FIX-007 (reviewer-flagged): print summary from finalResults so the
+  // JRX-UAT-FIX-007 (reviewer-flagged): print summary from finalResults so the
   // CLI line matches what's persisted to results.json/SUMMARY.md (previously
   // used the pre-merge `results` array, which could diverge after the
   // skipped-relabel pass).

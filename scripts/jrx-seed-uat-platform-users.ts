@@ -10,29 +10,29 @@ import { normalizePgConnectionString } from '../src/utils/jrx-pg-url.js';
 const DEMO_PW = process.env.NV_DEMO_PASSWORD || process.env.NV_UAT_PLATFORM_PASSWORD || '';
 const USERS = [
   {
-    email: 'admin@nyayavigya.in',
-    password: process.env.NV_UAT_ADMIN_PASSWORD || process.env.UAT_ADMIN_PASSWORD || DEMO_PW || 'Nyv!UAT#Admin@2026#A1',
+    email: 'admin@jurexio.com',
+    password: process.env.NV_UAT_ADMIN_PASSWORD || process.env.UAT_ADMIN_PASSWORD || DEMO_PW || 'Jrx!UAT#Admin@2026#A1',
     full_name: 'Platform Super Admin',
     role: 'super_admin',
     tier: 'enterprise',
   },
   {
-    email: 'legalchat-admin-uat@nyayavigya.in',
-    password: process.env.NV_UAT_ADMIN_PASSWORD || process.env.UAT_ADMIN_PASSWORD || DEMO_PW || 'Nyv!UAT#Admin@2026#A1',
+    email: 'legalchat-admin-uat@jurexio.com',
+    password: process.env.NV_UAT_ADMIN_PASSWORD || process.env.UAT_ADMIN_PASSWORD || DEMO_PW || 'Jrx!UAT#Admin@2026#A1',
     full_name: 'UAT Platform Admin',
     role: 'super_admin',
     tier: 'enterprise',
   },
   {
-    email: 'legalchat-sme-a-uat@nyayavigya.in',
-    password: process.env.NV_UAT_SME_PASSWORD || process.env.UAT_SME_PASSWORD || DEMO_PW || 'Nyv!UAT#SmeA@2026#B2',
+    email: 'legalchat-sme-a-uat@jurexio.com',
+    password: process.env.NV_UAT_SME_PASSWORD || process.env.UAT_SME_PASSWORD || DEMO_PW || 'Jrx!UAT#SmeA@2026#B2',
     full_name: 'UAT SME A',
     role: 'sme',
     tier: 'pro',
   },
   {
-    email: 'legalchat-sme-b-uat@nyayavigya.in',
-    password: process.env.NV_UAT_SME_B_PASSWORD || process.env.UAT_SME_B_PASSWORD || DEMO_PW || 'Nyv!UAT#SmeB@2026#C3',
+    email: 'legalchat-sme-b-uat@jurexio.com',
+    password: process.env.NV_UAT_SME_B_PASSWORD || process.env.UAT_SME_B_PASSWORD || DEMO_PW || 'Jrx!UAT#SmeB@2026#C3',
     full_name: 'UAT SME B',
     role: 'sme',
     tier: 'pro',
@@ -42,7 +42,7 @@ const USERS = [
 async function main() {
   const url =
     process.env.DATABASE_URL_ADMIN ||
-    process.env.NYV_DATABASE_URL_ADMIN ||
+    process.env.JRX_DATABASE_URL_ADMIN ||
     process.env.DATABASE_URL;
   if (!url) throw new Error('DATABASE_URL_ADMIN required');
 
@@ -54,17 +54,17 @@ async function main() {
   // Ensure org 1 exists for platform users
   await pool.query(`
     INSERT INTO public.nv_organizations(id, name, slug, tier, is_active, settings)
-    VALUES (1, 'Nyayavigya Platform', 'nyayavigya-platform', 'enterprise', true, '{"platform":true}'::jsonb)
+    VALUES (1, 'Jurexio Platform', 'jurexio-platform', 'enterprise', true, '{"platform":true}'::jsonb)
     ON CONFLICT (id) DO NOTHING
   `).catch(async () => {
     await pool.query(`
       INSERT INTO public.nv_organizations(name, slug, tier, is_active, settings)
-      VALUES ('Nyayavigya Platform', 'nyayavigya-platform', 'enterprise', true, '{"platform":true}'::jsonb)
+      VALUES ('Jurexio Platform', 'jurexio-platform', 'enterprise', true, '{"platform":true}'::jsonb)
       ON CONFLICT (slug) DO NOTHING
     `);
   });
 
-  const org = await pool.query(`SELECT id FROM public.nv_organizations WHERE slug='nyayavigya-platform' OR id=1 ORDER BY id LIMIT 1`);
+  const org = await pool.query(`SELECT id FROM public.nv_organizations WHERE slug='jurexio-platform' OR id=1 ORDER BY id LIMIT 1`);
   const orgId = org.rows[0]?.id ?? 1;
 
   for (const u of USERS) {

@@ -5,7 +5,7 @@
  * as it stood before NV-MEM-TENANT-001 / NV-MEM-DECAY-001 / NV-MEM-LIMIT-001 /
  * NV-MEM-GRAPHRAG-001. It exists solely so
  * `tests/unit/jrx-graph-memory-prefix-defects.test.ts` can demonstrate that the
- * regression suite in `nv-graph-memory-tenant-isolation.test.ts` fails without
+ * regression suite in `jrx-graph-memory-tenant-isolation.test.ts` fails without
  * the fix. It is never imported by src/.
  *
  * The only edits vs the original are: the module-level singleton is replaced by

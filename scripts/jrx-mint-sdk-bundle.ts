@@ -1,13 +1,13 @@
 /**
- * Nyayavigya Platform 3.1.2 — SDK 4-Key Bundle Mint (canonical-compatible)
- * NYV-SCRIPT-MINT-BUNDLE-001 (2026-05-02)
+ * Jurexio Platform 3.1.2 — SDK 4-Key Bundle Mint (canonical-compatible)
+ * JRX-SCRIPT-MINT-BUNDLE-001 (2026-05-02)
  *
  * Mints the full 4-key bundle (sdk_api_key, publishable_key, signing_key,
- * webhook_secret) for the 5 priority platforms in the Nyayavigya ecosystem:
+ * webhook_secret) for the 5 priority platforms in the Jurexio ecosystem:
  *
  *   1. NSP-WEB    (nyayasiddhi_professional, IN, pro)
  *   2. NSP-MOBILE (nyayasiddhi_professional, IN, pro)
- *   3. NYM        (nyayamitra,                IN, plus)
+ *   3. NYM        (jurexio-citizen,                IN, plus)
  *   4. NSI        (nyayasiddhi_institutional, IN, enterprise)
  *   5. JRX        (nyayasiddhi_institutional, US, enterprise)  [JuRiX, US-version of NSI]
  *
@@ -21,12 +21,12 @@
  *    Permissions stored in `permissions` array.)
  *
  * Usage on EC2 (root):
- *   docker exec nyv-gateway sh -c \
- *     'cd /app && NYV_PLATFORM_ENV=production npx tsx /app/scripts/jrx-mint-sdk-bundle.ts'
+ *   docker exec jrx-gateway sh -c \
+ *     'cd /app && JRX_PLATFORM_ENV=production npx tsx /app/scripts/jrx-mint-sdk-bundle.ts'
  *
  * Usage on Replit:
- *   cd nyayavigya-platform-312
- *   NYV_PLATFORM_ENV=sandbox npx tsx scripts/jrx-mint-sdk-bundle.ts
+ *   cd Jurexio-Platform-SDK
+ *   JRX_PLATFORM_ENV=sandbox npx tsx scripts/jrx-mint-sdk-bundle.ts
  *
  * Output:
  *   stdout: per-platform table with first 24 chars of each raw key + expiry
@@ -42,7 +42,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 const sql = makePgSql();
 
-const env = (process.env.NYV_PLATFORM_ENV ?? 'sandbox') as 'sandbox' | 'production';
+const env = (process.env.JRX_PLATFORM_ENV ?? 'sandbox') as 'sandbox' | 'production';
 const liveTest = env === 'production' ? 'live' : 'test';
 
 interface Platform {
@@ -56,10 +56,10 @@ interface Platform {
 }
 
 const PLATFORMS: Platform[] = [
-  { code: 'nsp-web',     short: 'nsw', name: 'Nyayasiddhi Professional — Web',    appId: 'nvsdkapp-demo-nsp-001',        tier: 'pro',        rateBase: 5000,  jurisdiction: 'IN' },
-  { code: 'nsp-mobile',  short: 'nsb', name: 'Nyayasiddhi Professional — Mobile', appId: 'nvsdkapp-demo-nsp-mobile-001', tier: 'pro',        rateBase: 5000,  jurisdiction: 'IN' },
-  { code: 'nyayamitra',  short: 'nym', name: 'Nyayamitra Citizen App',            appId: 'nvsdkapp-demo-nm-001',         tier: 'plus',       rateBase: 1000,  jurisdiction: 'IN' },
-  { code: 'nsi',         short: 'nsi', name: 'Nyayasiddhi Institutional (IN)',    appId: 'nvsdkapp-demo-nyi-001',        tier: 'enterprise', rateBase: 10000, jurisdiction: 'IN' },
+  { code: 'nsp-web',     short: 'nsw', name: 'Jurexio Professional — Web',    appId: 'nvsdkapp-demo-nsp-001',        tier: 'pro',        rateBase: 5000,  jurisdiction: 'IN' },
+  { code: 'nsp-mobile',  short: 'nsb', name: 'Jurexio Professional — Mobile', appId: 'nvsdkapp-demo-nsp-mobile-001', tier: 'pro',        rateBase: 5000,  jurisdiction: 'IN' },
+  { code: 'jurexio-citizen',  short: 'nym', name: 'Jurexio Citizen Citizen App',            appId: 'nvsdkapp-demo-nm-001',         tier: 'plus',       rateBase: 1000,  jurisdiction: 'IN' },
+  { code: 'nsi',         short: 'nsi', name: 'Jurexio Institutional (IN)',    appId: 'nvsdkapp-demo-nyi-001',        tier: 'enterprise', rateBase: 10000, jurisdiction: 'IN' },
   { code: 'jrx',         short: 'jrx', name: 'JuRiX (US Institutional)',          appId: 'nvsdkapp-demo-jrx-001',        tier: 'enterprise', rateBase: 10000, jurisdiction: 'US' },
 ];
 
@@ -103,7 +103,7 @@ const KEY_TYPES: KeyTypeSpec[] = [
     randomBytes: 32,
     ttlDays: 3650,
     permissions: ['webhooks:receive'],
-    description: 'verify incoming webhooks from NYV — never sent over the wire',
+    description: 'verify incoming webhooks from JRX — never sent over the wire',
   },
 ];
 
@@ -181,7 +181,7 @@ async function mintForPlatform(p: Platform): Promise<PlatformOut | null> {
 
 async function main() {
   console.log('══════════════════════════════════════════════════════════════════════');
-  console.log(`  NYV SDK Bundle Mint — env=${env} live/test=${liveTest}`);
+  console.log(`  JRX SDK Bundle Mint — env=${env} live/test=${liveTest}`);
   console.log(`  ${new Date().toISOString()}`);
   console.log('══════════════════════════════════════════════════════════════════════\n');
 
@@ -192,7 +192,7 @@ async function main() {
   }
 
   const ts = new Date().toISOString().replace(/[:.]/g, '-');
-  const outDir = process.env.NYV_BUNDLE_OUT_DIR
+  const outDir = process.env.JRX_BUNDLE_OUT_DIR
     ?? path.resolve(process.cwd(), '..', '.local', 'run');
   fs.mkdirSync(outDir, { recursive: true });
   const outFile = path.join(outDir, `sdk-bundle-${env}-${ts}.json`);
@@ -209,7 +209,7 @@ async function main() {
   console.log(`  ${out.length} platforms × ${KEY_TYPES.length} keys = ${out.length * KEY_TYPES.length} keys minted`);
   console.log(`  Raw bundle JSON (CHMOD 600): ${outFile}`);
   console.log('  SECURITY: keys shown above are SHA-256 hashed in DB — file is the only');
-  console.log('  recoverable record. Move to /opt/Nyayavigya/secrets/ and chmod 600.');
+  console.log('  recoverable record. Move to /opt/Jurexio/secrets/ and chmod 600.');
   console.log('══════════════════════════════════════════════════════════════════════');
 }
 

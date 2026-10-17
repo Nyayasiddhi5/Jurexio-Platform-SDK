@@ -11,7 +11,7 @@
  * is true (default in production builds).
  */
 
-export interface NyvSecureStorage {
+export interface JrxSecureStorage {
   /** Returns the stored value, or null if missing. */
   getItem(key: string): Promise<string | null>;
   /** Stores the value, overwriting any existing entry. */
@@ -25,7 +25,7 @@ export interface NyvSecureStorage {
 
 const JRX_KEY_NAMESPACE = 'nyv.v6.';
 
-class MemoryStorage implements NyvSecureStorage {
+class MemoryStorage implements JrxSecureStorage {
   readonly backend = 'memory' as const;
   readonly secure = false;
   private map = new Map<string, string>();
@@ -34,7 +34,7 @@ class MemoryStorage implements NyvSecureStorage {
   async removeItem(k: string) { this.map.delete(JRX_KEY_NAMESPACE + k); }
 }
 
-async function tryExpoSecureStore(): Promise<NyvSecureStorage | null> {
+async function tryExpoSecureStore(): Promise<JrxSecureStorage | null> {
   try {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const ess = require('expo-secure-store');
@@ -49,7 +49,7 @@ async function tryExpoSecureStore(): Promise<NyvSecureStorage | null> {
   } catch { return null; }
 }
 
-async function tryKeychain(): Promise<NyvSecureStorage | null> {
+async function tryKeychain(): Promise<JrxSecureStorage | null> {
   try {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const kc = require('react-native-keychain');
@@ -71,7 +71,7 @@ async function tryKeychain(): Promise<NyvSecureStorage | null> {
   } catch { return null; }
 }
 
-async function tryAsyncStorage(): Promise<NyvSecureStorage | null> {
+async function tryAsyncStorage(): Promise<JrxSecureStorage | null> {
   try {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const as = require('@react-native-async-storage/async-storage').default;
@@ -86,7 +86,7 @@ async function tryAsyncStorage(): Promise<NyvSecureStorage | null> {
   } catch { return null; }
 }
 
-export interface NyvStorageOptions {
+export interface JrxStorageOptions {
   /** When true, throw if no secure backend is available. Defaults to true. */
   requireSecure?: boolean;
 }
@@ -95,7 +95,7 @@ export interface NyvStorageOptions {
  * Factory — picks the best available storage backend at runtime.
  * Prefer this over instantiating individual backends directly.
  */
-export async function createSecureStorage(opts: NyvStorageOptions = {}): Promise<NyvSecureStorage> {
+export async function createSecureStorage(opts: JrxStorageOptions = {}): Promise<JrxSecureStorage> {
   const requireSecure = opts.requireSecure ?? true;
   const ess = await tryExpoSecureStore();
   if (ess) return ess;
@@ -115,7 +115,7 @@ export async function createSecureStorage(opts: NyvStorageOptions = {}): Promise
 }
 
 /** Stable storage keys used by the SDK. Treat as constants — do not change. */
-export const NyvStorageKeys = {
+export const JrxStorageKeys = {
   apiKey: 'apiKey',
   refreshToken: 'refreshToken',
   pushToken: 'pushToken',

@@ -10,12 +10,12 @@ import {
 } from '../../src/config/jrx-gemini-models.js';
 
 const KEYS = [
-  'NYV_GEMINI_PRO_MODEL',
-  'NYV_GEMINI_FLASH_MODEL',
-  'NYV_GEMINI_STT_MODEL',
-  'NYV_GEMINI_LANGUAGE_MODEL',
-  'NYV_GEMINI_EMBED_MODEL',
-  'NYV_LLM_CASCADE_GEMINI',
+  'JRX_GEMINI_PRO_MODEL',
+  'JRX_GEMINI_FLASH_MODEL',
+  'JRX_GEMINI_STT_MODEL',
+  'JRX_GEMINI_LANGUAGE_MODEL',
+  'JRX_GEMINI_EMBED_MODEL',
+  'JRX_LLM_CASCADE_GEMINI',
 ];
 
 describe('./jrx-gemini-models', () => {
@@ -60,8 +60,8 @@ describe('./jrx-gemini-models', () => {
 
   it('honors env overrides', () => {
     snapshot();
-    process.env.NYV_GEMINI_STT_MODEL = 'gemini-2.5-pro';
-    process.env.NYV_LLM_CASCADE_GEMINI = 'gemini-2.5-flash,gemini-2.5-pro';
+    process.env.JRX_GEMINI_STT_MODEL = 'gemini-2.5-pro';
+    process.env.JRX_LLM_CASCADE_GEMINI = 'gemini-2.5-flash,gemini-2.5-pro';
     expect(getGeminiSttModel()).toBe('gemini-2.5-pro');
     expect(getGeminiCascadeModels()).toEqual(['gemini-2.5-flash', 'gemini-2.5-pro']);
   });

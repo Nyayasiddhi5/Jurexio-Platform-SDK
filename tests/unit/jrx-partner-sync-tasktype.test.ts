@@ -14,14 +14,14 @@ import {
 function nspRequest(body: Record<string, unknown> = {}, headers: Record<string, string> = {}): Request {
   return {
     body,
-    headers: { 'x-nyv-platform': 'NSP', ...headers },
+    headers: { 'x-jrx-platform': 'NSP', ...headers },
     sdkContext: { partnerCode: 'NSP', tenantId: 't-nsp' },
   } as unknown as Request;
 }
 
 describe('NV-PARTNER-SYNC-TASKTYPE-001', () => {
   it('detects sync timeout budget from header and body', () => {
-    expect(hasPartnerSyncTimeoutBudget(nspRequest({}, { 'x-nyv-partner-sync-timeout-ms': '60000' }))).toBe(true);
+    expect(hasPartnerSyncTimeoutBudget(nspRequest({}, { 'x-jrx-partner-sync-timeout-ms': '60000' }))).toBe(true);
     expect(hasPartnerSyncTimeoutBudget(nspRequest({ syncTimeoutMs: 45000 }))).toBe(true);
     expect(hasPartnerSyncTimeoutBudget(nspRequest({ routingMode: 'fast' }))).toBe(true);
     expect(hasPartnerSyncTimeoutBudget(nspRequest({ taskType: 'legal-chat' }))).toBe(false);
@@ -36,7 +36,7 @@ describe('NV-PARTNER-SYNC-TASKTYPE-001', () => {
   });
 
   it('routes bare legal-draft with sync budget to legal-draft-fast', () => {
-    const req = nspRequest({ taskType: 'legal-draft' }, { 'x-nyv-routing-mode': 'sla' });
+    const req = nspRequest({ taskType: 'legal-draft' }, { 'x-jrx-routing-mode': 'sla' });
     expect(resolvePartnerTaskTypeForSyncBudget(req, 'legal-draft')).toBe('legal-draft-fast');
   });
 

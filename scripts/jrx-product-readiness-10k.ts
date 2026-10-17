@@ -13,7 +13,7 @@
  *
  * Usage:
  *   source scripts/jrx-source-dev-deploy-env.sh
- *   GATEWAY=https://api.nyayasiddhi.online \
+ *   GATEWAY=https://api.jurexio.com \
  *   UAT_ADMIN_EMAIL=... UAT_ADMIN_PASSWORD=... \
  *   npx tsx scripts/jrx-product-readiness-10k.ts
  *
@@ -28,24 +28,24 @@ import { spawnSync } from 'node:child_process';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
-const GATEWAY = (process.env.GATEWAY || process.env.NYV_DEV_HEALTH_URL?.replace(/\/api\/nv\/health$/, '') || 'https://api.nyayasiddhi.online').replace(/\/+$/, '');
-const CONSOLE = (process.env.CONSOLE_URL || 'https://console.nyayasiddhi.online').replace(/\/+$/, '');
+const GATEWAY = (process.env.GATEWAY || process.env.JRX_DEV_HEALTH_URL?.replace(/\/api\/nv\/health$/, '') || 'https://api.jurexio.com').replace(/\/+$/, '');
+const CONSOLE = (process.env.CONSOLE_URL || 'https://console.jurexio.com').replace(/\/+$/, '');
 
 const KEYS = {
-  NSP: process.env.NYV_SDK_KEY_NSP || '',
-  NSI: process.env.NYV_SDK_KEY_NSI || '',
-  NYM: process.env.NYV_SDK_KEY_NYM || '',
-  NSA: process.env.NYV_SDK_KEY_NSA || '',
-  NSM: process.env.NYV_SDK_KEY_NSM || '',
+  NSP: process.env.JRX_SDK_KEY_NSP || '',
+  NSI: process.env.JRX_SDK_KEY_NSI || '',
+  NYM: process.env.JRX_SDK_KEY_NYM || '',
+  NSA: process.env.JRX_SDK_KEY_NSA || '',
+  NSM: process.env.JRX_SDK_KEY_NSM || '',
 };
 
-const UAT_ADMIN_EMAIL = process.env.UAT_ADMIN_EMAIL || 'admin@nyayavigya.in';
+const UAT_ADMIN_EMAIL = process.env.UAT_ADMIN_EMAIL || 'admin@jurexio.com';
 const UAT_ADMIN_PASSWORD =
   process.env.UAT_ADMIN_PASSWORD ||
   process.env.NV_UAT_ADMIN_PASSWORD ||
   process.env.NV_DEMO_PASSWORD ||
   '';
-const UAT_SME_EMAIL = process.env.UAT_SME_EMAIL || 'legalchat-sme-a-uat@nyayavigya.in';
+const UAT_SME_EMAIL = process.env.UAT_SME_EMAIL || 'legalchat-sme-a-uat@jurexio.com';
 const UAT_SME_PASSWORD =
   process.env.UAT_SME_PASSWORD ||
   process.env.NV_UAT_SME_PASSWORD ||
@@ -54,14 +54,14 @@ const UAT_SME_PASSWORD =
 
 const TENANT_PASSWORD = process.env.NV_DEMO_TENANT_PASSWORD || 'Demo@2026!';
 const TENANT_USERS = [
-  { email: 'admin@demo-law-firm-in.demo.nyayavigya.test', org: 'demo-law-firm-in', tier: 'pro', platform: 'NSP' },
-  { email: 'admin@demo-corporate-us.demo.nyayavigya.test', org: 'demo-corporate-us', tier: 'enterprise', platform: 'NSI' },
-  { email: 'admin@demo-citizen-in.demo.nyayavigya.test', org: 'demo-citizen-in', tier: 'solo', platform: 'NYM' },
+  { email: 'admin@demo-law-firm-in.demo.jurexio.test', org: 'demo-law-firm-in', tier: 'pro', platform: 'NSP' },
+  { email: 'admin@demo-corporate-us.demo.jurexio.test', org: 'demo-corporate-us', tier: 'enterprise', platform: 'NSI' },
+  { email: 'admin@demo-citizen-in.demo.jurexio.test', org: 'demo-citizen-in', tier: 'solo', platform: 'NYM' },
 ] as const;
 
 const FIXTURE = join(ROOT, 'tests/fixtures/product-readiness/sample-nda.txt');
-const BUCKET = process.env.NYV_DEPLOY_BUCKET || 'nyayavigya-sdk-devapp';
-const REGION = process.env.NYV_AWS_REGION || 'ap-south-1';
+const BUCKET = process.env.JRX_DEPLOY_BUCKET || 'jurexio-sdk-devapp';
+const REGION = process.env.JRX_AWS_REGION || 'ap-south-1';
 
 type Status = 'PASS' | 'FAIL' | 'SKIP' | 'WARN';
 interface Check {
@@ -155,7 +155,7 @@ async function gate1SeedAndDocs(): Promise<string | null> {
     }
   }
 
-  // 1c Tenant user logins (seeded by nv-seed-demo-tenants)
+  // 1c Tenant user logins (seeded by jrx-seed-demo-tenants)
   let anyTenantLogin = false;
   for (const u of TENANT_USERS) {
     const token = await login(u.email, TENANT_PASSWORD);
@@ -163,7 +163,7 @@ async function gate1SeedAndDocs(): Promise<string | null> {
       anyTenantLogin = true;
       record('G1', `tenant_${u.org}`, 'PASS', `login ${u.email} tier=${u.tier}`);
     } else {
-      record('G1', `tenant_${u.org}`, 'WARN', `login failed — run nv-seed-demo-tenants on EC2`);
+      record('G1', `tenant_${u.org}`, 'WARN', `login failed — run jrx-seed-demo-tenants on EC2`);
     }
   }
   evidence.tenantLogins = anyTenantLogin;
@@ -532,8 +532,8 @@ async function gate4MultiTenant(presignedUrl: string | null) {
     // Cross-key poll: document whether isolation is enforced
     const nspJob = jobs.NSP;
     const sharedKeys =
-      process.env.NYV_SDK_SHARED_KEYS === '1' ||
-      (!!process.env.NYV_SDK_KEY_SHARED &&
+      process.env.JRX_SDK_SHARED_KEYS === '1' ||
+      (!!process.env.JRX_SDK_KEY_SHARED &&
         KEYS.NSP === KEYS.NSI &&
         KEYS.NSP === KEYS.NYM);
     if (sharedKeys) {
@@ -541,7 +541,7 @@ async function gate4MultiTenant(presignedUrl: string | null) {
         'G4',
         'cross_tenant_job',
         'SKIP',
-        'NYV_SDK_SHARED_KEYS=1 (integration) — same key for all platforms; ACL check deferred to production rotation',
+        'JRX_SDK_SHARED_KEYS=1 (integration) — same key for all platforms; ACL check deferred to production rotation',
       );
       evidence.crossTenantJobLeak = false;
     } else if (nspJob && KEYS.NSI) {
@@ -718,7 +718,7 @@ async function gate7NysFederation() {
   console.log('\n═══ GATE 7: NYS Knowledge Plane federation ═══');
   const key = KEYS.NSP || KEYS.NSI || KEYS.NSA;
   if (!key) {
-    record('G7', 'sdk_key', 'SKIP', 'no NYV_SDK_KEY_* — run matrix separately');
+    record('G7', 'sdk_key', 'SKIP', 'no JRX_SDK_KEY_* — run matrix separately');
     return;
   }
 
@@ -757,7 +757,7 @@ async function gate7NysFederation() {
 // ─── Main ──────────────────────────────────────────────────────────────────
 
 async function main() {
-  console.log('NYV Product Readiness 10K');
+  console.log('JRX Product Readiness 10K');
   console.log(`Gateway: ${GATEWAY}`);
   console.log(`Console: ${CONSOLE}`);
 

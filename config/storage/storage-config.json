@@ -3,7 +3,7 @@
   "primary": {
     "provider": "s3",
     "envVars": ["AWS_REGION","S3_BUCKET","AWS_ACCESS_KEY_ID","AWS_SECRET_ACCESS_KEY"],
-    "bucket": "nyayavigya-prod-docs",
+    "bucket": "jurexio-prod-docs",
     "region": "ap-south-1",
     "kmsKeyArn": "arn:aws:kms:ap-south-1:000000000000:key/REPLACE-ME",
     "encryption": "SSE-KMS",
@@ -26,5 +26,5 @@
   },
   "limits": { "maxUploadMb": 200, "maxBatchUploadCount": 50, "preSignedUrlTtlSec": 3600 },
   "antivirus": { "enabled": true, "engine": "clamav-sidecar" },
-  "cdn": { "provider": "cloudfront", "domain": "cdn.nyayavigya.in", "cacheTtlSec": 3600 }
+  "cdn": { "provider": "cloudfront", "domain": "cdn.jurexio.com", "cacheTtlSec": 3600 }
 }

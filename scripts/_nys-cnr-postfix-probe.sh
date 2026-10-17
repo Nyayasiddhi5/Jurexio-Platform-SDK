@@ -5,7 +5,7 @@ cd /opt/nyv/api || exit 1
 KEY=$(node -e "
 const fs=require('fs');
 for (const line of fs.readFileSync('.env','utf8').split(/\n/)) {
-  if (line.startsWith('NYS_SDK_API_KEYS=')) {
+  if (line.startsWith('JRX_ECOSYSTEM_SDK_API_KEYS=')) {
     const v=line.split('=').slice(1).join('=').trim().replace(/^[\"']|[\"']$/g,'');
     console.log(v.split(',')[0].trim());
     break;

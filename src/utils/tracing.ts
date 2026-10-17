@@ -124,14 +124,14 @@ export function endSpan(
         {
           resource: {
             attributes: {
-              'service.name': 'nyayavigya',
+              'service.name': 'jurexio',
               'service.version': process.env.SERVICE_VERSION || '1.0.0',
             },
           },
           scopeSpans: [
             {
               scope: {
-                name: 'nyayavigya-tracer',
+                name: 'jurexio-tracer',
                 version: '1.0.0',
               },
               spans: [

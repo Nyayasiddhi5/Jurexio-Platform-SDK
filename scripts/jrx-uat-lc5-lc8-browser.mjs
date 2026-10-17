@@ -13,17 +13,17 @@ const ROOT = join(__dirname, '..');
 const OUT = join(ROOT, 'test-results', 'lc-uat-' + new Date().toISOString().slice(0, 10));
 mkdirSync(OUT, { recursive: true });
 
-const CONSOLE = (process.env.CONSOLE_URL || 'https://console.nyayasiddhi.online').replace(/\/+$/, '');
-const GATEWAY = (process.env.GATEWAY || 'https://api.nyayasiddhi.online').replace(/\/+$/, '');
-const ADMIN_EMAIL = process.env.UAT_ADMIN_EMAIL || 'admin@nyayavigya.in';
+const CONSOLE = (process.env.CONSOLE_URL || 'https://console.jurexio.com').replace(/\/+$/, '');
+const GATEWAY = (process.env.GATEWAY || 'https://api.jurexio.com').replace(/\/+$/, '');
+const ADMIN_EMAIL = process.env.UAT_ADMIN_EMAIL || 'admin@jurexio.com';
 const ADMIN_PASSWORD = process.env.UAT_ADMIN_PASSWORD || process.env.NV_DEMO_PASSWORD || '';
-const SME_EMAIL = process.env.UAT_SME_EMAIL || 'legalchat-sme-a-uat@nyayavigya.in';
+const SME_EMAIL = process.env.UAT_SME_EMAIL || 'legalchat-sme-a-uat@jurexio.com';
 const SME_PASSWORD = process.env.UAT_SME_PASSWORD || process.env.NV_DEMO_PASSWORD || '';
 /** Fast one-line prompt — Queen completes in ~30–90s vs 120s+ for Article 21 research. */
 const UAT_CHAT_PROMPT = process.env.UAT_CHAT_PROMPT
   || 'One line: what is anticipatory bail under BNSS?';
 /** Wait for SSE run_complete + msg-rate (LC8 gates on message.status=ok). */
-const SSE_WAIT_MS = Number(process.env.UAT_SSE_WAIT_MS || 240_000);
+const SSE_JRXT_MS = Number(process.env.UAT_SSE_JRXT_MS || 240_000);
 const FIXTURE = join(ROOT, 'tests/fixtures/product-readiness/sample-nda.txt');
 
 const results = [];
@@ -165,13 +165,13 @@ async function main() {
   await page.locator('[data-testid="chat-input"]').fill(UAT_CHAT_PROMPT);
   const runCompletePromise = page.waitForEvent('response', {
     predicate: (r) => r.url().includes('/legal-chat/send') && r.request().method() === 'POST',
-    timeout: SSE_WAIT_MS,
+    timeout: SSE_JRXT_MS,
   }).catch(() => null);
   await page.locator('[data-testid="chat-send"]').click();
   const sendRes = await runCompletePromise;
-  await page.waitForSelector('[data-testid="msg-assistant"]', { timeout: SSE_WAIT_MS }).catch(() => null);
+  await page.waitForSelector('[data-testid="msg-assistant"]', { timeout: SSE_JRXT_MS }).catch(() => null);
   // msg-rate requires message.status=ok (run_complete SSE) — poll longer than assistant bubble
-  await page.locator('[data-testid="msg-rate"]').first().waitFor({ state: 'visible', timeout: SSE_WAIT_MS }).catch(() => null);
+  await page.locator('[data-testid="msg-rate"]').first().waitFor({ state: 'visible', timeout: SSE_JRXT_MS }).catch(() => null);
   await page.waitForTimeout(1500);
   const lc6Shot = await shot(page, 'LC6-sse-response');
   const assistantMsgs = await page.locator('[data-testid="msg-assistant"]').count();
@@ -179,7 +179,7 @@ async function main() {
   const sseStatus = sendRes?.status() ?? 0;
   const sseOk = sseStatus === 200 && assistantMsgs > 0 && rateVisible;
   record('LC6', sseOk ? 'PASS' : rateVisible && sseStatus === 200 ? 'WARN' : 'FAIL',
-    `send HTTP ${sseStatus} assistantMsgs=${assistantMsgs} rateBtn=${rateVisible} waitMs=${SSE_WAIT_MS}`,
+    `send HTTP ${sseStatus} assistantMsgs=${assistantMsgs} rateBtn=${rateVisible} waitMs=${SSE_JRXT_MS}`,
     { screenshot: lc6Shot, sseStatus });
 
   // LC7 — document upload

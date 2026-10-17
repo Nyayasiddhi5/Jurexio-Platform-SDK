@@ -6,7 +6,7 @@ import {
 } from '../jrx-cnr-partner-sanitize.js';
 
 function nspReq(): Request {
-  return { headers: { 'x-nyv-platform': 'NSP' } } as Request;
+  return { headers: { 'x-jrx-platform': 'NSP' } } as Request;
 }
 
 function consoleReq(): Request {

@@ -6,13 +6,13 @@
  * blow the edge while still allowing quality-first long research.
  *
  * Env overrides (names only — never log values):
- *   NYV_LLM_PROVIDER_TIMEOUT_MS, NYV_LLM_PROVIDER_STREAM_TIMEOUT_MS
- *   NYV_LLM_TIMEOUT_MS, NYV_LLM_STREAMING_TIMEOUT_MS
- *   NYS_KNOWLEDGE_TIMEOUT_MS, NYV_CASELAW_HYBRID_BUDGET_MS, NYV_CASELAW_FTS_FALLBACK_BUDGET_MS
- *   NYV_ATHENA_QUERY_BUDGET_MS, NYV_ADAPTIVE_RAG_TIMEOUT_MS
- *   NYV_PG_STATEMENT_TIMEOUT_MS, NYV_ORCH_WALL_CLOCK_MS
- *   NYV_HTTP_LONG_AI_TIMEOUT_MS, NYV_HTTP_SERVER_TIMEOUT_MS
- *   NYV_QUEEN_MAX_HIERARCHY_DEPTH
+ *   JRX_LLM_PROVIDER_TIMEOUT_MS, JRX_LLM_PROVIDER_STREAM_TIMEOUT_MS
+ *   JRX_LLM_TIMEOUT_MS, JRX_LLM_STREAMING_TIMEOUT_MS
+ *   JRX_ECOSYSTEM_KNOWLEDGE_TIMEOUT_MS, JRX_CASELAW_HYBRID_BUDGET_MS, JRX_CASELAW_FTS_FALLBACK_BUDGET_MS
+ *   JRX_ATHENA_QUERY_BUDGET_MS, JRX_ADAPTIVE_RAG_TIMEOUT_MS
+ *   JRX_PG_STATEMENT_TIMEOUT_MS, JRX_ORCH_WALL_CLOCK_MS
+ *   JRX_HTTP_LONG_AI_TIMEOUT_MS, JRX_HTTP_SERVER_TIMEOUT_MS
+ *   JRX_QUEEN_MAX_HIERARCHY_DEPTH
  *
  * Edge truth (live jrx-staging): ALB/nginx `/api/` = 600s; client SDK orchestrate = 600s.
  */
@@ -39,7 +39,7 @@ export const NV_TIMEOUT_RECOMMENDED = {
   llmMasterMs: 120_000,
   llmMasterStreamMs: 240_000,
   nysKnowledgeMs: 90_000,
-  /** Hybrid caselaw search budget before NYV proxy falls back to FTS (Phase 0). */
+  /** Hybrid caselaw search budget before JRX proxy falls back to FTS (Phase 0). */
   caselawHybridBudgetMs: 12_000,
   /** Tight FTS retry after hybrid budget exceed — must not re-use slow hybrid upstream. */
   caselawFtsFallbackBudgetMs: 3_000,
@@ -62,60 +62,60 @@ export const NV_TIMEOUT_RECOMMENDED = {
 /** Live runtime values (env-overridable). */
 export const NV_TIMEOUTS = {
   edgeHttpMs: NV_TIMEOUT_RECOMMENDED.edgeHttpMs,
-  clientOrchestrateMs: envMs('NYV_ORCHESTRATE_TIMEOUT_MS', NV_TIMEOUT_RECOMMENDED.clientOrchestrateMs),
-  clientDefaultMs: envMs('NYV_SDK_TIMEOUT_MS', NV_TIMEOUT_RECOMMENDED.clientDefaultMs, 5_000, 600_000),
+  clientOrchestrateMs: envMs('JRX_ORCHESTRATE_TIMEOUT_MS', NV_TIMEOUT_RECOMMENDED.clientOrchestrateMs),
+  clientDefaultMs: envMs('JRX_SDK_TIMEOUT_MS', NV_TIMEOUT_RECOMMENDED.clientDefaultMs, 5_000, 600_000),
 
-  llmProviderMs: envMs('NYV_LLM_PROVIDER_TIMEOUT_MS', NV_TIMEOUT_RECOMMENDED.llmProviderMs, 10_000, 300_000),
+  llmProviderMs: envMs('JRX_LLM_PROVIDER_TIMEOUT_MS', NV_TIMEOUT_RECOMMENDED.llmProviderMs, 10_000, 300_000),
   llmProviderStreamMs: envMs(
-    'NYV_LLM_PROVIDER_STREAM_TIMEOUT_MS',
+    'JRX_LLM_PROVIDER_STREAM_TIMEOUT_MS',
     NV_TIMEOUT_RECOMMENDED.llmProviderStreamMs,
     30_000,
     300_000,
   ),
-  llmMasterMs: envMs('NYV_LLM_TIMEOUT_MS', NV_TIMEOUT_RECOMMENDED.llmMasterMs, 15_000, 300_000),
+  llmMasterMs: envMs('JRX_LLM_TIMEOUT_MS', NV_TIMEOUT_RECOMMENDED.llmMasterMs, 15_000, 300_000),
   llmMasterStreamMs: envMs(
-    'NYV_LLM_STREAMING_TIMEOUT_MS',
+    'JRX_LLM_STREAMING_TIMEOUT_MS',
     NV_TIMEOUT_RECOMMENDED.llmMasterStreamMs,
     30_000,
     300_000,
   ),
 
-  nysKnowledgeMs: envMs('NYS_KNOWLEDGE_TIMEOUT_MS', NV_TIMEOUT_RECOMMENDED.nysKnowledgeMs, 5_000, 180_000),
+  nysKnowledgeMs: envMs('JRX_ECOSYSTEM_KNOWLEDGE_TIMEOUT_MS', NV_TIMEOUT_RECOMMENDED.nysKnowledgeMs, 5_000, 180_000),
   caselawHybridBudgetMs: envMs(
-    'NYV_CASELAW_HYBRID_BUDGET_MS',
+    'JRX_CASELAW_HYBRID_BUDGET_MS',
     NV_TIMEOUT_RECOMMENDED.caselawHybridBudgetMs,
     3_000,
     60_000,
   ),
   caselawFtsFallbackBudgetMs: envMs(
-    'NYV_CASELAW_FTS_FALLBACK_BUDGET_MS',
+    'JRX_CASELAW_FTS_FALLBACK_BUDGET_MS',
     NV_TIMEOUT_RECOMMENDED.caselawFtsFallbackBudgetMs,
     1_000,
     15_000,
   ),
   athenaQueryBudgetMs: envMs(
-    'NYV_ATHENA_QUERY_BUDGET_MS',
+    'JRX_ATHENA_QUERY_BUDGET_MS',
     NV_TIMEOUT_RECOMMENDED.athenaQueryBudgetMs,
     3_000,
     60_000,
   ),
-  adaptiveRagMs: envMs('NYV_ADAPTIVE_RAG_TIMEOUT_MS', NV_TIMEOUT_RECOMMENDED.adaptiveRagMs, 5_000, 120_000),
-  pgStatementMs: envMs('NYV_PG_STATEMENT_TIMEOUT_MS', NV_TIMEOUT_RECOMMENDED.pgStatementMs, 10_000, 300_000),
+  adaptiveRagMs: envMs('JRX_ADAPTIVE_RAG_TIMEOUT_MS', NV_TIMEOUT_RECOMMENDED.adaptiveRagMs, 5_000, 120_000),
+  pgStatementMs: envMs('JRX_PG_STATEMENT_TIMEOUT_MS', NV_TIMEOUT_RECOMMENDED.pgStatementMs, 10_000, 300_000),
 
   /** Hard wall for one Queen /orchestrate request (leave headroom under ALB 600s). */
-  orchWallClockMs: envMs('NYV_ORCH_WALL_CLOCK_MS', NV_TIMEOUT_RECOMMENDED.orchWallClockMs, 60_000, 600_000),
-  queenMaxHierarchyDepth: envInt('NYV_QUEEN_MAX_HIERARCHY_DEPTH', NV_TIMEOUT_RECOMMENDED.queenMaxHierarchyDepth, 1, 6),
+  orchWallClockMs: envMs('JRX_ORCH_WALL_CLOCK_MS', NV_TIMEOUT_RECOMMENDED.orchWallClockMs, 60_000, 600_000),
+  queenMaxHierarchyDepth: envInt('JRX_QUEEN_MAX_HIERARCHY_DEPTH', NV_TIMEOUT_RECOMMENDED.queenMaxHierarchyDepth, 1, 6),
 
-  perNodeLiteMs: envMs('NYV_QUEEN_NODE_TIMEOUT_LITE_MS', NV_TIMEOUT_RECOMMENDED.perNode.lite, 10_000, 120_000),
-  perNodeMitraMs: envMs('NYV_QUEEN_NODE_TIMEOUT_MITRA_MS', NV_TIMEOUT_RECOMMENDED.perNode.mitra, 15_000, 180_000),
+  perNodeLiteMs: envMs('JRX_QUEEN_NODE_TIMEOUT_LITE_MS', NV_TIMEOUT_RECOMMENDED.perNode.lite, 10_000, 120_000),
+  perNodeMitraMs: envMs('JRX_QUEEN_NODE_TIMEOUT_MITRA_MS', NV_TIMEOUT_RECOMMENDED.perNode.mitra, 15_000, 180_000),
   perNodeEnterpriseMs: envMs(
-    'NYV_QUEEN_NODE_TIMEOUT_ENTERPRISE_MS',
+    'JRX_QUEEN_NODE_TIMEOUT_ENTERPRISE_MS',
     NV_TIMEOUT_RECOMMENDED.perNode.enterprise,
     30_000,
     240_000,
   ),
   perNodeSovereignMs: envMs(
-    'NYV_QUEEN_NODE_TIMEOUT_SOVEREIGN_MS',
+    'JRX_QUEEN_NODE_TIMEOUT_SOVEREIGN_MS',
     NV_TIMEOUT_RECOMMENDED.perNode.sovereign,
     60_000,
     300_000,
@@ -161,10 +161,10 @@ export function getTimeoutPolicySnapshot(): Record<string, number | Record<strin
  * request deadline (below) bounds the whole cascade.
  */
 export const NV_TASK_TIER_TIMEOUTS = {
-  micro: envMs('NYV_LLM_ATTEMPT_MICRO_MS', 12_000, 3_000, 120_000),
-  fast: envMs('NYV_LLM_ATTEMPT_FAST_MS', 25_000, 5_000, 180_000),
-  standard: envMs('NYV_LLM_ATTEMPT_STANDARD_MS', NV_TIMEOUT_RECOMMENDED.llmProviderMs, 10_000, 300_000),
-  deep: envMs('NYV_LLM_ATTEMPT_DEEP_MS', 180_000, 30_000, 360_000),
+  micro: envMs('JRX_LLM_ATTEMPT_MICRO_MS', 12_000, 3_000, 120_000),
+  fast: envMs('JRX_LLM_ATTEMPT_FAST_MS', 25_000, 5_000, 180_000),
+  standard: envMs('JRX_LLM_ATTEMPT_STANDARD_MS', NV_TIMEOUT_RECOMMENDED.llmProviderMs, 10_000, 300_000),
+  deep: envMs('JRX_LLM_ATTEMPT_DEEP_MS', 180_000, 30_000, 360_000),
 } as const;
 
 export type LlmAttemptTier = keyof typeof NV_TASK_TIER_TIMEOUTS;

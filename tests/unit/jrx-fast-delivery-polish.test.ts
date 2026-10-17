@@ -79,9 +79,9 @@ describe('NV-FAST-DELIVERY-POLISH-001', () => {
     expect(shouldRunFastDeliveryPolish({ taskType: 'legal-chat' })).toBe(false);
   });
 
-  it('NYV_FAST_DELIVERY_POLISH=0 disables polish gate', () => {
-    prev.NYV_FAST_DELIVERY_POLISH = process.env.NYV_FAST_DELIVERY_POLISH;
-    process.env.NYV_FAST_DELIVERY_POLISH = '0';
+  it('JRX_FAST_DELIVERY_POLISH=0 disables polish gate', () => {
+    prev.JRX_FAST_DELIVERY_POLISH = process.env.JRX_FAST_DELIVERY_POLISH;
+    process.env.JRX_FAST_DELIVERY_POLISH = '0';
     expect(shouldRunFastDeliveryPolish({ taskType: 'legal-draft-fast' })).toBe(false);
   });
 

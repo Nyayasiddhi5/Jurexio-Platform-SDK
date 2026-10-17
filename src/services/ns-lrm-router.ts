@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Jurexio NS LRM + SLM Jurisdiction Router v3.1.2
- * NYV-SVC-LRM-ROUTER-001
+ * JRX-SVC-LRM-ROUTER-001
  *
  * Two-Tier AI Architecture:
  *   Tier 1: NS LRM (Jurexio Legal Reasoning Model) — Master Orchestrator
@@ -174,7 +174,7 @@ const JURISDICTION_TO_SLM: Record<JurisdictionCode, SLMBinding> = {
 // Global LLM Fallback Tier — frontier models for edge cases.
 // PII is ALWAYS redacted before any call here.
 //
-// Aligned with BUILT_IN_PROVIDERS in src/config/nyv-dynamic-model-registry.ts
+// Aligned with BUILT_IN_PROVIDERS in src/config/jrx-dynamic-model-registry.ts
 // (priority order: openai → anthropic → google → openrouter → sarvam → agentzero).
 // To swap a model here, update the providerModelId path; to disable a whole
 // provider, flip BUILT_IN_PROVIDERS[<id>].enabled = false (no edits here needed).
@@ -187,7 +187,7 @@ const GLOBAL_FALLBACK_CHAIN: readonly string[] = Object.freeze([
   'openrouter/meta-llama/llama-4-maverick',       // Tier 3 — sovereign open-source
   'openrouter/mistralai/mistral-large-2411',      // Tier 2 — EU sovereign
   'openrouter/deepseek/deepseek-r1',              // Tier 2 — reasoning, cost-optimised
-  'agentzero/nyv-agentzero',                      // Tier 5 FINAL BACKUP — sovereign, no external egress
+  'agentzero/jrx-agentzero',                      // Tier 5 FINAL BACKUP — sovereign, no external egress
 ]);
 
 // ──────────────────────────────────────────────────────────────────────────────

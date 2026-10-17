@@ -2,7 +2,7 @@
   "name": "nsp-web-quickstart",
   "version": "1.0.0",
   "private": true,
-  "description": "Next.js 14 quickstart for the Nyayavigya client SDK v6 — chat, document analyze, voice, intelligence, and streaming.",
+  "description": "Next.js 14 quickstart for the Jurexio client SDK v6 — chat, document analyze, voice, intelligence, and streaming.",
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",

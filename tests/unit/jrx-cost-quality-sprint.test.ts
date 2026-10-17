@@ -1,5 +1,5 @@
 /**
- * NYV cost + quality sprint (2026-08-18) — regression guards.
+ * JRX cost + quality sprint (2026-08-18) — regression guards.
  *
  * Each block below pins a behaviour that was MEASURED to be broken, so a future refactor
  * cannot quietly restore the defect. The measurements are named in each test.
@@ -123,7 +123,7 @@ describe('NV-QUEEN-LEAF-BUDGET-ENFORCE-001 — the ceiling must bite on explorat
   });
 
   it('is reversible by env', () => {
-    expect(src).toContain('NYV_QUEEN_LEAF_BUDGET_ENFORCE');
+    expect(src).toContain('JRX_QUEEN_LEAF_BUDGET_ENFORCE');
   });
 
   it('recomputes tokens after trimming so overBudget is not stale', () => {

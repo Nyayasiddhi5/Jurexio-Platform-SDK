@@ -10,13 +10,13 @@ import {
 
 describe('./jrx-ecourts-portal-fetch', () => {
   const prevFlag = process.env.JRX_F_ECOURTS_PORTAL_FETCH;
-  const prevCookie = process.env.NYV_ECOURTS_SESSION_COOKIE;
+  const prevCookie = process.env.JRX_ECOURTS_SESSION_COOKIE;
 
   afterEach(() => {
     if (prevFlag === undefined) delete process.env.JRX_F_ECOURTS_PORTAL_FETCH;
     else process.env.JRX_F_ECOURTS_PORTAL_FETCH = prevFlag;
-    if (prevCookie === undefined) delete process.env.NYV_ECOURTS_SESSION_COOKIE;
-    else process.env.NYV_ECOURTS_SESSION_COOKIE = prevCookie;
+    if (prevCookie === undefined) delete process.env.JRX_ECOURTS_SESSION_COOKIE;
+    else process.env.JRX_ECOURTS_SESSION_COOKIE = prevCookie;
   });
 
   it('defaults portal fetch off', () => {
@@ -32,12 +32,12 @@ describe('./jrx-ecourts-portal-fetch', () => {
 
   it('returns attempted when session cookie absent', async () => {
     process.env.JRX_F_ECOURTS_PORTAL_FETCH = '1';
-    delete process.env.NYV_ECOURTS_SESSION_COOKIE;
+    delete process.env.JRX_ECOURTS_SESSION_COOKIE;
     const result = await attemptEcourtsPortalFetch({ cnr: 'TSWL000000742024' });
     expect(result.kind).toBe('attempted');
     if (result.kind === 'attempted') {
       expect(result.tag).toBe(ECOURTS_PORTAL_ATTEMPTED);
-      expect(result.reason).toContain('NYV_ECOURTS_SESSION_COOKIE');
+      expect(result.reason).toContain('JRX_ECOURTS_SESSION_COOKIE');
     }
   });
 });

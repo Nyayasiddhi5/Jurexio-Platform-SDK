@@ -17,7 +17,7 @@
  * RBAC: gated to platform_admin / super_admin layers via
  *   isCustomerOrgPlatformAdmin() — see lib/rbac-customer-orgs.ts.
  *
- * NV-CONTRACT-001: path imported from nv-api-paths via NV_BASE.
+ * NV-CONTRACT-001: path imported from jrx-api-paths via NV_BASE.
  * NV-DOC-001: page TSX, no new md.
  */
 

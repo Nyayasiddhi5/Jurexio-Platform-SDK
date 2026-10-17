@@ -4,7 +4,7 @@
  *
  * Strategy A (default): deterministic merge from LLM body + structure metadata.
  * Strategy B (fallback): single Haiku pass when placeholders remain and
- * `NYV_FAST_DELIVERY_POLISH=1` (default ON). Max 512 tokens out, 8s budget.
+ * `JRX_FAST_DELIVERY_POLISH=1` (default ON). Max 512 tokens out, 8s budget.
  *
  * Never runs on counsel-grade bare `legal-draft` / `legal-chat` (Opus Queen path).
  */
@@ -154,7 +154,7 @@ export interface PartnerFastPostProcessResult {
 }
 
 export function isFastDeliveryPolishEnabled(): boolean {
-  const v = String(process.env.NYV_FAST_DELIVERY_POLISH ?? '1').trim().toLowerCase();
+  const v = String(process.env.JRX_FAST_DELIVERY_POLISH ?? '1').trim().toLowerCase();
   return !(v === '0' || v === 'false' || v === 'off');
 }
 
@@ -267,7 +267,7 @@ function stripInternalStructureMarkers(content: string): string {
 }
 
 async function haikuDeliveryPolish(content: string, opts: FastDeliveryPolishOpts): Promise<string> {
-  const budgetMs = Number(process.env.NYV_FAST_DELIVERY_POLISH_BUDGET_MS || 8000);
+  const budgetMs = Number(process.env.JRX_FAST_DELIVERY_POLISH_BUDGET_MS || 8000);
   const { realLLMService } = await import('./real-llm-service.js');
 
   try {
@@ -350,7 +350,7 @@ export async function applyPartnerFastPostProcess(
     try {
       const verified = await applyRetrievalCitationVerify(out, {
         hasAuthorities: authoritiesPresent,
-        timeoutMs: Number(process.env.NYV_CITATION_RETRIEVAL_VERIFY_TIMEOUT_MS || 5000),
+        timeoutMs: Number(process.env.JRX_CITATION_RETRIEVAL_VERIFY_TIMEOUT_MS || 5000),
       });
       out = verified.content;
       citationVerified = verified.citationVerified;

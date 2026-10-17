@@ -2,13 +2,13 @@
  * India (IN) citation authority adapter.
  *
  * Authority sources: India Code (indiacode.nic.in). Live lookup is gated by
- * JRX_F_CITATION_LIVE_IN (+ optional NYV_INDIA_CODE_API_BASE override). When
+ * JRX_F_CITATION_LIVE_IN (+ optional JRX_INDIA_CODE_API_BASE override). When
  * disabled, the deterministic known-corpus + structural verifier runs — this
  * mirrors the long-standing behavior of `hallucination-checker.ts` so the IN
  * path is unchanged for callers that opt into the registry.
  */
 
-import { isNyvFeatureOn } from '../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../../config/jrx-feature-flags.js';
 import {
   BaseAuthorityAdapter,
   authorityFetch,
@@ -19,10 +19,10 @@ import {
 // India Code (indiacode.nic.in) is a DSpace repository. It has no clean JSON
 // API, but its server-rendered `/simple-search?query=` page returns result
 // rows (item `/handle/<id>` links) or the literal "Search produced no results"
-// — both reliable signals. Default to the site root; `NYV_INDIA_CODE_API_BASE`
+// — both reliable signals. Default to the site root; `JRX_INDIA_CODE_API_BASE`
 // may point at a richer operator-supplied statute API (same true/false/null
 // contract).
-const INDIA_CODE_BASE = (process.env.NYV_INDIA_CODE_API_BASE || 'https://www.indiacode.nic.in').replace(/\/+$/, '');
+const INDIA_CODE_BASE = (process.env.JRX_INDIA_CODE_API_BASE || 'https://www.indiacode.nic.in').replace(/\/+$/, '');
 const LOOKUP_TIMEOUT_MS = 7000; // India Code (DSpace) is slow; allow more headroom before degrading
 
 /** Known-valid Indian instruments (titles + abbreviations). */
@@ -57,7 +57,7 @@ async function indiaCodeLookup(citation: AuthorityCitationCandidate): Promise<bo
   if (!instrument) return null;
   const query = encodeURIComponent(`${instrument}${citation.year ? ` ${citation.year}` : ''}`);
 
-  // Operator-supplied JSON API path (when NYV_INDIA_CODE_API_BASE points at a
+  // Operator-supplied JSON API path (when JRX_INDIA_CODE_API_BASE points at a
   // structured statute service that exposes /acts/search).
   if (/\/api(\/|$)/i.test(INDIA_CODE_BASE)) {
     const res = await authorityFetch(`${INDIA_CODE_BASE}/acts/search?q=${query}&limit=1`, {
@@ -102,10 +102,10 @@ export const inAuthorityAdapter = new BaseAuthorityAdapter({
     /\b(?:AIR|SCC|SCR|MLJ|Cri LJ)\s+(?<year>(?:19|20)\d{2})\s+(?:SC|HC|Bom|Del|Mad|Cal|All)\s+\d+/g,
   ],
   knownInstruments: IN_KNOWN_INSTRUMENTS,
-  liveApiEnabled: () => isNyvFeatureOn('citationLiveIn'),
+  liveApiEnabled: () => isJrxFeatureOn('citationLiveIn'),
   liveLookup: async (citation) => {
     // Prefer NYS corpus oracle when knowledge plane is on (authoritative IN caselaw/statutes).
-    if (isNyvFeatureOn('nysKnowledgePlane')) {
+    if (isJrxFeatureOn('nysKnowledgePlane')) {
       try {
         const { nysVerifyCitation } = await import('../jrx-nys-knowledge-retriever.js');
         const raw =

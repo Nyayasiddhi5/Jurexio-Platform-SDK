@@ -19,10 +19,10 @@ export const ALIAS_MAP_FILENAME = 'agent-id-aliases-v5.1.0.json';
 
 function resolveRegistryDir(): string {
   const candidates = [
-    path.join(process.cwd(), 'nyayavigya-platform-312', 'config', 'agent-registries'),
+    path.join(process.cwd(), 'Jurexio-Platform-SDK', 'config', 'agent-registries'),
     path.join(process.cwd(), 'config', 'agent-registries'),
     path.join(__dirname, '..', '..', 'config', 'agent-registries'),
-    path.join(__dirname, '..', '..', '..', 'nyayavigya-platform-312', 'config', 'agent-registries'),
+    path.join(__dirname, '..', '..', '..', 'Jurexio-Platform-SDK', 'config', 'agent-registries'),
   ];
 
   for (const candidate of candidates) {
@@ -37,7 +37,7 @@ function resolveRegistryDir(): string {
 
   throw new Error(
     `Registry directory not found. Tried: ${candidates.join(', ')}. ` +
-      'Expected location: nyayavigya-platform-312/config/agent-registries/'
+      'Expected location: Jurexio-Platform-SDK/config/agent-registries/'
   );
 }
 

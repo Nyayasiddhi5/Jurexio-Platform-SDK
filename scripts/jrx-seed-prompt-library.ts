@@ -1,5 +1,5 @@
 /**
- * nv-seed-prompt-library.ts (2026-05-13)
+ * jrx-seed-prompt-library.ts (2026-05-13)
  *
  * Seeds `template_library` with REAL legal prompt templates per jurisdiction.
  * Idempotent on (org_id, slug). NV-DB-SCRIPT-001 compliant (uses makePgSql).
@@ -263,7 +263,7 @@ Output a side-by-side table covering: governing statute, key thresholds, enforce
 
 async function main() {
   if (!process.env.DATABASE_URL) {
-    if (process.env.NYV_DATABASE_URL) process.env.DATABASE_URL = process.env.NYV_DATABASE_URL;
+    if (process.env.JRX_DATABASE_URL) process.env.DATABASE_URL = process.env.JRX_DATABASE_URL;
   }
   const sql = makePgSql();
   console.log('[seed-prompt-library] starting');
@@ -290,7 +290,7 @@ async function main() {
             ${id}, ${orgId}, ${t.name}, ${slugFinal}, ${t.category}, ${t.jurisdiction}, ${t.language},
             ${t.template_body}, ${JSON.stringify(t.variables)}::jsonb, ${JSON.stringify(t.tags)}::jsonb,
             ${'1.0.0'}, ${orgId === '1'}, ${true},
-            ${Math.floor(Math.random() * 60)}, ${JSON.stringify({ source: 'nyayavigya-canonical' })}::jsonb,
+            ${Math.floor(Math.random() * 60)}, ${JSON.stringify({ source: 'jurexio-canonical' })}::jsonb,
             NOW() - (random() * INTERVAL '90 days'), NOW()
           )
           ON CONFLICT (org_id, slug) DO NOTHING

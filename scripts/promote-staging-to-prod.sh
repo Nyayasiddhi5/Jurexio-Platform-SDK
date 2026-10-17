@@ -23,12 +23,12 @@ SRC_TAG="${1:-}"
 [ -n "$SRC_TAG" ] || { echo "usage: $0 <ecr-image-tag>" >&2; exit 2; }
 
 REGION="${AWS_REGION:-ap-south-1}"
-ACCOUNT="${NYV_ACCOUNT_ID:-789925699169}"
+ACCOUNT="${JRX_ACCOUNT_ID:-789925699169}"
 REGISTRY="${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com"
-SSH_KEY="${NYV_DEPLOY_SSH_KEY:-.local/keys/nysdev.pem}"
-HOST="${NYV_DEPLOY_HOST:-13.232.165.242}"
-USER_R="${NYV_DEPLOY_USER:-ubuntu}"
-REPO_DIR="${NYV_DEPLOY_REMOTE_DIR:-/opt/nyayavigya/repo/nyayavigya-platform-312}"
+SSH_KEY="${JRX_DEPLOY_SSH_KEY:-.local/keys/jrx-prod.pem}"
+HOST="${JRX_DEPLOY_HOST:-13.232.165.242}"
+USER_R="${JRX_DEPLOY_USER:-ubuntu}"
+REPO_DIR="${JRX_DEPLOY_REMOTE_DIR:-/opt/nyayavigya/repo/Jurexio-Platform-SDK}"
 COMPOSE="docker-compose.ecosystem.yml"
 HEALTH_URL="http://127.0.0.1:5000/health"
 
@@ -40,22 +40,22 @@ chmod 600 "$SSH_KEY" 2>/dev/null || true
 SSH_OPTS=(-i "$SSH_KEY" -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15)
 
 # 1. Validate source ----------------------------------------------------------
-LOG "Verifying $REGISTRY/nyv-gateway:$SRC_TAG exists"
-aws ecr describe-images --region "$REGION" --repository-name nyv-gateway \
+LOG "Verifying $REGISTRY/jrx-gateway:$SRC_TAG exists"
+aws ecr describe-images --region "$REGION" --repository-name jrx-gateway \
     --image-ids imageTag="$SRC_TAG" >/dev/null \
-    || DIE "Source tag nyv-gateway:$SRC_TAG not found in ECR"
+    || DIE "Source tag jrx-gateway:$SRC_TAG not found in ECR"
 
 # 2. Re-tag in ECR (manifest copy) -------------------------------------------
-SHA=$(aws ecr describe-images --region "$REGION" --repository-name nyv-gateway \
+SHA=$(aws ecr describe-images --region "$REGION" --repository-name jrx-gateway \
         --image-ids imageTag="$SRC_TAG" --query 'imageDetails[0].imageDigest' --output text)
 NEW_TAG="prod-$(date -u +%Y%m%dT%H%M%SZ)"
 LOG "Re-tagging digest $SHA  ->  prod, latest, $NEW_TAG"
 
-MANIFEST=$(aws ecr batch-get-image --region "$REGION" --repository-name nyv-gateway \
+MANIFEST=$(aws ecr batch-get-image --region "$REGION" --repository-name jrx-gateway \
             --image-ids imageTag="$SRC_TAG" \
             --query 'images[0].imageManifest' --output text)
 for tag in "prod" "latest" "$NEW_TAG"; do
-  aws ecr put-image --region "$REGION" --repository-name nyv-gateway \
+  aws ecr put-image --region "$REGION" --repository-name jrx-gateway \
       --image-tag "$tag" --image-manifest "$MANIFEST" >/dev/null 2>&1 || \
       LOG "  (tag $tag may already point to this digest — continuing)"
 done
@@ -69,7 +69,7 @@ ssh "${SSH_OPTS[@]}" "$USER_R@$HOST" "
   sg docker -c 'docker compose -f $COMPOSE --env-file .env pull gateway-b'
   sg docker -c 'docker compose -f $COMPOSE --env-file .env up -d --no-deps --force-recreate gateway-b'
   for i in \$(seq 1 24); do
-    code=\$(sg docker -c \"docker exec nyv-gateway-b wget -q -O - $HEALTH_URL 2>/dev/null | head -c 30\")
+    code=\$(sg docker -c \"docker exec jrx-gateway-b wget -q -O - $HEALTH_URL 2>/dev/null | head -c 30\")
     if echo \"\$code\" | grep -q ok; then echo 'gateway-b healthy'; exit 0; fi
     sleep 5
   done
@@ -84,7 +84,7 @@ ssh "${SSH_OPTS[@]}" "$USER_R@$HOST" "
   sg docker -c 'docker compose -f $COMPOSE --env-file .env pull gateway-a'
   sg docker -c 'docker compose -f $COMPOSE --env-file .env up -d --no-deps --force-recreate gateway-a'
   for i in \$(seq 1 24); do
-    code=\$(sg docker -c \"docker exec nyv-gateway-a wget -q -O - $HEALTH_URL 2>/dev/null | head -c 30\")
+    code=\$(sg docker -c \"docker exec jrx-gateway-a wget -q -O - $HEALTH_URL 2>/dev/null | head -c 30\")
     if echo \"\$code\" | grep -q ok; then echo 'gateway-a healthy'; exit 0; fi
     sleep 5
   done

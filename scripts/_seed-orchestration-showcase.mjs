@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * One-shot admin seed for Orchestration Hub demo KPIs (nysdev / UAT).
+ * One-shot admin seed for Orchestration Hub demo KPIs (jrx-prod / UAT).
  * Idempotent — tops up sparse tables; demo-labeled rows where supported.
  *
  * Usage:
@@ -18,7 +18,7 @@ import { randomUUID } from 'node:crypto';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const conn =
   process.env.DATABASE_URL_ADMIN ??
-  process.env.NYV_DATABASE_URL ??
+  process.env.JRX_DATABASE_URL ??
   process.env.DATABASE_URL;
 if (!conn) {
   console.error('FATAL: set DATABASE_URL_ADMIN (or DATABASE_URL)');
@@ -356,7 +356,7 @@ function runTsxSeed(script, optional = true) {
   console.log(`\n>> tsx ${script}`);
   const r = spawnSync(process.execPath, ['--import', 'tsx', path.join(ROOT, script)], {
     cwd: ROOT,
-    env: { ...process.env, NV_E2E_BYPASS: '1', DATABASE_URL: conn, NYV_DATABASE_URL: conn },
+    env: { ...process.env, NV_E2E_BYPASS: '1', DATABASE_URL: conn, JRX_DATABASE_URL: conn },
     stdio: 'inherit',
   });
   if (r.status !== 0) {
@@ -379,9 +379,9 @@ async function main() {
   await seedBiasAnalysis();
   await seedDataLineage();
 
-  runTsxSeed('scripts/nv-seed-activity-and-hitl.ts');
-  runTsxSeed('scripts/nv-seed-grpo-demo.ts');
-  runTsxSeed('scripts/nv-seed-policies.ts');
+  runTsxSeed('scripts/jrx-seed-activity-and-hitl.ts');
+  runTsxSeed('scripts/jrx-seed-grpo-demo.ts');
+  runTsxSeed('scripts/jrx-seed-policies.ts');
 
   const after = await snapshot('AFTER');
 

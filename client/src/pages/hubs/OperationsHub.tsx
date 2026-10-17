@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/contexts/AuthContext';
 import { hasAccess, type RoleLevel } from '@/lib/rbac-registry';
-import { NyvPageShell } from '@/components/NyvPageShell';
+import { JrxPageShell } from '@/components/JrxPageShell';
 
 // orchestration-dashboard deleted 2026-05-12 (B3) — use canonical live-activity-feed
 const OrchestrationDashboard = lazy(() => import('../live-activity-feed'));
@@ -72,7 +72,7 @@ export default function OperationsHub() {
   }
 
   return (
-    <NyvPageShell
+    <JrxPageShell
       title="Operations"
       description="Live activity, org admin, router, LLM priority, guardrails — operational dashboards. Tabs filtered by role."
       className="./jrx-light-scope"
@@ -99,6 +99,6 @@ export default function OperationsHub() {
           );
         })}
       </Tabs>
-    </NyvPageShell>
+    </JrxPageShell>
   );
 }

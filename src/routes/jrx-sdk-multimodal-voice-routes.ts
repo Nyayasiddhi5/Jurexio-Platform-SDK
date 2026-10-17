@@ -176,7 +176,7 @@ router.post('/multimodal/rag/query', consentAi, async (req: Request, res: Respon
   }
 });
 
-// NYV-AUDIT-F8 (2026-05-05): /multimodal/capabilities is a META endpoint that
+// JRX-AUDIT-F8 (2026-05-05): /multimodal/capabilities is a META endpoint that
 // returns "what is supported" — no PII, no LLM call, no usage cost. It must be
 // reachable by any authenticated SDK key so platforms can feature-detect at
 // runtime, mirroring /gateway/translate/languages (also unscoped). Previously

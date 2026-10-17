@@ -16,7 +16,7 @@ export function resolveGeminiApiKeys(): string[] {
     if (overlayPool) {
       process.env.GEMINI_API_KEYS = overlayPool;
     }
-    for (const name of ['GEMINI_API_KEY', 'GOOGLE_API_KEY', 'GOOGLE_AI_API_KEY', 'NYV_GOOGLE_API_KEY']) {
+    for (const name of ['GEMINI_API_KEY', 'GOOGLE_API_KEY', 'GOOGLE_AI_API_KEY', 'JRX_GOOGLE_API_KEY']) {
       const v = resolveProviderSecret(name);
       if (v) process.env[name] = v;
     }
@@ -31,7 +31,7 @@ export function resolveGeminiApiKeys(): string[] {
     process.env.GEMINI_API_KEY,
     process.env.GOOGLE_API_KEY,
     process.env.GOOGLE_AI_API_KEY,
-    process.env.NYV_GOOGLE_API_KEY,
+    process.env.JRX_GOOGLE_API_KEY,
   ].filter((k): k is string => !!k && !!String(k).trim());
   const seen = new Set<string>();
   const out: string[] = [];
@@ -45,11 +45,11 @@ export function resolveGeminiApiKeys(): string[] {
 
 export async function generateGeminiEmbedding(
   text: string,
-  dims = Number(process.env.NYV_EMBEDDING_DIMS) || 1536,
+  dims = Number(process.env.JRX_EMBEDDING_DIMS) || 1536,
 ): Promise<number[] | null> {
   const keys = resolveGeminiApiKeys();
   if (!keys.length) return null;
-  const model = toGeminiApiModelId(process.env.NYV_GEMINI_EMBED_MODEL || getGeminiEmbedModel());
+  const model = toGeminiApiModelId(process.env.JRX_GEMINI_EMBED_MODEL || getGeminiEmbedModel());
   const truncated = text.length > 8000 ? text.slice(0, 8000) : text;
   let lastErr = '';
   for (let i = 0; i < keys.length; i++) {
@@ -92,7 +92,7 @@ export async function generateGeminiEmbedding(
 
 export async function generateGeminiEmbeddingsBatch(
   texts: string[],
-  dims = Number(process.env.NYV_EMBEDDING_DIMS) || 1536,
+  dims = Number(process.env.JRX_EMBEDDING_DIMS) || 1536,
 ): Promise<Array<number[] | null>> {
   const out: Array<number[] | null> = [];
   for (const t of texts) {

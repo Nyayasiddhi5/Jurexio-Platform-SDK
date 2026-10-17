@@ -29,7 +29,7 @@ import PlatformV5Internal      from '../../client/src/pages/platform-v5/internal
 import PlatformV5Gov           from '../../client/src/pages/platform-v5/gov';
 import { ADMIN_SDK_KEY_SLOT }   from '../../client/src/pages/platform-v5/_shared';
 
-// ─── Catalog: every namespace, in lockstep with NyvSidebar entries ─────────
+// ─── Catalog: every namespace, in lockstep with JrxSidebar entries ─────────
 //
 // `flagKeys` mirrors the per-page NamespaceConfig.flagKeys exactly. The stub
 // fetch mints a flag-snapshot payload that includes ON/OFF entries for ALL
@@ -37,15 +37,15 @@ import { ADMIN_SDK_KEY_SLOT }   from '../../client/src/pages/platform-v5/_shared
 // One sample sub-route path per page is also asserted in the ON-state test so
 // the inventory live-data assertion has a stable target to find.
 const PAGES = [
-  { slug: 'orch',           Page: PlatformV5Orch,          apiPrefix: '/api/nv5/orch',           flagKeys: ['aiOrchKb','aiOrchContext','aiOrchMultimodalRag','aiOrchPlugins','aiOrchRoma','aiOrchAgentSelect','aiOrchProtocols'], envPrefix: 'NYV_F_AI_ORCH_',         sampleSubPath: 'kb',           subPaths: ['kb','context','multimodal-rag','plugins','roma','agent-select','protocols'],                                                                                                                                  tryItMethod: 'GET' as const,  tryItUrl: '/api/nv5/orch/roma/audit-trail' },
-  { slug: 'multimodal',     Page: PlatformV5Multimodal,    apiPrefix: '/api/nv5/multimodal',     flagKeys: ['multimodalAvatarUnity','multimodalAvatarChatdoll','multimodalRagAdv','multimodal3dImmersive','multimodalAvatar3d'], envPrefix: 'NYV_F_MULTIMODAL_',         sampleSubPath: 'rag-adv',     subPaths: ['avatar-unity','avatar-chatdoll','rag-adv','3d-immersive','avatar-3d'],                                                                                                                                tryItMethod: 'POST' as const, tryItUrl: '/api/nv5/multimodal/rag-adv/rag/query' },
-  { slug: 'voice',          Page: PlatformV5Voice,         apiPrefix: '/api/nv5/voice',          flagKeys: ['voiceStreamRt','voiceSynth','voiceEnhanced'], envPrefix: 'NYV_F_VOICE_',         sampleSubPath: 'streaming',     subPaths: ['streaming','synthesis','enhanced'],                                                                                                                                                                                  tryItMethod: 'GET' as const,  tryItUrl: '/api/nv5/voice/streaming/metrics' },
-  { slug: 'workflows',      Page: PlatformV5Workflows,     apiPrefix: '/api/nv5/workflows',      flagKeys: ['workflowAutonomous','workflowContinuous'], envPrefix: 'NYV_F_WORKFLOW_',         sampleSubPath: 'continuous',     subPaths: ['autonomous','continuous'],                                                                                                                                                                                          tryItMethod: 'GET' as const,  tryItUrl: '/api/nv5/workflows/continuous/status' },
-  { slug: 'doc-ai',         Page: PlatformV5DocAi,         apiPrefix: '/api/nv5/doc-ai',         flagKeys: ['docAiConvert'], envPrefix: 'NYV_F_DOC_AI_',         sampleSubPath: 'convert',     subPaths: ['convert'],                                                                                                                                                                                                                                                          tryItMethod: 'GET' as const,  tryItUrl: '/api/nv5/doc-ai/convert/supported' },
-  { slug: 'legal-pipeline', Page: PlatformV5LegalPipeline, apiPrefix: '/api/nv5/legal-pipeline', flagKeys: ['legalPipelineChunker','legalPipelineEmbedding','legalPipelineReranker','legalPipelineSummarizer','legalPipelineReadability'], envPrefix: 'NYV_F_LEGAL_PIPELINE_',         sampleSubPath: 'readability',     subPaths: ['chunker','embedding','reranker','summarizer','readability'],                                                                                                                                tryItMethod: 'POST' as const, tryItUrl: '/api/nv5/legal-pipeline/readability/score' },
-  { slug: 'compliance',     Page: PlatformV5Compliance,    apiPrefix: '/api/nv5/compliance',     flagKeys: ['complianceEuAiAct','compliancePqc','complianceFederatedPrivacy'], envPrefix: 'NYV_F_COMPLIANCE_',         sampleSubPath: 'eu-ai-act',     subPaths: ['eu-ai-act','pqc','federated-privacy'],                                                                                                                                                                                              tryItMethod: 'GET' as const,  tryItUrl: '/api/nv5/compliance/eu-ai-act/report' },
-  { slug: 'internal',       Page: PlatformV5Internal,      apiPrefix: '/api/nv5/internal',       flagKeys: ['internalSurface'], envPrefix: 'NYV_F_INTERNAL_',         sampleSubPath: 'model-cascade',     subPaths: ['','model-cascade','cost-aware-router','esign','ocr','pdfa','watermark','hallucination','escalation','event-sourcing','jurisdiction-overlay','audit-chain','case-update','agentzero','feature-flags','orchestration-facade'], tryItMethod: 'GET' as const,  tryItUrl: '/api/nv5/internal/slm-router/availability/IN' },
-  { slug: 'gov',            Page: PlatformV5Gov,           apiPrefix: '/api/nv5/gov',            flagKeys: ['govMakerChecker','govSecurityMon','govCostOpt','govConcurrency','govOrgRatelimit'], envPrefix: 'NYV_F_GOV_',         sampleSubPath: 'maker-checker',     subPaths: ['maker-checker','security-monitor','cost-optimizer','concurrency','org-ratelimit'],                                                                                                                                tryItMethod: 'GET' as const,  tryItUrl: '/api/nv5/gov/concurrency/snapshot' },
+  { slug: 'orch',           Page: PlatformV5Orch,          apiPrefix: '/api/nv5/orch',           flagKeys: ['aiOrchKb','aiOrchContext','aiOrchMultimodalRag','aiOrchPlugins','aiOrchRoma','aiOrchAgentSelect','aiOrchProtocols'], envPrefix: 'JRX_F_AI_ORCH_',         sampleSubPath: 'kb',           subPaths: ['kb','context','multimodal-rag','plugins','roma','agent-select','protocols'],                                                                                                                                  tryItMethod: 'GET' as const,  tryItUrl: '/api/nv5/orch/roma/audit-trail' },
+  { slug: 'multimodal',     Page: PlatformV5Multimodal,    apiPrefix: '/api/nv5/multimodal',     flagKeys: ['multimodalAvatarUnity','multimodalAvatarChatdoll','multimodalRagAdv','multimodal3dImmersive','multimodalAvatar3d'], envPrefix: 'JRX_F_MULTIMODAL_',         sampleSubPath: 'rag-adv',     subPaths: ['avatar-unity','avatar-chatdoll','rag-adv','3d-immersive','avatar-3d'],                                                                                                                                tryItMethod: 'POST' as const, tryItUrl: '/api/nv5/multimodal/rag-adv/rag/query' },
+  { slug: 'voice',          Page: PlatformV5Voice,         apiPrefix: '/api/nv5/voice',          flagKeys: ['voiceStreamRt','voiceSynth','voiceEnhanced'], envPrefix: 'JRX_F_VOICE_',         sampleSubPath: 'streaming',     subPaths: ['streaming','synthesis','enhanced'],                                                                                                                                                                                  tryItMethod: 'GET' as const,  tryItUrl: '/api/nv5/voice/streaming/metrics' },
+  { slug: 'workflows',      Page: PlatformV5Workflows,     apiPrefix: '/api/nv5/workflows',      flagKeys: ['workflowAutonomous','workflowContinuous'], envPrefix: 'JRX_F_WORKFLOW_',         sampleSubPath: 'continuous',     subPaths: ['autonomous','continuous'],                                                                                                                                                                                          tryItMethod: 'GET' as const,  tryItUrl: '/api/nv5/workflows/continuous/status' },
+  { slug: 'doc-ai',         Page: PlatformV5DocAi,         apiPrefix: '/api/nv5/doc-ai',         flagKeys: ['docAiConvert'], envPrefix: 'JRX_F_DOC_AI_',         sampleSubPath: 'convert',     subPaths: ['convert'],                                                                                                                                                                                                                                                          tryItMethod: 'GET' as const,  tryItUrl: '/api/nv5/doc-ai/convert/supported' },
+  { slug: 'legal-pipeline', Page: PlatformV5LegalPipeline, apiPrefix: '/api/nv5/legal-pipeline', flagKeys: ['legalPipelineChunker','legalPipelineEmbedding','legalPipelineReranker','legalPipelineSummarizer','legalPipelineReadability'], envPrefix: 'JRX_F_LEGAL_PIPELINE_',         sampleSubPath: 'readability',     subPaths: ['chunker','embedding','reranker','summarizer','readability'],                                                                                                                                tryItMethod: 'POST' as const, tryItUrl: '/api/nv5/legal-pipeline/readability/score' },
+  { slug: 'compliance',     Page: PlatformV5Compliance,    apiPrefix: '/api/nv5/compliance',     flagKeys: ['complianceEuAiAct','compliancePqc','complianceFederatedPrivacy'], envPrefix: 'JRX_F_COMPLIANCE_',         sampleSubPath: 'eu-ai-act',     subPaths: ['eu-ai-act','pqc','federated-privacy'],                                                                                                                                                                                              tryItMethod: 'GET' as const,  tryItUrl: '/api/nv5/compliance/eu-ai-act/report' },
+  { slug: 'internal',       Page: PlatformV5Internal,      apiPrefix: '/api/nv5/internal',       flagKeys: ['internalSurface'], envPrefix: 'JRX_F_INTERNAL_',         sampleSubPath: 'model-cascade',     subPaths: ['','model-cascade','cost-aware-router','esign','ocr','pdfa','watermark','hallucination','escalation','event-sourcing','jurisdiction-overlay','audit-chain','case-update','agentzero','feature-flags','orchestration-facade'], tryItMethod: 'GET' as const,  tryItUrl: '/api/nv5/internal/slm-router/availability/IN' },
+  { slug: 'gov',            Page: PlatformV5Gov,           apiPrefix: '/api/nv5/gov',            flagKeys: ['govMakerChecker','govSecurityMon','govCostOpt','govConcurrency','govOrgRatelimit'], envPrefix: 'JRX_F_GOV_',         sampleSubPath: 'maker-checker',     subPaths: ['maker-checker','security-monitor','cost-optimizer','concurrency','org-ratelimit'],                                                                                                                                tryItMethod: 'GET' as const,  tryItUrl: '/api/nv5/gov/concurrency/snapshot' },
 ] as const;
 
 /**
@@ -189,7 +189,7 @@ describe('Platform-v5 admin pages — render smoke', () => {
 // Required by acceptance: clicking the try-it button with a stubbed fetch
 // surfaces both the 200 success path (renders the JSON result panel) AND
 // the flag-OFF 404 path (renders the explicit HelpHint pointing operators
-// at the NYV_F_* runbook). Parameterised across one GET-tryit page (orch)
+// at the JRX_F_* runbook). Parameterised across one GET-tryit page (orch)
 // and one POST-tryit page (legal-pipeline) so both code branches in
 // TryItPanel are exercised.
 describe('Platform-v5 try-it interaction', () => {
@@ -249,7 +249,7 @@ describe('Platform-v5 try-it interaction', () => {
     expect(screen.queryByText(/Feature flag is OFF in this environment/i)).not.toBeInTheDocument();
   });
 
-  it('GET try-it (orch): click → 404 renders the flag-OFF help hint (NYV_F_* runbook)', async () => {
+  it('GET try-it (orch): click → 404 renders the flag-OFF help hint (JRX_F_* runbook)', async () => {
     stubTryItFetch('/api/nv5/orch/roma/audit-trail', 404);
     renderWithProviders(<PlatformV5Orch />);
 
@@ -258,12 +258,12 @@ describe('Platform-v5 try-it interaction', () => {
 
     // The HelpHint paragraph is scoped INSIDE the try-it card so we don't
     // collide with the InventoryPanel description (which also mentions the
-    // NYV_F_* flag-OFF semantics) or the disabled-banner runbook pointer.
+    // JRX_F_* flag-OFF semantics) or the disabled-banner runbook pointer.
     await waitFor(
       () => expect(within(tryItCard).getByText(/Feature flag is OFF in this environment/i)).toBeInTheDocument(),
       { timeout: 3000 },
     );
-    expect(within(tryItCard).getByText(/NYV_F_\*/)).toBeInTheDocument();
+    expect(within(tryItCard).getByText(/JRX_F_\*/)).toBeInTheDocument();
     expect(within(tryItCard).getByText(/docs\/canonical\/00-README\.md/)).toBeInTheDocument();
     // No success result rendered on 404.
     expect(screen.queryByTestId('tryit-result')).not.toBeInTheDocument();

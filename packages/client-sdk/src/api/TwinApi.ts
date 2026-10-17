@@ -4,19 +4,19 @@
  */
 
 import type {
-  NyvDigitalTwin,
-  NyvTwinSimulationResult,
-  NyvJurisdiction,
-  NyvListResponse,
-  NyvPaginationOptions,
+  JrxDigitalTwin,
+  JrxTwinSimulationResult,
+  JrxJurisdiction,
+  JrxListResponse,
+  JrxPaginationOptions,
 } from '../types/index.js';
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export interface CreateTwinRequest {
   name: string;
   persona: 'managing-partner' | 'senior-litigator' | 'compliance-head' | 'corporate-counsel' | 'custom';
   expertise: string;
-  jurisdiction: NyvJurisdiction;
+  jurisdiction: JrxJurisdiction;
   yearsExperience?: number;
   customPersonaPrompt?: string;
   configuration?: {
@@ -43,20 +43,20 @@ export interface TwinChatRequest {
 }
 
 export class TwinApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   /** Create a new legal digital twin */
-  create(req: CreateTwinRequest): Promise<NyvDigitalTwin> {
+  create(req: CreateTwinRequest): Promise<JrxDigitalTwin> {
     return this.http.post('/api/jrx/digital-twin/create', req);
   }
 
   /** Get a twin by ID */
-  get(twinId: string): Promise<NyvDigitalTwin> {
+  get(twinId: string): Promise<JrxDigitalTwin> {
     return this.http.get(`/api/jrx/digital-twin/${twinId}`);
   }
 
   /** List all twins for the current org */
-  list(pagination: NyvPaginationOptions = {}): Promise<NyvListResponse<NyvDigitalTwin>> {
+  list(pagination: JrxPaginationOptions = {}): Promise<JrxListResponse<JrxDigitalTwin>> {
     const params = new URLSearchParams();
     if (pagination.page) params.set('page', String(pagination.page));
     if (pagination.pageSize) params.set('pageSize', String(pagination.pageSize));
@@ -67,7 +67,7 @@ export class TwinApi {
   update(
     twinId: string,
     updates: Partial<CreateTwinRequest> & { state?: Record<string, unknown> }
-  ): Promise<NyvDigitalTwin> {
+  ): Promise<JrxDigitalTwin> {
     return this.http.patch(`/api/jrx/digital-twin/${twinId}`, updates);
   }
 
@@ -80,7 +80,7 @@ export class TwinApi {
    * Run a scenario simulation with a digital twin (calls P22 pattern).
    * Returns probabilistic outcome analysis across 3+ scenarios.
    */
-  simulate(req: SimulateRequest): Promise<NyvTwinSimulationResult> {
+  simulate(req: SimulateRequest): Promise<JrxTwinSimulationResult> {
     return this.http.post('/api/jrx/digital-twin/simulate', req);
   }
 
@@ -101,8 +101,8 @@ export class TwinApi {
   /** Get simulation history for a twin */
   getSimulations(
     twinId: string,
-    pagination: NyvPaginationOptions = {}
-  ): Promise<NyvListResponse<NyvTwinSimulationResult>> {
+    pagination: JrxPaginationOptions = {}
+  ): Promise<JrxListResponse<JrxTwinSimulationResult>> {
     const params = new URLSearchParams();
     if (pagination.page) params.set('page', String(pagination.page));
     if (pagination.pageSize) params.set('pageSize', String(pagination.pageSize));

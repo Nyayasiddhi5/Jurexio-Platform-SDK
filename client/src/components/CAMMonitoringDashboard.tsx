@@ -16,7 +16,7 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { p } from '@/lib/jrx-api-paths';
 import { nvFetchJson } from '@/lib/jrx-fetch-json';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { 
   Activity, 
   DollarSign, 
@@ -92,9 +92,9 @@ export function CAMMonitoringDashboard({ startupId }: { startupId: number }) {
 
   if (isError) {
     return (
-      <NyvErrorState
+      <JrxErrorState
         title="CAM telemetry unavailable"
-        description="Could not load /api/nyayavigya/cam/dashboard — check session or gateway health."
+        description="Could not load /api/jurexio/cam/dashboard — check session or gateway health."
         onRetry={() => refetch()}
       />
     );

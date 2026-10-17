@@ -15,7 +15,7 @@
  *    re-attempted on the very next stream.
  *
  * Design notes:
- * - Redis (canonical `NYV_REDIS_TCP_URL`, NV-SECRETS-001) is the shared store;
+ * - Redis (canonical `JRX_REDIS_TCP_URL`, NV-SECRETS-001) is the shared store;
  *   an in-process mirror is ALWAYS maintained so a Redis outage degrades to
  *   exactly today's behaviour rather than to "no protection at all". Secret
  *   values are never logged — only the resolved env-var NAME.
@@ -67,18 +67,18 @@ function envInt(name: string, fallback: number, min: number): number {
 }
 
 /** Rolling window over which failures are counted before the circuit opens. */
-const WINDOW_MS = envInt('NYV_LLM_BREAKER_WINDOW_MS', 60_000, 5_000);
+const WINDOW_MS = envInt('JRX_LLM_BREAKER_WINDOW_MS', 60_000, 5_000);
 /** Consecutive-ish failures in the window that trip the circuit. */
-const FAILURE_THRESHOLD = envInt('NYV_LLM_BREAKER_FAILURES', 4, 1);
+const FAILURE_THRESHOLD = envInt('JRX_LLM_BREAKER_FAILURES', 4, 1);
 /** How long the circuit stays open before a half-open probe is permitted. */
-const OPEN_MS = envInt('NYV_LLM_BREAKER_OPEN_MS', 30_000, 1_000);
+const OPEN_MS = envInt('JRX_LLM_BREAKER_OPEN_MS', 30_000, 1_000);
 /** At most one half-open probe per provider per interval, cluster-wide. */
-const PROBE_INTERVAL_MS = envInt('NYV_LLM_BREAKER_PROBE_MS', 10_000, 1_000);
+const PROBE_INTERVAL_MS = envInt('JRX_LLM_BREAKER_PROBE_MS', 10_000, 1_000);
 /**
  * Hard quarantine TTL for non-retryable provider failures (402 / bad key /
  * unsupported model). Kept as the existing env var so ops tuning carries over.
  */
-const QUARANTINE_MS = envInt('NYV_LLM_PROVIDER_QUARANTINE_MS', 10 * 60_000, 60_000);
+const QUARANTINE_MS = envInt('JRX_LLM_PROVIDER_QUARANTINE_MS', 10 * 60_000, 60_000);
 
 const local = new Map<string, LocalEntry>();
 

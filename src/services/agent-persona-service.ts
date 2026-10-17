@@ -1,6 +1,6 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
- * NYV-SVC-PERSONA — Legal Agent Character System
+ * JRX-SVC-PERSONA — Legal Agent Character System
  * Ported from SIA open-source agentic framework.
  *
  * Capabilities:
@@ -689,7 +689,7 @@ async function ensureTables(): Promise<void> {
     `);
     tablesReady = true;
   } catch (err: any) {
-    logger.error('[NYV-SVC-PERSONA] ensureTables error:', err.message);
+    logger.error('[JRX-SVC-PERSONA] ensureTables error:', err.message);
   }
 }
 
@@ -806,7 +806,7 @@ export async function savePersonaOverride(agentKey: string, orgId: string, overr
             updated_at = NOW()
     `);
   } catch (err: any) {
-    logger.error('[NYV-SVC-PERSONA] savePersonaOverride error:', err.message);
+    logger.error('[JRX-SVC-PERSONA] savePersonaOverride error:', err.message);
     throw err;
   }
 }

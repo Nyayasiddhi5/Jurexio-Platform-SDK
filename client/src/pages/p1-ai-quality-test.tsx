@@ -40,7 +40,7 @@ export default function P1AIQualityTest() {
   // Test mutation for cost prediction
   const runCostPredictionTest = useMutation({
     mutationFn: async () => {
-      const result = await apiRequest('/api/nyayavigya/estimate-cost', {
+      const result = await apiRequest('/api/jurexio/estimate-cost', {
         method: 'POST',
         body: {
           workflow: testWorkflow,
@@ -90,7 +90,7 @@ export default function P1AIQualityTest() {
   // Test mutation for quality feedback
   const runQualityFeedbackTest = useMutation({
     mutationFn: async () => {
-      const result = await apiRequest('/api/nyayavigya/quality-feedback', {
+      const result = await apiRequest('/api/jurexio/quality-feedback', {
         method: 'POST',
         body: {
           providerId: 'openai',

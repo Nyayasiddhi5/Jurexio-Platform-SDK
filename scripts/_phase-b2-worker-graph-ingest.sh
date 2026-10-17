@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Phase B-2 — ingest graph JSONL from worker into NYV RDS (direct Secrets Manager)
+# Phase B-2 — ingest graph JSONL from worker into JRX RDS (direct Secrets Manager)
 set -euo pipefail
 cd /opt/nyv/api
 JSONL="/opt/nyv/api/graph-edges-pending.jsonl"
@@ -13,7 +13,7 @@ import { RDSClient, DescribeDBInstancesCommand } from '@aws-sdk/client-rds';
 const REGION = 'ap-south-1';
 const JSONL = '/opt/nyv/api/graph-edges-pending.jsonl';
 const rds = new RDSClient({ region: REGION });
-const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: 'nyv-dev-edge-pg' }));
+const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: 'jrx-dev-edge-pg' }));
 const inst = desc.DBInstances[0];
 const sm = new SecretsManagerClient({ region: REGION });
 const secret = await sm.send(new GetSecretValueCommand({ SecretId: inst.MasterUserSecret.SecretArn }));
@@ -51,6 +51,6 @@ for (const line of lines) {
   if (n % 5000 === 0) console.log('INGEST_PROGRESS', n, 'edges', edgeLines);
 }
 const counts = await client.query('SELECT (SELECT count(*)::bigint FROM nv_schema.nv_legal_graph_entities) entities, (SELECT count(*)::bigint FROM nv_schema.nv_legal_graph_edges) edges');
-console.log('GRAPH_NYV_INGEST_DONE', JSON.stringify({ lines: n, edgeLines, counts: counts.rows[0] }));
+console.log('GRAPH_JRX_INGEST_DONE', JSON.stringify({ lines: n, edgeLines, counts: counts.rows[0] }));
 await client.end();
 NODE

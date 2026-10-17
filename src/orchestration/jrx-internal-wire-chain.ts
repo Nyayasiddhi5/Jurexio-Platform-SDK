@@ -20,7 +20,7 @@
  *     ring at src/services/intelligent-router.ts → orchestrateLLM remains
  *     the only LLM-emitting path.
  *   • This file is itself imported (and `void`-discarded) from src/index.ts
- *     so the audit edge points: src/index.ts → nv-internal-wire-chain →
+ *     so the audit edge points: src/index.ts → jrx-internal-wire-chain →
  *     {26 services}.
  *
  * Rationale per disposition doc Batch I (orchestration internals): "static-

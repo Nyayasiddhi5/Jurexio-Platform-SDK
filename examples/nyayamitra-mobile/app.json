@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "Nyayamitra (sample)",
-    "slug": "nyayamitra-mobile",
+    "name": "Jurexio Citizen (sample)",
+    "slug": "jurexio-citizen-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "splash": { "backgroundColor": "#ffffff", "resizeMode": "contain" },
     "ios": {
-      "bundleIdentifier": "in.nyayamitra.examples.consumer",
+      "bundleIdentifier": "in.jurexio-citizen.examples.consumer",
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "Used to capture document photos for clause analysis.",
@@ -16,11 +16,11 @@
       }
     },
     "android": {
-      "package": "in.nyayamitra.examples.consumer",
+      "package": "in.jurexio-citizen.examples.consumer",
       "adaptiveIcon": { "backgroundColor": "#ffffff" },
       "permissions": ["CAMERA", "RECORD_AUDIO", "READ_MEDIA_IMAGES", "POST_NOTIFICATIONS"]
     },
-    "extra": { "NYV_BASE_URL": "https://api.nyayavigya.com" },
+    "extra": { "JRX_BASE_URL": "https://api.nyayavigya.com" },
     "plugins": ["expo-secure-store", "expo-av", "expo-image-picker"]
   }
 }

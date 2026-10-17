@@ -151,7 +151,7 @@ export function inferDraftDocFamily(template: string, documentType?: string, ins
    * petition rules below for a concrete reason: a reply pleading, review, SLP or
    * execution petition in a criminal or writ matter almost always recites the FIR
    * number and the word "petition", and the same shadowing bug was already shipped
-   * once in DOC_TYPE_HINTS (nv-court-document-fields.ts), where an incidental FIR
+   * once in DOC_TYPE_HINTS (jrx-court-document-fields.ts), where an incidental FIR
    * reference captured a cheque-dishonour complaint. Specific first, generic last. */
 
   // Before `counter_affidavit`: a rejoinder ALWAYS names the pleading it answers

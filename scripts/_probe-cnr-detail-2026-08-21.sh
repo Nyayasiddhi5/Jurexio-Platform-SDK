@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -uo pipefail
-CANON=/opt/Nyayavigya/secrets/.env.production
-API=https://api.nyayasiddhi.online
-NSPK=$(grep -E '^NYV_SDK_KEY_NSP=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')
+CANON=/opt/Jurexio/secrets/.env.production
+API=https://api.jurexio.com
+NSPK=$(grep -E '^JRX_SDK_KEY_NSP=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')
 
 echo "=== TSWL raw ==="
 curl -sS -m 60 -o /tmp/tswl2.json -w "http=%{http_code}\n" -X POST -H "X-API-Key: ${NSPK}" -H 'Content-Type: application/json' \

@@ -17,7 +17,7 @@ export type { PredictiveAnalyticsConfig } from './predictive-analytics-engine.js
 export * from './token-cost-prediction-service.js';
 
 export const analyticsPackageInfo = {
-  name: 'nyayavigya-sdk-analytics',
+  name: 'jurexio-sdk-analytics',
   version: '3.1.0',
   services: [
     'advanced-analytics',

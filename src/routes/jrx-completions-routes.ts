@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
+// JRX-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
 // file. Runtime is unaffected (gateway runs via tsx). Opt out of strict-null
 // for the v5.0.0 deploy gate; track follow-up cleanup in INV-CLEANUP-001.
 /**
@@ -36,7 +36,7 @@ import { createLogger } from '../utils/logger.js';
 import crypto from 'crypto';
 import { NV_MCP_TOOLS_REGISTRY, TOOLS_BY_CATEGORY, MCP_REGISTRY_STATS, EXECUTABLE_MCP_TOOL_IDS, PARTNER_CURATED_MCP_TOOL_IDS, isMcpToolCatalogArchived, type McpTool } from '../data/jrx-mcp-tools-registry.js';
 import { getRegistryStats } from '../services/agent-registry-service.js';
-import { NYV_PLATFORM_VERSION, NYV_SDK_VERSION } from '../config/nyv-master-config.js';
+import { JRX_PLATFORM_VERSION, JRX_SDK_VERSION } from '../config/jrx-master-config.js';
 
 const router = Router();
 const logger = createLogger('./jrx-completions');
@@ -736,7 +736,7 @@ router.post('/tools/mcp/invoke', dualSdkOrJwt, async (req: Request, res: Respons
   }
 });
 
-/** Canonical MCP execute path referenced by nv-mcp-tools-registry.ts and nyaya-tools catalog. */
+/** Canonical MCP execute path referenced by jrx-mcp-tools-registry.ts and jrx-legal-tools catalog. */
 router.post('/v1/mcp/tools/:toolId/execute', dualSdkOrJwt, async (req: Request, res: Response) => {
   try {
     const toolId = String(req.params.toolId || '');
@@ -832,9 +832,9 @@ export async function executeMcpTool(
           const { lookupStatuteSection } = await import('../services/jrx-statute-seeding-service.js').catch(() => ({ lookupStatuteSection: async () => null }));
           const section = await lookupStatuteSection(inp?.actTitle ?? inp?.actShortTitle ?? '', inp?.section ?? inp?.sectionNumber ?? '', inp?.jurisdiction);
           if (section) {
-            result = { found: true, actTitle: section.act_title, actShortTitle: section.act_short_title, jurisdiction: section.jurisdiction, sectionNumber: section.section_number, sectionTitle: section.section_title, sectionText: section.section_text, practiceArea: section.practice_area, source: 'nyayavigya_statute_db' };
+            result = { found: true, actTitle: section.act_title, actShortTitle: section.act_short_title, jurisdiction: section.jurisdiction, sectionNumber: section.section_number, sectionTitle: section.section_title, sectionText: section.section_text, practiceArea: section.practice_area, source: 'jurexio_statute_db' };
           } else {
-            result = { found: false, actTitle: inp?.actTitle, section: inp?.section, note: 'Not found in statute DB. Verify via India Code API.', source: 'nyayavigya_statute_db' };
+            result = { found: false, actTitle: inp?.actTitle, section: inp?.section, note: 'Not found in statute DB. Verify via India Code API.', source: 'jurexio_statute_db' };
           }
           break;
         }
@@ -844,7 +844,7 @@ export async function executeMcpTool(
         case 'statute_db_query': {
           const { searchStatutes } = await import('../services/jrx-statute-seeding-service.js').catch(() => ({ searchStatutes: async () => [] }));
           const results = await searchStatutes(inp?.query ?? inp?.actTitle ?? '', inp?.jurisdiction, inp?.practiceArea, Number(inp?.limit ?? 10));
-          result = { found: results.length > 0, count: results.length, results, query: inp?.query, jurisdiction: inp?.jurisdiction ?? 'all', source: 'nyayavigya_statute_db_v3.1.2' };
+          result = { found: results.length > 0, count: results.length, results, query: inp?.query, jurisdiction: inp?.jurisdiction ?? 'all', source: 'jurexio_statute_db_v3.1.2' };
           break;
         }
 
@@ -1163,7 +1163,7 @@ export async function executeMcpTool(
 
         // ── LINKEDIN / LAW SOCIETY / BCI / COURT CAUSE LIST ───────────────────
         case 'linkedin_legal_profile': {
-          result = { status: 'profile_lookup', name: inp?.name, profileUrl: inp?.profileUrl, note: 'LinkedIn MCP connector active. Requires LinkedIn API OAuth2 credentials. Contact legal@nyayavigya.in for connector setup.', mockProfile: { name: inp?.name ?? 'Advocate Name', firm: 'Legal Associates LLP', experience: '12 years', practiceAreas: ['Corporate', 'M&A', 'Arbitration'], courts: ['Supreme Court of India', 'Delhi High Court'], bar: 'Delhi Bar Association' } };
+          result = { status: 'profile_lookup', name: inp?.name, profileUrl: inp?.profileUrl, note: 'LinkedIn MCP connector active. Requires LinkedIn API OAuth2 credentials. Contact legal@jurexio.com for connector setup.', mockProfile: { name: inp?.name ?? 'Advocate Name', firm: 'Legal Associates LLP', experience: '12 years', practiceAreas: ['Corporate', 'M&A', 'Arbitration'], courts: ['Supreme Court of India', 'Delhi High Court'], bar: 'Delhi Bar Association' } };
           break;
         }
         case 'law_society_search': {
@@ -1286,7 +1286,7 @@ export async function executeMcpTool(
             extractType: inp?.extractType ?? 'full',
             status: 'parse_queued',
             metadata: { pages: '(to be extracted)', wordCount: '(to be extracted)', tables: '(to be extracted)', images: '(to be extracted)' },
-            note: `Document parse via NYV Document Intelligence Pipeline. Upload file to /api/jrx/documents/parse or provide base64 content.`,
+            note: `Document parse via JRX Document Intelligence Pipeline. Upload file to /api/jrx/documents/parse or provide base64 content.`,
             supportedFormats: ['pdf', 'docx', 'xlsx', 'pptx', 'odt', 'rtf', 'txt', 'md', 'html'],
             engine: 'Apache Tika + GPT-4V Vision (for scanned docs)',
           };
@@ -1561,7 +1561,7 @@ export async function executeMcpTool(
           if (collection === 'statutes' || collection === 'all') {
             dbResults = await searchStatutes(inp?.query ?? '', undefined, undefined, 10);
           }
-          result = { query: inp?.query, collection, resultsFound: dbResults.length, results: dbResults.slice(0, 10), availableCollections: ['statutes', 'case_law', 'compliance_frameworks', 'legal_templates', 'agent_knowledge'], note: dbResults.length > 0 ? `Found ${dbResults.length} results in ${collection} collection` : 'No results. Try broader query or different collection.', source: `Jurexio Legal Knowledge Base v${NYV_PLATFORM_VERSION}` };
+          result = { query: inp?.query, collection, resultsFound: dbResults.length, results: dbResults.slice(0, 10), availableCollections: ['statutes', 'case_law', 'compliance_frameworks', 'legal_templates', 'agent_knowledge'], note: dbResults.length > 0 ? `Found ${dbResults.length} results in ${collection} collection` : 'No results. Try broader query or different collection.', source: `Jurexio Legal Knowledge Base v${JRX_PLATFORM_VERSION}` };
           break;
         }
 
@@ -1593,14 +1593,14 @@ export async function executeMcpTool(
             toolId,
             available: false,
             status: 'not_implemented',
-            sdkVersion: NYV_SDK_VERSION,
+            sdkVersion: JRX_SDK_VERSION,
             note: `Tool '${toolId}' is registered in the MCP catalog but has no live handler yet. Call GET /tools/mcp/list for implemented tools.`,
             registryTotal: MCP_REGISTRY_STATS.total,
           };
         }
       }
     } catch (toolErr: any) {
-      result = { error: toolErr.message, toolId, status: 'failed', sdkVersion: NYV_SDK_VERSION };
+      result = { error: toolErr.message, toolId, status: 'failed', sdkVersion: JRX_SDK_VERSION };
     }
 
     const latencyMs = Date.now() - startMs;
@@ -1629,12 +1629,12 @@ async function handleMcpToolInvoke(
     return;
   }
   const rStatus = (exec.result as Record<string, unknown>)?.status;
-  const notImplemented = rStatus === 'not_implemented'; // nv-allow-placeholder: detects catalog-only tool to REJECT with 501.
+  const notImplemented = rStatus === 'not_implemented'; // jrx-allow-placeholder: detects catalog-only tool to REJECT with 501.
   // NV-MCP-HTTP-501-001: honest HTTP signal for catalog-only tools — clients
   // must not treat HTTP 200 as success when no live handler exists.
-  // nv-allow-placeholder: detects a catalog-only tool to REJECT it with 501;
+  // jrx-allow-placeholder: detects a catalog-only tool to REJECT it with 501;
   // this is the guard against shipping a stub, not a stub itself.
-  if (notImplemented) { // nv-allow-placeholder: 501 rejection branch.
+  if (notImplemented) { // jrx-allow-placeholder: 501 rejection branch.
     sendApiError(res, 'BAD_REQUEST', {
       status: 501,
       overrideMessage: `Tool '${toolId}' is catalog-listed but has no live execute handler yet.`,
@@ -1762,7 +1762,7 @@ router.get('/info', async (_req: Request, res: Response) => {
     success: true,
     data: {
       platform: 'Jurexio Legal SDK',
-      version: NYV_PLATFORM_VERSION,
+      version: JRX_PLATFORM_VERSION,
       tagline: 'Justice. Powered by Precision.',
       buildDate: '2026-04-03',
       capabilities: [
@@ -2038,7 +2038,7 @@ router.post('/queue/submit', authenticateToken, async (req: Request, res: Respon
       VALUES (${jobId}, ${jobType}, 'queued', ${JSON.stringify(input)}, ${userId}, ${priority})
     `).catch(() => {});
 
-    // Enqueue into PgJobQueue for real async processing by nv-job-worker handlers
+    // Enqueue into PgJobQueue for real async processing by jrx-job-worker handlers
     await enqueueNvJob({ jobId, jobType, input, userId, priority });
 
     res.status(202).json({

@@ -1,5 +1,5 @@
 import { createLogger } from './utils/logger.js';
-import { NYV_REGISTRY_TOTALS } from './constants/jrx-registry-stats.js';
+import { JRX_REGISTRY_TOTALS } from './constants/jrx-registry-stats.js';
 
 const logger = createLogger('sdk');
 
@@ -50,8 +50,8 @@ export const LEGAL_SDK_METRICS = {
   version: '3.8.0',
   totalFiles: 645,
   agents: {
-    total: NYV_REGISTRY_TOTALS.totalAgents,
-    categories: NYV_REGISTRY_TOTALS.practiceAreas,
+    total: JRX_REGISTRY_TOTALS.totalAgents,
+    categories: JRX_REGISTRY_TOTALS.practiceAreas,
     legalStatutes: ['BNS 2023', 'BNSS 2023', 'BSA 2023', 'CPC', 'Constitution of India']
   },
   llmProviders: 23,

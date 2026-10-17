@@ -15,7 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import { useToast } from '@/hooks/use-toast';
 import {
   MessageSquare, Brain, ChevronRight, RefreshCw, Plus, Trash2,
@@ -240,7 +240,7 @@ export default function IntelligenceSentiment() {
           )}
 
           {!mutation.isPending && !data && (
-            <NyvEmptyState icon={Heart} title="Add Client Messages to Analyse"
+            <JrxEmptyState icon={Heart} title="Add Client Messages to Analyse"
               description="Paste client communications — emails, WhatsApp messages, or chat transcripts. The AI will detect sentiment, escalation risk, and suggest the right response approach."
               size="lg" />
           )}

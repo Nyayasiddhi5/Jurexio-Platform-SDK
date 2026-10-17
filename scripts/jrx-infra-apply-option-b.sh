@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # JRX-INFRA-OPTION-B-001 — idempotent Option B stack: S3, VPC/SG, RDS Postgres 15, ElastiCache Redis, EC2.
-# Never touches nysdev (i-0df71e5ea1df8f588) or NYV SSM paths. JRX SSM bootstrap is optional (/jurexio/prod/* only).
+# Never touches jrx-prod (i-0df71e5ea1df8f588) or JRX SSM paths. JRX SSM bootstrap is optional (/jurexio/prod/* only).
 #
 # Usage:
 #   bash scripts/jrx-infra-apply-option-b.sh              # dry-run (default)
@@ -80,8 +80,8 @@ fi
 guardrail_reminder() {
   cat <<'EOF'
 == JRX guardrails (Option B apply) ==
-- Do NOT deploy to or modify nysdev i-0df71e5ea1df8f588.
-- Do NOT write SSM under /nyv/* or /nyayavigya/*; use /jurexio/prod/* only.
+- Do NOT deploy to or modify jrx-prod i-0df71e5ea1df8f588.
+- Do NOT write SSM under /nyv/* or /jurexio/*; use /jurexio/prod/* only.
 - Do NOT log or commit secret values; review env.production.jurexio.generated (gitignored).
 EOF
 }
@@ -341,7 +341,7 @@ ensure_ec2() {
       --query 'Reservations[0].Instances[0].InstanceId' --output text 2>/dev/null || true)"
     if [ -n "$existing" ] && [ "$existing" != "None" ]; then
       if [ "$existing" = "$NYSDEV_INSTANCE_ID" ]; then
-        echo "error: refusing nysdev instance tag collision" >&2
+        echo "error: refusing jrx-prod instance tag collision" >&2
         exit 3
       fi
       GEN_EC2_ID="$existing"
@@ -374,7 +374,7 @@ ensure_ec2() {
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${EC2_NAME}}]" \
     --query 'Instances[0].InstanceId' --output text)"
   if [ "$GEN_EC2_ID" = "$NYSDEV_INSTANCE_ID" ]; then
-    echo "error: refusing nysdev instance id" >&2
+    echo "error: refusing jrx-prod instance id" >&2
     exit 3
   fi
   echo "ec2: launched ${GEN_EC2_ID}"
@@ -389,8 +389,8 @@ post_rds_pgvector_and_app_db() {
   if [ "$APPLY" != "1" ] || [ -z "${JRX_RDS_ADMIN_URL:-}" ]; then
     return 0
   fi
-  if [[ "${JRX_RDS_ADMIN_URL}" == *"nyayavigya"* ]]; then
-    echo "error: refusing admin URL referencing nyayavigya" >&2
+  if [[ "${JRX_RDS_ADMIN_URL}" == *"jurexio"* ]]; then
+    echo "error: refusing admin URL referencing jurexio" >&2
     exit 4
   fi
   echo "  running jrx-provision-rds-database.sh (password length only at end)..."

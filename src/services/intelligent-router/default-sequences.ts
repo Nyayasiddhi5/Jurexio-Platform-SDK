@@ -4,14 +4,14 @@ import { bedrockLeadIdsForTier } from '../../config/jrx-llm-routing-policy.js';
 
 // NV-OMNIROUTE-003: OmniRoute fallback aliases appear as last-resort before
 // AgentZero in every sequence. They are automatically filtered out when
-// NYV_OMNIROUTE_ENABLED is not true or OMNIROUTE_API_KEY is missing.
+// JRX_OMNIROUTE_ENABLED is not true or OMNIROUTE_API_KEY is missing.
 const OMNIROUTE_FALLBACK = [
   'omniroute/auto/reliable',
   'omniroute/auto/cheap',
   'omniroute/auto/free',
 ];
 
-// Bedrock aggregator leads every cascade when NYV_ROUTER_BEDROCK_FIRST is on (default).
+// Bedrock aggregator leads every cascade when JRX_ROUTER_BEDROCK_FIRST is on (default).
 function withBedrockLead(ids: string[], tier: TierLevel, taskKind: TaskKind): string[] {
   const leads = bedrockLeadIdsForTier(tier, taskKind);
   const seen = new Set<string>();

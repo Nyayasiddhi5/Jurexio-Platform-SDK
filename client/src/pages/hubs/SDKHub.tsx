@@ -5,9 +5,9 @@ import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/contexts/AuthContext';
 import { hasAccess, type RoleLevel } from '@/lib/rbac-registry';
-import { NyvPageShell } from '@/components/NyvPageShell';
+import { JrxPageShell } from '@/components/JrxPageShell';
 
-const JurexioSDKHub = lazy(() => import('../nyayavigya-sdk-hub'));
+const JurexioSDKHub = lazy(() => import('../jurexio-sdk-hub'));
 const SDKDeveloperConsole = lazy(() => import('../sdk-developer-console'));
 const SDKApiPlayground = lazy(() => import('../sdk-api-playground'));
 const SDKApiTester = lazy(() => import('../sdk-api-tester'));
@@ -49,7 +49,7 @@ export default function SDKHub() {
   };
 
   return (
-    <NyvPageShell
+    <JrxPageShell
       title="SDK Hub"
       description="One stop for SDK overview, key management, downloads, playgrounds and platform onboarding. Tabs are filtered by your role."
       className="./jrx-light-scope"
@@ -76,6 +76,6 @@ export default function SDKHub() {
           );
         })}
       </Tabs>
-    </NyvPageShell>
+    </JrxPageShell>
   );
 }

@@ -1,5 +1,5 @@
 /**
- * NYV Error Utilities — typed error extraction helpers
+ * JRX Error Utilities — typed error extraction helpers
  * Eliminates `catch (error: any)` patterns across the codebase.
  *
  * GUARDRAIL: All catch blocks MUST use extractErrorMessage() or extractError().

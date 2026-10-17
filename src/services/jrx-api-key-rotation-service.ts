@@ -16,7 +16,7 @@
  * and the old key's expiration timestamp; integration test asserts that
  * the old key still authenticates during the grace window.
  *
- * @module nv-api-key-rotation-service
+ * @module jrx-api-key-rotation-service
  */
 
 import { randomBytes, createHash } from 'crypto';

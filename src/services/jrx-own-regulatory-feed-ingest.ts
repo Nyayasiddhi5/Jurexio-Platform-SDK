@@ -35,7 +35,7 @@ export interface OwnFeedIngestResult {
   reason?: string;
 }
 
-const MAX_BYTES = Number(process.env.NYV_OWN_FEED_MAX_BYTES || 2_000_000);
+const MAX_BYTES = Number(process.env.JRX_OWN_FEED_MAX_BYTES || 2_000_000);
 
 async function fetchFullDocument(url: string): Promise<{ body: Buffer; contentType: string; text: string } | null> {
   try {
@@ -78,7 +78,7 @@ async function fetchFullDocument(url: string): Promise<{ body: Buffer; contentTy
 
 async function storeToS3(orgId: string, doc: OwnFeedDocument, body: Buffer, contentType: string): Promise<string | undefined> {
   try {
-    const { nyvDocumentStorage } = await import('./nyv-document-storage-service.js');
+    const { nyvDocumentStorage } = await import('./jrx-document-storage-service.js');
     const slug = Buffer.from(doc.sourceUrl).toString('base64url').slice(0, 32);
     const ext = /pdf/i.test(contentType) ? 'pdf' : 'html';
     const key = `legal-intel/${orgId}/${doc.jurisdiction || 'IN'}/${new Date().toISOString().slice(0, 10)}/${slug}.${ext}`;

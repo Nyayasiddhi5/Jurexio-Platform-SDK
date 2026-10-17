@@ -1,7 +1,7 @@
 /**
  * NV-LMCACHE-STABLE-KEY-001 — canonical key derivation for the LM prompt cache.
  *
- * This is the `nv-llm-cache-key` feature named in `FEATURES-REGISTRY.md` §3; it
+ * This is the `jrx-llm-cache-key` feature named in `FEATURES-REGISTRY.md` §3; it
  * previously had no implementation file and the key was derived ad hoc inside
  * `lm-cache-service.ts`. There is exactly one LM answer cache in this repo
  * (`lm-cache-service.ts`) and this module is its key SSoT — do not add a second
@@ -26,17 +26,17 @@
  *     chunk's floating-point retrieval `score`.
  *   • `orchestration-middleware.ts:231` — assembles both onto the prompt; that
  *     result is what reaches `lmCacheService.get` at
- *     `nv-queen-orchestrator.ts:4473` and `.set` at `:4737`.
- *   • `nv-client.ts:866` — `${contextParts}\n\n[User Query]\n${prompt}`, where
+ *     `jrx-queen-orchestrator.ts:4473` and `.set` at `:4737`.
+ *   • `jrx-client.ts:866` — `${contextParts}\n\n[User Query]\n${prompt}`, where
  *     `contextParts` holds the Auto-RAG header, memory/GraphRAG blocks and the
  *     grounded-statute block.
- *   • `nv-prompt-enhancement-pipeline.ts` — `Context:`/`Request:` wrapper plus
+ *   • `jrx-prompt-enhancement-pipeline.ts` — `Context:`/`Request:` wrapper plus
  *     trailing format / chain-of-thought / example scaffolds.
  *
  * The same asymmetry also breaks the specialist path independently of any
- * nonce: `nv-client.ts:974` reads the cache with the *pre*-enhancement prompt
- * while `nv-client.ts:1733` writes it with the *post*-enhancement prompt
- * (reassigned at `nv-client.ts:1053`), so the read key and the write key are
+ * nonce: `jrx-client.ts:974` reads the cache with the *pre*-enhancement prompt
+ * while `jrx-client.ts:1733` writes it with the *post*-enhancement prompt
+ * (reassigned at `jrx-client.ts:1053`), so the read key and the write key are
  * different strings by construction. Reducing both to the same user turn
  * repairs that too, without editing the caller.
  *
@@ -64,13 +64,13 @@ const TRAILING_CONTEXT_MARKERS = [
 ] as const;
 
 /**
- * `nv-client.ts:866` builds `${contextParts}\n\n[User Query]\n${prompt}`.
+ * `jrx-client.ts:866` builds `${contextParts}\n\n[User Query]\n${prompt}`.
  * Only one such marker is ever emitted, so the last occurrence is that one.
  */
 const USER_QUERY_MARKER = '\n\n[User Query]\n';
 
 /**
- * `nv-prompt-enhancement-pipeline.ts:260` builds
+ * `jrx-prompt-enhancement-pipeline.ts:260` builds
  * `Context:\n${contextBlock}\n\nRequest:\n${prompt}`. Anchored on the leading
  * `Context:\n` so a user question that merely contains the word "Request:" can
  * never be truncated.
@@ -79,7 +79,7 @@ const CONTEXT_PREFIX = 'Context:\n';
 const REQUEST_MARKER = '\n\nRequest:\n';
 
 /**
- * Exact trailing scaffolds appended by `nv-prompt-enhancement-pipeline.ts`
+ * Exact trailing scaffolds appended by `jrx-prompt-enhancement-pipeline.ts`
  * (`addOutputFormatting` :263-295, `addChainOfThought` :297, `addExamples`
  * :301). Matched in full at the end of the string — a prefix match would risk
  * eating real prose.
@@ -121,7 +121,7 @@ const STOP_WORDS = new Set([
  * Recover the stable user turn from an assembled prompt.
  *
  * Deterministic and idempotent: `extract(extract(p)) === extract(p)`, which is
- * what makes the read key equal the write key even though `nv-client` reads
+ * what makes the read key equal the write key even though `jrx-client` reads
  * before prompt enhancement and writes after it.
  */
 export function extractStableUserTurn(prompt: string): string {
@@ -195,12 +195,12 @@ export function normalizeForCacheKey(text: string): string {
  *
  * A statute answer cached before an amendment is a wrong answer, and neither
  * tenant nor jurisdiction changes when a statute is amended. Bumping
- * `NYV_LEGAL_CORPUS_VERSION` therefore orphans every pre-amendment entry
+ * `JRX_LEGAL_CORPUS_VERSION` therefore orphans every pre-amendment entry
  * instantly and fleet-wide (including the Redis copy), which is the only
  * invalidation primitive that cannot be forgotten at an individual call site.
  */
 export function resolveCorpusVersion(): string {
-  const raw = (process.env.NYV_LEGAL_CORPUS_VERSION || '').trim();
+  const raw = (process.env.JRX_LEGAL_CORPUS_VERSION || '').trim();
   return raw === '' ? 'v0' : raw;
 }
 
@@ -208,7 +208,7 @@ export function resolveCorpusVersion(): string {
  * Namespaces are joined to the normalized turn with `::`. A namespace that
  * itself contains `::` would make the boundary ambiguous and let one scope
  * forge another's key, so the digraph is escaped. Single colons are untouched
- * because every live namespace shape uses them (`nv-agent:tenant:…`,
+ * because every live namespace shape uses them (`jrx-agent:tenant:…`,
  * `specialist:…`) and `RedisLMCacheBackend.delByNamespace` matches on the
  * literal `${namespace}::` prefix.
  */
@@ -218,8 +218,8 @@ export function escapeNamespace(namespace: string): string {
 
 /**
  * Sentinels that mean "we could not identify the tenant". A shared fallback
- * bucket is not isolation: `nv-client.ts:968` collapses a missing tenant to
- * `anon` and `nv-cache-namespace.ts:22` collapses it to `global`, so every
+ * bucket is not isolation: `jrx-client.ts:968` collapses a missing tenant to
+ * `anon` and `jrx-cache-namespace.ts:22` collapses it to `global`, so every
  * untenanted request lands in ONE bucket keyed only by jurisdiction + agent.
  */
 const UNATTRIBUTED_TENANT_IDS = new Set([
@@ -231,17 +231,17 @@ const UNATTRIBUTED_TENANT_IDS = new Set([
  *
  * Deliberately a *whitelist* of the shapes this platform actually emits rather
  * than a denylist of bad ones: a namespace that carries no tenant dimension at
- * all (e.g. `patterns:IN` from `nv-patterns-routes.ts:1583`) is exactly as
+ * all (e.g. `patterns:IN` from `jrx-patterns-routes.ts:1583`) is exactly as
  * unsafe as one that says `tenant:global`, and a denylist would wave it
  * through.
  *
- *   `nv-agent:tenant:<id>:juris:<J>:agent:<id>` — nv-cache-namespace.ts:39
- *   `specialist:<tenantId>:<JUR>:<agentKey>`    — nv-client.ts:966-971
- *   `app_<applicationId>`                       — nv-sdk-gateway-routes.ts:2296
+ *   `jrx-agent:tenant:<id>:juris:<J>:agent:<id>` — jrx-cache-namespace.ts:39
+ *   `specialist:<tenantId>:<JUR>:<agentKey>`    — jrx-client.ts:966-971
+ *   `app_<applicationId>`                       — jrx-sdk-gateway-routes.ts:2296
  */
 export function parseNamespaceTenant(namespace?: string): string | null {
   if (!namespace) return null;
-  const agent = /^nv-agent:tenant:([^:]+):juris:[^:]+:agent:.+$/.exec(namespace);
+  const agent = /^jrx-agent:tenant:([^:]+):juris:[^:]+:agent:.+$/.exec(namespace);
   if (agent) return agent[1];
   const specialist = /^specialist:([^:]+):[^:]+:.+$/.exec(namespace);
   if (specialist) return specialist[1];
@@ -278,9 +278,9 @@ export function isFuzzyMatchSafeNamespace(namespace?: string): boolean {
  * that is also invisible (it reports as a cache hit, not as an error).
  *
  * Every marker is a literal this platform emits:
- *   • `nv-client.ts:1743/1747` — Gate-8 block + compliance filter envelopes.
- *   • `nv-legal-response-format.ts:127` — ungrounded abstain heading.
- *   • `nv-cost-optimization-suite.ts:84/142/198` — the suite's placeholder nv-allow-placeholder: names strings to REFUSE.
+ *   • `jrx-client.ts:1743/1747` — Gate-8 block + compliance filter envelopes.
+ *   • `jrx-legal-response-format.ts:127` — ungrounded abstain heading.
+ *   • `jrx-cost-optimization-suite.ts:84/142/198` — the suite's placeholder jrx-allow-placeholder: names strings to REFUSE.
  *     strings, which must never be mistaken for a real answer.
  */
 const NON_CACHEABLE_MARKERS = [
@@ -292,9 +292,9 @@ const NON_CACHEABLE_MARKERS = [
   '[System prompt for agent ',
 ];
 
-/** Minimum stored answer length; `NYV_LMCACHE_MIN_VALUE_CHARS` raises it. */
+/** Minimum stored answer length; `JRX_LMCACHE_MIN_VALUE_CHARS` raises it. */
 function minValueChars(): number {
-  const raw = Number(process.env.NYV_LMCACHE_MIN_VALUE_CHARS);
+  const raw = Number(process.env.JRX_LMCACHE_MIN_VALUE_CHARS);
   return Number.isFinite(raw) && raw > 0 ? Math.trunc(raw) : 1;
 }
 
@@ -329,7 +329,7 @@ export function classifyCompletionForCache(
     return { cacheable: false, reason: 'placeholder' };
   }
 
-  // Structured error envelopes: `nv-client.ts:1746` returns
+  // Structured error envelopes: `jrx-client.ts:1746` returns
   // `JSON.stringify({ error: 'compliance_filtered', … })` as the answer for two
   // agent keys, which is a failure, not content.
   if (trimmed.startsWith('{') && /"error"\s*:/.test(trimmed.slice(0, 200))) {

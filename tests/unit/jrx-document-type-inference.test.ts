@@ -16,7 +16,7 @@ import { formatIndianDraftStructureChecklist } from '../../src/services/jrx-indi
 function nspRequest(body: Record<string, unknown> = {}): Request {
   return {
     body,
-    headers: { 'x-nyv-platform': 'NSP' },
+    headers: { 'x-jrx-platform': 'NSP' },
     sdkContext: { partnerCode: 'NSP', tenantId: 't-nsp' },
   } as unknown as Request;
 }

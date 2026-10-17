@@ -1,6 +1,6 @@
 /**
  * Database System — REAL DELEGATION SEAM
- * NYV-ORCH-SEAM-003 (Task #32)
+ * JRX-ORCH-SEAM-003 (Task #32)
  *
  * Wraps the canonical DB connection (drizzle + pg/neon) so that legacy
  * consumers like knowledge-base-system can keep calling

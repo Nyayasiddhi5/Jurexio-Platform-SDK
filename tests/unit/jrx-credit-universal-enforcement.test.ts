@@ -40,7 +40,7 @@ vi.mock('../../src/services/jrx-ai-credit-enforcer.js', () => ({
  * does in production. */
 vi.mock('../../src/config/jrx-feature-flags.js', async (importOriginal) => ({
   ...(await importOriginal<Record<string, unknown>>()),
-  isNyvFeatureOn: (flag: string) => flag === 'creditRecord',
+  isJrxFeatureOn: (flag: string) => flag === 'creditRecord',
 }));
 
 /* The metering middleware's own `sdk_usage_metering` insert needs a DB. Stubbed to
@@ -147,7 +147,7 @@ beforeEach(() => {
   recordMock.mockReset();
   enforceMock.mockResolvedValue(ALLOW);
   recordMock.mockResolvedValue(undefined);
-  delete process.env.NYV_CREDIT_CAP_MODE;
+  delete process.env.JRX_CREDIT_CAP_MODE;
 });
 
 describe('NV-CREDIT-UNIVERSAL-001 — pre-spend cap', () => {
@@ -167,10 +167,10 @@ describe('NV-CREDIT-UNIVERSAL-001 — pre-spend cap', () => {
   it('refuses a cap breach with CREDIT_CAP_EXCEEDED and never calls the model', async () => {
     /* NV-CREDIT-OBSERVE-001: these caps default to observe, so the refusal contract
      * is asserted with the mode explicitly set to enforce. Observe-mode behaviour
-     * (admit + log) is pinned separately in `nv-credit-observe-mode.test.ts`; the
+     * (admit + log) is pinned separately in `jrx-credit-observe-mode.test.ts`; the
      * contract itself must stay pinned here so flipping the flag on in production
      * cannot ship a refusal shape a partner has never seen. */
-    process.env.NYV_CREDIT_CAP_MODE = 'enforce';
+    process.env.JRX_CREDIT_CAP_MODE = 'enforce';
     const order: string[] = [];
     enforceMock.mockResolvedValue(DENY);
     const app = buildApp({ spend: { tokensIn: 100, tokensOut: 50 }, onOrder: (e) => order.push(e) });
@@ -236,8 +236,8 @@ describe('NV-CREDIT-UNIVERSAL-001 — pre-spend cap', () => {
   it('passes bypassCaps so NSP/NYM demo-unlimited traffic is unaffected', async () => {
     const app = buildApp({ spend: { tokensIn: 10, tokensOut: 10 } });
     await post(app, '/ai/analyze', { prompt: 'hello' }, {
-      'x-nyv-platform': 'nsp',
-      'x-nyv-consent': 'granted',
+      'x-jrx-platform': 'nsp',
+      'x-jrx-consent': 'granted',
     });
     expect(enforceMock.mock.calls[0][0].bypassCaps).toBe(true);
   });

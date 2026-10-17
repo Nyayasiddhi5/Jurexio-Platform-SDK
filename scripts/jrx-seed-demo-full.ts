@@ -1,10 +1,10 @@
 #!/usr/bin/env npx tsx
 /**
- * nv-seed-demo-full.ts — India-then-USA multitenant demo seed orchestrator.
+ * jrx-seed-demo-full.ts — India-then-USA multitenant demo seed orchestrator.
  * Chains existing seed scripts for Console walkthroughs (HITL, compliance,
- * RAG, ops, GRPO, demo tenants). Does not invent data — delegates to nv-seed-*.
+ * RAG, ops, GRPO, demo tenants). Does not invent data — delegates to jrx-seed-*.
  *
- * Usage (from nyayavigya-platform-312/):
+ * Usage (from Jurexio-Platform-SDK/):
  *   NV_DEMO_PASSWORD=… npx tsx scripts/jrx-seed-demo-full.ts
  *   npm run seed:demo-full
  */
@@ -58,7 +58,7 @@ async function main() {
   for (const step of STEPS) {
     if (!run(step)) process.exit(1);
   }
-  console.log('\nDONE seed:demo-full — enable NYV_F_HITL_REGISTRY / NYV_F_GOV_* / NYV_F_COMPLIANCE_* on UAT for gated panels.');
+  console.log('\nDONE seed:demo-full — enable JRX_F_HITL_REGISTRY / JRX_F_GOV_* / JRX_F_COMPLIANCE_* on UAT for gated panels.');
 }
 
 main().catch((e) => {

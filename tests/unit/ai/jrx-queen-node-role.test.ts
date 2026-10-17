@@ -7,7 +7,7 @@ import {
 /**
  * NV-QUEEN-LEAF-TIER-001 regression suite.
  *
- * Measured on nysdev (`scripts/_ec2-swarm-fail-rca.sh`, SSM `d9d3ffc5`): a
+ * Measured on jrx-prod (`scripts/_ec2-swarm-fail-rca.sh`, SSM `d9d3ffc5`): a
  * forced `orchestrationMode:swarm` request summed **249 s across 6 completions**,
  * every one of them `gemini-3-1-pro-preview` at 20–58 s, and all three
  * `swarm_exploration` nodes died on `policy: per-node timeout after 120000ms`.

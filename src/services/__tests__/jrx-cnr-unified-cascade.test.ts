@@ -114,33 +114,33 @@ describe('./jrx-cnr-unified-cascade', () => {
   });
 
   describe('resolveCnrViaUnifiedCascade', () => {
-    const prevCaseApiKey = process.env.NYS_CASE_API_KEY;
-    const prevCaseApiUrl = process.env.NYS_CASE_API_BASE_URL;
+    const prevCaseApiKey = process.env.JRX_ECOSYSTEM_CASE_API_KEY;
+    const prevCaseApiUrl = process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL;
     const prevCaseApiFlag = process.env.JRX_F_CASE_API_CNR;
     const prevCascade = process.env.JRX_F_CNR_UNIFIED_CASCADE;
-    const prevNysUrl = process.env.NYS_KNOWLEDGE_BASE_URL;
+    const prevNysUrl = process.env.JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL;
 
     beforeEach(() => {
-      process.env.NYS_CASE_API_KEY = 'test-key-len-32-chars-minimum-xx';
-      process.env.NYS_CASE_API_BASE_URL = 'https://nysapi.test';
+      process.env.JRX_ECOSYSTEM_CASE_API_KEY = 'test-key-len-32-chars-minimum-xx';
+      process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL = 'https://nysapi.test';
       process.env.JRX_F_CASE_API_CNR = '1';
       process.env.JRX_F_CNR_UNIFIED_CASCADE = '1';
-      process.env.NYS_KNOWLEDGE_BASE_URL = 'https://nys.test';
+      process.env.JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL = 'https://nys.test';
     });
 
     afterEach(() => {
       vi.restoreAllMocks();
       vi.unstubAllGlobals();
-      if (prevCaseApiKey === undefined) delete process.env.NYS_CASE_API_KEY;
-      else process.env.NYS_CASE_API_KEY = prevCaseApiKey;
-      if (prevCaseApiUrl === undefined) delete process.env.NYS_CASE_API_BASE_URL;
-      else process.env.NYS_CASE_API_BASE_URL = prevCaseApiUrl;
+      if (prevCaseApiKey === undefined) delete process.env.JRX_ECOSYSTEM_CASE_API_KEY;
+      else process.env.JRX_ECOSYSTEM_CASE_API_KEY = prevCaseApiKey;
+      if (prevCaseApiUrl === undefined) delete process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL;
+      else process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL = prevCaseApiUrl;
       if (prevCaseApiFlag === undefined) delete process.env.JRX_F_CASE_API_CNR;
       else process.env.JRX_F_CASE_API_CNR = prevCaseApiFlag;
       if (prevCascade === undefined) delete process.env.JRX_F_CNR_UNIFIED_CASCADE;
       else process.env.JRX_F_CNR_UNIFIED_CASCADE = prevCascade;
-      if (prevNysUrl === undefined) delete process.env.NYS_KNOWLEDGE_BASE_URL;
-      else process.env.NYS_KNOWLEDGE_BASE_URL = prevNysUrl;
+      if (prevNysUrl === undefined) delete process.env.JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL;
+      else process.env.JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL = prevNysUrl;
     });
 
     it('cascades to legacy when case-api returns not_found', async () => {

@@ -28,8 +28,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { useToast } from '@/hooks/use-toast';
 import { Building2, Plus, RefreshCw, Trash2, Layers, Users } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 
 interface SuperOrg {
   id: number;
@@ -186,9 +186,9 @@ export default function SuperAdminSuperOrgs(): JSX.Element {
       {listQ.isLoading ? (
         <Skeleton className="h-40 w-full" />
       ) : listQ.isError ? (
-        <NyvErrorState title="Failed to load super-orgs" message={(listQ.error as Error)?.message} onRetry={() => listQ.refetch()} />
+        <JrxErrorState title="Failed to load super-orgs" message={(listQ.error as Error)?.message} onRetry={() => listQ.refetch()} />
       ) : items.length === 0 ? (
-        <NyvEmptyState
+        <JrxEmptyState
           icon={Building2}
           title="No enterprise super-orgs yet"
           description="Create one to group multiple product tenants under a single enterprise account."
@@ -221,11 +221,11 @@ export default function SuperAdminSuperOrgs(): JSX.Element {
 
           <div className="lg:col-span-2">
             {selectedId == null ? (
-              <NyvEmptyState icon={Layers} title="Select a super-org" description="Pick one on the left to see its product memberships." />
+              <JrxEmptyState icon={Layers} title="Select a super-org" description="Pick one on the left to see its product memberships." />
             ) : detailQ.isLoading ? (
               <Skeleton className="h-60 w-full" />
             ) : detailQ.isError ? (
-              <NyvErrorState title="Failed to load detail" message={(detailQ.error as Error)?.message} onRetry={() => detailQ.refetch()} />
+              <JrxErrorState title="Failed to load detail" message={(detailQ.error as Error)?.message} onRetry={() => detailQ.refetch()} />
             ) : (
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
@@ -249,7 +249,7 @@ export default function SuperAdminSuperOrgs(): JSX.Element {
                 </CardHeader>
                 <CardContent>
                   {(detailQ.data?.members ?? []).length === 0 ? (
-                    <NyvEmptyState icon={Users} title="No product memberships yet" description="Attach a (platform, customer-org) tuple to bring a product under this enterprise account." />
+                    <JrxEmptyState icon={Users} title="No product memberships yet" description="Attach a (platform, customer-org) tuple to bring a product under this enterprise account." />
                   ) : (
                     <div className="divide-y">
                       {(detailQ.data?.members ?? []).map((m) => (

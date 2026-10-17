@@ -27,14 +27,14 @@
  *      its own request's content (zero cross-leak) plus at least one of
  *      every Queen lifecycle event type the route forwards.
  *
- *   2. Architectural source guard #1 — `nv-queen-orchestrator.ts` MUST
+ *   2. Architectural source guard #1 — `jrx-queen-orchestrator.ts` MUST
  *      NOT call `this.emit(...)` (singleton) for any lifecycle event.
  *      All lifecycle emits MUST go through `emitLifecycle(request, ...)`
  *      / `request.lifecycleEvents.emit(...)`. A future regression that
  *      reverts to the singleton would re-introduce the cross-leak risk;
  *      this guard fails CI before that ever ships.
  *
- *   3. Architectural source guard #2 — `nv-agui-stream-routes.ts` MUST
+ *   3. Architectural source guard #2 — `jrx-agui-stream-routes.ts` MUST
  *      NOT subscribe to lifecycle events on the singleton orchestrator
  *      (no `queenOrchestrator.on('<lifecycle>'…)` /
  *      `queenOrchestrator.onLifecycle(...)`). Listeners attach to the
@@ -80,7 +80,7 @@ let tokenB: string;
 
 beforeAll(async () => {
   // The auth middleware reads `JWT_SECRET` (not the platform-specific
-  // `NYV_JWT_SECRET` defaulted in tests/setup.ts) and refuses to start
+  // `JRX_JWT_SECRET` defaulted in tests/setup.ts) and refuses to start
   // without one. Set a deterministic test value so jwt.sign and
   // jwt.verify agree across this suite.
   process.env.JWT_SECRET = process.env.JWT_SECRET || 'test-jwt-secret-for-task-36-regression';
@@ -472,7 +472,7 @@ describe('Queen lifecycle architectural guards (Task #64)', () => {
         offending
           .map(
             ({ idx, line }) =>
-              `\n  nv-queen-orchestrator.ts:${idx + 1}: ${line.trim()}`,
+              `\n  jrx-queen-orchestrator.ts:${idx + 1}: ${line.trim()}`,
           )
           .join('') ||
           '',
@@ -487,7 +487,7 @@ describe('Queen lifecycle architectural guards (Task #64)', () => {
       const found = lines.some((line) => re.test(line));
       expect(
         found,
-        `expected emitLifecycle(request, '${evt}', …) in nv-queen-orchestrator.ts — none found. ` +
+        `expected emitLifecycle(request, '${evt}', …) in jrx-queen-orchestrator.ts — none found. ` +
           `Either the event was removed from the orchestrator or it is being emitted via the singleton; either way the test fixtures and the route's listener for '${evt}' are now stale.`,
       ).toBe(true);
     }
@@ -519,7 +519,7 @@ describe('Queen lifecycle architectural guards (Task #64)', () => {
         offending
           .map(
             ({ idx, line }) =>
-              `\n  nv-agui-stream-routes.ts:${idx + 1}: ${line.trim()}`,
+              `\n  jrx-agui-stream-routes.ts:${idx + 1}: ${line.trim()}`,
           )
           .join('') ||
           '',
@@ -537,7 +537,7 @@ describe('Queen lifecycle architectural guards (Task #64)', () => {
     );
     expect(
       perReqSubscribed.size,
-      'No per-request emitter subscriptions (`<...>Events.on(\'<evt>\', …)`) discovered in nv-agui-stream-routes.ts — ' +
+      'No per-request emitter subscriptions (`<...>Events.on(\'<evt>\', …)`) discovered in jrx-agui-stream-routes.ts — ' +
         'the route appears to have stopped wiring lifecycle events through the per-request emitter. ' +
         'Without per-request subscriptions the AG-UI stream cannot forward Queen lifecycle progress to clients.',
     ).toBeGreaterThan(0);

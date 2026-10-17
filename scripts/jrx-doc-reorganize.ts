@@ -46,57 +46,57 @@ interface Entry {
  */
 const CLASSIFICATION: Entry[] = [
   // ───── COMPLETED — describes shipped, merged behaviour ─────
-  { src: "agents/NYV-AGENT-CATALOG.md", dst: "completed_docs/agents/NYV-AGENT-CATALOG.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "agents/JRX-AGENT-CATALOG.md", dst: "completed_docs/agents/JRX-AGENT-CATALOG.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
   { src: "agents/agents-product.md", dst: "completed_docs/agents/agents-product.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "api/NYV-API-REFERENCE.md", dst: "completed_docs/api/NYV-API-REFERENCE.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "api/NYV-SDK-INTEGRATION-GUIDE.md", dst: "completed_docs/api/NYV-SDK-INTEGRATION-GUIDE.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "architecture/NYV-ARCHITECTURE-312.md", dst: "completed_docs/architecture/NYV-ARCHITECTURE-312.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "conventions/NYV-NAMING-CONVENTIONS.md", dst: "completed_docs/conventions/NYV-NAMING-CONVENTIONS.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "setup/NYV-QUICKSTART.md", dst: "completed_docs/setup/NYV-QUICKSTART.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "api/JRX-API-REFERENCE.md", dst: "completed_docs/api/JRX-API-REFERENCE.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "api/JRX-SDK-INTEGRATION-GUIDE.md", dst: "completed_docs/api/JRX-SDK-INTEGRATION-GUIDE.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "architecture/JRX-ARCHITECTURE-312.md", dst: "completed_docs/architecture/JRX-ARCHITECTURE-312.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "conventions/JRX-NAMING-CONVENTIONS.md", dst: "completed_docs/conventions/JRX-NAMING-CONVENTIONS.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "setup/JRX-QUICKSTART.md", dst: "completed_docs/setup/JRX-QUICKSTART.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
   { src: "AWS-DNS-HANDOFF-2026-04-24.md", dst: "completed_docs/AWS-DNS-HANDOFF-2026-04-24.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
   { src: "AWS-MANAGED-DATASTORES-2026-04-24.md", dst: "completed_docs/AWS-MANAGED-DATASTORES-2026-04-24.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
   { src: "NYAYAMITRA-SDK-FINAL.md", dst: "completed_docs/NYAYAMITRA-SDK-FINAL.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-ARCHITECTURE-v6.md", dst: "completed_docs/NYV-ARCHITECTURE-v6.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-CICD-REPLIT.md", dst: "completed_docs/NYV-CICD-REPLIT.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-COMPLIANCE-ATTESTATION.md", dst: "completed_docs/NYV-COMPLIANCE-ATTESTATION.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-DNS-AND-EDGE.md", dst: "completed_docs/NYV-DNS-AND-EDGE.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-DR-DRILL-RESULTS.md", dst: "completed_docs/NYV-DR-DRILL-RESULTS.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-INCIDENT-RUNBOOK.md", dst: "completed_docs/NYV-INCIDENT-RUNBOOK.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-MOBILE-INTEGRATION-GUIDE.md", dst: "completed_docs/NYV-MOBILE-INTEGRATION-GUIDE.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-MOBILE-STORE-SUBMISSION-CHECKLIST.md", dst: "completed_docs/NYV-MOBILE-STORE-SUBMISSION-CHECKLIST.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-OBSERVABILITY.md", dst: "completed_docs/NYV-OBSERVABILITY.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-PARTNER-DEPLOY-GUIDE.md", dst: "completed_docs/NYV-PARTNER-DEPLOY-GUIDE.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-PLATFORM-GOVERNANCE.md", dst: "completed_docs/NYV-PLATFORM-GOVERNANCE.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-Production-Use-Cases-India.md", dst: "completed_docs/NYV-Production-Use-Cases-India.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-PROJECT-STATUS-Apr2026.md", dst: "completed_docs/NYV-PROJECT-STATUS-Apr2026.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-PRODUCT-NOTE-BUSINESS-v3.1.2.md", dst: "completed_docs/NYV-PRODUCT-NOTE-BUSINESS-v3.1.2.md", bucket: "completed_docs", status: "completed", version: "3.1.2", summary: "Business product note for CEO / investors / enterprise pitches — single source of truth for the Nyayavigya business narrative." },
-  { src: "NYV-PRODUCT-NOTE-TECHNICAL-v3.1.2.md", dst: "completed_docs/NYV-PRODUCT-NOTE-TECHNICAL-v3.1.2.md", bucket: "completed_docs", status: "completed", version: "3.1.2", summary: "Technical product note for engineering / SRE / partner-integration teams — companion to the business note covering deployment, DB, Redis, LLM orchestration, Queen internals, RAG, memory, multi-tenant, SDK, security, observability, ops, 10 M MAU roadmap, and pending production-scale work." },
-  { src: "NYV-RDS-MIGRATION-RUNBOOK.md", dst: "completed_docs/NYV-RDS-MIGRATION-RUNBOOK.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-REDIS-MEM0-SETUP.md", dst: "completed_docs/NYV-REDIS-MEM0-SETUP.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-SDK-PRODUCTION-AUDIT-REPORT-Apr2026.md", dst: "completed_docs/NYV-SDK-PRODUCTION-AUDIT-REPORT-Apr2026.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-SDK-v6-API-REFERENCE.md", dst: "completed_docs/NYV-SDK-v6-API-REFERENCE.md", bucket: "completed_docs", status: "completed", version: "v6.0.0" },
-  { src: "NYV-SDK-v6-INTEGRATION-GUIDE.md", dst: "completed_docs/NYV-SDK-v6-INTEGRATION-GUIDE.md", bucket: "completed_docs", status: "completed", version: "v6.0.0" },
-  { src: "NYV-SECRETS-CLEANUP.md", dst: "completed_docs/NYV-SECRETS-CLEANUP.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
-  { src: "NYV-SECRETS-MANAGEMENT.md", dst: "completed_docs/NYV-SECRETS-MANAGEMENT.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-ARCHITECTURE-v6.md", dst: "completed_docs/JRX-ARCHITECTURE-v6.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-CICD-REPLIT.md", dst: "completed_docs/JRX-CICD-REPLIT.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-COMPLIANCE-ATTESTATION.md", dst: "completed_docs/JRX-COMPLIANCE-ATTESTATION.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-DNS-AND-EDGE.md", dst: "completed_docs/JRX-DNS-AND-EDGE.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-DR-DRILL-RESULTS.md", dst: "completed_docs/JRX-DR-DRILL-RESULTS.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-INCIDENT-RUNBOOK.md", dst: "completed_docs/JRX-INCIDENT-RUNBOOK.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-MOBILE-INTEGRATION-GUIDE.md", dst: "completed_docs/JRX-MOBILE-INTEGRATION-GUIDE.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-MOBILE-STORE-SUBMISSION-CHECKLIST.md", dst: "completed_docs/JRX-MOBILE-STORE-SUBMISSION-CHECKLIST.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-OBSERVABILITY.md", dst: "completed_docs/JRX-OBSERVABILITY.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-PARTNER-DEPLOY-GUIDE.md", dst: "completed_docs/JRX-PARTNER-DEPLOY-GUIDE.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-PLATFORM-GOVERNANCE.md", dst: "completed_docs/JRX-PLATFORM-GOVERNANCE.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-Production-Use-Cases-India.md", dst: "completed_docs/JRX-Production-Use-Cases-India.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-PROJECT-STATUS-Apr2026.md", dst: "completed_docs/JRX-PROJECT-STATUS-Apr2026.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-PRODUCT-NOTE-BUSINESS-v3.1.2.md", dst: "completed_docs/JRX-PRODUCT-NOTE-BUSINESS-v3.1.2.md", bucket: "completed_docs", status: "completed", version: "3.1.2", summary: "Business product note for CEO / investors / enterprise pitches — single source of truth for the Jurexio business narrative." },
+  { src: "JRX-PRODUCT-NOTE-TECHNICAL-v3.1.2.md", dst: "completed_docs/JRX-PRODUCT-NOTE-TECHNICAL-v3.1.2.md", bucket: "completed_docs", status: "completed", version: "3.1.2", summary: "Technical product note for engineering / SRE / partner-integration teams — companion to the business note covering deployment, DB, Redis, LLM orchestration, Queen internals, RAG, memory, multi-tenant, SDK, security, observability, ops, 10 M MAU roadmap, and pending production-scale work." },
+  { src: "JRX-RDS-MIGRATION-RUNBOOK.md", dst: "completed_docs/JRX-RDS-MIGRATION-RUNBOOK.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-REDIS-MEM0-SETUP.md", dst: "completed_docs/JRX-REDIS-MEM0-SETUP.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-SDK-PRODUCTION-AUDIT-REPORT-Apr2026.md", dst: "completed_docs/JRX-SDK-PRODUCTION-AUDIT-REPORT-Apr2026.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-SDK-v6-API-REFERENCE.md", dst: "completed_docs/JRX-SDK-v6-API-REFERENCE.md", bucket: "completed_docs", status: "completed", version: "v6.0.0" },
+  { src: "JRX-SDK-v6-INTEGRATION-GUIDE.md", dst: "completed_docs/JRX-SDK-v6-INTEGRATION-GUIDE.md", bucket: "completed_docs", status: "completed", version: "v6.0.0" },
+  { src: "JRX-SECRETS-CLEANUP.md", dst: "completed_docs/JRX-SECRETS-CLEANUP.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
+  { src: "JRX-SECRETS-MANAGEMENT.md", dst: "completed_docs/JRX-SECRETS-MANAGEMENT.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
   { src: "orchestration-map.md", dst: "completed_docs/orchestration-map.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
   { src: "UAT-REPORT-v3.1.2.md", dst: "completed_docs/uat/UAT-REPORT-v3.1.2.md", bucket: "completed_docs", status: "completed", version: "3.1.2" },
 
   // ───── PENDING — planned / partial / deferred ─────
-  { src: "NYV-IAM-GAPS.md", dst: "pending_implementation_docs/NYV-IAM-GAPS.md", bucket: "pending_implementation_docs", status: "pending", version: "3.1.2" },
-  { src: "NYV-PRODUCTION-READINESS-CHECKLIST.md", dst: "pending_implementation_docs/NYV-PRODUCTION-READINESS-CHECKLIST.md", bucket: "pending_implementation_docs", status: "pending", version: "3.1.2" },
-  { src: "NYV-AGENT-SUGGESTED-FOLLOWUPS.md", dst: "pending_implementation_docs/NYV-AGENT-SUGGESTED-FOLLOWUPS.md", bucket: "pending_implementation_docs", status: "pending", version: "3.1.2" },
-  { src: "NYV-ROADMAP-Q2-Q4-2026.md", dst: "pending_implementation_docs/NYV-ROADMAP-Q2-Q4-2026.md", bucket: "pending_implementation_docs", status: "pending", version: "3.1.2" },
+  { src: "JRX-IAM-GAPS.md", dst: "pending_implementation_docs/JRX-IAM-GAPS.md", bucket: "pending_implementation_docs", status: "pending", version: "3.1.2" },
+  { src: "JRX-PRODUCTION-READINESS-CHECKLIST.md", dst: "pending_implementation_docs/JRX-PRODUCTION-READINESS-CHECKLIST.md", bucket: "pending_implementation_docs", status: "pending", version: "3.1.2" },
+  { src: "JRX-AGENT-SUGGESTED-FOLLOWUPS.md", dst: "pending_implementation_docs/JRX-AGENT-SUGGESTED-FOLLOWUPS.md", bucket: "pending_implementation_docs", status: "pending", version: "3.1.2" },
+  { src: "JRX-ROADMAP-Q2-Q4-2026.md", dst: "pending_implementation_docs/JRX-ROADMAP-Q2-Q4-2026.md", bucket: "pending_implementation_docs", status: "pending", version: "3.1.2" },
   // UAT v3.2 was deferred to AWS — partial / pending the AWS rerun.
-  { src: "uat/NYV-UAT-v3.2-COMPREHENSIVE.md", dst: "pending_implementation_docs/uat/NYV-UAT-v3.2-COMPREHENSIVE.md", bucket: "pending_implementation_docs", status: "pending", version: "3.2" },
-  { src: "uat/NYV-UAT-v3.2-SUMMARY.md", dst: "pending_implementation_docs/uat/NYV-UAT-v3.2-SUMMARY.md", bucket: "pending_implementation_docs", status: "pending", version: "3.2" },
+  { src: "uat/JRX-UAT-v3.2-COMPREHENSIVE.md", dst: "pending_implementation_docs/uat/JRX-UAT-v3.2-COMPREHENSIVE.md", bucket: "pending_implementation_docs", status: "pending", version: "3.2" },
+  { src: "uat/JRX-UAT-v3.2-SUMMARY.md", dst: "pending_implementation_docs/uat/JRX-UAT-v3.2-SUMMARY.md", bucket: "pending_implementation_docs", status: "pending", version: "3.2" },
   { src: "uat/UAT-DEFERRED-AWS-PUSH.md", dst: "pending_implementation_docs/uat/UAT-DEFERRED-AWS-PUSH.md", bucket: "pending_implementation_docs", status: "pending", version: "3.2" },
 
   // ───── SUPERSEDED — replaced by newer docs ─────
-  { src: "NYV-SDK-v5-API-REFERENCE.md", dst: "superseded/NYV-SDK-v5-API-REFERENCE.md", bucket: "superseded", status: "superseded", version: "v5.0.0", supersededBy: "v3.1.2/completed_docs/NYV-SDK-v6-API-REFERENCE.md" },
-  { src: "NYV-SDK-v5-INTEGRATION-GUIDE.md", dst: "superseded/NYV-SDK-v5-INTEGRATION-GUIDE.md", bucket: "superseded", status: "superseded", version: "v5.0.0", supersededBy: "v3.1.2/completed_docs/NYV-SDK-v6-INTEGRATION-GUIDE.md" },
-  { src: "NYV-SDK-v5-MASTER-INTEGRATION-GUIDE.md", dst: "superseded/NYV-SDK-v5-MASTER-INTEGRATION-GUIDE.md", bucket: "superseded", status: "superseded", version: "v5.0.0", supersededBy: "v3.1.2/completed_docs/NYV-SDK-v6-INTEGRATION-GUIDE.md" },
-  { src: "NYV-SDK-UAT-COMPREHENSIVE.md", dst: "superseded/NYV-SDK-UAT-COMPREHENSIVE.md", bucket: "superseded", status: "superseded", version: "v5.0.0", supersededBy: "v3.1.2/pending_implementation_docs/uat/NYV-UAT-v3.2-COMPREHENSIVE.md" },
-  { src: "NYV-SDK-v5-DEPRECATION-POLICY.md", dst: "superseded/NYV-SDK-v5-DEPRECATION-POLICY.md", bucket: "superseded", status: "superseded", version: "v5.0.0", supersededBy: "v3.1.2/completed_docs/NYV-SDK-v6-INTEGRATION-GUIDE.md" },
+  { src: "JRX-SDK-v5-API-REFERENCE.md", dst: "superseded/JRX-SDK-v5-API-REFERENCE.md", bucket: "superseded", status: "superseded", version: "v5.0.0", supersededBy: "v3.1.2/completed_docs/JRX-SDK-v6-API-REFERENCE.md" },
+  { src: "JRX-SDK-v5-INTEGRATION-GUIDE.md", dst: "superseded/JRX-SDK-v5-INTEGRATION-GUIDE.md", bucket: "superseded", status: "superseded", version: "v5.0.0", supersededBy: "v3.1.2/completed_docs/JRX-SDK-v6-INTEGRATION-GUIDE.md" },
+  { src: "JRX-SDK-v5-MASTER-INTEGRATION-GUIDE.md", dst: "superseded/JRX-SDK-v5-MASTER-INTEGRATION-GUIDE.md", bucket: "superseded", status: "superseded", version: "v5.0.0", supersededBy: "v3.1.2/completed_docs/JRX-SDK-v6-INTEGRATION-GUIDE.md" },
+  { src: "JRX-SDK-UAT-COMPREHENSIVE.md", dst: "superseded/JRX-SDK-UAT-COMPREHENSIVE.md", bucket: "superseded", status: "superseded", version: "v5.0.0", supersededBy: "v3.1.2/pending_implementation_docs/uat/JRX-UAT-v3.2-COMPREHENSIVE.md" },
+  { src: "JRX-SDK-v5-DEPRECATION-POLICY.md", dst: "superseded/JRX-SDK-v5-DEPRECATION-POLICY.md", bucket: "superseded", status: "superseded", version: "v5.0.0", supersededBy: "v3.1.2/completed_docs/JRX-SDK-v6-INTEGRATION-GUIDE.md" },
 ];
 
 /**
@@ -168,9 +168,9 @@ function buildIndex(): void {
   lines.push(`last_verified: ${TODAY}`);
   lines.push("---");
   lines.push("");
-  lines.push("# Nyayavigya Platform — Documentation Index (v3.1.2)");
+  lines.push("# Jurexio Platform — Documentation Index (v3.1.2)");
   lines.push("");
-  lines.push("Single source of truth for every Nyayavigya markdown doc. Generated by `scripts/jrx-doc-reorganize.ts` from inline classification + each doc's YAML header. Re-run the script to regenerate.");
+  lines.push("Single source of truth for every Jurexio markdown doc. Generated by `scripts/jrx-doc-reorganize.ts` from inline classification + each doc's YAML header. Re-run the script to regenerate.");
   lines.push("");
   lines.push("## Buckets");
   lines.push("");
@@ -249,9 +249,9 @@ function buildIndex(): void {
 
 function writeRedirect(): void {
   const redirect = [
-    "# Nyayavigya Documentation",
+    "# Jurexio Documentation",
     "",
-    "All Nyayavigya markdown docs are organised under [`v3.1.2/`](./v3.1.2/INDEX.md) by status:",
+    "All Jurexio markdown docs are organised under [`v3.1.2/`](./v3.1.2/INDEX.md) by status:",
     "",
     "- [`v3.1.2/completed_docs/`](./v3.1.2/completed_docs/) — describes shipped, merged behaviour.",
     "- [`v3.1.2/pending_implementation_docs/`](./v3.1.2/pending_implementation_docs/) — describes planned / partial / deferred work.",

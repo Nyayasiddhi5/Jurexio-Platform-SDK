@@ -6,10 +6,10 @@
  *
  * Validates that each of the 4 Phase-C feature flags is correctly plumbed:
  *
- *   NYV_F_AUDIT_WIRE       (T-01 IronLedger audit on /orchestrate completion)
- *   NYV_F_HITL_REGISTRY    (T-03/04/05 registry-driven HITL thresholds)
- *   NYV_F_PII_JCN          (T-06b jurisdiction-scoped PII regexes)
- *   NYV_F_SECURITY_MONITOR (T-08 nv-security-monitor middleware mount)
+ *   JRX_F_AUDIT_WIRE       (T-01 IronLedger audit on /orchestrate completion)
+ *   JRX_F_HITL_REGISTRY    (T-03/04/05 registry-driven HITL thresholds)
+ *   JRX_F_PII_JCN          (T-06b jurisdiction-scoped PII regexes)
+ *   JRX_F_SECURITY_MONITOR (T-08 jrx-security-monitor middleware mount)
  *
  * For each flag we:
  *   (1) Spawn an isolated child process with NODE_ENV=development and the
@@ -35,7 +35,7 @@ import * as path from 'path';
 
 interface FlagSpec {
   envVar: string;
-  flagKey: string;        // key in the FLAGS object exported by nv-feature-flags
+  flagKey: string;        // key in the FLAGS object exported by jrx-feature-flags
   description: string;
   ticket: string;
   // grep patterns that, when found, prove the gated code path is wired in.
@@ -52,13 +52,13 @@ interface FlagSpec {
 
 const FLAGS: FlagSpec[] = [
   {
-    envVar: 'NYV_F_AUDIT_WIRE',
+    envVar: 'JRX_F_AUDIT_WIRE',
     flagKey: 'auditWire',
     description: 'Append IronLedger audit row on /orchestrate completion',
     ticket: 'T-01',
     wiringEvidence: [
       {
-        pattern: "isNyvFeatureOn\\('auditWire'\\)",
+        pattern: "isJrxFeatureOn\\('auditWire'\\)",
         whatItProves: 'auditWire flag is read at runtime',
       },
     ],
@@ -72,13 +72,13 @@ const FLAGS: FlagSpec[] = [
     ],
   },
   {
-    envVar: 'NYV_F_HITL_REGISTRY',
+    envVar: 'JRX_F_HITL_REGISTRY',
     flagKey: 'hitlRegistry',
     description: 'Registry-driven HITL thresholds + reviewer routing + auto-approve audit',
     ticket: 'T-03/T-04/T-05',
     wiringEvidence: [
       {
-        pattern: "isNyvFeatureOn\\('hitlRegistry'\\)",
+        pattern: "isJrxFeatureOn\\('hitlRegistry'\\)",
         whatItProves: 'hitlRegistry flag is read at runtime',
       },
     ],
@@ -95,13 +95,13 @@ const FLAGS: FlagSpec[] = [
     ],
   },
   {
-    envVar: 'NYV_F_PII_JCN',
+    envVar: 'JRX_F_PII_JCN',
     flagKey: 'piiJcn',
     description: 'Append jurisdiction-scoped PII regexes to safety pipeline Step 1',
     ticket: 'T-06b',
     wiringEvidence: [
       {
-        pattern: "isNyvFeatureOn\\('piiJcn'\\)",
+        pattern: "isJrxFeatureOn\\('piiJcn'\\)",
         whatItProves: 'piiJcn flag is read at runtime',
       },
     ],
@@ -113,12 +113,12 @@ const FLAGS: FlagSpec[] = [
     ],
   },
   {
-    envVar: 'NYV_F_SECURITY_MONITOR',
+    envVar: 'JRX_F_SECURITY_MONITOR',
     flagKey: 'securityMonitor',
-    description: 'Mount nv-security-monitor middleware on /api/jrx/*',
+    description: 'Mount jrx-security-monitor middleware on /api/jrx/*',
     ticket: 'T-08',
     wiringEvidence: [
-      // index.ts uses a locally-aliased _flagOn(), not isNyvFeatureOn(),
+      // index.ts uses a locally-aliased _flagOn(), not isJrxFeatureOn(),
       // for the securityMonitor mount. Accept either form.
       {
         pattern: "_flagOn\\('securityMonitor'\\)",
@@ -162,11 +162,11 @@ function spawnFlagProbe(flag: FlagSpec): ProbeResult['isolation'] {
   const child = `
     import('./src/config/jrx-feature-flags.ts')
       .then((m) => {
-        // The v5.0.0 module exports the resolved map as NYV_FEATURE_FLAGS
-        // and the helper isNyvFeatureOn(flag). We snapshot the map here so
+        // The v5.0.0 module exports the resolved map as JRX_FEATURE_FLAGS
+        // and the helper isJrxFeatureOn(flag). We snapshot the map here so
         // the parent process can grade isolation cleanly.
         const map =
-          (m as any).NYV_FEATURE_FLAGS ||
+          (m as any).JRX_FEATURE_FLAGS ||
           (m as any).FLAGS ||
           (m as any).default ||
           {};
@@ -184,12 +184,12 @@ function spawnFlagProbe(flag: FlagSpec): ProbeResult['isolation'] {
     ...process.env,
     NODE_ENV: 'development',
     // Reset every Phase-C flag, then enable only the target one.
-    NYV_F_AUDIT_WIRE: '',
-    NYV_F_HITL_REGISTRY: '',
-    NYV_F_PII_JCN: '',
-    NYV_F_SECURITY_MONITOR: '',
-    NYV_F_CITATION_WIRE: '',
-    NYV_F_TOKEN_OPT: '',
+    JRX_F_AUDIT_WIRE: '',
+    JRX_F_HITL_REGISTRY: '',
+    JRX_F_PII_JCN: '',
+    JRX_F_SECURITY_MONITOR: '',
+    JRX_F_CITATION_WIRE: '',
+    JRX_F_TOKEN_OPT: '',
     [flag.envVar]: 'true',
   };
 
@@ -343,7 +343,7 @@ function main(): void {
 
   const lines: string[] = [];
   lines.push('═══════════════════════════════════════════════════════════════════');
-  lines.push('  Phase C ON-flag validation — Nyayavigya v5.0.0 R-7');
+  lines.push('  Phase C ON-flag validation — Jurexio v5.0.0 R-7');
   lines.push(`  Generated: ${new Date().toISOString()}`);
   lines.push(`  Scope: flag plumbing isolation + static wiring evidence.`);
   lines.push(`  Auth'd curl matrix is EC2-grade and explicitly deferred — see`);

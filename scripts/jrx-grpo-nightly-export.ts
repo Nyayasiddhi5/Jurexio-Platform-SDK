@@ -3,13 +3,13 @@
  * NV-GRPO-EXPORT-001 — nightly export of GRPO preference pairs for offline policy learning.
  *
  * Reads durable rows from `nv_grpo_preference_pairs` (+ optional Redis stream peek)
- * and writes JSONL under docs/audit/grpo-exports/ (or NYV_GRPO_EXPORT_DIR).
+ * and writes JSONL under docs/audit/grpo-exports/ (or JRX_GRPO_EXPORT_DIR).
  *
  * Usage:
  *   npx tsx scripts/jrx-grpo-nightly-export.ts
- *   NYV_GRPO_EXPORT_LOOKBACK_HOURS=48 npx tsx scripts/jrx-grpo-nightly-export.ts
+ *   JRX_GRPO_EXPORT_LOOKBACK_HOURS=48 npx tsx scripts/jrx-grpo-nightly-export.ts
  *
- * Cron / platform job: started by nv-start-platform-jobs when NYV_GRPO_NIGHTLY_EXPORT=1
+ * Cron / platform job: started by jrx-start-platform-jobs when JRX_GRPO_NIGHTLY_EXPORT=1
  * (default ON in production).
  *
  * Does NOT train model weights — exports pairs for a future trainer consumer.
@@ -18,9 +18,9 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { makePgSql } from './_pg-pool.js';
 
-const LOOKBACK_H = Math.max(1, Number(process.env.NYV_GRPO_EXPORT_LOOKBACK_HOURS) || 24);
+const LOOKBACK_H = Math.max(1, Number(process.env.JRX_GRPO_EXPORT_LOOKBACK_HOURS) || 24);
 const OUT_DIR =
-  process.env.NYV_GRPO_EXPORT_DIR ||
+  process.env.JRX_GRPO_EXPORT_DIR ||
   path.join(process.cwd(), 'docs', 'audit', 'grpo-exports');
 
 async function main(): Promise<void> {

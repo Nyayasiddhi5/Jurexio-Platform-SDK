@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import { NV_API } from '@/lib/jrx-api-paths';
 import { getAuthToken } from '@/lib/jrx-auth-token';
 import { streamQueenAguiForConsole } from '@/services/jrx-admin-agui-adapter';
@@ -185,7 +185,7 @@ export default function AgentTestingEnvironment() {
               </CardHeader>
               <CardContent className="space-y-2 max-h-[500px] overflow-y-auto">
                 {agents.length === 0 && (
-                  <NyvEmptyState
+                  <JrxEmptyState
                     icon={Bot}
                     title="No agents available"
                     description="Agents will appear when the registry is reachable."

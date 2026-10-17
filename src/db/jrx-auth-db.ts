@@ -31,7 +31,7 @@ function buildAdminUrl(): string | null {
   const raw = process.env.DATABASE_URL_ADMIN?.trim();
   if (!raw) return null;
   const base = normalizePgConnectionString(raw);
-  return process.env.NYV_PG_SSL_VERIFY === 'false'
+  return process.env.JRX_PG_SSL_VERIFY === 'false'
     ? base
     : upgradePgConnectionStringToVerifyFull(base);
 }
@@ -42,7 +42,7 @@ export function getAuthDb(): AuthDb | null {
   if (authDb) return authDb;
   const url = buildAdminUrl();
   if (!url) {
-    logger.warn('[nv-auth-db] DATABASE_URL_ADMIN not set — auth flows use runtime pool (RLS may block login on enforced RDS)');
+    logger.warn('[jrx-auth-db] DATABASE_URL_ADMIN not set — auth flows use runtime pool (RLS may block login on enforced RDS)');
     return null;
   }
   authPool = new Pool({
@@ -53,16 +53,16 @@ export function getAuthDb(): AuthDb | null {
     connectionTimeoutMillis: 10_000,
   });
   authPool.on('error', (err: Error) => {
-    logger.error('[nv-auth-db] pool error:', err.message);
+    logger.error('[jrx-auth-db] pool error:', err.message);
   });
   authDb = drizzlePg(authPool, { schema });
-  logger.info('[nv-auth-db] admin auth pool initialised (RLS bypass for credential lookup)');
+  logger.info('[jrx-auth-db] admin auth pool initialised (RLS bypass for credential lookup)');
   return authDb;
 }
 
 function disableAuthDb(reason: string): void {
   authDbDisabled = true;
-  logger.warn('[nv-auth-db] admin pool disabled; login will use org-scoped runtime lookup', {
+  logger.warn('[jrx-auth-db] admin pool disabled; login will use org-scoped runtime lookup', {
     reason: reason.slice(0, 160),
   });
   if (authPool) {

@@ -4,9 +4,9 @@
  *
  * Usage:
  *   npm run rag:ndcg
- *   NYV_RERANK_FIXTURE=tests/fixtures/rag/in-ndcg-sample.json npm run rag:ndcg
- *   NYV_NDCG_REQUIRE_NEURAL=1 npm run rag:ndcg   # CI soak — skip 0 without keys
- *   NYV_NDCG_MIN_DELTA=0.0 npm run rag:ndcg      # fail if meanDelta below floor
+ *   JRX_RERANK_FIXTURE=tests/fixtures/rag/in-ndcg-sample.json npm run rag:ndcg
+ *   JRX_NDCG_REQUIRE_NEURAL=1 npm run rag:ndcg   # CI soak — skip 0 without keys
+ *   JRX_NDCG_MIN_DELTA=0.0 npm run rag:ndcg      # fail if meanDelta below floor
  *
  * Does not call production Auto-RAG — measures nvLegalRerankerService only.
  * Neural path needs COHERE_API_KEY / VOYAGE_API_KEY / CROSS_ENCODER_URL when present;
@@ -47,13 +47,13 @@ function ndcgAtK(rankedIds: string[], relevantIds: string[], k: number): number 
 }
 
 async function main(): Promise<void> {
-  const requireNeural = process.env.NYV_NDCG_REQUIRE_NEURAL === '1';
+  const requireNeural = process.env.JRX_NDCG_REQUIRE_NEURAL === '1';
   if (requireNeural && !hasNeuralKey()) {
     console.log(
       JSON.stringify(
         {
           skipped: true,
-          reason: 'NYV_NDCG_REQUIRE_NEURAL=1 but no COHERE_API_KEY / VOYAGE_API_KEY / CROSS_ENCODER_URL',
+          reason: 'JRX_NDCG_REQUIRE_NEURAL=1 but no COHERE_API_KEY / VOYAGE_API_KEY / CROSS_ENCODER_URL',
           note: 'CI soak is skip-safe without live keys — wire org secrets to enable neural gate.',
         },
         null,
@@ -64,7 +64,7 @@ async function main(): Promise<void> {
   }
 
   const fixturePath =
-    process.env.NYV_RERANK_FIXTURE ||
+    process.env.JRX_RERANK_FIXTURE ||
     path.join(process.cwd(), 'tests', 'fixtures', 'rag', 'in-ndcg-sample.json');
   if (!fs.existsSync(fixturePath)) {
     console.error('[rag:ndcg] fixture missing:', fixturePath);
@@ -73,7 +73,7 @@ async function main(): Promise<void> {
   const cases = JSON.parse(fs.readFileSync(fixturePath, 'utf8')) as QueryCase[];
   const { nvLegalRerankerService } = await import('../src/services/rag/jrx-legal-reranker-service.js');
 
-  const k = Math.max(1, Number(process.env.NYV_NDCG_K) || 5);
+  const k = Math.max(1, Number(process.env.JRX_NDCG_K) || 5);
   let sumBase = 0;
   let sumRerank = 0;
   let n = 0;
@@ -132,12 +132,12 @@ async function main(): Promise<void> {
   };
   console.log(JSON.stringify(out, null, 2));
 
-  const minDeltaRaw = process.env.NYV_NDCG_MIN_DELTA;
+  const minDeltaRaw = process.env.JRX_NDCG_MIN_DELTA;
   if (minDeltaRaw !== undefined && minDeltaRaw !== '') {
     const minDelta = Number(minDeltaRaw);
     if (Number.isFinite(minDelta) && meanDelta < minDelta) {
       console.error(
-        `[rag:ndcg] FAIL meanDelta=${meanDelta.toFixed(4)} < NYV_NDCG_MIN_DELTA=${minDelta} (provider=${providerHint})`,
+        `[rag:ndcg] FAIL meanDelta=${meanDelta.toFixed(4)} < JRX_NDCG_MIN_DELTA=${minDelta} (provider=${providerHint})`,
       );
       process.exit(1);
     }

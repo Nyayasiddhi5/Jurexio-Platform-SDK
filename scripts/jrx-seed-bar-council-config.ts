@@ -24,7 +24,7 @@ async function main(): Promise<void> {
     seedRules?: SeedRule[];
   };
 
-  const sql = makePgSql(process.env.NYV_DATABASE_URL || process.env.DATABASE_URL);
+  const sql = makePgSql(process.env.JRX_DATABASE_URL || process.env.DATABASE_URL);
 
   try {
     await sql.pool.query('CREATE SCHEMA IF NOT EXISTS jrx');
