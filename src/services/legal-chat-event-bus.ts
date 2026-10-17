@@ -80,7 +80,7 @@ interface BufferEntry {
 class LegalChatEventBus extends EventEmitter {
   private buffers = new Map<string, BufferEntry>();
   private cleanupTimer: NodeJS.Timeout | null = null;
-  // Multi-replica fan-out (NV-EVENT-BUS-REDIS-001): when NYV_LEGAL_CHAT_BUS_REDIS=1
+  // Multi-replica fan-out (NV-EVENT-BUS-REDIS-001): when JRX_LEGAL_CHAT_BUS_REDIS=1
   // and a Redis URL is resolvable, mirror every publish onto a Redis pub/sub
   // channel so any gateway replica (each with its own SSE clients) sees every
   // event. Wire is best-effort + lazy + non-blocking; if Redis is down we
@@ -96,7 +96,7 @@ class LegalChatEventBus extends EventEmitter {
     this.setMaxListeners(0);
     this.cleanupTimer = setInterval(() => this.evictStale(), 60_000);
     this.cleanupTimer.unref?.();
-    if (process.env.NYV_LEGAL_CHAT_BUS_REDIS === '1') {
+    if (process.env.JRX_LEGAL_CHAT_BUS_REDIS === '1') {
       void this.initRedis();
     }
   }

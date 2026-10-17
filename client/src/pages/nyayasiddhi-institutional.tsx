@@ -123,7 +123,7 @@ export default function JurexioInstitutional() {
         body: JSON.stringify({ ...form, step_completed: 7, source: 'institutional_wizard', form_data: form }),
       });
       const data = await res.json();
-      if (data.success) { setLeadId(data.data?.lead_id || 'NYV-INST-' + Date.now()); setSubmitted(true); }
+      if (data.success) { setLeadId(data.data?.lead_id || 'JRX-INST-' + Date.now()); setSubmitted(true); }
       else setError(data.error || 'Submission failed');
     } catch { setError('Network error — please try again'); }
     finally { setSubmitting(false); }

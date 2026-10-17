@@ -7,8 +7,8 @@ import {
   Heart, Zap, Network, Eye, ScrollText, RefreshCw,
 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 
 import { nv } from '@/lib/jrx-api-paths';
 import { nvFetchJson } from '@/lib/jrx-fetch-json';
@@ -221,7 +221,7 @@ export default function CAMDashboardPage() {
                 </div>
               )}
               {!dashLoading && topAgents.length === 0 && (
-                <NyvEmptyState title="No agent traffic recorded in window" size="sm" />
+                <JrxEmptyState title="No agent traffic recorded in window" size="sm" />
               )}
               {!dashLoading && topAgents.length > 0 && (
                 <div className="space-y-3">
@@ -250,7 +250,7 @@ export default function CAMDashboardPage() {
             </CardHeader>
             <CardContent>
               {Object.keys(byJur).length === 0 && (
-                <NyvEmptyState title="Registry warming up" description="Jurisdiction coverage will appear once the agent registry reports in." size="sm" />
+                <JrxEmptyState title="Registry warming up" description="Jurisdiction coverage will appear once the agent registry reports in." size="sm" />
               )}
               <div className="space-y-3">
                 {Object.entries(byJur).map(([j, n]) => {
@@ -277,7 +277,7 @@ export default function CAMDashboardPage() {
             </CardHeader>
             <CardContent className="text-sm space-y-1" data-testid="cam-healing-card">
               {healingError ? (
-                <NyvErrorState title="Stats endpoint unavailable" size="sm" />
+                <JrxErrorState title="Stats endpoint unavailable" size="sm" />
               ) : (
                 <>
                   <div>Failures: <span className="text-slate-900">{healing?.totalFailures ?? 0}</span></div>
@@ -297,7 +297,7 @@ export default function CAMDashboardPage() {
             </CardHeader>
             <CardContent className="text-sm space-y-1" data-testid="cam-guardrails-card">
               {guardrailsError ? (
-                <NyvErrorState title="Stats endpoint unavailable" size="sm" />
+                <JrxErrorState title="Stats endpoint unavailable" size="sm" />
               ) : (
                 <>
                   <div>Total violations: <span className="text-slate-900">{guardrails?.totalViolations ?? 0}</span></div>
@@ -323,7 +323,7 @@ export default function CAMDashboardPage() {
             </CardHeader>
             <CardContent className="text-sm space-y-1" data-testid="cam-routing-card">
               {routingError ? (
-                <NyvErrorState title="Stats endpoint unavailable" size="sm" />
+                <JrxErrorState title="Stats endpoint unavailable" size="sm" />
               ) : (
                 <>
                   <div>Tracked agents: <span className="text-slate-900">{routing?.summary?.trackedAgents ?? 0}</span></div>

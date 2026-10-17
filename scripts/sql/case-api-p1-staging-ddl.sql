@@ -1,5 +1,5 @@
 -- NV-CASE-API-P1-001 — party PII + diary_no columns on cases_search_staging
--- Database: case_api_search on nyv-caselaw-pg
+-- Database: case_api_search on jrx-caselaw-pg
 -- Non-destructive: ADD COLUMN IF NOT EXISTS only; no data rewrite.
 
 BEGIN;

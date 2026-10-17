@@ -1,6 +1,6 @@
 /**
  * Jurexio Skills System Service v3.1.2
- * NYV-SVC-SKILLS-SYSTEM-001
+ * JRX-SVC-SKILLS-SYSTEM-001
  *
  * Skills System enables AI agents to acquire, share, and evolve specialized
  * legal skills dynamically. Unlike static system prompts, Skills are:
@@ -96,7 +96,7 @@ export interface SkillActivationContext {
   taskType: string;
   userId?: string;
   /**
-   * NYV-WL-001 (round 10d): explicit first-class white-label exposure
+   * JRX-WL-001 (round 10d): explicit first-class white-label exposure
    * flag. When true, getCapabilitiesForContext() escalates the tier to
    * the manifest's `white-label` surface regardless of billing tier so
    * white-label tenants get the full re-brandable capability set.
@@ -124,7 +124,7 @@ const CORE_SKILLS: LegalSkill[] = [
     category: 'legal-research',
     tier: 'expert',
     version: '3.1.2',
-    author: 'nyayavigya-core',
+    author: 'jurexio-core',
     jurisdictions: ['IN'],
     practiceAreas: ['all'],
     systemPromptDelta: `You are an expert Indian legal researcher with deep knowledge of:
@@ -134,7 +134,7 @@ const CORE_SKILLS: LegalSkill[] = [
 - CPC, Limitation Act, Specific Relief Act
 - Companies Act 2013, DPDPA 2023, Income Tax Act 1961
 Always cite specific sections and relevant precedents. Use Indian legal citation format (AIR, SCC).`,
-    toolRequirements: ['NYV-MCP-SEARCH-001', 'NYV-MCP-DOC-001'],
+    toolRequirements: ['JRX-MCP-SEARCH-001', 'JRX-MCP-DOC-001'],
     slmPreference: 'NS-SLM-IND',
     romaLevel: 'L5',
     metrics: { usageCount: 0, averageQualityScore: 92, averageResponseTime: 1200, successRate: 0.96, userRating: 4.8, jurisdictionPerformance: { IN: 92 } },
@@ -150,7 +150,7 @@ Always cite specific sections and relevant precedents. Use Indian legal citation
     category: 'document-drafting',
     tier: 'expert',
     version: '3.1.2',
-    author: 'nyayavigya-core',
+    author: 'jurexio-core',
     jurisdictions: ['IN', 'UK', 'GC', 'EU', 'US', 'SG'],
     practiceAreas: ['contract', 'corporate', 'employment'],
     systemPromptDelta: `You are an expert contract drafter across 6 global jurisdictions.
@@ -161,7 +161,7 @@ For each contract:
 4. Use precise legal language with defined terms
 5. Structure: Recitals → Definitions → Operative Clauses → Boilerplate
 Always note which provisions are jurisdiction-specific and why.`,
-    toolRequirements: ['NYV-MCP-DOC-001'],
+    toolRequirements: ['JRX-MCP-DOC-001'],
     romaLevel: 'L5',
     metrics: { usageCount: 0, averageQualityScore: 90, averageResponseTime: 1800, successRate: 0.94, userRating: 4.7, jurisdictionPerformance: { IN: 90, UK: 88, EU: 87, US: 91, SG: 89, GC: 86 } },
     tags: ['contract', 'drafting', 'cross-border', 'nda', 'msa'],
@@ -176,14 +176,14 @@ Always note which provisions are jurisdiction-specific and why.`,
     category: 'compliance-checking',
     tier: 'professional',
     version: '3.1.2',
-    author: 'nyayavigya-core',
+    author: 'jurexio-core',
     jurisdictions: ['EU', 'UK'],
     practiceAreas: ['compliance', 'data-protection', 'privacy'],
     systemPromptDelta: `You are a GDPR and UK GDPR compliance expert.
 Apply: GDPR (EU) 2016/679 and UK GDPR (Data Protection Act 2018).
 Always check: lawful basis, data minimisation, purpose limitation, storage limitation, data subject rights, DPO requirements, DPIAs, breach notification (72-hour rule), international transfers (adequacy/SCCs/BCRs).
 Distinguish EU GDPR vs UK GDPR post-Brexit for cross-border scenarios.`,
-    toolRequirements: ['NYV-MCP-SEARCH-001'],
+    toolRequirements: ['JRX-MCP-SEARCH-001'],
     slmPreference: 'NS-SLM-EUR',
     romaLevel: 'L4',
     metrics: { usageCount: 0, averageQualityScore: 93, averageResponseTime: 1000, successRate: 0.97, userRating: 4.9, jurisdictionPerformance: { EU: 93, UK: 91 } },
@@ -199,13 +199,13 @@ Distinguish EU GDPR vs UK GDPR post-Brexit for cross-border scenarios.`,
     category: 'litigation',
     tier: 'expert',
     version: '3.1.2',
-    author: 'nyayavigya-core',
+    author: 'jurexio-core',
     jurisdictions: ['IN'],
     practiceAreas: ['litigation', 'criminal', 'civil', 'constitutional'],
     systemPromptDelta: `You are an expert Indian litigation strategist with experience across District Courts, High Courts, and the Supreme Court of India.
 Expertise: BNSS 2023 procedural requirements, BNS 2023 criminal provisions, CPC civil procedure, SLPs, writ petitions, criminal appeals, interlocutory applications, bail applications, anticipatory bail under BNSS.
 Always identify: jurisdiction, limitation periods, proper forum, cause of action, applicable remedies.`,
-    toolRequirements: ['NYV-MCP-SEARCH-001', 'NYV-MCP-DOC-001'],
+    toolRequirements: ['JRX-MCP-SEARCH-001', 'JRX-MCP-DOC-001'],
     slmPreference: 'NS-SLM-IND',
     romaLevel: 'L5',
     metrics: { usageCount: 0, averageQualityScore: 91, averageResponseTime: 1400, successRate: 0.95, userRating: 4.7, jurisdictionPerformance: { IN: 91 } },
@@ -221,13 +221,13 @@ Always identify: jurisdiction, limitation periods, proper forum, cause of action
     category: 'corporate-governance',
     tier: 'expert',
     version: '3.1.2',
-    author: 'nyayavigya-core',
+    author: 'jurexio-core',
     jurisdictions: ['US'],
     practiceAreas: ['corporate', 'securities', 'ma', 'startup'],
     systemPromptDelta: `You are a US corporate and securities law expert.
 Expertise: Delaware General Corporation Law, SEC regulations (17 CFR), Securities Act 1933, Securities Exchange Act 1934, SOX compliance, M&A deal structures (asset purchase vs stock purchase), cap table management, 409A valuations, term sheets, SAFE notes.
 Always identify: state of incorporation, SEC reporting obligations, fiduciary duties, anti-takeover provisions.`,
-    toolRequirements: ['NYV-MCP-SEARCH-001'],
+    toolRequirements: ['JRX-MCP-SEARCH-001'],
     slmPreference: 'NS-SLM-USA',
     romaLevel: 'L4',
     metrics: { usageCount: 0, averageQualityScore: 89, averageResponseTime: 1100, successRate: 0.93, userRating: 4.6, jurisdictionPerformance: { US: 89 } },
@@ -243,13 +243,13 @@ Always identify: state of incorporation, SEC reporting obligations, fiduciary du
     category: 'arbitration',
     tier: 'sovereign',
     version: '3.1.2',
-    author: 'nyayavigya-core',
+    author: 'jurexio-core',
     jurisdictions: ['IN', 'UK', 'GC', 'EU', 'US', 'SG'],
     practiceAreas: ['arbitration', 'international-dispute', 'investment'],
     systemPromptDelta: `You are an international arbitration expert.
 Rules expertise: ICC Rules 2021, SIAC Rules 2016, LCIA Rules 2020, DIFC-LCIA Rules, UNCITRAL Rules 2013, Arbitration and Conciliation Act 1996 (India), NY Convention 1958, ICSID Convention.
 Always address: seat vs venue distinction, applicable law, emergency arbitrator, interim measures, challenge of arbitrators, enforcement of awards across jurisdictions.`,
-    toolRequirements: ['NYV-MCP-SEARCH-001', 'NYV-MCP-DOC-001'],
+    toolRequirements: ['JRX-MCP-SEARCH-001', 'JRX-MCP-DOC-001'],
     romaLevel: 'L5',
     metrics: { usageCount: 0, averageQualityScore: 94, averageResponseTime: 1500, successRate: 0.96, userRating: 4.9, jurisdictionPerformance: { IN: 92, UK: 93, GC: 91, EU: 94, US: 93, SG: 95 } },
     tags: ['arbitration', 'icc', 'siac', 'lcia', 'international', 'enforcement'],
@@ -398,7 +398,7 @@ export class SkillsSystemService {
   }
 
   /**
-   * NYV-ORCH-SKILLS-001 (Task #32) — Per-tier, skill-narrowed capability surface.
+   * JRX-ORCH-SKILLS-001 (Task #32) — Per-tier, skill-narrowed capability surface.
    *
    * Returns the intersection of:
    *   tier+jurisdiction surface from the manifest
@@ -431,7 +431,7 @@ export class SkillsSystemService {
       const tierMap: Record<string, 'lite' | 'mitra' | 'enterprise' | 'sovereign' | 'white-label'> = {
         solo: 'lite', plus: 'mitra', pro: 'enterprise', enterprise: 'sovereign',
       };
-      // NYV-WL-001 (round 10d): white-label is a first-class manifest
+      // JRX-WL-001 (round 10d): white-label is a first-class manifest
       // tier — when the caller flags the tenant as white-label we
       // escalate to the dedicated `white-label` surface so re-brandable
       // capabilities (theming, custom domains, partner-scoped audit) are
@@ -507,7 +507,7 @@ export class SkillsSystemService {
    */
   healthCheck(): { status: 'healthy'; totalSkills: number; coreSkills: number; customSkills: number } {
     const all = Array.from(this.skills.values());
-    const core = all.filter(s => s.author === 'nyayavigya-core');
+    const core = all.filter(s => s.author === 'jurexio-core');
     return {
       status: 'healthy',
       totalSkills: all.length,

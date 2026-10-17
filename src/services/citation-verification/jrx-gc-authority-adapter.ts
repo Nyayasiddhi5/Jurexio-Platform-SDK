@@ -4,19 +4,19 @@
  * Authority sources: UAE Federal Legislation portal + DIFC / ADGM legislation
  * registries. No single free machine API spans the GCC, so the deterministic
  * known-corpus + structural verifier is the primary path; a live probe is
- * gated by JRX_F_CITATION_LIVE_GC (+ NYV_GC_LEGISLATION_API_BASE) for
+ * gated by JRX_F_CITATION_LIVE_GC (+ JRX_GC_LEGISLATION_API_BASE) for
  * operators who wire a regional source. Unconfirmed citations return explicit
  * `unverified` (never a silent pass).
  */
 
-import { isNyvFeatureOn } from '../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../../config/jrx-feature-flags.js';
 import {
   BaseAuthorityAdapter,
   authorityFetch,
   type AuthorityCitationCandidate,
 } from './jrx-authority-adapter.js';
 
-const GC_LEGISLATION_BASE = (process.env.NYV_GC_LEGISLATION_API_BASE || '').replace(/\/+$/, '');
+const GC_LEGISLATION_BASE = (process.env.JRX_GC_LEGISLATION_API_BASE || '').replace(/\/+$/, '');
 const LOOKUP_TIMEOUT_MS = 4000;
 
 const GC_KNOWN_INSTRUMENTS = [
@@ -63,6 +63,6 @@ export const gcAuthorityAdapter = new BaseAuthorityAdapter({
     /(?:Article|Art\.)\s*(?<art>\d+)\s+of\s+the\s+(?<art_instrument>UAE\s+[A-Z][A-Za-z\s]+(?:Code|Law))/g,
   ],
   knownInstruments: GC_KNOWN_INSTRUMENTS,
-  liveApiEnabled: () => isNyvFeatureOn('citationLiveGc') && !!GC_LEGISLATION_BASE,
+  liveApiEnabled: () => isJrxFeatureOn('citationLiveGc') && !!GC_LEGISLATION_BASE,
   liveLookup: gcLegislationLookup,
 });

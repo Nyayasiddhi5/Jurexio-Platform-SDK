@@ -38,12 +38,12 @@ describe('./jrx-intelligence-depth', () => {
     expect(DEPTH_WORD_LIMITS.detailed).toBeLessThan(DEPTH_WORD_LIMITS.comprehensive);
   });
 
-  it('gates comprehensive for free when NYV_ENFORCE_DEPTH_TIERS=1', () => {
-    const prev = process.env.NYV_ENFORCE_DEPTH_TIERS;
-    process.env.NYV_ENFORCE_DEPTH_TIERS = '1';
+  it('gates comprehensive for free when JRX_ENFORCE_DEPTH_TIERS=1', () => {
+    const prev = process.env.JRX_ENFORCE_DEPTH_TIERS;
+    process.env.JRX_ENFORCE_DEPTH_TIERS = '1';
     expect(depthDeniedForTier('comprehensive', 'free')).toMatch(/enterprise|pro/i);
     expect(depthDeniedForTier('concise', 'free')).toBeNull();
-    process.env.NYV_ENFORCE_DEPTH_TIERS = prev;
+    process.env.JRX_ENFORCE_DEPTH_TIERS = prev;
   });
 
   it('expands analysis flags for comprehensive', () => {

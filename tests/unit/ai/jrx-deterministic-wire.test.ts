@@ -1,8 +1,8 @@
 /**
- * NV-NYS-DETERMINISTIC-WIRE-001 — the deterministic tier must be LIVE on the
+ * NV-JRX-DETERMINISTIC-WIRE-001 — the deterministic tier must be LIVE on the
  * specialist path, not merely exported.
  *
- * NV-NYS-LLMREQUIRED-001 made Auto-RAG carry `deterministic.answer`, but only the
+ * NV-JRX-LLMREQUIRED-001 made Auto-RAG carry `deterministic.answer`, but only the
  * knowledge-plane routes read it. Per NV-WIRING-001 exported != live: every
  * `/orchestrate` request still paid a frontier completion to restate statute text
  * NYS had already returned verbatim in ~50 ms. That gap is invisible to unit tests
@@ -22,11 +22,11 @@ const SRC = join(process.cwd(), 'src');
 const clientSource = readFileSync(join(SRC, 'services/jrx-client.ts'), 'utf8');
 const routerSource = readFileSync(join(SRC, 'services/jrx-auto-rag-router.ts'), 'utf8');
 
-const wireIdx = clientSource.indexOf('NV-NYS-DETERMINISTIC-WIRE-001');
+const wireIdx = clientSource.indexOf('NV-JRX-DETERMINISTIC-WIRE-001');
 const abstainIdx = clientSource.indexOf("model: 'rag-abstain'");
 const ragCtxIdx = clientSource.indexOf('ragContextResult = {');
 
-describe('NV-NYS-DETERMINISTIC-WIRE-001 — the specialist path consumes the verdict', () => {
+describe('NV-JRX-DETERMINISTIC-WIRE-001 — the specialist path consumes the verdict', () => {
   it('reads deterministic.answer from the Auto-RAG result', () => {
     expect(wireIdx).toBeGreaterThan(-1);
     expect(clientSource).toContain('autoRag?.deterministic?.answer');
@@ -71,7 +71,7 @@ describe('NV-NYS-DETERMINISTIC-WIRE-001 — the specialist path consumes the ver
   });
 });
 
-describe('NV-NYS-LLMREQUIRED-001 — the NYS verdict is re-tested locally, never trusted alone', () => {
+describe('NV-JRX-LLMREQUIRED-001 — the NYS verdict is re-tested locally, never trusted alone', () => {
   it('gates the probe on a pure pre-filter so drafting traffic pays nothing', () => {
     expect(routerSource).toContain('couldBeDeterministic(req.query)');
   });

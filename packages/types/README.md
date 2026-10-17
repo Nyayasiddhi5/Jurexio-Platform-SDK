@@ -15,31 +15,31 @@ npm install @jurexio/types
 ### Subscription Tiers
 
 ```typescript
-type NyvSubscriptionTier = 'free' | 'solo' | 'plus' | 'pro' | 'enterprise' | 'government' | 'internal';
+type JrxSubscriptionTier = 'free' | 'solo' | 'plus' | 'pro' | 'enterprise' | 'government' | 'internal';
 ```
 
 ### Platforms (Jurexio)
 
 ```typescript
-type NyvPlatform = 'nyayamitra' | 'nys-professional' | 'nys-institutional' | 'nys-academy' | 'nys-ministry';
+type JrxPlatform = 'jurexio-citizen' | 'nys-professional' | 'nys-institutional' | 'nys-academy' | 'nys-ministry';
 ```
 
 ### Jurisdictions
 
 ```typescript
-type NyvJurisdiction = 'IN' | 'UK' | 'US' | 'EU' | 'GC' | 'SG';
+type JrxJurisdiction = 'IN' | 'UK' | 'US' | 'EU' | 'GC' | 'SG';
 ```
 
 ### Legal Domains
 
 ```typescript
-type NyvLegalDomain = 'criminal' | 'civil' | 'constitutional' | 'corporate' | 'tax' | 'ip' | 'family' | 'labour' | 'environmental' | 'cyber' | 'banking' | 'arbitration' | 'real-estate' | 'immigration' | 'consumer' | 'administrative';
+type JrxLegalDomain = 'criminal' | 'civil' | 'constitutional' | 'corporate' | 'tax' | 'ip' | 'family' | 'labour' | 'environmental' | 'cyber' | 'banking' | 'arbitration' | 'real-estate' | 'immigration' | 'consumer' | 'administrative';
 ```
 
 ### Agent Patterns (22 Patterns)
 
 ```typescript
-type NyvAgentPattern =
+type JrxAgentPattern =
   | 'cot' | 'react' | 'tot' | 'plan-and-execute' | 'multi-agent-debate'
   | 'tool-use' | 'reflection' | 'meta-prompting' | 'self-discover' | 'self-refine'
   | 'nyaya-rag' | 'mixture-of-agents' | 'parallel-tool-call' | 'constraint-satisfaction'
@@ -51,16 +51,16 @@ type NyvAgentPattern =
 
 The package exports types organized by category:
 
-- **Core**: `NyvSubscriptionTier`, `NyvPlatform`, `NyvJurisdiction`, `NyvLegalDomain`, `NyvAgentPattern`, `NyvRiskLevel`
-- **SDK Config**: `NyvSdkTierLimits`
-- **Webhook**: `NyvWebhookEvent`
-- **Cache**: `NyvCacheEntry`, `NyvCacheStats`
-- **Credits**: `NyvCreditWallet`, `NyvCreditTransaction`
-- **Compliance**: `NyvEuComplianceReport`, `NyvBiasAuditReport`, `NyvWatermarkResult`, `NyvSigningSession`
-- **Intelligence**: `NyvPrecedentSearchResult`, `NyvRegulatoryDigest`, `NyvComplianceCalendar`, `NyvContractAnalysis`, etc.
-- **Testing**: `NyvOracleTestReport`, `NyvAdversarialTestReport`, `NyvLlmJudgeResult`, `NyvAgentScorecard`
-- **Memory**: `NyvMatterMemory`, `NyvClientMemory`
-- **Nyaya Tools**: `NyvGraphTraversalResult`, `NyvCitationCheckResult`, `NyvTemplateGenerateResult`, etc.
+- **Core**: `JrxSubscriptionTier`, `JrxPlatform`, `JrxJurisdiction`, `JrxLegalDomain`, `JrxAgentPattern`, `JrxRiskLevel`
+- **SDK Config**: `JrxSdkTierLimits`
+- **Webhook**: `JrxWebhookEvent`
+- **Cache**: `JrxCacheEntry`, `JrxCacheStats`
+- **Credits**: `JrxCreditWallet`, `JrxCreditTransaction`
+- **Compliance**: `JrxEuComplianceReport`, `JrxBiasAuditReport`, `JrxWatermarkResult`, `JrxSigningSession`
+- **Intelligence**: `JrxPrecedentSearchResult`, `JrxRegulatoryDigest`, `JrxComplianceCalendar`, `JrxContractAnalysis`, etc.
+- **Testing**: `JrxOracleTestReport`, `JrxAdversarialTestReport`, `JrxLlmJudgeResult`, `JrxAgentScorecard`
+- **Memory**: `JrxMatterMemory`, `JrxClientMemory`
+- **Nyaya Tools**: `JrxGraphTraversalResult`, `JrxCitationCheckResult`, `JrxTemplateGenerateResult`, etc.
 
 ## Version
 

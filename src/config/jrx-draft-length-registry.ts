@@ -1,5 +1,5 @@
 /**
- * NV-DRAFT-LENGTH-REGISTRY-001 — per-document-type output token strategy (NYV SSOT).
+ * NV-DRAFT-LENGTH-REGISTRY-001 — per-document-type output token strategy (JRX SSOT).
  *
  * NSP 3-tier wire mapping (draft-quality-routing.ts):
  *   fast       → options.draftLength `low`         → ~4096 streaming
@@ -307,14 +307,14 @@ export type DocumentTypeResolutionSource =
 export interface DraftDocumentTypeResolution {
   documentType: DraftDocumentType;
   source: DocumentTypeResolutionSource;
-  /** True when NYV inferred or substituted the partner wire value. */
+  /** True when JRX inferred or substituted the partner wire value. */
   wasInferred: boolean;
   /** Partner wire value when present (may be unknown). */
   rawInput?: string;
   /**
    * NV-DRAFT-INTENT-PROMPT-001 — 0..1 confidence in the resolved type. Explicit
    * wire values are 1.0; prompt heuristics carry the heuristic band; the coarse
-   * fallback sits low so callers can flag "NYV guessed" on the draftProfile.
+   * fallback sits low so callers can flag "JRX guessed" on the draftProfile.
    */
   confidence: number;
   /** Human-readable reasons for the resolution (surfaced on draftProfile.intentResolution). */
@@ -445,7 +445,7 @@ export function resolveDraftDocumentTypeWithMeta(input: {
       rawInput: rawExplicit,
       confidence: 0.2,
       rationale: [
-        `Partner \`documentType\` "${rawExplicit}" is not a recognised NYV type and the `
+        `Partner \`documentType\` "${rawExplicit}" is not a recognised JRX type and the `
         + 'prompt did not imply a specific instrument — using the default counsel envelope.',
       ],
     };
@@ -534,13 +534,13 @@ export function resolveDraftFastSlaTokenCapForDocument(input: {
         ? betaDraftFastSlaMediumCeiling()
         : DRAFT_TIER_TOKEN_BANDS.medium.ceiling;
   const globalRail = input.tier === 'low'
-    ? envDraftToken('NYV_DRAFT_FAST_SLA_MAX_TOKENS_LOW', DRAFT_TIER_TOKEN_BANDS.low.ceiling)
+    ? envDraftToken('JRX_DRAFT_FAST_SLA_MAX_TOKENS_LOW', DRAFT_TIER_TOKEN_BANDS.low.ceiling)
     : input.tier === 'comprehensive'
       ? envDraftToken(
-        'NYV_DRAFT_FAST_SLA_MAX_TOKENS_COMPREHENSIVE',
+        'JRX_DRAFT_FAST_SLA_MAX_TOKENS_COMPREHENSIVE',
         DRAFT_TIER_TOKEN_BANDS.comprehensive.ceiling,
       )
-      : envDraftToken('NYV_DRAFT_FAST_SLA_MAX_TOKENS', DRAFT_TIER_TOKEN_BANDS.medium.ceiling);
+      : envDraftToken('JRX_DRAFT_FAST_SLA_MAX_TOKENS', DRAFT_TIER_TOKEN_BANDS.medium.ceiling);
   return Math.min(registryTier, bandCeiling, globalRail);
 }
 
@@ -552,11 +552,11 @@ export function resolveDraftAttachmentTokenBump(
   if (!hasAttachments) return 0;
   switch (tier) {
     case 'low':
-      return envDraftToken('NYV_DRAFT_ATTACHMENT_BUMP_LOW', 1_024);
+      return envDraftToken('JRX_DRAFT_ATTACHMENT_BUMP_LOW', 1_024);
     case 'comprehensive':
-      return envDraftToken('NYV_DRAFT_ATTACHMENT_BUMP_COMPREHENSIVE', 4_096);
+      return envDraftToken('JRX_DRAFT_ATTACHMENT_BUMP_COMPREHENSIVE', 4_096);
     default:
-      return envDraftToken('NYV_DRAFT_ATTACHMENT_BUMP_MEDIUM', 2_048);
+      return envDraftToken('JRX_DRAFT_ATTACHMENT_BUMP_MEDIUM', 2_048);
   }
 }
 

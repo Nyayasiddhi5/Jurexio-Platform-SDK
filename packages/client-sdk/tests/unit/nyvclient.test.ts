@@ -1,25 +1,25 @@
 /**
- * NyvClient unit tests — @jurexio/client-sdk v5
+ * JrxClient unit tests — @jurexio/client-sdk v5
  * Tests: instantiation, config validation, API surface, method existence.
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
 
 const MOCK_API_KEY = 'nyv_test_sk_0000000000000000000000000000000000000000';
-const MOCK_BASE_URL = 'https://app.nyayavigya.in';
+const MOCK_BASE_URL = 'https://app.jurexio.com';
 
-describe('NyvClient (SDK)', () => {
+describe('JrxClient (SDK)', () => {
   describe('Module exports', () => {
-    it('exports NyvClient class', async () => {
+    it('exports JrxClient class', async () => {
       const mod = await import('../../src/index.js');
-      expect(mod.NyvClient).toBeDefined();
-      expect(typeof mod.NyvClient).toBe('function');
+      expect(mod.JrxClient).toBeDefined();
+      expect(typeof mod.JrxClient).toBe('function');
     });
 
-    it('exports NyvStreamReader class', async () => {
+    it('exports JrxStreamReader class', async () => {
       const mod = await import('../../src/index.js');
-      expect(mod.NyvStreamReader).toBeDefined();
-      expect(typeof mod.NyvStreamReader).toBe('function');
+      expect(mod.JrxStreamReader).toBeDefined();
+      expect(typeof mod.JrxStreamReader).toBe('function');
     });
 
     it('exports PatternsApi class', async () => {
@@ -53,17 +53,17 @@ describe('NyvClient (SDK)', () => {
     });
   });
 
-  describe('NyvClient instantiation', () => {
+  describe('JrxClient instantiation', () => {
     it('creates instance with apiKey and baseUrl', async () => {
-      const { NyvClient } = await import('../../src/index.js');
-      const client = new NyvClient({ apiKey: MOCK_API_KEY, baseUrl: MOCK_BASE_URL });
+      const { JrxClient } = await import('../../src/index.js');
+      const client = new JrxClient({ apiKey: MOCK_API_KEY, baseUrl: MOCK_BASE_URL });
       expect(client).toBeDefined();
-      expect(client).toBeInstanceOf(NyvClient);
+      expect(client).toBeInstanceOf(JrxClient);
     });
 
     it('exposes .patterns namespace', async () => {
-      const { NyvClient } = await import('../../src/index.js');
-      const client = new NyvClient({ apiKey: MOCK_API_KEY, baseUrl: MOCK_BASE_URL });
+      const { JrxClient } = await import('../../src/index.js');
+      const client = new JrxClient({ apiKey: MOCK_API_KEY, baseUrl: MOCK_BASE_URL });
       expect(client.patterns).toBeDefined();
       expect(typeof client.patterns.react).toBe('function');
       expect(typeof client.patterns.cot).toBe('function');
@@ -72,42 +72,42 @@ describe('NyvClient (SDK)', () => {
     });
 
     it('exposes .documents namespace', async () => {
-      const { NyvClient } = await import('../../src/index.js');
-      const client = new NyvClient({ apiKey: MOCK_API_KEY, baseUrl: MOCK_BASE_URL });
+      const { JrxClient } = await import('../../src/index.js');
+      const client = new JrxClient({ apiKey: MOCK_API_KEY, baseUrl: MOCK_BASE_URL });
       expect(client.documents).toBeDefined();
       expect(typeof client.documents.list).toBe('function');
     });
 
     it('exposes .agents namespace', async () => {
-      const { NyvClient } = await import('../../src/index.js');
-      const client = new NyvClient({ apiKey: MOCK_API_KEY, baseUrl: MOCK_BASE_URL });
+      const { JrxClient } = await import('../../src/index.js');
+      const client = new JrxClient({ apiKey: MOCK_API_KEY, baseUrl: MOCK_BASE_URL });
       expect(client.agents).toBeDefined();
     });
 
     it('exposes .stream namespace', async () => {
-      const { NyvClient } = await import('../../src/index.js');
-      const client = new NyvClient({ apiKey: MOCK_API_KEY, baseUrl: MOCK_BASE_URL });
+      const { JrxClient } = await import('../../src/index.js');
+      const client = new JrxClient({ apiKey: MOCK_API_KEY, baseUrl: MOCK_BASE_URL });
       expect(client.stream).toBeDefined();
       expect(typeof client.stream.streamPattern).toBe('function');
     });
 
     it('exposes .twins namespace', async () => {
-      const { NyvClient } = await import('../../src/index.js');
-      const client = new NyvClient({ apiKey: MOCK_API_KEY, baseUrl: MOCK_BASE_URL });
+      const { JrxClient } = await import('../../src/index.js');
+      const client = new JrxClient({ apiKey: MOCK_API_KEY, baseUrl: MOCK_BASE_URL });
       expect(client.twins).toBeDefined();
       expect(typeof client.twins.create).toBe('function');
       expect(typeof client.twins.simulate).toBe('function');
     });
 
     it('exposes .ask() convenience method', async () => {
-      const { NyvClient } = await import('../../src/index.js');
-      const client = new NyvClient({ apiKey: MOCK_API_KEY, baseUrl: MOCK_BASE_URL });
+      const { JrxClient } = await import('../../src/index.js');
+      const client = new JrxClient({ apiKey: MOCK_API_KEY, baseUrl: MOCK_BASE_URL });
       expect(typeof client.ask).toBe('function');
     });
 
     it('exposes NSP partner API namespaces', async () => {
-      const { NyvClient } = await import('../../src/index.js');
-      const client = new NyvClient({
+      const { JrxClient } = await import('../../src/index.js');
+      const client = new JrxClient({
         apiKey: MOCK_API_KEY,
         baseUrl: MOCK_BASE_URL,
         platformClient: 'nyayasiddhi-professional/1.0.0',
@@ -127,19 +127,19 @@ describe('NyvClient (SDK)', () => {
     });
   });
 
-  describe('NyvClient configuration', () => {
+  describe('JrxClient configuration', () => {
     it('normalises baseUrl by stripping trailing slash', async () => {
-      const { NyvClient } = await import('../../src/index.js');
-      const client = new NyvClient({
+      const { JrxClient } = await import('../../src/index.js');
+      const client = new JrxClient({
         apiKey: MOCK_API_KEY,
-        baseUrl: 'https://app.nyayavigya.in/',
+        baseUrl: 'https://app.jurexio.com/',
       });
       expect(client).toBeDefined();
     });
 
     it('accepts optional jurisdiction default', async () => {
-      const { NyvClient } = await import('../../src/index.js');
-      const client = new NyvClient({
+      const { JrxClient } = await import('../../src/index.js');
+      const client = new JrxClient({
         apiKey: MOCK_API_KEY,
         baseUrl: MOCK_BASE_URL,
         defaultJurisdiction: 'UK',
@@ -148,8 +148,8 @@ describe('NyvClient (SDK)', () => {
     });
 
     it('accepts optional timeout and orchestrate timeout', async () => {
-      const { NyvClient } = await import('../../src/index.js');
-      const client = new NyvClient({
+      const { JrxClient } = await import('../../src/index.js');
+      const client = new JrxClient({
         apiKey: MOCK_API_KEY,
         baseUrl: MOCK_BASE_URL,
         timeout: 30_000,

@@ -8,7 +8,7 @@
  * how many catalog models it carries.
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export interface ProviderReadiness {
   id: string;
@@ -33,7 +33,7 @@ export interface ProvidersResponse {
 }
 
 export class ModelsApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   /**
    * Per-provider readiness matrix (allowed + inactive), env-key requirements

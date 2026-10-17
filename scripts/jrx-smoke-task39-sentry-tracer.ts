@@ -1,11 +1,11 @@
 /**
  * Task #39 smoke — verify Queen tracer flips to Sentry backend.
  *
- * Black-box runtime check that exercises `src/utils/nyv-tracer.ts`
+ * Black-box runtime check that exercises `src/utils/jrx-tracer.ts`
  * twice in a child process per mode:
  *
- *   1. With NYV_SENTRY_DSN unset → expect `backend: "jsonl"`.
- *   2. With NYV_SENTRY_DSN set    → expect `backend: "sentry"` and
+ *   1. With JRX_SENTRY_DSN unset → expect `backend: "jsonl"`.
+ *   2. With JRX_SENTRY_DSN set    → expect `backend: "sentry"` and
  *      every started span reports `sentryBacked: true`.
  *
  * This proves Task #39's contract:
@@ -15,7 +15,7 @@
  *   - `startSpan(...)` mirrors into Sentry as an inactive span
  *
  * Usage:
- *   cd nyayavigya-platform-312
+ *   cd Jurexio-Platform-SDK
  *   npx tsx scripts/jrx-smoke-task39-sentry-tracer.ts
  *
  * Exits non-zero on any assertion failure.
@@ -24,7 +24,7 @@
 import { spawnSync } from 'child_process';
 import path from 'path';
 
-const TRACER_PATH = path.resolve(import.meta.dirname, '../src/utils/nyv-tracer.ts');
+const TRACER_PATH = path.resolve(import.meta.dirname, '../src/utils/jrx-tracer.ts');
 
 const PROBE = `
 import { initTracer, getTracerStatus, startSpan, _resetSpanLatencies } from ${JSON.stringify(TRACER_PATH)};
@@ -89,7 +89,7 @@ function assertEq<T>(label: string, actual: T, expected: T): void {
   console.log('Task #39 smoke — Sentry tracer flip\n');
 
   console.log('[1/2] No DSN → JSONL fallback');
-  const jsonl = runProbe({ NYV_SENTRY_DSN: '', SENTRY_DSN: '' });
+  const jsonl = runProbe({ JRX_SENTRY_DSN: '', SENTRY_DSN: '' });
   assertEq('backend', jsonl.backend, 'jsonl');
   assertEq('dsnConfigured', jsonl.dsnConfigured, false);
   assertEq('root.sentryBacked', jsonl.rootSentryBacked, false);
@@ -97,7 +97,7 @@ function assertEq<T>(label: string, actual: T, expected: T): void {
 
   console.log('\n[2/2] DSN set → Sentry backend active');
   const sentry = runProbe({
-    NYV_SENTRY_DSN: 'https://abc123@o0.ingest.sentry.io/0',
+    JRX_SENTRY_DSN: 'https://abc123@o0.ingest.sentry.io/0',
     SENTRY_DSN: '',
   });
   assertEq('backend', sentry.backend, 'sentry');

@@ -293,7 +293,7 @@ export class TesseractNativeEngine implements OcrEngine {
     const t0 = performance.now();
     const notes: string[] = [];
     const langs = await this.langsFor(req.script);
-    const dir = await mkdtemp(join(tmpdir(), "nyv-ocr-"));
+    const dir = await mkdtemp(join(tmpdir(), "jrx-ocr-"));
     const base = join(dir, "out");
 
     try {

@@ -1,5 +1,5 @@
 /**
- * Nyayavigya Platform — Internal Security Posture Catalog Seeder
+ * Jurexio Platform — Internal Security Posture Catalog Seeder
  * Seeds nv_internal_security_controls + nv_security_key_rotations + nv_certificates +
  * nv_data_governance_records with the platform's own operational security state.
  *
@@ -49,10 +49,10 @@ interface InternalControl {
 
 const CONTROLS: InternalControl[] = [
   // Identity & Access (12)
-  { code:'IAM-001', category:'Identity & Access', title:'JWT signing key (HS512) rotation', description:'NYV_JWT_SECRET rotated quarterly with overlap window; refresh secret rotated independently (NYV_JWT_REFRESH_SECRET).', status:'active', maturity:'measured', owner_team:'Platform Security', frequency:'90d', framework_refs:['SOC2-TSC:CC6.1','ISO-27001:A.8.5','NIST-AI-RMF:GOVERN-1.2','FTC-SAFEGUARDS:16-CFR-314.4(c)'] },
+  { code:'IAM-001', category:'Identity & Access', title:'JWT signing key (HS512) rotation', description:'JRX_JWT_SECRET rotated quarterly with overlap window; refresh secret rotated independently (JRX_JWT_REFRESH_SECRET).', status:'active', maturity:'measured', owner_team:'Platform Security', frequency:'90d', framework_refs:['SOC2-TSC:CC6.1','ISO-27001:A.8.5','NIST-AI-RMF:GOVERN-1.2','FTC-SAFEGUARDS:16-CFR-314.4(c)'] },
   { code:'IAM-002', category:'Identity & Access', title:'SDK API key rotation', description:'7 platform SDK keys (NSP/NSPM/NSI/NSA/NSM/NYM/JRX) tracked in env-secrets; client-facing rotation 180d, emergency rotate via /api/jrx/auth/rotate.', status:'active', maturity:'measured', owner_team:'Platform Security', frequency:'180d', framework_refs:['SOC2-TSC:CC6.1','ISO-27001:A.8.4','FTC-SAFEGUARDS:16-CFR-314.4(c)'] },
   { code:'IAM-003', category:'Identity & Access', title:'Password policy', description:'Minimum 12 chars, mixed case + digit + symbol, MFA mandatory for org_admin/super_admin, bcrypt cost 12.', status:'active', maturity:'defined', owner_team:'Platform Security', frequency:'continuous', framework_refs:['SOC2-TSC:CC6.1','HIPAA:164.308(a)(5)','ISO-27001:A.5.17','FTC-SAFEGUARDS:16-CFR-314.4(c)(5)'] },
-  { code:'IAM-004', category:'Identity & Access', title:'RBAC role hierarchy', description:'7-tier role model (super_admin > org_admin > manager > analyst > operator > user > readonly) enforced via ProtectedRoute + nv-auth-middleware.', status:'active', maturity:'defined', owner_team:'Platform Security', frequency:'continuous', framework_refs:['SOC2-TSC:CC6.3','ISO-27001:A.5.15'] },
+  { code:'IAM-004', category:'Identity & Access', title:'RBAC role hierarchy', description:'7-tier role model (super_admin > org_admin > manager > analyst > operator > user > readonly) enforced via ProtectedRoute + jrx-auth-middleware.', status:'active', maturity:'defined', owner_team:'Platform Security', frequency:'continuous', framework_refs:['SOC2-TSC:CC6.3','ISO-27001:A.5.15'] },
   { code:'IAM-005', category:'Identity & Access', title:'Session timeout & rotation', description:'JWT TTL 15m access + 7d refresh; sliding refresh; revoke-on-logout via nv_sessions.', status:'active', maturity:'managed', owner_team:'Platform Security', frequency:'continuous', framework_refs:['SOC2-TSC:CC6.1','HIPAA:164.312(a)','FTC-SAFEGUARDS:16-CFR-314.4(c)'] },
   { code:'IAM-006', category:'Identity & Access', title:'MFA for privileged accounts', description:'TOTP (RFC 6238) mandatory for org_admin, super_admin, billing_admin.', status:'active', maturity:'measured', owner_team:'Platform Security', frequency:'continuous', framework_refs:['NIST-AI-RMF:GOVERN-1.2','SOC2-TSC:CC6.6'] },
   { code:'IAM-007', category:'Identity & Access', title:'Service-account least-privilege', description:'Per-microservice IAM roles; no shared credentials; AWS IAM with permission boundaries.', status:'active', maturity:'measured', owner_team:'Platform Security', frequency:'90d review', framework_refs:['ISO-27001:A.5.18','SOC2-TSC:CC6.1','FTC-SAFEGUARDS:16-CFR-314.4(c)(1)'] },
@@ -75,7 +75,7 @@ const CONTROLS: InternalControl[] = [
   { code:'CRY-010', category:'Cryptography', title:'Quantum-safe roadmap', description:'Migration plan to ML-KEM (FIPS 203) and ML-DSA (FIPS 204) tracked; current posture hybrid X25519.', status:'planned', maturity:'initial', owner_team:'Platform Security', frequency:'review-quarterly', framework_refs:['NIST-AI-RMF:GOVERN-1.1'] },
 
   // Data Governance & PII (12)
-  { code:'DAT-001', category:'Data Governance', title:'PII redaction before LLM call', description:'redactPII() runs in nv-sdk-orchestration-wrapper before any external LLM provider; never raw PII in prompts.', status:'active', maturity:'optimised', owner_team:'AI Safety', frequency:'continuous', framework_refs:['DPDP-2023:§4','GDPR:Art-25','HIPAA:164.502','CCPA-CPRA:1798.100'] },
+  { code:'DAT-001', category:'Data Governance', title:'PII redaction before LLM call', description:'redactPII() runs in jrx-sdk-orchestration-wrapper before any external LLM provider; never raw PII in prompts.', status:'active', maturity:'optimised', owner_team:'AI Safety', frequency:'continuous', framework_refs:['DPDP-2023:§4','GDPR:Art-25','HIPAA:164.502','CCPA-CPRA:1798.100'] },
   { code:'DAT-002', category:'Data Governance', title:'Tenant isolation', description:'Row-Level Security via orgId column on all multi-tenant tables; tenantIsolation middleware enforces request scope.', status:'active', maturity:'measured', owner_team:'Platform Security', frequency:'continuous', framework_refs:['SOC2-TSC:CC6.1','HIPAA:164.312(a)','FTC-SAFEGUARDS:16-CFR-314.4(c)(1)'] },
   { code:'DAT-003', category:'Data Governance', title:'Data residency by jurisdiction', description:'IN tenants on ap-south-1; EU tenants on eu-west-1 (planned); US tenants on us-east-1 (JRX cutover planned).', status:'planned', maturity:'managed', owner_team:'Platform Infra', frequency:'continuous', framework_refs:['DPDP-2023:§16','GDPR:Art-44','UAE-PDPL:UAE-Art21'] },
   { code:'DAT-004', category:'Data Governance', title:'Retention policy enforcement', description:'Per-table retention windows with daily purge job; legal hold flag overrides.', status:'active', maturity:'managed', owner_team:'Compliance', frequency:'24h', framework_refs:['GDPR:Art-5','DPDP-2023:§8','HIPAA:164.530'] },
@@ -156,24 +156,24 @@ const CONTROLS: InternalControl[] = [
   { code:'COM-005', category:'Compliance Ops', title:'Records of Processing (RoPA)', description:'Article-30 register kept current; per-org export.', status:'active', maturity:'managed', owner_team:'Compliance', frequency:'continuous', framework_refs:['GDPR:Art-30'] },
   { code:'COM-006', category:'Compliance Ops', title:'AI-Act FRIA workflow', description:'Fundamental Rights Impact Assessment for high-risk AI deployments; archived.', status:'active', maturity:'defined', owner_team:'Compliance', frequency:'on-need', framework_refs:['EU-AI-ACT:Art-27'] },
   { code:'COM-007', category:'Compliance Ops', title:'Regulator-notification matrix', description:'Per-jurisdiction notification windows codified (GDPR 72h, DPDP 72h, HIPAA 60d, CCPA without unreasonable delay).', status:'active', maturity:'managed', owner_team:'Legal', frequency:'continuous', framework_refs:['GDPR:Art-33','DPDP-2023:§8','HIPAA:164.408'] },
-  { code:'COM-008', category:'Compliance Ops', title:'Customer trust portal', description:'Public trust.nyayasiddhi.online lists active certifications, sub-processors, and incident history.', status:'active', maturity:'managed', owner_team:'Compliance', frequency:'continuous', framework_refs:['SOC2-TSC:CC2.3'] },
+  { code:'COM-008', category:'Compliance Ops', title:'Customer trust portal', description:'Public trust.jurexio.com lists active certifications, sub-processors, and incident history.', status:'active', maturity:'managed', owner_team:'Compliance', frequency:'continuous', framework_refs:['SOC2-TSC:CC2.3'] },
 ];
 
 // Real cert + key + dataset state
 const KEY_ROTATIONS = [
-  { kind:'jwt-access',     label:'NYV_JWT_SECRET',          status:'success', notes:'HS512; quarterly rotation', daysAgo: 18 },
-  { kind:'jwt-refresh',    label:'NYV_JWT_REFRESH_SECRET',  status:'success', notes:'HS512; independent of access', daysAgo: 18 },
+  { kind:'jwt-access',     label:'JRX_JWT_SECRET',          status:'success', notes:'HS512; quarterly rotation', daysAgo: 18 },
+  { kind:'jwt-refresh',    label:'JRX_JWT_REFRESH_SECRET',  status:'success', notes:'HS512; independent of access', daysAgo: 18 },
   { kind:'pii-encryption', label:'NV_PII_ENCRYPTION_KEY',   status:'success', notes:'AES-256-CTR + HMAC-SHA256', daysAgo: 32 },
-  { kind:'sdk-key',        label:'NYV_SDK_KEY_NSP',         status:'success', notes:'Solo+SMB platform key', daysAgo: 7 },
-  { kind:'sdk-key',        label:'NYV_SDK_KEY_NSPM',        status:'success', notes:'Government tier', daysAgo: 7 },
-  { kind:'sdk-key',        label:'NYV_SDK_KEY_NSI',         status:'success', notes:'Institutional tier', daysAgo: 7 },
-  { kind:'sdk-key',        label:'NYV_SDK_KEY_NSA',         status:'success', notes:'Academy tier', daysAgo: 7 },
-  { kind:'sdk-key',        label:'NYV_SDK_KEY_NSM',         status:'success', notes:'Ministry tier', daysAgo: 7 },
-  { kind:'sdk-key',        label:'NYV_SDK_KEY_NYM',         status:'success', notes:'Citizen tier', daysAgo: 7 },
-  { kind:'sdk-key',        label:'NYV_SDK_KEY_JRX',         status:'success', notes:'Jurixio US tier', daysAgo: 7 },
+  { kind:'sdk-key',        label:'JRX_SDK_KEY_NSP',         status:'success', notes:'Solo+SMB platform key', daysAgo: 7 },
+  { kind:'sdk-key',        label:'JRX_SDK_KEY_NSPM',        status:'success', notes:'Government tier', daysAgo: 7 },
+  { kind:'sdk-key',        label:'JRX_SDK_KEY_NSI',         status:'success', notes:'Institutional tier', daysAgo: 7 },
+  { kind:'sdk-key',        label:'JRX_SDK_KEY_NSA',         status:'success', notes:'Academy tier', daysAgo: 7 },
+  { kind:'sdk-key',        label:'JRX_SDK_KEY_NSM',         status:'success', notes:'Ministry tier', daysAgo: 7 },
+  { kind:'sdk-key',        label:'JRX_SDK_KEY_NYM',         status:'success', notes:'Citizen tier', daysAgo: 7 },
+  { kind:'sdk-key',        label:'JRX_SDK_KEY_JRX',         status:'success', notes:'Jurixio US tier', daysAgo: 7 },
   { kind:'aws-iam',        label:'AWS_ACCESS_KEY_ID',       status:'success', notes:'Service account; 90d cadence', daysAgo: 41 },
   { kind:'kms-cmk',        label:'arn:aws:kms:.../alias/jrx-rds', status:'success', notes:'Auto-rotate annually', daysAgo: 162 },
-  { kind:'redis-auth',     label:'NYV_REDIS_TCP_URL',       status:'success', notes:'ElastiCache AUTH token', daysAgo: 23 },
+  { kind:'redis-auth',     label:'JRX_REDIS_TCP_URL',       status:'success', notes:'ElastiCache AUTH token', daysAgo: 23 },
   { kind:'provider',       label:'OPENAI_API_KEY',          status:'success', notes:'180d cadence; failover to anthropic on rotate', daysAgo: 64 },
   { kind:'provider',       label:'ANTHROPIC_API_KEY',       status:'success', notes:'180d cadence', daysAgo: 64 },
   { kind:'provider',       label:'OPENROUTER_API_KEY',      status:'success', notes:'180d cadence', daysAgo: 64 },
@@ -181,11 +181,11 @@ const KEY_ROTATIONS = [
 ];
 
 const CERTS = [
-  { name:'console.nyayasiddhi.online',  scope:'Console UI', issuer:'Amazon RSA 2048 M02', subject:'CN=console.nyayasiddhi.online', daysAgo:14, validityDays:395 },
-  { name:'api.nyayasiddhi.online',      scope:'Gateway API', issuer:'Amazon RSA 2048 M02', subject:'CN=api.nyayasiddhi.online', daysAgo:14, validityDays:395 },
-  { name:'nym.nyayasiddhi.online',      scope:'Citizen platform', issuer:'Amazon RSA 2048 M02', subject:'CN=nym.nyayasiddhi.online', daysAgo:14, validityDays:395 },
-  { name:'www.nyayasiddhi.online',      scope:'Marketing site', issuer:'Amazon RSA 2048 M02', subject:'CN=www.nyayasiddhi.online', daysAgo:14, validityDays:395 },
-  { name:'nyayasiddhi.online',          scope:'Apex domain', issuer:'Amazon RSA 2048 M02', subject:'CN=nyayasiddhi.online', daysAgo:14, validityDays:395 },
+  { name:'console.jurexio.com',  scope:'Console UI', issuer:'Amazon RSA 2048 M02', subject:'CN=console.jurexio.com', daysAgo:14, validityDays:395 },
+  { name:'api.jurexio.com',      scope:'Gateway API', issuer:'Amazon RSA 2048 M02', subject:'CN=api.jurexio.com', daysAgo:14, validityDays:395 },
+  { name:'nym.jurexio.com',      scope:'Citizen platform', issuer:'Amazon RSA 2048 M02', subject:'CN=nym.jurexio.com', daysAgo:14, validityDays:395 },
+  { name:'www.jurexio.com',      scope:'Marketing site', issuer:'Amazon RSA 2048 M02', subject:'CN=www.jurexio.com', daysAgo:14, validityDays:395 },
+  { name:'jurexio.com',          scope:'Apex domain', issuer:'Amazon RSA 2048 M02', subject:'CN=jurexio.com', daysAgo:14, validityDays:395 },
   { name:'rds-ap-south-1-bundle',       scope:'RDS verify-full CA bundle', issuer:'Amazon RDS Root 2019 CA', subject:'rds.amazonaws.com', daysAgo:200, validityDays:1825 },
 ];
 
@@ -245,7 +245,7 @@ async function seed() {
         (key_kind, key_label, rotation_at, rotated_by, next_rotation_at, status, notes)
       VALUES
         (${k.kind}, ${k.label}, NOW() - (${k.daysAgo} * interval '1 day'),
-         'platform-security@nyayavigya', NOW() + interval '90 days', ${k.status}, ${k.notes})
+         'platform-security@jurexio', NOW() + interval '90 days', ${k.status}, ${k.notes})
     `;
   }
   console.log(`    ✓ ${KEY_ROTATIONS.length} key-rotation events`);

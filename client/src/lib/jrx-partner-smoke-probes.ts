@@ -32,7 +32,7 @@ export const NV_PARTNER_SMOKE_PROBES: PartnerSmokeProbe[] = [
 ];
 
 export const PLATFORM_LABELS: Record<PartnerSmokeProbe['platform'], string> = {
-  core: 'NYV Core',
+  core: 'JRX Core',
   nsp: 'NSP',
   nym: 'NYM',
   jrx: 'JRX',

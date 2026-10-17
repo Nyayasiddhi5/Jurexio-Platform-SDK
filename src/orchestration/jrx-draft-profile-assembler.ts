@@ -1,12 +1,12 @@
 /**
  * NV-DRAFT-PROFILE-ASSEMBLER-001 — assemble the NSP `draftProfile` +
- * `validationResults[]` outbound surface from LIVE NYV SSoT.
+ * `validationResults[]` outbound surface from LIVE JRX SSoT.
  *
  * One assembler, no second scoring pass (NV-NO-DUPLICATE-001): it composes the
  * already-computed `structureMarkers`, the filing-checklist registry, and the
- * echoed advisory `filingContext`. Limitation (`nv-nyayatimeline-service` schedule)
- * and court-fee (shared `nv-court-fee` slab) are now emitted as advisory profiles
- * with honest applicability flags — resolved from LIVE NYV SSoT, never invented
+ * echoed advisory `filingContext`. Limitation (`jrx-nyayatimeline-service` schedule)
+ * and court-fee (shared `jrx-court-fee` slab) are now emitted as advisory profiles
+ * with honest applicability flags — resolved from LIVE JRX SSoT, never invented
  * (NV-DRAFT-PROFILE-LIMITATION-001 / -COURTFEE-001). `formattedBlocks[]` are the
  * deterministic ready-to-insert enclosure / limitation / fee / service texts.
  *
@@ -28,7 +28,7 @@ import type { FilingContextHint } from '../services/jrx-filing-context-hint.js';
 import { NV_TEMPLATE_KEY_CROSSWALK } from '../config/jrx-filing-book-crosswalk.js';
 import { hintAppealMaintainability } from '../config/jrx-cpc-appealable-orders-pack.js';
 import { computeCourtFee } from '../services/jrx-court-fee.js';
-import { resolveLimitationRule } from '../services/nyaya-tools/jrx-nyayatimeline-service.js';
+import { resolveLimitationRule } from '../services/jrx-legal-tools/jrx-nyayatimeline-service.js';
 
 export type DraftValidationStatus = 'pass' | 'warn' | 'fail' | 'na';
 
@@ -37,7 +37,7 @@ export interface DraftValidationResult {
   label: string;
   status: DraftValidationStatus;
   detail?: string;
-  /** Which NYV layer produced this item (structureMarkers | filingChecklist | filingContext). */
+  /** Which JRX layer produced this item (structureMarkers | filingChecklist | filingContext). */
   source: string;
 }
 
@@ -46,7 +46,7 @@ export type DraftServiceMode = 'personal' | 'rpad' | 'affixation' | 'email' | 'p
 /**
  * NV-DRAFT-PROFILE-LIMITATION-001 — advisory limitation RULE for the draft.
  *
- * Emitted only when NYV can resolve a cause of action (from an explicit
+ * Emitted only when JRX can resolve a cause of action (from an explicit
  * `filingContext.causeOfActionKey` / `limitationRuleKey`, or the nvTemplateKey /
  * doctype map). The dated `computed` block appears only when an accrual date was
  * supplied. Never invents a period — `applicable:false` when unresolved.
@@ -91,7 +91,7 @@ export interface DraftCourtFeeProfile {
   note: string;
   source: 'court-fee-calc' | 'schedule-reference' | 'not-applicable';
   /**
-   * Present when a fee may apply but NYV cannot compute a State-specific amount
+   * Present when a fee may apply but JRX cannot compute a State-specific amount
    * (per-state court-fee tables not ingested — NV-BOOK-SME-WAVE-D-001).
    */
   unavailableReason?: string;
@@ -137,13 +137,13 @@ export function resolveNi138StatutoryNoticeContext(input: {
 }
 
 /**
- * NV-DRAFT-INTENT-PROMPT-001 — how NYV resolved the drafting intent when NSP
- * omitted `documentType` / `filingContext`. Surfaced so NSP can show a "NYV
+ * NV-DRAFT-INTENT-PROMPT-001 — how JRX resolved the drafting intent when NSP
+ * omitted `documentType` / `filingContext`. Surfaced so NSP can show a "JRX
  * inferred this" badge and offer a correction affordance.
  */
 export interface DraftIntentResolutionEcho {
   docType: DraftDocumentType;
-  /** Fine-grained FB-468 key NYV inferred (drives the enclosure checklist). */
+  /** Fine-grained FB-468 key JRX inferred (drives the enclosure checklist). */
   nvTemplateKey?: string;
   confidence: number;
   rationale: string[];
@@ -160,9 +160,9 @@ export interface DraftProfile {
   templateKey?: string;
   /** Echoed NSP filing-book row provenance. */
   filingBookRowId?: string;
-  /** NSP manifest version, or the NYV manifest stamp when NSP omits it. */
+  /** NSP manifest version, or the JRX manifest stamp when NSP omits it. */
   filingBookVersion: string;
-  /** NYV filing-book manifest stamp the checklist rows were seeded from. */
+  /** JRX filing-book manifest stamp the checklist rows were seeded from. */
   manifestVersion: string;
   filingChecklist: FilingChecklistItem[];
   /** Only for notices/summons — the service modes counsel may use. */
@@ -175,7 +175,7 @@ export interface DraftProfile {
   formattedBlocks?: DraftFormattedBlock[];
   /**
    * Advisory hints echoed back so NSP can reconcile its local fallback. Present
-   * only when NSP supplied them; NYV treats them as advisory, never authority.
+   * only when NSP supplied them; JRX treats them as advisory, never authority.
    */
   advisory?: {
     nvTemplateKey?: string;
@@ -190,13 +190,13 @@ export interface DraftProfile {
     note: string;
   };
   /**
-   * NV-DRAFT-INTENT-PROMPT-001 — present when NYV had to resolve the drafting
+   * NV-DRAFT-INTENT-PROMPT-001 — present when JRX had to resolve the drafting
    * intent itself (prompt heuristic or fallback), rather than take an explicit
    * partner wire value. Omitted for clean explicit-type requests.
    */
   intentResolution?: DraftIntentResolutionEcho;
   /**
-   * NV-DRAFT-INTENT-PROMPT-001 — why NYV emitted a DEFAULT / inferred envelope
+   * NV-DRAFT-INTENT-PROMPT-001 — why JRX emitted a DEFAULT / inferred envelope
    * instead of an NSP-directed one (no filingContext, unrecognised type, or
    * low-confidence coarse fallback). Absent on the clean, fully-specified path.
    */
@@ -293,7 +293,7 @@ function buildLimitationProfile(
       note:
         'No single limitation rule could be resolved for this draft — supply '
         + '`filingContext.causeOfActionKey` (e.g. "contract-breach", "cheque-bounce") '
-        + 'for an advisory limitation statement. NYV never assumes a period.',
+        + 'for an advisory limitation statement. JRX never assumes a period.',
       source: 'unresolved',
     };
   }
@@ -405,7 +405,7 @@ function buildCourtFeeProfile(
   const stateScheduleRequested =
     filingContext?.feeScheduleKey && !/central|1870|generic/i.test(filingContext.feeScheduleKey);
   const unavailableReason =
-    'Per-state court-fee and suits-valuation tables are not loaded in NYV (generic Court Fees Act 1870 slab only). '
+    'Per-state court-fee and suits-valuation tables are not loaded in JRX (generic Court Fees Act 1870 slab only). '
     + 'Verify stamp duty, vakalatnama fee, and ad-valorem fee with the court registry or State schedule before filing.';
 
   return {
@@ -563,7 +563,7 @@ export function assembleDraftProfile(input: {
   filingContext?: FilingContextHint;
   /**
    * NV-DRAFT-INTENT-PROMPT-001 — how the documentType was resolved. When NSP
-   * omitted `filingContext.nvTemplateKey` but NYV inferred a fine-grained key
+   * omitted `filingContext.nvTemplateKey` but JRX inferred a fine-grained key
    * from the prompt, it is used to select the enclosure manifest and is echoed
    * on `draftProfile.intentResolution` with a `fallbackReason`.
    */
@@ -571,7 +571,7 @@ export function assembleDraftProfile(input: {
 }): DraftProfileAssembly {
   const { documentType, structureMarkers, filingContext, documentTypeResolution } = input;
 
-  // Prefer the advisory NSP key; else fall back to a key NYV inferred from the
+  // Prefer the advisory NSP key; else fall back to a key JRX inferred from the
   // prompt so the fine-grained enclosure manifest still applies fail-open.
   const effectiveNvTemplateKey =
     filingContext?.nvTemplateKey ?? documentTypeResolution?.nvTemplateKey;
@@ -599,14 +599,14 @@ export function assembleDraftProfile(input: {
     });
   }
 
-  // Drift reconciliation — NSP-supplied expectations vs NYV registry (advisory).
+  // Drift reconciliation — NSP-supplied expectations vs JRX registry (advisory).
   if (filingContext?.expectedSections && filingContext.expectedSections.length > 0) {
     validationResults.push({
       id: 'filing.expectedSections',
       label: 'Partner-supplied section expectations reconciled',
       status: 'na',
       detail:
-        'NSP `mandatorySections` treated as advisory; NYV structure/validation is authoritative '
+        'NSP `mandatorySections` treated as advisory; JRX structure/validation is authoritative '
         + `(${filingContext.expectedSections.length} expected section hint(s) received).`,
       source: 'filingContext',
     });
@@ -615,7 +615,7 @@ export function assembleDraftProfile(input: {
   const serviceModes = isNoticeDocumentType(documentType) ? [...NOTICE_SERVICE_MODES] : undefined;
 
   /* NV-DRAFT-PROFILE-LIMITATION-001 / -COURTFEE-001 — advisory limitation + court
-   * fee resolved from LIVE NYV SSoT (nyayatimeline schedule + shared court-fee
+   * fee resolved from LIVE JRX SSoT (nyayatimeline schedule + shared court-fee
    * formula). Emitted with honest applicability flags; never invented. */
   const limitation = buildLimitationProfile(documentType, effectiveNvTemplateKey, filingContext);
   const courtFee = buildCourtFeeProfile(documentType, filingContext);
@@ -695,12 +695,12 @@ export function assembleDraftProfile(input: {
       ...(filingContext.expectedSections ? { expectedSections: filingContext.expectedSections } : {}),
       ...(filingContext.expectedAnnexures ? { expectedAnnexures: filingContext.expectedAnnexures } : {}),
       advisoryOnly: filingContext.advisoryOnly,
-      note: 'Advisory hints echoed from NSP filingContext — NYV structureMarkers / filingChecklist are authoritative.',
+      note: 'Advisory hints echoed from NSP filingContext — JRX structureMarkers / filingChecklist are authoritative.',
     };
   }
 
-  /* NV-DRAFT-INTENT-PROMPT-001 — echo how NYV resolved intent + why a DEFAULT /
-   * inferred envelope was produced. Only when NYV actually had to infer, or when
+  /* NV-DRAFT-INTENT-PROMPT-001 — echo how JRX resolved intent + why a DEFAULT /
+   * inferred envelope was produced. Only when JRX actually had to infer, or when
    * NSP supplied no filingContext (default structure envelope path §C). */
   if (documentTypeResolution) {
     const r = documentTypeResolution;
@@ -735,7 +735,7 @@ export function assembleDraftProfile(input: {
     }
     if (!filingContext) {
       reasons.push(
-        'No NSP filingContext supplied — NYV applied its own Indian structure checklist and '
+        'No NSP filingContext supplied — JRX applied its own Indian structure checklist and '
         + `${checklist.fromManifest ? 'a fine-grained' : 'a coarse doctype'} enclosure checklist.`,
       );
     }

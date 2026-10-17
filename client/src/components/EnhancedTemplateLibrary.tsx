@@ -83,7 +83,7 @@ export default function EnhancedTemplateLibrary() {
     const initializeTemplateData = async () => {
       try {
         // Try to fetch real templates from Jurexio orchestration
-        const response = await apiRequest('/api/nyayavigya/templates/library');
+        const response = await apiRequest('/api/jurexio/templates/library');
         setTemplates(response.templates);
         setCategories(response.categories);
         setMetrics(response.metrics);
@@ -119,8 +119,8 @@ export default function EnhancedTemplateLibrary() {
       author: 'Jurexio DevStudio',
       authorType: 'official',
       thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400',
-      demoUrl: 'https://saas-demo.nyayavigya-devstudio.com',
-      githubUrl: 'https://github.com/nyayavigya-devstudio/saas-template',
+      demoUrl: 'https://saas-demo.jurexio-devstudio.com',
+      githubUrl: 'https://github.com/jurexio-devstudio/saas-template',
       price: 'premium',
       tags: ['SaaS', 'Enterprise', 'Multi-tenant', 'Payments', 'Analytics'],
       aiGenerated: false,
@@ -258,7 +258,7 @@ export default function EnhancedTemplateLibrary() {
     setIsGenerating(true);
 
     try {
-      const response = await apiRequest('/api/nyayavigya/templates/generate', {
+      const response = await apiRequest('/api/jurexio/templates/generate', {
         method: 'POST',
         body: JSON.stringify({
           prompt: generationPrompt,
@@ -347,7 +347,7 @@ export default function EnhancedTemplateLibrary() {
   // Download template
   const downloadTemplate = async (templateId: string) => {
     try {
-      await apiRequest(`/api/nyayavigya/templates/download/${templateId}`, {
+      await apiRequest(`/api/jurexio/templates/download/${templateId}`, {
         method: 'POST'
       });
 

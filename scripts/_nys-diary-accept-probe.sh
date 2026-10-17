@@ -6,7 +6,7 @@ cd /opt/nyv/api || exit 1
 KEY=$(node -e "
 const fs=require('fs');
 for (const line of fs.readFileSync('.env','utf8').split(/\n/)) {
-  if (line.startsWith('NYS_SDK_API_KEYS=')) {
+  if (line.startsWith('JRX_ECOSYSTEM_SDK_API_KEYS=')) {
     const v=line.split('=').slice(1).join('=').trim().replace(/^[\"']|[\"']$/g,'');
     console.log(v.split(',')[0].trim()); break;
   }
@@ -45,7 +45,7 @@ import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-sec
 const REGION = "ap-south-1";
 function ssl(){const p=process.env.RDS_CA_BUNDLE;if(p&&existsSync(p))return{rejectUnauthorized:true,ca:readFileSync(p,"utf8")};return{rejectUnauthorized:false};}
 const rds=new RDSClient({region:REGION});
-const inst=(await rds.send(new DescribeDBInstancesCommand({DBInstanceIdentifier:"nyv-caselaw-pg"}))).DBInstances?.[0];
+const inst=(await rds.send(new DescribeDBInstancesCommand({DBInstanceIdentifier:"jrx-caselaw-pg"}))).DBInstances?.[0];
 const creds=JSON.parse((await new SecretsManagerClient({region:REGION}).send(new GetSecretValueCommand({SecretId:inst.MasterUserSecret.SecretArn}))).SecretString??"{}");
 const pool=new pg.Pool({host:inst.Endpoint.Address,port:inst.Endpoint.Port??5432,database:inst.DBName??"nyv_caselaw",user:creds.username,password:creds.password,ssl:ssl(),max:1,statement_timeout:8000});
 for (const ct of ["sc","hc","dc"]) {
@@ -72,7 +72,7 @@ import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-sec
 const REGION = "ap-south-1";
 function ssl(){const p=process.env.RDS_CA_BUNDLE;if(p&&existsSync(p))return{rejectUnauthorized:true,ca:readFileSync(p,"utf8")};return{rejectUnauthorized:false};}
 const rds=new RDSClient({region:REGION});
-const inst=(await rds.send(new DescribeDBInstancesCommand({DBInstanceIdentifier:"nyv-caselaw-pg"}))).DBInstances?.[0];
+const inst=(await rds.send(new DescribeDBInstancesCommand({DBInstanceIdentifier:"jrx-caselaw-pg"}))).DBInstances?.[0];
 const creds=JSON.parse((await new SecretsManagerClient({region:REGION}).send(new GetSecretValueCommand({SecretId:inst.MasterUserSecret.SecretArn}))).SecretString??"{}");
 const pool=new pg.Pool({host:inst.Endpoint.Address,port:inst.Endpoint.Port??5432,database:inst.DBName??"nyv_caselaw",user:creds.username,password:creds.password,ssl:ssl(),max:1});
 const r=await pool.query(`SELECT case_no FROM judgments WHERE cnr=$1 LIMIT 1`,["TSHM010005562026"]);

@@ -14,7 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import { useToast } from '@/hooks/use-toast';
 import {
   FileText, Brain, ChevronRight, RefreshCw, Upload, AlertTriangle,
@@ -224,7 +224,7 @@ export default function IntelligenceClassify() {
           )}
 
           {!mutation.isPending && !data && (
-            <NyvEmptyState icon={FileText} title="Paste Document Text to Classify"
+            <JrxEmptyState icon={FileText} title="Paste Document Text to Classify"
               description="The Document Intelligence Agent will identify document type, extract all parties, dates, amounts, legal acts cited, and flag any risk indicators — in seconds."
               size="lg" />
           )}

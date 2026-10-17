@@ -7,7 +7,7 @@
  * Reference: docs/canonical/04-sdk-and-api-canonical-2026-05-07.md § 17
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 /**
  * Per the server (`src/routes/nv5/internal/index.ts`), each catalogue entry is
@@ -45,14 +45,14 @@ export interface ESignSessionDetail {
 }
 
 class CapabilitiesGetter {
-  constructor(protected http: NyvHttpClient, private path: string) {}
+  constructor(protected http: JrxHttpClient, private path: string) {}
   capabilities<T = CapabilitiesEnvelope>(): Promise<T> {
     return this.http.get(this.path);
   }
 }
 
 class SlmRouterSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   availability(jurisdiction: string): Promise<SlmAvailabilityResult> {
     return this.http.get(
       `/api/nv5/internal/slm-router/availability/${encodeURIComponent(jurisdiction)}`,
@@ -61,7 +61,7 @@ class SlmRouterSubApi {
 }
 
 class ESignSubApi extends CapabilitiesGetter {
-  constructor(http: NyvHttpClient) { super(http, '/api/nv5/internal/esign/capabilities'); }
+  constructor(http: JrxHttpClient) { super(http, '/api/nv5/internal/esign/capabilities'); }
   session(sessionId: string): Promise<ESignSessionDetail> {
     return this.http.get(
       `/api/nv5/internal/esign/session/${encodeURIComponent(sessionId)}`,
@@ -70,7 +70,7 @@ class ESignSubApi extends CapabilitiesGetter {
 }
 
 class AzentzeroSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   health(): Promise<{ status: 'ok' | 'degraded' | 'down'; [k: string]: unknown }> {
     return this.http.get('/api/nv5/internal/azentzero/health');
   }
@@ -95,7 +95,7 @@ export class InternalApi {
   public readonly featureFlags: CapabilitiesGetter;
   public readonly orchestrationFacade: CapabilitiesGetter;
 
-  constructor(private http: NyvHttpClient) {
+  constructor(private http: JrxHttpClient) {
     this.modelCascade = new CapabilitiesGetter(http, '/api/nv5/internal/model-cascade/capabilities');
     this.slmRouter = new SlmRouterSubApi(http);
     this.costAwareRouter = new CapabilitiesGetter(http, '/api/nv5/internal/cost-aware-router/capabilities');

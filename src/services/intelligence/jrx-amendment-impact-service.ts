@@ -3,7 +3,7 @@
  * No fake gazette IDs. Empty results carry reason: no_recorded_amendments.
  */
 import { createLogger } from '../../utils/logger.js';
-import { nvNyayaAmendService } from '../nyaya-tools/jrx-nyayaamend-service.js';
+import { nvNyayaAmendService } from '../jrx-legal-tools/jrx-nyayaamend-service.js';
 
 const logger = createLogger('./jrx-amendment-impact-service');
 

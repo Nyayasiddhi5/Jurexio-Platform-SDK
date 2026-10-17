@@ -6,12 +6,12 @@ import {
 } from '../../src/utils/jrx-language-provider.js';
 
 const KEYS = [
-  'NYV_LANGUAGE_PROVIDER',
-  'NYV_SARVAM_ENABLED',
-  'NYV_SARVAM_STT_ENABLED',
-  'NYV_SARVAM_TTS_ENABLED',
+  'JRX_LANGUAGE_PROVIDER',
+  'JRX_SARVAM_ENABLED',
+  'JRX_SARVAM_STT_ENABLED',
+  'JRX_SARVAM_TTS_ENABLED',
   'SARVAM_API_KEY',
-  'NYV_SARVAM_API_KEY',
+  'JRX_SARVAM_API_KEY',
 ];
 
 describe('./jrx-language-provider', () => {
@@ -35,9 +35,9 @@ describe('./jrx-language-provider', () => {
     expect(isSarvamTranslateEnabled()).toBe(false);
   });
 
-  it('opt-in to sarvam via NYV_LANGUAGE_PROVIDER=sarvam + key', () => {
+  it('opt-in to sarvam via JRX_LANGUAGE_PROVIDER=sarvam + key', () => {
     snapshot();
-    process.env.NYV_LANGUAGE_PROVIDER = 'sarvam';
+    process.env.JRX_LANGUAGE_PROVIDER = 'sarvam';
     process.env.SARVAM_API_KEY = 'test-key';
     expect(getLanguageProvider()).toBe('sarvam');
     expect(isSarvamSttEnabled()).toBe(true);
@@ -45,10 +45,10 @@ describe('./jrx-language-provider', () => {
 
   it('sarvam flag without key falls back to gemini for provider resolution', () => {
     snapshot();
-    delete process.env.NYV_LANGUAGE_PROVIDER;
+    delete process.env.JRX_LANGUAGE_PROVIDER;
     delete process.env.SARVAM_API_KEY;
-    delete process.env.NYV_SARVAM_API_KEY;
-    process.env.NYV_SARVAM_STT_ENABLED = '1';
+    delete process.env.JRX_SARVAM_API_KEY;
+    process.env.JRX_SARVAM_STT_ENABLED = '1';
     expect(getLanguageProvider()).toBe('gemini');
   });
 });

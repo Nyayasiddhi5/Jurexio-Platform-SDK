@@ -7,7 +7,7 @@
       "tier": "medium",
       "release95Metric": "counsel-grade + citation density (future)",
       "offlineProbe": "npm run eval:counsel-grade:self-test",
-      "liveProbe": "npm run eval:counsel-grade -- --gateway https://api.nyayasiddhi.online",
+      "liveProbe": "npm run eval:counsel-grade -- --gateway https://api.jurexio.com",
       "mergeGate": null
     },
     {

@@ -95,7 +95,7 @@ console.log(JSON.stringify({
 console.log('\n--- Top router models (nv_router_decisions) ---');
 console.log(JSON.stringify(routerRows, null, 2));
 
-console.log('\n[pilot:cost-metrics] Phase-0 gates (targets from NYV-DEPLOYMENT-COST-PLAN):');
+console.log('\n[pilot:cost-metrics] Phase-0 gates (targets from JRX-DEPLOYMENT-COST-PLAN):');
 console.log(`  cache read share >= 0.08? ${cacheHitRate >= 0.08 ? 'PASS' : 'FAIL'} (${(cacheHitRate * 100).toFixed(1)}%)`);
 console.log(`  queen share <= 0.08? ${queenShare <= 0.08 ? 'PASS' : 'FAIL'} (${(queenShare * 100).toFixed(1)}%)`);
 

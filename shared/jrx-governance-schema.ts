@@ -11,7 +11,7 @@
  * Never change PK types. Use `npm run db:push --force` to sync.
  *
  * Generated 2026-04-29 from local helium nv_schema (95 tables total; 28
- * already declared in nv-schema-tables.ts + shared/schema.ts; this file
+ * already declared in jrx-schema-tables.ts + shared/schema.ts; this file
  * declares the remaining 67).
  */
 import {
@@ -1002,7 +1002,7 @@ export type NewNvNvSocialMemory = typeof nvNvSocialMemory.$inferInsert;
 // Canonical = public.nv_statutes (305 rows, live writer in
 // src/services/jrx-statute-seeding-service.ts). The nv_schema.nv_statutes
 // fork (83 rows) was a perfect SUBSET of public and had no writers; it
-// was dropped via scripts/consolidate-nv-statutes.sql.
+// was dropped via scripts/consolidate-jrx-statutes.sql.
 // Reads use raw SQL in src/routes/jrx-core-routes.ts and the seeder; no
 // Drizzle export is needed at the moment. If a Drizzle export is later
 // required, define it on the public schema (not nvSchema).

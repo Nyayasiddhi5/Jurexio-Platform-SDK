@@ -1,5 +1,5 @@
 /**
- * nv-seed-rag-collections.ts (2026-05-13)
+ * jrx-seed-rag-collections.ts (2026-05-13)
  *
  * Seeds `rag_namespaces` (per-org RAG collections) with REAL legal corpora
  * per jurisdiction. Idempotent on (org_id, name).
@@ -58,7 +58,7 @@ const PER_J: Record<string, Coll[]> = {
 
 async function main() {
   if (!process.env.DATABASE_URL) {
-    if (process.env.NYV_DATABASE_URL) process.env.DATABASE_URL = process.env.NYV_DATABASE_URL;
+    if (process.env.JRX_DATABASE_URL) process.env.DATABASE_URL = process.env.JRX_DATABASE_URL;
   }
   const sql = makePgSql();
   console.log('[seed-rag-collections] starting');
@@ -81,7 +81,7 @@ async function main() {
           ) VALUES (
             ${id}, ${orgId}, ${c.name}, ${c.description}, ${c.embedding_model}, ${c.dimensions},
             ${c.doc_count}, ${c.vector_count}, ${c.tokens},
-            ${isDefault}, ${true}, ${JSON.stringify({ jurisdiction: c.jurisdiction, source: 'nyayavigya-canonical' })}::jsonb,
+            ${isDefault}, ${true}, ${JSON.stringify({ jurisdiction: c.jurisdiction, source: 'jurexio-canonical' })}::jsonb,
             NOW() - (random() * INTERVAL '180 days'), NOW() - (random() * INTERVAL '7 days')
           )
           ON CONFLICT (org_id, name) DO UPDATE SET

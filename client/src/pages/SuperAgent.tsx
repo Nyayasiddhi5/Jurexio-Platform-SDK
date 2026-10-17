@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Bot, Wrench, Workflow, Settings, Menu, X, Code, MessageSquare } from 'lucide-react';
 import GlobalHeader from '@/components/GlobalHeader';
 
-// NYV-PHASE3-DISPOSITION-2026-05-11 (Session-15 v8): the 5 ./superagent/*
+// JRX-PHASE3-DISPOSITION-2026-05-11 (Session-15 v8): the 5 ./superagent/*
 // stub files (Chat/IDE/Tools/Workflows/Settings, 8 LOC each) were deleted
 // and inlined as a single SuperAgentTabPlaceholder. The dashboard chrome
 // (header, sidebar, tab nav) is the real work; the per-tab content is a

@@ -1,7 +1,7 @@
 /**
  * NV-BENCH-COST-001 (arithmetic) — turns raw per-run records into per-class and
  * blended figures. Kept separate from the SSM transport in
- * `nv-benchmark-cost.mjs` so the numbers can be re-derived offline from a saved
+ * `jrx-benchmark-cost.mjs` so the numbers can be re-derived offline from a saved
  * raw.json without spending money on another live pass.
  *
  * Design rule for everything below: when a total does not reconcile, emit a
@@ -34,7 +34,7 @@ export function usd(prices, modelId, tokensIn, tokensOut) {
 }
 
 /**
- * Cost of one NYV request.
+ * Cost of one JRX request.
  *
  * Provider log lines do NOT carry uniform detail: `llm-orchestrator: success`
  * logs tokens+cost, `stream success` logs tokens, and `hedge success` logs
@@ -137,7 +137,7 @@ export function costOfDirect(rec, prices, baselineCatalogId) {
   const d = rec.direct || {};
   if (d.promptTokens == null && d.completionTokens == null) return { costUsd: null, notes: ['no usage returned'] };
   // Gemini bills thinking tokens as output. Omitting them would understate the
-  // baseline and flatter NYV, so they are added to output explicitly.
+  // baseline and flatter JRX, so they are added to output explicitly.
   const out = num(d.completionTokens) + num(d.thoughtsTokens);
   const v = usd(prices, baselineCatalogId, d.promptTokens, out);
   return {
@@ -159,7 +159,7 @@ function stdev(xs) {
  * Case-insensitive containment of expected citations / keywords. NOT a score.
  *
  * Statute short forms are aliased to their full Act names because the two sides
- * name provisions differently: the NYV statute layer writes "Section 482 of the
+ * name provisions differently: the JRX statute layer writes "Section 482 of the
  * Bharatiya Nagarik Suraksha Sanhita, 2023" and never the string "BNSS", so a
  * literal check marked a correctly-cited answer as 0 % coverage. Aliasing makes
  * the containment check match how the citation is actually written; it does not
@@ -199,7 +199,7 @@ export function coverage(text, expected) {
   return hit / expected.length;
 }
 
-/** Same regex on both sides so NYV and the direct baseline are compared symmetrically. */
+/** Same regex on both sides so JRX and the direct baseline are compared symmetrically. */
 export function textCitationMatches(text) {
   const re = /\b(BNS|BNSS|BSA|IPC|CrPC|PMLA|SEBI|Article|Section|s\.)\s*\d+/gi;
   return (String(text || '').match(re) || []).length;
@@ -344,7 +344,7 @@ export function aggregate({ set, runs, prices, answers = {} }) {
     /* COLD vs WARM.
      *
      * `--runs N` repeats the SAME prompt, so runs 2..N can be served from the
-     * semantic cache. Measured on nysdev: single-issue-advice cost $0.0448 on run
+     * semantic cache. Measured on jrx-prod: single-issue-advice cost $0.0448 on run
      * 1 and $0.0000 on runs 2 and 3, all three byte-identical at 6,334 chars. The
      * naive mean of those, $0.0149, is not this class's cost — it is the cost of
      * asking the same question three times in a row, which no real traffic mix
@@ -469,7 +469,7 @@ export function aggregate({ set, runs, prices, answers = {} }) {
    * §2.6: "A cost win on any prompt whose quality score drops is reported as a
    * regression, not a saving." A class flagged `unearnedSaving` got cheap by
    * answering something else (out-of-scope fast path, cache false positive), so
-   * its NYV cost is replaced with the direct cost — i.e. that class is credited
+   * its JRX cost is replaced with the direct cost — i.e. that class is credited
    * with ZERO saving rather than with a fictional 100 % one. This is the figure
    * to quote; the unadjusted one above is kept only so the difference between
    * them is visible.

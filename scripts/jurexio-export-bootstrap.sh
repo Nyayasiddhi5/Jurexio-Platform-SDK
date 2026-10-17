@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Jurexio-Platform-SDK — curated export from Nyayavigya (NYV + NYS in-tree).
+# Jurexio-Platform-SDK — curated export from Jurexio (JRX + NYS in-tree).
 # Usage: bash scripts/jurexio-export-bootstrap.sh [DEST_DIR]
-# Default DEST: sibling ../Jurexio-Platform-SDK of nyayavigya-platform-312 parent workspace.
+# Default DEST: sibling ../Jurexio-Platform-SDK of Jurexio-Platform-SDK parent workspace.
 set -euo pipefail
 
 APP_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -9,20 +9,20 @@ WORKSPACE_ROOT="$(cd "$APP_ROOT/.." && pwd)"
 DEST="${1:-$WORKSPACE_ROOT/../Jurexio-Platform-SDK}"
 DEST="$(cd "$(dirname "$DEST")" && pwd)/$(basename "$DEST")"
 
-NYV_SHA=""
+JRX_SHA=""
 if git -C "$APP_ROOT" rev-parse HEAD >/dev/null 2>&1; then
-  NYV_SHA="$(git -C "$APP_ROOT" rev-parse HEAD)"
+  JRX_SHA="$(git -C "$APP_ROOT" rev-parse HEAD)"
 fi
-NYS_SHA=""
+JRX_ECOSYSTEM_SHA=""
 if git -C "$APP_ROOT/jrx-search" rev-parse HEAD >/dev/null 2>&1; then
-  NYS_SHA="$(git -C "$APP_ROOT/jrx-search" rev-parse HEAD)"
+  JRX_ECOSYSTEM_SHA="$(git -C "$APP_ROOT/jrx-search" rev-parse HEAD)"
 fi
 
 echo "== Jurexio export =="
 echo "source_nyv=$APP_ROOT"
 echo "dest=$DEST"
-echo "nyv_sha=${NYV_SHA:-unknown}"
-echo "nys_sha=${NYS_SHA:-unknown}"
+echo "nyv_sha=${JRX_SHA:-unknown}"
+echo "nys_sha=${JRX_ECOSYSTEM_SHA:-unknown}"
 
 mkdir -p "$DEST"
 
@@ -67,26 +67,26 @@ cat > "$DEST/documents/working/JUREXIO-FORK-LINEAGE.md" <<EOF
 | Field | Value |
 |---|---|
 | Export UTC | $EXPORT_STAMP |
-| Source tree | \`nyayavigya-platform-312/\` (Nyayavigya workspace) |
-| NYV git SHA | \`${NYV_SHA:-unknown}\` |
-| NYS nested SHA | \`${NYS_SHA:-unknown}\` |
-| Scope | **NYV + NYS** (gateway + knowledge worker in one product repo) |
-| API prefix target | \`/api/jrx/\` (replace Nyayavigya \`/api/jrx/\` in Phase 2) |
+| Source tree | \`Jurexio-Platform-SDK/\` (Jurexio workspace) |
+| JRX git SHA | \`${JRX_SHA:-unknown}\` |
+| NYS nested SHA | \`${JRX_ECOSYSTEM_SHA:-unknown}\` |
+| Scope | **JRX + NYS** (gateway + knowledge worker in one product repo) |
+| API prefix target | \`/api/jrx/\` (replace Jurexio \`/api/jrx/\` in Phase 2) |
 | SDK scope | All Jurexio Platform AI tasks (orchestration, legal intel, knowledge plane) |
 | Enterprise UI | Jurexio-branded console (NSP-analog partners later) — Phase 3+ |
 
-Nyayavigya production remains in the original repo; this tree diverges independently.
+Jurexio production remains in the original repo; this tree diverges independently.
 Secrets were **not** copied — provision new \`.env\` / deploy keys for Jurexio only.
 EOF
 
 cat > "$DEST/documents/working/JUREXIO-PLATFORM-ARCHITECTURE-2026-10.md" <<'EOF'
 # Jurexio Platform SDK — architecture (v1)
 
-## Product map (from Nyayavigya dual-project)
+## Product map (from Jurexio dual-project)
 
 | Tag | Tree | Role |
 |---|---|---|
-| **JRX-CORE** | Repo root (former `nyayavigya-platform-312`) | Gateway, `@jurexio/*` SDKs (rename pending), orchestration, partner API |
+| **JRX-CORE** | Repo root (former `Jurexio-Platform-SDK`) | Gateway, `@jurexio/*` SDKs (rename pending), orchestration, partner API |
 | **JRX-KNOWLEDGE** | `jrx-search/` | Caselaw/statutes retrieve, NyayaSearch-class dashboard (rebrand to Jurexio Knowledge) |
 
 Federation pattern unchanged: gateway knowledge routes call worker `/api/*` over HTTPS with machine API key.
@@ -94,7 +94,7 @@ Federation pattern unchanged: gateway knowledge routes call worker `/api/*` over
 ## API surface
 
 - **Target prefix:** `/api/jrx/v1/...` (SDK, orchestrate, CNR, legal-work, knowledge adapters).
-- **Phase 2 work:** alias or migrate from `/api/jrx/v1/` — do not break NYV production; Jurexio deploys on separate hosts/domains.
+- **Phase 2 work:** alias or migrate from `/api/jrx/v1/` — do not break JRX production; Jurexio deploys on separate hosts/domains.
 
 ## SDK consumers
 
@@ -105,7 +105,7 @@ Federation pattern unchanged: gateway knowledge routes call worker `/api/*` over
 
 1. **Now:** Curated export, clean install, preflight smoke.
 2. **Phase 2:** `/api/jrx/` routing + SDK scope rename + env/domain (`jurexio.*`).
-3. **Phase 3:** Jurexio Enterprise Console (fork of NYV Console UX, Jurexio brand).
+3. **Phase 3:** Jurexio Enterprise Console (fork of JRX Console UX, Jurexio brand).
 4. **Phase 4:** Partner handoff docs (Jurexio-analog of NSP integration pack).
 
 See `JUREXIO-FORK-LINEAGE.md` for export stamp.
@@ -118,11 +118,11 @@ fi
 cat > "$DEST/Project-Tracker.md" <<EOF
 # Jurexio Platform SDK — Project Tracker
 
-> Forked from Nyayavigya — see \`documents/working/JUREXIO-FORK-LINEAGE.md\`.
+> Forked from Jurexio — see \`documents/working/JUREXIO-FORK-LINEAGE.md\`.
 
 ## Change log (newest first)
 
-| $EXPORT_STAMP | DONE | Cursor Agent | JRX-EXPORT-001 | Initial curated export (NYV+NYS, no node_modules/secrets/git). | \`scripts/jurexio-export-bootstrap.sh\` |
+| $EXPORT_STAMP | DONE | Cursor Agent | JRX-EXPORT-001 | Initial curated export (JRX+NYS, no node_modules/secrets/git). | \`scripts/jurexio-export-bootstrap.sh\` |
 EOF
 
 cat > "$DEST/CHANGELOG.md" <<EOF
@@ -132,7 +132,7 @@ cat > "$DEST/CHANGELOG.md" <<EOF
 
 ### Added — JRX-EXPORT-001 ($EXPORT_STAMP)
 
-- Curated export from Nyayavigya \`nyayavigya-platform-312\` + in-tree \`jrx-search\`.
+- Curated export from Jurexio \`Jurexio-Platform-SDK\` + in-tree \`jrx-search\`.
 - Architecture + lineage docs under \`documents/working/\`.
 EOF
 

@@ -1,15 +1,15 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import type { NyvApiError, NyvPatternResponse } from '@nyayavigya/client-sdk';
-import { useNyv } from '../providers';
+import type { JrxApiError, JrxPatternResponse } from '@nyayavigya/client-sdk';
+import { useJrx } from '../providers';
 
 export default function StreamPage() {
-  const { client } = useNyv();
+  const { client } = useJrx();
   const [task, setTask] = useState('Compare BNS Section 103 to IPC Section 302 (murder).');
   const [thinking, setThinking] = useState<string[]>([]);
   const [text, setText] = useState('');
-  const [done, setDone] = useState<NyvPatternResponse | null>(null);
+  const [done, setDone] = useState<JrxPatternResponse | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
 
@@ -25,8 +25,8 @@ export default function StreamPage() {
           onThinking: (step: string, i: number, total: number) =>
             setThinking(prev => [...prev, `[${i}/${total}] ${step}`]),
           onTextDelta: (delta: string) => setText(prev => prev + delta),
-          onComplete: (final: NyvPatternResponse) => setDone(final),
-          onError: (e: NyvApiError) => setErr(`${e.code}: ${e.message}`),
+          onComplete: (final: JrxPatternResponse) => setDone(final),
+          onError: (e: JrxApiError) => setErr(`${e.code}: ${e.message}`),
         },
         { signal: ac.signal },
       );

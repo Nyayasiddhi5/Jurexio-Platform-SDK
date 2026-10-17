@@ -2,10 +2,10 @@
  * MatterVaultApi — /api/jrx/matter-vault/* (Harvey-style matter review scaffolding).
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export class MatterVaultApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   health(): Promise<unknown> {
     return this.http.get('/api/jrx/matter-vault/health');

@@ -17,8 +17,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { CheckCircle2, RefreshCw, ShieldCheck, ShieldAlert } from 'lucide-react';
 import { nv } from '@/lib/jrx-api-paths';
 import { getAuthToken } from '@/lib/jrx-auth-token';
@@ -226,7 +226,7 @@ export default function AuditChainPage() {
       </div>
 
       {q.isError && (
-        <NyvErrorState
+        <JrxErrorState
           title="Could not load audit chain"
           error={q.error}
           onRetry={() => q.refetch()}
@@ -258,7 +258,7 @@ export default function AuditChainPage() {
                     <tr key={`sk-${i}`}><td colSpan={6} className="p-2"><Skeleton className="h-6 w-full" /></td></tr>
                   ))
                 ) : records.length === 0 ? (
-                  <tr><td colSpan={6} className="p-0"><NyvEmptyState title="No audit records yet" description="Make some authenticated calls (or run scripts/jrx-seed-audit-chain-demo.ts) to populate the hash-chain audit log." size="sm" /></td></tr>
+                  <tr><td colSpan={6} className="p-0"><JrxEmptyState title="No audit records yet" description="Make some authenticated calls (or run scripts/jrx-seed-audit-chain-demo.ts) to populate the hash-chain audit log." size="sm" /></td></tr>
                 ) : records.map((r) => (
                   <tr
                     key={String(r.id)}

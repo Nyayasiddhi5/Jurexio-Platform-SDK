@@ -3,7 +3,7 @@
  *
  * Approval statuses:
  *   unreviewed        — in comprehensive pool, not yet reviewed
- *   platform_curated  — NYV India curated court/practice forms (pre-SME)
+ *   platform_curated  — JRX India curated court/practice forms (pre-SME)
  *   sme_approved      — SME attested for ecosystem partners
  *   sme_rejected      — rejected (hidden from partner approved catalog)
  *   changes_requested — returned to authoring with notes
@@ -225,7 +225,7 @@ export function bootstrapPlatformCurated(
   const perCategory = Math.max(1, opts?.perCategory ?? 2);
 
   for (const t of templates) {
-    if (t.source !== 'nyv-document') continue;
+    if (t.source !== 'jrx-document') continue;
     // Curated IN court forms + multi-domain GLOBAL packs
     if (t.jurisdiction_code !== 'IN' && t.jurisdiction_code !== 'GLOBAL') continue;
     if (t.jurisdiction_code === 'GLOBAL' && !t.id.startsWith('domain-')) continue;
@@ -237,10 +237,10 @@ export function bootstrapPlatformCurated(
       templateId: t.id,
       status: 'platform_curated',
       reviewerRole: 'platform',
-      notes: 'NYV curated India court/practice form — SME attestation still recommended.',
+      notes: 'JRX curated India court/practice form — SME attestation still recommended.',
       jurisdiction_code: 'IN',
       updatedAt: now,
-      bootstrapReason: 'nyv-document-curated',
+      bootstrapReason: 'jrx-document-curated',
       rubric: {
         legalAccuracy: 0.85,
         proceduralCompleteness: 0.85,

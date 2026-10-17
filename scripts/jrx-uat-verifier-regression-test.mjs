@@ -1,15 +1,15 @@
 #!/usr/bin/env node
-// nv-uat-verifier-regression-test.mjs
+// jrx-uat-verifier-regression-test.mjs
 //
-// Regression test for the strict-verifier branches in scripts/nv-uat-curl-direct.mjs:
+// Regression test for the strict-verifier branches in scripts/jrx-uat-curl-direct.mjs:
 //   - mustHaveFields (dotted-path JSON walk)
 //   - mustContainAtLeast.of (canonical) + mustContainAtLeast.terms (legacy)
 //
 // Why this exists: in the 2026-05-09 N-track session both branches were
 // silently skipped before the architect caught it. The fix landed in
-// nv-uat-curl-direct.mjs — this guard prevents regression.
+// jrx-uat-curl-direct.mjs — this guard prevents regression.
 //
-// Run: node scripts/nv-uat-verifier-regression-test.mjs
+// Run: node scripts/jrx-uat-verifier-regression-test.mjs
 // Exit 0 on pass, 1 on any failure.
 
 import { readFileSync } from 'node:fs';
@@ -17,7 +17,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const VERIFIER = join(__dirname, 'nv-uat-curl-direct.mjs');
+const VERIFIER = join(__dirname, 'jrx-uat-curl-direct.mjs');
 
 // Re-implement the two checks here, directly mirroring the verifier's logic.
 // We test the LOGIC, not the IPC, so the test is fast + deterministic.

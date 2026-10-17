@@ -1,13 +1,13 @@
 /**
  * NV-STREAM-TERMINAL-POLISH-001 — post-stream deterministic polish for partner
- * `-fast` specialist SSE. Mirrors the sync nv-client chain (no extra LLM):
+ * `-fast` specialist SSE. Mirrors the sync jrx-client chain (no extra LLM):
  *   applyLegalResponseFormatting → applyFastDeliveryPolish → applyPartnerHumanPolish
  *
  * Emits a corrective gated `text_delta` when polished body differs from streamed
  * accum so NSP editor replaces provisional tokens before `run_completed`.
  */
 
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import {
   isPartnerExplicitFastAlias,
   isPartnerExplicitFastChatAlias,
@@ -21,10 +21,10 @@ import { buildPartnerStreamCompletionEnvelope } from '../services/jrx-ai-complet
 import { buildUnifiedOrchestrationContract } from './jrx-orchestration-response-contract.js';
 
 export function isStreamTerminalPolishEnabled(): boolean {
-  const direct = String(process.env.NYV_STREAM_TERMINAL_POLISH ?? '').trim().toLowerCase();
+  const direct = String(process.env.JRX_STREAM_TERMINAL_POLISH ?? '').trim().toLowerCase();
   if (direct === '0' || direct === 'false' || direct === 'off' || direct === 'no') return false;
   if (direct === '1' || direct === 'true' || direct === 'on' || direct === 'yes') return true;
-  return isNyvFeatureOn('streamTerminalPolish');
+  return isJrxFeatureOn('streamTerminalPolish');
 }
 
 /** Partner `-fast` / lean specialist stream only — Queen path untouched. */

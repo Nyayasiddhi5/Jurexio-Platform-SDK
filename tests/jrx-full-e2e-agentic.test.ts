@@ -15,12 +15,12 @@
 import { describe as _describe, it, expect, beforeAll } from 'vitest';
 
 const BASE_URL = process.env.TEST_BASE_URL || 'http://localhost:5000';
-const ADMIN_EMAIL = 'admin@nyayavigya.in';
-const DEV_EMAIL = 'dev@demo.nyayavigya.in';
-// NYV-SECURITY-DOC-CREDS-001: never embed demo passwords in source. Tests
+const ADMIN_EMAIL = 'admin@jurexio.com';
+const DEV_EMAIL = 'dev@demo.jurexio.com';
+// JRX-SECURITY-DOC-CREDS-001: never embed demo passwords in source. Tests
 // expect NV_DEMO_PASSWORD in the test runner's env — set it from your
 // password manager / Replit Secrets, never from a literal in code or CI.
-// NYV-NS-023 (2026-05-05): when NV_DEMO_PASSWORD is not in the env (Replit
+// JRX-NS-023 (2026-05-05): when NV_DEMO_PASSWORD is not in the env (Replit
 // dev runs, CI matrices that skip e2e), the previous code threw at file
 // load and turned this whole suite into a failed test file. We now resolve
 // the password lazily and skip the suite gracefully if it's missing — the
@@ -30,17 +30,17 @@ const DEV_EMAIL = 'dev@demo.nyayavigya.in';
 const DEMO_PASSWORD = process.env.NV_DEMO_PASSWORD || '';
 const E2E_DISABLED_REASON = DEMO_PASSWORD
   ? null
-  : 'NYV-NS-023: e2e suite skipped — set NV_DEMO_PASSWORD in env to enable';
+  : 'JRX-NS-023: e2e suite skipped — set NV_DEMO_PASSWORD in env to enable';
 const ADMIN_PASSWORD = DEMO_PASSWORD;
 const DEV_PASSWORD = DEMO_PASSWORD;
 
-// NYV-NS-023: gate every suite on the demo-password env. When unset we
+// JRX-NS-023: gate every suite on the demo-password env. When unset we
 // route all describe() calls through describe.skip so vitest reports the
 // suite as skipped (not failed) and surfaces a single clear reason.
 const describe = E2E_DISABLED_REASON ? _describe.skip : _describe;
 if (E2E_DISABLED_REASON) {
   // eslint-disable-next-line no-console
-  console.log(`[nv-full-e2e-agentic] ${E2E_DISABLED_REASON}`);
+  console.log(`[jrx-full-e2e-agentic] ${E2E_DISABLED_REASON}`);
 }
 
 let adminToken = '';

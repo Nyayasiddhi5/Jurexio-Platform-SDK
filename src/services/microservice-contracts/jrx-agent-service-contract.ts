@@ -93,7 +93,7 @@ export class NvAgentServiceAdapter implements NvAgentServiceContract {
 }
 
 export const HTTP_CONTRACT = {
-  serviceName: 'NYV-AGENT-SERVICE',
+  serviceName: 'JRX-AGENT-SERVICE',
   baseUrl: '/api/jrx/agent-service',
   endpoints: [
     { method: 'POST', path: '/execute', handler: 'executeAgent' },

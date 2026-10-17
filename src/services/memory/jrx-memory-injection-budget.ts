@@ -1,7 +1,7 @@
 /**
  * NV-MEM-BUDGET-001 — the single place memory becomes prompt text.
  *
- * `memoryCharCap` has existed in `nv-context-budgets.ts` since NV-CTX-BUDGET-001
+ * `memoryCharCap` has existed in `jrx-context-budgets.ts` since NV-CTX-BUDGET-001
  * but the specialist path interpolated raw node content, so the injected block
  * ran 4–8× over the declared budget on every request. A budget that is declared
  * in one file and ignored at the interpolation site is not a budget; this module
@@ -14,7 +14,7 @@
  *  - The cap is per item AND for the block, so N items cannot each sit at the
  *    cap and collectively blow the request budget.
  *
- * Used by both the specialist path (`nv-client`) and Queen Step-0 so there is
+ * Used by both the specialist path (`jrx-client`) and Queen Step-0 so there is
  * exactly one assembler (NV-NO-DUPLICATE-001).
  */
 import type { MemoryNode } from './graph-memory-service.js';

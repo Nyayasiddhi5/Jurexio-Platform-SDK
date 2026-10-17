@@ -5,7 +5,7 @@
 import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import { createLogger } from '../utils/logger.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 
 const logger = createLogger('./jrx-docparse-nsp-evidence-depict');
 
@@ -55,7 +55,7 @@ function toDataUrl(bytes: Buffer, mimeType?: string): string {
 export async function runNspEvidenceDepict(
   req: NspEvidenceDepictRequest,
 ): Promise<NspEvidenceDepictResponse> {
-  if (!isNyvFeatureOn('docparseEvidenceDepict')) {
+  if (!isJrxFeatureOn('docparseEvidenceDepict')) {
     throw new Error('DOCPARSE_EVIDENCE_DEPICT_DISABLED');
   }
   if (!req.bytes?.length) {

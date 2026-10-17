@@ -1,6 +1,6 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
- * NYV-PROTOCOL-MANIFEST-001 (Task #32 round 7)
+ * JRX-PROTOCOL-MANIFEST-001 (Task #32 round 7)
  *
  * Standalone module that binds every capability from the SSoT
  * `capabilityManifest` into `nv_schema.protocol_registry` so the protocol
@@ -9,8 +9,8 @@
  * catalog capability is callable via one registry contract and external
  * observers can reconstruct the catalog by reading the registry.
  *
- * Extracted from `nv-orchestration-services.ts` (which has a circular
- * dependency with `nv-client`) so this code path can be unit-tested
+ * Extracted from `jrx-orchestration-services.ts` (which has a circular
+ * dependency with `jrx-client`) so this code path can be unit-tested
  * without dragging the entire orchestration-services module graph.
  */
 

@@ -90,7 +90,7 @@ router.get('/export', authenticateToken, async (req: Request, res: Response): Pr
     const userId = (req as any).user?.id;
     if (!userId) { res.status(401).json({ error: 'Unauthorized' }); return; }
     const exportData = await consentManagementService.exportUserData(userId);
-    res.setHeader('Content-Disposition', `attachment; filename="nyayavigya-data-export-${userId}.json"`);
+    res.setHeader('Content-Disposition', `attachment; filename="jurexio-data-export-${userId}.json"`);
     res.setHeader('Content-Type', 'application/json');
     res.json(exportData);
   } catch (err: any) {
@@ -122,7 +122,7 @@ router.get('/purposes', (_req: Request, res: Response): void => {
     })),
     consentVersion: '3.1.2-dpdpa-2023',
     dataController: 'Jurexio Legal AI Pvt Ltd',
-    dpo: 'dpo@nyayavigya.in',
+    dpo: 'dpo@jurexio.com',
   });
 });
 

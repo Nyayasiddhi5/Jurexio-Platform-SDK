@@ -103,25 +103,25 @@ export default function MultiPlatformPublisher() {
 
   // Fetch connected platforms using Jurexio orchestration
   const { data: platforms = [], isLoading: platformsLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/publishing/platforms'],
-    queryFn: () => apiRequest('/api/nyayavigya/publishing/platforms')
+    queryKey: ['/api/jurexio/publishing/platforms'],
+    queryFn: () => apiRequest('/api/jurexio/publishing/platforms')
   });
 
   // Fetch publishing metrics using Jurexio orchestration
   const { data: metrics, isLoading: metricsLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/publishing/metrics'],
-    queryFn: () => apiRequest('/api/nyayavigya/publishing/metrics')
+    queryKey: ['/api/jurexio/publishing/metrics'],
+    queryFn: () => apiRequest('/api/jurexio/publishing/metrics')
   });
 
   // Fetch scheduled posts using Jurexio orchestration
   const { data: scheduledPosts = [], isLoading: postsLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/publishing/scheduled'],
-    queryFn: () => apiRequest('/api/nyayavigya/publishing/scheduled')
+    queryKey: ['/api/jurexio/publishing/scheduled'],
+    queryFn: () => apiRequest('/api/jurexio/publishing/scheduled')
   });
 
   // AI content optimization mutation
   const optimizeContent = useMutation({
-    mutationFn: (content: any) => apiRequest('/api/nyayavigya/publishing/optimize', {
+    mutationFn: (content: any) => apiRequest('/api/jurexio/publishing/optimize', {
       method: 'POST',
       body: JSON.stringify(content)
     }),
@@ -141,12 +141,12 @@ export default function MultiPlatformPublisher() {
 
   // Publish content mutation
   const publishContent = useMutation({
-    mutationFn: (content: any) => apiRequest('/api/nyayavigya/publishing/publish', {
+    mutationFn: (content: any) => apiRequest('/api/jurexio/publishing/publish', {
       method: 'POST',
       body: JSON.stringify(content)
     }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya/publishing'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio/publishing'] });
       setPostContent({
         id: '',
         text: '',
@@ -168,12 +168,12 @@ export default function MultiPlatformPublisher() {
 
   // Schedule content mutation
   const scheduleContent = useMutation({
-    mutationFn: (content: any) => apiRequest('/api/nyayavigya/publishing/schedule', {
+    mutationFn: (content: any) => apiRequest('/api/jurexio/publishing/schedule', {
       method: 'POST',
       body: JSON.stringify(content)
     }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya/publishing'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio/publishing'] });
       toast({
         title: "Content Scheduled",
         description: "Your content has been scheduled for publication"

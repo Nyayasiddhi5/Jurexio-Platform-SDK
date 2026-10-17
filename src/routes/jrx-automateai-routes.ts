@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * AutomateAI™ REST Routes — /api/jrx/automateai/*
  * Visual Workflow Builder | Jurexio Enterprise Platform 312

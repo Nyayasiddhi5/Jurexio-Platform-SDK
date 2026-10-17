@@ -1,5 +1,5 @@
 /**
- * NYV Multi-Org RLS Middleware v3.2.0
+ * JRX Multi-Org RLS Middleware v3.2.0
  * ─────────────────────────────────────────────────────────────────────────────
  * Two responsibilities:
  *   1. Resolve the `org_id` for the current request from JWT/header and stash
@@ -30,7 +30,7 @@
  * Cron jobs, queue workers, and migration scripts that need to operate on
  * a single tenant must use `withTenantTx(orgId, fn)`. Maintenance work that
  * legitimately spans tenants must connect as a dedicated Postgres role with
- * the `BYPASSRLS` attribute (see docs/v3.1.2/completed_docs/NYV-COMPLIANCE-ATTESTATION.md).
+ * the `BYPASSRLS` attribute (see docs/v3.1.2/completed_docs/JRX-COMPLIANCE-ATTESTATION.md).
  *
  * Must be applied AFTER authenticateToken / sdkGatewayAuth.
  */

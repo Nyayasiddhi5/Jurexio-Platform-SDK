@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 import { Router, Request, Response } from 'express';
 import { sdkGatewayAuth } from '../middleware/sdk-gateway.js';
 import { tenantIsolation } from '../middleware/jrx-tenant-isolation.js';
@@ -104,7 +104,7 @@ async function executeWithOrchestration(
 
   // NV-SDK-MATTER-CTX-2026-05-11 (Session-15): Synthesize matterId from the
   // SDK request context when the caller didn't pass an explicit matter scope.
-  // The 22-section system prompt (nv-system-prompt-engine §22) hard-requires a
+  // The 22-section system prompt (jrx-system-prompt-engine §22) hard-requires a
   // matter context — without it, latest-gen LLMs (esp. gpt-oss-120b:free) return
   // a fake JSON 400 ("Missing required matter context (matter_id, session_id, …)")
   // that gets piped straight into the SDK response, making it look like the
@@ -339,7 +339,7 @@ router.get('/templates', async (req: Request, res: Response): Promise<void> => {
       limit: req.query.limit ? Number(req.query.limit) : undefined,
       offset: req.query.offset ? Number(req.query.offset) : undefined,
     });
-    res.setHeader('X-NYV-Templates-Count', String(envelope.data.total));
+    res.setHeader('X-JRX-Templates-Count', String(envelope.data.total));
     res.json(envelope);
   } catch (err: any) {
     logger.error('gateway/templates failed', { error: err?.message });
@@ -430,7 +430,7 @@ router.get('/models', async (req: Request, res: Response): Promise<void> => {
     return;
   }
   try {
-    const { dynamicModelRegistry } = await import('../config/nyv-dynamic-model-registry.js');
+    const { dynamicModelRegistry } = await import('../config/jrx-dynamic-model-registry.js');
     const { type, tier, jurisdiction, provider, enabled, search } = req.query as Record<string, string | undefined>;
     let models = dynamicModelRegistry.getAll();
     if (type) models = models.filter((m: any) => m.type === type);
@@ -486,12 +486,12 @@ router.get('/agents', async (req: Request, res: Response): Promise<void> => {
    * registry change for up to an hour, and a partner would reasonably conclude the
    * capability was never shipped.
    *
-   * `NYV_BUILD_ID` is set by the deploy; the registry agent count is a cheap fallback that
+   * `JRX_BUILD_ID` is set by the deploy; the registry agent count is a cheap fallback that
    * changes whenever the registry itself does.
    */
   const registryBuildMarker = String(
-    process.env.NYV_BUILD_ID
-      || process.env.NYV_DEPLOY_ID
+    process.env.JRX_BUILD_ID
+      || process.env.JRX_DEPLOY_ID
       || `agents-${legalAgentsRegistry?.agents?.length ?? 0}`,
   );
   const cacheKey = `agent-registry:v2:${registryBuildMarker}:${ctx.applicationId}:${ctx.allowedAgents.sort().join(',')}`;
@@ -851,7 +851,7 @@ router.post('/documents/analyze', gatewayDocCap, async (req: Request, res: Respo
         jurisdiction: effectiveJurisdiction,
         analysis: llmResponse.content,
         /* Structured extraction — the part partners badge on. `fieldSource: 'nyv'`
-         * is what lets NSP show "NYV" instead of "Heuristic".
+         * is what lets NSP show "JRX" instead of "Heuristic".
          * NV-COURT-DOC-FIELDS-004: shaped by the shared builder so this handler and
          * the orchestrate path cannot drift apart again. */
         ...buildCourtDocFieldBlock(extraction, null, extractionOutcome),
@@ -1209,7 +1209,7 @@ router.post('/research/query', gatewayResearchCap, async (req: Request, res: Res
     // rankedResults quickly. If LLM is slow/offline, synthesize research from RAG.
     const researchLlmBudgetMs = Math.max(
       8_000,
-      Math.min(Number(process.env.NYV_RESEARCH_LLM_BUDGET_MS) || 22_000, 45_000),
+      Math.min(Number(process.env.JRX_RESEARCH_LLM_BUDGET_MS) || 22_000, 45_000),
     );
     const ragFallbackResearch = rankedResults.length
       ? `Legal research results for "${query}" (${effectiveJurisdiction}).\n\n` +
@@ -1679,7 +1679,7 @@ router.get('/translate/languages', (_req: Request, res: Response): void => {
     data: {
       languages: sarvamAIService.getSupportedLanguages(),
       total: sarvamAIService.getSupportedLanguages().length,
-      provider: 'gemini (default) · sarvam when NYV_LANGUAGE_PROVIDER=sarvam',
+      provider: 'gemini (default) · sarvam when JRX_LANGUAGE_PROVIDER=sarvam',
     },
   });
 });
@@ -2661,7 +2661,7 @@ router.get('/cache/stats', (req: Request, res: Response): void => {
 // Both endpoints:
 //   • require the `cache:admin` scope (granted to internal dashboard JWTs and
 //     to API keys whose owner explicitly provisioned the scope),
-//   • target the `nv-agent:tenant:<id>:juris:<JURIS>:agent:<id>` namespace
+//   • target the `jrx-agent:tenant:<id>:juris:<JURIS>:agent:<id>` namespace
 //     shape used by the Queen orchestrator,
 //   • write a hash-chained audit record so we can answer "who cleared what,
 //     when?" at compliance review.
@@ -3519,9 +3519,9 @@ router.get('/legal-intelligence/feed', async (req: Request, res: Response): Prom
   try {
     const ctx = req.sdkContext!;
     const jurisdiction = String(req.query.jurisdiction || ctx.jurisdiction || 'IN').toUpperCase();
-    const limit = Math.min(10, Math.max(5, Number(req.query.limit || process.env.NYV_LEGAL_INTEL_TOP_N || 10)));
+    const limit = Math.min(10, Math.max(5, Number(req.query.limit || process.env.JRX_LEGAL_INTEL_TOP_N || 10)));
     const digestDate = req.query.date ? String(req.query.date).slice(0, 10) : undefined;
-    const orgId = String(process.env.NYV_LEGAL_INTEL_ORG_ID || 'platform');
+    const orgId = String(process.env.JRX_LEGAL_INTEL_ORG_ID || 'platform');
 
     const {
       getLegalIntelligenceFeed,
@@ -3568,7 +3568,7 @@ router.get('/legal-intelligence/feed/history', async (req: Request, res: Respons
     const ctx = req.sdkContext!;
     const jurisdiction = String(req.query.jurisdiction || ctx.jurisdiction || 'IN').toUpperCase();
     const days = Math.min(30, Math.max(1, Number(req.query.days || 7)));
-    const orgId = String(process.env.NYV_LEGAL_INTEL_ORG_ID || 'platform');
+    const orgId = String(process.env.JRX_LEGAL_INTEL_ORG_ID || 'platform');
     const { listLegalIntelligenceFeeds } = await import('../services/jrx-legal-intelligence-feed-service.js');
     const items = await listLegalIntelligenceFeeds({ orgId, jurisdiction, days });
     res.json({
@@ -3589,10 +3589,10 @@ router.post('/legal-intelligence/feed/generate', gatewayResearchCap, async (req:
     const ctx = req.sdkContext!;
     const body = req.body || {};
     const jurisdiction = String(body.jurisdiction || req.query.jurisdiction || ctx.jurisdiction || 'IN').toUpperCase();
-    const topN = Math.min(10, Math.max(5, Number(body.topN || body.limit || process.env.NYV_LEGAL_INTEL_TOP_N || 10)));
+    const topN = Math.min(10, Math.max(5, Number(body.topN || body.limit || process.env.JRX_LEGAL_INTEL_TOP_N || 10)));
     const digestDate = body.digestDate ? String(body.digestDate).slice(0, 10) : undefined;
     const skipIngest = Boolean(body.skipIngest);
-    const orgId = String(process.env.NYV_LEGAL_INTEL_ORG_ID || 'platform');
+    const orgId = String(process.env.JRX_LEGAL_INTEL_ORG_ID || 'platform');
 
     const { generateDailyLegalIntelligenceFeed } = await import('../services/jrx-legal-intelligence-feed-service.js');
     const digest = await generateDailyLegalIntelligenceFeed({

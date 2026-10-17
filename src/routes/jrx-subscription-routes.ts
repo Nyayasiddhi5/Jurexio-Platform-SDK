@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * Jurexio Enterprise Platform 3.1.2 — Subscription & Credit Routes
- * NYV-ROUTE-SUBSCRIPTION-001
+ * JRX-ROUTE-SUBSCRIPTION-001
  *
  * Handover §6 — Subscription (platform access) and Credits (AI usage) are separate systems.
  *
@@ -33,7 +33,7 @@ const logger = createLogger('./jrx-subscription');
 // Plans Definition
 // ─────────────────────────────────────────
 
-const NYV_PLANS = [
+const JRX_PLANS = [
   {
     id: 'alpha',
     name: 'Alpha',
@@ -128,7 +128,7 @@ const NYV_PLANS = [
 
 /** GET /plans — public */
 router.get('/plans', (_req: Request, res: Response): void => {
-  res.json({ success: true, data: { plans: NYV_PLANS, currency: 'INR' } });
+  res.json({ success: true, data: { plans: JRX_PLANS, currency: 'INR' } });
 });
 
 /** GET /me — authenticated */
@@ -151,7 +151,7 @@ router.get('/me', authenticateToken, async (req: Request, res: Response): Promis
     // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     wallet = await creditService.getWallet(userId);
 
-    const plan = NYV_PLANS.find(p => p.id === (subscription?.plan_id || 'alpha')) || NYV_PLANS[0];
+    const plan = JRX_PLANS.find(p => p.id === (subscription?.plan_id || 'alpha')) || JRX_PLANS[0];
 
     res.json({
       success: true,
@@ -184,7 +184,7 @@ router.post('/create', authenticateToken, requireRole('org_admin'), async (req: 
   try {
     const userId = req.user?.id || req.user?.userId;
     const { plan_id, billing_cycle } = req.body as { plan_id: string; billing_cycle?: string };
-    const plan = NYV_PLANS.find(p => p.id === plan_id);
+    const plan = JRX_PLANS.find(p => p.id === plan_id);
     if (!plan) {
       res.status(400).json({ success: false, error: `Unknown plan: ${plan_id}` });
       return;

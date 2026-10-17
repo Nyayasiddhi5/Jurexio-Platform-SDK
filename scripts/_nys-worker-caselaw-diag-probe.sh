@@ -7,12 +7,12 @@ echo "uptime: $(uptime | awk -F'load average:' '{print $2}')"
 echo "date: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 echo "=== API SERVICE ==="
-systemctl is-active nyv-api 2>/dev/null || echo "nyv-api systemctl N/A"
+systemctl is-active jrx-api 2>/dev/null || echo "jrx-api systemctl N/A"
 docker ps --format '{{.Names}} {{.Status}}' 2>/dev/null | grep -iE 'nys|nyv|api' || true
 pm2 list 2>/dev/null | head -8 || true
 
 echo "=== EMBED UNITS ==="
-for u in nyv-caselaw-embed-loop@{0,1,2} nyv-caselaw-embed-dc nyv-embed-statutes-loop; do
+for u in jrx-caselaw-embed-loop@{0,1,2} jrx-caselaw-embed-dc jrx-embed-statutes-loop; do
   st=$(systemctl is-active "$u" 2>/dev/null || echo inactive)
   echo "embed $u: $st"
 done
@@ -20,7 +20,7 @@ done
 echo "=== ENV (key presence) ==="
 ENV_FILE="/opt/nyv/api/.env"
 if [ -f "$ENV_FILE" ]; then
-  for k in DATABASE_URL NYS_KNOWLEDGE_API_KEY NYS_SDK_API_KEYS; do
+  for k in DATABASE_URL JRX_ECOSYSTEM_KNOWLEDGE_API_KEY JRX_ECOSYSTEM_SDK_API_KEYS; do
     if grep -qE "^${k}=" "$ENV_FILE" 2>/dev/null; then
       len=$(grep -E "^${k}=" "$ENV_FILE" | head -1 | cut -d= -f2- | wc -c)
       echo "$k=set len=$len"
@@ -41,7 +41,7 @@ set -a
 # shellcheck disable=SC1091
 source /opt/nyv/api/.env 2>/dev/null || true
 set +a
-KEY="${NYS_KNOWLEDGE_API_KEY:-${NYS_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
+KEY="${JRX_ECOSYSTEM_KNOWLEDGE_API_KEY:-${JRX_ECOSYSTEM_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
 for mode in fts hybrid default; do
   tmp=$(mktemp)
   code=$(curl -sS -m 45 -o "$tmp" -w '%{http_code}' -H "x-api-key: $KEY" \
@@ -78,7 +78,7 @@ PY
 
 echo "=== API LOG TAIL (errors) ==="
 tail -30 /opt/nyv/logs/api.log 2>/dev/null | grep -iE 'error|503|timeout|57014|caselaw|search' || \
-  journalctl -u nyv-api -n 20 --no-pager 2>/dev/null | grep -iE 'error|503|timeout|caselaw' || \
+  journalctl -u jrx-api -n 20 --no-pager 2>/dev/null | grep -iE 'error|503|timeout|caselaw' || \
   echo no_error_log
 
 echo "=== PROBE COMPLETE ==="

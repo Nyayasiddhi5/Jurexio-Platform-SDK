@@ -19,7 +19,7 @@
 // returns 404. Per-sub-route opt-in is intentionally NOT split into 14
 // flags; ops will flip the single namespace flag to verify, then flip off.
 import { Router, type Request, type Response, type NextFunction } from 'express';
-import { isNyvFeatureOn } from '../../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../../../config/jrx-feature-flags.js';
 import { requireSdkKeyOnly, requireScope, safeError } from '../_auth.js';
 
 // === static-import edges (Batch G — routing/cascade) ===
@@ -221,6 +221,6 @@ sub.get('/orchestration-facade/capabilities', requireSdkKeyOnly, requireScope('a
 // Mount sub when flag ON; otherwise nothing matches → 404.
 const gated = Router();
 gated.use((req: Request, res: Response, next: NextFunction) =>
-  isNyvFeatureOn('internalSurface') ? sub(req, res, next) : next());
+  isJrxFeatureOn('internalSurface') ? sub(req, res, next) : next());
 
 export default gated;

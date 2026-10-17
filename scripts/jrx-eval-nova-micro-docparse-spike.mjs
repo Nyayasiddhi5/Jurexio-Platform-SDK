@@ -6,11 +6,11 @@
  * Proves (NV-EXECUTE-BEFORE-CLAIM-001 / NV-VALIDATE-THE-PROBE-001) that Amazon
  * Nova Micro on Bedrock ap-south-1 answers a `toolConfig` (tool-schema) request
  * with a structured court-document field object — the exact contract
- * src/services/nv-docparse-llm-fallback.ts relies on. It does NOT touch the
+ * src/services/jrx-docparse-llm-fallback.ts relies on. It does NOT touch the
  * running platform, DB, or any secret file; it only exercises the model.
  *
  * Usage:
- *   node scripts/nv-eval-nova-micro-docparse-spike.mjs [--model <id>] [--region <r>]
+ *   node scripts/jrx-eval-nova-micro-docparse-spike.mjs [--model <id>] [--region <r>]
  *
  * Env (no secrets committed — supply at run time):
  *   AWS_REGION / NV_BEDROCK_REGION   Bedrock region (default: ap-south-1)
@@ -20,7 +20,7 @@
  *     AWS_BEARER_TOKEN_BEDROCK / BEDROCK_API_KEY      (Bedrock API key), OR
  *     AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY (+ AWS_SESSION_TOKEN), OR
  *     an EC2/instance IAM role (default credential provider chain).
- *   The gateway host (caselaw-worker / nysdev) already carries a Bedrock-enabled
+ *   The gateway host (caselaw-worker / jrx-prod) already carries a Bedrock-enabled
  *   role, so this is best run there via SSM when local creds lack bedrock:Invoke*.
  *
  * Positive control: the run FAILS loudly unless stopReason === 'tool_use' AND the

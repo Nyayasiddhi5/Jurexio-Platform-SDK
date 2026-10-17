@@ -1,23 +1,23 @@
 /**
  * Jurexio Enterprise Platform 3.1.2 — Vector Store Eviction Job
- * NYV-NS-014  ·  P2 G2  ·  2026-05-01
+ * JRX-NS-014  ·  P2 G2  ·  2026-05-01
  *
  * Background eviction loop that keeps `knowledge_chunks` (the RAG vector
  * store) within configurable bounds. Without this, the table grows
  * unboundedly as users upload documents and HNSW index quality degrades.
  *
  * Eviction policy (in order):
- *   1. AGE  — delete rows where updated_at < NOW() - NYV_RAG_MAX_AGE_DAYS.
- *   2. SIZE — if row count still exceeds NYV_RAG_MAX_CHUNKS, delete the
+ *   1. AGE  — delete rows where updated_at < NOW() - JRX_RAG_MAX_AGE_DAYS.
+ *   2. SIZE — if row count still exceeds JRX_RAG_MAX_CHUNKS, delete the
  *             oldest rows (by updated_at ASC) until under cap.
  *
  * Safety
  * ------
- *   - Idempotent and re-entrant: per-pass DELETE caps to NYV_RAG_BATCH_SIZE
+ *   - Idempotent and re-entrant: per-pass DELETE caps to JRX_RAG_BATCH_SIZE
  *     so we never lock the table for long.
- *   - Dry-run mode (NYV_RAG_EVICT_DRY_RUN=1) logs what would be deleted
+ *   - Dry-run mode (JRX_RAG_EVICT_DRY_RUN=1) logs what would be deleted
  *     without mutating.
- *   - Disabled entirely when NYV_RAG_EVICT_DISABLED=1.
+ *   - Disabled entirely when JRX_RAG_EVICT_DISABLED=1.
  *   - Writes a single audit-log row per pass into nv_audit_logs (best-effort,
  *     never fatal — the eviction loop must not be the thing that breaks
  *     the audit chain).
@@ -26,7 +26,7 @@
  * --------
  *   The exported start() is wired into src/index.ts so it boots with the
  *   gateway. Default cadence is 6 hours; configurable via
- *   NYV_RAG_EVICT_INTERVAL_MS.
+ *   JRX_RAG_EVICT_INTERVAL_MS.
  */
 
 import { sql } from 'drizzle-orm';
@@ -60,12 +60,12 @@ function readConfig(): EvictionConfig {
     return Number.isFinite(n) && n > 0 ? n : d;
   };
   return {
-    maxAgeDays: num('NYV_RAG_MAX_AGE_DAYS', DEFAULTS.MAX_AGE_DAYS),
-    maxChunks: num('NYV_RAG_MAX_CHUNKS', DEFAULTS.MAX_CHUNKS),
-    batchSize: num('NYV_RAG_BATCH_SIZE', DEFAULTS.BATCH_SIZE),
-    intervalMs: num('NYV_RAG_EVICT_INTERVAL_MS', DEFAULTS.INTERVAL_MS),
-    dryRun: process.env.NYV_RAG_EVICT_DRY_RUN === '1',
-    disabled: process.env.NYV_RAG_EVICT_DISABLED === '1',
+    maxAgeDays: num('JRX_RAG_MAX_AGE_DAYS', DEFAULTS.MAX_AGE_DAYS),
+    maxChunks: num('JRX_RAG_MAX_CHUNKS', DEFAULTS.MAX_CHUNKS),
+    batchSize: num('JRX_RAG_BATCH_SIZE', DEFAULTS.BATCH_SIZE),
+    intervalMs: num('JRX_RAG_EVICT_INTERVAL_MS', DEFAULTS.INTERVAL_MS),
+    dryRun: process.env.JRX_RAG_EVICT_DRY_RUN === '1',
+    disabled: process.env.JRX_RAG_EVICT_DISABLED === '1',
   };
 }
 
@@ -149,7 +149,7 @@ async function evictBySize(cfg: EvictionConfig, total: number): Promise<number> 
 async function writeAuditEntry(stats: EvictionStats): Promise<void> {
   if (!db) return;
   try {
-    // NYV-NS-014 (post-architect 2026-05-05): route through the canonical
+    // JRX-NS-014 (post-architect 2026-05-05): route through the canonical
     // hash-chain audit writer so RAG eviction events are linked into the
     // tamper-evident chain alongside SDK and orchestrator audit records.
     // The previous direct INSERT used columns (event_type, payload) that do
@@ -163,8 +163,8 @@ async function writeAuditEntry(stats: EvictionStats): Promise<void> {
     });
   } catch (err: any) {
     // Audit chain failures are non-fatal here. The boot-time hash-chain
-    // self-test (NYV-NS-010) catches schema problems separately.
-    logger.warn(`[NYV-NS-014] audit write skipped: ${err?.message || err}`);
+    // self-test (JRX-NS-010) catches schema problems separately.
+    logger.warn(`[JRX-NS-014] audit write skipped: ${err?.message || err}`);
   }
 }
 
@@ -172,11 +172,11 @@ export async function runOnce(): Promise<EvictionStats | null> {
   const cfg = readConfig();
   const startedAt = new Date().toISOString();
   if (cfg.disabled) {
-    logger.info('[NYV-NS-014] eviction disabled by NYV_RAG_EVICT_DISABLED=1');
+    logger.info('[JRX-NS-014] eviction disabled by JRX_RAG_EVICT_DISABLED=1');
     return null;
   }
   if (!(await tableExists())) {
-    logger.info('[NYV-NS-014] knowledge_chunks table not present, skipping');
+    logger.info('[JRX-NS-014] knowledge_chunks table not present, skipping');
     return null;
   }
 
@@ -187,7 +187,7 @@ export async function runOnce(): Promise<EvictionStats | null> {
     const remainingAfterAge = await countRows();
     sizeEvicted = await evictBySize(cfg, remainingAfterAge);
   } catch (err: any) {
-    logger.error(`[NYV-NS-014] eviction failed: ${err?.message || err}`);
+    logger.error(`[JRX-NS-014] eviction failed: ${err?.message || err}`);
     return null;
   }
 
@@ -202,7 +202,7 @@ export async function runOnce(): Promise<EvictionStats | null> {
   };
 
   logger.info(
-    `[NYV-NS-014] eviction pass complete: age=${ageEvicted} size=${sizeEvicted} `
+    `[JRX-NS-014] eviction pass complete: age=${ageEvicted} size=${sizeEvicted} `
     + `remaining=${remaining} dryRun=${cfg.dryRun}`,
   );
   await writeAuditEntry(stats);
@@ -214,11 +214,11 @@ let timer: NodeJS.Timeout | null = null;
 export function start(): void {
   const cfg = readConfig();
   if (cfg.disabled) {
-    logger.info('[NYV-NS-014] vector eviction disabled at boot');
+    logger.info('[JRX-NS-014] vector eviction disabled at boot');
     return;
   }
   if (timer) {
-    logger.warn('[NYV-NS-014] start() called twice; ignoring');
+    logger.warn('[JRX-NS-014] start() called twice; ignoring');
     return;
   }
   // First pass after a short delay so we don't compete with cold-boot work.
@@ -226,7 +226,7 @@ export function start(): void {
   timer = setInterval(() => { void runOnce(); }, cfg.intervalMs);
   timer.unref();
   logger.info(
-    `[NYV-NS-014] vector eviction scheduled every ${Math.round(cfg.intervalMs / 60000)}m `
+    `[JRX-NS-014] vector eviction scheduled every ${Math.round(cfg.intervalMs / 60000)}m `
     + `(maxAge=${cfg.maxAgeDays}d, maxChunks=${cfg.maxChunks}, dryRun=${cfg.dryRun})`,
   );
 }

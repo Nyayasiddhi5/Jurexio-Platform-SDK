@@ -213,7 +213,7 @@ function isForensicMode(): boolean {
  *
  * LLM preferredModels from the loaded snapshot drive Queen routing. To ignore
  * registry preferredModels and use Bedrock-first policy only:
- *   NYV_IGNORE_REGISTRY_PREFERRED_MODELS=1
+ *   JRX_IGNORE_REGISTRY_PREFERRED_MODELS=1
  */
 function resolveRegistrySnapshotDir(): string | null {
   const raw = String(process.env.NV_REGISTRY_SNAPSHOT || 'live').trim();
@@ -260,7 +260,7 @@ function buildCache(): CacheState {
   const aliases = buildAliasMap();
   const activeJurisdiction = normalizeJurisdiction(
     process.env.NV_PRIMARY_JURISDICTION
-      || (process.env.NODE_ENV === 'production' || process.env.NYV_FORCE_INDIA_REGISTRY === '1'
+      || (process.env.NODE_ENV === 'production' || process.env.JRX_FORCE_INDIA_REGISTRY === '1'
         ? 'IN'
         : undefined),
   );

@@ -19,8 +19,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvPageShell } from '@/components/NyvPageShell';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxPageShell } from '@/components/JrxPageShell';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TYPES
@@ -179,23 +179,23 @@ export default function SkillsMarketplace() {
 
   if (isLoading) {
     return (
-      <NyvPageShell testId="page-skills-marketplace" title="SkillShop™">
+      <JrxPageShell testId="page-skills-marketplace" title="SkillShop™">
         <div className="flex items-center justify-center py-24 text-muted-foreground">
           <Loader2 className="h-8 w-8 animate-spin mr-2" /> Loading SkillShop catalogue…
         </div>
-      </NyvPageShell>
+      </JrxPageShell>
     );
   }
 
   if (isError || !skills.length) {
     return (
-      <NyvPageShell testId="page-skills-marketplace" title="SkillShop™">
-        <NyvEmptyState
+      <JrxPageShell testId="page-skills-marketplace" title="SkillShop™">
+        <JrxEmptyState
           title="SkillShop catalogue unavailable"
           description="Sign in and ensure /api/jrx/skillshop/skills is reachable."
         />
         <Button className="mt-4" variant="outline" onClick={() => refetch()}>Retry</Button>
-      </NyvPageShell>
+      </JrxPageShell>
     );
   }
 
@@ -257,7 +257,7 @@ export default function SkillsMarketplace() {
   );
 
   return (
-    <NyvPageShell
+    <JrxPageShell
       testId="page-skills-marketplace"
       title="SkillShop™"
       description="Legal AI Skills Marketplace — Jurexio Enterprise Platform 312"
@@ -442,6 +442,6 @@ export default function SkillsMarketplace() {
           </Card>
         </div>
       )}
-    </NyvPageShell>
+    </JrxPageShell>
   );
 }

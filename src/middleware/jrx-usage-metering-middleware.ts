@@ -1,5 +1,5 @@
 /**
- * nv-usage-metering-middleware.ts — Task #302 (Demo G2C — Operations Hub + Cost Optimizer)
+ * jrx-usage-metering-middleware.ts — Task #302 (Demo G2C — Operations Hub + Cost Optimizer)
  *
  * Per-request SDK usage writer. Mounted globally on `/api/jrx/*` so every
  * gateway call leaves a row in `public.sdk_usage_metering`. The Operations
@@ -14,7 +14,7 @@
  * roll them up via JSONB without a schema change. `period='request'` marks
  * raw per-request rows (vs. 'daily' aggregates written by sdkUsageMeteringService).
  *
- * Pricing: simple price-table in nv-llm-pricing.ts. We capture tokens from
+ * Pricing: simple price-table in jrx-llm-pricing.ts. We capture tokens from
  *   - response.locals.nvUsage = { promptTokens, completionTokens, model, provider }
  *     set by realLLMService consumers, OR
  *   - the response body when it includes `usage`/`tokens` fields, OR
@@ -22,11 +22,11 @@
  *
  * Audit trail: per-request writes are NON-fatal. A failure is logged at
  * debug level — the parallel sdk_api_request_logs writer (in
- * nv-sdk-tracking-middleware) and the hash-chained nv_audit_logs are still
+ * jrx-sdk-tracking-middleware) and the hash-chained nv_audit_logs are still
  * the durable audit surfaces.
  *
  * NV-WIRING-001: imported and mounted from src/index.ts.
- * NV-NAMING-001: nv- prefix.
+ * NV-NAMING-001: jrx- prefix.
  * NV-ARCH-001:   no LLM calls, just an observation tap.
  */
 

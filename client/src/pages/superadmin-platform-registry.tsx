@@ -29,8 +29,8 @@ import {
   Building2, Star, Sparkles, Bot, DollarSign, Clock,
 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { listLegalLastRuns } from '@/services/jrx-legal-last-runs';
 import { Link } from 'wouter';
 
@@ -66,7 +66,7 @@ interface Platform {
 // ─── Platform Type Labels ─────────────────────────────────────────────────────
 
 const PLATFORM_META: Record<string, { color: string; icon: string; badge: string }> = {
-  'nyayamitra':                 { color: 'text-emerald-400', icon: '🏛️', badge: 'bg-emerald-500/20 text-emerald-700 border-emerald-200' },
+  'jurexio-citizen':                 { color: 'text-emerald-400', icon: '🏛️', badge: 'bg-emerald-500/20 text-emerald-700 border-emerald-200' },
   'nyayasiddhi-professional':   { color: 'text-blue-400',    icon: '⚖️', badge: 'bg-blue-500/20 text-blue-700 border-blue-200' },
   'nyayasiddhi-institution':    { color: 'text-purple-400',  icon: '🏢', badge: 'bg-purple-500/20 text-purple-700 border-purple-200' },
   'nyayasiddhi-ministry':       { color: 'text-red-400',     icon: '🏛', badge: 'bg-red-500/20 text-red-700 border-red-200' },
@@ -195,7 +195,7 @@ function CreatePlatformModal({ onCreated }: { onCreated: () => void }) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-slate-100 border-slate-200">
-                <SelectItem value="nyayamitra">Nyayamitra™</SelectItem>
+                <SelectItem value="jurexio-citizen">Jurexio Citizen</SelectItem>
                 <SelectItem value="nyayasiddhi-professional">Jurexio Professional™</SelectItem>
                 <SelectItem value="nyayasiddhi-institution">Jurexio Institution™</SelectItem>
                 <SelectItem value="nyayasiddhi-ministry">Jurexio Ministry™</SelectItem>
@@ -306,7 +306,7 @@ export default function SuperAdminPlatformRegistry() {
   const totalProvisioned = platforms.filter(p => p.is_provisioned).length;
 
   return (
-    <div className="min-h-screen bg-[#F5F8FE] text-[#1E3A5E] p-6 nv-light-scope" aria-label="Super Admin Platform Registry">
+    <div className="min-h-screen bg-[#F5F8FE] text-[#1E3A5E] p-6 jrx-light-scope" aria-label="Super Admin Platform Registry">
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
@@ -384,7 +384,7 @@ export default function SuperAdminPlatformRegistry() {
             </div>
           )}
           {!isLoading && isError && (
-            <NyvErrorState
+            <JrxErrorState
               title="Unable to load platforms"
               description="The platform registry could not be retrieved."
               onRetry={() => refetch()}
@@ -392,7 +392,7 @@ export default function SuperAdminPlatformRegistry() {
             />
           )}
           {!isLoading && !isError && platforms.length === 0 && (
-            <NyvEmptyState
+            <JrxEmptyState
               icon={Globe}
               title="No platforms registered"
               description={'Click "Register Platform" to add the first one.'}
@@ -499,7 +499,7 @@ export default function SuperAdminPlatformRegistry() {
                         </div>
                       ))}
                       {!Object.keys(selected.llm_config ?? {}).length && (
-                        <NyvEmptyState title="No LLM config set" description="This platform is using platform defaults." size="sm" />
+                        <JrxEmptyState title="No LLM config set" description="This platform is using platform defaults." size="sm" />
                       )}
                     </div>
                   </TabsContent>
@@ -528,7 +528,7 @@ export default function SuperAdminPlatformRegistry() {
                         ))}
                       </div>
                     ) : (
-                      <NyvEmptyState title="No usage data available yet" description="30-day usage metrics will appear here once requests have been made." size="sm" />
+                      <JrxEmptyState title="No usage data available yet" description="30-day usage metrics will appear here once requests have been made." size="sm" />
                     )}
                   </TabsContent>
                 </Tabs>

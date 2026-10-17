@@ -1,5 +1,5 @@
 /**
- * NYV AI Response Wrapper — wraps every AI response with mandatory metadata block
+ * JRX AI Response Wrapper — wraps every AI response with mandatory metadata block
  * Implements §3.3.4 — AI Output Metadata Block (mandatory on ALL 22-pattern outputs)
  * Implements §3.3.1 — Jurisdiction Binding (prohibited phrase scan per jurisdiction)
  * Implements §3.3.2 — Template Mode Enforcement (STRICT/GUIDED/MENTOR)
@@ -7,7 +7,7 @@
  */
 
 import crypto from 'crypto';
-import { NyvAiRiskEngine } from '../services/jrx-ai-risk-engine.js';
+import { JrxAiRiskEngine } from '../services/jrx-ai-risk-engine.js';
 
 export type TemplateMode = 'STRICT' | 'GUIDED' | 'MENTOR';
 
@@ -151,7 +151,7 @@ export function wrapAiResponse(params: {
     .update(params.systemPrompt + params.userPrompt)
     .digest('hex');
 
-  const riskAssessment = NyvAiRiskEngine.compute(
+  const riskAssessment = JrxAiRiskEngine.compute(
     params.content,
     params.jurisdiction,
     '',
@@ -193,7 +193,7 @@ export function wrapAiResponse(params: {
       generated_by:     params.modelVersion,
       jurisdiction:     params.jurisdiction,
       case_type:        params.caseType,
-      clause_source:    'NYV-CLAUSE-BANK-v3.1.2',
+      clause_source:    'JRX-CLAUSE-BANK-v3.1.2',
       confidence_score: params.confidenceScore ?? 0,
       risk_score:       adjustedScore,
       risk_badge:       adjustedBadge,

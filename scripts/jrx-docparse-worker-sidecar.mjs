@@ -6,7 +6,7 @@
 import http from "node:http";
 import { InMemoryDocparseJobQueue } from "@nyv/docparse-sdk";
 
-const PORT = Number(process.env.NYV_DOCPARSE_WORKER_PORT || 5012);
+const PORT = Number(process.env.JRX_DOCPARSE_WORKER_PORT || 5012);
 const queue = new InMemoryDocparseJobQueue();
 
 function readBody(req) {

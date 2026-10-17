@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Per-Platform Rate Limiter Middleware
  * Configurable rate limiting with sliding window counter for different platforms
@@ -56,7 +56,7 @@ const DEFAULT_PLATFORM_LIMITS: PlatformRateLimitConfig = {
   'NS Professional Solo': { requestsPerMinute: 100, description: 'Jurexio Professional Solo' },
   'NS Professional Plus': { requestsPerMinute: 200, description: 'Jurexio Professional Plus' },
   'NS Professional Pro': { requestsPerMinute: 500, description: 'Jurexio Professional Pro' },
-  'NM Nyayamitra': { requestsPerMinute: 500, description: 'Nyayamitra Citizen Platform' },
+  'NM Jurexio Citizen': { requestsPerMinute: 500, description: 'Jurexio Citizen Citizen Platform' },
   'NI Institutional': { requestsPerMinute: 800, description: 'Jurexio Institutional' },
   'NMIN Ministry': { requestsPerMinute: 300, description: 'Jurexio Ministry' },
   'NACAD Academy': { requestsPerMinute: 300, description: 'Jurexio Academy' },

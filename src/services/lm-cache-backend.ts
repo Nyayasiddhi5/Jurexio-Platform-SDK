@@ -16,7 +16,7 @@
  *     so dev runs are unaffected (matches the "Done looks like" contract on
  *     Task #67). Set `LMCACHE_SHARED_BACKEND=redis` to turn it on; the URL
  *     is read from `LMCACHE_REDIS_URL`, then `REDIS_URL`, then
- *     `NYV_REDIS_TCP_URL`.
+ *     `JRX_REDIS_TCP_URL`.
  *   - Connection is lazy: we never connect at module-load time so importing
  *     this file is always safe (mirrors the lazy pattern in
  *     `src/services/redis.ts`).
@@ -79,7 +79,7 @@ export interface LMCacheBackend {
 /**
  * Service-scoped Redis key prefix. Override via `LMCACHE_KEY_PREFIX` env so
  * multi-tenant clusters can isolate cache namespaces (e.g. `nyv:lmcache:`,
- * `nyv-staging:lmcache:`). Trailing `:` enforced so callers never need to
+ * `jrx-staging:lmcache:`). Trailing `:` enforced so callers never need to
  * worry about the separator.
  */
 const KEY_PREFIX = (() => {
@@ -301,7 +301,7 @@ export function createLMCacheBackendFromEnv(): LMCacheBackend | null {
 
   if (!url) {
     logger.warn(
-      '[LMCacheBackend] LMCACHE_SHARED_BACKEND=redis but no LMCACHE_REDIS_URL and no canonical NYV_REDIS_TCP_URL — shared cache disabled',
+      '[LMCacheBackend] LMCACHE_SHARED_BACKEND=redis but no LMCACHE_REDIS_URL and no canonical JRX_REDIS_TCP_URL — shared cache disabled',
     );
     return null;
   }

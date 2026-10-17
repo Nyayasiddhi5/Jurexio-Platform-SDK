@@ -4,7 +4,7 @@
  * Strategy:
  *   1. If `react-native-sse` is installed, use it (full SSE support, retries).
  *   2. Else, fall back to a polling reader that POSTs to the same endpoint
- *      with `?stream=poll` and consumes the JSON line-stream format the NYV
+ *      with `?stream=poll` and consumes the JSON line-stream format the JRX
  *      gateway emits when SSE is unavailable.
  *
  * The fallback exists because plain RN `fetch` does not always handle SSE on
@@ -16,12 +16,12 @@
  */
 
 import type {
-  NyvStreamHandlers,
-  NyvStreamEvent,
-  NyvPatternResponse,
+  JrxStreamHandlers,
+  JrxStreamEvent,
+  JrxPatternResponse,
 } from '@jurexio/client-sdk';
 
-export interface NyvRNStreamOptions {
+export interface JrxRNStreamOptions {
   /** Override base URL (defaults to client config baseUrl). */
   baseUrl?: string;
   /** AbortSignal to cancel the stream. */
@@ -32,22 +32,22 @@ export interface NyvRNStreamOptions {
   pollIntervalMs?: number;
 }
 
-export interface NyvRNStreamReaderConfig {
+export interface JrxRNStreamReaderConfig {
   apiKey: string;
   baseUrl: string;
   /** SDK-level User-Agent header. */
   userAgent?: string;
 }
 
-export class NyvRNStreamReader {
+export class JrxRNStreamReader {
   private readonly apiKey: string;
   private readonly baseUrl: string;
   private readonly userAgent: string;
 
-  constructor(config: NyvRNStreamReaderConfig) {
+  constructor(config: JrxRNStreamReaderConfig) {
     this.apiKey = config.apiKey;
     this.baseUrl = config.baseUrl.replace(/\/$/, '');
-    this.userAgent = config.userAgent ?? 'NyvClientRN/1.0.0';
+    this.userAgent = config.userAgent ?? 'JrxClientRN/1.0.0';
   }
 
   /**
@@ -57,9 +57,9 @@ export class NyvRNStreamReader {
   async streamPattern(
     pattern: string,
     request: Record<string, unknown>,
-    handlers: NyvStreamHandlers = {},
-    options: NyvRNStreamOptions = {},
-  ): Promise<NyvPatternResponse> {
+    handlers: JrxStreamHandlers = {},
+    options: JrxRNStreamOptions = {},
+  ): Promise<JrxPatternResponse> {
     const url = `${options.baseUrl ?? this.baseUrl}/api/jrx/stream/${pattern.toLowerCase()}`;
     if (!options.forcePoll) {
       const sse = tryRequireSSE();
@@ -74,12 +74,12 @@ export class NyvRNStreamReader {
     sseModule: SSEModule,
     url: string,
     body: Record<string, unknown>,
-    handlers: NyvStreamHandlers,
-    options: NyvRNStreamOptions,
-  ): Promise<NyvPatternResponse> {
+    handlers: JrxStreamHandlers,
+    options: JrxRNStreamOptions,
+  ): Promise<JrxPatternResponse> {
     const EventSource: RNEventSourceCtor =
       'default' in sseModule ? sseModule.default : sseModule;
-    return new Promise<NyvPatternResponse>((resolve, reject) => {
+    return new Promise<JrxPatternResponse>((resolve, reject) => {
       const es = new EventSource(url, {
         method: 'POST',
         headers: {
@@ -111,7 +111,7 @@ export class NyvRNStreamReader {
 
       es.addEventListener('message', (ev: { data: string }) => {
         try {
-          const event = JSON.parse(ev.data) as NyvStreamEvent;
+          const event = JSON.parse(ev.data) as JrxStreamEvent;
           dispatch(event, handlers, (delta) => { acc += delta; }, (final) => {
             resolved = true;
             close();
@@ -126,9 +126,9 @@ export class NyvRNStreamReader {
   private async streamViaPolling(
     url: string,
     body: Record<string, unknown>,
-    handlers: NyvStreamHandlers,
-    options: NyvRNStreamOptions,
-  ): Promise<NyvPatternResponse> {
+    handlers: JrxStreamHandlers,
+    options: JrxRNStreamOptions,
+  ): Promise<JrxPatternResponse> {
     const interval = options.pollIntervalMs ?? 600;
     const res = await fetch(`${url}?stream=poll`, {
       method: 'POST',
@@ -146,11 +146,11 @@ export class NyvRNStreamReader {
     }
     const text = await res.text();
     let acc = '';
-    let final: NyvPatternResponse | null = null;
+    let final: JrxPatternResponse | null = null;
     for (const line of text.split('\n')) {
       if (!line.trim()) continue;
       try {
-        const event = JSON.parse(line) as NyvStreamEvent;
+        const event = JSON.parse(line) as JrxStreamEvent;
         dispatch(event, handlers, (delta) => { acc += delta; }, (f) => { final = f; });
       } catch { /* skip malformed line */ }
       // throttle handler invocations to avoid jank — interval is purely a hint.
@@ -186,10 +186,10 @@ function tryRequireSSE(): SSEModule | null {
 }
 
 function dispatch(
-  event: NyvStreamEvent,
-  handlers: NyvStreamHandlers,
+  event: JrxStreamEvent,
+  handlers: JrxStreamHandlers,
   onDelta: (d: string) => void,
-  onFinal: (f: NyvPatternResponse) => void,
+  onFinal: (f: JrxPatternResponse) => void,
 ) {
   const raw = event as unknown as Record<string, unknown>;
   const data = (raw.data && typeof raw.data === 'object')
@@ -238,8 +238,8 @@ function dispatch(
       handlers.onMetadata?.(event); break;
     case 'run_completed':
     case 'run_finished':
-      handlers.onComplete?.(event.data as NyvPatternResponse);
-      onFinal(event.data as NyvPatternResponse);
+      handlers.onComplete?.(event.data as JrxPatternResponse);
+      onFinal(event.data as JrxPatternResponse);
       break;
     default: break;
   }

@@ -4,13 +4,17 @@
  * `/document-ai-hub` load the SPA shell but match zero routes → blank content.
  */
 
-export const NV_CONSOLE_BASE = '/console';
+/** Canonical console mount path (Wouter `<Router base="…">`). */
+export const JRX_CONSOLE_BASE = '/console';
+
+/** @deprecated Use JRX_CONSOLE_BASE — re-export for one release */
+export const NV_CONSOLE_BASE = JRX_CONSOLE_BASE;
 
 /** Paths that must never be prefixed (separate shells or external). */
 const EXEMPT_PREFIXES = ['/console', '/legalchat', '/sme', '/api', '/downloads', '/health', '/metrics', '/ws'];
 
 /** All console shell paths (sidebar + redirects + deep links). */
-export const NV_CONSOLE_SHELL_PATHS = new Set([
+export const JRX_CONSOLE_SHELL_PATHS = new Set([
   '/dashboard', '/login', '/home', '/command-centre', '/admin', '/admin-console',
   '/document-ai-hub', '/legal-drafting', '/document-redline', '/billing/subscription', '/chat', '/agent-registry', '/agents',
   '/create-agent', '/agent-live-testing', '/my-approvals', '/orchestration',
@@ -37,15 +41,18 @@ export function isExemptPath(pathname: string): boolean {
 export function ensureConsoleRedirect(pathname: string, search = ''): string | null {
   if (!pathname || isExemptPath(pathname)) return null;
   const bare = pathname.split('?')[0];
-  if (bare === '/') return `${NV_CONSOLE_BASE}/dashboard${search}`;
-  if (NV_CONSOLE_SHELL_PATHS.has(bare)) {
-    return `${NV_CONSOLE_BASE}${pathname}${search}`;
+  if (bare === '/') return `${JRX_CONSOLE_BASE}/dashboard${search}`;
+  if (JRX_CONSOLE_SHELL_PATHS.has(bare)) {
+    return `${JRX_CONSOLE_BASE}${pathname}${search}`;
   }
-  for (const p of NV_CONSOLE_SHELL_PATHS) {
-    if (bare.startsWith(`${p}/`)) return `${NV_CONSOLE_BASE}${pathname}${search}`;
+  for (const p of JRX_CONSOLE_SHELL_PATHS) {
+    if (bare.startsWith(`${p}/`)) return `${JRX_CONSOLE_BASE}${pathname}${search}`;
   }
   return null;
 }
+
+/** @deprecated Use JRX_CONSOLE_SHELL_PATHS — re-export for one release */
+export const NV_CONSOLE_SHELL_PATHS = JRX_CONSOLE_SHELL_PATHS;
 
 /** External shells — full page navigation, not Wouter-relative. */
 export function isExternalNavPath(path: string): boolean {

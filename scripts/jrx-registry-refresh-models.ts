@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 /**
- * Nyayavigya v5.0.1 — Registry refresh + enrichment (T1–T12 unified pass).
+ * Jurexio v5.0.1 — Registry refresh + enrichment (T1–T12 unified pass).
  *
  * For every agent in every jurisdiction registry:
  *   1. Rewrites preferredModels + fallbackModels from the canonical tier-map (T2/T3)
@@ -30,13 +30,13 @@ type JurCode = typeof JUR_CODES[number];
 
 function findRegistryDir(): string {
   const candidates = [
-    path.join(process.cwd(), 'nyayavigya-platform-312', 'config', 'agent-registries'),
+    path.join(process.cwd(), 'Jurexio-Platform-SDK', 'config', 'agent-registries'),
     path.join(process.cwd(), 'config', 'agent-registries'),
-    path.join(process.cwd(), 'nyayavigya-platform-312', 'src', 'data', 'jurisdiction-registries'),
+    path.join(process.cwd(), 'Jurexio-Platform-SDK', 'src', 'data', 'jurisdiction-registries'),
     path.join(process.cwd(), 'src', 'data', 'jurisdiction-registries'),
   ];
   for (const c of candidates) {
-    if (fs.existsSync(c) && fs.readdirSync(c).some(f => f.startsWith('Nyayavigya-Legal-registry-'))) {
+    if (fs.existsSync(c) && fs.readdirSync(c).some(f => f.startsWith('Jurexio-Legal-registry-'))) {
       return c;
     }
   }
@@ -186,9 +186,9 @@ async function main() {
     const backupDir = path.join(process.cwd(), '.local', `registry-backup-${ts}`);
     fs.mkdirSync(backupDir, { recursive: true });
     for (const code of codes) {
-      const src = path.join(REGISTRY_DIR, `Nyayavigya-Legal-registry-${code}.json`);
+      const src = path.join(REGISTRY_DIR, `Jurexio-Legal-registry-${code}.json`);
       if (fs.existsSync(src)) {
-        fs.copyFileSync(src, path.join(backupDir, `Nyayavigya-Legal-registry-${code}.json`));
+        fs.copyFileSync(src, path.join(backupDir, `Jurexio-Legal-registry-${code}.json`));
       }
     }
     console.log(`[refresh] backup: ${backupDir}`);
@@ -201,7 +201,7 @@ async function main() {
   };
 
   for (const code of codes) {
-    const file = path.join(REGISTRY_DIR, `Nyayavigya-Legal-registry-${code}.json`);
+    const file = path.join(REGISTRY_DIR, `Jurexio-Legal-registry-${code}.json`);
     if (!fs.existsSync(file)) {
       console.log(`[${code}] SKIP — file not found`);
       continue;

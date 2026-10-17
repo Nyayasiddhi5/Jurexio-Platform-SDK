@@ -1,19 +1,19 @@
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 import type {
-  NyvEuComplianceReport,
-  NyvBiasAuditReport,
-  NyvWatermarkResult,
-  NyvSigningSession,
+  JrxEuComplianceReport,
+  JrxBiasAuditReport,
+  JrxWatermarkResult,
+  JrxSigningSession,
 } from '../types/index.js';
 
 export class ComplianceApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
 
-  async getEuComplianceReport(): Promise<NyvEuComplianceReport> {
+  async getEuComplianceReport(): Promise<JrxEuComplianceReport> {
     return this.http.get('/api/jrx/compliance/eu-ai-act/report');
   }
 
-  async getBiasAudit(agentId: string): Promise<NyvBiasAuditReport> {
+  async getBiasAudit(agentId: string): Promise<JrxBiasAuditReport> {
     return this.http.get(`/api/jrx/compliance/bias-audit/${agentId}`);
   }
 
@@ -25,7 +25,7 @@ export class ComplianceApi {
     return this.http.get(`/api/jrx/compliance/eu-ai-act/article11/${agentId}`);
   }
 
-  async watermarkContent(content: string, method: 'invisible' | 'visible' | 'both' = 'invisible'): Promise<NyvWatermarkResult> {
+  async watermarkContent(content: string, method: 'invisible' | 'visible' | 'both' = 'invisible'): Promise<JrxWatermarkResult> {
     return this.http.post('/api/jrx/compliance/watermark', { content, method });
   }
 
@@ -33,11 +33,11 @@ export class ComplianceApi {
     return this.http.post('/api/jrx/compliance/watermark/verify', { content });
   }
 
-  async createSigningSession(documentHash: string, signers: string[]): Promise<NyvSigningSession> {
+  async createSigningSession(documentHash: string, signers: string[]): Promise<JrxSigningSession> {
     return this.http.post('/api/jrx/compliance/digital-sign/create', { documentHash, signers });
   }
 
-  async getSigningStatus(sessionId: string): Promise<NyvSigningSession> {
+  async getSigningStatus(sessionId: string): Promise<JrxSigningSession> {
     return this.http.get(`/api/jrx/compliance/digital-sign/${sessionId}`);
   }
 

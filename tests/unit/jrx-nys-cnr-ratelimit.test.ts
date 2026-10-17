@@ -9,10 +9,10 @@ function mockReq(headers: Record<string, string>): Request {
   return { headers } as unknown as Request;
 }
 
-describe('NV-NYS-CNR-RATELIMIT-001', () => {
+describe('NV-JRX-CNR-RATELIMIT-001', () => {
   it('treats caselaw-worker gateway calls as rate-limit exempt', () => {
     const req = mockReq({
-      'x-nyv-platform': 'nys',
+      'x-jrx-platform': 'nys',
       'x-api-key': 'nyv_test_key_1234567890',
     });
     expect(isNyayasearchGatewayRequest(req)).toBe(true);
@@ -20,7 +20,7 @@ describe('NV-NYS-CNR-RATELIMIT-001', () => {
   });
 
   it('does not exempt anonymous traffic', () => {
-    const req = mockReq({ 'x-nyv-platform': 'nys' });
+    const req = mockReq({ 'x-jrx-platform': 'nys' });
     expect(isNyayasearchGatewayRequest(req)).toBe(false);
   });
 });

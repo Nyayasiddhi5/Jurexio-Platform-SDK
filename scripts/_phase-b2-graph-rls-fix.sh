@@ -2,12 +2,12 @@
 # Allow nv_app to read global citation graph rows (org_id IS NULL).
 # Uses DATABASE_URL_ADMIN for DDL; verifies with DATABASE_URL (nv_app).
 set -uo pipefail
-CANON="/opt/Nyayavigya/secrets/.env.production"
+CANON="/opt/Jurexio/secrets/.env.production"
 DB_APP="$(grep -E '^DATABASE_URL=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')"
 DB_ADMIN="$(grep -E '^DATABASE_URL_ADMIN=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')"
 if [ -z "$DB_ADMIN" ]; then echo "MISSING DATABASE_URL_ADMIN"; exit 1; fi
 
-docker exec -i -e NYV_DB_APP="$DB_APP" -e NYV_DB_ADMIN="$DB_ADMIN" -w /app nyv-gateway node --input-type=module <<'NODE'
+docker exec -i -e JRX_DB_APP="$DB_APP" -e JRX_DB_ADMIN="$DB_ADMIN" -w /app jrx-gateway node --input-type=module <<'NODE'
 import pg from 'pg';
 
 async function counts(url, label) {
@@ -20,8 +20,8 @@ async function counts(url, label) {
   await c.end();
 }
 
-await counts(process.env.NYV_DB_APP, 'BEFORE_nv_app');
-const admin = new pg.Client({ connectionString: process.env.NYV_DB_ADMIN, ssl: { rejectUnauthorized: false } });
+await counts(process.env.JRX_DB_APP, 'BEFORE_nv_app');
+const admin = new pg.Client({ connectionString: process.env.JRX_DB_ADMIN, ssl: { rejectUnauthorized: false } });
 await admin.connect();
 for (const t of ['nv_legal_graph_entities', 'nv_legal_graph_edges']) {
   await admin.query(`DROP POLICY IF EXISTS tenant_isolation ON nv_schema.${t}`);
@@ -32,6 +32,6 @@ for (const t of ['nv_legal_graph_entities', 'nv_legal_graph_edges']) {
   `);
 }
 await admin.end();
-await counts(process.env.NYV_DB_APP, 'AFTER_nv_app');
+await counts(process.env.JRX_DB_APP, 'AFTER_nv_app');
 console.log('GRAPH_RLS_FIX_OK');
 NODE

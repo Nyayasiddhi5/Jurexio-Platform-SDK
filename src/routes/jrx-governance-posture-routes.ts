@@ -295,7 +295,7 @@ router.get('/by-jurisdiction', async (req: Request, res: Response) => {
   }
 });
 
-// Gate 8 — JRX Bar Council guardrails (live in safety-pipeline + nv-client).
+// Gate 8 — JRX Bar Council guardrails (live in safety-pipeline + jrx-client).
 router.get('/gate8/status', async (_req: Request, res: Response) => {
   try {
     const { jrxGuardrailsService } = await import('../services/jrx/jrx-guardrails.js');

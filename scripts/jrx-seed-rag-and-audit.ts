@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — RAG namespaces + Document/Chunk + Audit seed
- * NYV-SCRIPT-SEED-RAG-AUDIT-001  ·  NYV-NS-004  ·  2026-05-01
+ * Jurexio Platform 3.1.2 — RAG namespaces + Document/Chunk + Audit seed
+ * JRX-SCRIPT-SEED-RAG-AUDIT-001  ·  JRX-NS-004  ·  2026-05-01
  *
  * Idempotent demo-data seed for the four tables that block fresh-environment
  * smoke tests:
@@ -8,14 +8,14 @@
  *   2. nv_rag_documents     — sample legal docs (statutes, case briefs)
  *   3. nv_rag_chunks        — chunked text for embedding tests
  *   4. nv_audit_logs        — bootstraps the hash-chain so the boot-time
- *                             self-test (NYV-NS-010 / phase C4) has a head.
+ *                             self-test (JRX-NS-010 / phase C4) has a head.
  *
  * Run:  npx tsx scripts/jrx-seed-rag-and-audit.ts
  *
  * SAFETY:
  *   - Re-runnable: every INSERT uses ON CONFLICT DO NOTHING / NOT EXISTS.
  *   - No secrets in code: any sensitive payload is read from env vars and
- *     throws if missing (per NYV-SECURITY-DOC-CREDS-001).
+ *     throws if missing (per JRX-SECURITY-DOC-CREDS-001).
  *   - Never touches production tables outside its scope.
  */
 
@@ -51,7 +51,7 @@ const REQUIRED_COLUMNS_RAG_DOCS = {
   ],
 } as const;
 
-// ── Demo organisation lookup (created by nv-seed-organizations.ts) ─────────
+// ── Demo organisation lookup (created by jrx-seed-organizations.ts) ─────────
 // 2026-05-01: real RDS dev showed neither canonical slug present — only
 // `demo-tenant`. Added that as a third fallback so this seed is idempotent
 // against the actual provisioned environment without needing an extra
@@ -59,8 +59,8 @@ const REQUIRED_COLUMNS_RAG_DOCS = {
 async function findDemoOrgId(): Promise<string | null> {
   const rows = await sql`
     SELECT id::text AS id FROM nv_organizations
-     WHERE slug IN ('nyayavigya-tech', 'demo-law-firm-pro', 'demo-tenant')
-     ORDER BY (slug = 'nyayavigya-tech') DESC,
+     WHERE slug IN ('jurexio-tech', 'demo-law-firm-pro', 'demo-tenant')
+     ORDER BY (slug = 'jurexio-tech') DESC,
               (slug = 'demo-law-firm-pro') DESC,
               created_at ASC
      LIMIT 1
@@ -72,7 +72,7 @@ async function findDemoOrgId(): Promise<string | null> {
 // 2026-05-01: these two tables are referenced by the seed but are NOT created
 // by any current drizzle migration (verified against live RDS dev). Until a
 // migration adds them, seedDocumentsAndChunks() short-circuits with a clear
-// notice instead of crashing. Tracked under NYV-NS-004-FOLLOWUP.
+// notice instead of crashing. Tracked under JRX-NS-004-FOLLOWUP.
 async function tablesExist(...names: string[]): Promise<boolean> {
   const rows = await sql`
     SELECT count(*)::int AS c FROM information_schema.tables
@@ -119,7 +119,7 @@ async function seedDocumentsAndChunks() {
     console.warn(
       '[nv_rag_documents/nv_rag_chunks] SKIPPED — tables not present. ' +
       'Add a drizzle migration that creates them, then re-run this seed. ' +
-      'See NYV-NS-004-FOLLOWUP in PROJECT-TRACKER.md.',
+      'See JRX-NS-004-FOLLOWUP in PROJECT-TRACKER.md.',
     );
     return;
   }
@@ -212,7 +212,7 @@ async function seedAuditChainHead(orgId: string) {
       ${id}, ${traceId}, NULL, ${orgId}, NULL, ${route}, ${method},
       200, 0, 0, NULL, ${eventType},
       ${recordHash}, ${previousHash},
-      ${'{"seed":"NYV-NS-004","note":"genesis block for hash-chain self-test"}'}::jsonb,
+      ${'{"seed":"JRX-NS-004","note":"genesis block for hash-chain self-test"}'}::jsonb,
       NOW()
     )
   `;
@@ -220,7 +220,7 @@ async function seedAuditChainHead(orgId: string) {
 }
 
 async function main() {
-  console.log('NYV-NS-004 RAG + Audit seed starting…');
+  console.log('JRX-NS-004 RAG + Audit seed starting…');
 
   const orgId = await findDemoOrgId();
   if (!orgId) {
@@ -238,11 +238,11 @@ async function main() {
   await seedDocumentsAndChunks();
   await seedAuditChainHead(orgId);
 
-  console.log('NYV-NS-004 seed complete.');
+  console.log('JRX-NS-004 seed complete.');
   await sql.end?.();
 }
 
 main().catch((err) => {
-  console.error('NYV-NS-004 seed failed:', err);
+  console.error('JRX-NS-004 seed failed:', err);
   process.exit(1);
 });

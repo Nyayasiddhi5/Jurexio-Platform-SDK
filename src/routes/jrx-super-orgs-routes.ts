@@ -24,7 +24,7 @@
  *     stays UNCHANGED. Per-platform rate limits and access scopes continue to
  *     be enforced at (platform_id, customer_org_id) — no rollup.
  *   • Mutating routes (POST / DELETE) require an admin-scoped SDK key (same
- *     scope set as nv-customer-orgs-routes.ts).
+ *     scope set as jrx-customer-orgs-routes.ts).
  *   • `GET /me/switchable` uses the caller's resolved (platform_id,
  *     customer_org_id) to find their super-org and return ONLY the siblings
  *     of that super-org. A caller with no super-org binding gets an empty list.
@@ -52,7 +52,7 @@ router.use(sdkGatewayAuth);
 // partner-platform org_admin.
 //
 // Reject the temptation to reuse `customer-orgs:admin` or the JWT-derived
-// `admin` scope here: `computeInternalScopesForRole` in nv-sdk-gateway.ts
+// `admin` scope here: `computeInternalScopesForRole` in jrx-sdk-gateway.ts
 // auto-grants `customer-orgs:admin` to every JWT carrying role=org_admin,
 // which would let a single platform's admin list / mutate super-orgs that
 // belong to other platforms. The only acceptable scopes are the explicit

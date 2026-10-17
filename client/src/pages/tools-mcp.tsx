@@ -60,7 +60,7 @@ export default function ToolsMcp() {
 
   useEffect(() => {
     const t = getAuthToken();
-    fetch(nv('nyaya-tools/catalog?limit=600'), { headers: t ? { Authorization: `Bearer ${t}` } : {} })
+    fetch(nv('jrx-legal-tools/catalog?limit=600'), { headers: t ? { Authorization: `Bearer ${t}` } : {} })
       .then(r => r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`)))
       .then(j => {
         setTools((j.tools ?? []) as Tool[]);
@@ -132,7 +132,7 @@ export default function ToolsMcp() {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 3000);
     try {
-      const r = await fetch(nv(`nyaya-tools/test/${tool.id}`), {
+      const r = await fetch(nv(`jrx-legal-tools/test/${tool.id}`), {
         method: 'POST',
         headers: tok ? { Authorization: `Bearer ${tok}`, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' },
         body: JSON.stringify({}),
@@ -166,7 +166,7 @@ export default function ToolsMcp() {
           <Link href="/mcp-connectors" className="text-emerald-700 underline ml-1">Connectors</Link>
           {' · '}
           browse, probe connectivity, and invoke via the canonical executor.
-          Catalog-only tools return HTTP 501 (honest not-implemented). {/* nv-allow-placeholder: UI copy explaining the 501 signal. */}
+          Catalog-only tools return HTTP 501 (honest not-implemented). {/* jrx-allow-placeholder: UI copy explaining the 501 signal. */}
         </p>
         <p className="text-xs text-amber-800 mt-2 bg-amber-50 border border-amber-200 rounded-md px-3 py-2 max-w-3xl">
           Partner curated sell surface is ~109 live tools. OAuth stubs (DocuSign / iManage / Drive / Slack / …)

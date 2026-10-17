@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
+// JRX-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
 // file. Runtime is unaffected (gateway runs via tsx). Opt out of strict-null
 // for the v5.0.0 deploy gate; track follow-up cleanup in INV-CLEANUP-001.
 import type { NodePgDatabase } from 'drizzle-orm/node-postgres';
@@ -55,18 +55,18 @@ export class FeatureFlagsService {
     }
   }
 
-  async isWAIv1EnabledForStudio(studioId: string): Promise<boolean> {
-    const masterEnabled = await this.isEnabled('nyayavigya_v1_enabled', 'global');
+  async isJRXv1EnabledForStudio(studioId: string): Promise<boolean> {
+    const masterEnabled = await this.isEnabled('jurexio_v1_enabled', 'global');
     if (!masterEnabled) {
       return false;
     }
 
-    const flagKey = `nyayavigya_v1_${studioId}`;
+    const flagKey = `jurexio_v1_${studioId}`;
     return this.isEnabled(flagKey, 'studio', studioId);
   }
 
-  async isWAIv1FeatureEnabled(feature: string): Promise<boolean> {
-    const flagKey = `nyayavigya_v1_${feature}`;
+  async isJRXv1FeatureEnabled(feature: string): Promise<boolean> {
+    const flagKey = `jurexio_v1_${feature}`;
     return this.isEnabled(flagKey, 'global');
   }
 
@@ -165,126 +165,126 @@ export class FeatureFlagsService {
   async initializeDefaultFlags(): Promise<void> {
     const defaultFlags: InsertFeatureFlag[] = [
       {
-        flagKey: 'nyayavigya_v1_enabled',
+        flagKey: 'jurexio_v1_enabled',
         description: 'Master switch for Jurexio Enterprise Platform SDK v5.0.0 - disables all v1.0 features when off',
         isEnabled: false,
         scope: 'global',
         scopeId: '_global',
       },
       {
-        flagKey: 'nyayavigya_v1_mem0',
+        flagKey: 'jurexio_v1_mem0',
         description: 'Enable mem0 memory management with 90% token reduction',
         isEnabled: false,
         scope: 'global',
         scopeId: '_global',
       },
       {
-        flagKey: 'nyayavigya_v1_mcp',
+        flagKey: 'jurexio_v1_mcp',
         description: 'Enable Model Context Protocol server for tool/resource/prompt management',
         isEnabled: false,
         scope: 'global',
         scopeId: '_global',
       },
       {
-        flagKey: 'nyayavigya_v1_tools',
+        flagKey: 'jurexio_v1_tools',
         description: 'Enable 93 production-ready tools across 17 categories',
         isEnabled: false,
         scope: 'global',
         scopeId: '_global',
       },
       {
-        flagKey: 'nyayavigya_v1_multimodal',
+        flagKey: 'jurexio_v1_multimodal',
         description: 'Enable multimodal capabilities (voice, video, music, image)',
         isEnabled: false,
         scope: 'global',
         scopeId: '_global',
       },
       {
-        flagKey: 'nyayavigya_v1_content_studio',
+        flagKey: 'jurexio_v1_content_studio',
         description: 'Enable Jurexio v1.0 for Content Studio',
         isEnabled: false,
         scope: 'studio',
         scopeId: 'content_studio',
       },
       {
-        flagKey: 'nyayavigya_v1_ideation_lab',
+        flagKey: 'jurexio_v1_ideation_lab',
         description: 'Enable Jurexio v1.0 for Ideation Lab Studio',
         isEnabled: false,
         scope: 'studio',
         scopeId: 'ideation_lab',
       },
       {
-        flagKey: 'nyayavigya_v1_market_intelligence',
+        flagKey: 'jurexio_v1_market_intelligence',
         description: 'Enable Jurexio v1.0 for Market Intelligence Studio',
         isEnabled: false,
         scope: 'studio',
         scopeId: 'market_intelligence',
       },
       {
-        flagKey: 'nyayavigya_v1_product_blueprint',
+        flagKey: 'jurexio_v1_product_blueprint',
         description: 'Enable Jurexio v1.0 for Product Blueprint Studio',
         isEnabled: false,
         scope: 'studio',
         scopeId: 'product_blueprint',
       },
       {
-        flagKey: 'nyayavigya_v1_growth_engine',
+        flagKey: 'jurexio_v1_growth_engine',
         description: 'Enable Jurexio v1.0 for Growth Engine Studio',
         isEnabled: false,
         scope: 'studio',
         scopeId: 'growth_engine',
       },
       {
-        flagKey: 'nyayavigya_v1_experience_design',
+        flagKey: 'jurexio_v1_experience_design',
         description: 'Enable Jurexio v1.0 for Experience Design Studio',
         isEnabled: false,
         scope: 'studio',
         scopeId: 'experience_design',
       },
       {
-        flagKey: 'nyayavigya_v1_engineering_forge',
+        flagKey: 'jurexio_v1_engineering_forge',
         description: 'Enable Jurexio v1.0 for Engineering Forge Studio',
         isEnabled: false,
         scope: 'studio',
         scopeId: 'engineering_forge',
       },
       {
-        flagKey: 'nyayavigya_v1_quality_assurance',
+        flagKey: 'jurexio_v1_quality_assurance',
         description: 'Enable Jurexio v1.0 for QA Studio',
         isEnabled: false,
         scope: 'studio',
         scopeId: 'quality_assurance',
       },
       {
-        flagKey: 'nyayavigya_v1_operations_cockpit',
+        flagKey: 'jurexio_v1_operations_cockpit',
         description: 'Enable Jurexio v1.0 for Operations Studio',
         isEnabled: false,
         scope: 'studio',
         scopeId: 'operations_cockpit',
       },
       {
-        flagKey: 'nyayavigya_v1_launch_control',
+        flagKey: 'jurexio_v1_launch_control',
         description: 'Enable Jurexio v1.0 for Launch Control Studio',
         isEnabled: false,
         scope: 'studio',
         scopeId: 'launch_control',
       },
       {
-        flagKey: 'nyayavigya_v1_deployment_studio',
+        flagKey: 'jurexio_v1_deployment_studio',
         description: 'Enable Jurexio v1.0 for Deployment Studio',
         isEnabled: false,
         scope: 'studio',
         scopeId: 'deployment_studio',
       },
       {
-        flagKey: 'nyayavigya_v1_data_ml_studio',
+        flagKey: 'jurexio_v1_data_ml_studio',
         description: 'Enable Jurexio v1.0 for Data & ML Studio',
         isEnabled: false,
         scope: 'studio',
         scopeId: 'data_ml_studio',
       },
       {
-        flagKey: 'nyayavigya_v1_compliance_shield',
+        flagKey: 'jurexio_v1_compliance_shield',
         description: 'Enable Jurexio v1.0 for Compliance Shield',
         isEnabled: false,
         scope: 'studio',

@@ -3,10 +3,10 @@
  *
  * Authority source: Singapore Statutes Online (sso.agc.gov.sg) for statutes
  * and SG neutral citations (SGCA/SGHC) for case-law. Live lookup gated by
- * JRX_F_CITATION_LIVE_SG (+ optional NYV_SG_SSO_API_BASE).
+ * JRX_F_CITATION_LIVE_SG (+ optional JRX_SG_SSO_API_BASE).
  */
 
-import { isNyvFeatureOn } from '../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../../config/jrx-feature-flags.js';
 import {
   BaseAuthorityAdapter,
   authorityFetch,
@@ -14,7 +14,7 @@ import {
   type AuthorityCitationCandidate,
 } from './jrx-authority-adapter.js';
 
-const SG_SSO_BASE = (process.env.NYV_SG_SSO_API_BASE || 'https://sso.agc.gov.sg').replace(/\/+$/, '');
+const SG_SSO_BASE = (process.env.JRX_SG_SSO_API_BASE || 'https://sso.agc.gov.sg').replace(/\/+$/, '');
 const LOOKUP_TIMEOUT_MS = 4000;
 
 const SG_KNOWN_INSTRUMENTS = [
@@ -40,7 +40,7 @@ const SG_KNOWN_INSTRUMENTS = [
  * SSO rendering artefact, not proof the act is fake), so a real citation can
  * only ever be `verified` (corpus or title-hit) or `unverified` here — never a
  * false negative. Operators who wire a parseable SSO/commercial endpoint via
- * `NYV_SG_SSO_API_BASE` get full live coverage with the same true/null
+ * `JRX_SG_SSO_API_BASE` get full live coverage with the same true/null
  * contract.
  */
 async function sgSsoLookup(citation: AuthorityCitationCandidate): Promise<boolean | null> {
@@ -75,6 +75,6 @@ export const sgAuthorityAdapter = new BaseAuthorityAdapter({
     /\[(?<year>(?:19|20)\d{2})\]\s+SG(?:CA|HC|DC|MC|HCR|HC\(I\))\s+\d+/g,
   ],
   knownInstruments: SG_KNOWN_INSTRUMENTS,
-  liveApiEnabled: () => isNyvFeatureOn('citationLiveSg'),
+  liveApiEnabled: () => isJrxFeatureOn('citationLiveSg'),
   liveLookup: sgSsoLookup,
 });

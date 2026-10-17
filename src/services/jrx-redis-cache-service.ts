@@ -106,7 +106,7 @@ class NvRedisCacheService {
   async connect(redisUrl?: string): Promise<void> {
     // NV-SECRETS-001 (2026-05-07): single resolver source of truth.
     // Argument override (used by tests) wins; otherwise resolveRedisTcpUrl()
-    // walks NYV_REDIS_TCP_URL → legacy aliases and one-shot warns on any
+    // walks JRX_REDIS_TCP_URL → legacy aliases and one-shot warns on any
     // legacy alias hit. Disabled (https://, malformed, missing) → in-memory.
     let url: string | null = null;
     if (redisUrl && /^rediss?:\/\//i.test(redisUrl)) {

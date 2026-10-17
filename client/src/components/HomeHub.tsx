@@ -106,12 +106,12 @@ export default function HomeHub() {
           </p>
           
           {/* Jurexio Orchestration Status */}
-          <Card className="max-w-md mx-auto mb-8" data-testid="card-nyayavigya-orchestration-status">
+          <Card className="max-w-md mx-auto mb-8" data-testid="card-jurexio-orchestration-status">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Activity className="h-5 w-5 text-green-500" data-testid="icon-nyayavigya-status" />
-                  <span className="text-sm font-medium" data-testid="text-nyayavigya-version">v4.1.1 Active</span>
+                  <Activity className="h-5 w-5 text-green-500" data-testid="icon-jurexio-status" />
+                  <span className="text-sm font-medium" data-testid="text-jurexio-version">v4.1.1 Active</span>
                 </div>
                 <div className="flex gap-2">
                   <Badge variant="outline" className="text-xs" data-testid="badge-agent-count">267+ Agents</Badge>

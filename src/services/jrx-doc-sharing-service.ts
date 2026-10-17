@@ -1,5 +1,5 @@
 /**
- * NYV Document Sharing Service — Jurexio-mediated cross-platform sharing.
+ * JRX Document Sharing Service — Jurexio-mediated cross-platform sharing.
  * ─────────────────────────────────────────────────────────────────────────────
  * Per Phase 2A decisions LOCKED 2026-05-06:
  *   - Sharing is platform-mediated by Jurexio, NOT peer-to-peer
@@ -17,7 +17,7 @@
  *
  * @see docs/v5.0.0/DOC-MGMT-PHASE2-ARCHITECTURE-PLAN-2026-05-06.md §10-§11
  * @see config/storage/document-storage-deployment.yaml § sharing
- * @module nv-doc-sharing-service
+ * @module jrx-doc-sharing-service
  * @version 1.0.0
  */
 
@@ -27,7 +27,7 @@ import { lazyRequire } from '../utils/jrx-type-helpers.js';
 const db = lazyRequire(() => _raw_db, 'db');
 import { nvDocShareGrants, type NvDocShareGrant, type NewNvDocShareGrant } from '../../shared/schema.js';
 import { and, eq, isNull, or, sql, desc } from 'drizzle-orm';
-import { getNyvDmsConfig, type PlatformCode } from '../config/nyv-dms-config.js';
+import { getJrxDmsConfig, type PlatformCode } from '../config/jrx-dms-config.js';
 import { createLogger } from '../utils/logger.js';
 
 const logger = createLogger('./jrx-doc-sharing');
@@ -37,12 +37,12 @@ export type GrantReason =
   | 'auto-large-doc'           // crossed threshold; auto-issued by Jurexio
   | 'manual'                   // explicit grant by owner platform
   | 'cross-platform-workflow'  // agent-orchestrated (e.g. NSI lawyer needs NSP filing)
-  | 'nyayavigya-orchestrator'; // central platform decision
+  | 'jurexio-orchestrator'; // central platform decision
 
 export interface IssueGrantInput {
   documentId: string;
   ownerOrgId: string;
-  ownerPlatformCode: PlatformCode | 'NYV';
+  ownerPlatformCode: PlatformCode | 'JRX';
   grantedToPlatformCode: PlatformCode;
   grantedToOrgId?: string | null; // null = ecosystem-wide for that platform
   grantType?: GrantType;
@@ -51,7 +51,7 @@ export interface IssueGrantInput {
   storagePath?: string;
   sharedBucket?: string;
   expiresAt?: Date | null;
-  createdBy?: string; // user_id or 'nyayavigya-orchestrator'
+  createdBy?: string; // user_id or 'jurexio-orchestrator'
   metadata?: Record<string, unknown>;
 }
 
@@ -83,7 +83,7 @@ function computeGrantAuditHash(input: IssueGrantInput, timestamp: string): strin
  * an active grant returns the existing row.
  */
 export async function issueGrant(input: IssueGrantInput): Promise<NvDocShareGrant> {
-  const cfg = getNyvDmsConfig();
+  const cfg = getJrxDmsConfig();
   const now = new Date();
   const auditHash = computeGrantAuditHash(input, now.toISOString());
 
@@ -99,7 +99,7 @@ export async function issueGrant(input: IssueGrantInput): Promise<NvDocShareGran
     storagePath: input.storagePath ?? null,
     sharedBucket: input.sharedBucket ?? cfg.backend.sharedBucket,
     expiresAt: input.expiresAt ?? null,
-    createdBy: input.createdBy ?? 'nyayavigya-orchestrator',
+    createdBy: input.createdBy ?? 'jurexio-orchestrator',
     auditChainHash: auditHash,
     metadata: input.metadata ?? {},
   };
@@ -178,7 +178,7 @@ export async function listGrantsForDoc(documentId: string): Promise<NvDocShareGr
 }
 
 /** List all docs the given (org, platform) shared out. */
-export async function listGrantsByOwner(orgId: string, platformCode: PlatformCode | 'NYV', limit = 100): Promise<NvDocShareGrant[]> {
+export async function listGrantsByOwner(orgId: string, platformCode: PlatformCode | 'JRX', limit = 100): Promise<NvDocShareGrant[]> {
   return db.select().from(nvDocShareGrants).where(
     and(
       eq(nvDocShareGrants.ownerOrgId, orgId),
@@ -200,7 +200,7 @@ export async function checkAccess(
   documentId: string,
   requestingPlatform: PlatformCode,
   requestingOrgId: string,
-  ownerHint?: { ownerOrgId: string; ownerPlatformCode: PlatformCode | 'NYV' },
+  ownerHint?: { ownerOrgId: string; ownerPlatformCode: PlatformCode | 'JRX' },
 ): Promise<CheckAccessResult> {
   if (ownerHint && ownerHint.ownerOrgId === requestingOrgId && ownerHint.ownerPlatformCode === requestingPlatform) {
     return { hasAccess: true, reason: 'owner' };
@@ -233,7 +233,7 @@ export async function checkAccess(
   const orgSpecific = valid.find(g => g.grantedToOrgId === requestingOrgId);
   const chosen = orgSpecific ?? valid[0];
 
-  if (getNyvDmsConfig().sharing.auditEveryCrossPlatformRead) {
+  if (getJrxDmsConfig().sharing.auditEveryCrossPlatformRead) {
     logger.info('cross-platform read authorised', {
       docId: documentId,
       requestor: `${requestingPlatform}::${requestingOrgId}`,
@@ -255,7 +255,7 @@ export async function checkAccess(
 /**
  * Strict variant of `checkAccess` that throws a `DocAccessDeniedError`
  * when access is not granted. Used by the share-grant enforcement middleware
- * (`nv-doc-access-guard`) to keep route handlers free of duplicated checks.
+ * (`jrx-doc-access-guard`) to keep route handlers free of duplicated checks.
  *
  * Acceptance (T010 Stream A): Org B reading Org A's document MUST receive a
  * 403 unless an active row exists in `nv_doc_share_grants` matching either
@@ -284,7 +284,7 @@ export async function assertReadAccess(
   documentId: string,
   callerOrgId: string,
   callerPlatform: PlatformCode,
-  ownerHint?: { ownerOrgId: string; ownerPlatformCode: PlatformCode | 'NYV' },
+  ownerHint?: { ownerOrgId: string; ownerPlatformCode: PlatformCode | 'JRX' },
 ): Promise<CheckAccessResult> {
   const result = await checkAccess(documentId, callerPlatform, callerOrgId, ownerHint);
   if (!result.hasAccess) {
@@ -306,12 +306,12 @@ export async function assertReadAccess(
 export async function autoShareIfLarge(input: {
   documentId: string;
   ownerOrgId: string;
-  ownerPlatformCode: PlatformCode | 'NYV';
+  ownerPlatformCode: PlatformCode | 'JRX';
   fileSizeBytes: number;
   storagePath?: string;
   triggeredBy?: string;
 }): Promise<NvDocShareGrant[]> {
-  const cfg = getNyvDmsConfig();
+  const cfg = getJrxDmsConfig();
   if (!cfg.sharing.autoShareLargeDocs) return [];
 
   const thresholdBytes = cfg.sharing.autoShareThresholdMb * 1024 * 1024;
@@ -338,7 +338,7 @@ export async function autoShareIfLarge(input: {
       grantReason: 'auto-large-doc',
       thresholdBytes: input.fileSizeBytes,
       storagePath: input.storagePath,
-      createdBy: input.triggeredBy ?? 'nyayavigya-orchestrator',
+      createdBy: input.triggeredBy ?? 'jurexio-orchestrator',
       metadata: { autoShareThresholdMb: cfg.sharing.autoShareThresholdMb },
     });
     if (grant) issued.push(grant);

@@ -167,7 +167,7 @@ export default function EuAiCompliancePage({ initialControlId }: PageProps = {})
       const blob = await r.blob();
       const fwSuffix = framework !== 'ALL' ? `-${framework}` : '';
       const filename =
-        `nyayavigya-compliance-${jurisdiction.toLowerCase()}${fwSuffix}-` +
+        `jurexio-compliance-${jurisdiction.toLowerCase()}${fwSuffix}-` +
         `${new Date().toISOString().slice(0, 10)}.pdf`;
       const objectUrl = URL.createObjectURL(blob);
       const a = document.createElement('a');

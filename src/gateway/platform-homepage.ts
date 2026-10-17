@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { PLATFORM_VERSION } from '../config/platform-config.js';
-import { NYV_REGISTRY_TOTALS } from '../constants/jrx-registry-stats.js';
+import { JRX_REGISTRY_TOTALS } from '../constants/jrx-registry-stats.js';
 
 export function servePlatformHomepage(req: Request, res: Response) {
   const html = `<!DOCTYPE html>
@@ -301,7 +301,7 @@ export function servePlatformHomepage(req: Request, res: Response) {
       <h1>Jurexio</h1>
       <div class="subtitle">Global Legal Operating System</div>
       <div class="tagline">"Justice. Powered by Precision."</div>
-      <div class="version-badge">v${PLATFORM_VERSION} &nbsp;|&nbsp; ${NYV_REGISTRY_TOTALS.totalAgents} Agents &nbsp;|&nbsp; ${NYV_REGISTRY_TOTALS.jurisdictions} Jurisdictions: IN, UK, GCC, EU, USA, SG</div>
+      <div class="version-badge">v${PLATFORM_VERSION} &nbsp;|&nbsp; ${JRX_REGISTRY_TOTALS.totalAgents} Agents &nbsp;|&nbsp; ${JRX_REGISTRY_TOTALS.jurisdictions} Jurisdictions: IN, UK, GCC, EU, USA, SG</div>
     </div>
   </div>
 
@@ -312,14 +312,14 @@ export function servePlatformHomepage(req: Request, res: Response) {
   </div>
   <div class="grid">
 
-    <!-- 1. Nyayamitra -->
-    <a href="/nyayamitra" class="card-link">
+    <!-- 1. Jurexio Citizen -->
+    <a href="/jurexio-citizen" class="card-link">
       <div class="card" style="--accent: #2563EB; --icon-bg: rgba(37,99,235,0.08);">
         <div class="card-top-bar"></div>
         <div class="card-icon">
           <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <h3>Nyayamitra</h3>
+        <h3>Jurexio Citizen</h3>
         <span class="product-tag">Citizen Legal Assistance</span>
         <p>AI-powered legal awareness for every citizen. Understand your rights, connect with verified lawyers, and access justice through 14 microservices.</p>
         <div class="stats">
@@ -349,7 +349,7 @@ export function servePlatformHomepage(req: Request, res: Response) {
         </div>
         <h3>Jurexio Professional&trade;</h3>
         <span class="product-tag">Practice OS</span>
-        <p>Enterprise-grade platform for lawyers and law firms. Manage cases, clients, billing, documents, and leverage ${NYV_REGISTRY_TOTALS.totalAgents} AI legal agents across Solo, Plus, and Pro tiers.</p>
+        <p>Enterprise-grade platform for lawyers and law firms. Manage cases, clients, billing, documents, and leverage ${JRX_REGISTRY_TOTALS.totalAgents} AI legal agents across Solo, Plus, and Pro tiers.</p>
         <div class="stats">
           <span class="stat"><strong>18</strong> pages</span>
           <span class="stat"><strong>30</strong> route modules</span>
@@ -376,10 +376,10 @@ export function servePlatformHomepage(req: Request, res: Response) {
         </div>
         <h3>Jurexio Intelligence</h3>
         <span class="product-tag">Core AI Backbone &amp; SDK Console</span>
-        <p>Central intelligence layer powering all platforms. ${NYV_REGISTRY_TOTALS.totalAgents} legal agents, orchestration engine, model catalog, developer console, and enterprise analytics.</p>
+        <p>Central intelligence layer powering all platforms. ${JRX_REGISTRY_TOTALS.totalAgents} legal agents, orchestration engine, model catalog, developer console, and enterprise analytics.</p>
         <div class="stats">
           <span class="stat"><strong>183</strong> services</span>
-          <span class="stat"><strong>${NYV_REGISTRY_TOTALS.totalAgents}</strong> agents</span>
+          <span class="stat"><strong>${JRX_REGISTRY_TOTALS.totalAgents}</strong> agents</span>
           <span class="stat"><strong>23+</strong> LLM providers</span>
         </div>
         <span class="badge badge-sdk">SDK — 92%</span>
@@ -520,9 +520,9 @@ export function servePlatformHomepage(req: Request, res: Response) {
       </thead>
       <tbody>
         <tr>
-          <td>Nyayamitra</td>
+          <td>Jurexio Citizen</td>
           <td><code>/api/nm/*</code></td>
-          <td><code>/nyayamitra</code></td>
+          <td><code>/jurexio-citizen</code></td>
           <td><span class="badge badge-live">Live</span></td>
         </tr>
         <tr>

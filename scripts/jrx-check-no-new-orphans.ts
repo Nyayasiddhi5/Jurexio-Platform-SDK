@@ -1,6 +1,6 @@
 /**
- * nv-check-no-new-orphans.ts
- * NYV-WIRING-BUDGET-001 (2026-05-10) — orphan-budget guardrail.
+ * jrx-check-no-new-orphans.ts
+ * JRX-WIRING-BUDGET-001 (2026-05-10) — orphan-budget guardrail.
  *
  * Re-runs the wiring audit and compares total orphan count vs the committed
  * budget at docs/audit/jrx-orphan-budget.json. Fails CI if orphans GREW.

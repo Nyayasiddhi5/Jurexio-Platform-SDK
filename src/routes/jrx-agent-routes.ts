@@ -381,7 +381,7 @@ async function runSingleAgentExecute(req: Request, res: Response): Promise<void>
           explicitSessionId: sessionId,
         });
       } catch {
-        effectiveSessionId = `nv-sess-agents-${Date.now().toString(36)}`;
+        effectiveSessionId = `jrx-sess-agents-${Date.now().toString(36)}`;
       }
     }
     const orchReq: any = {
@@ -417,7 +417,7 @@ async function runSingleAgentExecute(req: Request, res: Response): Promise<void>
         executionId: orchReq.orchestrationId,
         agentId: agentId ?? result.executions?.[0]?.agentId ?? null,
         status: result.success ? 'completed' : 'failed',
-        // AgentsApi.run / NyayamitraClient expect `output` at top of data or nested.
+        // AgentsApi.run / Jurexio CitizenClient expect `output` at top of data or nested.
         output: result.synthesizedOutput,
         result: {
           task,
@@ -442,7 +442,7 @@ async function runSingleAgentExecute(req: Request, res: Response): Promise<void>
   }
 }
 
-/** SDK AgentsApi.run → used by NyayamitraClient (NYM). */
+/** SDK AgentsApi.run → used by Jurexio CitizenClient (NYM). */
 router.post('/run', (req: Request, res: Response) => {
   void runSingleAgentExecute(req, res);
 });

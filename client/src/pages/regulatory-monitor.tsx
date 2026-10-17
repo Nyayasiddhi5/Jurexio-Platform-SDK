@@ -5,7 +5,7 @@
  * Backend: src/routes/jrx-operations-aggregators.ts → GET /api/jrx/regulatory
  * Auth:    super_admin; 60s refetch.
  *
- * Path imported via `p('REGULATORY')` from nv-api-paths.ts. Returns a single
+ * Path imported via `p('REGULATORY')` from jrx-api-paths.ts. Returns a single
  * fused stream of regulatory updates (monitor + audit-log + statute changes)
  * with source / effectiveDate / severity, replacing the previous bespoke
  * /api/jrx/regulatory/{events,alerts,health,subscribe} surface.
@@ -18,8 +18,8 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { useLocation } from 'wouter';
 import { Globe, AlertTriangle, CheckCircle, Clock, RefreshCw, FileText, ListChecks } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
@@ -241,7 +241,7 @@ export default function RegulatoryMonitor() {
         <CardContent className="p-0">
           <ScrollArea className="h-[28rem]" aria-label="Regulatory updates">
             {isError ? (
-              <NyvErrorState
+              <JrxErrorState
                 title="Could not load regulatory updates"
                 description={`Unable to retrieve ${REG_PATH}. You may not have super_admin access.`}
                 onRetry={() => refetch()}
@@ -251,7 +251,7 @@ export default function RegulatoryMonitor() {
                 {Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-16 w-full" />)}
               </div>
             ) : updates.length === 0 ? (
-              <NyvEmptyState
+              <JrxEmptyState
                 icon={CheckCircle}
                 title="No updates match the current filters"
                 description="Try changing the jurisdiction or severity filter."

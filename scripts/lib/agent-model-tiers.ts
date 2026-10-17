@@ -1,5 +1,5 @@
 /**
- * Nyayavigya v5.0.1 — Canonical April-2026 model-tier map.
+ * Jurexio v5.0.1 — Canonical April-2026 model-tier map.
  *
  * Single source of truth for which models each tier × jurisdiction × practice-area
  * agent should declare in its `preferredModels` and `fallbackModels`.

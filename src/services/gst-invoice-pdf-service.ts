@@ -1,11 +1,11 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * GST Invoice PDF Generation Service
  * Generates legally compliant GST tax invoices as PDF using HTML + Puppeteer.
  * @version 3.1.2
  */
 import { createLogger } from '../utils/logger.js';
-import { gstEngine, NYV_GST_DETAILS } from './jrx-gst-engine.js';
+import { gstEngine, JRX_GST_DETAILS } from './jrx-gst-engine.js';
 
 const logger = createLogger('gst-pdf');
 
@@ -67,10 +67,10 @@ function buildInvoiceHTML(data: InvoiceData, gst: any): string {
     <div>
       <div class="company-name">Jurexio Legal AI Pvt. Ltd.</div>
       <div class="company-details">
-        ${NYV_GST_DETAILS.address}<br>
-        GSTIN: ${NYV_GST_DETAILS.gstin}<br>
-        PAN: ${NYV_GST_DETAILS.pan}<br>
-        SAC: ${NYV_GST_DETAILS.sacCode} | HSN: ${(NYV_GST_DETAILS as any).hsnCode ?? ''}
+        ${JRX_GST_DETAILS.address}<br>
+        GSTIN: ${JRX_GST_DETAILS.gstin}<br>
+        PAN: ${JRX_GST_DETAILS.pan}<br>
+        SAC: ${JRX_GST_DETAILS.sacCode} | HSN: ${(JRX_GST_DETAILS as any).hsnCode ?? ''}
       </div>
     </div>
     <div>
@@ -98,7 +98,7 @@ function buildInvoiceHTML(data: InvoiceData, gst: any): string {
       <tr><th>Description</th><th>SAC Code</th><th>Period</th><th>Amount (₹)</th></tr>
       <tr>
         <td>${data.planName} — Jurexio Legal AI Platform</td>
-        <td>${NYV_GST_DETAILS.sacCode}</td>
+        <td>${JRX_GST_DETAILS.sacCode}</td>
         <td>${data.period}</td>
         <td style="text-align:right">₹${data.baseAmount.toFixed(2)}</td>
       </tr>
@@ -127,7 +127,7 @@ function buildInvoiceHTML(data: InvoiceData, gst: any): string {
   <div class="footer">
     <strong>Payment:</strong> This invoice is due upon receipt. GST charged as applicable under CGST/SGST/IGST Act, 2017.<br>
     <strong>Disclaimer:</strong> Jurexio platform provides AI-assisted legal research. Not a substitute for professional legal advice.<br>
-    <strong>Support:</strong> support@nyayavigya.in | This is a computer-generated invoice and does not require a signature.
+    <strong>Support:</strong> support@jurexio.com | This is a computer-generated invoice and does not require a signature.
   </div>
 </body>
 </html>`;
@@ -151,9 +151,9 @@ class GstInvoicePdfService {
     const gst = gstEngine.computeGST(
       data.baseAmount,
       // @ts-expect-error NV-TS230 legacy typing gap (TS2551)
-      NYV_GST_DETAILS.stateCode,
+      JRX_GST_DETAILS.stateCode,
       // @ts-expect-error NV-TS230 legacy typing gap (TS2551)
-      data.customerStateCode || NYV_GST_DETAILS.stateCode,
+      data.customerStateCode || JRX_GST_DETAILS.stateCode,
     );
 
     const html = buildInvoiceHTML(data, gst);

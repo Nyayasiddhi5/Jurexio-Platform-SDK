@@ -1,5 +1,5 @@
 /**
- * nv-storage-smoke.ts — Object storage roundtrip smoke
+ * jrx-storage-smoke.ts — Object storage roundtrip smoke
  * NV-OPT+UAT-2026-05-09 P2 #10
  *
  * 4 file sizes (1 KB, 1 MB, 10 MB, 50 MB — NOT 999 MB to keep CI fast).
@@ -12,7 +12,7 @@
 import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
-import { nyvDocumentStorage } from '../src/services/nyv-document-storage-service.js';
+import { nyvDocumentStorage } from '../src/services/jrx-document-storage-service.js';
 
 const SIZES = [
   { label: '1KB',  bytes: 1024 },

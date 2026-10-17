@@ -1,5 +1,5 @@
 /**
- * NV-CASE-API-001 — NYS-Search case-api adapter for NSP CNR resolve.
+ * NV-CASE-API-001 — JRX-Search case-api adapter for NSP CNR resolve.
  * Maps GET https://nysapi.jurexio.example/v1/cases/{cnr} → NSP CnrResolveData.
  * Never claims live eCourts (claimEcourts: false).
  */
@@ -223,9 +223,9 @@ function envFlagOn(name: string): boolean {
   return v === '1' || v === 'true' || v === 'yes' || v === 'on';
 }
 
-/** Feature flag: JRX_F_CASE_API_CNR=1 or alias NYS_CASE_API_ENABLED=1 */
+/** Feature flag: JRX_F_CASE_API_CNR=1 or alias JRX_ECOSYSTEM_CASE_API_ENABLED=1 */
 export function isCaseApiCnrEnabled(): boolean {
-  return envFlagOn('JRX_F_CASE_API_CNR') || envFlagOn('NYS_CASE_API_ENABLED');
+  return envFlagOn('JRX_F_CASE_API_CNR') || envFlagOn('JRX_ECOSYSTEM_CASE_API_ENABLED');
 }
 
 /** Shadow: call case-api for diff logging but return legacy response. */
@@ -239,14 +239,14 @@ export function isCaseApiLegacyEnrichEnabled(): boolean {
 }
 
 export function caseApiBaseUrl(): string {
-  const raw = (process.env.NYS_CASE_API_BASE_URL ?? 'https://nysapi.jurexio.example')
+  const raw = (process.env.JRX_ECOSYSTEM_CASE_API_BASE_URL ?? 'https://nysapi.jurexio.example')
     .trim()
     .replace(/\/$/, '');
   return raw;
 }
 
 export function caseApiKeyConfigured(): boolean {
-  return (process.env.NYS_CASE_API_KEY ?? '').trim().length > 8;
+  return (process.env.JRX_ECOSYSTEM_CASE_API_KEY ?? '').trim().length > 8;
 }
 
 export function isCaseApiConfigured(): boolean {
@@ -254,17 +254,17 @@ export function isCaseApiConfigured(): boolean {
 }
 
 function caseApiTimeoutMs(): number {
-  const n = Number(process.env.NYS_CASE_API_TIMEOUT_MS ?? '30000');
+  const n = Number(process.env.JRX_ECOSYSTEM_CASE_API_TIMEOUT_MS ?? '30000');
   return Number.isFinite(n) && n >= 3000 ? n : 30_000;
 }
 
 function caseApiTimelineTimeoutMs(): number {
-  const n = Number(process.env.NYS_CASE_API_TIMELINE_TIMEOUT_MS ?? '3000');
+  const n = Number(process.env.JRX_ECOSYSTEM_CASE_API_TIMELINE_TIMEOUT_MS ?? '3000');
   return Number.isFinite(n) && n >= 1000 ? Math.min(n, 10_000) : 3_000;
 }
 
 function legacyEnrichTimeoutMs(): number {
-  const n = Number(process.env.NYS_CASE_API_LEGACY_ENRICH_TIMEOUT_MS ?? '8000');
+  const n = Number(process.env.JRX_ECOSYSTEM_CASE_API_LEGACY_ENRICH_TIMEOUT_MS ?? '8000');
   return Number.isFinite(n) && n >= 2000 ? Math.min(n, 20_000) : 8_000;
 }
 
@@ -344,7 +344,7 @@ export function extractFilingRef(
 }
 
 /**
- * NYS-CNR-SEARCH-FILTERS-001 — nysapi GET /v1/cases query surface forwarded by NYV.
+ * JRX-CNR-SEARCH-FILTERS-001 — nysapi GET /v1/cases query surface forwarded by JRX.
  * Undefined keys are omitted so unfiltered calls stay byte-identical.
  */
 /** nysapi GET /v1/cases accepted query keys (caselaw-worker case-api, 2026-09-23). */
@@ -1730,11 +1730,11 @@ export async function fetchCaseTimeline(
 ): Promise<CaseApiTimelineResult> {
   const t0 = Date.now();
   if (!isCaseApiConfigured()) {
-    return { ok: false, status: 503, error: 'NYS_CASE_API not configured', latencyMs: 0 };
+    return { ok: false, status: 503, error: 'JRX_ECOSYSTEM_CASE_API not configured', latencyMs: 0 };
   }
 
   const base = caseApiBaseUrl();
-  const key = (process.env.NYS_CASE_API_KEY ?? '').trim();
+  const key = (process.env.JRX_ECOSYSTEM_CASE_API_KEY ?? '').trim();
   const params = new URLSearchParams();
   const ct = courtType ?? inferCourtTypeFromCnr(cnr);
   if (ct) params.set('court_type', ct);
@@ -1811,7 +1811,7 @@ export async function fetchCaseApiTableVersion(): Promise<string | null> {
   }
 
   const base = caseApiBaseUrl();
-  const key = (process.env.NYS_CASE_API_KEY ?? '').trim();
+  const key = (process.env.JRX_ECOSYSTEM_CASE_API_KEY ?? '').trim();
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 2_000);
 
@@ -1873,7 +1873,7 @@ export async function enrichCaseApiResolveData(input: {
 
   const cnr = data.cnr.trim();
 
-  // NV-CASE-MASTER-DATA-001 — prefill empty court fields from the NYV
+  // NV-CASE-MASTER-DATA-001 — prefill empty court fields from the JRX
   // jurisdiction master (runs after buildFields; no-op without DB/provider).
   data = await applyJurisdictionPrefill(data, cnr);
 
@@ -2177,7 +2177,7 @@ export function applyCorpusBetaHonestyEnvelope(
     ...(data.ui ?? { badge: 'Suggested · Judgment corpus', subtitle: '' }),
     subtitle:
       data.ui?.subtitle ??
-      'From NYS-Search case-api index — not live eCourts status (beta corpus)',
+      'From JRX-Search case-api index — not live eCourts status (beta corpus)',
   };
 
   return {
@@ -2687,7 +2687,7 @@ export function mapCaseApiToCnrResolveData(input: {
     ui: {
       badge: 'Suggested · Judgment corpus',
       subtitle:
-        'From NYS-Search case-api index — not live eCourts status',
+        'From JRX-Search case-api index — not live eCourts status',
     },
     fields: {
       ...buildFields(caseRow, source),
@@ -2744,7 +2744,7 @@ export function mapCaseApiDiaryToCnrResolveData(input: {
     },
     ui: {
       badge: 'Suggested · Judgment corpus',
-      subtitle: 'From NYS-Search case-api diary index — not live eCourts status',
+      subtitle: 'From JRX-Search case-api diary index — not live eCourts status',
     },
   };
 }
@@ -2760,7 +2760,7 @@ export function mapCaseApiDiaryNotFound(
     diaryNumber,
     ui: {
       badge: 'Suggested · Judgment corpus',
-      subtitle: 'Diary not in NYS-Search case-api corpus',
+      subtitle: 'Diary not in JRX-Search case-api corpus',
     },
   };
 }
@@ -2777,7 +2777,7 @@ export function mapCaseApiNotFound(cnr: string, latencyMs: number): CnrResolveDa
     validation: 'ok',
     ui: {
       badge: 'Suggested · Judgment corpus',
-      subtitle: 'CNR not in NYS-Search case-api corpus',
+      subtitle: 'CNR not in JRX-Search case-api corpus',
     },
     fields: null,
     documents: [],
@@ -2987,11 +2987,11 @@ export async function fetchCaseByCnr(
 ): Promise<CaseApiFetchResult> {
   const t0 = Date.now();
   if (!isCaseApiConfigured()) {
-    return { ok: false, status: 503, error: 'NYS_CASE_API not configured', latencyMs: 0 };
+    return { ok: false, status: 503, error: 'JRX_ECOSYSTEM_CASE_API not configured', latencyMs: 0 };
   }
 
   const base = caseApiBaseUrl();
-  const key = (process.env.NYS_CASE_API_KEY ?? '').trim();
+  const key = (process.env.JRX_ECOSYSTEM_CASE_API_KEY ?? '').trim();
   const params = new URLSearchParams();
   const ct = courtType ?? inferCourtTypeFromCnr(cnr);
   if (ct) params.set('court_type', ct);
@@ -3062,11 +3062,11 @@ export async function fetchCasesSearch(
 ): Promise<CaseApiSearchResult> {
   const t0 = Date.now();
   if (!isCaseApiConfigured()) {
-    return { ok: false, status: 503, error: 'NYS_CASE_API not configured', latencyMs: 0 };
+    return { ok: false, status: 503, error: 'JRX_ECOSYSTEM_CASE_API not configured', latencyMs: 0 };
   }
 
   const base = caseApiBaseUrl();
-  const key = (process.env.NYS_CASE_API_KEY ?? '').trim();
+  const key = (process.env.JRX_ECOSYSTEM_CASE_API_KEY ?? '').trim();
   const params = new URLSearchParams();
   for (const [k, v] of Object.entries(query)) {
     if (v !== undefined && v !== '') params.set(k, v);

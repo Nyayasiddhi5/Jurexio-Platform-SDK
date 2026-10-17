@@ -1,6 +1,6 @@
 /**
  * Vector Database — REAL DELEGATION SEAM
- * NYV-ORCH-SEAM-005 (Task #32)
+ * JRX-ORCH-SEAM-005 (Task #32)
  *
  * Re-exports the canonical NyayavignyaVectorDatabase. Aliases the class as
  * `VectorDatabase` so legacy consumers (knowledge-base-system) compile

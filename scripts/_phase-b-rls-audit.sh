@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Phase B RLS audit — list org_id tables without FORCE RLS on nysdev
+# Phase B RLS audit — list org_id tables without FORCE RLS on jrx-prod
 set -euo pipefail
-CANON="/opt/Nyayavigya/secrets/.env.production"
+CANON="/opt/Jurexio/secrets/.env.production"
 DB_ADMIN="$(grep -E '^DATABASE_URL_ADMIN=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')"
 
-docker exec -e "DB=${DB_ADMIN}" -w /app nyv-gateway node --input-type=module -e "
+docker exec -e "DB=${DB_ADMIN}" -w /app jrx-gateway node --input-type=module -e "
 import pg from 'pg';
 const pool = new pg.Pool({ connectionString: process.env.DB, ssl: { rejectUnauthorized: false } });
 const q = \`

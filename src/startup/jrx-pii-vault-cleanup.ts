@@ -1,7 +1,7 @@
 /**
  * PII Vault — Distributed (Redis) Storage with In-Memory Fallback
  *
- * Backed by Redis (NYV_REDIS_TCP_URL / REDIS_URL) so that tokens issued by
+ * Backed by Redis (JRX_REDIS_TCP_URL / REDIS_URL) so that tokens issued by
  * pod A can be detokenized by pod B in a horizontally-scaled deployment.
  * Falls back to a per-process in-memory Map only when Redis is unavailable;
  * a loud warning is logged so the degraded state is visible.
@@ -49,7 +49,7 @@ export const piiVault = new Map<string, PiiVaultEntry>();
 
 const REDIS_KEY_PREFIX = 'nyv:pii:';
 // Task #29 deliverable: 5-minute default TTL for PII tokens. Cluster-safe
-// because the vault is now Redis-backed (NYV_REDIS_TCP_URL); the in-memory
+// because the vault is now Redis-backed (JRX_REDIS_TCP_URL); the in-memory
 // fallback uses the same TTL but warns loudly that tokens are pod-local.
 const DEFAULT_EXPIRY_MS = 5 * 60 * 1000;
 
@@ -86,13 +86,13 @@ let _redisClient: RedisLike | null = null;
 let _redisInitAttempted = false;
 let _redisHealthy = false;
 let _lastRedisFailureAt = 0;
-// NYV-PIIVAULT-RACE-FIX (2026-05-07): cold-start TLS handshake to
+// JRX-PIIVAULT-RACE-FIX (2026-05-07): cold-start TLS handshake to
 // ElastiCache can intermittently fail (5s connectTimeout vs ~6-8s warm-up).
 // Previous logic latched _redisInitAttempted=true after the first failure,
 // permanently degrading the vault to in-memory until process restart. The
 // retry window below allows a re-probe every PII_VAULT_REDIS_RETRY_MS
 // (default 30s) so the next eligible call recovers automatically.
-const PII_VAULT_REDIS_RETRY_MS = Number(process.env.NYV_PII_VAULT_REDIS_RETRY_MS ?? 30_000);
+const PII_VAULT_REDIS_RETRY_MS = Number(process.env.JRX_PII_VAULT_REDIS_RETRY_MS ?? 30_000);
 
 async function getRedisClient(): Promise<RedisLike | null> {
   if (_redisClient && _redisHealthy) return _redisClient;
@@ -107,7 +107,7 @@ async function getRedisClient(): Promise<RedisLike | null> {
   _redisInitAttempted = true;
 
   // NV-SECRETS-001 (2026-05-07): single resolver source of truth (canonical
-  // NYV_REDIS_TCP_URL with one-shot deprecation warn for legacy aliases).
+  // JRX_REDIS_TCP_URL with one-shot deprecation warn for legacy aliases).
   const r = resolveRedisTcpUrl();
   if (!r.enabled || !r.url) {
     logRedisDisabledOnce('pii-vault', r.reason ?? 'no Redis TCP URL');
@@ -123,7 +123,7 @@ async function getRedisClient(): Promise<RedisLike | null> {
   try {
     const mod = await import('ioredis');
     const RedisCtor: any = (mod as any).Redis ?? (mod as any).default;
-    // NYV-NS-028 (2026-05-05): ioredis options aligned with audit-chain-lock
+    // JRX-NS-028 (2026-05-05): ioredis options aligned with audit-chain-lock
     // (which connects successfully to the same Upstash endpoint). Key changes:
     //   • lazyConnect: true       — defer TCP+TLS until first command (.ping())
     //   • explicit tls: {}         — Upstash rediss:// requires TLS; ioredis

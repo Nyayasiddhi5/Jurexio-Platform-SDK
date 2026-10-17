@@ -121,7 +121,7 @@ async function runOne(j: string, mode: string, prompt: string): Promise<Scenario
 }
 
 async function readRedisLen(stream: string): Promise<number | null> {
-  const url = process.env.NYV_REDIS_TCP_URL || process.env.REDIS_URL;
+  const url = process.env.JRX_REDIS_TCP_URL || process.env.REDIS_URL;
   if (!url) return null;
   try {
     const { createClient } = await import('redis');
@@ -134,7 +134,7 @@ async function readRedisLen(stream: string): Promise<number | null> {
 }
 
 async function readPrefsKeys(): Promise<number | null> {
-  const url = process.env.NYV_REDIS_TCP_URL || process.env.REDIS_URL;
+  const url = process.env.JRX_REDIS_TCP_URL || process.env.REDIS_URL;
   if (!url) return null;
   try {
     const { createClient } = await import('redis');
@@ -230,14 +230,14 @@ async function main(): Promise<void> {
     console.log(`[smoke:sme] redis stream nyv:grpo:training: ${streamBefore} -> ${streamAfter} (delta ${delta}, expected >=${expectedDelta}) ${okDelta ? 'OK' : 'FAIL'}`);
     if (!okDelta) assertFail = true;
   } else {
-    console.log('[smoke:sme] redis stream check skipped (no NYV_REDIS_TCP_URL)');
+    console.log('[smoke:sme] redis stream check skipped (no JRX_REDIS_TCP_URL)');
   }
   if (prefsBefore !== null && prefsAfter !== null) {
     const okPrefs = prefsAfter > prefsBefore || prefsAfter > 0;
     console.log(`[smoke:sme] redis prefs nyv:grpo:prefs:*: ${prefsBefore} -> ${prefsAfter} ${okPrefs ? 'OK' : 'MISSING'}`);
     if (!okPrefs && pass > 0) assertFail = true;
   } else {
-    console.log('[smoke:sme] redis prefs check skipped (no NYV_REDIS_TCP_URL)');
+    console.log('[smoke:sme] redis prefs check skipped (no JRX_REDIS_TCP_URL)');
   }
 
   process.exit(pass === total && !assertFail ? 0 : 1);

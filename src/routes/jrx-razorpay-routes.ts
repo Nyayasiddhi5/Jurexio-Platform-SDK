@@ -1,6 +1,6 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
- * NYV Razorpay Payment Routes
+ * JRX Razorpay Payment Routes
  * Dedicated payment processing routes — MUST integration for India market
  * Base path: /api/jrx/payments
  *
@@ -242,7 +242,7 @@ router.post('/verify', (req: Request, res: Response): void => {
 
 /**
  * POST /api/jrx/payments/plans
- * Create a subscription plan (e.g., Nyayamitra Plus ₹299/month)
+ * Create a subscription plan (e.g., Jurexio Citizen Plus ₹299/month)
  * Body: { name, period, interval, amount, currency?, description? }
  */
 router.post('/plans', platformAdmin, async (req: Request, res: Response): Promise<void> => {
@@ -372,7 +372,7 @@ router.post('/links', billingAdmin, async (req: Request, res: Response): Promise
     const link = await razorpayPaymentService.createPaymentLink(
       amount,
       currency || 'INR',
-      description || 'NYV Legal Services Payment',
+      description || 'JRX Legal Services Payment',
       customer,
       notifyPhone,
       // @ts-expect-error NV-TS230 legacy typing gap (TS2554)

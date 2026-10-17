@@ -165,11 +165,11 @@ export async function geteCourtsHealth(): Promise<{
 
 // ─── Internals ────────────────────────────────────────────────────────────────
 function getConfig(): eCourtsConfig | null {
-  const apiKey = process.env.NYV_ECOURTS_API_KEY;
+  const apiKey = process.env.JRX_ECOURTS_API_KEY;
   if (!apiKey) return null;
   return {
     apiKey,
-    baseUrl: process.env.NYV_ECOURTS_BASE_URL || ECOURTS_BASE,
+    baseUrl: process.env.JRX_ECOURTS_BASE_URL || ECOURTS_BASE,
   };
 }
 
@@ -182,7 +182,7 @@ function buildHeaders(config: eCourtsConfig): Record<string, string> {
 }
 
 function notConfigured(): { error: string } {
-  return { error: 'NYV_ECOURTS_API_KEY not configured. Contact eCourts NIC for API access.' };
+  return { error: 'JRX_ECOURTS_API_KEY not configured. Contact eCourts NIC for API access.' };
 }
 
 function parseCaseStatus(data: any, cnrNumber: string): CaseStatus {

@@ -2,7 +2,7 @@
  * EcosystemDocumentsApi — Large/shared document jobs (NV-EDJ-001).
  * Canonical path: /api/jrx/v1/sdk/ecosystem-documents/jobs
  */
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export type EdjOutputProfile =
   | 'ingest_only'
@@ -137,7 +137,7 @@ export interface EdjJobStatus {
 }
 
 export class EcosystemDocumentsApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   /** Submit a durable ecosystem document job (large/shared storage). */
   async createJob(req: CreateEdjJobRequest): Promise<EdjJobSubmitResponse> {
@@ -218,7 +218,7 @@ export class EcosystemDocumentsApi {
 
   /**
    * NSP shared storage → Jurexio RAG indexing via durable EDJ.
-   * Requires `platformClient` on NyvClient config (`X-NSP-Client` header).
+   * Requires `platformClient` on JrxClient config (`X-NSP-Client` header).
    */
   async processNspSharedDoc(body: {
     storageKey: string;
@@ -246,7 +246,7 @@ export class EcosystemDocumentsApi {
   }
 
   /**
-   * Legacy NSP alias — POST /api/nv-docs/process (returns taskId = jobId).
+   * Legacy NSP alias — POST /api/jrx-docs/process (returns taskId = jobId).
    * @deprecated Use createJob() or processNspSharedDoc()
    */
   async processSharedDoc(body: {
@@ -260,7 +260,7 @@ export class EcosystemDocumentsApi {
     fileName?: string;
   }): Promise<EdjJobSubmitResponse & { pollUrl: string }> {
     const res = await this.http.post<{ success: boolean; data: EdjJobSubmitResponse & { pollUrl?: string } }>(
-      '/api/nv-docs/process',
+      '/api/jrx-docs/process',
       body,
     );
     const data = (res as { data?: EdjJobSubmitResponse }).data ?? (res as unknown as EdjJobSubmitResponse);

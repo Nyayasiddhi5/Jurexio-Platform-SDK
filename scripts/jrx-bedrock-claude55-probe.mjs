@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
  * NV-BEDROCK-CLAUDE55-PROBE-001 — InvokeModel matrix for Claude 5.5 family (no secrets logged).
- * Usage: node scripts/nv-bedrock-claude55-probe.mjs
- * EC2: docker exec nyv-gateway node /app/scripts/nv-bedrock-claude55-probe.mjs
+ * Usage: node scripts/jrx-bedrock-claude55-probe.mjs
+ * EC2: docker exec jrx-gateway node /app/scripts/jrx-bedrock-claude55-probe.mjs
  */
 import { BedrockRuntimeClient, InvokeModelCommand } from '@aws-sdk/client-bedrock-runtime';
 
-const REGIONS = (process.env.NYV_BEDROCK_PROBE_REGIONS || 'us-east-1,ap-south-1').split(',').map((s) => s.trim()).filter(Boolean);
+const REGIONS = (process.env.JRX_BEDROCK_PROBE_REGIONS || 'us-east-1,ap-south-1').split(',').map((s) => s.trim()).filter(Boolean);
 
 const MODELS = [
   'global.anthropic.claude-haiku-5-5',

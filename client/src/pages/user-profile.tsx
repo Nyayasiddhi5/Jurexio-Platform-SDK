@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import { PageLoading } from '@/components/ui/page-loading';
 import {
   User, Shield, Monitor, Save, RefreshCw, LogOut,
@@ -411,9 +411,9 @@ function SessionsTab() {
       {isLoading ? (
         <PageLoading rows={3} label="Loading sessions" />
       ) : error ? (
-        <NyvEmptyState icon={AlertTriangle} title="Could not load sessions" description="Session management requires nv_user_sessions table access." size="sm" />
+        <JrxEmptyState icon={AlertTriangle} title="Could not load sessions" description="Session management requires nv_user_sessions table access." size="sm" />
       ) : sessions.length === 0 ? (
-        <NyvEmptyState icon={Monitor} title="No active sessions found" description="Your active sessions will appear here." size="sm" variant="card" />
+        <JrxEmptyState icon={Monitor} title="No active sessions found" description="Your active sessions will appear here." size="sm" variant="card" />
       ) : (
         <div className="space-y-2">
           {sessions.map(s => {

@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Vector Database Service for Jurexio Enterprise Platform SDK v5.0.0
  * Supports embedding storage and similarity search (Pinecone, Chroma, FAISS)
@@ -321,7 +321,7 @@ export class NyayavignyaVectorDatabase extends EventEmitter {
   private async generateCohereEmbedding(_text: string, _config: any): Promise<number[]> {
     // NV-RAG-NOFAKE-001: this provider has no real implementation in the legacy
     // in-house store. Fail loud instead of returning a random vector. Use the
-    // OpenAI provider or the canonical nv-legal-embedding-service / pgvector RAG.
+    // OpenAI provider or the canonical jrx-legal-embedding-service / pgvector RAG.
     throw new Error('Cohere embeddings are not implemented in vector-database; configure embeddingProvider="openai" or use the canonical RAG embedding path');
   }
 

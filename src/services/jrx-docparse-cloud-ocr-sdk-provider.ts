@@ -1,7 +1,7 @@
 /**
  * NV-DOCPARSE-CLOUD-OCR-SDK-001 — cloud OCR hook for @jurexio/docparse-sdk (Textract → GOT chain).
  */
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import { createLogger } from '../utils/logger.js';
 import type { CloudOcrPageRequest, CloudOcrPageResult, CloudOcrProvider } from '@jurexio/docparse-sdk';
 import { isTextractOcrAvailable, textractOcrPageBytes } from './document-pipeline/jrx-textract-ocr-service.js';
@@ -19,21 +19,21 @@ async function gotOcrPage(req: CloudOcrPageRequest): Promise<CloudOcrPageResult 
   if (!text) return null;
   return {
     text,
-    provider: String(ocr?.provider || 'nyv-got-ocr'),
+    provider: String(ocr?.provider || 'jrx-got-ocr'),
     meanConf: typeof ocr?.confidence === 'number' ? ocr.confidence : 0.72,
   };
 }
 
 function textractPageEscalationEnabled(): boolean {
-  return isNyvFeatureOn('textractOcr') || isNyvFeatureOn('docparseTextractPage');
+  return isJrxFeatureOn('textractOcr') || isJrxFeatureOn('docparseTextractPage');
 }
 
-export function createNyvCloudOcrProvider(): CloudOcrProvider | undefined {
-  if (!isNyvFeatureOn('docparse') && !isNyvFeatureOn('docparseSdk')) return undefined;
+export function createJrxCloudOcrProvider(): CloudOcrProvider | undefined {
+  if (!isJrxFeatureOn('docparse') && !isJrxFeatureOn('docparseSdk')) return undefined;
   return {
-    id: 'nyv-cloud-ocr-chain',
+    id: 'jrx-cloud-ocr-chain',
     async available(): Promise<boolean> {
-      if (!isNyvFeatureOn('docparse') && !isNyvFeatureOn('docparseSdk')) return false;
+      if (!isJrxFeatureOn('docparse') && !isJrxFeatureOn('docparseSdk')) return false;
       return true;
     },
     async recognizePage(req: CloudOcrPageRequest): Promise<CloudOcrPageResult | null> {

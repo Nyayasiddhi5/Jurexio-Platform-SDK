@@ -1,6 +1,6 @@
 /**
  * Orchestration Concurrency Governor
- * NYV-ORCH-GOV-001 (Task #32)
+ * JRX-ORCH-GOV-001 (Task #32)
  *
  * Process-wide concurrency caps that complement the per-plan
  * `maxConcurrentNodes` limits. Two independent dimensions are guarded:
@@ -9,7 +9,7 @@
  *      noisy tenant from saturating the worker (queue / DAG) on behalf
  *      of another.
  *   2. PER-PROVIDER — every upstream provider (e.g. `openai`,
- *      `anthropic`, `gemini`, `deepseek`, internal `nv-router`) gets its
+ *      `anthropic`, `gemini`, `deepseek`, internal `jrx-router`) gets its
  *      own slot pool. Prevents fan-out across plans from blowing past
  *      the provider's rate-limit budget.
  *

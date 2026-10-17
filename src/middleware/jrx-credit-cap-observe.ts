@@ -1,5 +1,5 @@
 /**
- * nv-credit-cap-observe.ts — NV-CREDIT-OBSERVE-001
+ * jrx-credit-cap-observe.ts — NV-CREDIT-OBSERVE-001
  *
  * Decides whether a *newly added* pre-spend AI-credit cap may refuse traffic, and
  * emits the structured near-miss line that will tune the budgets.
@@ -18,11 +18,11 @@
  * over-permissiveness. Record first, watch the near-misses, then refuse.
  *
  * THE RECORDER IS NOT GATED BY THIS MODULE — deliberately.
- * `nv-credit-usage-recorder.ts` stays fully live. Observing without recording would
+ * `jrx-credit-usage-recorder.ts` stays fully live. Observing without recording would
  * observe a counter that is still 0, i.e. it would reproduce the original defect and
  * call it caution.
  *
- * SCOPE — this module is imported ONLY by `nv-ai-credit-cap-middleware.ts`.
+ * SCOPE — this module is imported ONLY by `jrx-ai-credit-cap-middleware.ts`.
  * The pre-existing enforcement inlined in `/orchestrate`, `/orchestrate/stream` and
  * `/legal-chat/send` does not consult it and is unaffected. Those surfaces carry
  * live partner traffic and established refusal behaviour; routing them through a
@@ -45,15 +45,15 @@ export type NvCreditCapMode = 'observe' | 'enforce';
  * Resolve the mode for the newly-added caps.
  *
  * Default is `observe` on purpose: a deploy that forgets to set anything must not
- * start refusing. Only an explicit opt-in flips it, and `NYV_CREDIT_ENFORCE=0`
+ * start refusing. Only an explicit opt-in flips it, and `JRX_CREDIT_ENFORCE=0`
  * (the pre-existing global escape) still wins over both — an operator who has
  * switched credit enforcement off entirely has not asked for refusals here either.
  */
 export function resolveCreditCapMode(): NvCreditCapMode {
-  const globalOff = String(process.env.NYV_CREDIT_ENFORCE ?? '1').trim().toLowerCase();
+  const globalOff = String(process.env.JRX_CREDIT_ENFORCE ?? '1').trim().toLowerCase();
   if (globalOff === '0' || globalOff === 'false' || globalOff === 'off') return 'observe';
 
-  const v = String(process.env.NYV_CREDIT_CAP_MODE ?? '').trim().toLowerCase();
+  const v = String(process.env.JRX_CREDIT_CAP_MODE ?? '').trim().toLowerCase();
   if (v === 'enforce' || v === '1' || v === 'true' || v === 'on' || v === 'yes') return 'enforce';
   return 'observe';
 }

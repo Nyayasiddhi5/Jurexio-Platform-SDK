@@ -7,7 +7,7 @@ describe('./jrx-stt-service OpenRouter cascade', () => {
     vi.resetModules();
     for (const k of [
       'GEMINI_API_KEY', 'GOOGLE_API_KEY', 'OPENAI_API_KEY', 'OPENROUTER_API_KEY',
-      'DEEPGRAM_API_KEY', 'NYV_GEMINI_STT_MODEL', 'NYV_OPENROUTER_STT_MODEL',
+      'DEEPGRAM_API_KEY', 'JRX_GEMINI_STT_MODEL', 'JRX_OPENROUTER_STT_MODEL',
     ]) {
       prev[k] = process.env[k];
       delete process.env[k];

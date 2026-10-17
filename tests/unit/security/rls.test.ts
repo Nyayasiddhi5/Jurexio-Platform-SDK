@@ -80,13 +80,13 @@ describe('RLS migration 0004_enable_rls_for_tenant_tables.sql', () => {
 });
 
 describe('Migration runner wires 0004 + flags from environment', () => {
-  it('scripts/jrx-migrate.ts executes 0004 and binds NYV_RLS_ENFORCE → app.nyv_rls_enforce', () => {
+  it('scripts/jrx-migrate.ts executes 0004 and binds JRX_RLS_ENFORCE → app.nyv_rls_enforce', () => {
     const runner = fs.readFileSync(
       path.join(process.cwd(), 'scripts/jrx-migrate.ts'),
       'utf8',
     );
     expect(runner).toMatch(/applyRlsAndFieldEncryptionMigration/);
-    expect(runner).toMatch(/process\.env\.NYV_RLS_ENFORCE/);
+    expect(runner).toMatch(/process\.env\.JRX_RLS_ENFORCE/);
     expect(runner).toMatch(/set_config\('app\.nyv_rls_enforce'/);
     expect(runner).toMatch(/0004_enable_rls_for_tenant_tables\.sql/);
   });
@@ -393,7 +393,7 @@ describe('RLS migration 0013_customer_org_rls.sql (Task #355)', () => {
     expect(sqlText).not.toMatch(/coalesce\(\s*current_setting\([^)]*nv\.(platform_id|customer_org_id)[^)]*\)\s*,\s*''\s*\)\s*=\s*''/);
   });
 
-  it('is wired into scripts/jrx-migrate.ts behind the same NYV_RLS_ENFORCE gate as 0004', () => {
+  it('is wired into scripts/jrx-migrate.ts behind the same JRX_RLS_ENFORCE gate as 0004', () => {
     const runner = fs.readFileSync(path.join(process.cwd(), 'scripts/jrx-migrate.ts'), 'utf8');
     expect(runner).toMatch(/0013_customer_org_rls\.sql/);
   });
@@ -561,6 +561,6 @@ describe('SDK middleware audit-write tail logs chain failures (no silent swallow
     expect(mw).not.toMatch(/writeAuditLog\([\s\S]*?\}\)\.catch\(\(\)\s*=>\s*\{\}\)/);
     // The replacement must log audit_chain_failure with the alert code.
     expect(mw).toMatch(/audit_chain_failure/);
-    expect(mw).toMatch(/NYV-AUDIT-CHAIN-001/);
+    expect(mw).toMatch(/JRX-AUDIT-CHAIN-001/);
   });
 });

@@ -12,7 +12,7 @@
  * assertion cannot ship without a proof that it can go red.
  *
  * The `research-confident-but-uncited` fixture is a reconstruction of the answer
- * actually measured on nysdev on 2026-08-19: well-structured prose, zero
+ * actually measured on jrx-prod on 2026-08-19: well-structured prose, zero
  * citations, `trust.citationsPresent: true`. If the harness ever passes that
  * fixture, the harness is broken.
  */
@@ -96,7 +96,7 @@ Section 482 BNSS governs the application. Article 21 of the Constitution informs
 `;
 
 /**
- * Reconstruction of the 6,925-character answer measured on nysdev: confident,
+ * Reconstruction of the 6,925-character answer measured on jrx-prod: confident,
  * well-structured, and citing no authority whatsoever.
  */
 const RESEARCH_CONFIDENT_UNCITED = `## ISSUE & SHORT ANSWER
@@ -337,7 +337,7 @@ ${pad('the discretion in economic-offence bail', 1_600)}
     envelope: TRUST_NO_AUTHORITIES,
     httpStatus: 200,
     expectFailing: ['authority_density', 'envelope_honesty'],
-    why: 'REGRESSION GUARD FOR THE HARNESS ITSELF. Captured live on nysdev: the platform '
+    why: 'REGRESSION GUARD FOR THE HARNESS ITSELF. Captured live on jrx-prod: the platform '
       + 'honestly reported the reporter citations were missing and wrapped the case names in '
       + '`[[ ]]`, its anti-fabrication placeholder marker. An earlier build of the checker '
       + 'counted those as DELIVERED authorities, so this exact answer PASSED authority_density '

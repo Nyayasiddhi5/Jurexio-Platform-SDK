@@ -4,11 +4,11 @@
  * task-256 — Regression test that the gateway boots cleanly when the
  * database is unreachable.
  *
- * Background (task-251 / NYV-NS-022): the `db` singleton in `src/db/index.ts`
+ * Background (task-251 / JRX-NS-022): the `db` singleton in `src/db/index.ts`
  * resolves to `null` when no DATABASE_URL / NV_DATABASE_URL is configured.
  * Approximately 95 consumer modules wrap the singleton in a lazy Proxy
  * (`lazyRequire(() => rawDb, 'db')`) so module *import* never throws — only
- * the first *use* throws a typed `NyvMissingDependencyError`. The contract
+ * the first *use* throws a typed `JrxMissingDependencyError`. The contract
  * is fragile: a future PR can accidentally add `const db = requireDb(rawDb)`
  * at the top of one of those modules and silently break boot for every
  * downstream importer.
@@ -22,8 +22,8 @@
  *      throw.
  *   2. `initializeDatabase()` resolves cleanly.
  *   3. A DB-backed Express route, served behind the canonical
- *      `nv-error-handler` middleware, returns HTTP 500 with a typed
- *      `NyvMissingDependencyError` payload (the contract advertised by
+ *      `jrx-error-handler` middleware, returns HTTP 500 with a typed
+ *      `JrxMissingDependencyError` payload (the contract advertised by
  *      task-251) — NOT a generic `Cannot read properties of undefined`.
  *
  * The child-process approach is deliberate:
@@ -97,7 +97,7 @@ describe('Gateway boots cleanly when database is unreachable (task-256)', () => 
   );
 
   it(
-    'a DB-backed route surfaces a typed NyvMissingDependencyError as HTTP 500 via nv-error-handler',
+    'a DB-backed route surfaces a typed JrxMissingDependencyError as HTTP 500 via jrx-error-handler',
     async () => {
       const r = await runFixture('./jrx-db-unreachable-route-probe.mjs');
       const diag = `\n--- child stdout ---\n${r.stdout}\n--- child stderr ---\n${r.stderr}\n`;
@@ -118,14 +118,14 @@ describe('Gateway boots cleanly when database is unreachable (task-256)', () => 
       // Accept either contract advertised by task-251:
       //   (a) `{ error: 'Database not available' }` — the early-return shape
       //       used by the route layer when `if (!db)` short-circuits, OR
-      //   (b) the typed NyvMissingDependencyError surfaced through
-      //       nv-error-handler (`{ success: false, error: { message:
-      //       '[NYV-NS-005] Required dependency \'db\' …' } }`).
+      //   (b) the typed JrxMissingDependencyError surfaced through
+      //       jrx-error-handler (`{ success: false, error: { message:
+      //       '[JRX-NS-005] Required dependency \'db\' …' } }`).
       const bodyJson = JSON.stringify(parsed.body);
       expect(
         bodyJson,
         `expected typed Database-not-available error, got: ${bodyJson}${diag}`,
-      ).toMatch(/Database not (available|initialised)|NYV-NS-005|Required dependency 'db'/);
+      ).toMatch(/Database not (available|initialised)|JRX-NS-005|Required dependency 'db'/);
 
       // Critical negative assertion: must NOT be the pre-task-251 generic
       // crash. Catching this string in the regression suite is the whole

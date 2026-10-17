@@ -1,6 +1,6 @@
 /**
  * Jurexio Digital Twin Service v3.1.2
- * NYV-SVC-DIGITAL-TWIN-001
+ * JRX-SVC-DIGITAL-TWIN-001
  *
  * Digital Twin creates a live, continuously updated virtual replica of:
  *   - Legal cases (case digital twin)

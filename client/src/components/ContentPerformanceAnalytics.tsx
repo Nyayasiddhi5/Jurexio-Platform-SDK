@@ -96,27 +96,27 @@ export default function ContentPerformanceAnalytics() {
 
   // Fetch analytics dashboard using Jurexio orchestration
   const { data: dashboard, isLoading: dashboardLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/analytics/dashboard', selectedTimeRange, selectedPlatform],
-    queryFn: () => apiRequest(`/api/nyayavigya/analytics/dashboard?timeRange=${selectedTimeRange}&platform=${selectedPlatform}`)
+    queryKey: ['/api/jurexio/analytics/dashboard', selectedTimeRange, selectedPlatform],
+    queryFn: () => apiRequest(`/api/jurexio/analytics/dashboard?timeRange=${selectedTimeRange}&platform=${selectedPlatform}`)
   });
 
   // Fetch content metrics using Jurexio orchestration
   const { data: contentMetrics = [], isLoading: metricsLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/analytics/content', selectedTimeRange],
-    queryFn: () => apiRequest(`/api/nyayavigya/analytics/content?timeRange=${selectedTimeRange}`)
+    queryKey: ['/api/jurexio/analytics/content', selectedTimeRange],
+    queryFn: () => apiRequest(`/api/jurexio/analytics/content?timeRange=${selectedTimeRange}`)
   });
 
   // Fetch A/B test results using Jurexio orchestration
   const { data: abTests = [], isLoading: abTestsLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/analytics/ab-tests'],
-    queryFn: () => apiRequest('/api/nyayavigya/analytics/ab-tests')
+    queryKey: ['/api/jurexio/analytics/ab-tests'],
+    queryFn: () => apiRequest('/api/jurexio/analytics/ab-tests')
   });
 
   // Refresh analytics mutation
   const refreshAnalytics = useMutation({
-    mutationFn: () => apiRequest('/api/nyayavigya/analytics/refresh', { method: 'POST' }),
+    mutationFn: () => apiRequest('/api/jurexio/analytics/refresh', { method: 'POST' }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya/analytics'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio/analytics'] });
       toast({
         title: "Analytics Refreshed",
         description: "Latest performance data has been synchronized"

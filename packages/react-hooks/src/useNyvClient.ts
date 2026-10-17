@@ -1,33 +1,33 @@
 /**
- * useNyvClient — React hook for NyvClient instance management
+ * useJrxClient — React hook for JrxClient instance management
  * @version 3.1.2
  */
 import { useRef, useCallback, useState } from 'react';
-import type { NyvJurisdiction } from '@jurexio/types';
+import type { JrxJurisdiction } from '@jurexio/types';
 
-export interface NyvClientConfig {
+export interface JrxClientConfig {
   apiKey?: string;
   baseUrl?: string;
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   timeout?: number;
   orgId?: string;
 }
 
-export interface UseNyvClientReturn {
+export interface UseJrxClientReturn {
   isReady: boolean;
-  config: NyvClientConfig | null;
+  config: JrxClientConfig | null;
   baseUrl: string;
   authHeaders: Record<string, string>;
-  initialize: (config: NyvClientConfig) => void;
+  initialize: (config: JrxClientConfig) => void;
   reset: () => void;
   getHeaders: () => Record<string, string>;
 }
 
-export function useNyvClient(initialConfig?: NyvClientConfig): UseNyvClientReturn {
+export function useJrxClient(initialConfig?: JrxClientConfig): UseJrxClientReturn {
   const [isReady, setIsReady] = useState(!!initialConfig);
-  const configRef = useRef<NyvClientConfig | null>(initialConfig ?? null);
+  const configRef = useRef<JrxClientConfig | null>(initialConfig ?? null);
 
-  const initialize = useCallback((config: NyvClientConfig) => {
+  const initialize = useCallback((config: JrxClientConfig) => {
     configRef.current = config;
     setIsReady(true);
   }, []);
@@ -44,7 +44,7 @@ export function useNyvClient(initialConfig?: NyvClientConfig): UseNyvClientRetur
       'Content-Type': 'application/json',
     };
     if (cfg.apiKey) headers['Authorization'] = `Bearer ${cfg.apiKey}`;
-    if (cfg.jurisdiction) headers['X-NYV-Jurisdiction'] = cfg.jurisdiction;
+    if (cfg.jurisdiction) headers['X-JRX-Jurisdiction'] = cfg.jurisdiction;
     if (cfg.orgId) headers['X-Org-ID'] = cfg.orgId;
     return headers;
   }, []);

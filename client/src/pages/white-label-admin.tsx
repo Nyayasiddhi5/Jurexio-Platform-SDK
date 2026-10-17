@@ -12,8 +12,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Building2, Plus, Globe, BarChart3, Palette, Settings, RefreshCw, CheckCircle } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 
@@ -145,7 +145,7 @@ export default function WhiteLabelAdmin() {
                   </div>
                 ) : partnersError ? (
                   <div className="p-4">
-                    <NyvErrorState
+                    <JrxErrorState
                       title="Unable to load partners"
                       description="The white-label partner directory could not be retrieved."
                       onRetry={() => refetch()}
@@ -153,7 +153,7 @@ export default function WhiteLabelAdmin() {
                     />
                   </div>
                 ) : partnersArr.length === 0 ? (
-                  <NyvEmptyState
+                  <JrxEmptyState
                     icon={Building2}
                     title="No partner configurations yet"
                     description="Create your first partner above to get started."

@@ -1,16 +1,16 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
- * NYV Tenant Management Routes
+ * JRX Tenant Management Routes
  * /api/jrx/tenants/*
  * ─────────────────────────────────────────────────────────────────────────────
  * Enterprise SaaS tenant provisioning, management, and reporting.
  * All operations are admin-only. Tenant data is strictly isolated.
  *
- * @module nv-tenant-management-routes
+ * @module jrx-tenant-management-routes
  */
 
 import { Router, Request, Response } from 'express';
-import { tenantManager, TenantTier, DeploymentModel, DataResidencyRegion } from '../services/nyv-saas-tenant-manager.js';
+import { tenantManager, TenantTier, DeploymentModel, DataResidencyRegion } from '../services/jrx-saas-tenant-manager.js';
 import { authenticateToken, requireRole } from '../middleware/jrx-auth.js';
 import { createLogger } from '../utils/logger.js';
 

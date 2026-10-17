@@ -7,7 +7,7 @@
  * unaccounted for. The middleware [MEMORY]/[RAG] blocks are NOT the culprit: they
  * cap at 5 items x 240 chars (~600 tok total).
  *
- * `formatAutoRagContext` (nv-auto-rag-router.ts:485-495) is a different path and
+ * `formatAutoRagContext` (jrx-auto-rag-router.ts:485-495) is a different path and
  * interpolates `c.content` RAW — no per-chunk truncation, no total-size ceiling:
  *
  *     .map((c, i) => `[${i+1}|${c.layer}|${c.source}] ${c.title}\n${c.content}`)

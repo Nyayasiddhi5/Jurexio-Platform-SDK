@@ -1,12 +1,12 @@
 #!/usr/bin/env tsx
 /**
- * NYV deep AI-flow probe — exercises every real-LLM-bearing SDK endpoint
+ * JRX deep AI-flow probe — exercises every real-LLM-bearing SDK endpoint
  * across NSP / NSPM / NSI / NSA / NSM / NYM / JRX, captures the response
  * envelope (requestId, tokens, qualityScore, audit hash, latency), and
  * writes evidence to audit/ + docs/canonical/04b-….
  *
  * Each call traverses NV-ARCH-001 safety ring:
- *   tenant→guardrails→Queen/callNyayavigya→agent allocation→prompt
+ *   tenant→guardrails→Queen/callJurexio→agent allocation→prompt
  *   →memory+RAG→CoT→NV-ROUTER-001→response engineering→safety→audit→stream
  */
 
@@ -20,13 +20,13 @@ const OUT_MD = `docs/canonical/04b-sdk-endpoint-probe-2026-05-07.md`;
 type Platform = 'NSP' | 'NSPM' | 'NSI' | 'NSA' | 'NSM' | 'NYM' | 'JRX';
 const PLATFORMS: Platform[] = ['NSP', 'NSPM', 'NSI', 'NSA', 'NSM', 'NYM', 'JRX'];
 const KEYS: Record<Platform, string | undefined> = {
-  NSP: process.env.NYV_SDK_KEY_NSP,
-  NSPM: process.env.NYV_SDK_KEY_NSPM,
-  NSI: process.env.NYV_SDK_KEY_NSI,
-  NSA: process.env.NYV_SDK_KEY_NSA,
-  NSM: process.env.NYV_SDK_KEY_NSM,
-  NYM: process.env.NYV_SDK_KEY_NYM,
-  JRX: process.env.NYV_SDK_KEY_JRX,
+  NSP: process.env.JRX_SDK_KEY_NSP,
+  NSPM: process.env.JRX_SDK_KEY_NSPM,
+  NSI: process.env.JRX_SDK_KEY_NSI,
+  NSA: process.env.JRX_SDK_KEY_NSA,
+  NSM: process.env.JRX_SDK_KEY_NSM,
+  NYM: process.env.JRX_SDK_KEY_NYM,
+  JRX: process.env.JRX_SDK_KEY_JRX,
 };
 
 const SAMPLE_DOC = `INDEMNIFICATION. The Service Provider shall indemnify and hold harmless the Client from and against any losses, damages, claims, or expenses (including reasonable attorneys' fees) arising out of or relating to the Service Provider's gross negligence, willful misconduct, or breach of this Agreement. CONFIDENTIALITY. Each party agrees to keep confidential any non-public information received from the other party for a period of three (3) years from disclosure. GOVERNING LAW. This Agreement shall be governed by the laws of India.`;
@@ -66,8 +66,8 @@ let pass = 0, fail = 0;
 
 // NV-PRE-DEPLOY-SMOKE-001 (Session-13 hardening) — pacing + 429 backoff so the
 // 60-rpm platform rate limiter doesn't generate false-failures.
-const PROBE_GAP_MS = Number(process.env.NYV_PROBE_GAP_MS || 1500);
-const RETRY_429_MAX = Number(process.env.NYV_RETRY_429_MAX || 3);
+const PROBE_GAP_MS = Number(process.env.JRX_PROBE_GAP_MS || 1500);
+const RETRY_429_MAX = Number(process.env.JRX_RETRY_429_MAX || 3);
 
 async function probe(p: Probe): Promise<Result> {
   const key = p.platform !== 'PUBLIC' ? KEYS[p.platform as Platform] : undefined;
@@ -124,12 +124,12 @@ async function probe(p: Probe): Promise<Result> {
 
 async function main() {
   console.log(`\n══════════════════════════════════════════════════════════════════════════════`);
-  console.log(`  NYV DEEP AI-FLOW PROBE  →  ${BASE}`);
+  console.log(`  JRX DEEP AI-FLOW PROBE  →  ${BASE}`);
   console.log(`══════════════════════════════════════════════════════════════════════════════\n`);
 
   // Pre-warm: make sure keys are loaded
   for (const p of PLATFORMS) {
-    if (!KEYS[p]) console.log(`  ⚠ NYV_SDK_KEY_${p} not set — ${p} probes will likely 401`);
+    if (!KEYS[p]) console.log(`  ⚠ JRX_SDK_KEY_${p} not set — ${p} probes will likely 401`);
   }
 
   console.log(`\n── F1. Document Automation: parse ──`);
@@ -203,7 +203,7 @@ async function main() {
 
   // Markdown evidence doc
   const md: string[] = [];
-  md.push(`# NYV SDK Deep AI-Flow Probe Evidence — ${new Date().toISOString().slice(0, 10)}`);
+  md.push(`# JRX SDK Deep AI-Flow Probe Evidence — ${new Date().toISOString().slice(0, 10)}`);
   md.push(``);
   md.push(`**Base URL**: \`${BASE}\``);
   md.push(`**Result**: ${pass} PASS / ${fail} FAIL (total ${pass + fail})`);

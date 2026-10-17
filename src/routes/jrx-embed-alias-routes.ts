@@ -32,7 +32,7 @@ router.post('/embed', async (req: Request, res: Response): Promise<void> => {
       });
       return;
     }
-    const dims = Number(dimensions) || Number(process.env.NYV_EMBEDDING_DIMS) || 1536;
+    const dims = Number(dimensions) || Number(process.env.JRX_EMBEDDING_DIMS) || 1536;
     const { embedWithConfiguredCascade } = await import('../config/jrx-embedding-cascade.js');
     const embeddings: number[][] = [];
     let model = 'embedding-cascade';

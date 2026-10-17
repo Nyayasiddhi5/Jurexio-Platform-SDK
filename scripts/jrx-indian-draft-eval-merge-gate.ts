@@ -28,7 +28,7 @@ function avg(rows: RunRow[]): number {
 
 const argv = process.argv.slice(2);
 const stageFlag = argv.find((a) => a.startsWith('--stage='));
-const stage = stageFlag?.split('=')[1] ?? process.env.NYV_OPTION_B_GATE_STAGE ?? 'merge';
+const stage = stageFlag?.split('=')[1] ?? process.env.JRX_OPTION_B_GATE_STAGE ?? 'merge';
 const files = argv.filter((a) => !a.startsWith('--'));
 if (files.length < 2) {
   console.error('usage: merge-gate [--stage=merge|release95] <fast-scoreboard.json> <counsel-scoreboard.json> [...]');
@@ -66,7 +66,7 @@ for (const fr of fastRuns) {
 }
 
 const gateNeed = fastAvg + 5;
-const release95Floor = Number(process.env.NYV_OPTION_B_RELEASE95_FLOOR ?? 95);
+const release95Floor = Number(process.env.JRX_OPTION_B_RELEASE95_FLOOR ?? 95);
 let gatePass = counselRuns.length >= fastRuns.length && counselAvg >= gateNeed;
 let gateStage: string = stage;
 if (stage === 'release95') {

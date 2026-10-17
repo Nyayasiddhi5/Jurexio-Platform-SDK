@@ -3,7 +3,7 @@
  *
  * `ragTopK` bounded how MANY chunks were retrieved. Nothing bounded how LARGE
  * each one was, so `formatAutoRagContext` interpolated `chunk.content` raw.
- * Measured worst case on the partner floor (`NYV_PARTNER_RAG_TOP_K` = 16, which
+ * Measured worst case on the partner floor (`JRX_PARTNER_RAG_TOP_K` = 16, which
  * is what NSP and NYM run) with judgment-length excerpts (~4,500 chars) is
  * ~18,000 tokens of retrieval alone — 7.2x the `chat` prompt budget and 2.3x
  * `research`. Memory was already capped by `memoryCharCap`; retrieval was the

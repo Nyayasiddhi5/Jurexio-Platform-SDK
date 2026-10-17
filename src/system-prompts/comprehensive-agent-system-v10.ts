@@ -17,7 +17,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { JurexioSystemPromptsEngineV10, PromptContext } from './nyayavigya-system-prompts-engine-v10.js';
+import { JurexioSystemPromptsEngineV10, PromptContext } from './jurexio-system-prompts-engine-v10.js';
 import { AgentWorkflowDefinition } from './agent-workflow-definitions-v10.js';
 import { AgentWorkflowGenerator } from './agent-workflow-generator-v10.js';
 import { createLogger } from '../utils/logger.js';

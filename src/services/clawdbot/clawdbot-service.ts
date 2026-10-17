@@ -288,7 +288,7 @@ class ClaWdBotService extends EventEmitter {
       botId,
       name: params.name,
       orgId: params.orgId,
-      platform: params.platform ?? 'nyayamitra',
+      platform: params.platform ?? 'jurexio-citizen',
       channels: params.channels ?? ['web', 'api'],
       jurisdiction: params.jurisdiction ?? 'IN',
       legalDomains: params.legalDomains ?? ['general legal advisory'],

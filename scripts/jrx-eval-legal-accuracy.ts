@@ -29,10 +29,10 @@
  *   docs/audit/eval/scoreboard-latest.md      human-readable scoreboard
  *
  * Release gate (env-overridable):
- *   NYV_EVAL_MIN_ACCURACY            default 95   (%)
- *   NYV_EVAL_MIN_CITATION_FAITHFUL   default 0.95 (ratio)
- *   NYV_EVAL_MAX_HALLUCINATION       default 0    (%)
- *   NYV_EVAL_MIN_ADVERSARIAL_DETECT  default 90   (%)
+ *   JRX_EVAL_MIN_ACCURACY            default 95   (%)
+ *   JRX_EVAL_MIN_CITATION_FAITHFUL   default 0.95 (ratio)
+ *   JRX_EVAL_MAX_HALLUCINATION       default 0    (%)
+ *   JRX_EVAL_MIN_ADVERSARIAL_DETECT  default 90   (%)
  * Exit code is non-zero when any jurisdiction fails its gate (suppress with
  * --no-gate for an informational run).
  *
@@ -67,16 +67,16 @@ function opt(name: string): string | undefined {
 }
 
 const MODE_GATEWAY = opt('gateway');
-const MODE_TOKEN = opt('token') || process.env.NYV_EVAL_TOKEN || '';
+const MODE_TOKEN = opt('token') || process.env.JRX_EVAL_TOKEN || '';
 const ONLY_JURISDICTION = opt('jurisdiction');
 const ENFORCE_GATE = !flag('no-gate');
 const INCLUDE_ADVERSARIAL = !flag('no-adversarial');
 
 const GATE = {
-  minAccuracy: parseFloat(process.env.NYV_EVAL_MIN_ACCURACY || '95'),
-  minCitationFaithful: parseFloat(process.env.NYV_EVAL_MIN_CITATION_FAITHFUL || '0.95'),
-  maxHallucinationPct: parseFloat(process.env.NYV_EVAL_MAX_HALLUCINATION || '0'),
-  minAdversarialDetectPct: parseFloat(process.env.NYV_EVAL_MIN_ADVERSARIAL_DETECT || '90'),
+  minAccuracy: parseFloat(process.env.JRX_EVAL_MIN_ACCURACY || '95'),
+  minCitationFaithful: parseFloat(process.env.JRX_EVAL_MIN_CITATION_FAITHFUL || '0.95'),
+  maxHallucinationPct: parseFloat(process.env.JRX_EVAL_MAX_HALLUCINATION || '0'),
+  minAdversarialDetectPct: parseFloat(process.env.JRX_EVAL_MIN_ADVERSARIAL_DETECT || '90'),
 };
 
 /* ── Types ─────────────────────────────────────────────────── */
@@ -190,7 +190,7 @@ function extractRunCompleteAnswer(sse: string): string {
   return best;
 }
 
-const LIVE_FETCH_TIMEOUT_MS = parseInt(process.env.NYV_EVAL_LIVE_TIMEOUT_MS || '180000', 10);
+const LIVE_FETCH_TIMEOUT_MS = parseInt(process.env.JRX_EVAL_LIVE_TIMEOUT_MS || '180000', 10);
 async function fetchLiveAnswer(item: GoldenItem, jurisdiction: string): Promise<string> {
   if (!MODE_GATEWAY) throw new Error('live mode requires --gateway');
   const base = MODE_GATEWAY.replace(/\/+$/, '');
@@ -266,7 +266,7 @@ async function main() {
         else console.error(`  ✓ ${item.id} live answer ${answer.length} chars`);
         // Space out heavy orchestration calls so we don't trip per-user
         // concurrency/queue limits that return fast-empty responses.
-        const delayMs = parseInt(process.env.NYV_EVAL_LIVE_DELAY_MS || '1500', 10);
+        const delayMs = parseInt(process.env.JRX_EVAL_LIVE_DELAY_MS || '1500', 10);
         if (delayMs > 0) await new Promise(r => setTimeout(r, delayMs));
       } else {
         answer = item.seedAnswer;
@@ -354,7 +354,7 @@ async function main() {
 
 function renderMarkdown(s: any): string {
   const lines: string[] = [];
-  lines.push('# Nyayavigya — Legal Accuracy & Hallucination Scoreboard');
+  lines.push('# Jurexio — Legal Accuracy & Hallucination Scoreboard');
   lines.push('');
   lines.push(`- **Generated:** ${s.generatedAt}`);
   lines.push(`- **Mode:** ${s.mode}`);
@@ -390,7 +390,7 @@ function renderMarkdown(s: any): string {
 }
 
 function printConsole(s: any) {
-  console.log(`\nNyayavigya legal-accuracy eval — mode=${s.mode}  gate=${s.releaseGatePassed ? 'PASS' : 'FAIL'}`);
+  console.log(`\nJurexio legal-accuracy eval — mode=${s.mode}  gate=${s.releaseGatePassed ? 'PASS' : 'FAIL'}`);
   console.log('─'.repeat(96));
   console.log(
     'JCN'.padEnd(5) + 'Acc%'.padStart(7) + 'CitFaith'.padStart(10) +

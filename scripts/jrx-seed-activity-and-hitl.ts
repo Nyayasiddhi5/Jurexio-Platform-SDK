@@ -1,5 +1,5 @@
 /**
- * nv-seed-activity-and-hitl.ts — Task #301 (Demo G2B)
+ * jrx-seed-activity-and-hitl.ts — Task #301 (Demo G2B)
  * ─────────────────────────────────────────────────────────────────────────────
  * Seeds two demo surfaces that render empty on a fresh DB:
  *
@@ -40,7 +40,7 @@
  * duplicates.
  *
  * Guardrails honored:
- *   - NV-NAMING-001  : grep first; new file `nv-` prefix.
+ *   - NV-NAMING-001  : grep first; new file `jrx-` prefix.
  *   - NV-DB-SCRIPT-001: uses `makePgSql()` — never the neon HTTP driver.
  *   - NV-ARCH-001 / NV-LLM-001: pure data seed, no LLM calls.
  */

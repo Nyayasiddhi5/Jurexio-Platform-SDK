@@ -2,7 +2,7 @@
  * NV WhatsApp Business API Service v3.1.2
  * ─────────────────────────────────────────────────────────────────────────────
  * Full Meta WhatsApp Business Cloud API integration.
- * Gracefully degrades when NYV_WHATSAPP_TOKEN / NYV_WHATSAPP_PHONE_ID not set.
+ * Gracefully degrades when JRX_WHATSAPP_TOKEN / JRX_WHATSAPP_PHONE_ID not set.
  *
  * Endpoints used:
  *   POST https://graph.facebook.com/v18.0/{phone_number_id}/messages
@@ -48,13 +48,13 @@ export interface WhatsAppMessageResult {
 }
 
 function getConfig(): WhatsAppConfig | null {
-  const token = process.env.NYV_WHATSAPP_TOKEN;
-  const phoneNumberId = process.env.NYV_WHATSAPP_PHONE_ID;
+  const token = process.env.JRX_WHATSAPP_TOKEN;
+  const phoneNumberId = process.env.JRX_WHATSAPP_PHONE_ID;
   if (!token || !phoneNumberId) return null;
   return {
     token,
     phoneNumberId,
-    webhookVerifyToken: process.env.NYV_WHATSAPP_VERIFY_TOKEN || 'nyv-webhook-verify',
+    webhookVerifyToken: process.env.JRX_WHATSAPP_VERIFY_TOKEN || 'jrx-webhook-verify',
   };
 }
 
@@ -62,7 +62,7 @@ function getConfig(): WhatsAppConfig | null {
 export async function sendTextMessage(msg: WhatsAppTextMessage): Promise<WhatsAppMessageResult> {
   const config = getConfig();
   if (!config) {
-    logger.warn('[WhatsApp] NYV_WHATSAPP_TOKEN or NYV_WHATSAPP_PHONE_ID not configured');
+    logger.warn('[WhatsApp] JRX_WHATSAPP_TOKEN or JRX_WHATSAPP_PHONE_ID not configured');
     return { success: false, status: 'not_configured', error: 'WhatsApp not configured' };
   }
 
@@ -131,7 +131,7 @@ export function verifyWebhook(
   challenge: string
 ): { valid: boolean; challenge: string } {
   const config = getConfig();
-  const verifyToken = config?.webhookVerifyToken || 'nyv-webhook-verify';
+  const verifyToken = config?.webhookVerifyToken || 'jrx-webhook-verify';
   if (mode === 'subscribe' && token === verifyToken) {
     return { valid: true, challenge };
   }

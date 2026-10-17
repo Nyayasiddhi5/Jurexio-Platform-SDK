@@ -2,9 +2,9 @@
  * Partner gateway — /api/jrx/gateway/* (SDK-key auth).
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
-import type { NyvJurisdiction } from '../types/index.js';
-import { NyvError } from '../types/index.js';
+import type { JrxHttpClient } from '../JrxClient.js';
+import type { JrxJurisdiction } from '../types/index.js';
+import { JrxError } from '../types/index.js';
 import {
   assertSdkMethodSignature,
   guardDocumentTextForReview,
@@ -14,13 +14,13 @@ import {
 
 export interface GatewayResearchQueryRequest {
   query: string;
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   sources?: string[];
 }
 
 export interface GatewayDraftRequest {
   template: string;
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   parameters?: Record<string, unknown>;
   instructions?: string;
   /** Canonical: concise | detailed | comprehensive */
@@ -31,7 +31,7 @@ export interface GatewayDraftRequest {
 
 export interface GatewayAgentExecuteRequest {
   prompt: string;
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   context?: Record<string, unknown>;
   content?: string;
   documentText?: string;
@@ -40,7 +40,7 @@ export interface GatewayAgentExecuteRequest {
 }
 
 export class GatewayApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   listAgents(): Promise<unknown> {
     return this.http.get('/api/jrx/gateway/agents');
@@ -65,7 +65,7 @@ export class GatewayApi {
         status: body.status ?? (typeof body.context?.status === 'string' ? body.context.status : null),
       });
       if (!guard.ok) {
-        throw new NyvError({
+        throw new JrxError({
           code: String(guard.body.code || 'DOCUMENT_TEXT_PENDING_OR_EMPTY'),
           message: String(guard.body.error || 'Document text pending or empty'),
           status: 400,
@@ -106,7 +106,7 @@ export class GatewayApi {
     return this.http.post('/api/jrx/gateway/research/query', req);
   }
 
-  researchPrecedent(caseDescription: string, jurisdiction?: NyvJurisdiction): Promise<unknown> {
+  researchPrecedent(caseDescription: string, jurisdiction?: JrxJurisdiction): Promise<unknown> {
     return this.http.post('/api/jrx/gateway/research/precedent', { caseDescription, jurisdiction });
   }
 
@@ -125,7 +125,7 @@ export class GatewayApi {
       fieldName: 'content',
     });
     if (!guard.ok) {
-      throw new NyvError({
+      throw new JrxError({
         code: String(guard.body.code || 'DOCUMENT_TEXT_PENDING_OR_EMPTY'),
         message: String(guard.body.error || 'Document text pending or empty'),
         status: 400,
@@ -167,13 +167,13 @@ export class GatewayApi {
     return this.http.get('/api/jrx/gateway/usage/tokens');
   }
 
-  verifyCitations(outputText: string, jurisdiction?: NyvJurisdiction): Promise<unknown> {
+  verifyCitations(outputText: string, jurisdiction?: JrxJurisdiction): Promise<unknown> {
     return this.http.post('/api/jrx/gateway/citations/verify', { outputText, jurisdiction });
   }
 
   checkHallucination(
     outputText: string,
-    options?: { inputText?: string; agentKey?: string; jurisdiction?: NyvJurisdiction },
+    options?: { inputText?: string; agentKey?: string; jurisdiction?: JrxJurisdiction },
   ): Promise<unknown> {
     return this.http.post('/api/jrx/gateway/hallucination/check', {
       outputText,

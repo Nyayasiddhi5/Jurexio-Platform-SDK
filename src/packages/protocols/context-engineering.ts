@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Context Engineering System
  * 
@@ -101,7 +101,7 @@ export class ContextLayerManager extends EventEmitter {
   private initializeDefaultLayers(): void {
     const defaultLayers: ContextLayer[] = [
       {
-        id: 'global-nyayavigya-system',
+        id: 'global-jurexio-system',
         name: 'Jurexio System Global Context',
         type: 'global',
         priority: 8,

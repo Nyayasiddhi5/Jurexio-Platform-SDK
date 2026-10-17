@@ -28,7 +28,7 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 
 type Dep = {
   id: string;
@@ -289,7 +289,7 @@ export default function PlatformHealthMap() {
       </div>
 
       {isError && (
-        <NyvErrorState
+        <JrxErrorState
           title="Could not load dependency drilldown"
           description={`Unable to retrieve ${DEPS_PATH}. Sign in as an admin or use ${DEPS_PUBLIC_PATH}.`}
           onRetry={() => refetch()}

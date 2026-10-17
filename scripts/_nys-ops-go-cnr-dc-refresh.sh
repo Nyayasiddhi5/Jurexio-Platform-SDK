@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
-# NV-NYS-OPS-GO-001 — cnr_case_details refresh + DC delta ingest (caselaw-worker)
+# NV-JRX-OPS-GO-001 — cnr_case_details refresh + DC delta ingest (caselaw-worker)
 # Run via: bash scripts/_nys-ssm-run.sh scripts/_nys-ops-go-cnr-dc-refresh.sh "ops-go-cnr-dc"
 set -euo pipefail
-API="${NYS_API_DIR:-/opt/nyv/api}"
+API="${JRX_ECOSYSTEM_API_DIR:-/opt/nyv/api}"
 LOG_DIR="/var/log/nys-ops"
 mkdir -p "$LOG_DIR"
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 LOG="$LOG_DIR/ops-go-cnr-dc-${STAMP}.log"
 exec > >(tee -a "$LOG") 2>&1
 
-echo "=== NV-NYS-OPS-GO-001 start $STAMP ==="
+echo "=== NV-JRX-OPS-GO-001 start $STAMP ==="
 echo "host=$(hostname) api=$API"
 
-# NV-NYS-OPS-OOM-001: hyparquet's parquetReadObjects() materialises whole DC
+# NV-JRX-OPS-OOM-001: hyparquet's parquetReadObjects() materialises whole DC
 # parquet files in memory. The 2GB v8 default heap OOM'd 3a (ingest-cnr-case-
 # details) and aborted before 3b ever launched. Host has ~7.8GB RAM + 4GB swap,
-# so raise the ceiling for every node child. Override with NYS_NODE_HEAP_MB.
-export NODE_OPTIONS="--max-old-space-size=${NYS_NODE_HEAP_MB:-4096} ${NODE_OPTIONS:-}"
+# so raise the ceiling for every node child. Override with JRX_ECOSYSTEM_NODE_HEAP_MB.
+export NODE_OPTIONS="--max-old-space-size=${JRX_ECOSYSTEM_NODE_HEAP_MB:-4096} ${NODE_OPTIONS:-}"
 echo "NODE_OPTIONS=$NODE_OPTIONS"
 
 cd "$API" || exit 1
@@ -35,7 +35,7 @@ function ssl() {
   return { rejectUnauthorized: false };
 }
 const rds = new RDSClient({ region: REGION });
-const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "nyv-caselaw-pg" }));
+const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "jrx-caselaw-pg" }));
 const inst = desc.DBInstances[0];
 const sm = new SecretsManagerClient({ region: REGION });
 const secret = await sm.send(new GetSecretValueCommand({ SecretId: inst.MasterUserSecret.SecretArn }));
@@ -79,11 +79,11 @@ if [[ -z "$DETAILS" ]]; then
   echo "BLOCKED: ingest-cnr-case-details missing under $API"
   exit 2
 fi
-export NYS_CNR_DETAILS_LIMIT="${NYS_CNR_DETAILS_LIMIT:-50}"
-# NV-NYS-OPS-OOM-001: 3a must NOT abort 3b. cnr_case_details is already fresh
+export JRX_ECOSYSTEM_CNR_DETAILS_LIMIT="${JRX_ECOSYSTEM_CNR_DETAILS_LIMIT:-50}"
+# NV-JRX-OPS-OOM-001: 3a must NOT abort 3b. cnr_case_details is already fresh
 # (refreshed independently); the DC delta ingest (3b) is the CNR-closure priority.
-if node "$API/$DETAILS" "$NYS_CNR_DETAILS_LIMIT"; then
-  echo "3a OK: cnr_case_details refresh completed (limit=$NYS_CNR_DETAILS_LIMIT)"
+if node "$API/$DETAILS" "$JRX_ECOSYSTEM_CNR_DETAILS_LIMIT"; then
+  echo "3a OK: cnr_case_details refresh completed (limit=$JRX_ECOSYSTEM_CNR_DETAILS_LIMIT)"
 else
   echo "3a NON-FATAL FAILURE (rc=$?): continuing to 3b delta-dc — cnr_case_details left as-is"
 fi
@@ -101,7 +101,7 @@ function ssl() {
   return { rejectUnauthorized: false };
 }
 const rds = new RDSClient({ region: REGION });
-const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "nyv-caselaw-pg" }));
+const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "jrx-caselaw-pg" }));
 const inst = desc.DBInstances[0];
 const sm = new SecretsManagerClient({ region: REGION });
 const secret = await sm.send(new GetSecretValueCommand({ SecretId: inst.MasterUserSecret.SecretArn }));
@@ -126,7 +126,7 @@ if [[ -z "$INGEST" ]]; then
   exit 3
 fi
 DC_LOG="$LOG_DIR/delta-dc-${STAMP}.log"
-# NV-NYS-OPS-GO-001: batch DC ingest needs a longer statement ceiling than the
+# NV-JRX-OPS-GO-001: batch DC ingest needs a longer statement ceiling than the
 # API default. Honour a caller override, else pin to 600s (matches ingest-rds's
 # own internal default). Prevents the prior statement_timeout stall on DC years.
 export RDS_STATEMENT_TIMEOUT_MS="${RDS_STATEMENT_TIMEOUT_MS:-600000}"
@@ -140,5 +140,5 @@ else
   echo "3b STARTED: delta-dc pid=$DC_PID log=$DC_LOG"
 fi
 
-echo "=== NV-NYS-OPS-GO-001 phase-1 done $(date -u +%Y-%m-%dT%H:%M:%SZ) log=$LOG ==="
+echo "=== NV-JRX-OPS-GO-001 phase-1 done $(date -u +%Y-%m-%dT%H:%M:%SZ) log=$LOG ==="
 echo "NOTE: delta-dc continues in background — poll $DC_LOG and re-run freshness probe"

@@ -2,7 +2,7 @@
 -- 0009_cam_actions.sql — Compliance Action Manager (CAM) reviewer queue table.
 --
 -- Promotes the runtime CREATE TABLE IF NOT EXISTS that previously lived in
--- src/routes/nv-cam-routes.ts (Task #190) into a real Drizzle migration so:
+-- src/routes/jrx-cam-routes.ts (Task #190) into a real Drizzle migration so:
 --   (a) the table is visible to Drizzle introspection / schema parity check,
 --   (b) it lands on read-replicas during the normal schema sync,
 --   (c) prod RDS gets it before the first /api/nv/cam/reviews call instead

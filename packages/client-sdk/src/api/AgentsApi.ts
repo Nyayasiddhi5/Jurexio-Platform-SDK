@@ -4,21 +4,21 @@
  */
 
 import type {
-  NyvAgent,
-  NyvAgentExecution,
-  NyvListResponse,
-  NyvPaginationOptions,
-  NyvJurisdiction,
-  NyvAgentPattern,
+  JrxAgent,
+  JrxAgentExecution,
+  JrxListResponse,
+  JrxPaginationOptions,
+  JrxJurisdiction,
+  JrxAgentPattern,
 } from '../types/index.js';
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export interface AgentRunRequest {
   agentId: string;
   task: string;
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   context?: Record<string, unknown>;
-  pattern?: NyvAgentPattern;
+  pattern?: JrxAgentPattern;
   maxIterations?: number;
 }
 
@@ -35,7 +35,7 @@ export interface AgentExecuteRequest {
   /** Optional routing hint; the Queen still enforces capability/tier gating. */
   agentId?: string;
   type?: AgentExecuteType;
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   format?: string;
   sessionId?: string;
 }
@@ -76,7 +76,7 @@ export interface AgentOrchestrateRequest {
   /** Optional preferred agent ids; length hints max-agents to the Queen. */
   agents?: string[];
   type?: AgentExecuteType;
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   sessionId?: string;
 }
 
@@ -92,10 +92,10 @@ export interface AgentOrchestrateResult {
 }
 
 export class AgentsApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   /** List all available ROMA L5 agents */
-  list(pagination: NyvPaginationOptions = {}): Promise<NyvListResponse<NyvAgent>> {
+  list(pagination: JrxPaginationOptions = {}): Promise<JrxListResponse<JrxAgent>> {
     const params = new URLSearchParams();
     if (pagination.page) params.set('page', String(pagination.page));
     if (pagination.pageSize) params.set('pageSize', String(pagination.pageSize));
@@ -103,12 +103,12 @@ export class AgentsApi {
   }
 
   /** Get a specific agent by ID */
-  get(agentId: string): Promise<NyvAgent> {
+  get(agentId: string): Promise<JrxAgent> {
     return this.http.get(`/api/jrx/agents/${agentId}`);
   }
 
   /** Run an agent with a task (async execution) */
-  run(req: AgentRunRequest): Promise<NyvAgentExecution> {
+  run(req: AgentRunRequest): Promise<JrxAgentExecution> {
     return this.http.post('/api/jrx/agents/run', req);
   }
 
@@ -131,7 +131,7 @@ export class AgentsApi {
   }
 
   /** Poll execution status */
-  getExecution(executionId: string): Promise<NyvAgentExecution> {
+  getExecution(executionId: string): Promise<JrxAgentExecution> {
     return this.http.get(`/api/jrx/agents/executions/${executionId}`);
   }
 
@@ -139,7 +139,7 @@ export class AgentsApi {
   async waitForExecution(
     executionId: string,
     { intervalMs = 1000, timeoutMs = 60_000 } = {}
-  ): Promise<NyvAgentExecution> {
+  ): Promise<JrxAgentExecution> {
     const start = Date.now();
     while (Date.now() - start < timeoutMs) {
       const exec = await this.getExecution(executionId);
@@ -152,8 +152,8 @@ export class AgentsApi {
   /** List agent executions for the current org */
   listExecutions(
     agentId?: string,
-    pagination: NyvPaginationOptions = {}
-  ): Promise<NyvListResponse<NyvAgentExecution>> {
+    pagination: JrxPaginationOptions = {}
+  ): Promise<JrxListResponse<JrxAgentExecution>> {
     const params = new URLSearchParams();
     if (agentId) params.set('agentId', agentId);
     if (pagination.page) params.set('page', String(pagination.page));

@@ -1,5 +1,5 @@
 /**
- * Nyayavigya v5.0.1 — Prompt-body enrichment templates (T12).
+ * Jurexio v5.0.1 — Prompt-body enrichment templates (T12).
  *
  * Adds case-law citations + v2-style narrative depth INSIDE existing
  * §10 (citation) and §1 (identity) sections without breaking idempotency.
@@ -157,7 +157,7 @@ export function buildRoleNarrativeBlock(args: {
   const tierUpper = args.tier.toUpperCase();
   const desc = args.description || `Specialized legal AI agent operating in ${args.practiceArea} for the ${args.jurisdiction} jurisdiction.`;
   return `  <role_narrative>
-    You are the **${args.agentName}**, a specialized legal AI agent in the Nyayavigya Legal AI ecosystem. You provide expert ${args.practiceArea} services with ${tierUpper}-tier autonomy, operating within the ${args.jurisdiction} legal framework.
+    You are the **${args.agentName}**, a specialized legal AI agent in the Jurexio Legal AI ecosystem. You provide expert ${args.practiceArea} services with ${tierUpper}-tier autonomy, operating within the ${args.jurisdiction} legal framework.
 
     ${escapeXml(desc)}
 

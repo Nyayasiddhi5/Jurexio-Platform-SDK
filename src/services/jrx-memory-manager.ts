@@ -1,6 +1,6 @@
 /**
  * Jurexio Unified Memory Manager — Platform 3.1.2
- * NYV-SVC-MEMORY-001
+ * JRX-SVC-MEMORY-001
  *
  * Three-tier memory architecture orchestrated by a single facade:
  *
@@ -270,7 +270,7 @@ class NvMemoryManager extends EventEmitter {
     this.config = {
       sessionMaxEntries:    config.sessionMaxEntries    ?? 10_000,
       sessionTtlSec:        config.sessionTtlSec        ?? 1800,
-      // NYV-AUDIT-F1 (2026-05-05): raised thresholds. The Replit container
+      // JRX-AUDIT-F1 (2026-05-05): raised thresholds. The Replit container
       // commonly runs near 88% heap (V8 default GC tuning); the old 85%
       // elevated alarm was firing constantly under normal load.
       pressureElevatedPct:  config.pressureElevatedPct  ?? 90,
@@ -642,8 +642,8 @@ class NvMemoryManager extends EventEmitter {
      * `rssOverLimit` was true in steady state and told us nothing. Derive it from
      * the heap limit the process is actually running under, with headroom for
      * non-heap RSS (native buffers, code, stacks) which typically adds 30-50 %.
-     * `NYV_RSS_LIMIT_MB` allows an operator to pin it to the real cgroup limit. */
-    const envLimit = Number(process.env.NYV_RSS_LIMIT_MB);
+     * `JRX_RSS_LIMIT_MB` allows an operator to pin it to the real cgroup limit. */
+    const envLimit = Number(process.env.JRX_RSS_LIMIT_MB);
     const rssLimitMb = Number.isFinite(envLimit) && envLimit > 0
       ? envLimit
       : Math.round((v8.getHeapStatistics().heap_size_limit / 1024 / 1024) * 1.5);

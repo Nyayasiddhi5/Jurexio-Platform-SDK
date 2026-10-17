@@ -1,5 +1,5 @@
 /**
- * NYV Token Budget Manager — enforces per-tier token limits on all LLM calls
+ * JRX Token Budget Manager — enforces per-tier token limits on all LLM calls
  * Fixes Audit Finding AI004: Token budget management not enforced per request
  * Tiers: SOLO (8K input) | PLUS (32K) | PRO (128K) | INSTITUTIONAL (500K)
  * @file src/utils/jrx-token-budget.ts
@@ -53,7 +53,7 @@ export interface TokenBudgetResult {
   tier: SubscriptionTier;
 }
 
-export class NyvTokenBudgetManager {
+export class JrxTokenBudgetManager {
   /**
    * Checks if the request is within budget and returns allowed output token limit.
    * @param tier - User's subscription tier
@@ -68,7 +68,7 @@ export class NyvTokenBudgetManager {
     const resolvedTier = (tier?.toUpperCase() as SubscriptionTier) ?? 'DEFAULT';
     const budget = TOKEN_BUDGETS[resolvedTier] ?? TOKEN_BUDGETS.DEFAULT;
 
-    const estimatedInputTokens = NyvTokenBudgetManager.estimateTokens(inputText);
+    const estimatedInputTokens = JrxTokenBudgetManager.estimateTokens(inputText);
 
     if (estimatedInputTokens > budget.inputTokens) {
       logger.warn(
@@ -113,7 +113,7 @@ export class NyvTokenBudgetManager {
   static budgetExceededResponse(result: TokenBudgetResult) {
     return {
       error: 'TOKEN_BUDGET_EXCEEDED',
-      code: 'NYV-TOKEN-001',
+      code: 'JRX-TOKEN-001',
       tier: result.tier,
       estimatedInputTokens: result.estimatedInputTokens,
       tierLimit: TOKEN_BUDGETS[result.tier]?.inputTokens,
@@ -124,4 +124,4 @@ export class NyvTokenBudgetManager {
   }
 }
 
-export default NyvTokenBudgetManager;
+export default JrxTokenBudgetManager;

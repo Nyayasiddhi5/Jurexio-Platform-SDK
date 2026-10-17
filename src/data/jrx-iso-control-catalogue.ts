@@ -1,5 +1,5 @@
 /**
- * nv-iso-control-catalogue.ts — Task #299
+ * jrx-iso-control-catalogue.ts — Task #299
  *
  * Source-of-truth catalogue for the three frameworks surfaced on
  * /console/eu-ai-compliance (renamed "AI Governance Compliance"):
@@ -17,11 +17,11 @@
  *   - per-jurisdiction posture overrides (US, IN) where applicable
  *   - remediation copy for PARTIAL/FAIL
  *   - owner role
- *   - evidence sources — string keys resolved by nv-iso-evidence-mapper.ts
+ *   - evidence sources — string keys resolved by jrx-iso-evidence-mapper.ts
  *     against existing CAM rows, e2e reports, audit logs, and security scans
  *
- * NV-NAMING-001: nv- prefix, lives under src/data/ alongside the agent
- * registries. NV-WIRING-001: imported by nv-iso-compliance-routes.ts.
+ * NV-NAMING-001: jrx- prefix, lives under src/data/ alongside the agent
+ * registries. NV-WIRING-001: imported by jrx-iso-compliance-routes.ts.
  */
 
 export type IsoFramework =
@@ -60,7 +60,7 @@ const OWNER_DPO = 'Data Protection Officer';
 const OWNER_LEGAL = 'Legal Operations';
 const OWNER_HR = 'People Operations';
 
-// Evidence source keys → resolved by nv-iso-evidence-mapper.ts.
+// Evidence source keys → resolved by jrx-iso-evidence-mapper.ts.
 // These names are intentionally stable so the mapper can look them up.
 const EV = {
   CAM_OPEN: 'cam_actions_open',

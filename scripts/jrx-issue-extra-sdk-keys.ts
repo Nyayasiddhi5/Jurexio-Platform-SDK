@@ -1,12 +1,12 @@
 /**
- * nv-issue-extra-sdk-keys.ts (post-2026-05-05: NSPM and JRX are now first-class platforms; this script only re-issues if missing)
+ * jrx-issue-extra-sdk-keys.ts (post-2026-05-05: NSPM and JRX are now first-class platforms; this script only re-issues if missing)
  *
- * NYV-NS-029 (2026-05-05): mint LIVE + TEST keys for two ADDITIONAL platforms
- * (NSPM + JRX) on top of the existing 5 Nyayasiddhi platforms (NYM/NSP/NSI/
- * NSA/NSM) seeded by `nv-seed-sdk-keys.ts`.
+ * JRX-NS-029 (2026-05-05): mint LIVE + TEST keys for two ADDITIONAL platforms
+ * (NSPM + JRX) on top of the existing 5 Jurexio platforms (NYM/NSP/NSI/
+ * NSA/NSM) seeded by `jrx-seed-sdk-keys.ts`.
  *
  * Behaviour
- *   • Same generation algorithm as nv-seed-sdk-keys.ts (crypto.randomBytes(24)
+ *   • Same generation algorithm as jrx-seed-sdk-keys.ts (crypto.randomBytes(24)
  *     hex → `nyv_live_sk_<short>_<48hex>`, sha256 hash, 16-char prefix).
  *   • Idempotent: existing rows for the two key IDs are deleted-then-inserted.
  *   • Touches ONLY the 2 new platforms — leaves the existing 5 untouched.
@@ -29,7 +29,7 @@ const EXTRA_PLATFORMS = [
   {
     code: 'nys-professional-mobile',
     short: 'nspm',
-    name: 'Nyayasiddhi Professional Mobile™',
+    name: 'Jurexio Professional Mobile™',
     appId: 'nvsdkapp-demo-nspm-001',
     tier: 'pro',
     permissions: [
@@ -37,7 +37,7 @@ const EXTRA_PLATFORMS = [
       'research:read', 'usage:read', 'voice:read', 'voice:execute',
     ],
     rateLimit: 60,
-    envVar: 'NYV_SDK_KEY_NSPM',
+    envVar: 'JRX_SDK_KEY_NSPM',
   },
   {
     code: 'jurisx',
@@ -47,7 +47,7 @@ const EXTRA_PLATFORMS = [
     tier: 'enterprise',
     permissions: ['*'],
     rateLimit: 400,
-    envVar: 'NYV_SDK_KEY_JRX',
+    envVar: 'JRX_SDK_KEY_JRX',
   },
 ];
 
@@ -64,8 +64,8 @@ function getPrefix(key: string): string {
 
 async function main() {
   console.log('══════════════════════════════════════════════════════');
-  console.log('  NYV SDK v5.0.0 — Extra-Platform Key Issuance');
-  console.log('  NSPM (Nyayasiddhi Professional Mobile) + JRX (JurisX)');
+  console.log('  JRX SDK v5.0.0 — Extra-Platform Key Issuance');
+  console.log('  NSPM (Jurexio Professional Mobile) + JRX (JurisX)');
   console.log('══════════════════════════════════════════════════════');
 
   const pendingPath = path.resolve('.local/secrets-pending.json');
@@ -161,8 +161,8 @@ async function main() {
   // Update audit metadata + write back
   pending._generated_at = new Date().toISOString().slice(0, 16);
   pending._instructions =
-    'Paste each NYV_SDK_KEY_* value into Replit Secrets. ' +
-    'Same values are mirrored to AWS SSM /nyv/prod/NYV_SDK_KEY_<NAME> for EC2.';
+    'Paste each JRX_SDK_KEY_* value into Replit Secrets. ' +
+    'Same values are mirrored to AWS SSM /nyv/prod/JRX_SDK_KEY_<NAME> for EC2.';
   fs.writeFileSync(pendingPath, JSON.stringify(pending, null, 2) + '\n');
   console.log('');
   console.log(`✓ .local/secrets-pending.json updated (${Object.keys(pending).filter(k => !k.startsWith('_')).length} keys total)`);

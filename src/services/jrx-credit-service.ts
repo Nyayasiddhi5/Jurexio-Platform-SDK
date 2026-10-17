@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * Jurexio Enterprise Platform 3.1.2 — Credit & Subscription Service
- * NYV-SVC-CREDIT-001
+ * JRX-SVC-CREDIT-001
  *
  * Handover §6 — Subscription and credit systems are COMPLETELY SEPARATE:
  *   Subscription = Platform Access

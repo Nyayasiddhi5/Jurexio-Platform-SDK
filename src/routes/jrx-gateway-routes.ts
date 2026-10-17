@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 import { Router, Request, Response, NextFunction } from 'express';
 import { db } from '../db/index.js';
 import { sql } from 'drizzle-orm';
@@ -11,7 +11,7 @@ import { authenticateToken } from '../middleware/auth.js';
 import { dualSdkOrJwt } from '../middleware/jrx-dual-auth.js';
 import { NvFeedbackService } from '../services/jrx-orchestration-services.js';
 import { createLogger } from '../utils/logger.js';
-import { NYV_PLATFORM_VERSION } from '../config/nyv-master-config.js';
+import { JRX_PLATFORM_VERSION } from '../config/jrx-master-config.js';
 
 
 const logger = createLogger('gateway-routes');
@@ -23,7 +23,7 @@ const router = Router();
 const VALID_NSP_CLIENTS = new Set([
   'nyayasiddhi-professional/1.0.0',
   'nyayasiddhi-professional',
-  'nyayamitra',
+  'jurexio-citizen',
   'nyayasiddhi',
 ]);
 
@@ -93,11 +93,11 @@ const BANNED_KEYWORDS = [
 ];
 
 const SYSTEM_AGENTS: Record<string, { name: string; description: string; allowedSources: string[]; syncAsync: string }> = {
-  summarizer: { name: 'Summarizer', description: 'Text summarization', allowedSources: ['nyayamitra', 'nyayasiddhi'], syncAsync: 'sync' },
-  timeline_extractor: { name: 'Timeline Extractor', description: 'Chronological timeline from facts', allowedSources: ['nyayamitra'], syncAsync: 'sync' },
-  document_parser: { name: 'Document Parser', description: 'OCR + intelligent text extraction', allowedSources: ['nyayamitra', 'nyayasiddhi'], syncAsync: 'async' },
-  document_explainer: { name: 'Document Explainer', description: 'Plain-language document explanation', allowedSources: ['nyayamitra', 'nyayasiddhi'], syncAsync: 'sync' },
-  translator: { name: 'Translator', description: 'Multilingual translation (12 languages)', allowedSources: ['nyayamitra', 'nyayasiddhi'], syncAsync: 'sync' },
+  summarizer: { name: 'Summarizer', description: 'Text summarization', allowedSources: ['jurexio-citizen', 'nyayasiddhi'], syncAsync: 'sync' },
+  timeline_extractor: { name: 'Timeline Extractor', description: 'Chronological timeline from facts', allowedSources: ['jurexio-citizen'], syncAsync: 'sync' },
+  document_parser: { name: 'Document Parser', description: 'OCR + intelligent text extraction', allowedSources: ['jurexio-citizen', 'nyayasiddhi'], syncAsync: 'async' },
+  document_explainer: { name: 'Document Explainer', description: 'Plain-language document explanation', allowedSources: ['jurexio-citizen', 'nyayasiddhi'], syncAsync: 'sync' },
+  translator: { name: 'Translator', description: 'Multilingual translation (12 languages)', allowedSources: ['jurexio-citizen', 'nyayasiddhi'], syncAsync: 'sync' },
   legal_qa: { name: 'Legal QA', description: 'Legal Q&A (lawyers only)', allowedSources: ['nyayasiddhi'], syncAsync: 'sync' },
   draft_assist: { name: 'Draft Assist', description: 'Drafting assistance (new cases only)', allowedSources: ['nyayasiddhi'], syncAsync: 'sync' },
   analysis: { name: 'Analysis', description: 'Case analysis, research', allowedSources: ['nyayasiddhi'], syncAsync: 'sync' },
@@ -260,7 +260,7 @@ router.post('/explain', dualSdkOrJwt, async (req: Request, res: Response) => {
     const sanitized = redactPII(text);
     const systemPrompt = `You are the Nayavigya Document Explainer. Explain legal documents in plain, simple language that a non-lawyer can understand. ${language ? `Respond in ${language}.` : ''} Do not provide legal advice.`;
     const result = await executeAgent('document_explainer', systemPrompt, `Explain this document in simple terms:\n\n${sanitized}`, 1024);
-    logUsage(source || 'nyayamitra', tenantId, userId, 'document_explainer', result.tokens, result.latencyMs, 'completed');
+    logUsage(source || 'jurexio-citizen', tenantId, userId, 'document_explainer', result.tokens, result.latencyMs, 'completed');
     res.json({ success: true, data: { explanation: result.content, tokens: result.tokens, latency_ms: result.latencyMs, pii_redacted: true } });
   } catch (error: any) {
     safeError(res, error, 500);
@@ -530,7 +530,7 @@ router.get('/health', (_req: Request, res: Response) => {
     data: {
       service: 'Jurexio Intelligence Layer',
       status: 'operational',
-      version: NYV_PLATFORM_VERSION,
+      version: JRX_PLATFORM_VERSION,
       services: {
         'NV-Gateway': 'operational',
         'NV-Orchestrator': 'operational',

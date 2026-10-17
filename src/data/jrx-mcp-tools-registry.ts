@@ -702,7 +702,7 @@ export const NV_MCP_TOOLS_REGISTRY: McpTool[] = [
   { id: 'nys_compare_ipc_bns', name: 'NYS IPC↔BNS Compare', description: 'Old↔new Indian criminal code comparator (IPC→BNS) for Gate 8 remediation.', inputSchema: { ipcSection: 'string' }, category: 'legal_research', jurisdictions: ['IN'], tags: ['nys', 'gate8'] },
   { id: 'nys_retrieve', name: 'NYS Retrieval Planner', description: 'Deterministic retrieval-first planner (citations, statutes, caselaw) before LLM.', inputSchema: { query: 'string', jurisdiction: 'string?', limit: 'number?' }, category: 'legal_research', jurisdictions: ['IN', 'US'], tags: ['nys', 'rag'] },
   { id: 'nys_check_citations', name: 'NYS Citation Check', description: 'Regex citation extract + corpus verify against NYS caselaw/statutes.', inputSchema: { text: 'string?', citation: 'string?', jurisdiction: 'string?' }, category: 'verification', jurisdictions: ['IN', 'US'], tags: ['nys', 'citations'] },
-  { id: 'nys_perform_legal_work', name: 'NYS Legal Work Run', description: 'Queue grounded legal work product (draft/analyze/review/research) via NYV legal-work + NYS retrieval.', inputSchema: { instruction: 'string', context: 'string?', jurisdiction: 'string?' }, category: 'document', jurisdictions: ['IN', 'US'], tags: ['nys', 'agentic'] },
+  { id: 'nys_perform_legal_work', name: 'NYS Legal Work Run', description: 'Queue grounded legal work product (draft/analyze/review/research) via JRX legal-work + NYS retrieval.', inputSchema: { instruction: 'string', context: 'string?', jurisdiction: 'string?' }, category: 'document', jurisdictions: ['IN', 'US'], tags: ['nys', 'agentic'] },
   { id: 'nys_chat_action', name: 'NYS Legal Chat Action', description: 'Legal chat modes (chat/summary/extract/draft/intelligence) grounded on NYS retrieval.', inputSchema: { action: 'string', prompt: 'string?', documentText: 'string?', jurisdiction: 'string?' }, category: 'document', jurisdictions: ['IN', 'US'], tags: ['nys', 'chat'] },
   { id: 'nys_athena_search', name: 'NYS Archive PDF Search', description: 'Athena search over SC/HC judgment PDF archives (owned S3 buckets).', inputSchema: { query: 'string', archive: 'string?', limit: 'number?' }, category: 'legal_research', jurisdictions: ['IN'], tags: ['nys', 'athena'] },
   { id: 'nys_judgment_full_text', name: 'NYS Judgment Full Text (on demand)', description: 'Fetch the FULL judgment body on demand: resolves the case via the Athena archive then extracts the owned-bucket S3 PDF. Use only when the actual judgment text is required — RDS metadata/headnotes are the default grounding. Supreme Court scope is cheap; archive=hc scans ~1.3GB per query.', inputSchema: { query: 'string?', s3Path: 'string?', archive: 'string?', year: 'number?', court: 'string?', maxChars: 'number?' }, category: 'legal_research', jurisdictions: ['IN'], tags: ['nys', 'athena', 'fulltext'] },
@@ -755,7 +755,7 @@ export const EXECUTABLE_MCP_TOOL_IDS: ReadonlySet<string> = new Set<string>([
   'docusign_envelope_status', 'adobe_sign_status', 'salesforce_matter_sync', 'hubspot_contact_lookup',
   'razorpay_payment_status', 'stripe_invoice_fetch', 'zoom_meeting_create',
   'asana_task_create', 'jira_issue_create', 'trello_card_create',
-  // NV-NYS-KNOWLEDGE-001
+  // NV-JRX-KNOWLEDGE-001
   'nys_search_caselaw', 'nys_search_statutes', 'nys_get_statute', 'nys_compare_ipc_bns',
   'nys_retrieve', 'nys_check_citations', 'nys_perform_legal_work', 'nys_chat_action',
   'nys_athena_search', 'nys_judgment_full_text',

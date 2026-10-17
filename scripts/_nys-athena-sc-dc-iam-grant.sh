@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # Grant caselaw-worker IAM glue:CreateTable (nyv_docs) + DC parquet S3 read.
-# Run from workstation: cd nyayavigya-platform-312 && bash scripts/_nys-athena-sc-dc-iam-grant.sh
+# Run from workstation: cd Jurexio-Platform-SDK && bash scripts/_nys-athena-sc-dc-iam-grant.sh
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 source scripts/jrx-source-dev-deploy-env.sh
 
-ACCOUNT="${NYV_AWS_ACCOUNT_ID:-789925699169}"
-REGION="${NYV_AWS_REGION:-ap-south-1}"
-ROLE=nyv-caselaw-worker-role
+ACCOUNT="${JRX_AWS_ACCOUNT_ID:-789925699169}"
+REGION="${JRX_AWS_REGION:-ap-south-1}"
+ROLE=jrx-caselaw-worker-role
 
-aws iam put-role-policy --role-name "$ROLE" --policy-name nyv-athena-query --policy-document "$(cat <<JSON
+aws iam put-role-policy --role-name "$ROLE" --policy-name jrx-athena-query --policy-document "$(cat <<JSON
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -63,7 +63,7 @@ aws iam put-role-policy --role-name "$ROLE" --policy-name nyv-athena-query --pol
 JSON
 )"
 
-aws iam put-role-policy --role-name "$ROLE" --policy-name nyv-caselaw-worker-inline --policy-document "$(cat <<'JSON'
+aws iam put-role-policy --role-name "$ROLE" --policy-name jrx-caselaw-worker-inline --policy-document "$(cat <<'JSON'
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -77,8 +77,8 @@ aws iam put-role-policy --role-name "$ROLE" --policy-name nyv-caselaw-worker-inl
         "arn:aws:s3:::indian-supreme-court-judgments/*",
         "arn:aws:s3:::indian-district-court-judgments",
         "arn:aws:s3:::indian-district-court-judgments/*",
-        "arn:aws:s3:::nyv-sdk-distribution",
-        "arn:aws:s3:::nyv-sdk-distribution/*",
+        "arn:aws:s3:::jrx-sdk-distribution",
+        "arn:aws:s3:::jrx-sdk-distribution/*",
         "arn:aws:s3:::ns-highcourt-data-bucket",
         "arn:aws:s3:::ns-highcourt-data-bucket/*",
         "arn:aws:s3:::your-supreme-court-data-bucket",
@@ -103,4 +103,4 @@ aws iam put-role-policy --role-name "$ROLE" --policy-name nyv-caselaw-worker-inl
 JSON
 )"
 
-echo "OK: updated ${ROLE} policies nyv-athena-query + nyv-caselaw-worker-inline"
+echo "OK: updated ${ROLE} policies jrx-athena-query + jrx-caselaw-worker-inline"

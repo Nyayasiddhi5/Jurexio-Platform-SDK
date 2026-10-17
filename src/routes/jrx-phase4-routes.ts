@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
+// JRX-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
 // file. Runtime is unaffected (gateway runs via tsx). Opt out of strict-null
 // for the v5.0.0 deploy gate; track follow-up cleanup in INV-CLEANUP-001.
 import { Router, Request, Response } from 'express';
@@ -19,7 +19,7 @@ const router = Router();
  * see. All start in OBSERVE mode (NV-CREDIT-OBSERVE-001).
  *
  * `/vision/*` here does NOT go through the safety ring: `NvMultimodalVisionService`
- * POSTs gpt-4o directly (`nv-phase4-services.ts:775`), so its tokens never reach the
+ * POSTs gpt-4o directly (`jrx-phase4-services.ts:775`), so its tokens never reach the
  * request accumulator and it must be metered in money.
  *
  * `/vision/ocr` uses `vision_images`, not `ocr_pages`: this route takes ONE inline

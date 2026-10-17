@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 
 import { getAuthToken } from '@/lib/jrx-auth-token';
 import { nv } from '@/lib/jrx-api-paths';
@@ -93,7 +93,7 @@ export default function CreditWallet() {
     return (
       <div className="min-h-screen p-8" style={{ background: 'linear-gradient(135deg, #0E1830 0%, #152448 40%, #152448 100%)' }} data-testid="error-wallet">
         <div className="max-w-3xl mx-auto pt-12">
-          <NyvErrorState
+          <JrxErrorState
             variant="card"
             title="Unable to load credit wallet"
             description="We couldn't fetch your wallet balance and transaction history."
@@ -176,7 +176,7 @@ export default function CreditWallet() {
             <div style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 12, overflow: 'hidden' }}>
               {filteredTx.length === 0 ? (
                 <div style={{ padding: 16 }}>
-                  <NyvEmptyState title="No transactions yet" description="Wallet activity will appear here as you spend or top up credits." size="sm" />
+                  <JrxEmptyState title="No transactions yet" description="Wallet activity will appear here as you spend or top up credits." size="sm" />
                 </div>
               ) : (
                 filteredTx.map(tx => {

@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'wouter';
 import { Search, BookMarked, Gavel, ExternalLink, Loader2 } from 'lucide-react';
-import { NyvPageShell } from '@/components/NyvPageShell';
+import { JrxPageShell } from '@/components/JrxPageShell';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -124,7 +124,7 @@ export default function InstantSearchPage() {
   }, [q, mode, courtTier, runSearch]);
 
   return (
-    <NyvPageShell
+    <JrxPageShell
       title="Instant Search"
       description="Typeahead over statutes and SC/HC caselaw (1950–2026) via the Knowledge Plane. Default FTS — best for recent HC rows; hybrid adds semantic RRF where embeddings exist."
       className="./jrx-light-scope"
@@ -306,6 +306,6 @@ export default function InstantSearchPage() {
           Probe: {nv('knowledge/statutes/search')}
         </span>
       </div>
-    </NyvPageShell>
+    </JrxPageShell>
   );
 }

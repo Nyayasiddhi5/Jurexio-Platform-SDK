@@ -38,7 +38,7 @@ permissions in one go.
 
 ## Store submission
 
-See [`docs/v3.1.2/completed_docs/NYV-MOBILE-STORE-SUBMISSION-CHECKLIST.md`](../../docs/v3.1.2/completed_docs/NYV-MOBILE-STORE-SUBMISSION-CHECKLIST.md)
+See [`docs/v3.1.2/completed_docs/JRX-MOBILE-STORE-SUBMISSION-CHECKLIST.md`](../../docs/v3.1.2/completed_docs/JRX-MOBILE-STORE-SUBMISSION-CHECKLIST.md)
 for the full Play Store / App Store submission walk-through (icons, splash,
 permission strings, age rating, content rating questionnaire, data-safety
 section, privacy URL, etc).

@@ -113,7 +113,7 @@ class MakerCheckerService {
    * (`executeWithFullSafetyRing`, NV-LLM-001 whitelisted) — never a provider
    * directly. Confidence is taken from the orchestration response quality
    * signal, not fabricated. The wrapper is imported dynamically to avoid an
-   * import cycle (queen → maker-checker → wrapper → nv-client → queen).
+   * import cycle (queen → maker-checker → wrapper → jrx-client → queen).
    */
   private defaultMaker: MakerFunction = async (prompt: string, feedback?: CheckerFeedback): Promise<MakerOutput> => {
     const { executeWithFullSafetyRing } = await import('../orchestration/jrx-sdk-orchestration-wrapper.js');

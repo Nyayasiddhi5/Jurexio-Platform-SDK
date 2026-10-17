@@ -5,7 +5,7 @@
  * and corrects LLM answers that conflict with the statute title/text
  * (e.g. BNS §103 answered as "theft" when the title is murder).
  *
- * Default ON; set NYV_STATUTE_QA_GROUNDING=0 to disable.
+ * Default ON; set JRX_STATUTE_QA_GROUNDING=0 to disable.
  */
 import { createLogger } from '../utils/logger.js';
 
@@ -119,11 +119,11 @@ const OFFENCE_FAMILIES: string[][] = [
 ];
 
 export function isStatuteQaGroundingEnabled(): boolean {
-  return String(process.env.NYV_STATUTE_QA_GROUNDING ?? '1').trim() !== '0';
+  return String(process.env.JRX_STATUTE_QA_GROUNDING ?? '1').trim() !== '0';
 }
 
 export function isStatuteQaStrictEnabled(): boolean {
-  return String(process.env.NYV_STATUTE_QA_STRICT ?? '1').trim() !== '0';
+  return String(process.env.JRX_STATUTE_QA_STRICT ?? '1').trim() !== '0';
 }
 
 /**
@@ -152,7 +152,7 @@ const GENERATION_REQUESTED_RE =
   /\b(draft|write|prepare|redline|revise|rewrite|summari[sz]e|memo(?:randum)?|opinion|analy[sz]e|analysis|review|advise|advice|argue|argument|recommend|suggest|compare|contrast|how\s+should|what\s+should|help\s+me|craft|compose)\b/i;
 
 /**
- * NV-NYS-LLMREQUIRED-001 — true when the user asked for generated text, so no
+ * NV-JRX-LLMREQUIRED-001 — true when the user asked for generated text, so no
  * store-backed excerpt can be a complete answer even if NYS reports
  * `llmRequired: false`.
  */
@@ -163,7 +163,7 @@ export function needsGenerationBeyondRetrieval(query: string): boolean {
 }
 
 /**
- * NV-NYS-LLMREQUIRED-001 — true when the query asks for reasoning or spans an
+ * NV-JRX-LLMREQUIRED-001 — true when the query asks for reasoning or spans an
  * instrument the core-code corpus does not hold, so no stored provision can be
  * a complete answer. Split out of `needsMoreThanOneSection` so the deterministic
  * tier and the statute-FAQ gate share one definition of "out of excerpt scope".
@@ -237,7 +237,7 @@ export function asksForAuthorityBeyondText(query: string): boolean {
 }
 
 /**
- * NV-NYS-LLMREQUIRED-001 / NV-DETERMINISTIC-OVERFIRE-001.
+ * NV-JRX-LLMREQUIRED-001 / NV-DETERMINISTIC-OVERFIRE-001.
  *
  * The single definition of "no stored excerpt can answer this", shared by the
  * deterministic tier and the statute-FAQ gate.
@@ -303,7 +303,7 @@ export function listCoreSectionRefs(query: string): string[] {
  * closed-form NYS intent depends. Without one of them, NYS's `statute` /
  * `case-search` branches return ranked retrieval rather than an answer.
  *
- * Lives here rather than in `nv-nys-deterministic-answer.ts` because both the
+ * Lives here rather than in `jrx-nys-deterministic-answer.ts` because both the
  * deterministic tier and the Queen admission gate need the same anchor test,
  * and the gate must stay free of the NYS HTTP client.
  */
@@ -633,7 +633,7 @@ export async function tryStatuteMappingFastPath(
 
 /**
  * Single formatter for a one-section grounded answer. Exported so the
- * deterministic tier renders NYS-sourced statute rows in exactly this shape —
+ * deterministic tier renders JRX-sourced statute rows in exactly this shape —
  * NV-NO-DUPLICATE-001: one statute answer format, not one per entry point.
  */
 export function buildStatuteGroundedAnswer(auth: StatuteAuthority, jurisdiction: string): string {

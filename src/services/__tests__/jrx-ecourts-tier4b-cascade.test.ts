@@ -65,7 +65,7 @@ describe('./jrx-ecourts-tier4b-cascade', () => {
 
   it('async job completes with failed when no session cookie', async () => {
     process.env.JRX_F_ECOURTS_PORTAL_FETCH = '1';
-    delete process.env.NYV_ECOURTS_SESSION_COOKIE;
+    delete process.env.JRX_ECOURTS_SESSION_COOKIE;
     const queued = enqueueEcourtsPortalJob({ cnr: 'TSWL000000742024' });
     expect(queued?.jobId).toBeTruthy();
 
@@ -78,7 +78,7 @@ describe('./jrx-ecourts-tier4b-cascade', () => {
     );
 
     const job = getEcourtsPortalJob(queued!.jobId);
-    expect(job?.error).toContain('NYV_ECOURTS_SESSION_COOKIE');
+    expect(job?.error).toContain('JRX_ECOURTS_SESSION_COOKIE');
     expect(job?.sourcesTried).toContain(ECOURTS_PORTAL_ATTEMPTED);
   });
 });

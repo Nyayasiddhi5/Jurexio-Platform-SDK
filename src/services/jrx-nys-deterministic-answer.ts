@@ -1,5 +1,5 @@
 /**
- * NV-NYS-LLMREQUIRED-001 — deterministic answer tier over the NYS knowledge plane.
+ * NV-JRX-LLMREQUIRED-001 — deterministic answer tier over the NYS knowledge plane.
  *
  * NYS `POST /retrieve` already classifies every query and returns
  * `llmRequired` + `intent` + `reason` + `steps[]` in 47 ms–2 s (measured live).
@@ -22,10 +22,10 @@
  * re-tested locally (`isDeterministicallySufficient`) before it can stand in for
  * an answer, and the intent must be one whose answer is *closed-form*.
  *
- * Escape hatch: NYV_NYS_DETERMINISTIC_ANSWER=0.
+ * Escape hatch: JRX_JRX_ECOSYSTEM_DETERMINISTIC_ANSWER=0.
  */
 import { createLogger } from '../utils/logger.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import { isNysKnowledgeConfigured, nysKnowledgeRequest } from './jrx-nys-knowledge-client.js';
 import {
   buildStatuteGroundedAnswer,
@@ -135,7 +135,7 @@ export interface NysDeterministicPlan {
 }
 
 export function isNysDeterministicAnswerEnabled(): boolean {
-  return String(process.env.NYV_NYS_DETERMINISTIC_ANSWER ?? '1').trim() !== '0';
+  return String(process.env.JRX_JRX_ECOSYSTEM_DETERMINISTIC_ANSWER ?? '1').trim() !== '0';
 }
 
 /**
@@ -145,7 +145,7 @@ export function isNysDeterministicAnswerEnabled(): boolean {
  * Kept tunable because corpora and query mixes differ per deployment.
  */
 function maxDeterministicQueryChars(): number {
-  const n = Number(process.env.NYV_NYS_DETERMINISTIC_MAX_CHARS ?? '240');
+  const n = Number(process.env.JRX_JRX_ECOSYSTEM_DETERMINISTIC_MAX_CHARS ?? '240');
   return Number.isFinite(n) && n >= 40 ? Math.min(600, Math.floor(n)) : 240;
 }
 
@@ -163,7 +163,7 @@ export interface ScopeVerdict {
 }
 
 /**
- * NV-NYS-LLMREQUIRED-001 scope gate. Runs *in addition to* NYS's own
+ * NV-JRX-LLMREQUIRED-001 scope gate. Runs *in addition to* NYS's own
  * `llmRequired` verdict; both must agree before a stored-text answer ships.
  */
 export function isDeterministicallySufficient(query: string, intent: string): ScopeVerdict {
@@ -239,7 +239,7 @@ function caseCitation(row: NysCaseRow): DeterministicCitation {
 
 const NO_LLM_FOOTER =
   '*Answered from the NyayaSearch primary corpus with no model call ' +
-  '(NV-NYS-LLMREQUIRED-001). Verify against the official gazette / reporter text before filing.*';
+  '(NV-JRX-LLMREQUIRED-001). Verify against the official gazette / reporter text before filing.*';
 
 function renderStatuteAnswer(
   steps: NysPlanStep[],
@@ -465,7 +465,7 @@ export async function tryNysDeterministicAnswer(opts: {
   timeoutMs?: number;
 }): Promise<DeterministicAnswer | null> {
   if (!isNysDeterministicAnswerEnabled()) return null;
-  if (!isNyvFeatureOn('nysKnowledgePlane') || !isNysKnowledgeConfigured()) return null;
+  if (!isJrxFeatureOn('nysKnowledgePlane') || !isNysKnowledgeConfigured()) return null;
 
   const query = String(opts.query || '').trim();
   if (!query) return null;

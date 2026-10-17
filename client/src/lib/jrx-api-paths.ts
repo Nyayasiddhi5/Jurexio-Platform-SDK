@@ -1,5 +1,5 @@
 /**
- * nv-api-paths.ts — single source of truth for every backend endpoint the Console calls.
+ * jrx-api-paths.ts — single source of truth for every backend endpoint the Console calls.
  *
  * Why this exists:
  *   The 2026-05-12 audit found ~30 sidebar pages calling /api/jrx/* paths that
@@ -95,7 +95,7 @@ export const NV_API = {
   AUTOMATEAI_GATE_TYPES:    { path: '/api/jrx/automateai/gate-types',          status: 'LIVE' },
   ORCHESTRATE:              { path: '/api/jrx/orchestrate',                  status: 'LIVE',          note: 'Canonical JWT-auth LLM orchestration entrypoint' },
   AGUI_STREAM:              { path: '/api/jrx/stream',                       status: 'LIVE',          note: 'Admin JWT AG-UI Queen stream — partner /orchestrate/stream stays sanitized' },
-  CAM_TELEMETRY:            { path: '/api/nyayavigya/cam/dashboard',         status: 'LIVE',          note: 'CAM 2.0 telemetry (JWT)' },
+  CAM_TELEMETRY:            { path: '/api/jurexio/cam/dashboard',         status: 'LIVE',          note: 'CAM 2.0 telemetry (JWT)' },
   DIGITAL_TWIN:          { path: '/api/jrx/digital-twin',                 status: 'LIVE',  legacyAlias: '/api/jrx/digital-twin' },
   TWINDESK:                 { path: '/api/jrx/twindesk',                       status: 'LIVE', note: 'Mounted at src/index.ts:1002 — base for sub-paths below' },
   TWINDESK_TWINS:           { path: '/api/jrx/twindesk/twins',                 status: 'LIVE' },
@@ -141,8 +141,8 @@ export const NV_API = {
   STATUTES:              { path: '/api/jrx/statutes',                     status: 'LIVE',          note: 'Task #189: paged nv_statutes aggregator (jurisdiction filter, limit/offset)' },
   TOOLS:                 { path: '/api/jrx/tools',                        status: 'LIVE' },
   PROMPT_CATEGORIES:     { path: '/api/jrx/prompts/categories',           status: 'LIVE',          note: 'task-303 G3A: distinct categories with counts' },
-  MCP_TOOL_CATALOG:      { path: '/api/jrx/nyaya-tools/catalog',          status: 'LIVE',          note: 'task-303 G3A: MCP catalog (502 tools, filterable)' },
-  MCP_TOOL_TEST:         { path: '/api/jrx/nyaya-tools/test',             status: 'LIVE',          note: 'task-303 G3A: per-tool test-connection probe' },
+  MCP_TOOL_CATALOG:      { path: '/api/jrx/jrx-legal-tools/catalog',          status: 'LIVE',          note: 'task-303 G3A: MCP catalog (502 tools, filterable)' },
+  MCP_TOOL_TEST:         { path: '/api/jrx/jrx-legal-tools/test',             status: 'LIVE',          note: 'task-303 G3A: per-tool test-connection probe' },
 
   // ─────────── OPERATIONS ───────────
   HEALTH_FULL:           { path: '/api/jrx/health/full',                  status: 'LIVE' },

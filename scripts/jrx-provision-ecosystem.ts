@@ -1,5 +1,5 @@
 /**
- * Provision the 5 Nyayasiddhi-ecosystem SDK apps + keys from the platform
+ * Provision the 5 Jurexio-ecosystem SDK apps + keys from the platform
  * access matrix.
  *
  * Idempotent — re-running is safe. Operates against the production
@@ -48,10 +48,10 @@ type Matrix = {
 // keys and matches the seeded ecosystem rows.
 const CODE_TO_SUFFIX: Record<string, string> = {
   NYM: 'nym',
-  'NYS-PRO': 'nsp',
-  'NYS-INS': 'nsi',
-  'NYS-ACE': 'nsa',
-  'NYS-MIN': 'nsm',
+  'JRX-PRO': 'nsp',
+  'JRX-INS': 'nsi',
+  'JRX-ACE': 'nsa',
+  'JRX-MIN': 'nsm',
 };
 
 function generateApiKey(env: 'live' | 'test', suffix: string): { raw: string; hash: string; prefix: string } {

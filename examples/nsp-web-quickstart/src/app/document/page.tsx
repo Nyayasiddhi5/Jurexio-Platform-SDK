@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { NyvDocumentAnalysis, NyvDocumentStatus } from '@nyayavigya/client-sdk';
+import type { JrxDocumentAnalysis, JrxDocumentStatus } from '@nyayavigya/client-sdk';
 
 interface UploadResult {
   docId: string;
@@ -16,7 +16,7 @@ async function jsonFetch<T>(url: string, init?: RequestInit): Promise<T> {
 export default function DocumentPage() {
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<string>('idle');
-  const [analysis, setAnalysis] = useState<NyvDocumentAnalysis | null>(null);
+  const [analysis, setAnalysis] = useState<JrxDocumentAnalysis | null>(null);
   const [err, setErr] = useState<string | null>(null);
 
   async function run() {
@@ -27,14 +27,14 @@ export default function DocumentPage() {
       fd.append('file', file);
       fd.append('fileName', file.name);
       const { docId } = await jsonFetch<UploadResult>(
-        '/api/nyv-proxy/api/nv/documents/upload',
+        '/api/jrx-proxy/api/nv/documents/upload',
         { method: 'POST', body: fd },
       );
 
       setStatus(`indexing (docId=${docId}) …`);
-      let lastStatus: NyvDocumentStatus['status'] | undefined;
+      let lastStatus: JrxDocumentStatus['status'] | undefined;
       for (let i = 0; i < 60; i++) {
-        const s = await jsonFetch<NyvDocumentStatus>(`/api/nyv-proxy/api/nv/documents/${docId}/status`);
+        const s = await jsonFetch<JrxDocumentStatus>(`/api/jrx-proxy/api/nv/documents/${docId}/status`);
         lastStatus = s.status;
         if (s.status === 'COMPLETED') break;
         if (s.status === 'FAILED') throw new Error('indexing failed');
@@ -47,10 +47,10 @@ export default function DocumentPage() {
       // extracted text first, then run analysis. (Alternatively, call
       // client.documents.extractAndAnalyze() in a Node-side route.)
       const { text } = await jsonFetch<{ text: string }>(
-        `/api/nyv-proxy/api/nv/documents/${docId}/text`,
+        `/api/jrx-proxy/api/nv/documents/${docId}/text`,
       );
-      const aRes = await jsonFetch<NyvDocumentAnalysis>(
-        '/api/nyv-proxy/api/nv/doc-analyze/analyze',
+      const aRes = await jsonFetch<JrxDocumentAnalysis>(
+        '/api/jrx-proxy/api/nv/doc-analyze/analyze',
         {
           method: 'POST',
           headers: { 'content-type': 'application/json' },

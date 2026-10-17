@@ -95,7 +95,7 @@ export class NvRagServiceAdapter implements NvRagServiceContract {
 }
 
 export const HTTP_CONTRACT = {
-  serviceName: 'NYV-RAG-SERVICE',
+  serviceName: 'JRX-RAG-SERVICE',
   baseUrl: '/api/jrx/rag-service',
   endpoints: [
     { method: 'POST', path: '/query', handler: 'query' },

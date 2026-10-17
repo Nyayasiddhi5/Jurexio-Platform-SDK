@@ -4,34 +4,34 @@
  *
  * Converts "counsel-grade" from a claim into a number that can fail.
  *
- * WHY A NEW RUNNER AND NOT AN EXTENSION OF nv-eval-legal-accuracy.ts
+ * WHY A NEW RUNNER AND NOT AN EXTENSION OF jrx-eval-legal-accuracy.ts
  * -----------------------------------------------------------------
  * Audited first (NV-NO-DUPLICATE-001). What exists:
  *
- *   • `nv-eval-legal-accuracy.ts` — golden sets × 6 jurisdictions, scoring
+ *   • `jrx-eval-legal-accuracy.ts` — golden sets × 6 jurisdictions, scoring
  *     accuracy / citation-faithfulness / hallucination / adversarial-detection
  *     via the authority adapters. Single endpoint: `/api/jrx/legal-chat/send`
  *     (SSE). Single task shape: research-style chat.
- *   • `nv-quality-trend.ts` — reads `docs/audit/eval/scoreboard-*.json` and
+ *   • `jrx-quality-trend.ts` — reads `docs/audit/eval/scoreboard-*.json` and
  *     reports run-to-run deltas per jurisdiction.
- *   • `nv-benchmark-cost.mjs` — COST, on `/api/jrx/orchestrate` via SSM.
+ *   • `jrx-benchmark-cost.mjs` — COST, on `/api/jrx/orchestrate` via SSM.
  *
  * The axis this harness measures is orthogonal to all three: per-TASK-FAMILY
  * counsel-grade properties on `/api/jrx/orchestrate` (research, chat-fast,
  * analysis, draft, analyzeDocument, statute transition, treatment), with the
  * envelope's self-report cross-checked against the body it describes. Bolting
- * that onto `nv-eval-legal-accuracy` would mean giving one script two request
+ * that onto `jrx-eval-legal-accuracy` would mean giving one script two request
  * shapes, two scoring models and two gate semantics, and would have forced
- * `scoreboard-*.json` — which `nv-quality-trend` parses — to carry a second,
+ * `scoreboard-*.json` — which `jrx-quality-trend` parses — to carry a second,
  * incompatible schema. That would have broken the existing trend tool.
  *
  * So what is NOT duplicated is the important part:
  *   • the authority COUNT reuses the platform's own `countDeliveredAuthorities()`
- *     from `nv-orchestration-response-contract.ts` — the shipped expression, not
+ *     from `jrx-orchestration-response-contract.ts` — the shipped expression, not
  *     a copy of it;
- *   • the artifact convention follows `nv-benchmark-cost.mjs`
+ *   • the artifact convention follows `jrx-benchmark-cost.mjs`
  *     (`.local/benchmarks/<label>-<ts>/{raw,aggregate}.json` + `report.md`);
- *   • the regression semantics follow `nv-quality-trend.ts` (previous-vs-current,
+ *   • the regression semantics follow `jrx-quality-trend.ts` (previous-vs-current,
  *     `--gate` exits non-zero);
  *   • the prompt set lives under `docs/audit/eval/` beside the existing sets.
  * Zero prompts, verifiers or scoring code are re-implemented.
@@ -84,14 +84,14 @@ function opt(name: string): string | undefined {
 }
 
 const MODE_SELF_TEST = has('self-test');
-const KEY_ENV = opt('key-env') || 'NYV_SDK_KEY_NSP';
+const KEY_ENV = opt('key-env') || 'JRX_SDK_KEY_NSP';
 const PLATFORM = opt('platform') || 'nsp';
 const SET_FILE = opt('set') || DEFAULT_SET;
 const LABEL = opt('label') || (MODE_SELF_TEST ? 'counsel-grade-selftest' : 'counsel-grade');
 const ONLY = opt('only')?.split(',').map((s) => s.trim()).filter(Boolean);
 const GATE_REGRESSION = has('gate');
 const GATE_ABSOLUTE = has('absolute-gate');
-const CASE_TIMEOUT_MS = Number(opt('timeout') || process.env.NYV_COUNSEL_GRADE_TIMEOUT_MS || 150_000);
+const CASE_TIMEOUT_MS = Number(opt('timeout') || process.env.JRX_COUNSEL_GRADE_TIMEOUT_MS || 150_000);
 const OUT_DIR = opt('out');
 const COMPARE_TO = opt('compare-to');
 /**
@@ -160,8 +160,8 @@ async function fetchLive(c: SetCase, gateway: string, apiKey: string): Promise<D
 
   const headers: Record<string, string> = {
     'x-api-key': apiKey,
-    'x-nyv-platform': PLATFORM,
-    'x-nyv-consent': 'granted',
+    'x-jrx-platform': PLATFORM,
+    'x-jrx-consent': 'granted',
     'content-type': 'application/json',
     accept: 'application/json',
   };
@@ -315,7 +315,7 @@ function findPreviousRun(mode: string): { file: string; artifact: RunArtifact } 
     try {
       const artifact = JSON.parse(fs.readFileSync(file, 'utf8')) as RunArtifact;
       // Comparing a self-test against a live run would report every live
-      // difference as a regression. `nv-quality-trend.ts` learned this the same
+      // difference as a regression. `jrx-quality-trend.ts` learned this the same
       // way and exposes `--live-only`; here it is enforced rather than optional.
       if (artifact.ruleId !== 'NV-COUNSEL-GRADE-EVAL-001' || artifact.mode !== mode) continue;
       candidates.push({ file, artifact });
@@ -369,7 +369,7 @@ const STATUS_MARK: Record<string, string> = { pass: '✓', fail: '✗', blocked:
 
 function renderMarkdown(a: RunArtifact, diff: RegressionReport): string {
   const L: string[] = [];
-  L.push('# NYV counsel-grade quality — regression report');
+  L.push('# JRX counsel-grade quality — regression report');
   L.push('');
   L.push(`- **Rule:** ${a.ruleId}`);
   L.push(`- **Generated:** ${a.generatedAt}`);
@@ -560,7 +560,7 @@ async function main(): Promise<void> {
     console.error('    npm run eval:counsel-grade:self-test');
     console.error('');
     console.error('  Live against a running gateway:');
-    console.error('    npm run eval:counsel-grade -- --gateway https://api.nyayasiddhi.online \\');
+    console.error('    npm run eval:counsel-grade -- --gateway https://api.jurexio.com \\');
     console.error(`        --key-env ${KEY_ENV} --label after-p0-fix`);
     console.error('');
     console.error('  Grade responses captured earlier (e.g. on the EC2 host over SSM) — no spend:');

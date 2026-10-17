@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 
 // Jurexio Legal SDK API Client for real-time metrics
-const nyayavigyaSDKClient = {
+const jurexioSDKClient = {
   getRealTimeMetrics: () => apiRequest('/api/v9/metrics/real-time'),
   getSystemMetrics: () => apiRequest('/api/v9/system/metrics'),
   getSystemHealth: () => apiRequest('/api/v9/health'),
@@ -47,21 +47,21 @@ export function useRealTimeMetrics(): {
   // Fetch current metrics
   const { data: currentMetrics, isLoading, error } = useQuery({
     queryKey: ['system', 'metrics', 'realtime'],
-    queryFn: () => nyayavigyaSDKClient.getSystemMetrics(),
+    queryFn: () => jurexioSDKClient.getSystemMetrics(),
     refetchInterval: 5000, // Refresh every 5 seconds for real-time updates
   });
 
   // Fetch orchestration history for time-series data
   const { data: orchestrationHistory } = useQuery({
     queryKey: ['orchestration', 'history', 'metrics'],
-    queryFn: () => nyayavigyaSDKClient.getOrchestrationHistory(),
+    queryFn: () => jurexioSDKClient.getOrchestrationHistory(),
     refetchInterval: 10000,
   });
 
   // Fetch LLM usage analytics for cost trends
   const { data: llmAnalytics } = useQuery({
     queryKey: ['llm', 'analytics', 'realtime'],
-    queryFn: () => nyayavigyaSDKClient.getLLMUsageAnalytics(),
+    queryFn: () => jurexioSDKClient.getLLMUsageAnalytics(),
     refetchInterval: 15000,
   });
 

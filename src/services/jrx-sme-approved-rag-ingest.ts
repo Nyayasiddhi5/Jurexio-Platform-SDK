@@ -8,7 +8,7 @@ import { embedAndStore, type JurisdictionCode } from './jrx-rag-live-service.js'
 
 const logger = createLogger('./jrx-sme-approved-rag');
 
-const APPROVAL_THRESHOLD = Number(process.env.NYV_SME_RAG_APPROVAL_THRESHOLD || '0.85');
+const APPROVAL_THRESHOLD = Number(process.env.JRX_SME_RAG_APPROVAL_THRESHOLD || '0.85');
 
 const NAMESPACE_BY_JURIS: Record<string, string> = {
   IN: 'in-sme-approved',

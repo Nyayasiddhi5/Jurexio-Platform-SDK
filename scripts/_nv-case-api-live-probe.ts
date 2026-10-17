@@ -1,5 +1,5 @@
 /**
- * Live nysapi probe through nv-case-api-adapter (NV-SECRETS-001: no key values).
+ * Live nysapi probe through jrx-case-api-adapter (NV-SECRETS-001: no key values).
  */
 import {
   fetchCaseByCnr,

@@ -12,7 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Label } from '@/components/ui/label';
 import { Shield, CheckCircle, XCircle, Users, Lock, Activity, Search, RefreshCw } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { formatDistanceToNow } from 'date-fns';
@@ -260,7 +260,7 @@ export default function RBACConsole() {
                     {Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-10 w-full" />)}
                   </div>
                 ) : filteredAudit.length === 0 ? (
-                  <NyvEmptyState icon={Activity} title="No audit entries found" description="Audit log entries will appear here as access checks occur." />
+                  <JrxEmptyState icon={Activity} title="No audit entries found" description="Audit log entries will appear here as access checks occur." />
                 ) : (
                   <div className="divide-y text-sm">
                     {filteredAudit.map((entry: any, idx: number) => (

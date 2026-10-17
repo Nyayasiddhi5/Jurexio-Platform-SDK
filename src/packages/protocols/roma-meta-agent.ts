@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * ROMA (Recursive-Open-Meta-Agent) Framework Integration
  * 
@@ -537,14 +537,14 @@ export class RomaExecutor extends EventEmitter {
     
     // Map task types to optimal agents
     const agentMapping: Record<string, string> = {
-      'development': 'nyayavigya-fullstack-dev-v9',
-      'analysis': 'nyayavigya-business-analyst-v9',
-      'design': 'nyayavigya-ui-ux-designer-v9',
-      'content': 'nyayavigya-content-creator-v9',
-      'coordination': 'nyayavigya-project-manager-v9'
+      'development': 'jurexio-fullstack-dev-v9',
+      'analysis': 'jurexio-business-analyst-v9',
+      'design': 'jurexio-ui-ux-designer-v9',
+      'content': 'jurexio-content-creator-v9',
+      'coordination': 'jurexio-project-manager-v9'
     };
 
-    return agentMapping[taskType] || 'nyayavigya-fullstack-dev-v9';
+    return agentMapping[taskType] || 'jurexio-fullstack-dev-v9';
   }
 
   private analyzeTaskType(task: string): string {

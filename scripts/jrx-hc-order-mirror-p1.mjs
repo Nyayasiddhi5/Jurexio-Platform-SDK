@@ -7,7 +7,7 @@
  *   NYSAPI_URL          default http://127.0.0.1:8090
  *   NYSAPI_API_KEY      case-api key (length logged only)
  *   NV_HC_MIRROR_BUCKET default ns-indian-highcourt-judgements-2
- *   GATEWAY_DATABASE_URL  postgres URL for nyayavigya.nv_hc_order_s3_map (apply mode)
+ *   GATEWAY_DATABASE_URL  postgres URL for jurexio.nv_hc_order_s3_map (apply mode)
  *   NV_HC_ORDER_AUTH_BASE  optional case_api / Tier-3 base (tried before anonymous portal)
  *   NV_HC_ORDER_AUTH_API_KEY  key for auth tier (length logged only)
  *
@@ -60,7 +60,7 @@ async function fetchPdfBytes(url, extraHeaders = {}) {
   const res = await fetch(url, {
     redirect: 'follow',
     signal: AbortSignal.timeout(45_000),
-    headers: { 'User-Agent': 'nyv-hc-order-mirror-p1/1.0', ...extraHeaders },
+    headers: { 'User-Agent': 'jrx-hc-order-mirror-p1/1.0', ...extraHeaders },
   });
   const buf = Buffer.from(await res.arrayBuffer());
   const isPdf = buf.length > 4 && buf.subarray(0, 4).toString('ascii') === '%PDF';
@@ -120,8 +120,8 @@ function ordersFromCase(caseRow) {
 }
 
 async function batchCnrsFromRds(limit) {
-  const url = process.env.NYS_CASEAPI_DATABASE_URL || process.env.CASE_API_DATABASE_URL;
-  if (!url) throw new Error('batch_requires_NYS_CASEAPI_DATABASE_URL');
+  const url = process.env.JRX_ECOSYSTEM_CASEAPI_DATABASE_URL || process.env.CASE_API_DATABASE_URL;
+  if (!url) throw new Error('batch_requires_JRX_ECOSYSTEM_CASEAPI_DATABASE_URL');
   const pg = (await import('pg')).default;
   const pool = new pg.Pool({ connectionString: url, max: 2, statement_timeout: 120_000 });
   try {

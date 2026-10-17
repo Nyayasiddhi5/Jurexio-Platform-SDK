@@ -3,10 +3,10 @@
 # gateway-side signal on whether US free_chat stalls. Prints first/last SSE
 # lines + timing.
 set -uo pipefail
-GATEWAY="https://api.nyayasiddhi.online"
+GATEWAY="https://api.jurexio.com"
 J="${1:-US}"
 MODE="${2:-free_chat}"
-TOKEN="$(curl -sS -X POST "$GATEWAY/api/auth/login" -H 'Content-Type: application/json' -H "Origin: $GATEWAY" -d '{"email":"legalchat-admin-uat@nyayavigya.in","password":"Demo@2026!"}' | python3 -c 'import sys,json; print(json.load(sys.stdin).get("token",""))')"
+TOKEN="$(curl -sS -X POST "$GATEWAY/api/auth/login" -H 'Content-Type: application/json' -H "Origin: $GATEWAY" -d '{"email":"legalchat-admin-uat@jurexio.com","password":"Demo@2026!"}' | python3 -c 'import sys,json; print(json.load(sys.stdin).get("token",""))')"
 echo "token_len=${#TOKEN} jur=$J mode=$MODE"
 
 SID="$(curl -sS -X POST "$GATEWAY/api/jrx/legal-chat/sessions" -H 'Content-Type: application/json' -H "Authorization: Bearer $TOKEN" -H "Origin: $GATEWAY" -H 'X-NV-Shell: sme' -d "{\"title\":\"curl $J $MODE\",\"jurisdictions\":[\"$J\"],\"tier\":\"pro\",\"mode\":\"$MODE\"}" | python3 -c 'import sys,json; d=json.load(sys.stdin); print((d.get("session") or {}).get("id") or d.get("id") or "")' 2>/dev/null)"

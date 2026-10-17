@@ -39,7 +39,7 @@ const logger = createLogger('./jrx-platform-limits');
 router.use(sdkGatewayAuth);
 
 /**
- * Admin-scope guard — same contract as nv-customer-orgs-routes.ts.
+ * Admin-scope guard — same contract as jrx-customer-orgs-routes.ts.
  *
  * Platform-tier readouts expose billing headroom + tier matrices that
  * a per-firm developer-portal key has no business seeing. Require an

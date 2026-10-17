@@ -45,7 +45,7 @@ async function resolveCnr(
     headers: {
       'Content-Type': 'application/json',
       'X-API-Key': key,
-      'X-NYV-Platform': 'nsp',
+      'X-JRX-Platform': 'nsp',
     },
     body: JSON.stringify(body),
     signal: AbortSignal.timeout(120_000),
@@ -94,10 +94,10 @@ function report(label: string, payload: Record<string, unknown>): void {
 
 async function main(): Promise<void> {
   loadRuntimeEnv();
-  const api = (process.env.NYV_API_BASE_URL ?? 'https://api.nyayasiddhi.online').replace(/\/$/, '');
-  const key = (process.env.NYV_SDK_KEY_NSP ?? '').trim();
+  const api = (process.env.JRX_API_BASE_URL ?? 'https://api.jurexio.com').replace(/\/$/, '');
+  const key = (process.env.JRX_SDK_KEY_NSP ?? '').trim();
   if (key.length < 16) {
-    console.error('PROBE_SKIP: NYV_SDK_KEY_NSP not in runtime.env');
+    console.error('PROBE_SKIP: JRX_SDK_KEY_NSP not in runtime.env');
     process.exit(2);
   }
   console.log(`API=${api} key_len=${key.length}`);

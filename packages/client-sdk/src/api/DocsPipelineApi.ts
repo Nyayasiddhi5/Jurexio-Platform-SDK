@@ -2,10 +2,10 @@
  * SDK document pipeline — /api/jrx/sdk/docs-pipeline/*
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export class DocsPipelineApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   parse(body: Record<string, unknown>): Promise<unknown> {
     return this.http.post('/api/jrx/sdk/docs-pipeline/documents/parse', body);

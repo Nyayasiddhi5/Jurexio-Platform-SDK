@@ -34,7 +34,7 @@
 --     that do not have RLS enabled.
 --   • ENABLE / FORCE ROW LEVEL SECURITY is gated on the session GUC
 --     `app.nyv_rls_enforce = 'true'`. The migration runner
---     (`scripts/nv-migrate.ts`) sets this from `process.env.NYV_RLS_ENFORCE`,
+--     (`scripts/jrx-migrate.ts`) sets this from `process.env.JRX_RLS_ENFORCE`,
 --     so operators flip enforcement ON only after every DB call site has
 --     been wired through `req.withSdkTenant(fn)` / `withSdkTenantTx(...)`.
 --   • Default (flag unset / 'false'): policies installed, RLS NOT enabled,

@@ -38,7 +38,7 @@ function sessionKey(orgId: string, connectorId: string): string {
 }
 
 function envConfigured(def: LegaltechConnectorDef): boolean {
-  if (def.authType === 'platform') return process.env.NYV_STORAGE_BACKEND === 's3' || !!process.env.AWS_ACCESS_KEY_ID;
+  if (def.authType === 'platform') return process.env.JRX_STORAGE_BACKEND === 's3' || !!process.env.AWS_ACCESS_KEY_ID;
   if (!def.envKey) return true;
   return !!process.env[def.envKey];
 }
@@ -154,11 +154,11 @@ export const nvMcpConnectorService = {
           status: 'platform_unconfigured',
           connectorId,
           action,
-          note: 'Set NYV_STORAGE_BACKEND=s3 and AWS credentials for live S3 MCP tools.',
+          note: 'Set JRX_STORAGE_BACKEND=s3 and AWS credentials for live S3 MCP tools.',
         };
       }
       try {
-        const { nyvDocumentStorage } = await import('../nyv-document-storage-service.js');
+        const { nyvDocumentStorage } = await import('../jrx-document-storage-service.js');
         const org = String(input.orgId ?? 'platform');
         const platform = String(input.platform ?? 'nyv');
         const userId = String(input.userId ?? 'mcp-system');
@@ -240,7 +240,7 @@ export const nvMcpConnectorService = {
         routed: true,
         provider: def.name,
         message: session?.connected
-          ? `${def.name} action '${action}' accepted — extend nv-mcp-connector-service for provider-specific REST.`
+          ? `${def.name} action '${action}' accepted — extend jrx-mcp-connector-service for provider-specific REST.`
           : undefined,
       },
       connectPath: session?.connected ? undefined : `/api/jrx/mcp/connectors/${connectorId}/connect`,

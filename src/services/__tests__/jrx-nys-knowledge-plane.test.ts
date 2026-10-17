@@ -72,9 +72,9 @@ describe('normalizeNysAthenaSearchBody', () => {
 describe('./jrx-nys-knowledge-client circuit', () => {
   beforeEach(() => {
     vi.resetModules();
-    delete process.env.NYS_KNOWLEDGE_BASE_URL;
-    delete process.env.NYS_KNOWLEDGE_API_KEY;
-    delete process.env.NYS_KNOWLEDGE_CB_FAILURES;
+    delete process.env.JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL;
+    delete process.env.JRX_ECOSYSTEM_KNOWLEDGE_API_KEY;
+    delete process.env.JRX_ECOSYSTEM_KNOWLEDGE_CB_FAILURES;
   });
 
   it('reports unconfigured when BASE_URL missing', async () => {
@@ -96,13 +96,13 @@ describe('./jrx-nys-knowledge-client circuit', () => {
 describe('./jrx-nys-knowledge-retriever namespaces + flatten', () => {
   it('exports global namespace constants', async () => {
     const mod = await import('../jrx-nys-knowledge-retriever.js');
-    expect(mod.NYS_GLOBAL_NAMESPACES.statutesIN).toBe('global:statutes:IN');
-    expect(mod.NYS_GLOBAL_NAMESPACES.caselawUS).toBe('global:caselaw:US');
+    expect(mod.JRX_ECOSYSTEM_GLOBAL_NAMESPACES.statutesIN).toBe('global:statutes:IN');
+    expect(mod.JRX_ECOSYSTEM_GLOBAL_NAMESPACES.caselawUS).toBe('global:caselaw:US');
   });
 
   it('returns empty when flag off', async () => {
     vi.resetModules();
-    process.env.JRX_F_NYS_KNOWLEDGE_PLANE = '0';
+    process.env.JRX_F_JRX_ECOSYSTEM_KNOWLEDGE_PLANE = '0';
     const mod = await import('../jrx-nys-knowledge-retriever.js');
     const r = await mod.retrieveNysGlobalKnowledge({ query: 'BNS 103', jurisdiction: 'IN' });
     expect(r.chunks).toEqual([]);

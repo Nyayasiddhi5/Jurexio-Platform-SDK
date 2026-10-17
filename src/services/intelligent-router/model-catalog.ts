@@ -610,7 +610,7 @@ export const MODEL_CATALOG: ModelEntry[] = [
     isLatest: true,
     preferredFor: ['legal_research', 'legal_drafting', 'contract_analysis', 'compliance_review', 'summarization'],
     jurisdictionFit: { IN: 100, GLOBAL: 78 },
-    notes: 'May 2026 Sarvam flagship — 105B Indic-first. Starter tier caps max_tokens at 4096 (NYV_SARVAM_MAX_OUTPUT_TOKENS).',
+    notes: 'May 2026 Sarvam flagship — 105B Indic-first. Starter tier caps max_tokens at 4096 (JRX_SARVAM_MAX_OUTPUT_TOKENS).',
   },
   {
     id: 'sarvam-30b',
@@ -1323,11 +1323,11 @@ export const MODEL_CATALOG: ModelEntry[] = [
     jurisdictionFit: { GLOBAL: 84 },
   },
 
-  // OpenRouter FREE tier — preferred early when NYV_LLM_OPENROUTER_FREE_FIRST=on
+  // OpenRouter FREE tier — preferred early when JRX_LLM_OPENROUTER_FREE_FIRST=on
   {
     id: '@preset/nyv',
     provider: 'openrouter',
-    displayName: 'OpenRouter NYV preset',
+    displayName: 'OpenRouter JRX preset',
     contextWindow: 128_000,
     maxOutput: 8_192,
     costInPer1M: 0,
@@ -1356,7 +1356,7 @@ export const MODEL_CATALOG: ModelEntry[] = [
     isFree: true,
     preferredFor: ['summarization', 'generic_chat', 'classification'],
     jurisdictionFit: { GLOBAL: 80 },
-    notes: 'OpenRouter free — last among cloud when quality-first; first only if NYV_LLM_OPENROUTER_FREE_FIRST=1.',
+    notes: 'OpenRouter free — last among cloud when quality-first; first only if JRX_LLM_OPENROUTER_FREE_FIRST=1.',
   },
   {
     id: 'qwen/qwen3-235b-a22b:free',
@@ -1467,9 +1467,9 @@ export const MODEL_CATALOG: ModelEntry[] = [
 
   // ═══════════════ OMNIROUTE (last-mile cost/fallback gateway) ═══════════════
   // NV-OMNIROUTE-001: added 2026-07-25 as a governed, optional last-mile layer.
-  // OmniRoute is invoked only after PII tokenization and all NYV safety/governance
+  // OmniRoute is invoked only after PII tokenization and all JRX safety/governance
   // checkpoints. It provides auto-fallback across 250+ providers and token
-  // compression (Caveman/RTK) while NYV retains full control of routing, audit,
+  // compression (Caveman/RTK) while JRX retains full control of routing, audit,
   // and compliance. Model IDs are OmniRoute aliases, not upstream model IDs.
   {
     id: 'omniroute/auto/reliable',
@@ -1582,14 +1582,14 @@ export function modelsByProvider(provider: string): ModelEntry[] {
  * DIRECT Anthropic provider. When the direct Anthropic account is unfunded the
  * API returns HTTP 400 "Your credit balance is too low to access the Anthropic
  * API" on every call, so every Opus-led cascade wastes a hop before failing
- * over. Setting NYV_ANTHROPIC_DIRECT_DISABLED=1 excludes direct-anthropic models
+ * over. Setting JRX_ANTHROPIC_DIRECT_DISABLED=1 excludes direct-anthropic models
  * from routing entirely (score -1e9 + mergeUnique filter), so the cascade leads
  * with the working OpenRouter Opus route (anthropic/claude-opus-4-7). The
  * Bedrock and OpenRouter anthropic routes are unaffected. Reversible: unset the
  * flag once Anthropic credits are restored.
  */
 export function directAnthropicDisabled(): boolean {
-  return /^(1|true|yes|on)$/i.test(String(process.env.NYV_ANTHROPIC_DIRECT_DISABLED ?? ''));
+  return /^(1|true|yes|on)$/i.test(String(process.env.JRX_ANTHROPIC_DIRECT_DISABLED ?? ''));
 }
 
 export function isProviderAvailable(provider: string): boolean {
@@ -1623,17 +1623,17 @@ export function isProviderAvailable(provider: string): boolean {
     case 'perplexity':
       return !!process.env.PERPLEXITY_API_KEY;
     case 'sarvam': {
-      const v = String(process.env.NYV_SARVAM_DISABLED ?? '').toLowerCase();
+      const v = String(process.env.JRX_SARVAM_DISABLED ?? '').toLowerCase();
       if (v === 'true' || v === '1' || v === 'on' || v === 'yes') return false;
-      return !!(process.env.SARVAM_API_KEY || process.env.NYV_SARVAM_API_KEY);
+      return !!(process.env.SARVAM_API_KEY || process.env.JRX_SARVAM_API_KEY);
     }
     case 'bedrock': {
       // Gated on explicit disable. Default ON when AWS region configured (EC2 IAM role)
       // OR Bedrock API key (AWS_BEARER_TOKEN_BEDROCK) is present.
-      const v = String(process.env.NYV_BEDROCK_ENABLED ?? '').toLowerCase();
+      const v = String(process.env.JRX_BEDROCK_ENABLED ?? '').toLowerCase();
       if (v === 'false' || v === '0' || v === 'off') return false;
       if (v === 'true' || v === '1' || v === 'on') return true;
-      if (process.env.NYV_BEDROCK_DISABLED === 'true') return false;
+      if (process.env.JRX_BEDROCK_DISABLED === 'true') return false;
       if (process.env.AWS_BEARER_TOKEN_BEDROCK || process.env.BEDROCK_API_KEY) return true;
       return !!(process.env.AWS_REGION || process.env.AWS_BEDROCK_REGION) || process.env.NODE_ENV === 'production';
     }
@@ -1641,15 +1641,15 @@ export function isProviderAvailable(provider: string): boolean {
       return (
         !!(process.env.GOOGLE_APPLICATION_CREDENTIALS || process.env.GCP_SA_KEY_JSON) &&
         !!process.env.GCP_PROJECT_ID &&
-        process.env.NYV_VERTEX_ENABLED === 'true'
+        process.env.JRX_VERTEX_ENABLED === 'true'
       );
     case 'omniroute': {
       // NV-OMNIROUTE-002: OmniRoute is enabled whenever a key is configured,
       // unless explicitly disabled. This lets it serve as a production fallback
       // automatically while still allowing operators to turn it off with
-      // NYV_OMNIROUTE_ENABLED=false.
+      // JRX_OMNIROUTE_ENABLED=false.
       if (!process.env.OMNIROUTE_API_KEY) return false;
-      const explicit = String(process.env.NYV_OMNIROUTE_ENABLED ?? '').toLowerCase();
+      const explicit = String(process.env.JRX_OMNIROUTE_ENABLED ?? '').toLowerCase();
       if (explicit === 'false' || explicit === '0' || explicit === 'off') return false;
       return true;
     }
@@ -1685,10 +1685,10 @@ export function providerKeyRequirement(provider: string): string[] {
     case 'together':    return ['TOGETHER_API_KEY'];
     case 'cohere':      return ['COHERE_API_KEY'];
     case 'perplexity':  return ['PERPLEXITY_API_KEY'];
-    case 'sarvam':      return ['SARVAM_API_KEY', 'NYV_SARVAM_API_KEY'];
-    case 'bedrock':     return ['AWS_BEARER_TOKEN_BEDROCK', 'BEDROCK_API_KEY', 'NYV_BEDROCK_ENABLED', 'AWS_ACCESS_KEY_ID'];
-    case 'vertex':      return ['NYV_VERTEX_ENABLED', 'GCP_PROJECT_ID', 'GOOGLE_APPLICATION_CREDENTIALS'];
-    case 'omniroute':   return ['OMNIROUTE_API_KEY', 'NYV_OMNIROUTE_ENABLED'];
+    case 'sarvam':      return ['SARVAM_API_KEY', 'JRX_SARVAM_API_KEY'];
+    case 'bedrock':     return ['AWS_BEARER_TOKEN_BEDROCK', 'BEDROCK_API_KEY', 'JRX_BEDROCK_ENABLED', 'AWS_ACCESS_KEY_ID'];
+    case 'vertex':      return ['JRX_VERTEX_ENABLED', 'GCP_PROJECT_ID', 'GOOGLE_APPLICATION_CREDENTIALS'];
+    case 'omniroute':   return ['OMNIROUTE_API_KEY', 'JRX_OMNIROUTE_ENABLED'];
     case 'agentzero':   return [];
     case 'simulation':  return [];
     default:            return [];

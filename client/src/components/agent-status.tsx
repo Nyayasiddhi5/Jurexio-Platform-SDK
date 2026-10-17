@@ -149,7 +149,7 @@ export function AgentStatus({ agent, showDetails = false, onAction }: AgentStatu
               <Button
                 size="sm"
                 onClick={() => onAction('assign')}
-                className="text-xs px-2 py-1 h-6 nyayavigya-gradient"
+                className="text-xs px-2 py-1 h-6 jurexio-gradient"
               >
                 <i className="fas fa-play mr-1"></i>
                 Assign

@@ -1,4 +1,4 @@
-// NYV-TS-CLEANUP-2026-05-11 (Session-15 v7): pre-existing TS errors in stub-
+// JRX-TS-CLEANUP-2026-05-11 (Session-15 v7): pre-existing TS errors in stub-
 // laden workflow engine; gateway runs via tsx; runtime contract verified by
 // NV-NEVER-BREAK 50/50 suite. Same precedent as src/db/index.ts:1.
 /**
@@ -385,13 +385,13 @@ export class AutonomousContinuousExecutionEngine extends EventEmitter {
       // resolve it statically, then narrow the result to the typed handle
       // we actually use (no blanket `any`).
       interface JurexioSdkModule {
-        nyayavigyaSDK: { processRequest: (task: unknown) => Promise<unknown> };
+        jurexioSDK: { processRequest: (task: unknown) => Promise<unknown> };
       }
-      const sdkPath = './nyayavigya-unified-orchestration-sdk-v6.js';
+      const sdkPath = './jurexio-unified-orchestration-sdk-v6.js';
       const sdkModule = (await import(sdkPath)) as JurexioSdkModule;
-      const { nyayavigyaSDK } = sdkModule;
+      const { jurexioSDK } = sdkModule;
 
-      const response = await nyayavigyaSDK.processRequest(task);
+      const response = await jurexioSDK.processRequest(task);
       const executionTime = Date.now() - startTime;
 
       // Update agent performance
@@ -1000,7 +1000,7 @@ export const autonomousExecutionEngine = new AutonomousContinuousExecutionEngine
 // Export alias for backward compatibility
 export const autonomousContinuousExecutionEngine = autonomousExecutionEngine;
 
-// NYV-WORKFLOW-NO-AUTOSTART (Session-10 Batch C, 2026-05-10 — architect-final):
+// JRX-WORKFLOW-NO-AUTOSTART (Session-10 Batch C, 2026-05-10 — architect-final):
 // Per task-100.md the engine MUST be triggered by an SDK call, never at
 // gateway boot. The previous module-load auto-start (and its env-gated
 // successor `JRX_F_WORKFLOW_AUTOSTART`) have been REMOVED entirely. The

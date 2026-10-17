@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Mechanical migration: raw { success:false, error } → sendApiError / safeError.
- * Usage: node scripts/nv-message-catalog-codemod.mjs --apply src/routes/nv-auth-routes.ts ...
+ * Usage: node scripts/jrx-message-catalog-codemod.mjs --apply src/routes/jrx-auth-routes.ts ...
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 
@@ -32,8 +32,8 @@ function migrateFile(path) {
   let src = readFileSync(path, 'utf8');
   const orig = src;
 
-  if (!src.includes('nv-api-error')) {
-    const imp = "import { sendApiError, safeError } from '../utils/nv-api-error.js';\n";
+  if (!src.includes('jrx-api-error')) {
+    const imp = "import { sendApiError, safeError } from '../utils/jrx-api-error.js';\n";
     if (src.includes("from '../utils/")) {
       src = src.replace(/(import .+ from '\.\.\/utils\/[^']+';)\n/, `$1\n${imp}`);
     } else {

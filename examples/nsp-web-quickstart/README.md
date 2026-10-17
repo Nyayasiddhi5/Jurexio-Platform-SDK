@@ -14,28 +14,28 @@ A minimal Next.js 14 app router sample wired to the v6 SDK demonstrating:
 
 ```bash
 cp .env.example .env.local
-# then edit .env.local and set NYV_API_KEY
+# then edit .env.local and set JRX_API_KEY
 npm install
 npm run dev
 # open http://localhost:3100
 ```
 
 > The browser **never** sees the API key — every call is proxied through
-> `/api/nyv-proxy/*`, which lives in `src/app/api/nyv-proxy/[...path]/route.ts`
+> `/api/jrx-proxy/*`, which lives in `src/app/api/jrx-proxy/[...path]/route.ts`
 > and adds the `Authorization: Bearer …` header server-side.
 
 ## Webhook receiver
 
 This sample also includes a webhook endpoint at
-`POST /api/nyv-webhook` that verifies the HMAC `X-NYV-Signature` header and
+`POST /api/jrx-webhook` that verifies the HMAC `X-JRX-Signature` header and
 prints `orchestration.completed` events to the server console. To wire it up,
-go to the NYV console → SDK Apps → Edit → set `Webhook URL` to:
+go to the JRX console → SDK Apps → Edit → set `Webhook URL` to:
 
 ```
-https://<your-deploy>/api/nyv-webhook
+https://<your-deploy>/api/jrx-webhook
 ```
 
-…and copy the generated secret into `NYV_WEBHOOK_SECRET` in `.env.local`.
+…and copy the generated secret into `JRX_WEBHOOK_SECRET` in `.env.local`.
 
 ## Manual smoke test (clean machine)
 
@@ -53,8 +53,8 @@ https://<your-deploy>/api/nyv-webhook
 
 - Replace the in-process proxy with an edge function or API gateway in front
   of the Next.js app (Cloudflare, Vercel Edge Middleware, etc).
-- Move `NYV_API_KEY` into your hosting platform's secrets manager.
-- Enable rate-limiting on `/api/nyv-proxy/*` so a leaked browser session can't
+- Move `JRX_API_KEY` into your hosting platform's secrets manager.
+- Enable rate-limiting on `/api/jrx-proxy/*` so a leaked browser session can't
   drain your gateway quota.
 - Set a longer-lived TLS certificate on your webhook receiver — the gateway
   will refuse to deliver to certs newer than 90 days.

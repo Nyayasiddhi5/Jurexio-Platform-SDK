@@ -4,7 +4,7 @@
  * partner trust fields (riskBadge, auditHash).
  *
  * NV-CLIENT-OUTCOME-SANITIZE-001 — partner-facing payloads are outcome-only;
- * orchestration diagnostics require NYV_EXPOSE_ORCHESTRATION_DIAGNOSTICS=1.
+ * orchestration diagnostics require JRX_EXPOSE_ORCHESTRATION_DIAGNOSTICS=1.
  */
 
 import { createHash } from 'crypto';
@@ -56,7 +56,7 @@ const partnerAiLogger = createLogger('./jrx-partner-ai-log');
 
 /** NV-PARTNER-AI-LOG-001 — gate the structured draft-outcome log line (default on). */
 function isPartnerAiLogEnabled(): boolean {
-  const v = String(process.env.NYV_PARTNER_AI_LOG ?? '1').trim().toLowerCase();
+  const v = String(process.env.JRX_PARTNER_AI_LOG ?? '1').trim().toLowerCase();
   return !(v === '0' || v === 'false' || v === 'off' || v === 'no');
 }
 
@@ -215,7 +215,7 @@ export interface DraftQualityEnvelope {
   completion?: PartnerCompletionEnvelope;
   /** NV-DOCUMENT-TYPE-INFERENCE-001 — resolved type when partner omitted or sent unknown wire key. */
   inferredDocumentType?: DraftDocumentType;
-  /** How NYV chose `inferredDocumentType` (prompt heuristic vs general fallback). */
+  /** How JRX chose `inferredDocumentType` (prompt heuristic vs general fallback). */
   documentTypeSource?: DraftDocumentTypeResolution['source'];
   /** Truncated partner wire value when unknown explicit type was substituted. */
   partnerDocumentTypeRaw?: string;

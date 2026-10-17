@@ -7,8 +7,8 @@ import { vi, beforeAll, afterAll } from 'vitest';
 // ── Environment defaults for test runs ───────────────────────────────────────
 process.env.NODE_ENV = 'test';
 process.env.DATABASE_URL = process.env.DATABASE_URL || '';
-process.env.NYV_JWT_SECRET = process.env.NYV_JWT_SECRET || 'test-secret-for-unit-tests-only-not-production';
-process.env.NYV_JWT_REFRESH_SECRET = process.env.NYV_JWT_REFRESH_SECRET || 'test-refresh-secret-for-unit-tests-only';
+process.env.JRX_JWT_SECRET = process.env.JRX_JWT_SECRET || 'test-secret-for-unit-tests-only-not-production';
+process.env.JRX_JWT_REFRESH_SECRET = process.env.JRX_JWT_REFRESH_SECRET || 'test-refresh-secret-for-unit-tests-only';
 process.env.OPENAI_API_KEY = process.env.OPENAI_API_KEY || 'test-openai-key';
 
 // ── Global db mock — prevents real DB connections in unit tests ───────────────

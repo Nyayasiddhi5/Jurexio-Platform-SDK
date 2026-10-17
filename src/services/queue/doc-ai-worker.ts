@@ -1,5 +1,5 @@
 /**
- * doc-ai-worker.ts — BullMQ handler for nyv-doc-ai-convert.
+ * doc-ai-worker.ts — BullMQ handler for jrx-doc-ai-convert.
  *
  * Task #130 (2026-05-11): the worker is intentionally pod-agnostic. It
  * resolves the job from the shared Redis ledger, materialises the source
@@ -10,7 +10,7 @@
  * polling pod doesn't need to be the same as the executing pod.
  *
  * Concurrency cap is enforced cluster-wide via
- * Queue.setGlobalConcurrency(NYV_DOC_AI_GLOBAL_CONCURRENCY) in
+ * Queue.setGlobalConcurrency(JRX_DOC_AI_GLOBAL_CONCURRENCY) in
  * queue-workers.ts — not the per-worker BullMQ `concurrency` setting,
  * which only controls per-pod fetch parallelism.
  */

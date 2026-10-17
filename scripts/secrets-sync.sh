@@ -15,7 +15,7 @@
 #   - The PLACEHOLDER_NOT_YET_SET sentinel is overwritten on first sync.
 #   - Comment / blank lines are skipped.
 #   - The local .env is NEVER deleted by this script — that's a separate manual
-#     step documented in `docs/v3.1.2/completed_docs/NYV-SECRETS-MANAGEMENT.md` (so you can verify
+#     step documented in `docs/v3.1.2/completed_docs/JRX-SECRETS-MANAGEMENT.md` (so you can verify
 #     the round-trip first).
 # =============================================================================
 set -euo pipefail
@@ -23,7 +23,7 @@ set -euo pipefail
 ENV="${1:-}"
 SRC="${2:-}"
 REGION="${AWS_REGION:-ap-south-1}"
-DRY_RUN="${NYV_DRY_RUN:-0}"
+DRY_RUN="${JRX_DRY_RUN:-0}"
 
 if [ -z "$ENV" ] || [ -z "$SRC" ]; then
   echo "usage: $0 <prod|staging> <path/to/.env>" >&2
@@ -67,7 +67,7 @@ while IFS= read -r line || [ -n "$line" ]; do
   else
     aws secretsmanager create-secret --region "$REGION" \
         --name "$NAME" --secret-string "$VAL" \
-        --tags Key=Project,Value=Nyayavigya Key=Env,Value="$ENV" Key=ManagedBy,Value=secrets-sync.sh \
+        --tags Key=Project,Value=Jurexio Key=Env,Value="$ENV" Key=ManagedBy,Value=secrets-sync.sh \
         >/dev/null
     printf "  + created %s\n" "$NAME"
   fi

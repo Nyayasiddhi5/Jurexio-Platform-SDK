@@ -2,23 +2,23 @@ import { Router, type Request, type Response } from 'express';
 import crypto from 'crypto';
 import { eq } from 'drizzle-orm';
 import { createLogger } from '../utils/logger.js';
-import { NYV_STORAGE } from '../config/nyv-master-config.js';
+import { JRX_STORAGE } from '../config/jrx-master-config.js';
 import { hashApiKey } from '../config/jrx-sdk-variants.js';
 import { db } from '../db/index.js';
 import { sdkAppApiKeys } from '@shared/schema.js';
 
 const logger = createLogger('./jrx-sdk-downloads');
 
-// NYV-NS-011 (2026-05-01) — pre-GA fix per SDK-DEV-EC2-ACCESS §11.5.
-// All five v5.0.0 SDK tarballs published to s3://nyayavigya-sdk-devapp/sdk/
+// JRX-NS-011 (2026-05-01) — pre-GA fix per SDK-DEV-EC2-ACCESS §11.5.
+// All five v5.0.0 SDK tarballs published to s3://jurexio-sdk-devapp/sdk/
 // must be reachable via /downloads/sdk/<pkg>/<version>.tgz. Adding types,
 // react-hooks, and enterprise-sdk closes the consumer-side 404 gap that
-// would otherwise force NSP / NSI / NSA / NSM and Nyayamitra integrators
+// would otherwise force NSP / NSI / NSA / NSM and Jurexio Citizen integrators
 // to pull tarballs directly from S3 with raw AWS credentials.
 const ALLOWED_PACKAGES = new Set<string>([
   'client-sdk',
   'client-sdk-react-native',
-  'nyayamitra-sdk',
+  'jurexio-citizen-sdk',
   'types',
   'react-hooks',
   'enterprise-sdk',
@@ -36,12 +36,12 @@ function parseTtlSeconds(raw: string | undefined): number {
   return Math.min(MAX_TTL, Math.max(MIN_TTL, n));
 }
 
-const SDK_BUCKET = process.env.NYV_SDK_BUCKET || NYV_STORAGE.s3.bucket || 'nyv-sdk-distribution';
-const SDK_PREFIX = (process.env.NYV_SDK_BUCKET_PREFIX || 'sdk/').replace(/^\/+/, '').replace(/\/*$/, '/');
-const SIGNED_URL_TTL_SECONDS = parseTtlSeconds(process.env.NYV_SDK_DOWNLOAD_TTL_SECONDS);
-const PUBLIC_DOWNLOADS = (process.env.NYV_SDK_DOWNLOADS_PUBLIC || 'true').toLowerCase() === 'true';
-const STATIC_DOWNLOAD_TOKEN = process.env.NYV_SDK_DOWNLOAD_TOKEN || '';
-const HMAC_SECRET = process.env.NYV_SDK_DOWNLOAD_HMAC_SECRET || process.env.JWT_SECRET || '';
+const SDK_BUCKET = process.env.JRX_SDK_BUCKET || JRX_STORAGE.s3.bucket || 'jrx-sdk-distribution';
+const SDK_PREFIX = (process.env.JRX_SDK_BUCKET_PREFIX || 'sdk/').replace(/^\/+/, '').replace(/\/*$/, '/');
+const SIGNED_URL_TTL_SECONDS = parseTtlSeconds(process.env.JRX_SDK_DOWNLOAD_TTL_SECONDS);
+const PUBLIC_DOWNLOADS = (process.env.JRX_SDK_DOWNLOADS_PUBLIC || 'true').toLowerCase() === 'true';
+const STATIC_DOWNLOAD_TOKEN = process.env.JRX_SDK_DOWNLOAD_TOKEN || '';
+const HMAC_SECRET = process.env.JRX_SDK_DOWNLOAD_HMAC_SECRET || process.env.JWT_SECRET || '';
 
 const apiKeyAuthCache = new Map<string, { ok: boolean; cachedAt: number }>();
 const API_KEY_CACHE_TTL_MS = 60_000;
@@ -71,15 +71,15 @@ async function getS3Client(): Promise<any> {
   if (s3ClientSingleton) return s3ClientSingleton;
   const { S3Client } = await import('@aws-sdk/client-s3');
   const cfg: Record<string, any> = {
-    region: process.env.NYV_S3_REGION || NYV_STORAGE.s3.region || 'ap-south-1',
+    region: process.env.JRX_S3_REGION || JRX_STORAGE.s3.region || 'ap-south-1',
   };
-  const ak = process.env.NYV_S3_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID;
-  const sk = process.env.NYV_S3_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY;
+  const ak = process.env.JRX_S3_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID;
+  const sk = process.env.JRX_S3_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY;
   if (ak && sk) {
     cfg.credentials = { accessKeyId: ak, secretAccessKey: sk };
   }
-  if (NYV_STORAGE.s3.endpoint) cfg.endpoint = NYV_STORAGE.s3.endpoint;
-  if (NYV_STORAGE.s3.forcePathStyle) cfg.forcePathStyle = true;
+  if (JRX_STORAGE.s3.endpoint) cfg.endpoint = JRX_STORAGE.s3.endpoint;
+  if (JRX_STORAGE.s3.forcePathStyle) cfg.forcePathStyle = true;
   s3ClientSingleton = new S3Client(cfg);
   return s3ClientSingleton;
 }
@@ -218,7 +218,7 @@ async function presign(pkg: string, version: string): Promise<string> {
     Bucket: SDK_BUCKET,
     Key: s3KeyFor(pkg, version),
     ResponseContentType: 'application/gzip',
-    ResponseContentDisposition: `attachment; filename="nyayavigya-${pkg}-${version}.tgz"`,
+    ResponseContentDisposition: `attachment; filename="jurexio-${pkg}-${version}.tgz"`,
   });
   return getSignedUrl(client, cmd, { expiresIn: SIGNED_URL_TTL_SECONDS });
 }
@@ -279,7 +279,7 @@ sdkDownloadsRouter.get('/health', (_req, res) => {
     ok: true,
     bucket: SDK_BUCKET,
     prefix: SDK_PREFIX,
-    region: process.env.NYV_S3_REGION || NYV_STORAGE.s3.region || 'ap-south-1',
+    region: process.env.JRX_S3_REGION || JRX_STORAGE.s3.region || 'ap-south-1',
     packages: Array.from(ALLOWED_PACKAGES),
     signed_url_ttl_seconds: SIGNED_URL_TTL_SECONDS,
     public_downloads: PUBLIC_DOWNLOADS,

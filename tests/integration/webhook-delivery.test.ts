@@ -8,7 +8,7 @@
  * What we assert:
  *   1. dispatchWebhook() rejects SSRF-y / private URLs.
  *   2. dispatchWebhook() rejects non-https URLs in production mode.
- *   3. handleWebhookDelivery() POSTs the body with X-NYV-Signature whose
+ *   3. handleWebhookDelivery() POSTs the body with X-JRX-Signature whose
  *      HMAC-SHA256 over `${ts}.${body}` matches the configured secret.
  *   4. handleWebhookDelivery() throws on a 5xx response so BullMQ retries.
  *   5. signWebhookBody() is deterministic + uses sha256= prefix.
@@ -40,7 +40,7 @@ describe('webhook-dispatcher signing', () => {
 
 describe('dispatchWebhook SSRF guard', () => {
   beforeEach(() => {
-    delete process.env.NYV_WEBHOOK_ALLOW_PRIVATE;
+    delete process.env.JRX_WEBHOOK_ALLOW_PRIVATE;
   });
 
   it('rejects loopback hostnames', async () => {
@@ -78,14 +78,14 @@ describe('handleWebhookDelivery transport', () => {
   beforeEach(() => {
     originalFetch = global.fetch;
     calls = [];
-    process.env.NYV_WEBHOOK_ALLOW_PRIVATE = 'true'; // allow the synthetic test URL
+    process.env.JRX_WEBHOOK_ALLOW_PRIVATE = 'true'; // allow the synthetic test URL
   });
   afterEach(() => {
     global.fetch = originalFetch;
-    delete process.env.NYV_WEBHOOK_ALLOW_PRIVATE;
+    delete process.env.JRX_WEBHOOK_ALLOW_PRIVATE;
   });
 
-  it('POSTs JSON body with signed X-NYV-Signature header on 200', async () => {
+  it('POSTs JSON body with signed X-JRX-Signature header on 200', async () => {
     global.fetch = vi.fn(async (url: any, init: any) => {
       calls.push({ url: String(url), init });
       return new Response('', { status: 200 }) as any;
@@ -93,7 +93,7 @@ describe('handleWebhookDelivery transport', () => {
 
     const result = await handleWebhookDelivery({
       appId: 'app_123',
-      platform: 'nyayamitra',
+      platform: 'jurexio-citizen',
       url: 'http://127.0.0.1:1/webhook',
       event: 'document.processed',
       payload: { docId: 'doc_1' },
@@ -106,16 +106,16 @@ describe('handleWebhookDelivery transport', () => {
     expect(init.method).toBe('POST');
     const headers = init.headers as Record<string, string>;
     expect(headers['Content-Type']).toBe('application/json');
-    expect(headers['X-NYV-Event']).toBe('document.processed');
-    expect(headers['X-NYV-Platform']).toBe('nyayamitra');
-    expect(typeof headers['X-NYV-Timestamp']).toBe('string');
+    expect(headers['X-JRX-Event']).toBe('document.processed');
+    expect(headers['X-JRX-Platform']).toBe('jurexio-citizen');
+    expect(typeof headers['X-JRX-Timestamp']).toBe('string');
 
-    const sig = headers['X-NYV-Signature'];
+    const sig = headers['X-JRX-Signature'];
     expect(sig.startsWith('sha256=')).toBe(true);
 
     // Verify signature matches body+timestamp.
     const body = String(init.body);
-    const ts = headers['X-NYV-Timestamp'];
+    const ts = headers['X-JRX-Timestamp'];
     const expected =
       'sha256=' + crypto.createHmac('sha256', SECRET).update(`${ts}.${body}`).digest('hex');
     expect(sig).toBe(expected);
@@ -127,7 +127,7 @@ describe('handleWebhookDelivery transport', () => {
     await expect(
       handleWebhookDelivery({
         appId: 'app_123',
-        platform: 'nyayamitra',
+        platform: 'jurexio-citizen',
         url: 'http://127.0.0.1:1/webhook',
         event: 'document.processed',
         payload: {},

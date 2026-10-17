@@ -39,7 +39,7 @@ vi.mock('../../src/services/jrx-ai-credit-enforcer.js', () => ({
  * records" assertion vacuously pass. Forced ON so the recording leg runs. */
 vi.mock('../../src/config/jrx-feature-flags.js', async (importOriginal) => ({
   ...(await importOriginal<Record<string, unknown>>()),
-  isNyvFeatureOn: (flag: string) => flag === 'creditRecord',
+  isJrxFeatureOn: (flag: string) => flag === 'creditRecord',
 }));
 
 vi.mock('../../src/db/index.js', () => ({
@@ -125,8 +125,8 @@ beforeEach(() => {
   recordMock.mockReset();
   warnMock.mockReset();
   recordMock.mockResolvedValue(undefined);
-  delete process.env.NYV_CREDIT_CAP_MODE;
-  delete process.env.NYV_CREDIT_ENFORCE;
+  delete process.env.JRX_CREDIT_CAP_MODE;
+  delete process.env.JRX_CREDIT_ENFORCE;
 });
 afterEach(() => {
   process.env = { ...SAVED };
@@ -138,23 +138,23 @@ describe('NV-CREDIT-OBSERVE-001 — the switch', () => {
   });
 
   it('flips to enforce only on an explicit opt-in', () => {
-    process.env.NYV_CREDIT_CAP_MODE = 'enforce';
+    process.env.JRX_CREDIT_CAP_MODE = 'enforce';
     expect(resolveCreditCapMode()).toBe('enforce');
-    process.env.NYV_CREDIT_CAP_MODE = '1';
+    process.env.JRX_CREDIT_CAP_MODE = '1';
     expect(resolveCreditCapMode()).toBe('enforce');
   });
 
   it('treats an unrecognised value as observe rather than guessing', () => {
-    process.env.NYV_CREDIT_CAP_MODE = 'yolo';
+    process.env.JRX_CREDIT_CAP_MODE = 'yolo';
     expect(resolveCreditCapMode()).toBe('observe');
   });
 
-  it('honours the pre-existing global escape: NYV_CREDIT_ENFORCE=0 beats enforce', () => {
+  it('honours the pre-existing global escape: JRX_CREDIT_ENFORCE=0 beats enforce', () => {
     /* An operator who switched credit enforcement off entirely has not asked these
      * caps to refuse either. The narrower flag must not re-enable what the global
      * kill switch turned off. */
-    process.env.NYV_CREDIT_CAP_MODE = 'enforce';
-    process.env.NYV_CREDIT_ENFORCE = '0';
+    process.env.JRX_CREDIT_CAP_MODE = 'enforce';
+    process.env.JRX_CREDIT_ENFORCE = '0';
     expect(resolveCreditCapMode()).toBe('observe');
   });
 });
@@ -181,7 +181,7 @@ describe('NV-CREDIT-OBSERVE-001 — behaviour of an observed cap', () => {
   });
 
   it('refuses once the flag is flipped to enforce', async () => {
-    process.env.NYV_CREDIT_CAP_MODE = 'enforce';
+    process.env.JRX_CREDIT_CAP_MODE = 'enforce';
     enforceMock.mockResolvedValue(DENY_TOKENS);
     const res = await post(buildApp(), { prompt: 'draft a plaint' });
 
@@ -238,7 +238,7 @@ describe('NV-CREDIT-OBSERVE-001 — the log line', () => {
   });
 
   it('logs the same marker in enforce mode, so a near-miss count does not reset on the flip', async () => {
-    process.env.NYV_CREDIT_CAP_MODE = 'enforce';
+    process.env.JRX_CREDIT_CAP_MODE = 'enforce';
     enforceMock.mockResolvedValue(DENY_TOKENS);
     await post(buildApp(), { prompt: 'x' });
 

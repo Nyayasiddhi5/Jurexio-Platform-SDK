@@ -17,7 +17,7 @@ export interface NspEvidencePayload {
   extractiveSummary: string[];
   unparsedPageNos: number[];
   needsDepiction: boolean;
-  /** Set after NYV /nsp/evidence-depict when requested. */
+  /** Set after JRX /nsp/evidence-depict when requested. */
   depiction?: {
     text: string;
     limitations: string;

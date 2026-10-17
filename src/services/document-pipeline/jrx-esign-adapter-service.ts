@@ -13,7 +13,7 @@
  *   request-scoped read-through only; the DB is the source of truth.
  *
  * Provider integration (Aadhaar eSign / DSC / DocuSign OAuth outbound) remains
- * PARKED without partner keys. Native NYV HMAC attestation on signDocument()
+ * PARKED without partner keys. Native JRX HMAC attestation on signDocument()
  * is LIVE (NV-ESIGN-NATIVE-001) — not a substitute for Aadhaar/DSC/DocuSign.
  */
 
@@ -37,7 +37,7 @@ export interface Signer {
 export interface SignerStatus extends Signer {
   signed: boolean;
   signedAt: string | null;  // ISO string for JSON-friendliness in jsonb column
-  signatureType: 'aadhaar-esign' | 'dsc' | 'docusign' | 'nyv-docusign' | 'digital' | 'pending';
+  signatureType: 'aadhaar-esign' | 'dsc' | 'docusign' | 'jrx-docusign' | 'digital' | 'pending';
 }
 
 export type SigningStatus = 'pending' | 'in-progress' | 'completed' | 'expired' | 'cancelled';
@@ -165,7 +165,7 @@ class NvESignAdapterService {
   async signDocument(
     sessionId: string,
     signerEmail: string,
-    signatureType: 'aadhaar-esign' | 'dsc' | 'docusign' | 'nyv-docusign' | 'digital',
+    signatureType: 'aadhaar-esign' | 'dsc' | 'docusign' | 'jrx-docusign' | 'digital',
   ): Promise<void> {
     const session = await this.loadSession(sessionId);
     if (!session) throw new Error(`Signing session ${sessionId} not found`);
@@ -205,7 +205,7 @@ class NvESignAdapterService {
       ...(allSigned
         ? {
             completionCertificate: {
-              provider: 'nyv-native',
+              provider: 'jrx-native',
               documentHash: session.documentHash,
               completedAt: completedAt?.toISOString(),
               signerCount: session.signers.length,
@@ -325,7 +325,7 @@ class NvESignAdapterService {
 
   /**
    * NV-ESIGN-NATIVE-001 — HMAC-SHA256 attestation over document hash + signer intent.
-   * Uses NYV_ESIGN_HMAC_SECRET when set; otherwise a process-local derived key
+   * Uses JRX_ESIGN_HMAC_SECRET when set; otherwise a process-local derived key
    * (attestation still unique per session but not cross-pod portable without secret).
    */
   private buildNativeAttestation(opts: {
@@ -336,9 +336,9 @@ class NvESignAdapterService {
     signedAt: string;
   }): Record<string, unknown> {
     const secret =
-      process.env.NYV_ESIGN_HMAC_SECRET
-      || process.env.NYV_JWT_SECRET
-      || 'nyv-native-esign-dev-only';
+      process.env.JRX_ESIGN_HMAC_SECRET
+      || process.env.JRX_JWT_SECRET
+      || 'jrx-native-esign-dev-only';
     const payload = [
       opts.sessionId,
       opts.documentHash,
@@ -350,7 +350,7 @@ class NvESignAdapterService {
     return {
       attestationId: `att-${crypto.createHash('sha256').update(payload).digest('hex').slice(0, 16)}`,
       algorithm: 'HMAC-SHA256',
-      provider: 'nyv-native',
+      provider: 'jrx-native',
       documentHash: opts.documentHash,
       signerEmail: opts.signerEmail,
       signatureType: opts.signatureType,
@@ -362,10 +362,10 @@ class NvESignAdapterService {
   }
 
   private selectProvider(): string {
-    if (process.env.NYV_DOCUSIGN_NATIVE === '1') return 'nyv-docusign';
+    if (process.env.JRX_DOCUSIGN_NATIVE === '1') return 'jrx-docusign';
     if (process.env.AADHAAR_ESIGN_URL) return 'aadhaar-esign';
     if (process.env.DOCUSIGN_API_KEY) return 'docusign';
-    return 'nyv-native';
+    return 'jrx-native';
   }
 }
 

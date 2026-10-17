@@ -16,9 +16,9 @@ const REQUIRED_COLUMNS = {
 
 const PLATFORMS = [
   {
-    code: 'nyayamitra',
+    code: 'jurexio-citizen',
     short: 'nym',
-    name: 'Nyayamitra™ Citizen App',
+    name: 'Jurexio Citizen Citizen App',
     appId: 'nvsdkapp-demo-nm-001',
     tier: 'plus',
     permissions: ['agents:read', 'agents:execute', 'documents:read'],
@@ -27,7 +27,7 @@ const PLATFORMS = [
   {
     code: 'nys-professional',
     short: 'nsp',
-    name: 'Nyayasiddhi Professional™',
+    name: 'Jurexio Professional™',
     appId: 'nvsdkapp-demo-nsp-001',
     tier: 'pro',
     permissions: ['agents:read', 'agents:execute', 'documents:read', 'documents:write', 'research:read', 'usage:read'],
@@ -36,7 +36,7 @@ const PLATFORMS = [
   {
     code: 'nys-institutional',
     short: 'nsi',
-    name: 'Nyayasiddhi Institutional™',
+    name: 'Jurexio Institutional™',
     appId: 'nvsdkapp-demo-nyi-001',
     tier: 'enterprise',
     permissions: ['*'],
@@ -45,7 +45,7 @@ const PLATFORMS = [
   {
     code: 'nys-academy',
     short: 'nsa',
-    name: 'Nyayasiddhi Academy™',
+    name: 'Jurexio Academy™',
     appId: 'nvsdkapp-demo-academy-001',
     tier: 'pro',
     permissions: ['agents:read', 'agents:execute', 'documents:read', 'research:read'],
@@ -54,7 +54,7 @@ const PLATFORMS = [
   {
     code: 'nys-ministry',
     short: 'nsm',
-    name: 'Nyayasiddhi Ministry™',
+    name: 'Jurexio Ministry™',
     appId: 'nvsdkapp-demo-ministry-001',
     tier: 'government',
     permissions: ['*'],
@@ -77,8 +77,8 @@ function getPrefix(key: string): string {
 
 async function seedDemoKeys() {
   console.log('══════════════════════════════════════════════════════');
-  console.log('  Nyayavigya SDK v5.0.0 — Demo API Key Generation');
-  console.log('  Platform 3.1.2 | All 5 Nyayasiddhi Ecosystem Apps');
+  console.log('  Jurexio SDK v5.0.0 — Demo API Key Generation');
+  console.log('  Platform 3.1.2 | All 5 Jurexio Ecosystem Apps');
   console.log('══════════════════════════════════════════════════════');
   console.log('');
 

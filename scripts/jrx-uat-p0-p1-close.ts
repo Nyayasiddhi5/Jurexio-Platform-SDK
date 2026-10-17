@@ -16,16 +16,16 @@ import { spawnSync } from 'node:child_process';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
-const GATEWAY = (process.env.GATEWAY || 'https://api.nyayasiddhi.online').replace(/\/+$/, '');
-const CONSOLE = (process.env.CONSOLE_URL || 'https://console.nyayasiddhi.online').replace(/\/+$/, '');
-const NSP_KEY = process.env.NYV_SDK_KEY_NSP || '';
-const ADMIN_EMAIL = process.env.UAT_ADMIN_EMAIL || 'legalchat-admin-uat@nyayavigya.in';
+const GATEWAY = (process.env.GATEWAY || 'https://api.jurexio.com').replace(/\/+$/, '');
+const CONSOLE = (process.env.CONSOLE_URL || 'https://console.jurexio.com').replace(/\/+$/, '');
+const NSP_KEY = process.env.JRX_SDK_KEY_NSP || '';
+const ADMIN_EMAIL = process.env.UAT_ADMIN_EMAIL || 'legalchat-admin-uat@jurexio.com';
 const ADMIN_PASSWORD = process.env.UAT_ADMIN_PASSWORD || process.env.NV_UAT_ADMIN_PASSWORD || '';
-const SME_EMAIL = process.env.UAT_SME_EMAIL || 'legalchat-sme-a-uat@nyayavigya.in';
+const SME_EMAIL = process.env.UAT_SME_EMAIL || 'legalchat-sme-a-uat@jurexio.com';
 const SME_PASSWORD = process.env.UAT_SME_PASSWORD || process.env.NV_UAT_SME_PASSWORD || '';
 const FIXTURE = join(ROOT, 'tests/fixtures/product-readiness/sample-nda.txt');
-const BUCKET = process.env.NYV_DEPLOY_BUCKET || 'nyayavigya-sdk-devapp';
-const REGION = process.env.NYV_AWS_REGION || 'ap-south-1';
+const BUCKET = process.env.JRX_DEPLOY_BUCKET || 'jurexio-sdk-devapp';
+const REGION = process.env.JRX_AWS_REGION || 'ap-south-1';
 
 type Status = 'PASS' | 'FAIL' | 'WARN' | 'SKIP';
 interface Check { id: string; status: Status; detail: string }

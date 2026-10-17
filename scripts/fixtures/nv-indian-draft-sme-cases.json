@@ -1,6 +1,6 @@
 {
   "schema": "./jrx-indian-draft-sme-cases/v1",
-  "description": "Ten SME-grade Indian drafting prompts for NYV eval (Haiku-medium vs Queen-comprehensive). Facts are synthetic; no real parties.",
+  "description": "Ten SME-grade Indian drafting prompts for JRX eval (Haiku-medium vs Queen-comprehensive). Facts are synthetic; no real parties.",
   "cases": [
     {
       "id": "IN-BAIL-001",

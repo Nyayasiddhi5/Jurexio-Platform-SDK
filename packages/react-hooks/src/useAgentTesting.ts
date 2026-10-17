@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { useNyvClient } from './useNyvClient.js';
+import { useJrxClient } from './useJrxClient.js';
 
 export interface UseAgentTestingReturn {
   loading: boolean;
@@ -11,7 +11,7 @@ export interface UseAgentTestingReturn {
 }
 
 export function useAgentTesting(): UseAgentTestingReturn {
-  const { authHeaders, baseUrl } = useNyvClient({});
+  const { authHeaders, baseUrl } = useJrxClient({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

@@ -18,7 +18,7 @@
  * Idempotent: re-running tops up to the floor; existing rows are not touched.
  *
  * NV-DB-SCRIPT-001: uses makePgSql (pg.Pool shim), not the neon HTTP driver.
- * NV-NAMING-001: nv-* prefix. Standalone seeder, not auto-mounted.
+ * NV-NAMING-001: jrx-* prefix. Standalone seeder, not auto-mounted.
  */
 import { createHash, randomUUID } from 'crypto';
 import { existsSync, readFileSync } from 'fs';
@@ -41,7 +41,7 @@ const REQUIRED_COLUMNS = {
   ],
 } as const;
 
-const sql = makePgSql(process.env.NYV_DATABASE_URL ?? process.env.DATABASE_URL!);
+const sql = makePgSql(process.env.JRX_DATABASE_URL ?? process.env.DATABASE_URL!);
 
 const JURISDICTIONS = ['US', 'IN'] as const;
 const TARGET_PER_JURISDICTION = 120;

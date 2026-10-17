@@ -5,7 +5,7 @@
  *   client: "Draft generation timed out. Please retry."
  *   cause : `legal-draft-fast` was classified as counsel/draft, so the
  *           counsel-Queen default vetoed the SLA and the request took the full
- *           best-outcome path — measured at 84.8s on nysdev.
+ *           best-outcome path — measured at 84.8s on jrx-prod.
  *
  * These tests pin both directions, because the failure mode on each side is
  * serious and opposite:
@@ -29,11 +29,11 @@ import {
   resolveNspNymBestOutcomeQuality,
 } from '../../src/utils/jrx-partner-platform.js';
 
-/** NSP-shaped request: an sdkContext makes it a NYV-dependent platform. */
+/** NSP-shaped request: an sdkContext makes it a JRX-dependent platform. */
 function nspRequest(body: Record<string, unknown> = {}): Request {
   return {
     body,
-    headers: { 'x-nyv-platform': 'NSP' },
+    headers: { 'x-jrx-platform': 'NSP' },
     sdkContext: { partnerCode: 'NSP', tenantId: 't-nsp' },
   } as unknown as Request;
 }
@@ -42,17 +42,17 @@ const FAST_ALIASES = ['legal-draft-fast', 'legal_draft_fast', 'legal-chat-fast',
 const FULL_DEPTH = ['legal-draft', 'legal-chat', 'drafting', 'legal_research', 'legal-advice'];
 
 describe('NV-DRAFT-FAST-SLA-001: explicit -fast aliases are honoured', () => {
-  const prev = process.env.NYV_NSP_COUNSEL_QUEEN;
+  const prev = process.env.JRX_NSP_COUNSEL_QUEEN;
 
   beforeEach(() => {
     // Reproduce the production default — this is the setting under which the
     // defect occurred. With counsel-Queen OFF the bug was invisible.
-    process.env.NYV_NSP_COUNSEL_QUEEN = '1';
+    process.env.JRX_NSP_COUNSEL_QUEEN = '1';
   });
 
   afterEach(() => {
-    if (prev === undefined) delete process.env.NYV_NSP_COUNSEL_QUEEN;
-    else process.env.NYV_NSP_COUNSEL_QUEEN = prev;
+    if (prev === undefined) delete process.env.JRX_NSP_COUNSEL_QUEEN;
+    else process.env.JRX_NSP_COUNSEL_QUEEN = prev;
   });
 
   it.each(FAST_ALIASES)('%s is SLA-fast even with counsel-Queen ON', (taskType) => {
@@ -106,7 +106,7 @@ describe('NV-DRAFT-FAST-SLA-001: explicit -fast aliases are honoured', () => {
   });
 
   it('is unaffected by counsel-Queen being OFF (fast stays fast)', () => {
-    process.env.NYV_NSP_COUNSEL_QUEEN = '0';
+    process.env.JRX_NSP_COUNSEL_QUEEN = '0';
     expect(isPartnerSlaFastTask(nspRequest({ taskType: 'legal-draft-fast' }), { taskType: 'legal-draft-fast' })).toBe(true);
   });
 
@@ -235,7 +235,7 @@ describe('NV-DRAFT-FAST-SLA-001: envelope consistency', () => {
     // The router's lean branch sets `requireCoT: !!input.enableCoT`. Combined with
     // the SLA resolver returning enableCoT=false, the envelope can no longer ask
     // for a `cot` step that the SLA deliberately skipped — which was the
-    // "NYV rejects legal-draft-fast for missing cot" report.
+    // "JRX rejects legal-draft-fast for missing cot" report.
     const { decideAdaptivePath } = await import('../../src/orchestration/jrx-adaptive-router.js');
     const decision = decideAdaptivePath({
       prompt: 'Draft a Written Statement in a civil suit for recovery.',

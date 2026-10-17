@@ -45,7 +45,7 @@
     "lint": "tsc --noEmit"
   },
   "keywords": [
-    "nyayavigya",
+    "jurexio",
     "legal-ai",
     "react-native",
     "expo",

@@ -12,7 +12,7 @@
  *                      allotment.
  *
  * Effective enforcement at the gateway = min(platform tier, customer-org
- * tier, per-row override). See nv-billing-tier-service.ts.
+ * tier, per-row override). See jrx-billing-tier-service.ts.
  *
  * Everything here is intentionally a plain TypeScript constant so the
  * agent / operator can review the matrix at code-review time. A future

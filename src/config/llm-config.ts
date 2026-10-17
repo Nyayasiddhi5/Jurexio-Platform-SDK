@@ -144,7 +144,7 @@ export function buildProviderRegistry(): Record<string, LLMProvider> {
       baseURL: omnirouteUrl,
       apiKey: omnirouteKey,
       // Enabled when key is present unless explicitly disabled (default true).
-      isAvailable: !!omnirouteKey && envTruthy(process.env.NYV_OMNIROUTE_ENABLED, true),
+      isAvailable: !!omnirouteKey && envTruthy(process.env.JRX_OMNIROUTE_ENABLED, true),
       maxTokens: 1000000, supportsStreaming: true, supportsVision: true, supportsJsonMode: true,
       costPer1kInputTokens: 0.001, costPer1kOutputTokens: 0.003,
     },

@@ -1,11 +1,11 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Jurexio Enterprise Platform 3.1.2 — AI Output Metadata Service
- * NYV-SVC-METADATA-001
+ * JRX-SVC-METADATA-001
  *
  * Handover §3.3.4 — Every AI output MUST carry an ai_metadata block.
  * This block is injected by the GRPO response interceptor in patterns-routes.ts
- * and also by nv-completions-routes.ts into every response.
+ * and also by jrx-completions-routes.ts into every response.
  *
  * ai_metadata block fields:
  *   - risk_score + components (from risk engine)

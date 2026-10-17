@@ -3,13 +3,13 @@
  *
  * Two defects, one shape: a value that cannot distinguish two different facts.
  *
- * NYV-6: `entities: []` / `statutes: []` meant BOTH "we read the document and it has
+ * JRX-6: `entities: []` / `statutes: []` meant BOTH "we read the document and it has
  * no statutes" and "extraction threw". NSP could neither trust an empty result nor
  * retry a broken one. `analysisStatus` must therefore report at least two DIFFERENT
  * values across the two cases — a status field pinned to one value is the same defect
  * wearing a new key, so every test below asserts the negative case as well.
  *
- * NYV-7/8/9/10: the NYS circuit breaker was process-global, so slow `mode=hybrid`
+ * JRX-7/8/9/10: the NYS circuit breaker was process-global, so slow `mode=hybrid`
  * calls opened it and then answered `mode=fts` — the mode NSP was told was safe — with
  * a local 503 for the whole cooldown. Partitioning must confine a trip to its surface.
  */
@@ -34,7 +34,7 @@ Crime No. 221 of 2025 of Banjara Hills Police Station, registered under Sections
 Statutory notice under Section 138 of the Negotiable Instruments Act, 1881 was issued on 5 February 2025.
 PRAYER: The petitioner prays that this Honourable Court may grant anticipatory bail.`;
 
-describe('NYV-6 analysisStatus — empty must be distinguishable from failed', () => {
+describe('JRX-6 analysisStatus — empty must be distinguishable from failed', () => {
   it('reports "unstructured" for an analysis that completed and found nothing', () => {
     const block = buildCourtDocFieldBlock(null, null, null);
     expect(block.analysisStatus).toBe('unstructured');
@@ -109,7 +109,7 @@ describe('NYV-6 analysisStatus — empty must be distinguishable from failed', (
   });
 });
 
-describe('NYV-6 EDJ worker path — a rejected extractor is not silently an empty array', () => {
+describe('JRX-6 EDJ worker path — a rejected extractor is not silently an empty array', () => {
   /* Closing a real mutation gap: the EDJ status was previously only asserted by
    * source-text grep, so a mutation that replaced the rejection filter with
    * `.filter(() => false)` left the suite GREEN. Grep proves a string exists; it does
@@ -164,17 +164,17 @@ describe('NYV-6 EDJ worker path — a rejected extractor is not silently an empt
   });
 });
 
-describe('NYV-10 NYS breaker is partitioned per surface', () => {
-  const REAL_BASE = process.env.NYS_KNOWLEDGE_BASE_URL;
+describe('JRX-10 NYS breaker is partitioned per surface', () => {
+  const REAL_BASE = process.env.JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL;
 
   beforeEach(() => {
     __resetNysBreakersForTest();
     // Point at a closed port so every call fails fast and deterministically without
     // touching the live NYS host.
-    process.env.NYS_KNOWLEDGE_BASE_URL = 'http://127.0.0.1:9';
-    process.env.NYS_KNOWLEDGE_RETRIES = '0';
-    process.env.NYS_KNOWLEDGE_CB_FAILURES = '2';
-    process.env.NYS_KNOWLEDGE_CB_COOLDOWN_MS = '60000';
+    process.env.JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL = 'http://127.0.0.1:9';
+    process.env.JRX_ECOSYSTEM_KNOWLEDGE_RETRIES = '0';
+    process.env.JRX_ECOSYSTEM_KNOWLEDGE_CB_FAILURES = '2';
+    process.env.JRX_ECOSYSTEM_KNOWLEDGE_CB_COOLDOWN_MS = '60000';
   });
 
   it('opening caselaw/search does NOT open legal-work — the NSP defect', async () => {
@@ -227,11 +227,11 @@ describe('NYV-10 NYS breaker is partitioned per surface', () => {
   });
 
   it('restores the real base URL for other suites', () => {
-    if (REAL_BASE === undefined) delete process.env.NYS_KNOWLEDGE_BASE_URL;
-    else process.env.NYS_KNOWLEDGE_BASE_URL = REAL_BASE;
-    delete process.env.NYS_KNOWLEDGE_CB_FAILURES;
-    delete process.env.NYS_KNOWLEDGE_CB_COOLDOWN_MS;
-    delete process.env.NYS_KNOWLEDGE_RETRIES;
+    if (REAL_BASE === undefined) delete process.env.JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL;
+    else process.env.JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL = REAL_BASE;
+    delete process.env.JRX_ECOSYSTEM_KNOWLEDGE_CB_FAILURES;
+    delete process.env.JRX_ECOSYSTEM_KNOWLEDGE_CB_COOLDOWN_MS;
+    delete process.env.JRX_ECOSYSTEM_KNOWLEDGE_RETRIES;
     __resetNysBreakersForTest();
     expect(getNysKnowledgeClientStats().openCircuits).toEqual([]);
   });

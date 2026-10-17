@@ -25,7 +25,7 @@ try {
 export const ChatDollKitAvatarService = _chatdollkit.ChatDollKitAvatarService;
 
 export const multimodalPackageInfo = {
-  name: 'nyayavigya-sdk-multimodal',
+  name: 'jurexio-sdk-multimodal',
   version: '2.0.0',
   services: [
     'advanced-3d-immersive-api',

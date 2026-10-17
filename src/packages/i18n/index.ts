@@ -3,7 +3,7 @@ export { MultiLanguageSandbox } from './multi-language-sandbox.js';
 export { SarvamAIService, SarvamTranslationService, sarvamAIService, sarvamTranslationService } from './sarvam-translation-service.js';
 
 export const i18nPackageInfo = {
-  name: 'nyayavigya-sdk-i18n',
+  name: 'jurexio-sdk-i18n',
   version: '2.0.0',
   services: [
     'sarvam-translation-service',

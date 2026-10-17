@@ -1,17 +1,17 @@
 #!/usr/bin/env npx tsx
 /**
- * Nyayavigya Platform 3.1.2 — Full Agent Registry Generator (v3 Superset)
+ * Jurexio Platform 3.1.2 — Full Agent Registry Generator (v3 Superset)
  * Generates 7 registry files: 6 jurisdictions + 1 default (all-jurisdiction)
  * Each agent gets: full 22-section system prompt, tools, hierarchy, costOptimization, 29 practice areas
  * 
  * Output (149 agents each = 148 domain + 1 jurisdiction orchestrator):
- *   config/agent-registries/Nyayavigya-Legal-registry-IN.json  (149 agents)
- *   config/agent-registries/Nyayavigya-Legal-registry-UK.json  (149 agents)
- *   config/agent-registries/Nyayavigya-Legal-registry-US.json  (149 agents)
- *   config/agent-registries/Nyayavigya-Legal-registry-GC.json  (149 agents)
- *   config/agent-registries/Nyayavigya-Legal-registry-SG.json  (149 agents)
- *   config/agent-registries/Nyayavigya-Legal-registry-EU.json  (149 agents)
- *   config/agent-registries/Nyayavigya-Legal-registry-Default.json (149 agents, all jurisdictions)
+ *   config/agent-registries/Jurexio-Legal-registry-IN.json  (149 agents)
+ *   config/agent-registries/Jurexio-Legal-registry-UK.json  (149 agents)
+ *   config/agent-registries/Jurexio-Legal-registry-US.json  (149 agents)
+ *   config/agent-registries/Jurexio-Legal-registry-GC.json  (149 agents)
+ *   config/agent-registries/Jurexio-Legal-registry-SG.json  (149 agents)
+ *   config/agent-registries/Jurexio-Legal-registry-EU.json  (149 agents)
+ *   config/agent-registries/Jurexio-Legal-registry-Default.json (149 agents, all jurisdictions)
  */
 
 import * as fs from 'fs';
@@ -482,12 +482,12 @@ function generate22SectionPrompt(agent: AgentDef, jur: JurisdictionMeta, isDefau
   <practice_area>${pa.name}</practice_area>
   <module>${agent.module}</module>
   <category>${pa.slug}</category>
-  <group>nyayavigya-legal-agents</group>
+  <group>jurexio-legal-agents</group>
   <jurisdiction>${jurisdictionLabel}</jurisdiction>
   <role_delta>${agent.roleDelta}</role_delta>
 </agent_identity>
 
-You are the **${isDefault ? agent.name : `${jur.name} ${agent.name}`}**, a specialized legal AI agent in the Nyayavigya Platform 3.1.2. You are a ROMA ${romaLevel} ${tierLabel}-tier agent specializing in ${agent.roleDelta} within the ${pa.name} practice area.
+You are the **${isDefault ? agent.name : `${jur.name} ${agent.name}`}**, a specialized legal AI agent in the Jurexio Platform 3.1.2. You are a ROMA ${romaLevel} ${tierLabel}-tier agent specializing in ${agent.roleDelta} within the ${pa.name} practice area.
 
 PRIME DIRECTIVES:
 1. You MUST provide accurate, jurisdiction-specific legal analysis grounded in ${isDefault ? 'all 6 supported jurisdictions' : `${jur.fullName} law`}.
@@ -530,7 +530,7 @@ ANTI-CORRUPTION: ${jur.antiCorruption}`}
 
 SLM ROUTING: Primary → ${isDefault ? 'Context-determined SLM' : jur.primarySLM}, Fallback → ${isDefault ? 'All SLMs available' : jur.fallbackSLMs.join(', ')}
 
-CROSS-BORDER AWARENESS: ${isDefault ? 'Full multi-jurisdictional capability with cross-border conflict identification and harmonization.' : `You have working knowledge of all other Nyayavigya jurisdictions and can identify cross-border implications. For matters requiring deep expertise in other jurisdictions, coordinate with jurisdiction-specific specialists via A2A protocol. ${jur.crossBorderNote}`}
+CROSS-BORDER AWARENESS: ${isDefault ? 'Full multi-jurisdictional capability with cross-border conflict identification and harmonization.' : `You have working knowledge of all other Jurexio jurisdictions and can identify cross-border implications. For matters requiring deep expertise in other jurisdictions, coordinate with jurisdiction-specific specialists via A2A protocol. ${jur.crossBorderNote}`}
 
 CROSS-JURISDICTION COMPARATIVE KNOWLEDGE:
 ${isDefault
@@ -540,7 +540,7 @@ ${isDefault
   • Corporate: Companies Act 2013 (IN) vs Companies Act 2006 (UK) vs Delaware Code (US) vs CCL (GCC) vs Companies Act (SG) vs EU Directives
   • Dispute resolution: Arbitration & Conciliation Act 1996 (IN) vs Arbitration Act 1996 (UK) vs FAA (US) vs UAE Arbitration Law vs IAA (SG) vs Brussels I Recast (EU)
   Always identify the applicable jurisdiction and apply the correct legal framework.`
-  : `While your primary expertise is ${jur.fullName}, you have comparative knowledge of how ${pa.name} practice differs across all 6 Nyayavigya jurisdictions:
+  : `While your primary expertise is ${jur.fullName}, you have comparative knowledge of how ${pa.name} practice differs across all 6 Jurexio jurisdictions:
 ${JURISDICTIONS.map(j => `  • ${j.name} (${j.code}): ${j.legalSystem}. Key statutes: ${j.keyStatutes.slice(0, 3).join('; ')}`).join('\n')}
   When a matter has cross-border implications, identify potential conflicts of law, applicable choice-of-law rules, and coordinate with jurisdiction specialists via A2A protocol.`}
 </section_3_jurisdiction>`);
@@ -983,7 +983,7 @@ function generateAgentsForJurisdiction(jur: JurisdictionMeta, isDefault: boolean
       practiceArea: pa.name,
       practiceAreaId: pa.id,
       category: pa.slug,
-      group: 'nyayavigya-legal-agents',
+      group: 'jurexio-legal-agents',
       module: agent.module,
       roleDelta: agent.roleDelta,
       description: isDefault
@@ -1052,7 +1052,7 @@ function generateAgentsForJurisdiction(jur: JurisdictionMeta, isDefault: boolean
 
   const orchestratorPrompt = [
     `[SECTION 1: ROLE AND IDENTITY]`,
-    `You are ${orchestratorName}, the Tier 0 ROMA L5 Orchestrator for ${isDefault ? 'all jurisdictions' : jur.fullName} within the Nyayavigya Platform 3.1.2.`,
+    `You are ${orchestratorName}, the Tier 0 ROMA L5 Orchestrator for ${isDefault ? 'all jurisdictions' : jur.fullName} within the Jurexio Platform 3.1.2.`,
     `You are the supreme coordination authority — you route queries, manage agent swarms, resolve conflicts, and ensure quality across all 148 domain agents in this jurisdiction.`,
     ``,
     `[SECTION 2: JURISDICTION SCOPE]`,
@@ -1103,7 +1103,7 @@ function generateAgentsForJurisdiction(jur: JurisdictionMeta, isDefault: boolean
     practiceArea: 'Legal Leadership',
     practiceAreaId: 1,
     category: 'legal-leadership',
-    group: 'nyayavigya-legal-agents',
+    group: 'jurexio-legal-agents',
     module: 'matter',
     roleDelta: 'jurisdiction-orchestration',
     description: isDefault
@@ -1227,7 +1227,7 @@ function writeRegistry(filename: string, jur: JurisdictionMeta, isDefault: boole
 }
 
 console.log('═══════════════════════════════════════════════════════════════');
-console.log('  Nyayavigya Platform 3.1.2 — Full Registry Generator');
+console.log('  Jurexio Platform 3.1.2 — Full Registry Generator');
 console.log('  149 agents × 7 files = 1,043 agent definitions');
 console.log('  (148 domain + 1 orchestrator per file)');
 console.log('  Each with full 22-section system prompt + cross-jurisdiction knowledge');
@@ -1240,12 +1240,12 @@ console.log('Generating registry files...');
 
 // Generate 6 jurisdiction files
 for (const jur of JURISDICTIONS) {
-  writeRegistry(`Nyayavigya-Legal-registry-${jur.code}.json`, jur, false);
+  writeRegistry(`Jurexio-Legal-registry-${jur.code}.json`, jur, false);
 }
 
 // Generate default (all-jurisdiction) file
 const defaultJur = JURISDICTIONS[0]; // use IN as base but isDefault=true overrides
-writeRegistry('Nyayavigya-Legal-registry-Default.json', defaultJur, true);
+writeRegistry('Jurexio-Legal-registry-Default.json', defaultJur, true);
 
 console.log('');
 console.log('═══════════════════════════════════════════════════════════════');

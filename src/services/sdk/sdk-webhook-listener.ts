@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * SDK Webhook Listener — fires `orchestration.completed` deliveries.
  *
@@ -20,9 +20,9 @@
  * `dispatchWebhook` — we just pass through.
  *
  * Trigger contract (for SDK consumers)
- *   Header `X-NYV-Event: orchestration.completed`
- *   Header `X-NYV-Signature: sha256=<hex>` over `${ts}.${body}`
- *   Header `X-NYV-Timestamp: <iso>`
+ *   Header `X-JRX-Event: orchestration.completed`
+ *   Header `X-JRX-Signature: sha256=<hex>` over `${ts}.${body}`
+ *   Header `X-JRX-Timestamp: <iso>`
  *   Body  { event, appId, platform, correlationId, payload, ts }
  */
 

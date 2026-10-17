@@ -75,13 +75,13 @@ export default function AdvancedAICodeReview() {
   useEffect(() => {
     const initializeProviders = async () => {
       try {
-        const response = await apiRequest('/api/nyayavigya/code-review/providers');
+        const response = await apiRequest('/api/jurexio/code-review/providers');
         setProviders(response.providers);
       } catch (error) {
         // Fallback to configured providers
         setProviders([
           {
-            id: 'nyayavigya-security',
+            id: 'jurexio-security',
             name: 'Jurexio Security Scanner',
             type: 'security',
             accuracy: 96.8,
@@ -89,7 +89,7 @@ export default function AdvancedAICodeReview() {
             enabled: true
           },
           {
-            id: 'nyayavigya-quality',
+            id: 'jurexio-quality',
             name: 'Jurexio Quality Analyzer',
             type: 'quality',
             accuracy: 94.2,
@@ -97,7 +97,7 @@ export default function AdvancedAICodeReview() {
             enabled: true
           },
           {
-            id: 'nyayavigya-performance',
+            id: 'jurexio-performance',
             name: 'Jurexio Performance Optimizer',
             type: 'performance',
             accuracy: 91.7,
@@ -195,7 +195,7 @@ export default function AdvancedAICodeReview() {
       }, 500);
 
       // Real Jurexio orchestration call
-      const response = await apiRequest('/api/nyayavigya/code-review/analyze', {
+      const response = await apiRequest('/api/jurexio/code-review/analyze', {
         method: 'POST',
         body: JSON.stringify({
           projectId: 'current-project',
@@ -241,7 +241,7 @@ export default function AdvancedAICodeReview() {
   // Auto-fix issues
   const autoFixIssue = async (issueId: string) => {
     try {
-      await apiRequest(`/api/nyayavigya/code-review/auto-fix/${issueId}`, {
+      await apiRequest(`/api/jurexio/code-review/auto-fix/${issueId}`, {
         method: 'POST'
       });
 

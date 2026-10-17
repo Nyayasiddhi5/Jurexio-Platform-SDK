@@ -5,7 +5,7 @@
  * mount (`app.use('/api/...', <router>)`), follows each router var back to
  * its source file in `src/routes/`, and scans that file for `router.METHOD(
  * '<subpath>', …)` calls. Emits a minimal but valid OpenAPI 3.1 document
- * to `docs/openapi/nyayavigya-v5.openapi.json`.
+ * to `docs/openapi/jurexio-v5.openapi.json`.
  *
  * NOT a runtime introspector — does not import the app — so it is safe to
  * run in CI without a database, Redis, or any side-effects.
@@ -22,7 +22,7 @@ const ROOT = path.resolve(__dirname, '..');
 const INDEX_TS = path.join(ROOT, 'src', 'index.ts');
 const ROUTES_DIR = path.join(ROOT, 'src', 'routes');
 const OUT_DIR = path.join(ROOT, 'docs', 'openapi');
-const OUT_FILE = path.join(OUT_DIR, 'nyayavigya-v5.openapi.json');
+const OUT_FILE = path.join(OUT_DIR, 'jurexio-v5.openapi.json');
 
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'options', 'head'] as const;
 type HttpMethod = (typeof HTTP_METHODS)[number];
@@ -220,11 +220,11 @@ function main() {
   const spec = {
     openapi: '3.1.0',
     info: {
-      title: 'Nyayavigya Platform API',
-      // Tracks the live platform/registry line (nv-registry-stats.ts → 5.1.0).
+      title: 'Jurexio Platform API',
+      // Tracks the live platform/registry line (jrx-registry-stats.ts → 5.1.0).
       version: '5.1.0',
       description: 'Auto-generated from Express router stack via scripts/generate-openapi-spec.ts',
-      contact: { name: 'Nyayavigya Engineering', email: 'engineering@nyayavigya.com' },
+      contact: { name: 'Jurexio Engineering', email: 'engineering@nyayavigya.com' },
       license: { name: 'Enterprise Commercial License - Legal Edition' },
     },
     servers: [
@@ -248,7 +248,7 @@ function main() {
             'accepted → grounding → generating → enriching → ready | degraded | failed_infra. ' +
             'ready = complete. degraded = complete, but an optional enrichment (extra chain-of-thought, ' +
             'a hung memory source) was dropped so the request could progress — treat as SUCCESS and render ' +
-            'the content. failed_infra = no usable outcome. A client-side abort is NOT a phase: NYV keeps ' +
+            'the content. failed_infra = no usable outcome. A client-side abort is NOT a phase: JRX keeps ' +
             'working, so poll rather than mapping the abort to a timeout error.',
         },
         OrchestrateOutcome: {
@@ -279,7 +279,7 @@ function main() {
                 sessionId: {
                   type: 'string',
                   description:
-                    'Session this turn belongs to. Minted by NYV for NSP/NYM when the caller sends none — ' +
+                    'Session this turn belongs to. Minted by JRX for NSP/NYM when the caller sends none — ' +
                     'echo it on the next turn to continue the same session and reuse its memory.',
                 },
                 riskBadge: { type: 'string', enum: ['GREEN', 'YELLOW', 'RED'] },
@@ -314,7 +314,7 @@ function main() {
       },
       securitySchemes: {
         bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
-        sdkApiKey: { type: 'apiKey', in: 'header', name: 'X-NYV-API-Key' },
+        sdkApiKey: { type: 'apiKey', in: 'header', name: 'X-JRX-API-Key' },
       },
     },
     paths,

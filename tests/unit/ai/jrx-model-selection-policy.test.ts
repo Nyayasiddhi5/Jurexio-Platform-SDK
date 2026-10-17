@@ -8,7 +8,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
  * 1. `cost-aware-router.selectModel()` carried its OWN hardcoded eight-model
  *    catalog of 2024-era OpenRouter ids (`anthropic/claude-3-haiku`,
  *    `openai/gpt-4o`, `google/gemini-flash-1.5`, `mistralai/mistral-7b-instruct`,
- *    …) with hand-written prices. `nv-queen-orchestrator` calls it for EVERY
+ *    …) with hand-written prices. `jrx-queen-orchestrator` calls it for EVERY
  *    Queen leaf, so leaf routing ignored live provider availability, breaker
  *    health, jurisdiction fit, task fit and real prices — and could name models
  *    this account cannot call at all.
@@ -36,7 +36,7 @@ vi.mock('../../../src/services/jrx-grpo-online-policy.js', () => ({
 // key-free world: Google + Bedrock on, everything else off.
 function setProviderEnv(): void {
   process.env.GEMINI_API_KEY = 'test-key-not-a-secret';
-  process.env.NYV_BEDROCK_ENABLED = 'true';
+  process.env.JRX_BEDROCK_ENABLED = 'true';
   process.env.AWS_REGION = 'ap-south-1';
   delete process.env.ANTHROPIC_API_KEY;
   delete process.env.OPENAI_API_KEY;
@@ -52,7 +52,7 @@ function setProviderEnv(): void {
   delete process.env.COHERE_API_KEY;
   delete process.env.PERPLEXITY_API_KEY;
   delete process.env.SARVAM_API_KEY;
-  delete process.env.NYV_SARVAM_API_KEY;
+  delete process.env.JRX_SARVAM_API_KEY;
   delete process.env.OMNIROUTE_API_KEY;
 }
 
@@ -165,9 +165,9 @@ describe('gemini model availability (NV-MODEL-AVAIL-PROBE-001)', () => {
   beforeEach(() => {
     vi.resetModules();
     setProviderEnv();
-    delete process.env.NYV_LLM_CASCADE_GEMINI;
-    delete process.env.NYV_GEMINI_FLASH_MODEL;
-    delete process.env.NYV_GEMINI_PRO_MODEL;
+    delete process.env.JRX_LLM_CASCADE_GEMINI;
+    delete process.env.JRX_GEMINI_FLASH_MODEL;
+    delete process.env.JRX_GEMINI_PRO_MODEL;
   });
 
   it('drops the retired 2.5 ids from the catalog', async () => {

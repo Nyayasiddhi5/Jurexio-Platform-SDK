@@ -70,7 +70,7 @@ export interface RunOptions {
   referenceYear?: number;
   /** Cap pages processed per document. A 400-page paper book must not stall a batch. */
   maxPagesPerDoc?: number;
-  /** Per-page progress hook for partner SSE / job pollers (NYV docparse adapter). */
+  /** Per-page progress hook for partner SSE / job pollers (JRX docparse adapter). */
   onPage?: (detail: {
     documentId: string;
     pageNo: number;

@@ -20,13 +20,13 @@
   ],
   "infrastructure": [
     { "id":"postgres",   "required":true, "envVar":"DATABASE_URL",       "provider":"neon|rds-aurora-postgres" },
-    { "id":"redis",      "required":true, "envVar":"NYV_REDIS_TCP_URL",  "provider":"elasticache" },
+    { "id":"redis",      "required":true, "envVar":"JRX_REDIS_TCP_URL",  "provider":"elasticache" },
     { "id":"s3",         "required":true, "envVars":["AWS_REGION","S3_BUCKET","AWS_ACCESS_KEY_ID","AWS_SECRET_ACCESS_KEY"] },
     { "id":"qdrant",     "required":false,"envVar":"QDRANT_URL",         "fallback":"pgvector" },
     { "id":"neo4j",      "required":false,"envVar":"NEO4J_URL",          "use":"NyayaGraph" }
   ],
   "payments": [
-    { "id":"razorpay", "required":true,  "envVars":["NYV_RAZORPAY_KEY_ID","NYV_RAZORPAY_KEY_SECRET","NYV_RAZORPAY_WEBHOOK_SECRET"] },
+    { "id":"razorpay", "required":true,  "envVars":["JRX_RAZORPAY_KEY_ID","JRX_RAZORPAY_KEY_SECRET","JRX_RAZORPAY_WEBHOOK_SECRET"] },
     { "id":"stripe",   "required":false, "envVars":["STRIPE_SECRET_KEY","STRIPE_WEBHOOK_SECRET"] }
   ],
   "messaging": [

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvErrorState } from '@/components/NyvErrorState';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 
 import { getAuthToken } from '@/lib/jrx-auth-token';
 import { nv } from '@/lib/jrx-api-paths';
@@ -108,7 +108,7 @@ export default function SubscriptionManagement() {
     return (
       <div className="min-h-screen p-8" style={{ background: 'linear-gradient(135deg, #0E1830 0%, #152448 40%, #152448 100%)' }} data-testid="error-subscription">
         <div className="max-w-3xl mx-auto pt-12">
-          <NyvErrorState
+          <JrxErrorState
             variant="card"
             title="Unable to load subscription"
             description="We couldn't fetch your subscription details and plan catalog."
@@ -133,7 +133,7 @@ export default function SubscriptionManagement() {
 
         {msg && (msg.includes('fail') || msg.includes('error')) ? (
           <div style={{ marginBottom: 16 }}>
-            <NyvErrorState title="Subscription action failed" description={msg} variant="card" size="sm" />
+            <JrxErrorState title="Subscription action failed" description={msg} variant="card" size="sm" />
           </div>
         ) : msg ? (
           <div style={{ marginBottom: 16, padding: '12px 16px', background: 'rgba(16,185,129,0.15)',

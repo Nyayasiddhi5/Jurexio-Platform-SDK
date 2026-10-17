@@ -1,15 +1,15 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
- * NYV Version Management Routes
+ * JRX Version Management Routes
  * /api/jrx/versions/*
  * ─────────────────────────────────────────────────────────────────────────────
  * REST API for module versioning, changelog, and deployment history.
  *
- * @module nv-version-routes
+ * @module jrx-version-routes
  */
 
 import { Router, Request, Response } from 'express';
-import { versionManager, ModuleId } from '../services/nyv-deployment-version-manager.js';
+import { versionManager, ModuleId } from '../services/jrx-deployment-version-manager.js';
 import { authenticateToken, requireRole } from '../middleware/jrx-auth.js';
 import { createLogger } from '../utils/logger.js';
 

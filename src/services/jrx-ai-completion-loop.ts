@@ -6,7 +6,7 @@
 import { randomUUID } from 'node:crypto';
 import type { Request } from 'express';
 import { createLogger } from '../utils/logger.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import {
   betaCompletionLoopMaxSegments,
   betaCompletionSegmentMaxTokens,
@@ -57,7 +57,7 @@ function envOff(name: string): boolean {
 
 export function isCompletionLoopEnabled(): boolean {
   if (envOff('JRX_F_BETA_COMPLETION_LOOP')) return false;
-  return isNyvFeatureOn('betaCompletionLoop') || isBetaQualityFirst();
+  return isJrxFeatureOn('betaCompletionLoop') || isBetaQualityFirst();
 }
 
 export function parsePartnerContinuationInput(req: Request): {

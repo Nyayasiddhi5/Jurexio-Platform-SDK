@@ -4,8 +4,8 @@
  *
  * For every /api/nv5/* namespace wired by Sessions 10–11:
  *   1. Flag-OFF probe   → assert 404 on canonical capability route.
- *   2. Flag-ON  probe   → set NYV_F_* env vars in-process, restart gateway
- *                          via the NYV Gateway workflow, assert 200.
+ *   2. Flag-ON  probe   → set JRX_F_* env vars in-process, restart gateway
+ *                          via the JRX Gateway workflow, assert 200.
  *
  * The gateway is restarted via signal-free child env injection: we cannot
  * mutate the running workflow's env, so flag-ON requires the user (or this
@@ -24,8 +24,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const BASE = process.env.BASE_URL || 'http://localhost:5000';
-const KEY = process.env.NYV_SDK_KEY_NSP || '';
-if (!KEY) { console.error('NYV_SDK_KEY_NSP missing'); process.exit(2); }
+const KEY = process.env.JRX_SDK_KEY_NSP || '';
+if (!KEY) { console.error('JRX_SDK_KEY_NSP missing'); process.exit(2); }
 
 interface Probe {
   batch: string;
@@ -47,55 +47,55 @@ const DEFAULT_FLAG_ON_OK = [200, 400, 403] as const;
 // when flag is ON; with flag OFF the entire mount is removed → 404.
 const PROBES: Probe[] = [
   // === Batch A — /api/nv5/orch/* ===
-  { batch: 'A', namespace: 'orch/kb',             flag: 'NYV_F_AI_ORCH_KB',             method: 'GET', path: '/api/nv5/orch/kb/health',                   expectFlagOff: 404 },
-  { batch: 'A', namespace: 'orch/context',        flag: 'NYV_F_AI_ORCH_CONTEXT',        method: 'GET', path: '/api/nv5/orch/context/health',              expectFlagOff: 404 },
-  { batch: 'A', namespace: 'orch/multimodal-rag', flag: 'NYV_F_AI_ORCH_MULTIMODAL_RAG', method: 'GET', path: '/api/nv5/orch/multimodal-rag/health',       expectFlagOff: 404 },
-  { batch: 'A', namespace: 'orch/plugins',        flag: 'NYV_F_AI_ORCH_PLUGINS',        method: 'GET', path: '/api/nv5/orch/plugins/health',              expectFlagOff: 404 },
-  { batch: 'A', namespace: 'orch/roma',           flag: 'NYV_F_AI_ORCH_ROMA',           method: 'GET', path: '/api/nv5/orch/roma/health',                 expectFlagOff: 404 },
-  { batch: 'A', namespace: 'orch/agent-select',   flag: 'NYV_F_AI_ORCH_AGENT_SELECT',   method: 'GET', path: '/api/nv5/orch/agent-select/health',         expectFlagOff: 404 },
-  { batch: 'A', namespace: 'orch/protocols',      flag: 'NYV_F_AI_ORCH_PROTOCOLS',      method: 'GET', path: '/api/nv5/orch/protocols/health',            expectFlagOff: 404 },
+  { batch: 'A', namespace: 'orch/kb',             flag: 'JRX_F_AI_ORCH_KB',             method: 'GET', path: '/api/nv5/orch/kb/health',                   expectFlagOff: 404 },
+  { batch: 'A', namespace: 'orch/context',        flag: 'JRX_F_AI_ORCH_CONTEXT',        method: 'GET', path: '/api/nv5/orch/context/health',              expectFlagOff: 404 },
+  { batch: 'A', namespace: 'orch/multimodal-rag', flag: 'JRX_F_AI_ORCH_MULTIMODAL_RAG', method: 'GET', path: '/api/nv5/orch/multimodal-rag/health',       expectFlagOff: 404 },
+  { batch: 'A', namespace: 'orch/plugins',        flag: 'JRX_F_AI_ORCH_PLUGINS',        method: 'GET', path: '/api/nv5/orch/plugins/health',              expectFlagOff: 404 },
+  { batch: 'A', namespace: 'orch/roma',           flag: 'JRX_F_AI_ORCH_ROMA',           method: 'GET', path: '/api/nv5/orch/roma/health',                 expectFlagOff: 404 },
+  { batch: 'A', namespace: 'orch/agent-select',   flag: 'JRX_F_AI_ORCH_AGENT_SELECT',   method: 'GET', path: '/api/nv5/orch/agent-select/health',         expectFlagOff: 404 },
+  { batch: 'A', namespace: 'orch/protocols',      flag: 'JRX_F_AI_ORCH_PROTOCOLS',      method: 'GET', path: '/api/nv5/orch/protocols/health',            expectFlagOff: 404 },
 
   // === Batch B — /api/nv5/multimodal|voice/* ===
   // Mounts are unconditional; per-sub flag enforced inside barrels. Health on each sub.
-  { batch: 'B', namespace: 'multimodal/avatar-unity',    flag: 'NYV_F_MULTIMODAL_AVATAR_UNITY',    method: 'GET', path: '/api/nv5/multimodal/avatar-unity/health',      expectFlagOff: [404, 401, 403] },
-  { batch: 'B', namespace: 'multimodal/avatar-chatdoll', flag: 'NYV_F_MULTIMODAL_AVATAR_CHATDOLL', method: 'GET', path: '/api/nv5/multimodal/avatar-chatdoll/health',   expectFlagOff: [404, 401, 403] },
-  { batch: 'B', namespace: 'multimodal/rag-adv',         flag: 'NYV_F_MULTIMODAL_RAG_ADV',         method: 'GET', path: '/api/nv5/multimodal/rag-adv/health',           expectFlagOff: [404, 401, 403] },
-  { batch: 'B', namespace: 'multimodal/3d-immersive',    flag: 'NYV_F_MULTIMODAL_3D_IMMERSIVE',    method: 'GET', path: '/api/nv5/multimodal/3d-immersive/health',      expectFlagOff: [404, 401, 403] },
-  { batch: 'B', namespace: 'multimodal/avatar-3d',       flag: 'NYV_F_MULTIMODAL_AVATAR_3D',       method: 'GET', path: '/api/nv5/multimodal/avatar-3d/health',         expectFlagOff: [404, 401, 403] },
-  { batch: 'B', namespace: 'voice/streaming',            flag: 'NYV_F_VOICE_STREAM_RT',            method: 'GET', path: '/api/nv5/voice/streaming/health',              expectFlagOff: [404, 401, 403] },
-  { batch: 'B', namespace: 'voice/synthesis',            flag: 'NYV_F_VOICE_SYNTH',                method: 'GET', path: '/api/nv5/voice/synthesis/health',              expectFlagOff: [404, 401, 403] },
-  { batch: 'B', namespace: 'voice/enhanced',             flag: 'NYV_F_VOICE_ENHANCED',             method: 'GET', path: '/api/nv5/voice/enhanced/health',               expectFlagOff: [404, 401, 403] },
+  { batch: 'B', namespace: 'multimodal/avatar-unity',    flag: 'JRX_F_MULTIMODAL_AVATAR_UNITY',    method: 'GET', path: '/api/nv5/multimodal/avatar-unity/health',      expectFlagOff: [404, 401, 403] },
+  { batch: 'B', namespace: 'multimodal/avatar-chatdoll', flag: 'JRX_F_MULTIMODAL_AVATAR_CHATDOLL', method: 'GET', path: '/api/nv5/multimodal/avatar-chatdoll/health',   expectFlagOff: [404, 401, 403] },
+  { batch: 'B', namespace: 'multimodal/rag-adv',         flag: 'JRX_F_MULTIMODAL_RAG_ADV',         method: 'GET', path: '/api/nv5/multimodal/rag-adv/health',           expectFlagOff: [404, 401, 403] },
+  { batch: 'B', namespace: 'multimodal/3d-immersive',    flag: 'JRX_F_MULTIMODAL_3D_IMMERSIVE',    method: 'GET', path: '/api/nv5/multimodal/3d-immersive/health',      expectFlagOff: [404, 401, 403] },
+  { batch: 'B', namespace: 'multimodal/avatar-3d',       flag: 'JRX_F_MULTIMODAL_AVATAR_3D',       method: 'GET', path: '/api/nv5/multimodal/avatar-3d/health',         expectFlagOff: [404, 401, 403] },
+  { batch: 'B', namespace: 'voice/streaming',            flag: 'JRX_F_VOICE_STREAM_RT',            method: 'GET', path: '/api/nv5/voice/streaming/health',              expectFlagOff: [404, 401, 403] },
+  { batch: 'B', namespace: 'voice/synthesis',            flag: 'JRX_F_VOICE_SYNTH',                method: 'GET', path: '/api/nv5/voice/synthesis/health',              expectFlagOff: [404, 401, 403] },
+  { batch: 'B', namespace: 'voice/enhanced',             flag: 'JRX_F_VOICE_ENHANCED',             method: 'GET', path: '/api/nv5/voice/enhanced/health',               expectFlagOff: [404, 401, 403] },
 
   // === Batch C — workflows + doc-ai ===
-  { batch: 'C', namespace: 'workflows/autonomous',  flag: 'NYV_F_WORKFLOW_AUTONOMOUS', method: 'GET', path: '/api/nv5/workflows/autonomous/health',   expectFlagOff: [404, 401, 403] },
-  { batch: 'C', namespace: 'workflows/continuous',  flag: 'NYV_F_WORKFLOW_CONTINUOUS', method: 'GET', path: '/api/nv5/workflows/continuous/health',   expectFlagOff: [404, 401, 403] },
-  { batch: 'C', namespace: 'doc-ai/convert',        flag: 'NYV_F_DOC_AI_CONVERT',      method: 'GET', path: '/api/nv5/doc-ai/convert/health',         expectFlagOff: [404, 401, 403] },
+  { batch: 'C', namespace: 'workflows/autonomous',  flag: 'JRX_F_WORKFLOW_AUTONOMOUS', method: 'GET', path: '/api/nv5/workflows/autonomous/health',   expectFlagOff: [404, 401, 403] },
+  { batch: 'C', namespace: 'workflows/continuous',  flag: 'JRX_F_WORKFLOW_CONTINUOUS', method: 'GET', path: '/api/nv5/workflows/continuous/health',   expectFlagOff: [404, 401, 403] },
+  { batch: 'C', namespace: 'doc-ai/convert',        flag: 'JRX_F_DOC_AI_CONVERT',      method: 'GET', path: '/api/nv5/doc-ai/convert/health',         expectFlagOff: [404, 401, 403] },
 
   // === Batch D — gov ===
-  { batch: 'D', namespace: 'gov/maker-checker',   flag: 'NYV_F_GOV_MAKER_CHECKER',  method: 'GET', path: '/api/nv5/gov/maker-checker/queue',         expectFlagOff: [404, 401, 403] },
-  { batch: 'D', namespace: 'gov/security-monitor',flag: 'NYV_F_GOV_SECURITY_MON',   method: 'GET', path: '/api/nv5/gov/security-monitor/status',     expectFlagOff: [404, 401, 403] },
-  { batch: 'D', namespace: 'gov/cost-optimizer',  flag: 'NYV_F_GOV_COST_OPT',       method: 'GET', path: '/api/nv5/gov/cost-optimizer/status',       expectFlagOff: [404, 401, 403] },
-  { batch: 'D', namespace: 'gov/concurrency',     flag: 'NYV_F_GOV_CONCURRENCY',    method: 'GET', path: '/api/nv5/gov/concurrency/snapshot',        expectFlagOff: [404, 401, 403] },
-  { batch: 'D', namespace: 'gov/org-ratelimit',   flag: 'NYV_F_GOV_ORG_RATELIMIT',  method: 'GET', path: '/api/nv5/gov/org-ratelimit/check/o1/u1',  expectFlagOff: [404, 401, 403] },
+  { batch: 'D', namespace: 'gov/maker-checker',   flag: 'JRX_F_GOV_MAKER_CHECKER',  method: 'GET', path: '/api/nv5/gov/maker-checker/queue',         expectFlagOff: [404, 401, 403] },
+  { batch: 'D', namespace: 'gov/security-monitor',flag: 'JRX_F_GOV_SECURITY_MON',   method: 'GET', path: '/api/nv5/gov/security-monitor/status',     expectFlagOff: [404, 401, 403] },
+  { batch: 'D', namespace: 'gov/cost-optimizer',  flag: 'JRX_F_GOV_COST_OPT',       method: 'GET', path: '/api/nv5/gov/cost-optimizer/status',       expectFlagOff: [404, 401, 403] },
+  { batch: 'D', namespace: 'gov/concurrency',     flag: 'JRX_F_GOV_CONCURRENCY',    method: 'GET', path: '/api/nv5/gov/concurrency/snapshot',        expectFlagOff: [404, 401, 403] },
+  { batch: 'D', namespace: 'gov/org-ratelimit',   flag: 'JRX_F_GOV_ORG_RATELIMIT',  method: 'GET', path: '/api/nv5/gov/org-ratelimit/check/o1/u1',  expectFlagOff: [404, 401, 403] },
 
   // === Batch E — legal-pipeline ===
-  { batch: 'E', namespace: 'legal-pipeline/chunker',     flag: 'NYV_F_LEGAL_PIPELINE_CHUNKER',     method: 'GET', path: '/api/nv5/legal-pipeline/chunker/capabilities',     expectFlagOff: [404, 401, 403] },
-  { batch: 'E', namespace: 'legal-pipeline/embedding',   flag: 'NYV_F_LEGAL_PIPELINE_EMBEDDING',   method: 'GET', path: '/api/nv5/legal-pipeline/embedding/capabilities',   expectFlagOff: [404, 401, 403] },
-  { batch: 'E', namespace: 'legal-pipeline/reranker',    flag: 'NYV_F_LEGAL_PIPELINE_RERANKER',    method: 'GET', path: '/api/nv5/legal-pipeline/reranker/capabilities',    expectFlagOff: [404, 401, 403] },
-  { batch: 'E', namespace: 'legal-pipeline/summarizer',  flag: 'NYV_F_LEGAL_PIPELINE_SUMMARIZER',  method: 'GET', path: '/api/nv5/legal-pipeline/summarizer/capabilities',  expectFlagOff: [404, 401, 403] },
-  { batch: 'E', namespace: 'legal-pipeline/readability', flag: 'NYV_F_LEGAL_PIPELINE_READABILITY', method: 'GET', path: '/api/nv5/legal-pipeline/readability/capabilities', expectFlagOff: [404, 401, 403] },
+  { batch: 'E', namespace: 'legal-pipeline/chunker',     flag: 'JRX_F_LEGAL_PIPELINE_CHUNKER',     method: 'GET', path: '/api/nv5/legal-pipeline/chunker/capabilities',     expectFlagOff: [404, 401, 403] },
+  { batch: 'E', namespace: 'legal-pipeline/embedding',   flag: 'JRX_F_LEGAL_PIPELINE_EMBEDDING',   method: 'GET', path: '/api/nv5/legal-pipeline/embedding/capabilities',   expectFlagOff: [404, 401, 403] },
+  { batch: 'E', namespace: 'legal-pipeline/reranker',    flag: 'JRX_F_LEGAL_PIPELINE_RERANKER',    method: 'GET', path: '/api/nv5/legal-pipeline/reranker/capabilities',    expectFlagOff: [404, 401, 403] },
+  { batch: 'E', namespace: 'legal-pipeline/summarizer',  flag: 'JRX_F_LEGAL_PIPELINE_SUMMARIZER',  method: 'GET', path: '/api/nv5/legal-pipeline/summarizer/capabilities',  expectFlagOff: [404, 401, 403] },
+  { batch: 'E', namespace: 'legal-pipeline/readability', flag: 'JRX_F_LEGAL_PIPELINE_READABILITY', method: 'GET', path: '/api/nv5/legal-pipeline/readability/capabilities', expectFlagOff: [404, 401, 403] },
 
   // === Batch F — compliance ===
-  { batch: 'F', namespace: 'compliance/eu-ai-act',         flag: 'NYV_F_COMPLIANCE_EU_AI_ACT',          method: 'GET', path: '/api/nv5/compliance/eu-ai-act/capabilities',          expectFlagOff: [404, 401, 403] },
-  { batch: 'F', namespace: 'compliance/pqc',               flag: 'NYV_F_COMPLIANCE_PQC',                method: 'GET', path: '/api/nv5/compliance/pqc/capabilities',                expectFlagOff: [404, 401, 403] },
-  { batch: 'F', namespace: 'compliance/federated-privacy', flag: 'NYV_F_COMPLIANCE_FEDERATED_PRIVACY',  method: 'GET', path: '/api/nv5/compliance/federated-privacy/capabilities', expectFlagOff: [404, 401, 403] },
+  { batch: 'F', namespace: 'compliance/eu-ai-act',         flag: 'JRX_F_COMPLIANCE_EU_AI_ACT',          method: 'GET', path: '/api/nv5/compliance/eu-ai-act/capabilities',          expectFlagOff: [404, 401, 403] },
+  { batch: 'F', namespace: 'compliance/pqc',               flag: 'JRX_F_COMPLIANCE_PQC',                method: 'GET', path: '/api/nv5/compliance/pqc/capabilities',                expectFlagOff: [404, 401, 403] },
+  { batch: 'F', namespace: 'compliance/federated-privacy', flag: 'JRX_F_COMPLIANCE_FEDERATED_PRIVACY',  method: 'GET', path: '/api/nv5/compliance/federated-privacy/capabilities', expectFlagOff: [404, 401, 403] },
 
   // === Batches G+H+I+J — internal ===
-  { batch: 'G-J', namespace: 'internal/model-cascade',       flag: 'NYV_F_INTERNAL_SURFACE', method: 'GET', path: '/api/nv5/internal/model-cascade/capabilities',       expectFlagOff: [404] },
-  { batch: 'G-J', namespace: 'internal/esign',               flag: 'NYV_F_INTERNAL_SURFACE', method: 'GET', path: '/api/nv5/internal/esign/capabilities',               expectFlagOff: [404] },
-  { batch: 'G-J', namespace: 'internal/hallucination',       flag: 'NYV_F_INTERNAL_SURFACE', method: 'GET', path: '/api/nv5/internal/hallucination/capabilities',       expectFlagOff: [404] },
-  { batch: 'G-J', namespace: 'internal/case-update',         flag: 'NYV_F_INTERNAL_SURFACE', method: 'GET', path: '/api/nv5/internal/case-update/capabilities',         expectFlagOff: [404] },
-  { batch: 'G-J', namespace: 'internal/feature-flags',       flag: 'NYV_F_INTERNAL_SURFACE', method: 'GET', path: '/api/nv5/internal/feature-flags/capabilities',       expectFlagOff: [404] },
+  { batch: 'G-J', namespace: 'internal/model-cascade',       flag: 'JRX_F_INTERNAL_SURFACE', method: 'GET', path: '/api/nv5/internal/model-cascade/capabilities',       expectFlagOff: [404] },
+  { batch: 'G-J', namespace: 'internal/esign',               flag: 'JRX_F_INTERNAL_SURFACE', method: 'GET', path: '/api/nv5/internal/esign/capabilities',               expectFlagOff: [404] },
+  { batch: 'G-J', namespace: 'internal/hallucination',       flag: 'JRX_F_INTERNAL_SURFACE', method: 'GET', path: '/api/nv5/internal/hallucination/capabilities',       expectFlagOff: [404] },
+  { batch: 'G-J', namespace: 'internal/case-update',         flag: 'JRX_F_INTERNAL_SURFACE', method: 'GET', path: '/api/nv5/internal/case-update/capabilities',         expectFlagOff: [404] },
+  { batch: 'G-J', namespace: 'internal/feature-flags',       flag: 'JRX_F_INTERNAL_SURFACE', method: 'GET', path: '/api/nv5/internal/feature-flags/capabilities',       expectFlagOff: [404] },
 
   // === Per-namespace failure-path payload probes (NV-PRE-DEPLOY-SMOKE-003,
   // Session-13 follow-up to architect's required happy/failure payload coverage).
@@ -106,15 +106,15 @@ const PROBES: Probe[] = [
   // exception) is a real bug we want to catch pre-deploy. The corresponding
   // GET /capabilities|health probes above ARE the happy-path probes for each
   // namespace (they assert 200 with valid auth when flag ON).
-  { batch: 'A-fail',   namespace: 'orch/kb-failpath',                flag: 'NYV_F_AI_ORCH_KB',                  method: 'POST', path: '/api/nv5/orch/kb/health',                       body: {}, expectFlagOff: [404], expectFlagOn: [400, 401, 403, 404, 405, 422] },
-  { batch: 'B-fail',   namespace: 'multimodal/avatar-unity-failpath',flag: 'NYV_F_MULTIMODAL_AVATAR_UNITY',     method: 'POST', path: '/api/nv5/multimodal/avatar-unity/health',       body: {}, expectFlagOff: [404, 401, 403], expectFlagOn: [400, 401, 403, 404, 405, 422] },
-  { batch: 'B-fail',   namespace: 'voice/streaming-failpath',        flag: 'NYV_F_VOICE_STREAM_RT',             method: 'POST', path: '/api/nv5/voice/streaming/health',               body: {}, expectFlagOff: [404, 401, 403], expectFlagOn: [400, 401, 403, 404, 405, 422] },
-  { batch: 'C-fail',   namespace: 'workflows/autonomous-failpath',   flag: 'NYV_F_WORKFLOW_AUTONOMOUS',         method: 'POST', path: '/api/nv5/workflows/autonomous/health',          body: {}, expectFlagOff: [404, 401, 403], expectFlagOn: [400, 401, 403, 404, 405, 422] },
-  { batch: 'C-fail',   namespace: 'doc-ai/convert-failpath',         flag: 'NYV_F_DOC_AI_CONVERT',              method: 'POST', path: '/api/nv5/doc-ai/convert/health',                body: {}, expectFlagOff: [404, 401, 403], expectFlagOn: [400, 401, 403, 404, 405, 422] },
-  { batch: 'D-fail',   namespace: 'gov/maker-checker-failpath',      flag: 'NYV_F_GOV_MAKER_CHECKER',           method: 'POST', path: '/api/nv5/gov/maker-checker/queue',              body: {}, expectFlagOff: [404, 401, 403], expectFlagOn: [400, 401, 403, 404, 405, 422] },
-  { batch: 'E-fail',   namespace: 'legal-pipeline/chunker-failpath', flag: 'NYV_F_LEGAL_PIPELINE_CHUNKER',      method: 'POST', path: '/api/nv5/legal-pipeline/chunker/capabilities',  body: {}, expectFlagOff: [404, 401, 403], expectFlagOn: [400, 401, 403, 404, 405, 422] },
-  { batch: 'F-fail',   namespace: 'compliance/eu-ai-act-failpath',   flag: 'NYV_F_COMPLIANCE_EU_AI_ACT',        method: 'POST', path: '/api/nv5/compliance/eu-ai-act/capabilities',    body: {}, expectFlagOff: [404, 401, 403], expectFlagOn: [400, 401, 403, 404, 405, 422] },
-  { batch: 'G-J-fail', namespace: 'internal/model-cascade-failpath', flag: 'NYV_F_INTERNAL_SURFACE',            method: 'POST', path: '/api/nv5/internal/model-cascade/capabilities',  body: {}, expectFlagOff: [404], expectFlagOn: [400, 401, 403, 404, 405, 422] },
+  { batch: 'A-fail',   namespace: 'orch/kb-failpath',                flag: 'JRX_F_AI_ORCH_KB',                  method: 'POST', path: '/api/nv5/orch/kb/health',                       body: {}, expectFlagOff: [404], expectFlagOn: [400, 401, 403, 404, 405, 422] },
+  { batch: 'B-fail',   namespace: 'multimodal/avatar-unity-failpath',flag: 'JRX_F_MULTIMODAL_AVATAR_UNITY',     method: 'POST', path: '/api/nv5/multimodal/avatar-unity/health',       body: {}, expectFlagOff: [404, 401, 403], expectFlagOn: [400, 401, 403, 404, 405, 422] },
+  { batch: 'B-fail',   namespace: 'voice/streaming-failpath',        flag: 'JRX_F_VOICE_STREAM_RT',             method: 'POST', path: '/api/nv5/voice/streaming/health',               body: {}, expectFlagOff: [404, 401, 403], expectFlagOn: [400, 401, 403, 404, 405, 422] },
+  { batch: 'C-fail',   namespace: 'workflows/autonomous-failpath',   flag: 'JRX_F_WORKFLOW_AUTONOMOUS',         method: 'POST', path: '/api/nv5/workflows/autonomous/health',          body: {}, expectFlagOff: [404, 401, 403], expectFlagOn: [400, 401, 403, 404, 405, 422] },
+  { batch: 'C-fail',   namespace: 'doc-ai/convert-failpath',         flag: 'JRX_F_DOC_AI_CONVERT',              method: 'POST', path: '/api/nv5/doc-ai/convert/health',                body: {}, expectFlagOff: [404, 401, 403], expectFlagOn: [400, 401, 403, 404, 405, 422] },
+  { batch: 'D-fail',   namespace: 'gov/maker-checker-failpath',      flag: 'JRX_F_GOV_MAKER_CHECKER',           method: 'POST', path: '/api/nv5/gov/maker-checker/queue',              body: {}, expectFlagOff: [404, 401, 403], expectFlagOn: [400, 401, 403, 404, 405, 422] },
+  { batch: 'E-fail',   namespace: 'legal-pipeline/chunker-failpath', flag: 'JRX_F_LEGAL_PIPELINE_CHUNKER',      method: 'POST', path: '/api/nv5/legal-pipeline/chunker/capabilities',  body: {}, expectFlagOff: [404, 401, 403], expectFlagOn: [400, 401, 403, 404, 405, 422] },
+  { batch: 'F-fail',   namespace: 'compliance/eu-ai-act-failpath',   flag: 'JRX_F_COMPLIANCE_EU_AI_ACT',        method: 'POST', path: '/api/nv5/compliance/eu-ai-act/capabilities',    body: {}, expectFlagOff: [404, 401, 403], expectFlagOn: [400, 401, 403, 404, 405, 422] },
+  { batch: 'G-J-fail', namespace: 'internal/model-cascade-failpath', flag: 'JRX_F_INTERNAL_SURFACE',            method: 'POST', path: '/api/nv5/internal/model-cascade/capabilities',  body: {}, expectFlagOff: [404], expectFlagOn: [400, 401, 403, 404, 405, 422] },
 ];
 
 interface Result {

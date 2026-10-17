@@ -30,14 +30,14 @@ interface JudgementResult {
 }
 
 const DEFAULT_WEIGHTS = {
-  legalAccuracy: parseFloat(process.env.NYV_JUDGE_WEIGHT_ACCURACY || '0.30'),
-  citationQuality: parseFloat(process.env.NYV_JUDGE_WEIGHT_CITATION || '0.25'),
-  jurisdictionCorrectness: parseFloat(process.env.NYV_JUDGE_WEIGHT_JURISDICTION || '0.20'),
-  biasAbsence: parseFloat(process.env.NYV_JUDGE_WEIGHT_BIAS || '0.15'),
-  actionability: parseFloat(process.env.NYV_JUDGE_WEIGHT_ACTIONABILITY || '0.10'),
+  legalAccuracy: parseFloat(process.env.JRX_JUDGE_WEIGHT_ACCURACY || '0.30'),
+  citationQuality: parseFloat(process.env.JRX_JUDGE_WEIGHT_CITATION || '0.25'),
+  jurisdictionCorrectness: parseFloat(process.env.JRX_JUDGE_WEIGHT_JURISDICTION || '0.20'),
+  biasAbsence: parseFloat(process.env.JRX_JUDGE_WEIGHT_BIAS || '0.15'),
+  actionability: parseFloat(process.env.JRX_JUDGE_WEIGHT_ACTIONABILITY || '0.10'),
 };
 
-const PASS_THRESHOLD = parseFloat(process.env.NYV_JUDGE_PASS_THRESHOLD || '8.5');
+const PASS_THRESHOLD = parseFloat(process.env.JRX_JUDGE_PASS_THRESHOLD || '8.5');
 
 class NvLlmJudgeService {
   async evaluate(
@@ -45,7 +45,7 @@ class NvLlmJudgeService {
     context: JudgeContext,
     judgeModel?: string
   ): Promise<JudgementResult> {
-    const model = judgeModel || process.env.NYV_JUDGE_DEFAULT_MODEL || 'gpt-4o';
+    const model = judgeModel || process.env.JRX_JUDGE_DEFAULT_MODEL || 'gpt-4o';
     logger.info({ method: 'evaluate', jurisdiction: context.jurisdiction, domain: context.domain, judgeModel: model });
 
     const scores = this.scoreResponse(response, context);

@@ -20,8 +20,8 @@ import {
 
 const logger = createLogger('./jrx-patra-mitra');
 
-const SESSION_TTL_MS = Number(process.env.NYV_PATRA_MITRA_TTL_MS || 2 * 60 * 60 * 1000);
-const MAX_DOC_CHARS = Number(process.env.NYV_PATRA_MITRA_MAX_CHARS || 120_000);
+const SESSION_TTL_MS = Number(process.env.JRX_PATRA_MITRA_TTL_MS || 2 * 60 * 60 * 1000);
+const MAX_DOC_CHARS = Number(process.env.JRX_PATRA_MITRA_MAX_CHARS || 120_000);
 const MAX_CHAT_HISTORY = 12;
 
 export interface PatraMitraField {

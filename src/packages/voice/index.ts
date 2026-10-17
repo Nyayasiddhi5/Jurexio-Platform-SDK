@@ -6,7 +6,7 @@
  * that need them must import the specific implementation directly.
  */
 export const voicePackageInfo = {
-  name: 'nyayavigya-sdk-voice',
+  name: 'jurexio-sdk-voice',
   version: '3.1.0',
   services: ['voice-synthesis-engine', 'voiceover-generator', 'realtime-voice-streaming'],
   capabilities: [

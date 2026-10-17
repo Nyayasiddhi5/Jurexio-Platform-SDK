@@ -369,7 +369,7 @@ router.post('/:id/assign', requireRole('org_admin', 'compliance_officer'), async
     const id = Number(req.params.id);
     const { scope_type, scope_value, ack_required } = req.body ?? {};
     if (!scope_type || !scope_value) return res.status(400).json({ success: false, error: 'scope_type and scope_value required' });
-    const assignedBy = (req as any).user?.email ?? 'compliance@nyayavigya';
+    const assignedBy = (req as any).user?.email ?? 'compliance@jurexio';
     const r = await db.execute(drsql`
       INSERT INTO nv_policy_assignments (policy_id, scope_type, scope_value, assigned_by, ack_required)
       VALUES (${id}, ${scope_type}, ${scope_value}, ${assignedBy}, ${!!ack_required})

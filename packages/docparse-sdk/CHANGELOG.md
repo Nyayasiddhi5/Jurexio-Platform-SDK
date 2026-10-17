@@ -18,7 +18,7 @@
 - **`legal-in-identity`** pack + `mapExtractionToNspUserOnboarding` (`userProfile`, `withheld` for Aadhaar).
 - **`legal-in-evidence`** pack + `mapExtractionToNspEvidence` (`needsDepiction`, tags, visible text).
 - **`domainPackIdForIngestRole()`** — `onboarding_kyc`, `case_evidence`, `chat_attachment`, `draft_attachment`, etc.
-- Identity partial-LLM schema hooks (NYV provider).
+- Identity partial-LLM schema hooks (JRX provider).
 
 ### Tests
 - `identity-evidence-p1p2.test.ts`; full suite **399/399** pass.
@@ -31,7 +31,7 @@
 - Cloud OCR gate v2; PDF bytes temp-path ingest; Vasee-class synthetic regression test.
 
 ### Changed
-- Default NYV SDK ingest pack **`legal-in-civil`** with **`preferOcr: true`**.
+- Default JRX SDK ingest pack **`legal-in-civil`** with **`preferOcr: true`**.
 
 ## [1.0.0-alpha.4] — 2026-10-07
 

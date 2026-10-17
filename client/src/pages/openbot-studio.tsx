@@ -1,6 +1,6 @@
 import { getAuthToken } from '@/lib/jrx-auth-token';
 import { p, NV_API } from '@/lib/jrx-api-paths';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 /**
  * OpenBot™ Studio — Multi-Channel Bot Management Studio
  * Jurexio Enterprise Platform 312 | Channel Operations
@@ -31,7 +31,7 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { NyvGovernanceBadge } from '@/components/NyvGovernanceBadge';
+import { JrxGovernanceBadge } from '@/components/JrxGovernanceBadge';
 
 type ChannelType = 'whatsapp' | 'slack' | 'teams' | 'telegram' | 'email' | 'web' | 'api';
 
@@ -297,7 +297,7 @@ export default function OpenBotStudio() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <NyvGovernanceBadge compact governance={{ risk_score: 25, risk_badge: 'YELLOW', risk_blocked: false, pattern_key: 'OPENBOT', warnings: ['AI Multi-Channel Studio — Outputs require human review before deployment'], timestamp: new Date().toISOString() }} />
+            <JrxGovernanceBadge compact governance={{ risk_score: 25, risk_badge: 'YELLOW', risk_blocked: false, pattern_key: 'OPENBOT', warnings: ['AI Multi-Channel Studio — Outputs require human review before deployment'], timestamp: new Date().toISOString() }} />
             <Badge variant="outline" className="border-blue-500/30 text-blue-400 text-xs" role="status">{stats.active} Active Channels</Badge>
             <Button size="sm" onClick={() => setShowAddChannel(true)} className="bg-blue-600 hover:bg-blue-700 text-xs">
               <Plus className="h-3.5 w-3.5 mr-1.5" />Add Channel
@@ -356,7 +356,7 @@ export default function OpenBotStudio() {
                 Could not load channels: {channelsError}
               </div>
             ) : channels.length === 0 ? (
-              <NyvEmptyState
+              <JrxEmptyState
                 icon={Radio}
                 title="No channels configured"
                 description="No channels configured yet. Add a WhatsApp, Slack, Teams, Telegram, Email, Web or REST API channel to start receiving messages."
@@ -450,7 +450,7 @@ export default function OpenBotStudio() {
                     Could not load inbox: {inboxError}
                   </div>
                 ) : filteredMessages.length === 0 ? (
-                  <NyvEmptyState
+                  <JrxEmptyState
                     icon={Inbox}
                     title="Inbox Empty"
                     description={inboxFilter === 'all'
@@ -489,7 +489,7 @@ export default function OpenBotStudio() {
           {/* ROUTING RULES */}
           <TabsContent value="routing" className="mt-4">
             {rules.length === 0 ? (
-              <NyvEmptyState
+              <JrxEmptyState
                 icon={Layers}
                 title="No routing rules"
                 description="No routing rules configured yet. Add a rule to route inbound messages by channel, keyword or user group to the right bot."
@@ -570,7 +570,7 @@ export default function OpenBotStudio() {
               <div>
                 <Label className="text-slate-600 text-sm">Channel Name *</Label>
                 <Input value={newChannelName} onChange={(e) => setNewChannelName(e.target.value)}
-                  placeholder={`e.g. ${CHANNEL_META[newChannelType].label} — Nyayamitra`}
+                  placeholder={`e.g. ${CHANNEL_META[newChannelType].label} — Jurexio Citizen`}
                   className="mt-1.5 bg-slate-100 border-slate-200 text-slate-900 placeholder:text-slate-600" />
               </div>
             </CardContent>
@@ -596,7 +596,7 @@ export default function OpenBotStudio() {
                 <Input
                   value={ruleName}
                   onChange={(e) => setRuleName(e.target.value)}
-                  placeholder="e.g. WhatsApp → Nyayamitra"
+                  placeholder="e.g. WhatsApp → Jurexio Citizen"
                   data-testid="rule-name"
                   className="mt-1.5 bg-slate-100 border-slate-200 text-slate-900 placeholder:text-slate-600"
                 />
@@ -637,7 +637,7 @@ export default function OpenBotStudio() {
                 <Input
                   value={ruleTargetBot}
                   onChange={(e) => setRuleTargetBot(e.target.value)}
-                  placeholder="bot_nyayamitra_in"
+                  placeholder="bot_jurexio-citizen_in"
                   data-testid="rule-target-bot"
                   className="mt-1.5 bg-slate-100 border-slate-200 text-slate-900 placeholder:text-slate-600"
                 />

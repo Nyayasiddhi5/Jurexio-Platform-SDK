@@ -43,12 +43,12 @@ import {
 import { sdkGatewayAuth } from '../middleware/sdk-gateway.js';
 import { secureRandomHex } from '../utils/jrx-secure-random.js';
 import { createLogger } from '../utils/logger.js';
-import { NYV_PLATFORM_VERSION } from '../config/nyv-master-config.js';
+import { JRX_PLATFORM_VERSION } from '../config/jrx-master-config.js';
 
 const router = Router();
 const logger = createLogger('sdk-llm-catalog');
 
-const PLATFORM_VERSION = NYV_PLATFORM_VERSION;
+const PLATFORM_VERSION = JRX_PLATFORM_VERSION;
 const DOCS_URL = 'https://docs.jurexio.example/canonical/04c-sdk-troubleshooting';
 
 router.use(sdkGatewayAuth);

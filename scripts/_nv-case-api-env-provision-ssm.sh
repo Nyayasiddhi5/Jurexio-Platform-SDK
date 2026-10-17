@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Provision NYS_CASE_API_* on nysdev gateway secrets (NV-SECRETS-001: length only in output).
+# Provision JRX_ECOSYSTEM_CASE_API_* on jrx-prod gateway secrets (NV-SECRETS-001: length only in output).
 set -euo pipefail
 
-ENVF="/opt/Nyayavigya/secrets/.env.production"
-REGION="${NYV_AWS_REGION:-ap-south-1}"
+ENVF="/opt/Jurexio/secrets/.env.production"
+REGION="${JRX_AWS_REGION:-ap-south-1}"
 SECRET_ID="nyaya/case_api/http-api-keys"
 
 append_if_missing() {
@@ -44,16 +44,16 @@ if [ "$(printf %s "$CASE_KEY" | wc -c | tr -d ' ')" -lt 8 ]; then
   exit 1
 fi
 
-append_if_missing "NYS_CASE_API_BASE_URL" "https://nysapi.nyayasiddhi.online"
-append_if_missing "NYS_CASE_API_KEY" "$CASE_KEY"
-append_if_missing "NYS_CASE_API_TIMEOUT_MS" "30000"
-append_if_missing "NYV_F_CASE_API_CNR" "1"
-append_if_missing "NYV_F_CASE_API_LEGACY_ENRICH" "1"
+append_if_missing "JRX_ECOSYSTEM_CASE_API_BASE_URL" "https://nysapi.jurexio.com"
+append_if_missing "JRX_ECOSYSTEM_CASE_API_KEY" "$CASE_KEY"
+append_if_missing "JRX_ECOSYSTEM_CASE_API_TIMEOUT_MS" "30000"
+append_if_missing "JRX_F_CASE_API_CNR" "1"
+append_if_missing "JRX_F_CASE_API_LEGACY_ENRICH" "1"
 
 # P2: production path returns nysapi (not shadow-only)
-if grep -qE '^NYV_F_CASE_API_CNR_SHADOW=' "$ENVF" 2>/dev/null; then
-  sed -i '/^NYV_F_CASE_API_CNR_SHADOW=/d' "$ENVF"
-  echo "UNSET_NYV_F_CASE_API_CNR_SHADOW=removed"
+if grep -qE '^JRX_F_CASE_API_CNR_SHADOW=' "$ENVF" 2>/dev/null; then
+  sed -i '/^JRX_F_CASE_API_CNR_SHADOW=/d' "$ENVF"
+  echo "UNSET_JRX_F_CASE_API_CNR_SHADOW=removed"
 fi
 
 echo "DONE=case_api_env_provisioned"

@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { getAuthToken } from '@/lib/jrx-auth-token';
 import { nv } from '@/lib/jrx-api-paths';
 import { Cpu, RefreshCw, Activity, CheckCircle2, XCircle, AlertTriangle } from 'lucide-react';
@@ -51,7 +51,7 @@ export default function LlmRouterAdminPanel() {
     ok ? <CheckCircle2 className="h-4 w-4 text-emerald-600" /> : <XCircle className="h-4 w-4 text-red-500" />;
 
   return (
-    <div className="p-4 space-y-4 nv-light-scope" data-testid="llm-router-admin">
+    <div className="p-4 space-y-4 jrx-light-scope" data-testid="llm-router-admin">
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
@@ -109,7 +109,7 @@ export default function LlmRouterAdminPanel() {
 
         <TabsContent value="catalog" className="mt-4">
           {catalogQ.isLoading && <Skeleton className="h-48 w-full" />}
-          {catalogQ.isError && <NyvErrorState title="Catalog unavailable" onRetry={() => catalogQ.refetch()} variant="card" />}
+          {catalogQ.isError && <JrxErrorState title="Catalog unavailable" onRetry={() => catalogQ.refetch()} variant="card" />}
           {!catalogQ.isLoading && !catalogQ.isError && (
             <Card>
               <CardHeader className="py-3">
@@ -147,7 +147,7 @@ export default function LlmRouterAdminPanel() {
 
         <TabsContent value="providers" className="mt-4">
           {providersQ.isLoading && <Skeleton className="h-32 w-full" />}
-          {providersQ.isError && <NyvErrorState title="Providers unavailable" onRetry={() => providersQ.refetch()} variant="card" />}
+          {providersQ.isError && <JrxErrorState title="Providers unavailable" onRetry={() => providersQ.refetch()} variant="card" />}
           {!providersQ.isLoading && !providersQ.isError && Array.isArray(providers) && (
             <div className="grid gap-2 md:grid-cols-2">
               {(providers as Array<Record<string, unknown>>).map((p) => {
@@ -170,7 +170,7 @@ export default function LlmRouterAdminPanel() {
 
         <TabsContent value="health" className="mt-4">
           {healthQ.isLoading && <Skeleton className="h-24 w-full" />}
-          {healthQ.isError && <NyvErrorState title="Router health unavailable" onRetry={() => healthQ.refetch()} variant="card" />}
+          {healthQ.isError && <JrxErrorState title="Router health unavailable" onRetry={() => healthQ.refetch()} variant="card" />}
           {!healthQ.isLoading && !healthQ.isError && (
             <Card>
               <CardContent className="p-4 space-y-2">

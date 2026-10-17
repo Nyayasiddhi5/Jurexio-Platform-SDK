@@ -2,8 +2,8 @@
  * Verify Jurexio webhook HMAC signatures.
  *
  * Canonical headers (see webhook-dispatcher):
- *   X-NYV-Timestamp: ISO-8601 timestamp
- *   X-NYV-Signature: sha256=<hex hmac of `${timestamp}.${rawBody}`>
+ *   X-JRX-Timestamp: ISO-8601 timestamp
+ *   X-JRX-Signature: sha256=<hex hmac of `${timestamp}.${rawBody}`>
  */
 
 import { createHmac, timingSafeEqual } from 'node:crypto';
@@ -11,9 +11,9 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 export interface VerifyWebhookSignatureInput {
   /** Raw request body string (exact bytes as received). */
   rawBody: string;
-  /** Value of X-NYV-Signature (with or without `sha256=` prefix). */
+  /** Value of X-JRX-Signature (with or without `sha256=` prefix). */
   signature: string;
-  /** Value of X-NYV-Timestamp. */
+  /** Value of X-JRX-Timestamp. */
   timestamp: string;
   /** Webhook secret (`nyv_wh_*`). */
   secret: string;

@@ -2,7 +2,7 @@
  * NV OCR Adapter — the single, real OCR + text-extraction engine for the platform.
  *
  * Consolidates what used to be three overlapping OCR services (this adapter,
- * nyayavigya-enhanced-ocr-service, real-ocr-pipeline-service) so there is exactly
+ * jurexio-enhanced-ocr-service, real-ocr-pipeline-service) so there is exactly
  * ONE real implementation. The other two now delegate here.
  *
  * Provider precedence (auto-detected from env, first available wins):
@@ -469,7 +469,7 @@ class NvOcrAdapterService {
     if (!apiKey) throw new Error('Gemini/Google API key not configured');
 
     const model = env('NV_OCR_GEMINI_MODEL') || toGeminiApiModelId(getGeminiFlashModel());
-    const baseUrl = env('NYV_GOOGLE_BASE_URL') || 'https://generativelanguage.googleapis.com/v1beta';
+    const baseUrl = env('JRX_GOOGLE_BASE_URL') || 'https://generativelanguage.googleapis.com/v1beta';
     const url = `${baseUrl}/models/${encodeURIComponent(model)}:generateContent?key=${apiKey}`;
 
     const response = await fetch(url, {

@@ -1,9 +1,9 @@
 /**
- * NYV SDK v5.0.0 — Mirror legacy SDK keys → NEW canonical Drizzle tables
+ * JRX SDK v5.0.0 — Mirror legacy SDK keys → NEW canonical Drizzle tables
  * ─────────────────────────────────────────────────────────────────────────
  * Why this exists:
  *   The SDK gateway middleware (sdkGatewayAuth) reads from the new Drizzle
- *   tables `public.sdk_applications` + `public.sdk_app_api_keys` (NYV-NS-016
+ *   tables `public.sdk_applications` + `public.sdk_app_api_keys` (JRX-NS-016
  *   migration), while the canonical seeder writes only to the legacy tables
  *   `public.nv_api_keys` + `public.nv_sdk_applications`.
  *
@@ -48,9 +48,9 @@ interface PlatformDef {
 
 const PLATFORMS: PlatformDef[] = [
   {
-    envVar: 'NYV_SDK_KEY_NSP',
+    envVar: 'JRX_SDK_KEY_NSP',
     short: 'nsp',
-    appName: 'Nyayasiddhi Professional™',
+    appName: 'Jurexio Professional™',
     appType: 'nyayasiddhi_professional',
     clientId: 'nyv_app_nsp_v5',
     scopes: ['agents:read', 'agents:execute', 'documents:read', 'documents:write', 'research:read', 'usage:read'],
@@ -60,9 +60,9 @@ const PLATFORMS: PlatformDef[] = [
     allowedAgents: ['*'],
   },
   {
-    envVar: 'NYV_SDK_KEY_NSI',
+    envVar: 'JRX_SDK_KEY_NSI',
     short: 'nsi',
-    appName: 'Nyayasiddhi Institutional™',
+    appName: 'Jurexio Institutional™',
     appType: 'nyayasiddhi_institutional',
     clientId: 'nyv_app_nsi_v5',
     scopes: ['*'],
@@ -72,9 +72,9 @@ const PLATFORMS: PlatformDef[] = [
     allowedAgents: ['*'],
   },
   {
-    envVar: 'NYV_SDK_KEY_NSA',
+    envVar: 'JRX_SDK_KEY_NSA',
     short: 'nsa',
-    appName: 'Nyayasiddhi Academy™',
+    appName: 'Jurexio Academy™',
     appType: 'nyayasiddhi_academy',
     clientId: 'nyv_app_nsa_v5',
     scopes: ['agents:read', 'agents:execute', 'research:read', 'usage:read'],
@@ -84,9 +84,9 @@ const PLATFORMS: PlatformDef[] = [
     allowedAgents: ['*'],
   },
   {
-    envVar: 'NYV_SDK_KEY_NSM',
+    envVar: 'JRX_SDK_KEY_NSM',
     short: 'nsm',
-    appName: 'Nyayasiddhi Ministry™',
+    appName: 'Jurexio Ministry™',
     appType: 'government',
     clientId: 'nyv_app_nsm_v5',
     scopes: ['*'],
@@ -96,10 +96,10 @@ const PLATFORMS: PlatformDef[] = [
     allowedAgents: ['*'],
   },
   {
-    envVar: 'NYV_SDK_KEY_NYM',
+    envVar: 'JRX_SDK_KEY_NYM',
     short: 'nym',
-    appName: 'Nyayamitra™ Citizen App',
-    appType: 'nyayamitra',
+    appName: 'Jurexio Citizen Citizen App',
+    appType: 'jurexio-citizen',
     clientId: 'nyv_app_nym_v5',
     // task-150: added usage:read so /usage, /cache/stats, /guardrails/stats clear for NYM.
     scopes: ['agents:read', 'agents:execute', 'consumer_intake:write', 'usage:read'],
@@ -109,9 +109,9 @@ const PLATFORMS: PlatformDef[] = [
     allowedAgents: ['nym-*', 'consumer-*'],
   },
   {
-    envVar: 'NYV_SDK_KEY_NSPM',
+    envVar: 'JRX_SDK_KEY_NSPM',
     short: 'nspm',
-    appName: 'Nyayasiddhi Professional Mobile™',
+    appName: 'Jurexio Professional Mobile™',
     appType: 'nys_professional_mobile',
     clientId: 'nyv_app_nspm_v5',
     scopes: ['agents:read', 'agents:execute', 'documents:read', 'documents:write', 'research:read', 'usage:read', 'voice:read', 'voice:execute'],
@@ -121,7 +121,7 @@ const PLATFORMS: PlatformDef[] = [
     allowedAgents: ['*'],
   },
   {
-    envVar: 'NYV_SDK_KEY_JRX',
+    envVar: 'JRX_SDK_KEY_JRX',
     short: 'jrx',
     appName: 'JurisX™',
     appType: 'jurisx',
@@ -147,13 +147,13 @@ function rows<T = any>(r: any): T[] {
 
 async function main() {
   console.log('══════════════════════════════════════════════════════════════════════════════');
-  console.log('  NYV SDK v5.0.0 — Mirror keys → NEW canonical tables (NYV-NS-016)');
+  console.log('  JRX SDK v5.0.0 — Mirror keys → NEW canonical tables (JRX-NS-016)');
   console.log('══════════════════════════════════════════════════════════════════════════════');
   console.log('');
 
   const pendingPath = path.resolve('.local/secrets-pending.json');
   if (!fs.existsSync(pendingPath)) {
-    console.error(`FATAL: ${pendingPath} not found — run nv-seed-sdk-keys.ts + nv-issue-extra-sdk-keys.ts first.`);
+    console.error(`FATAL: ${pendingPath} not found — run jrx-seed-sdk-keys.ts + jrx-issue-extra-sdk-keys.ts first.`);
     process.exit(1);
   }
   const pending: Record<string, string> = JSON.parse(fs.readFileSync(pendingPath, 'utf8'));
@@ -184,7 +184,7 @@ async function main() {
         allowed_origins, jurisdiction, metadata, status
       ) VALUES (
         ${p.appName}, ${p.appType},
-        ${`Auto-mirrored from legacy nv_sdk_applications during NYV-NS-016 migration (SDK v5.0.0).`},
+        ${`Auto-mirrored from legacy nv_sdk_applications during JRX-NS-016 migration (SDK v5.0.0).`},
         ${p.clientId}, ${clientSecretHash}, ${clientSecretPrefix},
         ${JSON.stringify(p.allowedAgents)}::jsonb,
         ${JSON.stringify({ primary: 'auto', fallback: 'auto', budget_mode: 'balanced' })}::jsonb,

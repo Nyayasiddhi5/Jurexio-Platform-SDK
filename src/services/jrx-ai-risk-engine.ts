@@ -1,5 +1,5 @@
 /**
- * NYV AI Risk Score Engine — mandatory on ALL AI outputs per §3.3.3
+ * JRX AI Risk Score Engine — mandatory on ALL AI outputs per §3.3.3
  * Formula: (0.25 × Jurisdiction mismatch) + (0.20 × Clause absence)
  *        + (0.15 × Structural deviation) + (0.20 × Hallucination probability)
  *        + (0.20 × Unsupported references)
@@ -26,7 +26,7 @@ export interface RiskAssessment {
   warnings: string[];
 }
 
-export class NyvAiRiskEngine {
+export class JrxAiRiskEngine {
   private static readonly WEIGHTS = {
     jurisdictionMismatch:     0.25,
     clauseAbsence:            0.20,

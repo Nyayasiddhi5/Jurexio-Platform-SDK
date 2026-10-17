@@ -1,8 +1,8 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 import { db as rawDb } from '../db/index.js';
 import { requireDb } from '../utils/jrx-type-helpers.js';
-// NYV-NS-005 (2026-05-01): rebind db locally; was ~78 TS18047 errors here.
-// NYV-NS-022 (2026-05-07): lazy Proxy — see nv-orchestration-services.ts.
+// JRX-NS-005 (2026-05-01): rebind db locally; was ~78 TS18047 errors here.
+// JRX-NS-022 (2026-05-07): lazy Proxy — see jrx-orchestration-services.ts.
 const db: NonNullable<typeof rawDb> = new Proxy({} as any, {
   get(_t, prop, receiver) {
     const real = requireDb(rawDb) as any;
@@ -16,7 +16,7 @@ import { Document, Paragraph, TextRun, HeadingLevel, AlignmentType, Packer, Bord
 import { createLogger } from '../utils/logger.js';
 import { secureRandom, secureRandomInt, secureRandomBool, secureRandomChoice } from '../utils/jrx-secure-random.js';
 import { encryptedExpr } from './field-encryption-service.js';
-// NYV-OPS-BREAKER-SARVAM-003 (2026-04-30, Task #28): wrap the Sarvam Translate
+// JRX-OPS-BREAKER-SARVAM-003 (2026-04-30, Task #28): wrap the Sarvam Translate
 // fetch in the shared retry-breaker registry so a Sarvam outage opens the
 // breaker and we fall back to the placeholder translation surface in <60s
 // instead of every translate call timing out.
@@ -1035,7 +1035,7 @@ export class NvVoiceService {
 
     try {
       if (sarvamKey) {
-        // NYV-OPS-BREAKER-SARVAM-003 (post-architect-review hardening):
+        // JRX-OPS-BREAKER-SARVAM-003 (post-architect-review hardening):
         // (a) Throw on !response.ok INSIDE the breaker so HTTP 5xx/429
         //     count as breaker failures. (b) AbortSignal.timeout(20_000)
         //     matches the outbound:integration policy timeout so timed-out

@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — Demo Organizations Seed
- * NYV-SCRIPT-SEED-ORGS-001
+ * Jurexio Platform 3.1.2 — Demo Organizations Seed
+ * JRX-SCRIPT-SEED-ORGS-001
  */
 
 import { makePgSql } from './_pg-pool.js';
@@ -16,7 +16,7 @@ const REQUIRED_COLUMNS = {
 } as const;
 
 const DEMO_ORGS = [
-  { name: 'Nyayavigya Technologies',          slug: 'nyayavigya-tech',  tier: 'enterprise' },
+  { name: 'Jurexio Technologies',          slug: 'jurexio-tech',  tier: 'enterprise' },
   { name: 'Demo Law Firm (Pro)',               slug: 'demo-law-firm-pro', tier: 'pro'        },
   { name: 'Demo Legal Department (Plus)',      slug: 'demo-legal-dept',  tier: 'plus'       },
   { name: 'Demo Bar Association (Enterprise)', slug: 'demo-bar-assoc',   tier: 'enterprise' },

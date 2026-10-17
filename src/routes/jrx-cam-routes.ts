@@ -14,8 +14,8 @@
  *
  * NV-WIRING-001: imported and mounted in src/index.ts.
  * NV-API-CONTRACT-001: additive route only.
- * NV-NAMING-001: nv- prefix; pre-flight grep confirms no existing
- *   `/api/jrx/cam` (only `/api/jrx/v1/sdk/cam` + `/api/nyayavigya/cam`
+ * NV-NAMING-001: jrx- prefix; pre-flight grep confirms no existing
+ *   `/api/jrx/cam` (only `/api/jrx/v1/sdk/cam` + `/api/jurexio/cam`
  *   for the CAM dashboard bridge — different surface).
  */
 import { Router, Request, Response } from 'express';

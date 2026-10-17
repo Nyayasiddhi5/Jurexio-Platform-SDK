@@ -3,7 +3,7 @@
  */
 import { randomUUID } from 'node:crypto';
 import { z } from 'zod';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import { createLogger } from '../utils/logger.js';
 import type {
   PartialFieldRecoveryInput,
@@ -94,10 +94,10 @@ function buildSnippetPrompt(
   ].join('\n');
 }
 
-export function createNyvPartialFieldRecoveryProvider(): PartialFieldRecoveryProvider | undefined {
-  if (!isNyvFeatureOn('docparseLlmFallback')) return undefined;
+export function createJrxPartialFieldRecoveryProvider(): PartialFieldRecoveryProvider | undefined {
+  if (!isJrxFeatureOn('docparseLlmFallback')) return undefined;
   return {
-    id: 'nyv-nova-micro-partial',
+    id: 'jrx-nova-micro-partial',
     async recover(input: PartialFieldRecoveryInput): Promise<PartialFieldRecoveryPatch> {
       try {
         const keys = input.fieldPaths.map(pathToKey);
@@ -115,7 +115,7 @@ export function createNyvPartialFieldRecoveryProvider(): PartialFieldRecoveryPro
           taskKind: 'extraction',
           jurisdiction: input.jurisdiction,
           expectJson: true,
-          maxCostUsd: Number(process.env.NYV_DOCPARSE_LLM_FALLBACK_MAX_COST_USD || 0.015),
+          maxCostUsd: Number(process.env.JRX_DOCPARSE_LLM_FALLBACK_MAX_COST_USD || 0.015),
           requirements: {
             complexity: 'simple',
             domain: 'analytical',

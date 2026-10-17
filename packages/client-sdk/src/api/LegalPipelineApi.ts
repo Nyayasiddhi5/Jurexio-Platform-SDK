@@ -7,7 +7,7 @@
  * Reference: docs/canonical/04-sdk-and-api-canonical-2026-05-07.md § 15
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export interface ChunkerCapabilities {
   chunkTypes: string[];
@@ -84,7 +84,7 @@ export interface ReadabilityScoreResult {
 }
 
 class ChunkerSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   capabilities(): Promise<ChunkerCapabilities> {
     return this.http.get('/api/nv5/legal-pipeline/chunker/capabilities');
   }
@@ -94,7 +94,7 @@ class ChunkerSubApi {
 }
 
 class EmbeddingSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   capabilities(): Promise<EmbeddingCapabilities> {
     return this.http.get('/api/nv5/legal-pipeline/embedding/capabilities');
   }
@@ -104,7 +104,7 @@ class EmbeddingSubApi {
 }
 
 class RerankerSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   capabilities(): Promise<RerankerCapabilities> {
     return this.http.get('/api/nv5/legal-pipeline/reranker/capabilities');
   }
@@ -114,14 +114,14 @@ class RerankerSubApi {
 }
 
 class SummarizerSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   capabilities(): Promise<SummarizerCapabilities> {
     return this.http.get('/api/nv5/legal-pipeline/summarizer/capabilities');
   }
 }
 
 class ReadabilitySubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   capabilities(): Promise<ReadabilityCapabilities> {
     return this.http.get('/api/nv5/legal-pipeline/readability/capabilities');
   }
@@ -137,7 +137,7 @@ export class LegalPipelineApi {
   public readonly summarizer: SummarizerSubApi;
   public readonly readability: ReadabilitySubApi;
 
-  constructor(http: NyvHttpClient) {
+  constructor(http: JrxHttpClient) {
     this.chunker = new ChunkerSubApi(http);
     this.embedding = new EmbeddingSubApi(http);
     this.reranker = new RerankerSubApi(http);

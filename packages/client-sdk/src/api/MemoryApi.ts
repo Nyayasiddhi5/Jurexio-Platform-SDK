@@ -1,26 +1,26 @@
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 import type {
-  NyvJurisdiction,
-  NyvLegalDomain,
-  NyvMatterMemory,
-  NyvClientMemory,
+  JrxJurisdiction,
+  JrxLegalDomain,
+  JrxMatterMemory,
+  JrxClientMemory,
 } from '../types/index.js';
 
 export class MemoryApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
 
   async saveMatter(matter: {
     matterId: string;
     title: string;
-    jurisdiction: NyvJurisdiction;
-    domain: NyvLegalDomain;
+    jurisdiction: JrxJurisdiction;
+    domain: JrxLegalDomain;
     facts: Record<string, unknown>;
     documents?: string[];
-  }): Promise<NyvMatterMemory> {
+  }): Promise<JrxMatterMemory> {
     return this.http.post('/api/jrx/memory/matter', matter);
   }
 
-  async getMatter(matterId: string): Promise<NyvMatterMemory> {
+  async getMatter(matterId: string): Promise<JrxMatterMemory> {
     return this.http.get(`/api/jrx/memory/matter/${matterId}`);
   }
 
@@ -28,11 +28,11 @@ export class MemoryApi {
     clientId: string;
     name: string;
     preferences?: Record<string, unknown>;
-  }): Promise<NyvClientMemory> {
+  }): Promise<JrxClientMemory> {
     return this.http.post('/api/jrx/memory/client', client);
   }
 
-  async getClient(clientId: string): Promise<NyvClientMemory> {
+  async getClient(clientId: string): Promise<JrxClientMemory> {
     return this.http.get(`/api/jrx/memory/client/${clientId}`);
   }
 

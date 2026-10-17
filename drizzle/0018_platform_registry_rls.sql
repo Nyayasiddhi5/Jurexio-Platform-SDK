@@ -1,5 +1,5 @@
 -- ============================================================================
--- 0018_platform_registry_rls.sql  (NYV-PLATFORMS-500 / NYV-PLATFORMS-RLS)
+-- 0018_platform_registry_rls.sql  (JRX-PLATFORMS-500 / JRX-PLATFORMS-RLS)
 -- ============================================================================
 -- The Platform Registry (GET /api/nv/platforms, SDK Hub ▸ Key Management) reads
 -- the `nv_sdk_applications` table. On the EC2 dev-edge RDS this table predated
@@ -68,7 +68,7 @@ BEGIN
       INSERT INTO nv_sdk_applications (name, display_name, app_type, platform_type, jurisdiction, jurisdictions, tier, is_active, environment, modules_enabled, agents_allowed, is_provisioned, settings, created_at, updated_at)
       SELECT v.name, v.display_name, 'platform', v.platform_type, v.jurisdiction, v.jurisdictions, v.tier, true, 'production', v.modules_enabled::jsonb, ARRAY['*']::text[], false, '{}'::jsonb, NOW(), NOW()
       FROM (VALUES
-        ('Nyayamitra',                 'Nyayamitra (Citizen Legal Aid)',             'nyayamitra',               'IN', ARRAY['IN']::text[],                              'pro',        '{"clawdbot":true,"nyayarag":true,"doc_intelligence":true,"voice_ai":true,"hitl":true}'),
+        ('Jurexio Citizen',                 'Jurexio Citizen (Citizen Legal Aid)',             'jurexio-citizen',               'IN', ARRAY['IN']::text[],                              'pro',        '{"clawdbot":true,"nyayarag":true,"doc_intelligence":true,"voice_ai":true,"hitl":true}'),
         ('Nyayasiddhi Professional',   'Nyayasiddhi Professional (Practice Mgmt)',   'nyayasiddhi-professional', 'IN', ARRAY['IN','UK','US','EU','GC','SG']::text[],    'pro',        '{"automateai":true,"twindesk":true,"skillshop":true,"nyayarag":true,"doc_intelligence":true,"voice_ai":true,"hitl":true,"sdk_intelligence":true}'),
         ('Nyayasiddhi Institutional',  'Nyayasiddhi Institutional (Enterprise GC)',  'nyayasiddhi-institution',  'IN', ARRAY['IN','UK','US','EU','GC','SG']::text[],    'enterprise', '{"clawdbot":true,"openbot":true,"automateai":true,"twindesk":true,"skillshop":true,"nyayarag":true,"doc_intelligence":true,"voice_ai":true,"hitl":true,"sdk_intelligence":true}'),
         ('Nyayasiddhi Academy',        'Nyayasiddhi Academy (Education)',            'nyayasiddhi-academy',      'IN', ARRAY['IN','UK','US','EU','GC','SG']::text[],    'plus',       '{"skillshop":true,"nyayarag":true,"doc_intelligence":true}'),

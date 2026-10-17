@@ -1,5 +1,5 @@
 /**
- * TemplatesApi — Canonical NYV legal templates catalog (NSP / ecosystem).
+ * TemplatesApi — Canonical JRX legal templates catalog (NSP / ecosystem).
  * Wraps: GET /api/jrx/templates, /catalog, /approved, reviews, /:id, POST /:id/generate|/review
  */
 

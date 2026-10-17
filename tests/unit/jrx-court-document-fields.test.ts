@@ -2,7 +2,7 @@
  * NV-COURT-DOC-FIELDS-001 — structured extraction for Indian court documents.
  *
  * NSP's ask: "make analyzeDocument return real fields for Indian court documents so
- * extraction can badge NYV instead of Heuristic". Baseline probed live before the
+ * extraction can badge JRX instead of Heuristic". Baseline probed live before the
  * fix: `documents/analyze` returned only `analysis` prose (1,462 chars) with no
  * `fields`, `entities`, `caseNumber`, `court` or `parties` keys.
  */
@@ -151,7 +151,7 @@ describe('NV-COURT-DOC-FIELDS-001 — wiring into the analyze route', () => {
      * into the shared `buildCourtDocFieldBlock`, because three handlers each built the
      * block by hand while the orchestrate path NSP actually calls had none. Assert the
      * handler DELEGATES; the block's own shape is asserted in
-     * nv-court-doc-fields-all-paths.test.ts against the builder's real output. */
+     * jrx-court-doc-fields-all-paths.test.ts against the builder's real output. */
     expect(ROUTES).toContain('buildCourtDocFieldBlock(extraction');
   });
 

@@ -1,10 +1,10 @@
 /**
- * NV-PROMPT-COMPILER-GATE-001 — proves whether the NYV_SPECIALIST_PROMPT_COMPILER
+ * NV-PROMPT-COMPILER-GATE-001 — proves whether the JRX_SPECIALIST_PROMPT_COMPILER
  * flag can ever fire for the 164 XML registry agents.
  *
- * The gate in nv-client.ts is:
+ * The gate in jrx-client.ts is:
  *     !/<section_1_identity>/i.test(effectiveSystemPrompt)
- *          && process.env.NYV_SPECIALIST_PROMPT_COMPILER === '1'
+ *          && process.env.JRX_SPECIALIST_PROMPT_COMPILER === '1'
  *
  * `effectiveSystemPrompt` at that point is the output of
  * assembleLayeredAgentSystemPrompt(), which embeds bundle.identity verbatim —

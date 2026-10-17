@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — LLM Providers Seed
- * NYV-SCRIPT-SEED-LLM-001
+ * Jurexio Platform 3.1.2 — LLM Providers Seed
+ * JRX-SCRIPT-SEED-LLM-001
  * Seeds all 23 supported LLM providers into nv_llm_providers
  */
 

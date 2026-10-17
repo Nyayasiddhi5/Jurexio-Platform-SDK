@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Jurexio Enterprise Platform 3.1.2 — SDK Provision Routes
- * NYV-SDK-PROVISION-001
+ * JRX-SDK-PROVISION-001
  *
  * SDK initialization handshake — called by a Jurexio platform on startup.
  * Validates the SDK API key and returns the full configuration payload.
@@ -76,24 +76,24 @@ router.post('/provision', LEGACY_SDK_KEYS_DEPRECATION, sdkGatewayAuth, tenantIso
     `;
 
     if (!keyRows.length) {
-      // NYV-NS-012 (2026-05-01): explicit `return` closes CWE-285 — without it
+      // JRX-NS-012 (2026-05-01): explicit `return` closes CWE-285 — without it
       // the handler kept executing after the 401 response and either threw
       // ERR_HTTP_HEADERS_SENT or hit the DB with an undefined row.
-      res.status(401).json({ error: 'NYV-PROV-401: Invalid or revoked SDK key' });
+      res.status(401).json({ error: 'JRX-PROV-401: Invalid or revoked SDK key' });
       return;
     }
 
     const row = keyRows[0];
 
     if (!row.is_active) {
-      res.status(403).json({ error: 'NYV-PROV-403: Platform is suspended' });
+      res.status(403).json({ error: 'JRX-PROV-403: Platform is suspended' });
       return;
     }
 
     // Check key expiry
     if (row.expires_at && new Date(row.expires_at as string) < new Date()) {
       res.status(401).json({
-        error: 'NYV-PROV-401: SDK key expired',
+        error: 'JRX-PROV-401: SDK key expired',
         expired_at: row.expires_at,
         action: 'Please rotate your SDK key via the Jurexio Enterprise Console',
       });
@@ -195,7 +195,7 @@ router.post('/provision', LEGACY_SDK_KEYS_DEPRECATION, sdkGatewayAuth, tenantIso
         jurisdiction_check: true,
       },
       sdk_endpoints: {
-        base_url: `${process.env.NYV_PUBLIC_URL ?? ''}/api/nv`,
+        base_url: `${process.env.JRX_PUBLIC_URL ?? ''}/api/nv`,
         completions: '/api/jrx/completions',
         agents: '/api/jrx/agents',
         intelligence: '/api/jrx/v1/sdk/intelligence',
@@ -211,13 +211,13 @@ router.post('/provision', LEGACY_SDK_KEYS_DEPRECATION, sdkGatewayAuth, tenantIso
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     logger.error('SDK provision error', { error: msg });
-    res.status(500).json({ error: 'NYV-PROV-500: Provision failed', detail: msg });
+    res.status(500).json({ error: 'JRX-PROV-500: Provision failed', detail: msg });
   }
 });
 
 // ─── POST /api/jrx/sdk/provision/validate ────────────────────────────────────
 
-// NYV-AUDIT-F9 (2026-05-05): rewritten to query CANONICAL v5 tables
+// JRX-AUDIT-F9 (2026-05-05): rewritten to query CANONICAL v5 tables
 // (public.sdk_app_api_keys + public.sdk_applications) instead of legacy
 // (nv_api_keys + nv_sdk_applications, which only hold the 14 pre-v5 keys).
 // All 7 v5 SDK keys (NSP, NSPM, NSI, NSM, NSA, NYM, JRX) live in the canonical
@@ -230,10 +230,10 @@ router.post('/provision/validate', async (req: Request, res: Response) => {
     const sql = getSql();
     const schema = z.object({ api_key: z.string().min(20) });
     const parsed = schema.safeParse(req.body);
-    if (!parsed.success) return res.status(400).json({ error: 'NYV-PROV-VAL-001: api_key required' });
+    if (!parsed.success) return res.status(400).json({ error: 'JRX-PROV-VAL-001: api_key required' });
 
     const keyHash = hashKey(parsed.data.api_key);
-    // NYV-AUDIT-F11 (2026-05-05): explicit ::int casts for booleans because
+    // JRX-AUDIT-F11 (2026-05-05): explicit ::int casts for booleans because
     // @neondatabase/serverless returns Postgres BOOLEAN as the literal value
     // false for true rows under the http-fetch transport (verified 2026-05-05:
     // `SELECT is_active FROM sdk_app_api_keys WHERE id=1` → false in neon,
@@ -272,7 +272,7 @@ router.post('/provision/validate', async (req: Request, res: Response) => {
       expires_at: r.expires_at ?? null,
     });
   } catch (err: unknown) {
-    // NYV-PROV-VAL-DEFENSIVE-001 (2026-05-07): /provision/validate exists for one
+    // JRX-PROV-VAL-DEFENSIVE-001 (2026-05-07): /provision/validate exists for one
     // purpose — answer "is this key valid, yes or no?". An internal exception
     // (e.g. @neondatabase/serverless processQueryResult crash on edge-case
     // result shapes — observed when a non-key string is hashed and the lookup
@@ -281,7 +281,7 @@ router.post('/provision/validate', async (req: Request, res: Response) => {
     // 200 + {valid:false} contract regardless of upstream library bugs.
     const msg = err instanceof Error ? err.message : String(err);
     const stack = err instanceof Error ? err.stack : '';
-    logger.warn('NYV-PROV-VAL-EXC: treating validation exception as invalid key', { error: msg, stack });
+    logger.warn('JRX-PROV-VAL-EXC: treating validation exception as invalid key', { error: msg, stack });
     return res.json({ valid: false, reason: 'Key not validatable' });
   }
 });
@@ -290,7 +290,7 @@ router.post('/provision/validate', async (req: Request, res: Response) => {
 
 router.post('/provision/health', sdkGatewayAuth, tenantIsolation, async (req: Request, res: Response) => {
   try {
-    // NYV-AUDIT-F5 (2026-05-05): forward-compatible. Allow extra fields so
+    // JRX-AUDIT-F5 (2026-05-05): forward-compatible. Allow extra fields so
     // future SDK versions can ship richer health payloads without triggering
     // false 400s at the gateway.
     const schema = z.object({
@@ -300,7 +300,7 @@ router.post('/provision/health', sdkGatewayAuth, tenantIsolation, async (req: Re
       active_connections: z.number().optional(),
     }).passthrough();
     const parsed = schema.safeParse(req.body);
-    if (!parsed.success) { res.status(400).json({ error: 'NYV-PROV-VAL-002: Invalid health payload' }); return; }
+    if (!parsed.success) { res.status(400).json({ error: 'JRX-PROV-VAL-002: Invalid health payload' }); return; }
 
     logger.info('Platform health ping received', { body: parsed.data });
     res.json({
@@ -310,7 +310,7 @@ router.post('/provision/health', sdkGatewayAuth, tenantIsolation, async (req: Re
     });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    res.status(500).json({ error: 'NYV-PROV-500: Health ping failed', detail: msg });
+    res.status(500).json({ error: 'JRX-PROV-500: Health ping failed', detail: msg });
   }
 });
 
@@ -319,7 +319,7 @@ router.post('/provision/health', sdkGatewayAuth, tenantIsolation, async (req: Re
 const CreateAppSchema = z.object({
   name: z.string().min(3).max(100),
   display_name: z.string().min(3).max(200).optional(),
-  platform_type: z.enum(['nyayamitra', 'professional', 'institutional', 'academy', 'ministry']).default('professional'),
+  platform_type: z.enum(['jurexio-citizen', 'professional', 'institutional', 'academy', 'ministry']).default('professional'),
   tier: z.enum(['free', 'solo', 'plus', 'pro', 'enterprise', 'internal']).default('pro'),
   jurisdiction: z.enum(['IN', 'UK', 'GC', 'EU', 'US', 'SG']).default('IN'),
   contact_email: z.string().email(),
@@ -336,13 +336,13 @@ const CreateAppSchema = z.object({
     hitl: z.boolean().default(true),
     sdk_intelligence: z.boolean().default(true),
   }).optional(),
-  // NYV-NS-013 (2026-05-01) — explicit opt-in for wildcard scopes; only
+  // JRX-NS-013 (2026-05-01) — explicit opt-in for wildcard scopes; only
   // honored when caller is super_admin. Default scopes are least-privilege.
   scopes: z.array(z.string().min(1).max(64)).max(32).optional(),
   wildcard_override: z.boolean().optional(),
 });
 
-// NYV-NS-013 (2026-05-01) — least-privilege defaults matching the runtime
+// JRX-NS-013 (2026-05-01) — least-privilege defaults matching the runtime
 // scope set documented in SDK-DEV-EC2-ACCESS §10.1.
 const DEFAULT_CREATE_APP_SCOPES = ['agents:read', 'agents:execute', 'research:read'];
 
@@ -351,7 +351,7 @@ router.post('/create-app', LEGACY_SDK_KEYS_DEPRECATION, authenticateToken, requi
     const parsed = CreateAppSchema.safeParse(req.body);
     if (!parsed.success) {
       res.status(400).json({
-        error: 'NYV-CREATE-VAL-001: Invalid app creation payload',
+        error: 'JRX-CREATE-VAL-001: Invalid app creation payload',
         validation: parsed.error.flatten().fieldErrors,
       });
       return;
@@ -365,22 +365,22 @@ router.post('/create-app', LEGACY_SDK_KEYS_DEPRECATION, authenticateToken, requi
     const restrictedTiers = ['enterprise', 'internal'];
     if (restrictedTiers.includes(tier) && !['super_admin', 'admin'].includes(userRole)) {
       res.status(403).json({
-        error: 'NYV-CREATE-AUTHZ-001: Insufficient privileges for requested tier',
+        error: 'JRX-CREATE-AUTHZ-001: Insufficient privileges for requested tier',
         detail: `Tier "${tier}" requires super_admin or admin role`,
       });
-      // NYV-NS-012 (2026-05-01) — explicit return closes the CWE-285
+      // JRX-NS-012 (2026-05-01) — explicit return closes the CWE-285
       // broken-access-control bug: prior code kept executing and minted
       // a real key + DB row despite responding 403 to the caller.
       return;
     }
 
-    // NYV-NS-013 (2026-05-01) — wildcard scopes are an opt-in superpower.
+    // JRX-NS-013 (2026-05-01) — wildcard scopes are an opt-in superpower.
     // Only super_admin can opt in, and only when wildcard_override === true.
     let resolvedScopes: string[];
     if (wildcardOverride) {
       if (userRole !== 'super_admin') {
         res.status(403).json({
-          error: 'NYV-CREATE-AUTHZ-002: wildcard_override requires super_admin',
+          error: 'JRX-CREATE-AUTHZ-002: wildcard_override requires super_admin',
           detail: 'Only super_admin may mint keys with wildcard scopes',
         });
         return;
@@ -390,7 +390,7 @@ router.post('/create-app', LEGACY_SDK_KEYS_DEPRECATION, authenticateToken, requi
       // Caller supplied explicit scopes — honor them, but block the wildcard.
       if (requestedScopes.includes('*')) {
         res.status(400).json({
-          error: 'NYV-CREATE-VAL-002: bare "*" scope rejected',
+          error: 'JRX-CREATE-VAL-002: bare "*" scope rejected',
           detail: 'Use wildcard_override:true (super_admin only) to mint a wildcard key',
         });
         return;
@@ -430,7 +430,7 @@ router.post('/create-app', LEGACY_SDK_KEYS_DEPRECATION, authenticateToken, requi
 
     const jurisdictionsArr = `{${allJurisdictions.join(',')}}`;
     const agentsAllowedArr = `{${agentsAllowed.join(',')}}`;
-    // NYV-NS-013 (2026-05-01) — was hardcoded to '{*}' (wildcard everything),
+    // JRX-NS-013 (2026-05-01) — was hardcoded to '{*}' (wildcard everything),
     // now uses the caller-aware resolvedScopes set built above.
     const scopesArr = `{${resolvedScopes.join(',')}}`;
 
@@ -459,8 +459,8 @@ router.post('/create-app', LEGACY_SDK_KEYS_DEPRECATION, authenticateToken, requi
       )
     `;
 
-    // ── NYV-NS-002 (2026-05-01) ─────────────────────────────────────────
-    // DUAL-WRITE to the canonical tables that nv-sdk-gateway middleware
+    // ── JRX-NS-002 (2026-05-01) ─────────────────────────────────────────
+    // DUAL-WRITE to the canonical tables that jrx-sdk-gateway middleware
     // actually reads (sdk_applications + sdk_app_api_keys). Without this,
     // every key minted here is INVISIBLE at runtime. The legacy inserts
     // above are kept for backwards compat with the keylife routes; both
@@ -508,7 +508,7 @@ router.post('/create-app', LEGACY_SDK_KEYS_DEPRECATION, authenticateToken, requi
       }
     } catch (dualErr: unknown) {
       const dualMsg = dualErr instanceof Error ? dualErr.message : String(dualErr);
-      logger.error('NYV-NS-002 canonical dual-write failed (legacy insert succeeded)', {
+      logger.error('JRX-NS-002 canonical dual-write failed (legacy insert succeeded)', {
         appId, error: dualMsg,
       });
     }
@@ -517,8 +517,8 @@ router.post('/create-app', LEGACY_SDK_KEYS_DEPRECATION, authenticateToken, requi
       appId, canonicalAppId, name, tier, jurisdiction, platform_type,
     });
 
-    // NYV-NS-014 (2026-05-01) — quickstart block was returning the marketing
-    // host (api.nyayavigya.in), the wrong execute path (no :agentId segment),
+    // JRX-NS-014 (2026-05-01) — quickstart block was returning the marketing
+    // host (api.jurexio.com), the wrong execute path (no :agentId segment),
     // and the wrong body field (`task` instead of `prompt`). Now derived from
     // the live request and matches what /agents/:id/execute actually accepts.
     const proto = (req.headers['x-forwarded-proto'] as string)?.split(',')[0]?.trim() || req.protocol || 'https';
@@ -557,14 +557,14 @@ router.post('/create-app', LEGACY_SDK_KEYS_DEPRECATION, authenticateToken, requi
         npm_package: '@jurexio/client-sdk',
         package_version: '5.0.0',
         docs: 'See docs/v3.1.2/SDK-DEV-EC2-ACCESS-2026-05-01.md and SDK-RELEASE-2026-05-03.md',
-        example: `import { NyvClient } from '@jurexio/client-sdk';\nconst nyv = new NyvClient({ apiKey: '${rawKey.substring(0, 20)}...', baseUrl: '${liveBaseUrl}' });\nconst result = await nyv.agents.execute({ agentId: 'contract-specialist', prompt: 'Review this NDA', jurisdiction: '${jurisdiction}' });`,
+        example: `import { JrxClient } from '@jurexio/client-sdk';\nconst nyv = new JrxClient({ apiKey: '${rawKey.substring(0, 20)}...', baseUrl: '${liveBaseUrl}' });\nconst result = await nyv.agents.execute({ agentId: 'contract-specialist', prompt: 'Review this NDA', jurisdiction: '${jurisdiction}' });`,
       },
       created_at: new Date().toISOString(),
     });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     logger.error('SDK app creation failed', { error: msg });
-    res.status(500).json({ error: 'NYV-CREATE-500: App creation failed', detail: msg });
+    res.status(500).json({ error: 'JRX-CREATE-500: App creation failed', detail: msg });
   }
 });
 

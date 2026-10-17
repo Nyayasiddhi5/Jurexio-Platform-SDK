@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Queen Orchestrator - Intelligent Task Decomposition & Multi-Agent Routing
  * 
@@ -38,10 +38,10 @@ import {
   runWithSpan,
   runWithRunRoot,
   getRunRootSpan,
-  type NyvSpan,
-} from '../utils/nyv-tracer.js';
+  type JrxSpan,
+} from '../utils/jrx-tracer.js';
 import { buildAgentCacheNamespace } from '../services/jrx-cache-namespace.js';
-import { getPatternAutoSelector } from '../services/nyv-pattern-auto-selector.js';
+import { getPatternAutoSelector } from '../services/jrx-pattern-auto-selector.js';
 import {
   patternCapabilityHint,
   patternPreferredTopologyId,
@@ -101,7 +101,7 @@ import {
 // site below. Each hook is a no-op when its JRX_F_GOV_* flag is OFF (the
 // default) — the orchestrator behaves byte-for-byte as before. When ON, the
 // hook participates in the safety ring per NV-ARCH-001.
-import { isNyvFeatureOn as _govFlagOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn as _govFlagOn } from '../config/jrx-feature-flags.js';
 import { isBedrockFirstPolicy, isPartnerLegalPremiumFirst } from '../config/jrx-llm-routing-policy.js';
 import { remapQueenPreferredForClaude55 } from '../config/jrx-bedrock-claude55-policy.js';
 import { NV_TIMEOUTS } from '../config/jrx-timeout-policy.js';
@@ -391,7 +391,7 @@ const logger = createLogger('queen-orchestrator');
  * type lives here.
  *
  * Note: `orchestrationId` is now a first-class typed field on
- * `OrchestrationRequest` (NYV-ORCH-EVENT-CORRELATION-002, Task #37) so the
+ * `OrchestrationRequest` (JRX-ORCH-EVENT-CORRELATION-002, Task #37) so the
  * cross-request leak prevention contract is enforceable at compile time.
  */
 type OrchRequestExt = OrchestrationRequest & {
@@ -426,7 +426,7 @@ type OrchRequestExt = OrchestrationRequest & {
   __queenCotSkippedProgression?: boolean;
   __queenCotSkippedSla?: boolean;
   __requestPhase?: RequestPhase;
-  // NYV-ORCH-CACHE-001 (Task #38): tally of per-agent prompt cache hits in
+  // JRX-ORCH-CACHE-001 (Task #38): tally of per-agent prompt cache hits in
   // the current orchestration run. Bumped inside callAgentInner whenever an
   // agent answer is served from lmCacheService instead of the LLM, and
   // surfaced on OrchestrationResult.metadata.cacheHits at fan-in time.
@@ -436,7 +436,7 @@ type OrchRequestExt = OrchestrationRequest & {
   /** Set after Queen Step-0 memory fan-in so per-leaf PRE does not wait again. */
   memoryAlreadyApplied?: boolean;
   /**
-   * NYV-ORCH-SAFETY-VERDICT-001: last user-facing middleware safety verdict
+   * JRX-ORCH-SAFETY-VERDICT-001: last user-facing middleware safety verdict
    * stamped by callAgent / synthesizeWithLLM. Legal-chat + partner envelopes
    * map middleware pass|review|reject → allow|review|block.
    */
@@ -669,7 +669,7 @@ function requireOrchestrationId(request: OrchestrationRequest): string {
 type SubtaskWithCapability = Subtask & { assignedCapabilityId?: string };
 
 /**
- * NYV-ORCH-MW-003 (Task #34, code-review round 2): there is NO capability-id
+ * JRX-ORCH-MW-003 (Task #34, code-review round 2): there is NO capability-id
  * exemption allowlist. The previous "skip the safety ring for these IDs"
  * design was a governance bypass — capabilities like `safety.explainability`,
  * `compliance.consent`, `metering.usage-log`, `memory.tiered.recall`,
@@ -914,7 +914,7 @@ interface Agent {
   description?: string;
   protocols?: string[];
   systemPrompt?: string;
-  /** Registry tools[] — mapped to capability leaves via nv-agent-tool-bridge. */
+  /** Registry tools[] — mapped to capability leaves via jrx-agent-tool-bridge. */
   tools?: string[];
   /** Registry mcpToolsAllowed — partner/MCP allowlist (execution via bridge). */
   mcpToolsAllowed?: string[];
@@ -1123,7 +1123,7 @@ function toPreferredModelRouting(modelId: string): { provider: string; model: st
  * frontier model, professional quality level, or a 16 k output window. Synthesis
  * and aggregation nodes DO: they author what the user reads.
  *
- * Classification lives in `nv-queen-node-role.ts` so it is unit-testable without
+ * Classification lives in `jrx-queen-node-role.ts` so it is unit-testable without
  * booting the agent graph. This is the plan's §8.5 leaf/synthesis split, applied
  * at the one place that actually dispatches a model.
  */
@@ -1150,16 +1150,16 @@ async function resolveAgentModelRouting(
     expectedOutputTokens: role === 'exploration' ? 2_048 : 8_192,
   });
 
-  // NYV_IGNORE_REGISTRY_PREFERRED_MODELS=1 → Bedrock-first / policy cascade only
+  // JRX_IGNORE_REGISTRY_PREFERRED_MODELS=1 → Bedrock-first / policy cascade only
   // (use when rolling back preferredModels stamps without swapping registry files).
   const ignorePreferred = /^(1|true|yes|on)$/i.test(
-    String(process.env.NYV_IGNORE_REGISTRY_PREFERRED_MODELS || ''),
+    String(process.env.JRX_IGNORE_REGISTRY_PREFERRED_MODELS || ''),
   );
   if (ignorePreferred) {
     return {
       provider: scored.provider,
       model: scored.model,
-      reason: 'NYV_IGNORE_REGISTRY_PREFERRED_MODELS + scored pick',
+      reason: 'JRX_IGNORE_REGISTRY_PREFERRED_MODELS + scored pick',
     };
   }
 
@@ -1226,7 +1226,7 @@ export interface OrchestrationRequest {
   enableCoT?: boolean;
   cotStrategy?: string;
   /**
-   * NYV-ORCH-EVENT-CORRELATION-002 (Task #37): per-run correlation id
+   * JRX-ORCH-EVENT-CORRELATION-002 (Task #37): per-run correlation id
    * stamped on every Queen lifecycle event payload, span tag and
    * structured log line. Set by `orchestrate()` at entry; callers that
    * need the id known up-front may pre-pin it here.
@@ -1240,7 +1240,7 @@ export interface OrchestrationRequest {
    */
   orchestrationId?: string;
   /**
-   * NYV-ORCH-PER-REQUEST-EMITTER-001 (Task #64): per-request lifecycle
+   * JRX-ORCH-PER-REQUEST-EMITTER-001 (Task #64): per-request lifecycle
    * event sink. The orchestrator emits `decomposition_complete`,
    * `agent_started`, `agent_completed`, `agent_failed`, `synthesis_started`,
    * and `synthesis_complete` onto THIS emitter — never onto the singleton
@@ -1253,7 +1253,7 @@ export interface OrchestrationRequest {
    */
   lifecycleEvents?: QueenLifecycleEmitter;
   /**
-   * NYV-OBS-TENANT-FIELDS-001 (Task #28 round 7): tenant + tier are
+   * JRX-OBS-TENANT-FIELDS-001 (Task #28 round 7): tenant + tier are
    * first-class on the request so route handlers can plumb them
    * through without `as any` casts. The Queen tags every span with
    * tenantId so per-tenant latency aggregation works end-to-end.
@@ -1322,7 +1322,7 @@ export interface AgentExecution {
   cost?: number;
   model?: string;
   /**
-   * NYV-ORCH-CACHE-001 (Task #38): true when the agent answer was served
+   * JRX-ORCH-CACHE-001 (Task #38): true when the agent answer was served
    * from the LLM prompt cache (lmCacheService) rather than a fresh LLM
    * call. Synthesis still consumes `output` the same way; this flag is
    * surfaced for observability + the orchestration-level cacheHits tally.
@@ -1336,7 +1336,7 @@ export interface OrchestrationResult {
   executions: AgentExecution[];
   synthesizedOutput: string;
   /**
-   * NYV-ORCH-SAFETY-VERDICT-001: mapped safety outcome from the last
+   * JRX-ORCH-SAFETY-VERDICT-001: mapped safety outcome from the last
    * user-facing middleware pass (agent dispatch and/or synthesis).
    * Consumers (legal-chat SSE, partner /orchestrate) must honour `block`.
    */
@@ -1360,13 +1360,13 @@ export interface OrchestrationResult {
     /** NV-CTX-ENG-QUEEN-001 — applied context-engineering stats (fail-soft). */
     contextEngineering?: unknown;
     /**
-     * NYV-ORCH-CACHE-001 (Task #38): number of per-agent dispatches in this
+     * JRX-ORCH-CACHE-001 (Task #38): number of per-agent dispatches in this
      * orchestration that were served from the prompt cache instead of the
      * LLM. Always present (0 when the cache returned no hits).
      */
     cacheHits: number;
     /**
-     * NYV-A5-VERBALISE-001: post-synthesis calibrated confidence statement
+     * JRX-A5-VERBALISE-001: post-synthesis calibrated confidence statement
      * produced by the verbalised-sampling service. Present only when the
      * caller opted in (priority high|critical OR metadata.verbalize===true).
      * Pure post-processing; never mutates `synthesizedOutput`. Shape mirrors
@@ -1384,7 +1384,7 @@ export interface CollectiveIntelligenceMode {
 }
 
 // ================================================================================================
-// QUEEN LIFECYCLE EVENT PAYLOADS (NYV-ORCH-EVENT-CORRELATION-002, Task #37)
+// QUEEN LIFECYCLE EVENT PAYLOADS (JRX-ORCH-EVENT-CORRELATION-002, Task #37)
 // ================================================================================================
 // Each payload REQUIRES `orchestrationId: string` so the AG-UI listener filter
 // (which keys on `payload.orchestrationId === myOrchestrationId`) cannot be
@@ -1485,7 +1485,7 @@ export interface QueenLifecycleEventMap {
 }
 
 // ================================================================================================
-// PER-REQUEST LIFECYCLE EMITTER (NYV-ORCH-PER-REQUEST-EMITTER-001, Task #64)
+// PER-REQUEST LIFECYCLE EMITTER (JRX-ORCH-PER-REQUEST-EMITTER-001, Task #64)
 // ================================================================================================
 //
 // Earlier rounds (Tasks #27 / #36 / #37) routed every Queen lifecycle event
@@ -1594,7 +1594,7 @@ export class QueenOrchestrator extends EventEmitter {
   }
 
   // ================================================================================================
-  // TYPED LIFECYCLE EVENT API (NYV-ORCH-PER-REQUEST-EMITTER-001, Task #64)
+  // TYPED LIFECYCLE EVENT API (JRX-ORCH-PER-REQUEST-EMITTER-001, Task #64)
   // ================================================================================================
   //
   // All internal lifecycle emits go through `emitLifecycle(request, …)`.
@@ -1607,7 +1607,7 @@ export class QueenOrchestrator extends EventEmitter {
   // Subscribers no longer attach to the singleton: they construct a
   // `QueenLifecycleEmitter`, attach listeners to it directly, and pass it
   // via `request.lifecycleEvents` before calling `orchestrate()`. See
-  // `nv-agui-stream-routes.ts` for the canonical pattern.
+  // `jrx-agui-stream-routes.ts` for the canonical pattern.
   //
   // The base `emit` / `on` are still inherited for the non-lifecycle
   // `orchestration_complete` broadcast (consumed by sdk-webhook-listener),
@@ -1642,7 +1642,7 @@ export class QueenOrchestrator extends EventEmitter {
     // so per-node budgets shrink as the request ages instead of each node
     // claiming a fresh tier cap.
     startQueenDeadline(request, startTime);
-    // NYV-ORCH-EVENT-CORRELATION-001 (Task #27, post-architect): every Queen
+    // JRX-ORCH-EVENT-CORRELATION-001 (Task #27, post-architect): every Queen
     // run gets a unique orchestrationId attached to ALL lifecycle event
     // payloads, span tags and structured log lines for cross-cut audit and
     // observability. Honour an externally-provided id; otherwise mint a
@@ -1656,7 +1656,7 @@ export class QueenOrchestrator extends EventEmitter {
       `orch-${startTime.toString(36)}-${crypto.randomBytes(4).toString('hex')}`;
     request.orchestrationId = orchestrationId;
     setRequestPhase(asExt(request), 'accepted');
-    // NYV-ORCH-PER-REQUEST-EMITTER-001 (Task #64): every run owns a
+    // JRX-ORCH-PER-REQUEST-EMITTER-001 (Task #64): every run owns a
     // private lifecycle emitter. Callers (e.g. AG-UI route) that need to
     // subscribe before orchestration starts pre-create one and pass it on
     // the request; everyone else gets a freshly-minted emitter that is
@@ -1667,7 +1667,7 @@ export class QueenOrchestrator extends EventEmitter {
     if (!request.lifecycleEvents) {
       request.lifecycleEvents = new QueenLifecycleEmitter();
     }
-    // NYV-ORCH-CACHE-001 (Task #38): zero the per-run cache-hit counter at
+    // JRX-ORCH-CACHE-001 (Task #38): zero the per-run cache-hit counter at
     // entry so a request object reused across multiple orchestrate() calls
     // (e.g. retries, A/B fan-out) reports a clean tally per run.
     asExt(request).__cacheHits = 0;
@@ -1675,21 +1675,21 @@ export class QueenOrchestrator extends EventEmitter {
     logger.info(`📝 Prompt: ${request.prompt.substring(0, 100)}...`);
     logger.info(`🏷️  Type: ${request.type}`);
 
-    // NYV-OBS-QUEEN-SPAN-001 (Task #28): root span for the whole run.
+    // JRX-OBS-QUEEN-SPAN-001 (Task #28): root span for the whole run.
     // Every child phase span (rag, decompose, execute, synthesis) is
     // attached via { parent: rootSpan }. Tag set is intentionally
     // small + searchable so we can group "p95 by jurisdiction" easily.
-    // NYV-OBS-TENANT-CORRELATION-001 (Task #28 round 4): include tenantId
+    // JRX-OBS-TENANT-CORRELATION-001 (Task #28 round 4): include tenantId
     // on every Queen span so cross-tenant queries on Sentry/CloudWatch
     // ("p95 by tenant") work without joining a separate index. tenantId is
     // optional on the request — fall back to 'unknown' so the tag is
     // always present for grouping.
     const _reqExt = request as OrchRequestExt;
     const _tenantId = _reqExt.tenantId ?? 'unknown';
-    // NYV-ORCH-MEM-003 (Task #27 round 2): normalize sessionId/userId from
+    // JRX-ORCH-MEM-003 (Task #27 round 2): normalize sessionId/userId from
     // BOTH top-level and request.metadata. Caller paths differ —
-    // nv-legal-chat-routes.ts passes sessionId via `metadata.sessionId`,
-    // nv-agui-stream-routes.ts passes it top-level, and other orchestrate
+    // jrx-legal-chat-routes.ts passes sessionId via `metadata.sessionId`,
+    // jrx-agui-stream-routes.ts passes it top-level, and other orchestrate
     // callers may use either. Without this normalization the recall/remember
     // hooks below silently no-op for the legal-chat path. memSessionId /
     // memUserId are the single source of truth for memory wiring below.
@@ -1721,7 +1721,7 @@ export class QueenOrchestrator extends EventEmitter {
     // method is idempotent (early-returns when isInitialized=true).
     await this.initialize();
 
-    // NYV-OBS-SPAN-CONTEXT-001 (Task #61): install the root span in BOTH
+    // JRX-OBS-SPAN-CONTEXT-001 (Task #61): install the root span in BOTH
     // ALS slots for the whole orchestration body:
     //   • runRootContext (via runWithRunRoot) → the run's pinned root,
     //     readable via getRunRootSpan() from anywhere inside, used by
@@ -1804,7 +1804,7 @@ export class QueenOrchestrator extends EventEmitter {
               topK: budgets.ragTopK,
               /* NV-CITE-GROUND-001 (2026-08-19) — the Queen path passed `ragTopK`
                * but neither char cap, so `formatAutoRagContext` ran in its
-               * unbounded mode here. `nv-client.ts` (the specialist path) has
+               * unbounded mode here. `jrx-client.ts` (the specialist path) has
                * passed both since NV-RAG-CHAR-BUDGET-001; the Queen was the
                * remaining uncapped consumer, and it is the one NSP and the
                * console take. Passing them also makes the authority roll-up
@@ -2067,10 +2067,10 @@ export class QueenOrchestrator extends EventEmitter {
         const { agentRetrievalPolicyDirective } = await import(
           '../services/jrx-agent-retrieval-policy.js'
         );
-        const { isNyvFeatureOn } = await import('../config/jrx-feature-flags.js');
+        const { isJrxFeatureOn } = await import('../config/jrx-feature-flags.js');
         const policy = agentRetrievalPolicyDirective({
           jurisdiction: request.jurisdiction || 'IN',
-          nysPlaneOn: isNyvFeatureOn('nysKnowledgePlane'),
+          nysPlaneOn: isJrxFeatureOn('nysKnowledgePlane'),
         });
         request = {
           ...request,
@@ -2156,7 +2156,7 @@ export class QueenOrchestrator extends EventEmitter {
         logger.warn(`[Queen] context engineering skipped (non-fatal): ${ctxErr instanceof Error ? ctxErr.message : String(ctxErr)}`);
       }
 
-      // NYV-ORCH-SKILLS-002 (Task #32 round 3): if the caller did not pre-pass
+      // JRX-ORCH-SKILLS-002 (Task #32 round 3): if the caller did not pre-pass
       // a skillsAllowedCapabilities allowlist, derive it from the
       // SkillsSystemService for this request's tier × jurisdiction × intent.
       // This wires the skills surface into orchestration entry — tier/jurisdiction
@@ -2224,7 +2224,7 @@ export class QueenOrchestrator extends EventEmitter {
         if (directive) _reqExt.patternDirective = directive;
       }
 
-      // NYV-OBS-QUEEN-MEMORY-001 (Task #28 round 3): record a memory-pressure
+      // JRX-OBS-QUEEN-MEMORY-001 (Task #28 round 3): record a memory-pressure
       // snapshot at orchestration start so operators can correlate "this run
       // was slow" with "the platform was under heap pressure when it ran".
       // The span finishes immediately — it is a point-in-time read, not a
@@ -2241,7 +2241,7 @@ export class QueenOrchestrator extends EventEmitter {
             tenantId: _tenantId,
             jurisdiction: _reqExt.jurisdiction ?? 'IN',
             tier: _reqExt.tier ?? _reqExt.userTier ?? 'lite',
-            // NYV-OPS-MEMORY-SHAPE-001 (Task #28 round 5): match the real
+            // JRX-OPS-MEMORY-SHAPE-001 (Task #28 round 5): match the real
             // nested shape returned by nvMemoryManager.getStats().
             // Round-3 used flat `sessionEntries`/`longtermEntries`/
             // `socialEntries` which never existed → every span tag was 0.
@@ -2275,7 +2275,7 @@ export class QueenOrchestrator extends EventEmitter {
           const d = await this.decomposeTask(request);
           s.setTag('subtaskCount', d.subtasks.length);
           s.setTag('algorithm', d.decompositionAlgorithm ?? 'unknown');
-          // NYV-OBS-TAG-NORMALIZE-001 (Task #28 round 3): use
+          // JRX-OBS-TAG-NORMALIZE-001 (Task #28 round 3): use
           // `orchestrationPattern` so getTaggedSpanLatencies (which keys on
           // TRACKED_TAG_KEYS=['orchestrationPattern',…]) actually buckets it.
           s.setTag('orchestrationPattern', d.orchestrationPattern ?? 'unknown');
@@ -2302,7 +2302,7 @@ export class QueenOrchestrator extends EventEmitter {
           ? { preferredTopologyId }
           : {}),
       };
-      // NYV-OBS-PATTERN-ROOT-001 (Task #28 round 11): once decomposition
+      // JRX-OBS-PATTERN-ROOT-001 (Task #28 round 11): once decomposition
       // resolves the orchestrationPattern, propagate it onto the
       // queen.orchestrate ROOT span as well as the subtaskCount. The
       // pattern was previously only on the queen.decompose phase span,
@@ -2328,7 +2328,7 @@ export class QueenOrchestrator extends EventEmitter {
       logger.info(`🤖 Agents assigned: ${decomposition.subtasks.filter(s => s.assignedAgent).length}`);
       setRequestPhase(asExt(request), 'generating');
 
-      // NYV-ORCH-LIFECYCLE-001 (Task #27): emit a decomposition_complete event
+      // JRX-ORCH-LIFECYCLE-001 (Task #27): emit a decomposition_complete event
       // so AG-UI streaming subscribers can render the plan to the user before
       // any agent executes (gives the user immediate feedback during long runs).
       this.emitLifecycle(request, 'decomposition_complete', {
@@ -2355,7 +2355,7 @@ export class QueenOrchestrator extends EventEmitter {
           tags: {
             orchestrationId,
             tenantId: _tenantId,
-            // NYV-OBS-TAG-NORMALIZE-001 (Task #28 round 3): keep both keys
+            // JRX-OBS-TAG-NORMALIZE-001 (Task #28 round 3): keep both keys
             // — `orchestrationPattern` is the bucketed dimension (matches
             // TRACKED_TAG_KEYS), `pattern` stays for back-compat with
             // existing dashboards that already filter on it.
@@ -2429,7 +2429,7 @@ export class QueenOrchestrator extends EventEmitter {
         logger.warn('queen_statute_qa_gate_failed', { error: e?.message || String(e) });
       }
 
-      // NYV-ORCH-MEM-002 (Task #27): persist the (prompt, output) pair to
+      // JRX-ORCH-MEM-002 (Task #27): persist the (prompt, output) pair to
       // session memory so the next turn in the same session can recall it.
       // Fire-and-forget within try/catch — memory write failure must NOT
       // poison a successful orchestration.
@@ -2465,13 +2465,13 @@ export class QueenOrchestrator extends EventEmitter {
 
       const totalTime = Date.now() - startTime;
 
-      // NYV-ORCH-CACHE-001 (Task #38): roll up the per-agent cache hit
+      // JRX-ORCH-CACHE-001 (Task #38): roll up the per-agent cache hit
       // counter (bumped inside callAgentInner) onto the public result so
       // observability + perf dashboards can compute hit rate without
       // having to re-walk the executions array.
       const cacheHits = asExt(request).__cacheHits ?? 0;
 
-      // A5 — Verbalised sampling for high-stakes drafting (NYV-A5-VERBALISE-001)
+      // A5 — Verbalised sampling for high-stakes drafting (JRX-A5-VERBALISE-001)
       // Opt-in: triggers when priority is high/critical OR caller explicitly
       // sets metadata.verbalize. Computes a calibrated confidence statement
       // from execution-level confidence signals (or a sane default) and
@@ -2563,7 +2563,7 @@ export class QueenOrchestrator extends EventEmitter {
   // ================================================================================================
 
   /**
-   * NYV-SDK-AUTO-ORCH-001 (2026-06-12): public, zero-LLM-call complexity probe.
+   * JRX-SDK-AUTO-ORCH-001 (2026-06-12): public, zero-LLM-call complexity probe.
    *
    * Route handlers (notably the partner /api/jrx/orchestrate path) call this to
    * decide whether a request warrants full Queen multi-agent orchestration or
@@ -2629,7 +2629,7 @@ export class QueenOrchestrator extends EventEmitter {
 
     const forcedMode = request.orchestrationMode;
 
-    // NYV-P1-ORCH-CORE-001 (item A) — OPTIONAL LLM-driven planner.
+    // JRX-P1-ORCH-CORE-001 (item A) — OPTIONAL LLM-driven planner.
     // Flag-gated (JRX_F_QUEEN_LLM_PLANNER, default OFF) and only attempted
     // when the caller did NOT force an orchestration mode. The planner routes
     // a compact planning prompt through the EXISTING safety-ring entrypoint
@@ -2732,7 +2732,7 @@ export class QueenOrchestrator extends EventEmitter {
       orchestrationPattern,
       estimatedAgents: subtasks.length,
       estimatedTime: subtasks.length * 2000, // 2s per subtask estimate
-      // NYV-P1-ORCH-CORE-001 (item A): record provenance so observers can tell
+      // JRX-P1-ORCH-CORE-001 (item A): record provenance so observers can tell
       // an LLM-planned decomposition apart from the keyword-heuristic one.
       decompositionAlgorithm: llmPlan ? 'LLM_PLANNER' : algorithm,
       metadata: {
@@ -2762,7 +2762,7 @@ export class QueenOrchestrator extends EventEmitter {
   }
 
   /**
-   * NYV-P1-ORCH-CORE-001 (item A) — LLM-driven decomposition planner.
+   * JRX-P1-ORCH-CORE-001 (item A) — LLM-driven decomposition planner.
    *
    * Asks the planning model for a STRICT JSON plan and maps it onto the
    * existing {@link Subtask}/{@link TaskDecomposition} types. The call flows
@@ -3099,14 +3099,14 @@ Produce the JSON plan now.`;
     if (/\baudit\s*trail\b|\btrail\b/.test(normalizedPrompt) && /\b(nyaya|audit|legal)\b/.test(normalizedPrompt)) {
       patternHintTokens.add('trail');
     }
-    if (/\bregulatory\s*watch\b|\bnyaya-tools\.watch\b/.test(normalizedPrompt)) patternHintTokens.add('watch');
+    if (/\bregulatory\s*watch\b|\bjrx-legal-tools\.watch\b/.test(normalizedPrompt)) patternHintTokens.add('watch');
     if (/\blegal\s*(intel(ligence)?|feed|digest)\b|\btoday'?s\s+(judgments?|rulings?)\b|\bgazette\s+news\b|\bregulatory\s+feed\b/.test(normalizedPrompt)) {
       patternHintTokens.add('legal_feed');
     }
     if (/\b(instant\s*search|find\s+section|typeahead|statute\s+lookup)\b/.test(normalizedPrompt)) {
       patternHintTokens.add('instant_search');
     }
-    if (/\bknowledge\s*graph\b|\bnyaya-tools\.graph\b/.test(normalizedPrompt)) patternHintTokens.add('graph');
+    if (/\bknowledge\s*graph\b|\bjrx-legal-tools\.graph\b/.test(normalizedPrompt)) patternHintTokens.add('graph');
     if (/\bweb\s*search\b|\bwebsearch\b/.test(normalizedPrompt)) patternHintTokens.add('web_search');
     if (/\bnotebook\b/.test(normalizedPrompt)) patternHintTokens.add('notebook');
     if (/\bfinancial\s*data\b|\benterprise\.financial\b/.test(normalizedPrompt)) patternHintTokens.add('financial');
@@ -3555,7 +3555,7 @@ Produce the JSON plan now.`;
         continue;
       }
 
-      // Phase 3 (NYV-DECOMP-FALLBACK-001, round 10d): manifest-driven
+      // Phase 3 (JRX-DECOMP-FALLBACK-001, round 10d): manifest-driven
       // category fallback. When neither the intent map nor the keyword
       // scorer produced a confident bind, walk the candidate set looking
       // for a category that overlaps the subtask's type/requirement
@@ -3593,12 +3593,12 @@ Produce the JSON plan now.`;
     // NV-QUEEN-NEVER-MISS-001: never refuse orchestration in production for
     // unbound ADaPT/HTA leaves. Soft-bind to agent.auto-select (or first
     // candidate) so Queen continues and partners always get a response.
-    // Escape hatch: NYV_QUEEN_HARD_BIND_FAIL=1 restores legacy throw.
+    // Escape hatch: JRX_QUEEN_HARD_BIND_FAIL=1 restores legacy throw.
     if (unboundInProd.length > 0) {
       const summary = `[QueenOrchestrator] capability binding miss for ${unboundInProd.length} subtask(s): ${unboundInProd.slice(0, 5).join(', ')}${unboundInProd.length > 5 ? '...' : ''}`;
-      const hardFail = String(process.env.NYV_QUEEN_HARD_BIND_FAIL || '').trim() === '1';
+      const hardFail = String(process.env.JRX_QUEEN_HARD_BIND_FAIL || '').trim() === '1';
       if (hardFail && process.env.NODE_ENV === 'production') {
-        logger.error(summary + ' — refusing to proceed in production (NYV_QUEEN_HARD_BIND_FAIL=1)');
+        logger.error(summary + ' — refusing to proceed in production (JRX_QUEEN_HARD_BIND_FAIL=1)');
         throw new Error(summary + ' — register an INTENT_CAPABILITY_MAP entry in src/orchestration/capability-manifest.ts');
       }
 
@@ -3624,7 +3624,7 @@ Produce the JSON plan now.`;
         (decomposition.metadata as Record<string, unknown>).capabilityBindingTrace = bindingTrace;
         (decomposition.metadata as Record<string, unknown>).capabilitySoftBound = unboundInProd;
       }
-      logger.warn(summary + ` — soft-bound to ${softId} (never-miss; set NYV_QUEEN_HARD_BIND_FAIL=1 to refuse)`);
+      logger.warn(summary + ` — soft-bound to ${softId} (never-miss; set JRX_QUEEN_HARD_BIND_FAIL=1 to refuse)`);
     }
   }
 
@@ -3872,7 +3872,7 @@ Produce the JSON plan now.`;
       throw new Error(`executeParallel halted: ${decision.reason} (failed=${failed}/${independentSubtasks.length})`);
     }
 
-    // Dependents — wave-by-wave (NYV-SDK-AUTO-ORCH-001 latency fix,
+    // Dependents — wave-by-wave (JRX-SDK-AUTO-ORCH-001 latency fix,
     // 2026-06-12). Previously this loop ran EVERY dependent strictly
     // sequentially, so an ADaPT plan (initial → N domain tasks → quality
     // check) serialized all N domain tasks even though they only depend on
@@ -4138,7 +4138,7 @@ Produce the JSON plan now.`;
     subtask: Subtask, 
     request: OrchestrationRequest
   ): Promise<AgentExecution> {
-    // NYV-ORCH-PER-REQUEST-EMITTER-002 (post-architect 2026-05-05): lazy
+    // JRX-ORCH-PER-REQUEST-EMITTER-002 (post-architect 2026-05-05): lazy
     // initialise per-request emitter + orchestrationId AT THE PUBLIC
     // ENTRY (before withSpan tags resolve) so callers that bypass
     // orchestrate() — single-agent retries, AG-UI single-agent route,
@@ -4152,12 +4152,12 @@ Produce the JSON plan now.`;
     if (!request.orchestrationId) {
       request.orchestrationId = `orch-direct-${Date.now().toString(36)}-${crypto.randomBytes(4).toString('hex')}`;
     }
-    // NYV-OBS-AGENT-SPAN-001 (Task #28 round 2): wrap each agent execution
+    // JRX-OBS-AGENT-SPAN-001 (Task #28 round 2): wrap each agent execution
     // in a "queen.agent" span so /admin/health/full reports per-agent
     // boundaries (count, p50/p95/p99 latency, success/error rate) and
     // pattern-tagged buckets via TRACKED_TAG_KEYS. The span auto-finishes
     // with status=error on throw, matching the rest of the lifecycle.
-    // NYV-OBS-SPAN-CONTEXT-001 (Task #61): parent the queen.agent span
+    // JRX-OBS-SPAN-CONTEXT-001 (Task #61): parent the queen.agent span
     // DIRECTLY to the orchestration run's root via the tracer's typed
     // run-root ALS slot — preserving the original __rootSpan contract
     // where per-agent spans attached straight to queen.orchestrate
@@ -4194,14 +4194,14 @@ Produce the JSON plan now.`;
     agent: Agent,
     subtask: Subtask,
     request: OrchestrationRequest,
-    span: NyvSpan,
+    span: JrxSpan,
   ): Promise<AgentExecution> {
     const startTime = Date.now();
     logger.info(`   🤖 Executing: ${agent.name} on "${subtask.type}"`);
 
     subtask.status = 'in_progress';
 
-    // NYV-ORCH-PER-REQUEST-EMITTER-002 (post-architect 2026-05-05):
+    // JRX-ORCH-PER-REQUEST-EMITTER-002 (post-architect 2026-05-05):
     // orchestrate() lazy-creates `request.lifecycleEvents` AND
     // `request.orchestrationId` at entry, but executeAgent() is also a
     // public path (used by per-agent retries, unit tests, and the AG-UI
@@ -4218,7 +4218,7 @@ Produce the JSON plan now.`;
       request.orchestrationId = `orch-direct-${Date.now().toString(36)}-${crypto.randomBytes(4).toString('hex')}`;
     }
 
-    // NYV-ORCH-LIFECYCLE-002 (Task #27): emit per-agent lifecycle so AG-UI
+    // JRX-ORCH-LIFECYCLE-002 (Task #27): emit per-agent lifecycle so AG-UI
     // streaming subscribers can render real "agent started / agent completed"
     // events tied to the actual orchestration plan (not decorative).
     this.emitLifecycle(request, 'agent_started', {
@@ -4233,14 +4233,14 @@ Produce the JSON plan now.`;
     });
 
     try {
-      // NYV-ORCH-MANIFEST-DISPATCH-001 (Task #32 round 3): if this subtask
+      // JRX-ORCH-MANIFEST-DISPATCH-001 (Task #32 round 3): if this subtask
       // was bound to a manifest capability during bindCapabilitiesToSubtasks(),
       // route the call through the manifest invoker. This makes the manifest
       // the SSoT for execution — agent serves only as a metadata wrapper for
       // accounting/audit. Falls back to the legacy LLM path on failure or when
       // no binding exists.
       //
-      // NYV-ORCH-MW-003 (Task #34, code-review round 2): the manifest dispatch
+      // JRX-ORCH-MW-003 (Task #34, code-review round 2): the manifest dispatch
       // path ALWAYS flows through withMiddleware() — same as the LLM path —
       // so EVERY Queen-dispatched answer (LLM or manifest-bound, regardless
       // of capability id) is checked by the safety ring (hallucination/bias/
@@ -4454,7 +4454,7 @@ Produce the JSON plan now.`;
       const nodeRole = classifyQueenNodeRole(subtask);
 
       // Simulate agent execution (in production, this calls the LLM)
-      // NYV-ORCH-CACHE-001 (Task #38): callAgent now returns whether the
+      // JRX-ORCH-CACHE-001 (Task #38): callAgent now returns whether the
       // answer came from the prompt cache so we can mark `cacheHit` on the
       // execution and emit `via: 'cache'` instead of `via: 'llm'`.
       const { output, cacheHit } = await this.callAgent(agent, agentPrompt, request, nodeRole);
@@ -4499,7 +4499,7 @@ Produce the JSON plan now.`;
       return execution;
 
     } catch (error: unknown) {
-      // NYV-ORCH-FAILLOUD-001 (Task #32 round 4): executeAgent must propagate
+      // JRX-ORCH-FAILLOUD-001 (Task #32 round 4): executeAgent must propagate
       // real errors so the failure-policy primitives (runWithConcurrency +
       // evaluateFailures) see them as r.error, not as soft "completed-with-
       // failed-status" values. Sequential / single-agent paths catch this
@@ -4573,7 +4573,7 @@ Produce the JSON plan now.`;
       promptBytes,
     });
 
-    // NYV-ORCH-COORD-001 (Task #27): inject the cross-cutting Parlant + BMAD
+    // JRX-ORCH-COORD-001 (Task #27): inject the cross-cutting Parlant + BMAD
     // directives + language coordination at every agent prompt so each subtask
     // shares one disciplined behavioural contract. Synthesis re-applies these
     // at fan-in time to keep the final output consistent with subtask outputs.
@@ -4659,7 +4659,7 @@ Produce the highest-quality output for this subtask. Adhere strictly to all 23 s
   }
 
   /**
-   * NYV-ORCH-CACHE-001 (Task #38): build the prompt-cache namespace for a
+   * JRX-ORCH-CACHE-001 (Task #38): build the prompt-cache namespace for a
    * given agent dispatch. Cache entries are scoped per
    *   tenant × jurisdiction × agent
    * so that two tenants asking the same question never share a cached
@@ -4669,7 +4669,7 @@ Produce the highest-quality output for this subtask. Adhere strictly to all 23 s
    * sentinels so the namespace is deterministic.
    */
   private buildCacheNamespace(agent: Agent, reqExt: OrchRequestExt): string {
-    // NYV-CACHE-NS-001 (Task #66): namespace shape lives in a shared helper
+    // JRX-CACHE-NS-001 (Task #66): namespace shape lives in a shared helper
     // so admin invalidation routes (`/cache/admin/invalidate-*`) and the CLI
     // ops script can target the exact same buckets we wrote to here.
     const tenantId = reqExt.tenantId == null ? undefined : String(reqExt.tenantId);
@@ -4680,7 +4680,7 @@ Produce the highest-quality output for this subtask. Adhere strictly to all 23 s
   /**
    * Call the agent via the RealLLMService for production LLM inference.
    *
-   * NYV-ORCH-CACHE-001 (Task #38): returns `{ output, cacheHit }` so the
+   * JRX-ORCH-CACHE-001 (Task #38): returns `{ output, cacheHit }` so the
    * caller (executeAgent) can stamp the AgentExecution with the cache flag
    * and emit `via: 'cache' | 'llm'` correctly. The cache decision happens
    * inside callAgentInner; this wrapper carries the flag back through the
@@ -4692,7 +4692,7 @@ Produce the highest-quality output for this subtask. Adhere strictly to all 23 s
     request: OrchestrationRequest,
     role: QueenNodeRole = 'synthesis',
   ): Promise<{ output: string; cacheHit: boolean }> {
-    // NYV-ORCH-MW-001: every agent dispatch flows through the orchestration
+    // JRX-ORCH-MW-001: every agent dispatch flows through the orchestration
     // middleware ring (consent → memory → RAG → safety → exec → hallucination
     // → bias → memory persist → metering → audit) so all decomposition
     // patterns share one uniform contract.
@@ -4720,7 +4720,7 @@ Produce the highest-quality output for this subtask. Adhere strictly to all 23 s
       async (pre) => {
         const out = await this.callAgentInner(agent, pre.enrichedPrompt, request, role);
         cacheHit = out.cacheHit;
-        // NYV-ORCH-MW-002 (round 10c): hand the resolved {model, provider}
+        // JRX-ORCH-MW-002 (round 10c): hand the resolved {model, provider}
         // back to post-middleware so governance.model-policy runs uniformly
         // for every orchestrated dispatch — never gated on absent metadata.
         return {
@@ -4750,7 +4750,7 @@ Produce the highest-quality output for this subtask. Adhere strictly to all 23 s
     const callJurisdiction =
       typeof reqExt.jurisdiction === 'string' ? reqExt.jurisdiction : undefined;
 
-    /* NYV-ORCH-SMART-003 (Task #33): live concurrency tracking so the
+    /* JRX-ORCH-SMART-003 (Task #33): live concurrency tracking so the
      * smart router can deprioritize already-busy agents. Increment up
      * front and always decrement in the outer finally block — even when
      * the LLM call throws OR we return early on a cache hit — so the
@@ -4758,13 +4758,13 @@ Produce the highest-quality output for this subtask. Adhere strictly to all 23 s
     const { agentPerformanceTracker } = await import('../services/agent-performance-tracker.js');
     agentPerformanceTracker.beginExecution(agent.id);
 
-    // NYV-ORCH-CACHE-001 (Task #38): cache namespace is scoped per
+    // JRX-ORCH-CACHE-001 (Task #38): cache namespace is scoped per
     // (tenant × jurisdiction × agent) so two tenants asking the same
     // question never share the cached answer.
     const cacheNamespace = this.buildCacheNamespace(agent, reqExt);
 
     try {
-      /* NYV-ORCH-CACHE-001 (Task #38): consult the LLM prompt cache
+      /* JRX-ORCH-CACHE-001 (Task #38): consult the LLM prompt cache
        * before dispatching to the model. Hits skip the LLM entirely,
        * saving cost + latency. Misses fall through to the LLM and the
        * answer is written back to the cache on success. The lookup is
@@ -4842,7 +4842,7 @@ Produce the highest-quality output for this subtask. Adhere strictly to all 23 s
        * The role split reuses NV-QUEEN-LEAF-TIER-001's existing `role` seam (plan
        * §8.5) rather than a second classifier, so model, output ceiling and prompt
        * budget can never disagree about what a node is. Assembly itself lives in
-       * `nv-queen-leaf-prompt.ts` so the correctness floor is testable per tier. */
+       * `jrx-queen-leaf-prompt.ts` so the correctness floor is testable per tier. */
       let effectiveAgentSystemPrompt = agentSystemPrompt;
       let promptAssemblyMode = 'legacy';
       let leafPromptPolicy: QueenNodePromptPolicy | undefined;
@@ -4914,11 +4914,11 @@ Produce the highest-quality output for this subtask. Adhere strictly to all 23 s
       const sessionIdForCompiler = String(reqExt.sessionId || request.sessionId || '').trim();
       if (
         sessionIdForCompiler
-        && process.env.NYV_QUEEN_PROMPT_COMPILER === '1'
+        && process.env.JRX_QUEEN_PROMPT_COMPILER === '1'
         && promptAssemblyMode === 'legacy'
       ) {
         try {
-          const { getPromptCompiler } = await import('../services/nyv-prompt-compiler.js');
+          const { getPromptCompiler } = await import('../services/jrx-prompt-compiler.js');
           const compiled = getPromptCompiler().compile(
             agentSystemPrompt,
             sessionIdForCompiler,
@@ -4970,8 +4970,8 @@ Produce the highest-quality output for this subtask. Adhere strictly to all 23 s
         : 16_384;
       const leafMaxRaw = Number(
         draftOrResearchTemp
-          ? (process.env.NYV_QUEEN_LEAF_MAX_TOKENS || process.env.NYV_PARTNER_MAX_TOKENS_FLOOR || betaLeafCounsel)
-          : (process.env.NYV_QUEEN_LEAF_MAX_TOKENS_FAST || process.env.NYV_PARTNER_MAX_TOKENS_CHAT || betaLeafFast),
+          ? (process.env.JRX_QUEEN_LEAF_MAX_TOKENS || process.env.JRX_PARTNER_MAX_TOKENS_FLOOR || betaLeafCounsel)
+          : (process.env.JRX_QUEEN_LEAF_MAX_TOKENS_FAST || process.env.JRX_PARTNER_MAX_TOKENS_CHAT || betaLeafFast),
       );
       const synthesisMaxTokens = draftOrResearchTemp
         ? (Number.isFinite(leafMaxRaw) && leafMaxRaw > 0 ? Math.max(4_096, leafMaxRaw) : betaLeafCounsel)
@@ -5033,7 +5033,7 @@ Produce the highest-quality output for this subtask. Adhere strictly to all 23 s
         maxCostUsd:     isExploration ? 0.005 : 0.05,
         timestamp:      new Date(),
       });      /* T005: Record performance for future BM25 re-ranking +
-       * NYV-ORCH-SMART-003: per-jurisdiction outcome so the coalition
+       * JRX-ORCH-SMART-003: per-jurisdiction outcome so the coalition
        * former can favor agents with proven wins in the requested
        * jurisdiction. */
       agentPerformanceTracker.record({
@@ -5045,7 +5045,7 @@ Produce the highest-quality output for this subtask. Adhere strictly to all 23 s
       });
       agentPerformanceTracker.recordJurisdictionOutcome(agent.id, callJurisdiction, true);
 
-      // NYV-ORCH-CACHE-001 (Task #38): persist a successful LLM response
+      // JRX-ORCH-CACHE-001 (Task #38): persist a successful LLM response
       // into the prompt cache so subsequent identical (or semantically
       // similar) prompts in the same tenant + jurisdiction + agent scope
       // are served from cache. Failure to store must NOT poison the
@@ -5120,7 +5120,7 @@ Agent: ${agent.name} | Tier: ${agent.tier}`,
         cacheHit: false,
       };
     } finally {
-      /* NYV-ORCH-SMART-003: always release the in-flight slot, even when
+      /* JRX-ORCH-SMART-003: always release the in-flight slot, even when
        * the call threw or returned a dev-only fallback above. */
       agentPerformanceTracker.endExecution(agent.id);
     }
@@ -5133,7 +5133,7 @@ Agent: ${agent.name} | Tier: ${agent.tier}`,
   /**
    * Synthesize results from all agent executions.
    *
-   * NYV-ORCH-SYNTH-001 (Task #27): the legacy implementation produced a flat
+   * JRX-ORCH-SYNTH-001 (Task #27): the legacy implementation produced a flat
    * markdown concatenation of agent outputs with a header — readable, but no
    * actual synthesis. Users complained about templated bullet output. This
    * version routes multi-agent results (and any single-agent result that
@@ -5282,7 +5282,7 @@ Agent: ${agent.name} | Tier: ${agent.tier}`,
   }
 
   /**
-   * NYV-ORCH-SYNTH-002 (Task #27): real LLM-driven synthesis.
+   * JRX-ORCH-SYNTH-002 (Task #27): real LLM-driven synthesis.
    * Builds an evidence-block prompt where each agent's output is wrapped
    * in <EVIDENCE> tags, then asks the senior-counsel synthesizer to produce
    * the final answer applying the requested format/language and the
@@ -5304,11 +5304,11 @@ Agent: ${agent.name} | Tier: ${agent.tier}`,
     // so synthesis does not burn the token budget concatenating full leaf outputs.
     const perEvidenceCap = Math.max(
       1_000,
-      Number(process.env.NYV_QUEEN_EVIDENCE_PER_AGENT_CHARS) || 6_000,
+      Number(process.env.JRX_QUEEN_EVIDENCE_PER_AGENT_CHARS) || 6_000,
     );
     const totalEvidenceCap = Math.max(
       perEvidenceCap,
-      Number(process.env.NYV_QUEEN_EVIDENCE_TOTAL_CHARS) || 24_000,
+      Number(process.env.JRX_QUEEN_EVIDENCE_TOTAL_CHARS) || 24_000,
     );
     let evidenceUsed = 0;
     const evidenceBlock = completedExecutions
@@ -5374,7 +5374,7 @@ TASK: Produce the final answer for the user, integrating the evidence above. Fol
     const { realLLMService } = await import('../services/real-llm-service.js');
     const reqExt = asExt(request);
 
-    // NYV-ORCH-MW-003 (Task #34): the final synthesis call now flows through
+    // JRX-ORCH-MW-003 (Task #34): the final synthesis call now flows through
     // the orchestration middleware ring. The synthesized answer is what
     // ultimately reaches the user, so it MUST get the same hallucination /
     // bias / PII / consent / HITL / governance check as individual agent
@@ -5430,13 +5430,13 @@ TASK: Produce the final answer for the user, integrating the evidence above. Fol
           // NV-QUEEN-SSE-001 — stream synthesis tokens when lifecycle listener present
           const wantStream = !!request.lifecycleEvents
             && (request.lifecycleEvents.listenerCount('synthesis_token') > 0
-              || process.env.NYV_QUEEN_SYNTHESIS_STREAM === '1');
+              || process.env.JRX_QUEEN_SYNTHESIS_STREAM === '1');
           if (wantStream) {
             try {
               const { streamLLM } = await import('../services/intelligent-router/llm-orchestrator.js');
               let accumulated = '';
               const orchId = requireOrchestrationId(request);
-              const suppressProvisional = process.env.NYV_QUEEN_SUPPRESS_PROVISIONAL === '1';
+              const suppressProvisional = process.env.JRX_QUEEN_SUPPRESS_PROVISIONAL === '1';
               for await (const delta of streamLLM({
                 // NV-REQID-CORRELATION-001: synthesis is part of the same
                 // request; a standalone UUID here made it look like fan-out
@@ -5452,8 +5452,8 @@ TASK: Produce the final answer for the user, integrating the evidence above. Fol
                 },
                 maxTokens: (() => {
                   const raw = Number(
-                    process.env.NYV_QUEEN_SYNTHESIS_MAX_TOKENS ||
-                      process.env.NYV_PARTNER_MAX_TOKENS_FLOOR ||
+                    process.env.JRX_QUEEN_SYNTHESIS_MAX_TOKENS ||
+                      process.env.JRX_PARTNER_MAX_TOKENS_FLOOR ||
                       16_384,
                   );
                   return Number.isFinite(raw) && raw > 0 ? Math.max(4096, raw) : 16_384;
@@ -5507,8 +5507,8 @@ TASK: Produce the final answer for the user, integrating the evidence above. Fol
           systemPrompt: synthesisSystem,
           maxTokens:    (() => {
             const raw = Number(
-              process.env.NYV_QUEEN_SYNTHESIS_MAX_TOKENS ||
-                process.env.NYV_PARTNER_MAX_TOKENS_FLOOR ||
+              process.env.JRX_QUEEN_SYNTHESIS_MAX_TOKENS ||
+                process.env.JRX_PARTNER_MAX_TOKENS_FLOOR ||
                 16_384,
             );
             return Number.isFinite(raw) && raw > 0 ? Math.max(4096, raw) : 16_384;
@@ -5571,8 +5571,8 @@ TASK: Produce the final answer for the user, integrating the evidence above. Fol
         finalText = sanitizeOrchestrationContentForClient(finalText);
       } catch { /* keep raw if sanitize unavailable */ }
       const orchId = requireOrchestrationId(request);
-      const chunkSize = Math.max(24, Number(process.env.NYV_QUEEN_GATED_CHUNK_CHARS) || 96);
-      if (process.env.NYV_QUEEN_GATED_TOKEN_STREAM !== '0' && finalText.length > 0) {
+      const chunkSize = Math.max(24, Number(process.env.JRX_QUEEN_GATED_CHUNK_CHARS) || 96);
+      if (process.env.JRX_QUEEN_GATED_TOKEN_STREAM !== '0' && finalText.length > 0) {
         let gatedAccum = '';
         for (let i = 0; i < finalText.length; i += chunkSize) {
           const delta = finalText.slice(i, i + chunkSize);
@@ -5840,7 +5840,7 @@ TASK: Produce the final answer for the user, integrating the evidence above. Fol
     );
 
     /* NV-QUEEN-COT-COLLECTIVE-001 (2026-08-16) — the collective/swarm path never
-     * ran CoT capture, while `nv-adaptive-router` sets `requireCoT: true` for every
+     * ran CoT capture, while `jrx-adaptive-router` sets `requireCoT: true` for every
      * `forceLegalBestOutcome` Queen request. `snapshotQualityEnvelope` then finds
      * `cot` missing, `QualityEnvelopeError` is thrown, and the route returns HTTP
      * 500 — AFTER the swarm has produced a complete, correct answer and been billed

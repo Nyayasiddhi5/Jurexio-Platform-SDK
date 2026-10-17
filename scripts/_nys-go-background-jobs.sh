@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # GO: sc-body-fts-deploy + citation-graph-backfill — kick off independent background jobs.
 # Worker (NYS): DDL + body FTS backfill + graph extract + graph edges (all newest-first).
-# Nysdev (NYV): graph JSONL ingest loop from S3.
+# Nysdev (JRX): graph JSONL ingest loop from S3.
 set -euo pipefail
 mkdir -p /opt/nyv/logs
 set -a
 source /opt/nyv/api/.env
 set +a
-export NYS_LOCAL_API="${NYS_LOCAL_API:-http://127.0.0.1:8080}"
+export JRX_ECOSYSTEM_LOCAL_API="${JRX_ECOSYSTEM_LOCAL_API:-http://127.0.0.1:8080}"
 
 echo "=== GO background jobs $(date -u +%Y-%m-%dT%H:%M:%SZ) ==="
 

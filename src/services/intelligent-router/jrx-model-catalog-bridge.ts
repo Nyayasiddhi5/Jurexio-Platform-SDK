@@ -1,9 +1,9 @@
 /**
  * Maps intelligent-router MODEL_CATALOG (SSoT) → ModelRegistryEntry shape for
  * GET /api/jrx/models and console pickers. Write/admin paths still use
- * nyv-dynamic-model-registry for hot-reload overrides.
+ * jrx-dynamic-model-registry for hot-reload overrides.
  */
-import type { ModelRegistryEntry, RegistryStats } from '../../config/nyv-dynamic-model-registry.js';
+import type { ModelRegistryEntry, RegistryStats } from '../../config/jrx-dynamic-model-registry.js';
 import { MODEL_CATALOG, isProviderAvailable } from './model-catalog.js';
 import type { ModelEntry } from './router-types.js';
 

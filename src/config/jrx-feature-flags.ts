@@ -9,14 +9,14 @@
  * JRX_F_AUDIT_WIRE       T-01  Append IronLedger audit row on /orchestrate completion
  * JRX_F_HITL_REGISTRY    T-03/T-04/T-05  Registry-driven HITL thresholds + reviewer routing + auto-approve audit
  * JRX_F_PII_JCN          T-06b Append jurisdiction-scoped PII regexes to safety pipeline Step 1
- * JRX_F_SECURITY_MONITOR T-08  Mount nv-security-monitor middleware on /api/jrx/*
+ * JRX_F_SECURITY_MONITOR T-08  Mount jrx-security-monitor middleware on /api/jrx/*
  *
  * The two flags below are reserved for future phases and currently unused
  * by the in-tree code; they are listed here so that operators have a single
  * source of truth.
  *
  * JRX_F_CITATION_WIRE    Reserved (citation grounding is already wired at
- *                        nv-orchestration-routes.ts:254 — flag retained for
+ *                        jrx-orchestration-routes.ts:254 — flag retained for
  *                        future variant routing)
  * JRX_F_TOKEN_OPT        Token-optimization ADVISORY surface (Session-16,
  *                        2026-06-02 unification). Previously documented
@@ -26,12 +26,12 @@
  *                          • JRX_F_TOKEN_OPT  → ADVISORY token shaping
  *                            (budget estimate, context compression, pricing
  *                            lookup) exposed read-only via /api/.../v311/
- *                            tokens/* (nyayavigya-token-optimization-service).
+ *                            tokens/* (jurexio-token-optimization-service).
  *                            Advisory only — never denies a request.
  *                          • JRX_F_GOV_COST_OPT → ENFORCEMENT (pre-LLM budget
  *                            gate + post-LLM token deduction in the queen
  *                            orchestrator) + admin reads at
- *                            /api/nv5/gov/cost-optimizer/* (nv-cost-
+ *                            /api/nv5/gov/cost-optimizer/* (jrx-cost-
  *                            optimization-suite). This is the lever that can
  *                            actually shape/deny spend.
  *                        The v311 /tokens/* endpoints remain always-on
@@ -91,7 +91,7 @@ function envFlagExplicitlyOff(name: string): boolean {
  * Dev/test keep these OFF so local UAT harnesses without DB/Redis/keys are
  * unchanged; only NODE_ENV not in {'', development, test} flips them ON, and
  * an explicit JRX_F_*=0|false|no|off still wins. The snapshot contract is
- * preserved: getNyvFeatureFlagSnapshot() resolves these the same way (source
+ * preserved: getJrxFeatureFlagSnapshot() resolves these the same way (source
  * attributed to 'default'), so Console observability never drifts from runtime.
  *
  *   govConcurrency   — per-tenant semaphore (default 16) wrapped around the
@@ -123,7 +123,7 @@ function envFlagExplicitlyOff(name: string): boolean {
  *                      unpredictable cost/latency increase. SME flows already
  *                      force it per-request via metadata.forceMakerChecker.
  *                      Default ON for enterprise pack hosts only
- *                      (`NYV_ENTERPRISE_TIER=1` or `NYV_PACK=enterprise|government`);
+ *                      (`JRX_ENTERPRISE_TIER=1` or `JRX_PACK=enterprise|government`);
  *                      otherwise gate via JRX_F_GOV_MAKER_CHECKER=1 or DB overlay.
  *   govOrgRatelimit  — adds a 30 req/min PER-ORG cap (DB-driven) on top of the
  *                      existing public/authenticated limiters; blast radius
@@ -167,10 +167,10 @@ const FLAG_DEFAULT_ON_IN_NON_DEV: ReadonlySet<string> = new Set([
   //                    live probe is positive-only best-effort, corpus+structural
   //                    primary) — LIVE-BEST-EFFORT
   //   citationLiveUs — CourtListener (works keyless but rate-limited; set
-  //                    NYV_COURTLISTENER_TOKEN to lift the limit) + US Code
+  //                    JRX_COURTLISTENER_TOKEN to lift the limit) + US Code
   //                    structural/corpus — LIVE-DEGRADED-PENDING-TOKEN
   //   citationLiveGc — no single free GCC API; corpus+structural primary, live
-  //                    probe only when an operator wires NYV_GC_LEGISLATION_API_BASE
+  //                    probe only when an operator wires JRX_GC_LEGISLATION_API_BASE
   //                    — LIVE-DEGRADED-PENDING-SOURCE
   // Dev/test stay OFF (env unset) so local UAT runs the deterministic
   // corpus+structural verifier with no external egress.
@@ -180,7 +180,7 @@ const FLAG_DEFAULT_ON_IN_NON_DEV: ReadonlySet<string> = new Set([
   'citationLiveEu',
   'citationLiveGc',
   'citationLiveSg',
-  // NYV-SDK-AUTO-ORCH-001 — partner /orchestrate auto-engages the Queen for
+  // JRX-SDK-AUTO-ORCH-001 — partner /orchestrate auto-engages the Queen for
   // complex prompts (fail-soft: Queen errors degrade to the single-agent
   // ring inside the route's existing catch). Dev/test stay OFF so local UAT
   // harnesses keep the fast single-shot behaviour unless explicitly enabled.
@@ -199,7 +199,7 @@ const FLAG_DEFAULT_ON_IN_NON_DEV: ReadonlySet<string> = new Set([
   'docparseAttachUnderstand',
   /** NV-TEXTRACT-OCR-001 — Amazon Textract before vision LLM on OCR fallback (default OFF). */
   'textractOcr',
-  // NYV-P1-ORCH-CORE-001 — post-call credit accounting (record()) is fully
+  // JRX-P1-ORCH-CORE-001 — post-call credit accounting (record()) is fully
   // fail-soft (the insert is wrapped + swallowed). Defaulting ON in non-dev
   // makes the already-wired pre-call budget gate functional (it reads the
   // rows record() writes). Dev/test stay OFF so local UAT without the
@@ -218,7 +218,7 @@ const FLAG_DEFAULT_ON_IN_NON_DEV: ReadonlySet<string> = new Set([
   // engine. Default ON in non-dev so CAM/ops can read the live store.
   'aiOrchRoma',
   // NYS knowledge plane (caselaw/statute proxy). Default ON in non-dev when
-  // NYS_KNOWLEDGE_BASE_URL is set; health/full reports not_configured if URL missing.
+  // JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL is set; health/full reports not_configured if URL missing.
   'nysKnowledgePlane',
   // NV-BETA-QUALITY-FIRST-001 / NV-AI-COMPLETION-LOOP-001 / NV-TRUST-TIER-001 — Beta cred over cost.
   'betaQualityFirst',
@@ -242,7 +242,7 @@ function flagOn(name: string, logical?: string): boolean {
   // Env var unset — apply non-dev default policy if this flag opts in.
   if (shouldDefaultOnInNonDev(logical)) return true;
   // Enterprise / government pack hosts flip additional governance flags.
-  if (logical && shouldDefaultOnEnterprisePack(logical as NyvFeatureFlag)) return true;
+  if (logical && shouldDefaultOnEnterprisePack(logical as JrxFeatureFlag)) return true;
   return false;
 }
 
@@ -363,7 +363,7 @@ const FLAG_ENV_MAP = {
   citationLiveEu:  'JRX_F_CITATION_LIVE_EU',
   citationLiveGc:  'JRX_F_CITATION_LIVE_GC',
   citationLiveSg:  'JRX_F_CITATION_LIVE_SG',
-  // NYV-P1-ORCH-CORE-001 — P1 orchestration-core hardening (default OFF, fail-safe).
+  // JRX-P1-ORCH-CORE-001 — P1 orchestration-core hardening (default OFF, fail-safe).
   //   queenLlmPlanner       — when ON, QueenOrchestrator.decomposeTask first
   //                           attempts an LLM-driven plan (routed through the
   //                           existing safety ring via withMiddleware, per
@@ -388,31 +388,31 @@ const FLAG_ENV_MAP = {
   //                           tenant-isolation and staleness fixes are always on.
   queenLlmPlanner:      'JRX_F_QUEEN_LLM_PLANNER',
   lmcacheSemanticEmbed: 'JRX_F_LMCACHE_SEMANTIC_EMBED',
-  // NYV-P1-ORCH-CORE-001 — post-call credit accounting on /orchestrate. The
+  // JRX-P1-ORCH-CORE-001 — post-call credit accounting on /orchestrate. The
   // pre-call gate (nvAICreditEnforcer.enforce) was already wired, but no path
   // called record() afterward, so getUsedToday() stayed 0 and the budget gate
   // could never actually fire for orchestrate traffic. When ON, the Queen and
   // single-agent branches persist real per-request token/cost (from
-  // nv-request-usage-context) via record(). Fully fail-soft (record() swallows
+  // jrx-request-usage-context) via record(). Fully fail-soft (record() swallows
   // its own errors). Default ON in non-dev (matches govCostOpt posture); dev/
   // test stay OFF so local UAT without the credit tables is byte-for-byte
   // unchanged, and an explicit JRX_F_CREDIT_RECORD=0 opts out.
   creditRecord:         'JRX_F_CREDIT_RECORD',
   // NV-RETENTION-TTL-001 — daily data-retention sweep (storage limitation).
-  // When ON the timer runs; deletion still requires NYV_RETENTION_APPLY=1
+  // When ON the timer runs; deletion still requires JRX_RETENTION_APPLY=1
   // (otherwise dry-run logs counts). Default OFF — destructive, opt-in.
   retentionSweep:       'JRX_F_RETENTION_SWEEP',
-  // NYV-SVC-MEM0-DURABLE-001 (2026-06-29) — durable + embedding-backed mem0.
+  // JRX-SVC-MEM0-DURABLE-001 (2026-06-29) — durable + embedding-backed mem0.
   // When ON, src/services/mem0-persistence-service.ts persists every memory to
   // nv_schema.mem0_memories and hydrates the in-process Map (hot cache) from it
   // on recall, so store()/recall() survive a restart and span replicas; recall
-  // ranks by cosine over embeddings from the existing nv-legal-embedding-service.
+  // ranks by cosine over embeddings from the existing jrx-legal-embedding-service.
   // Default OFF everywhere: with the flag off the service behaves exactly as
   // before (Map-only, lexical recall). Fail-safe: any DB or embedding-provider
   // error degrades back to the in-process lexical path (loud warning, never a
   // silent pass, never random vectors).
   mem0Durable:     'JRX_F_MEM0_DURABLE',
-  // NYV-SDK-AUTO-ORCH-001 (2026-06-12) — partner-path intelligence parity.
+  // JRX-SDK-AUTO-ORCH-001 (2026-06-12) — partner-path intelligence parity.
   // When ON, POST /api/jrx/orchestrate auto-engages the Queen orchestrator
   // (topology auto-selection + multi-agent decomposition) for prompts the
   // Queen's own complexity analyzer rates complex/very_complex, instead of
@@ -425,7 +425,7 @@ const FLAG_ENV_MAP = {
   // NV-OTEL-GENAI-001 (2026-06-29) — OpenTelemetry GenAI tracing export.
   // When ON (or when OTEL_EXPORTER_OTLP_ENDPOINT / *_TRACES_ENDPOINT is set),
   // every finished LLM span (and generic span) is converted to spec-compliant
-  // OTLP/HTTP JSON and POSTed to the configured collector by nv-otlp-exporter.
+  // OTLP/HTTP JSON and POSTed to the configured collector by jrx-otlp-exporter.
   // gen_ai.* semantic-convention attributes are always stamped on LLM spans;
   // this flag only gates the network export. Fully fail-safe: export is queued
   // + flushed fire-and-forget and never throws into the request path. Default
@@ -462,16 +462,16 @@ const FLAG_ENV_MAP = {
   // keeps the RRF order. Default OFF (adds a rerank hop / optional provider
   // call latency, so opt-in per deployment).
   ragNeuralRerank:    'JRX_F_RAG_NEURAL_RERANK',
-  // NV-NYS-KNOWLEDGE-001 (2026-07-13) — federated NYS Knowledgesearch plane.
+  // NV-JRX-KNOWLEDGE-001 (2026-07-13) — federated NYS Knowledgesearch plane.
   // When ON, Auto-RAG fuses an extra `nys_global` layer from the live NYS API
   // (statutes / caselaw / retrieve) BEFORE LLM; MCP + /api/jrx/knowledge/*
   // proxy routes become live. Fully fail-soft: NYS down → tenant RAG only.
   // Default ON in non-dev (FLAG_DEFAULT_ON_IN_NON_DEV). Missing
-  // NYS_KNOWLEDGE_BASE_URL still reports not_configured on health/full.
-  nysKnowledgePlane:  'JRX_F_NYS_KNOWLEDGE_PLANE',
-  // NV-CASE-API-001 — route CNR resolve via NYS-Search case-api (nysapi) before
+  // JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL still reports not_configured on health/full.
+  nysKnowledgePlane:  'JRX_F_JRX_ECOSYSTEM_KNOWLEDGE_PLANE',
+  // NV-CASE-API-001 — route CNR resolve via JRX-Search case-api (nysapi) before
   // legacy :8080 /cnr/resolve. Fallback on 404/401/504. Also readable via
-  // NYS_CASE_API_ENABLED=1. Default OFF; JRX_F_CASE_API_CNR_SHADOW=1 logs diff only.
+  // JRX_ECOSYSTEM_CASE_API_ENABLED=1. Default OFF; JRX_F_CASE_API_CNR_SHADOW=1 logs diff only.
   caseApiCnr:         'JRX_F_CASE_API_CNR',
   // NV-PROVIDER-TOKEN-STREAM-001 — true provider SSE through safety ring on
   // /orchestrate/stream specialist path. Tokens emit as provisional text_delta;
@@ -480,11 +480,11 @@ const FLAG_ENV_MAP = {
   providerTokenStream: 'JRX_F_PROVIDER_TOKEN_STREAM',
   // NV-STREAM-TERMINAL-POLISH-001 — deterministic post-stream polish on partner
   // `-fast` specialist SSE (legal format + fast-delivery + human polish). Also
-  // readable via NYV_STREAM_TERMINAL_POLISH=1|0. Default ON in non-dev.
-  streamTerminalPolish: 'NYV_STREAM_TERMINAL_POLISH',
+  // readable via JRX_STREAM_TERMINAL_POLISH=1|0. Default ON in non-dev.
+  streamTerminalPolish: 'JRX_STREAM_TERMINAL_POLISH',
   // NV-DOCPARSE-ADAPTER-001 — @jurexio/docparse v0.2.0 deterministic Indian legal
   // parsing on PDF/image bytes. Fail-soft: on throw/unreadable, tier-2 heuristics
-  // + cloud OCR paths in nv-doc-content-extractor remain. Default ON in non-dev
+  // + cloud OCR paths in jrx-doc-content-extractor remain. Default ON in non-dev
   // for IN jurisdiction ingest; JRX_F_DOCPARSE=0 opts out.
   docparse: 'JRX_F_DOCPARSE',
   // NV-DOCPARSE-LLM-FALLBACK-001 — when ON, a low-confidence / partial docparse
@@ -522,7 +522,7 @@ const FLAG_ENV_MAP = {
   trustTierMemory: 'JRX_F_TRUST_TIER_MEMORY',
 } as const;
 
-export type NyvFeatureFlag = keyof typeof FLAG_ENV_MAP;
+export type JrxFeatureFlag = keyof typeof FLAG_ENV_MAP;
 
 /**
  * Read-only snapshot of every JRX_F_* flag for admin/console surfaces.
@@ -533,7 +533,7 @@ export type NyvFeatureFlag = keyof typeof FLAG_ENV_MAP;
  * be able to render "feature disabled" banners for the /api/nv5/* admin
  * pages without trial-and-erroring every endpoint to discover OFF state).
  */
-export function getNyvFeatureFlagSnapshot(): Record<NyvFeatureFlag, {
+export function getJrxFeatureFlagSnapshot(): Record<JrxFeatureFlag, {
   env: string;
   on: boolean;
   /** "overlay" when DB row forced the value, "env" when an JRX_F_* env var
@@ -544,8 +544,8 @@ export function getNyvFeatureFlagSnapshot(): Record<NyvFeatureFlag, {
    *  to show "currently overridden" UI. */
   envOn: boolean;
 }> {
-  const out = {} as Record<NyvFeatureFlag, { env: string; on: boolean; source: 'overlay' | 'env' | 'default'; envOn: boolean }>;
-  for (const k of Object.keys(FLAG_ENV_MAP) as NyvFeatureFlag[]) {
+  const out = {} as Record<JrxFeatureFlag, { env: string; on: boolean; source: 'overlay' | 'env' | 'default'; envOn: boolean }>;
+  for (const k of Object.keys(FLAG_ENV_MAP) as JrxFeatureFlag[]) {
     const envName = FLAG_ENV_MAP[k];
     const envOn = envFlagOn(envName);
     const envOff = envFlagExplicitlyOff(envName);
@@ -596,8 +596,8 @@ export function getFlagEnvName(logical: string): string | undefined {
 }
 
 /** All known logical flag keys. */
-export function listNyvFeatureFlagKeys(): NyvFeatureFlag[] {
-  return Object.keys(FLAG_ENV_MAP) as NyvFeatureFlag[];
+export function listJrxFeatureFlagKeys(): JrxFeatureFlag[] {
+  return Object.keys(FLAG_ENV_MAP) as JrxFeatureFlag[];
 }
 
 /**
@@ -606,17 +606,17 @@ export function listNyvFeatureFlagKeys(): NyvFeatureFlag[] {
  * or runtime export from an admin endpoint) take effect immediately and we
  * don't capture a stale snapshot at module-import time.
  */
-export function isNyvFeatureOn(flag: NyvFeatureFlag): boolean {
+export function isJrxFeatureOn(flag: JrxFeatureFlag): boolean {
   return flagOn(FLAG_ENV_MAP[flag], flag);
 }
 
 /**
  * Backward-compat snapshot of all flag values. Computed at access time via
- * a Proxy so callers that read NYV_FEATURE_FLAGS.xxx still see live values.
+ * a Proxy so callers that read JRX_FEATURE_FLAGS.xxx still see live values.
  */
-export const NYV_FEATURE_FLAGS = new Proxy({} as Record<NyvFeatureFlag, boolean>, {
+export const JRX_FEATURE_FLAGS = new Proxy({} as Record<JrxFeatureFlag, boolean>, {
   get(_t, prop: string) {
-    if (prop in FLAG_ENV_MAP) return flagOn(FLAG_ENV_MAP[prop as NyvFeatureFlag], prop);
+    if (prop in FLAG_ENV_MAP) return flagOn(FLAG_ENV_MAP[prop as JrxFeatureFlag], prop);
     return undefined;
   },
 });

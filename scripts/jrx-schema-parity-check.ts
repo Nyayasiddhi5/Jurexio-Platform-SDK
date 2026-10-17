@@ -1,5 +1,5 @@
 /**
- * nv-schema-parity-check.ts — DB ⇄ Drizzle ⇄ SDK parity guardrail
+ * jrx-schema-parity-check.ts — DB ⇄ Drizzle ⇄ SDK parity guardrail
  *
  * For every Drizzle table export found in `shared/`, verifies:
  *   1. The table exists in Postgres at the qualified schema.

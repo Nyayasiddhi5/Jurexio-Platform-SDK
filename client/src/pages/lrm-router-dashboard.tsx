@@ -11,8 +11,8 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Globe, Zap, Activity, GitBranch, Shield, TrendingUp, RefreshCw, Play } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 
@@ -210,7 +210,7 @@ export default function LRMRouterDashboard() {
                     ))}
                   </>
                 ) : (
-                  <NyvErrorState
+                  <JrxErrorState
                     title="Health check unavailable"
                     description="The LRM Router did not return a health payload. Try refreshing."
                     onRetry={() => refetchHealth()}

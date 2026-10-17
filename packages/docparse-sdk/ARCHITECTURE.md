@@ -1,4 +1,4 @@
-# NYV-DOCPARSE — Indian Legal Document Parsing Engine
+# JRX-DOCPARSE — Indian Legal Document Parsing Engine
 
 **Package:** `@jurexio/docparse` · Node 20+ · TypeScript 5.9 ESM
 **Status:** Working, tested, measured. 373/373 tests green.

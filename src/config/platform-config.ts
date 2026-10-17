@@ -15,8 +15,8 @@ export const SERVER_CONFIG = {
   get wsUrl(): string {
     return process.env.WS_URL || `ws://localhost:${this.backendPort}`;
   },
-  get nyayavigyaApiBase(): string {
-    return `${this.backendUrl}/api/nyayavigya`;
+  get jurexioApiBase(): string {
+    return `${this.backendUrl}/api/jurexio`;
   },
   get callbackUrl(): string {
     return process.env.CALLBACK_URL || this.frontendUrl;
@@ -78,7 +78,7 @@ export const JURISDICTION_CONFIG = {
     consentRequired: true,
     rightToErasure: true,
     breachNotificationHours: 72,
-    slmBinding: 'NYS-SLM-IND',
+    slmBinding: 'JRX-SLM-IND',
   },
   uk: {
     code: 'GB',
@@ -95,7 +95,7 @@ export const JURISDICTION_CONFIG = {
     consentRequired: true,
     rightToErasure: true,
     breachNotificationHours: 72,
-    slmBinding: 'NYS-SLM-UK',
+    slmBinding: 'JRX-SLM-UK',
   },
   gcc: {
     code: 'GCC',
@@ -124,7 +124,7 @@ export const JURISDICTION_CONFIG = {
     consentRequired: true,
     rightToErasure: true,
     breachNotificationHours: 72,
-    slmBinding: 'NYS-SLM-GCC',
+    slmBinding: 'JRX-SLM-GCC',
   },
   europe: {
     code: 'EU',
@@ -141,7 +141,7 @@ export const JURISDICTION_CONFIG = {
     consentRequired: true,
     rightToErasure: true,
     breachNotificationHours: 72,
-    slmBinding: 'NYS-SLM-EUR',
+    slmBinding: 'JRX-SLM-EUR',
   },
   usa: {
     code: 'US',
@@ -158,7 +158,7 @@ export const JURISDICTION_CONFIG = {
     consentRequired: true,
     rightToErasure: false,
     breachNotificationHours: 72,
-    slmBinding: 'NYS-SLM-USA',
+    slmBinding: 'JRX-SLM-USA',
   },
   singapore: {
     code: 'SG',
@@ -175,7 +175,7 @@ export const JURISDICTION_CONFIG = {
     consentRequired: true,
     rightToErasure: true,
     breachNotificationHours: 72,
-    slmBinding: 'NYS-SLM-SGP',
+    slmBinding: 'JRX-SLM-SGP',
   },
 } as const;
 
@@ -193,21 +193,21 @@ export const JURISDICTION_DISPLAY_NAMES: Record<string, string> = {
 };
 
 export const SLM_BINDINGS = {
-  india: 'NYS-SLM-IND',
-  uk: 'NYS-SLM-UK',
-  gcc: 'NYS-SLM-GCC',
-  europe: 'NYS-SLM-EUR',
-  usa: 'NYS-SLM-USA',
-  singapore: 'NYS-SLM-SGP',
+  india: 'JRX-SLM-IND',
+  uk: 'JRX-SLM-UK',
+  gcc: 'JRX-SLM-GCC',
+  europe: 'JRX-SLM-EUR',
+  usa: 'JRX-SLM-USA',
+  singapore: 'JRX-SLM-SGP',
 } as const;
 
 export const PRODUCT_NAMES = {
-  nyayamitra: 'Nyayamitra™',
+  jurexio-citizen: 'Jurexio Citizen',
   nyayasiddhiProfessional: 'Jurexio Professional™',
   nyayasiddhiInstitutional: 'Jurexio Institutional™',
   nyayasiddhiMinistry: 'Jurexio Ministry™',
   nyayasiddhiAcademy: 'Jurexio Academy™',
-  nyayavigya: 'Jurexio',
+  jurexio: 'Jurexio',
 } as const;
 
 export const PRODUCT_TIERS = {
@@ -230,21 +230,21 @@ export const PRODUCT_TIERS = {
 } as const;
 
 export const PRODUCT_ROUTES = {
-  nyayamitra: '/api/nys/nym',
-  nyayasiddhiProfessional: '/api/nys/pro',
-  nyayasiddhiInstitutional: '/api/nys/ins',
-  nyayasiddhiMinistry: '/api/nys/gov',
-  nyayasiddhiAcademy: '/api/nys/ace',
-  nyayavigya: '/api/nyv',
+  jurexio-citizen: '/api/jrx/nym',
+  nyayasiddhiProfessional: '/api/jrx/pro',
+  nyayasiddhiInstitutional: '/api/jrx/ins',
+  nyayasiddhiMinistry: '/api/jrx/gov',
+  nyayasiddhiAcademy: '/api/jrx/ace',
+  jurexio: '/api/nyv',
 } as const;
 
 export const PRODUCT_DB_PREFIXES = {
-  nyayamitra: 'nym_',
+  jurexio-citizen: 'nym_',
   nyayasiddhiProfessional: 'nys_pro_',
   nyayasiddhiInstitutional: 'nys_ins_',
   nyayasiddhiMinistry: 'nys_min_',
   nyayasiddhiAcademy: 'nys_ace_',
-  nyayavigya: 'nyv_',
+  jurexio: 'nyv_',
 } as const;
 
 export const LLM_CONFIG = {
@@ -290,7 +290,7 @@ export const AGENT_CONFIG = {
 
 export const NYAYAMITRA_CONFIG = {
   version: PLATFORM_VERSION,
-  serviceName: 'Nyayamitra',
+  serviceName: 'Jurexio Citizen',
   tagline: 'Justice. Powered by Precision.',
   brand: {
     colors: {
@@ -365,7 +365,7 @@ export const COMPLIANCE_CONFIG = {
 
 // v5.0.0: SDK seeding defaults to the Jurexio™ enterprise org for all
 // nyayasiddhi* ecosystem platforms (Professional, Institutional, Ministry, Academy)
-// and Nyayamitra.
+// and Jurexio Citizen.
 //
 // The canonical lookup is by SLUG ('nyayasiddhi') — call resolveDefaultOrgId(db)
 // at startup/seed time so the platform survives PK changes (renumber, restore-from-
@@ -406,9 +406,9 @@ export const SDK_CONFIG = {
   seed: {
     defaultOrganizationId: NYAYASIDDHI_ORG_ID,
     metadataTier: 'internal' as const,
-    nyayamitra: {
-      clientId: 'nyv_app_nyayamitra_consumer_intake_v1',
-      appName: 'Nyayamitra',
+    jurexio-citizen: {
+      clientId: 'nyv_app_jurexio-citizen_consumer_intake_v1',
+      appName: 'Jurexio Citizen',
       appType: 'consumer_intake' as const,
       description: 'Consumer legal intake platform for citizens seeking legal assistance',
       rateLimitPerMinute: 100,
@@ -418,7 +418,7 @@ export const SDK_CONFIG = {
       maxTokensPerRequest: 2048,
       temperature: 0.5,
       jurisdiction: 'IN',
-      metadataPlatform: 'nyayamitra',
+      metadataPlatform: 'jurexio-citizen',
     },
     nyayasiddhiProfessional: {
       clientId: 'nyv_app_nyayasiddhi_professional_v1',
@@ -484,7 +484,7 @@ export const SDK_CONFIG = {
     apiKeyPrefix: 'nyv_key_',
   },
   // 6 canonical jurisdictions. Both 'UK' (canonical platform-wide, matches
-  // docs + nv-registry-stats + registry-paths + nv-sdk-variants) and 'GB'
+  // docs + jrx-registry-stats + registry-paths + jrx-sdk-variants) and 'GB'
   // (ISO-3166 alpha-2) are accepted — middleware normalizes UK ↔ GB.
   supportedJurisdictions: ['IN', 'UK', 'GB', 'GCC', 'EU', 'US', 'SG'] as const,
   supportedAppTypes: ['consumer_intake', 'lawyer_platform', 'institutional', 'government', 'education', 'custom'] as const,
@@ -497,8 +497,8 @@ export const CORS_CONFIG = {
     if (process.env.CORS_ORIGINS) {
       return process.env.CORS_ORIGINS.split(',').map(o => o.trim());
     }
-    if (process.env.NYV_DEV_DOMAIN) {
-      const d = process.env.NYV_DEV_DOMAIN;
+    if (process.env.JRX_DEV_DOMAIN) {
+      const d = process.env.JRX_DEV_DOMAIN;
       return [
         `https://${d}`,
         `https://${d}:3000`,
@@ -710,7 +710,7 @@ export const ROMA_L5_CONFIG = {
   policyEnforcementEnabled: true,
   adaptiveLearningEnabled: true,
   metricsPath: 'src/data/performance-metrics.json',
-  fullRegistryPath: 'src/data/nyayavigya-full-registry-v3.json',
+  fullRegistryPath: 'src/data/jurexio-full-registry-v3.json',
   deprecationDays: 30,
   hallucinationQuarantineThreshold: 5,
 };

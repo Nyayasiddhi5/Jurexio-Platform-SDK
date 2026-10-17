@@ -26,7 +26,7 @@
  * Architecture compliance:
  *   - NV-ARCH-001: read/write metadata only — no LLM emission, no bypass.
  *   - NV-AUTH-HEADER-001: not applicable (JWT, not SDK key).
- *   - NV-NAMING-001: file prefix `nv-`, single new file under src/routes/.
+ *   - NV-NAMING-001: file prefix `jrx-`, single new file under src/routes/.
  *   - NV-DB-SCRIPT-001: uses runtime `db` (driver-aware) — not a script.
  */
 

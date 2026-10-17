@@ -7,11 +7,11 @@
  *   GET  /api/nv5/doc-ai/jobs/:id   — poll status
  *   GET  /api/nv5/doc-ai/jobs/:id/result — download converted bytes
  * The backend is path-based (disk-stream), bounded-concurrency, and 1-GB-safe
- * (NYV-DOC-AI-OUTPUT-DISK-2026-05-11). This UI uploads each file as a
+ * (JRX-DOC-AI-OUTPUT-DISK-2026-05-11). This UI uploads each file as a
  * separate /jobs request, then polls and offers per-file download.
  *
  * NV-AUTH-HEADER-001: SDK key sent as `X-API-Key`.
- * NV-SDK-UNIFIED-001: same NYV API for all platforms; no per-platform branching.
+ * NV-SDK-UNIFIED-001: same JRX API for all platforms; no per-platform branching.
  * Locked into NV-NEVER-BREAK-001.
  */
 import { useEffect, useRef, useState } from "react";
@@ -196,7 +196,7 @@ export default function BulkDocUploadPage() {
             className="w-full bg-slate-800 border border-slate-700 rounded-md px-3 py-2 text-sm font-mono"
             data-testid="input-api-key"
           />
-          <p className="text-xs text-slate-700 mt-1">Stored locally in your browser. Use any NSP/NSPM/NYM key — same NYV unified API.</p>
+          <p className="text-xs text-slate-700 mt-1">Stored locally in your browser. Use any NSP/NSPM/NYM key — same JRX unified API.</p>
         </div>
 
         <div className="bg-slate-900 rounded-xl border border-slate-800 p-5 mb-6">

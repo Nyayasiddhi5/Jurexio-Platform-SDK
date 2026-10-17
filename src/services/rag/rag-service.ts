@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 import { db as _raw_db } from '../../db/index.js';
 import { lazyRequire } from '../../utils/jrx-type-helpers.js';
 import { documentEmbeddings, documentExtractedContent, documentParsing } from '../../../shared/schema.js';
@@ -11,8 +11,8 @@ import { createLogger } from '../../utils/logger.js';
 const logger = createLogger('rag-service');
 
 // task-256 (2026-05-13): switched from `if (!db) throw` at module top to the
-// canonical NYV-NS-022 lazy Proxy. The eager throw crashed every transitive
-// importer (e.g. nv-orchestration-services → rag-service) when no
+// canonical JRX-NS-022 lazy Proxy. The eager throw crashed every transitive
+// importer (e.g. jrx-orchestration-services → rag-service) when no
 // DATABASE_URL is set, defeating the lazy-Proxy contract that task-251
 // installed across ~95 other files. Caught by the
 // `tests/regression/jrx-gateway-boots-without-db.test.ts` suite.

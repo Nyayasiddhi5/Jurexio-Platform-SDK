@@ -30,8 +30,8 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvGovernanceBadge } from '@/components/NyvGovernanceBadge';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxGovernanceBadge } from '@/components/JrxGovernanceBadge';
 
 type GateType = 'LegalClassifier' | 'RiskScorer' | 'JurisdictionSelector' | 'ComplianceChecker' | 'DocumentDrafter' | 'ApprovalGate' | 'EscalationRouter' | 'OutcomePredictor';
 type WorkflowStatus = 'draft' | 'active' | 'paused' | 'archived';
@@ -188,7 +188,7 @@ export default function AutomateAIBuilder() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <NyvGovernanceBadge compact governance={{ risk_score: 40, risk_badge: 'YELLOW', risk_blocked: false, pattern_key: 'AUTOMATEAI', warnings: ['AI Workflow Automation — Automated legal actions require Maker-Checker review'], timestamp: new Date().toISOString() }} />
+            <JrxGovernanceBadge compact governance={{ risk_score: 40, risk_badge: 'YELLOW', risk_blocked: false, pattern_key: 'AUTOMATEAI', warnings: ['AI Workflow Automation — Automated legal actions require Maker-Checker review'], timestamp: new Date().toISOString() }} />
             <Badge variant="outline" className="border-orange-500/30 text-orange-400 text-xs" role="status">8 Gate Types</Badge>
             <Button size="sm" className="bg-orange-600 hover:bg-orange-700 text-xs" onClick={() => setShowNewWf(true)}>
               <Plus className="h-3.5 w-3.5 mr-1.5" />New Workflow
@@ -220,7 +220,7 @@ export default function AutomateAIBuilder() {
                   <p className="text-slate-600 mt-1">{wfError}</p>
                 </div>
               ) : workflows.length === 0 ? (
-                <NyvEmptyState
+                <JrxEmptyState
                   icon={Workflow}
                   title="No workflows yet"
                   description="Create your first AutomateAI workflow to chain agentic gates (intake, classification, draft, review, approval). Workflows you save will appear here."

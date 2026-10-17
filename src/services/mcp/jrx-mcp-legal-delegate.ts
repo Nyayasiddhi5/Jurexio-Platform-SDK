@@ -33,7 +33,7 @@ export const DELEGATED_MCP_TOOL_IDS: readonly string[] = [
   'docusign_envelope_status', 'adobe_sign_status', 'salesforce_matter_sync', 'hubspot_contact_lookup',
   'razorpay_payment_status', 'stripe_invoice_fetch', 'zoom_meeting_create',
   'asana_task_create', 'jira_issue_create', 'trello_card_create',
-  // NV-NYS-KNOWLEDGE-001 — federated NYS Knowledgesearch tools
+  // NV-JRX-KNOWLEDGE-001 — federated NYS Knowledgesearch tools
   'nys_search_caselaw', 'nys_search_statutes', 'nys_get_statute', 'nys_compare_ipc_bns',
   'nys_retrieve', 'nys_check_citations', 'nys_perform_legal_work', 'nys_chat_action',
   'nys_athena_search', 'nys_judgment_full_text',
@@ -181,7 +181,7 @@ const HANDLERS: Record<string, McpDelegateHandler> = {
     return { query: inp.query, results: rag.chunks ?? [], source: 'auto-rag' };
   },
 
-  // ── NYS Knowledge Plane (NV-NYS-KNOWLEDGE-001) ───────────────────────────
+  // ── NYS Knowledge Plane (NV-JRX-KNOWLEDGE-001) ───────────────────────────
   nys_search_caselaw: async (inp) => {
     const { nysKnowledgeRequest } = await import('../jrx-nys-knowledge-client.js');
     const r = await nysKnowledgeRequest({
@@ -263,10 +263,10 @@ const HANDLERS: Record<string, McpDelegateHandler> = {
       await new Promise((r) => setTimeout(r, 2000));
       const cur = getLegalWorkRun(run.runId);
       if (cur && (cur.status === 'completed' || cur.status === 'failed')) {
-        return { run: cur, source: 'nys+nyv-legal-work' };
+        return { run: cur, source: 'nys+jrx-legal-work' };
       }
     }
-    return { run, status: 'queued', note: 'Poll GET /api/jrx/legal-work/runs/:id', source: 'nys+nyv-legal-work' };
+    return { run, status: 'queued', note: 'Poll GET /api/jrx/legal-work/runs/:id', source: 'nys+jrx-legal-work' };
   },
   nys_chat_action: async (inp) => {
     const { nysKnowledgeRequest } = await import('../jrx-nys-knowledge-client.js');
@@ -304,7 +304,7 @@ const HANDLERS: Record<string, McpDelegateHandler> = {
   },
 
   /**
-   * NV-NYS-FULLTEXT-001 — the tool an agent needs when the ask is "read me
+   * NV-JRX-FULLTEXT-001 — the tool an agent needs when the ask is "read me
    * the actual judgment". `nys_athena_search` only returns metadata + an
    * `s3_path`, which left agents able to LOCATE a judgment but not READ it.
    *

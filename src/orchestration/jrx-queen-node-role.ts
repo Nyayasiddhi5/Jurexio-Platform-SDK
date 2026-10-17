@@ -17,7 +17,7 @@
  * Kept in its own module (rather than inside the 5.4 k-line orchestrator) so the
  * routing decision is unit-testable without booting the whole agent graph.
  *
- * See `documents/working/NYV-ORCHESTRATION-OPTIMIZATION-PLAN-2026-08.md` §8.5.
+ * See `documents/working/JRX-ORCHESTRATION-OPTIMIZATION-PLAN-2026-08.md` §8.5.
  */
 
 export type QueenNodeRole = 'exploration' | 'synthesis';
@@ -65,12 +65,12 @@ export function classifyQueenNodeRole(subtask?: QueenNodeRoleInput): QueenNodeRo
 
 /**
  * Output-token ceiling for an exploration leaf. Env-tunable via
- * `NYV_QUEEN_EXPLORATION_MAX_TOKENS`; clamped to 512–4,096 so a misconfigured
+ * `JRX_QUEEN_EXPLORATION_MAX_TOKENS`; clamped to 512–4,096 so a misconfigured
  * value can neither truncate notes into uselessness nor restore the 16 k
  * generation that caused the measured per-node timeouts.
  */
 export function resolveExplorationMaxTokens(
-  raw: string | number | undefined = process.env.NYV_QUEEN_EXPLORATION_MAX_TOKENS,
+  raw: string | number | undefined = process.env.JRX_QUEEN_EXPLORATION_MAX_TOKENS,
 ): number {
   const n = Number(raw ?? 2_048);
   if (!Number.isFinite(n) || n <= 0) return 2_048;

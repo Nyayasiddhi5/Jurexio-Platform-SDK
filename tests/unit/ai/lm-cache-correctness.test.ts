@@ -70,7 +70,7 @@ describe('tenant and jurisdiction isolation', () => {
     // namespace `a` + turn `c=v1::q` and by a namespace containing `::`.
     const forged = buildCacheKeyParts({
       prompt: Q,
-      namespace: './jrx-agent:tenant:evil::nv-agent:tenant:acme:juris:IN:agent:civil',
+      namespace: './jrx-agent:tenant:evil::jrx-agent:tenant:acme:juris:IN:agent:civil',
       corpusVersion: 'v1',
     }).lookupKey;
     const real = buildCacheKeyParts({
@@ -79,7 +79,7 @@ describe('tenant and jurisdiction isolation', () => {
       corpusVersion: 'v1',
     }).lookupKey;
     expect(forged).not.toBe(real);
-    expect(forged).not.toContain('evil::nv-agent');
+    expect(forged).not.toContain('evil::jrx-agent');
     expect(escapeNamespace('a::b')).toBe('a%3A%3Ab');
   });
 
@@ -87,7 +87,7 @@ describe('tenant and jurisdiction isolation', () => {
     expect(parseNamespaceTenant('./jrx-agent:tenant:acme:juris:IN:agent:civil')).toBe('acme');
     expect(parseNamespaceTenant('specialist:acme:IN:criminal-bot')).toBe('acme');
     expect(parseNamespaceTenant('app_abc123')).toBe('abc123');
-    // No tenant dimension at all (`nv-patterns-routes.ts:1583`) — unknown, not "safe".
+    // No tenant dimension at all (`jrx-patterns-routes.ts:1583`) — unknown, not "safe".
     expect(parseNamespaceTenant('patterns:IN')).toBeNull();
     expect(parseNamespaceTenant(undefined)).toBeNull();
   });
@@ -108,13 +108,13 @@ describe('tenant and jurisdiction isolation', () => {
   it('reports fuzzy-match eligibility through describeKey so ops can audit a scope', () => {
     // `describeKey` reports the *effective* decision, which includes the
     // default-off ops flag; set it so this asserts the namespace dimension.
-    process.env.NYV_F_LMCACHE_SEMANTIC_EMBED = 'true';
+    process.env.JRX_F_LMCACHE_SEMANTIC_EMBED = 'true';
     try {
       const cache = newCache({ enableSemanticMatching: true });
       expect(cache.describeKey(Q, './jrx-agent:tenant:acme:juris:IN:agent:civil').fuzzyMatchAllowed).toBe(true);
       expect(cache.describeKey(Q, './jrx-agent:tenant:global:juris:IN:agent:civil').fuzzyMatchAllowed).toBe(false);
     } finally {
-      delete process.env.NYV_F_LMCACHE_SEMANTIC_EMBED;
+      delete process.env.JRX_F_LMCACHE_SEMANTIC_EMBED;
     }
   });
 
@@ -134,7 +134,7 @@ describe('tenant and jurisdiction isolation', () => {
   /**
    * NV-LMCACHE-SDK-NS-ESCAPE-001 — the cache cannot fix this one, and it is the
    * highest-severity issue found. `/cache/lookup`
-   * (`nv-sdk-gateway-routes.ts:2296`) and `/cache/store` (`:2324`) take the
+   * (`jrx-sdk-gateway-routes.ts:2296`) and `/cache/store` (`:2324`) take the
    * namespace from the REQUEST BODY, defaulting to `app_${ctx.applicationId}`
    * only when absent — so an authenticated SDK caller with `documents:read` can
    * name another application's (or agent's) namespace and both read and write
@@ -167,17 +167,17 @@ describe('cached answers must not outlive their grounding', () => {
 
   afterEach(() => {
     vi.useRealTimers();
-    delete process.env.NYV_LEGAL_CORPUS_VERSION;
+    delete process.env.JRX_LEGAL_CORPUS_VERSION;
   });
 
   it('a corpus-version bump orphans every pre-amendment entry', async () => {
-    process.env.NYV_LEGAL_CORPUS_VERSION = '2026-08-01';
+    process.env.JRX_LEGAL_CORPUS_VERSION = '2026-08-01';
     const before = newCache();
     await before.set(Q, A, { namespace: ns });
     expect((await before.get(Q, ns)).hit).toBe(true);
 
     // A statute amendment ships; the corpus version is bumped and pods restart.
-    process.env.NYV_LEGAL_CORPUS_VERSION = '2026-08-15';
+    process.env.JRX_LEGAL_CORPUS_VERSION = '2026-08-15';
     const after = newCache();
     expect((await after.get(Q, ns)).hit).toBe(false);
     expect(after.getStats().corpusVersion).toBe('2026-08-15');

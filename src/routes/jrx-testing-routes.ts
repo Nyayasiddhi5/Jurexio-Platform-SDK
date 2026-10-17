@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 import { Router, Request, Response } from 'express';
 import { createLogger } from '../utils/logger.js';
 import { requireRole } from '../middleware/jrx-auth.js';

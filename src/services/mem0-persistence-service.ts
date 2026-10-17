@@ -2,10 +2,10 @@ import { EventEmitter } from 'events';
 import { randomUUID } from 'crypto';
 import { sql } from 'drizzle-orm';
 import { createLogger } from '../utils/logger.js';
-import { getMemoryCompiler } from './nyv-memory-compiler.js';
+import { getMemoryCompiler } from './jrx-memory-compiler.js';
 import { db as _nvDb } from '../db/index.js';
 import { lazyRequire } from '../utils/jrx-type-helpers.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 
 const logger = createLogger('mem0-persistence-service');
 
@@ -28,7 +28,7 @@ export interface Mem0Config {
    * meaningful within one model's space). Defaults to a generic English config
    * that routes through the existing embedding service's default model; operators
    * with a self-hosted Indic/legal model can override jurisdiction/language/
-   * docType to select it (see nv-legal-embedding-service selectModel()).
+   * docType to select it (see jrx-legal-embedding-service selectModel()).
    */
   embedJurisdiction: 'IN' | 'UK' | 'EU' | 'US' | 'GC' | 'SG';
   embedLanguage: string;
@@ -1105,7 +1105,7 @@ export class Mem0PersistenceService extends EventEmitter {
   /** Whether the durable + embedding-backed path is enabled. Never throws. */
   private durableEnabled(): boolean {
     try {
-      return isNyvFeatureOn('mem0Durable');
+      return isJrxFeatureOn('mem0Durable');
     } catch {
       return false;
     }

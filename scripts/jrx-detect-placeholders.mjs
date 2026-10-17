@@ -19,7 +19,7 @@
  *   (default)          warn-only — prints findings, ALWAYS exits 0.
  *   --enforce          exits 1 if findings exceed the recorded baseline
  *                      (i.e. a NEW placeholder/fake/duplicate was introduced).
- *   --update-baseline  rewrites scripts/.nv-placeholder-baseline.json to the
+ *   --update-baseline  rewrites scripts/.jrx-placeholder-baseline.json to the
  *                      current findings (use after a real cleanup reduces them).
  *
  * The baseline stores per-finding signatures (path::category::text, line-number
@@ -33,7 +33,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(__dirname, '..');
-const BASELINE_PATH = join(__dirname, '.nv-placeholder-baseline.json');
+const BASELINE_PATH = join(__dirname, '.jrx-placeholder-baseline.json');
 
 const SCAN_ROOTS = ['src', 'client/src', 'shared', 'packages'];
 
@@ -65,7 +65,7 @@ const PATTERNS = [
 ];
 
 // Lines containing this annotation are intentionally exempted.
-const ALLOW_RE = /nv-allow-placeholder/i;
+const ALLOW_RE = /jrx-allow-placeholder/i;
 
 // JSX/HTML/CSS input `placeholder` attribute usage is legitimate UI, not a stub.
 const UI_PLACEHOLDER_RE = /placeholder(text)?\s*[:=]|["'`]placeholder["'`]|setplaceholder|getplaceholder/i;
@@ -185,7 +185,7 @@ if (UPDATE || !existsSync(BASELINE_PATH)) {
     BASELINE_PATH,
     JSON.stringify({ updatedAt: new Date().toISOString(), count: findings.length, signatures: sigs.sort() }, null, 2) + '\n',
   );
-  console.log(`✓ baseline ${UPDATE ? 'updated' : 'created'} at scripts/.nv-placeholder-baseline.json (count=${findings.length}).`);
+  console.log(`✓ baseline ${UPDATE ? 'updated' : 'created'} at scripts/.jrx-placeholder-baseline.json (count=${findings.length}).`);
   if (!UPDATE) console.log('  (first run — recording current debt as the baseline; new placeholders will be flagged from now on.)');
   process.exit(0);
 }
@@ -209,7 +209,7 @@ for (const f of novel.slice(0, 60)) {
 }
 if (novel.length > 60) console.log(`  … and ${novel.length - 60} more`);
 console.log('');
-console.log('  Fix with a real implementation, or annotate the line with `nv-allow-placeholder: <reason>` if genuinely intentional.');
+console.log('  Fix with a real implementation, or annotate the line with `jrx-allow-placeholder: <reason>` if genuinely intentional.');
 
 if (ENFORCE) {
   console.error('✗ NV-NO-PLACEHOLDER-001 FAILED (--enforce): new placeholder/fake/duplicate code is not allowed.');

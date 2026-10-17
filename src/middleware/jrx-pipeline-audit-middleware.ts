@@ -1,6 +1,6 @@
 /**
  * Jurexio Enterprise Platform 3.1.2 — 13-Step AI Pipeline Hardening Middleware
- * NYV-MW-PIPELINE-001
+ * JRX-MW-PIPELINE-001
  *
  * Handover §3.3 — 13-Step AI Safety Pipeline:
  *

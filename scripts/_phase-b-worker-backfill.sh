@@ -23,7 +23,7 @@ echo "=== B3 CNR CASE DETAILS BACKFILL (50 partitions) ==="
 if [ -f "$API/ingest-cnr-case-details.mjs" ]; then
   node "$API/ingest-cnr-case-details.mjs" 50 2>&1 | tail -20
 elif [ -f "$API/nys-cnr-index-sync.mjs" ]; then
-  NYS_CNR_DETAILS_LIMIT=50 node "$API/nys-cnr-index-sync.mjs" 2>&1 | tail -20
+  JRX_ECOSYSTEM_CNR_DETAILS_LIMIT=50 node "$API/nys-cnr-index-sync.mjs" 2>&1 | tail -20
 else
   echo "MISSING ingest scripts"
 fi

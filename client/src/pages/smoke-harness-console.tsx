@@ -6,7 +6,7 @@ export default function SmokeHarnessConsole() {
   return (
     <PhaseCScaffold
       title="Smoke Harness Console"
-      description="Run nv-smoke-bash.sh from UI with per-platform pass/fail matrix"
+      description="Run jrx-smoke-bash.sh from UI with per-platform pass/fail matrix"
       endpoint={nv('phase-c/smoke-harness-console')}
       icon={TestTube}
       minRole="developer"

@@ -254,7 +254,7 @@ describe('planNotices() — statutory thresholds', () => {
       affectedResidents: [{ state: 'NY', count: NY_AG_THRESHOLD + 1 }],
     }));
     expect(recipients.sort()).toEqual(
-      ['NY_DOS', 'NY_OAG', 'NY_RESIDENTS', 'NYS_POLICE'].sort(),
+      ['NY_DOS', 'NY_OAG', 'NY_RESIDENTS', 'JRX_ECOSYSTEM_POLICE'].sort(),
     );
   });
 
@@ -281,7 +281,7 @@ describe('planNotices() — statutory thresholds', () => {
       ],
     }));
     expect(new Set(recipients)).toEqual(new Set([
-      'NY_RESIDENTS', 'NY_OAG', 'NY_DOS', 'NYS_POLICE',
+      'NY_RESIDENTS', 'NY_OAG', 'NY_DOS', 'JRX_ECOSYSTEM_POLICE',
       'MA_RESIDENTS', 'MA_AG', 'MA_OCABR',
       'IL_RESIDENTS',
     ]));
@@ -305,13 +305,13 @@ describe('fileBreachIncident() — full pipeline', () => {
     }));
 
     const recipients = out.notices.map((n) => n.recipient).sort();
-    expect(recipients).toEqual(['NYS_POLICE', 'NY_DOS', 'NY_OAG', 'NY_RESIDENTS'].sort());
+    expect(recipients).toEqual(['JRX_ECOSYSTEM_POLICE', 'NY_DOS', 'NY_OAG', 'NY_RESIDENTS'].sort());
 
     // Outbound dispatch invoked for every notice.
     expect(dispatched.map((d) => d.recipient).sort()).toEqual(recipients);
     // Statutory destinations include the AG portal + NYS Police mailbox.
     expect(dispatched.find((d) => d.recipient === 'NY_OAG')?.destination).toMatch(/ag\.ny\.gov/);
-    expect(dispatched.find((d) => d.recipient === 'NYS_POLICE')?.destination).toMatch(/troopers\.ny\.gov/);
+    expect(dispatched.find((d) => d.recipient === 'JRX_ECOSYSTEM_POLICE')?.destination).toMatch(/troopers\.ny\.gov/);
     expect(dispatched.find((d) => d.recipient === 'NY_DOS')?.destination).toMatch(/its\.ny\.gov|ny\.gov/);
 
     // CAM action per notice, framework='breach'.
@@ -354,7 +354,7 @@ describe('fileBreachIncident() — full pipeline', () => {
     // No filings to AG / DOS / NYS Police were dispatched.
     expect(dispatched.find((d) => d.recipient === 'NY_OAG')).toBeUndefined();
     expect(dispatched.find((d) => d.recipient === 'NY_DOS')).toBeUndefined();
-    expect(dispatched.find((d) => d.recipient === 'NYS_POLICE')).toBeUndefined();
+    expect(dispatched.find((d) => d.recipient === 'JRX_ECOSYSTEM_POLICE')).toBeUndefined();
   });
 
   it('MA breach → OCABR + MA AG + residents (c.93H §3(b))', async () => {
@@ -431,9 +431,9 @@ describe('fileBreachIncident() — full pipeline', () => {
 
     // Each tenant got the full NY >500 fan-out (4 recipients).
     expect(a.notices.map((n) => n.recipient).sort()).toEqual(
-      ['NYS_POLICE', 'NY_DOS', 'NY_OAG', 'NY_RESIDENTS']);
+      ['JRX_ECOSYSTEM_POLICE', 'NY_DOS', 'NY_OAG', 'NY_RESIDENTS']);
     expect(b.notices.map((n) => n.recipient).sort()).toEqual(
-      ['NYS_POLICE', 'NY_DOS', 'NY_OAG', 'NY_RESIDENTS']);
+      ['JRX_ECOSYSTEM_POLICE', 'NY_DOS', 'NY_OAG', 'NY_RESIDENTS']);
 
     // Distinct notice ids per tenant — no PK collision on (notice_id).
     const aIds = new Set(a.notices.map((n) => n.noticeId));

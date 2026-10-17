@@ -3,9 +3,9 @@
 --
 -- TIER 0 (PLATFORM × NYAYAVIGYA): every Nyayasiddhi ecosystem platform
 --   (NSP, NSPM, NSI, NSA, NSM, NYM, JRX) signs a billing contract with
---   Nyayavigya for SDK access. That contract is recorded as a
+--   Jurexio for SDK access. That contract is recorded as a
 --   `platform_tier` on the platform's sdk_applications row and resolves
---   to a hardcoded entry in src/config/nv-billing-tiers.ts (so we can
+--   to a hardcoded entry in src/config/jrx-billing-tiers.ts (so we can
 --   ship without a separate billing table for v1).
 --
 -- TIER 2 (CUSTOMER ORG × PLATFORM): each platform onboards downstream
@@ -18,13 +18,13 @@
 --   firm without needing a custom tier.
 --
 -- Effective enforcement = min(PLATFORM tier limit, CUSTOMER_ORG limit).
--- See src/services/nv-billing-tier-service.ts.
+-- See src/services/jrx-billing-tier-service.ts.
 --
 -- All steps are additive + idempotent (NV-API-CONTRACT-001).
 
 BEGIN;
 
--- ── Tier-0: platform's billing tier with Nyayavigya ──────────────────
+-- ── Tier-0: platform's billing tier with Jurexio ──────────────────
 ALTER TABLE sdk_applications
   ADD COLUMN IF NOT EXISTS platform_tier VARCHAR(50) NOT NULL DEFAULT 'standard';
 

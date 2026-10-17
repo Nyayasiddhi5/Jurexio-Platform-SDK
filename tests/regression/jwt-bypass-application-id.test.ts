@@ -29,7 +29,7 @@ vi.mock('../../src/services/jrx-resolve-application-for-org.js', () => {
 import { sdkGatewayAuth } from '../../src/middleware/jrx-sdk-gateway.js';
 import { resolveApplicationIdForOrg } from '../../src/services/jrx-resolve-application-for-org.js';
 
-const SECRET = process.env.NYV_JWT_SECRET!;
+const SECRET = process.env.JRX_JWT_SECRET!;
 
 interface CapturedResponse {
   status: number;

@@ -1,12 +1,12 @@
 -- @nvkit:no-transaction
 -- ============================================================================
--- NYV-NS-002 · 0006_unify_sdk_key_tables.sql · 2026-05-01
+-- JRX-NS-002 · 0006_unify_sdk_key_tables.sql · 2026-05-01
 -- ============================================================================
 -- BIFURCATION FIX. Two parallel SDK key schemas exist in production:
---   Schema A (legacy, written by nv-sdk-provision-routes.ts + nv-sdk-keylife-routes.ts):
+--   Schema A (legacy, written by jrx-sdk-provision-routes.ts + jrx-sdk-keylife-routes.ts):
 --     nv_sdk_applications  (UUID id)
 --     nv_api_keys          (UUID id, app_id  → nv_sdk_applications.id)
---   Schema B (canonical, READ by src/middleware/nv-sdk-gateway.ts):
+--   Schema B (canonical, READ by src/middleware/jrx-sdk-gateway.ts):
 --     sdk_applications     (SERIAL id)
 --     sdk_app_api_keys     (SERIAL id, application_id → sdk_applications.id)
 --
@@ -20,11 +20,11 @@
 --      new serial ids).
 --   2. Adds DEPRECATED comments on the legacy tables.
 --   3. DOES NOT drop the legacy tables — that is gated on operator confirmation
---      that no out-of-tree readers depend on them. See NYV-NS-002 in
---      NYV-TECH-SPEC-MASTER.md §14 for the drop plan.
+--      that no out-of-tree readers depend on them. See JRX-NS-002 in
+--      JRX-TECH-SPEC-MASTER.md §14 for the drop plan.
 --
 -- The application code change that makes the provisioning routes write to
--- the canonical tables is in NYV-NS-002 / route fix C2.
+-- the canonical tables is in JRX-NS-002 / route fix C2.
 -- ============================================================================
 
 -- ── Defensive: ensure both schemas actually exist before backfilling ────────
@@ -32,12 +32,12 @@ DO $nyv$
 BEGIN
   IF NOT EXISTS (SELECT 1 FROM information_schema.tables
                   WHERE table_name = 'nv_api_keys') THEN
-    RAISE NOTICE 'NYV-NS-002: nv_api_keys not present — skipping backfill (schema A never installed)';
+    RAISE NOTICE 'JRX-NS-002: nv_api_keys not present — skipping backfill (schema A never installed)';
     RETURN;
   END IF;
   IF NOT EXISTS (SELECT 1 FROM information_schema.tables
                   WHERE table_name = 'sdk_app_api_keys') THEN
-    RAISE EXCEPTION 'NYV-NS-002: sdk_app_api_keys missing — run drizzle migration 0000 first';
+    RAISE EXCEPTION 'JRX-NS-002: sdk_app_api_keys missing — run drizzle migration 0000 first';
   END IF;
 END
 $nyv$;
@@ -89,7 +89,7 @@ BEGIN
       legacy_app.org_id,
       legacy_app.name,
       legacy_app.app_type,
-      'Migrated from legacy nv_sdk_applications (NYV-NS-002, 2026-05-01). Rotate secret before use.',
+      'Migrated from legacy nv_sdk_applications (JRX-NS-002, 2026-05-01). Rotate secret before use.',
       'legacy_' || REPLACE(legacy_app.id, '-', ''),
       fake_secret,
       'legacy_',
@@ -169,11 +169,11 @@ DO $nyv$
 BEGIN
   IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'nv_api_keys') THEN
     EXECUTE $cmt$COMMENT ON TABLE nv_api_keys IS
-      'DEPRECATED 2026-05-01 (NYV-NS-002). Use sdk_app_api_keys. Will be dropped post-GA.'$cmt$;
+      'DEPRECATED 2026-05-01 (JRX-NS-002). Use sdk_app_api_keys. Will be dropped post-GA.'$cmt$;
   END IF;
   IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'nv_sdk_applications') THEN
     EXECUTE $cmt$COMMENT ON TABLE nv_sdk_applications IS
-      'DEPRECATED 2026-05-01 (NYV-NS-002). Use sdk_applications. Will be dropped post-GA.'$cmt$;
+      'DEPRECATED 2026-05-01 (JRX-NS-002). Use sdk_applications. Will be dropped post-GA.'$cmt$;
   END IF;
 END
 $nyv$;

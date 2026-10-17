@@ -2,12 +2,12 @@
  * NV-QUEEN-COT-COLLECTIVE-001 / NV-QUEEN-COLLECTIVE-PARALLEL-001 — the two defects
  * that made the swarm path both unreliable and slow.
  *
- * Measured on nysdev before these fixes, same litigation-strategy prompt:
+ * Measured on jrx-prod before these fixes, same litigation-strategy prompt:
  *   - run A → HTTP 200, full 7.5k-char answer
  *   - run B → HTTP 500 `INTERNAL_ERROR: mandatory steps missing: cot`
  *   - 362 s wall while completions summed to 89 s (7s, 7s, 8s, 20s, 21s, 26s)
  *
- * The 500 was NOT a timeout: `nv-adaptive-router` sets `requireCoT: true` for every
+ * The 500 was NOT a timeout: `jrx-adaptive-router` sets `requireCoT: true` for every
  * `forceLegalBestOutcome` Queen request, but `executeCollectiveIntelligence` never
  * called `maybeRunQueenCoT` — only the decomposition path did. The quality envelope
  * then found `cot` missing and threw AFTER the swarm had produced a correct answer

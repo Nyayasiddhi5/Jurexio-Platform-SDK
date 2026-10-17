@@ -71,7 +71,7 @@ export function depthDeniedForTier(
   depth: NvIntelligenceDepth,
   tier: NvSubscriptionTierHint | string | undefined,
 ): string | null {
-  if (process.env.NYV_ENFORCE_DEPTH_TIERS !== '1') return null;
+  if (process.env.JRX_ENFORCE_DEPTH_TIERS !== '1') return null;
   const t = String(tier ?? 'pro').toLowerCase();
   if (depth === 'comprehensive' && (t === 'free' || t === 'starter')) {
     return 'comprehensive depth requires pro or enterprise tier';

@@ -1,6 +1,6 @@
 /**
  * Jurexio Regulatory Monitor Service v3.1.2
- * NYV-SVC-REGMON-001
+ * JRX-SVC-REGMON-001
  *
  * Real-time regulatory intelligence monitoring for all 6 jurisdictions.
  * Continuously tracks regulatory changes, new statutes, amendments, and
@@ -382,7 +382,7 @@ export class RegulatoryMonitorService {
   // Sweeps Tavily with jurisdiction-tuned regulatory search terms, persists
   // each unique URL into nv_regulatory_feeds (feed_type='tavily-news') with
   // dedup-by-url, and refreshes lastChangeDetectedAt for re-emerges. Reads
-  // are served from the same table by nv-operations-aggregators.ts.
+  // are served from the same table by jrx-operations-aggregators.ts.
   // ──────────────────────────────────────────────────────────────────────────
 
   private tavilyInterval?: NodeJS.Timer;

@@ -3,7 +3,7 @@
  * React hooks for Jurexio Enterprise Platform legal AI integration.
  *
  * Hooks:
- *   useNyvClient            — client configuration and auth headers
+ *   useJrxClient            — client configuration and auth headers
  *   usePatternStream        — SSE streaming for all 22 AI patterns
  *   useCredits              — credit wallet management
  *   useGovernanceBadge      — AI risk score and badge computation
@@ -21,11 +21,11 @@
  *   usePrecedentSimilarity  — precedent similarity search
  */
 
-export { useNyvClient } from './useNyvClient.js';
-export type { NyvClientConfig, UseNyvClientReturn } from './useNyvClient.js';
+export { useJrxClient } from './useJrxClient.js';
+export type { JrxClientConfig, UseJrxClientReturn } from './useJrxClient.js';
 
 export { usePatternStream } from './usePatternStream.js';
-export type { NyvPatternKey, PatternStreamOptions, GovernanceData, UsePatternStreamReturn } from './usePatternStream.js';
+export type { JrxPatternKey, PatternStreamOptions, GovernanceData, UsePatternStreamReturn } from './usePatternStream.js';
 
 export { useCredits } from './useCredits.js';
 export type { CreditWallet, CreditTransaction, UseCreditsOptions, UseCreditsReturn } from './useCredits.js';

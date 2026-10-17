@@ -300,7 +300,7 @@ export function computeInternalScopesForRole(role: string | undefined): string[]
   // would carry, so the Customer Orgs page can list / read usage for
   // their downstream firms. Cross-tenant isolation is still enforced
   // server-side by the `platform_id = sdkContext.applicationId` filter
-  // inside `nv-customer-orgs-routes.ts`. Mirrors classifyLayer() in
+  // inside `jrx-customer-orgs-routes.ts`. Mirrors classifyLayer() in
   // src/services/rbac/jrx-customer-org-rbac.ts.
   if (role === 'org_admin' || role === 'super_admin' || role === 'admin') {
     scopes.push('customer-orgs:admin');
@@ -319,10 +319,10 @@ async function tryJwtBypass(req: Request, res: Response, next: NextFunction): Pr
   if (!token || token.startsWith('nyv_')) return false; // SDK keys start with nyv_
 
   try {
-    // Use the unified secret-resolution chain (NYV_JWT_SECRET preferred)
+    // Use the unified secret-resolution chain (JRX_JWT_SECRET preferred)
     // to match how generateToken() signs in src/middleware/jrx-auth.ts.
     const secret =
-      process.env.NYV_JWT_SECRET ||
+      process.env.JRX_JWT_SECRET ||
       process.env.JWT_SECRET ||
       process.env.NS_JWT_SECRET;
     if (!secret) return false;
@@ -564,7 +564,7 @@ export async function sdkGatewayAuth(req: Request, res: Response, next: NextFunc
 
   // NV-PLATFORM-UAT-BYPASS-001 (2026-05-14): when NV_PLATFORM_UAT_BYPASS=1 AND
   // the inbound key fingerprint matches one of the 7 internal Jurexio
-  // platform keys (NYV_SDK_KEY_{NSP,NSPM,NSI,NSA,NSM,NYM,JRX}), skip rate
+  // platform keys (JRX_SDK_KEY_{NSP,NSPM,NSI,NSA,NSM,NYM,JRX}), skip rate
   // limits + force scopes='*'. Auth/audit/RLS/PII/guardrails remain enforced.
   // Bypass calls are tagged with X-Platform-UAT-Bypass response header.
   // NV-PARTNER-DEMO-UNLIMITED-001 / NV-NSP-UNLIMITED-001: skip RPM + daily
@@ -574,7 +574,7 @@ export async function sdkGatewayAuth(req: Request, res: Response, next: NextFunc
   const __uatLabel = platformUatLabel(apiKey);
   const __softPolicy = isSoftPolicyKey(apiKey);
   const __demoUnlimited = (() => {
-    const v = String(process.env.NYV_PARTNER_DEMO_UNLIMITED ?? '1').trim().toLowerCase();
+    const v = String(process.env.JRX_PARTNER_DEMO_UNLIMITED ?? '1').trim().toLowerCase();
     if (v === '0' || v === 'false' || v === 'off') return false;
     return isPlatformUatKey(apiKey);
   })();
@@ -591,9 +591,9 @@ export async function sdkGatewayAuth(req: Request, res: Response, next: NextFunc
   const __nspUnlimited =
     __nspApp
     && !(
-      String(process.env.NYV_NSP_UNLIMITED ?? '1').trim().toLowerCase() === '0'
-      || String(process.env.NYV_NSP_UNLIMITED ?? '1').trim().toLowerCase() === 'false'
-      || String(process.env.NYV_NSP_UNLIMITED ?? '1').trim().toLowerCase() === 'off'
+      String(process.env.JRX_NSP_UNLIMITED ?? '1').trim().toLowerCase() === '0'
+      || String(process.env.JRX_NSP_UNLIMITED ?? '1').trim().toLowerCase() === 'false'
+      || String(process.env.JRX_NSP_UNLIMITED ?? '1').trim().toLowerCase() === 'off'
     );
   const __skipProductRateLimits = __platformUatBypass || __demoUnlimited || __nspUnlimited || wantsNspUnlimited(req);
 
@@ -868,8 +868,8 @@ export async function sdkGatewayAuth(req: Request, res: Response, next: NextFunc
 
     if (!db) return;
 
-    // NYV-P1-ORCH-CORE-001 (item B): wire the REAL per-request token + cost
-    // figures accumulated by nv-request-usage-context (recordLlmUsage →
+    // JRX-P1-ORCH-CORE-001 (item B): wire the REAL per-request token + cost
+    // figures accumulated by jrx-request-usage-context (recordLlmUsage →
     // res.locals.nvUsage) into the request log. Previously this writer
     // hard-coded tokensIn:0/tokensOut:0, so SDK usage/billing dashboards
     // (and the daily-budget check above, which SUMs tokens_in+tokens_out)
@@ -889,7 +889,7 @@ export async function sdkGatewayAuth(req: Request, res: Response, next: NextFunc
     // `errorMessage`/`organizationId` keys that DO NOT EXIST on the Drizzle
     // schema (shared/schema.ts:144) — Drizzle silently dropped them. Now
     // writes only declared columns; everything else lives in `metadata` jsonb.
-    // See docs/v3.1.2/NYV-DATABASE-CANONICAL-2026-05-05.md §3 for the full
+    // See docs/v3.1.2/JRX-DATABASE-CANONICAL-2026-05-05.md §3 for the full
     // column-shape table-of-truth.
     // Task #343: stamp customer_org_id on the request log so the audit
     // chain shows the FULL identity (platform=<app> customer_org=<co>

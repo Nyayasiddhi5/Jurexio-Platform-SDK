@@ -212,7 +212,7 @@ export const PLATFORM_REGISTRY: Record<PlatformId, {
   defaultRateLimit: number; // requests per minute
   description: string;
 }> = {
-  'Nyayamitra': { tier: 'plus', defaultRateLimit: 200, description: 'Citizen Legal Aid' },
+  'Jurexio Citizen': { tier: 'plus', defaultRateLimit: 200, description: 'Citizen Legal Aid' },
   'NS Professional': { tier: 'pro', defaultRateLimit: 300, description: 'Practice OS (basic plan)' },
   'NS Professional Pro': { tier: 'enterprise', defaultRateLimit: 500, description: 'Practice OS (pro plan)' },
   'NI Institutional': { tier: 'enterprise', defaultRateLimit: 800, description: 'Legal Governance' },

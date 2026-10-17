@@ -14,8 +14,8 @@ import {
   Activity, RefreshCw, ServerCrash, Filter, Gauge, Hash, Network,
 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { Link } from 'wouter';
 import { p } from '@/lib/jrx-api-paths';
 import { nvFetchJson } from '@/lib/jrx-fetch-json';
@@ -435,7 +435,7 @@ function KpiCard({
 function EmptyState({ isLoading, isError }: { isLoading: boolean; isError: boolean }) {
   if (isError) {
     return (
-      <NyvErrorState
+      <JrxErrorState
         title="Router-stats endpoint unavailable"
         description="Admin-only — requires the nv_router_decisions table."
         variant="card"
@@ -451,6 +451,6 @@ function EmptyState({ isLoading, isError }: { isLoading: boolean; isError: boole
     );
   }
   return (
-    <NyvEmptyState title="No decisions in the selected window" size="sm" />
+    <JrxEmptyState title="No decisions in the selected window" size="sm" />
   );
 }

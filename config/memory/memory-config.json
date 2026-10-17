@@ -12,7 +12,7 @@
   "semanticDedupe": { "enabled": true, "thresholdCosine": 0.93 },
   "consolidationJob": { "cron": "0 3 * * *", "scope": ["L2","L3"] },
   "perPlatformAllowed": {
-    "nyayamitra":      ["L1","L2","L3"],
+    "jurexio-citizen":      ["L1","L2","L3"],
     "nys-professional":["L1","L2","L3","L4","L5"],
     "nys-institutional":["L1","L2","L3","L4","L5"],
     "nys-academy":     ["L1","L2","L3"],

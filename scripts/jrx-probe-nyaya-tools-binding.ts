@@ -1,13 +1,13 @@
 /**
  * NV-NYAYA-TOOLS-BINDING-001 — runtime probe.
  *
- * Invokes every `nyaya-tools.*` capability through the real manifest and
+ * Invokes every `jrx-legal-tools.*` capability through the real manifest and
  * reports which ones resolve to a callable method. Inference from grep is
  * not enough here: `pickModuleService` silently falls back to the module
  * namespace on an export-name miss, so a binding defect is only observable
  * at invocation time.
  *
- * Usage: npx tsx scripts/jrx-probe-nyaya-tools-binding.ts
+ * Usage: npx tsx scripts/jrx-probe-jrx-legal-tools-binding.ts
  */
 import { capabilityManifest } from '../src/orchestration/capability-manifest.js';
 
@@ -21,10 +21,10 @@ async function main(): Promise<void> {
   const all = capabilityManifest.list();
   const only = process.argv.includes('--all')
     ? all
-    : all.filter((c) => c.id.startsWith('nyaya-tools.'));
+    : all.filter((c) => c.id.startsWith('jrx-legal-tools.'));
   const tools = only;
 
-  console.log(`Probing ${tools.length} nyaya-tools capabilities via the real manifest\n`);
+  console.log(`Probing ${tools.length} jrx-legal-tools capabilities via the real manifest\n`);
 
   const rows: Row[] = [];
 
@@ -66,7 +66,7 @@ async function main(): Promise<void> {
   console.log(
     `\nBOUND* = method resolved but threw for an unrelated reason (binding is intact).`,
   );
-  console.log(`\n${broken.length} of ${rows.length} nyaya-tools capabilities cannot be invoked.`);
+  console.log(`\n${broken.length} of ${rows.length} jrx-legal-tools capabilities cannot be invoked.`);
 
   if (broken.length > 0) {
     console.log(`\nUnreachable capability ids:`);

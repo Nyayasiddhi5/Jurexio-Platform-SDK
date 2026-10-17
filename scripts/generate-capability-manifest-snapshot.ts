@@ -1,6 +1,6 @@
 /**
  * Generate a JSON snapshot of the capability manifest.
- * NYV-ORCH-CAPMAN-SNAPSHOT-001 (Task #32)
+ * JRX-ORCH-CAPMAN-SNAPSHOT-001 (Task #32)
  *
  * Output: src/orchestration/capability-manifest.snapshot.json
  *

@@ -7,7 +7,7 @@
 
 import type { DraftDocumentType } from '../config/jrx-draft-length-registry.js';
 
-/** SC registry paper-book shape — shared with nv-legal-drafting-prompt slp family. */
+/** SC registry paper-book shape — shared with jrx-legal-drafting-prompt slp family. */
 export const SLP_PAPERBOOK_RULE = `SPECIAL LEAVE PETITION — SUPREME COURT PAPER-BOOK RULE (mandatory):
 - Article 136 confers a discretionary jurisdiction. Plead why the case is fit for special leave — a substantial question of law of general importance, or gross failure of justice — not merely that the judgment below is wrong.
 - The paper-book order is fixed and must all be produced: (1) Synopsis, (2) List of Dates and Events, (3) the petition proper, (4) Questions of Law, (5) Grounds, (6) Prayer including interim prayer, (7) the Certificate, (8) Affidavit in support, (9) Annexures / Appendix.

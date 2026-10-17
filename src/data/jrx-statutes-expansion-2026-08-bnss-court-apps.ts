@@ -1,7 +1,7 @@
 /**
  * NV-STATUTE-EXPANSION-BNSS-APPS-001 — BNSS sections for the 25 essential court applications.
  * PURE DATA — upserts alongside existing BNSS rows by (jurisdiction, act, section).
- * Does NOT import runtime values from nv-statutes-expansion-2026-06.ts (avoids circular ESM init).
+ * Does NOT import runtime values from jrx-statutes-expansion-2026-06.ts (avoids circular ESM init).
  */
 
 /** Local shape compatible with ExpansionStatute (no circular import). */

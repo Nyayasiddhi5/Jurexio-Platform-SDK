@@ -2,6 +2,40 @@
 
 ## [1.0.0] — Unreleased
 
+### Removed — JRX-ZERO-NYV-REF-001 (2026-10-17)
+
+- Deleted `archive/upstream-nyv/`, `scripts/legacy-nyv/`, and bulk `docs/audit/eval/*.json` (history remains in Git).
+- Moved legacy compose files to `archive/deprecated-nyv-compose/`.
+
+### Added — JRX-ZERO-NYV-REF-001 (2026-10-17)
+
+- `documents/working/JRX-UPSTREAM-LINEAGE.md`; `scripts/jrx-db-rename-legacy-tables.sql`; `scripts/jrx-guardrail-nyv-allowlist.txt`.
+- `src/config/jrx-read-master-config-json.ts` (legacy JSON filename fallback once).
+- `packages/jurexio-citizen-sdk` (renamed from nyayamitra-sdk).
+
+### Changed — JRX-ZERO-NYV-REF-001 (2026-10-17)
+
+- Forbidden-brand guardrail: `\bNYV\b|Nyayavigya|nyayavigya|nysdev|\bWAI\b` on `src/`, `client/src`, `packages/`, `shared/`, `documents/working/`, `scripts/jrx-*`.
+- SSM Bedrock bootstrap: Jurexio-only (no legacy prefix copy).
+- Mechanical rename/scrub across active product paths (`jrx-master-config`, `jrx-*` services).
+
+### Added — JRX-PRE-DEPLOY-CLOSEOUT-001 (2026-10-17)
+
+- `JrxConsoleSidebar` / `JrxPageShell` with deprecated `Nyv*` shims; `JRX_CONSOLE_*` route constants with `NV_CONSOLE_*` re-exports.
+- JRX-native SSM Bedrock bootstrap (`JRX_SSM_COPY_FROM_NYV` default off); `env.production.jurexio.example` US defaults.
+- `documents/working/JRX-LEGACY-NYV-COMPOSE.md`; NYV probe scripts under `scripts/legacy-nyv/`.
+- Analytics dashboard components renamed (`JrxAnalyticsOverview`, `JrxAnalyticsProjectPanel`, `JrxAnalyticsMetricsPanel`).
+
+### Changed — JRX-PRE-DEPLOY-CLOSEOUT-001 (2026-10-17)
+
+- Console sidebar IA: single Chat entry, org vs platform compliance labels, Document AI hub-first.
+- Runbook pre-deploy closeout gate before live AWS apply/deploy.
+
+### Added — JRX-INFRA-OPTION-B-001 (2026-10-17)
+
+- `scripts/jrx-infra-apply-option-b.sh` — dry-run (default) / `--apply` provision for Option B (S3, VPC/SG, RDS Postgres 15, ElastiCache Redis, EC2 AL2023); outputs `env.production.jurexio.generated`; optional `JRX_BOOTSTRAP_SSM=1` → `jrx-ssm-bootstrap-bedrock-smoke.sh`.
+- Runbook section in `documents/working/JRX-AWS-INFRA-OPTIONS-AND-RUNBOOK.md`; gitignore for generated Jurexio env files.
+
 ### Added — JRX-PROGRAM-001 (2026-10-17)
 
 - Re-export from Nyayavigya `aeab32ff` (5837 files); `UPSTREAM-NYV-SHA.txt`.

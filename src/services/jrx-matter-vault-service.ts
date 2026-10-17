@@ -7,7 +7,7 @@ import { createLogger } from '../utils/logger.js';
 import { createEcosystemDocumentJob } from './jrx-ecosystem-document-job-service.js';
 import { autoRagRetrieve } from './jrx-auto-rag-router.js';
 import { nvContractPlaybookService } from './jrx-orchestration-services.js';
-import { nyvDocumentStorage } from './nyv-document-storage-service.js';
+import { nyvDocumentStorage } from './jrx-document-storage-service.js';
 import type { CreateEdjRequest, EdjOutputProfile } from './jrx-ecosystem-document-job-contract.js';
 import {
   parseIntelligenceDepth,
@@ -405,7 +405,7 @@ export async function uploadMatterVaultBatch(
         userId: ctx.userId,
         jurisdiction: vault.jurisdiction,
         documentType: 'matter_vault_document',
-        platformCode: 'NYV',
+        platformCode: 'JRX',
         storageRef: {
           type: 'nyv_shared_key',
           storageKey,

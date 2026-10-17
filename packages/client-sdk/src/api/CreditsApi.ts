@@ -1,13 +1,13 @@
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 import type {
-  NyvCreditWallet,
-  NyvCreditTransaction,
+  JrxCreditWallet,
+  JrxCreditTransaction,
 } from '../types/index.js';
 
 export class CreditsApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
 
-  async getWallet(): Promise<NyvCreditWallet> {
+  async getWallet(): Promise<JrxCreditWallet> {
     return this.http.get('/api/jrx/credits/wallet');
   }
 
@@ -17,7 +17,7 @@ export class CreditsApi {
     type?: string;
     from?: string;
     to?: string;
-  }): Promise<{ transactions: NyvCreditTransaction[]; total: number; page: number }> {
+  }): Promise<{ transactions: JrxCreditTransaction[]; total: number; page: number }> {
     const params = new URLSearchParams();
     if (options?.page) params.set('page', String(options.page));
     if (options?.pageSize) params.set('pageSize', String(options.pageSize));

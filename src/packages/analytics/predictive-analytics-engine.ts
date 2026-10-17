@@ -7,7 +7,7 @@
 import { EventEmitter } from 'events';
 import crypto from 'crypto';
 // Platform orchestrator - provides AI-powered analysis via content studio and assistant builder
-const nyayavigyaPlatformOrchestrator: any = {
+const jurexioPlatformOrchestrator: any = {
   getMetrics: () => ({}),
   async aiAssistantBuilder(id: string, desc: string, params: any) { return { result: {} }; },
   async contentStudio(id: string, desc: string, params: any) { return { result: {} }; }
@@ -316,7 +316,7 @@ export class PredictiveAnalyticsEngine extends EventEmitter {
   async predictUserBehavior(userId: string, features: any): Promise<UserBehaviorPrediction> {
     try {
       // Use Jurexio orchestration for advanced user behavior analysis
-      const response = await nyayavigyaPlatformOrchestrator.aiAssistantBuilder('user-behavior-prediction',
+      const response = await jurexioPlatformOrchestrator.aiAssistantBuilder('user-behavior-prediction',
         'Predict user behavior based on usage patterns and engagement metrics',
         {
           userId,
@@ -385,7 +385,7 @@ export class PredictiveAnalyticsEngine extends EventEmitter {
   private async performTrendAnalysis(category: string, metrics: BusinessMetric[]): Promise<BusinessTrendAnalysis> {
     try {
       // Use Jurexio orchestration for sophisticated trend analysis
-      const response = await nyayavigyaPlatformOrchestrator.contentStudio('trend-analysis',
+      const response = await jurexioPlatformOrchestrator.contentStudio('trend-analysis',
         'Analyze business metrics for trends, patterns, and forecasting insights',
         {
           category,
@@ -450,7 +450,7 @@ export class PredictiveAnalyticsEngine extends EventEmitter {
 
   private async predictComponentPerformance(component: string): Promise<PerformanceForecast> {
     try {
-      const response = await nyayavigyaPlatformOrchestrator.contentStudio('performance-prediction',
+      const response = await jurexioPlatformOrchestrator.contentStudio('performance-prediction',
         'Predict system performance metrics and resource requirements',
         {
           component,

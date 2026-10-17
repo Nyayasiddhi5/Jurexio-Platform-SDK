@@ -8,7 +8,7 @@ import * as path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const ARCHIVE = path.join(ROOT, 'config', 'agent-registries', 'archive', 'v5.0.0');
-const DEFAULT_PATH = path.join(ROOT, 'config', 'agent-registries', 'Nyayavigya-Legal-registry-Default.json');
+const DEFAULT_PATH = path.join(ROOT, 'config', 'agent-registries', 'Jurexio-Legal-registry-Default.json');
 const OUT = path.join(ROOT, 'config', 'agent-registries', 'agent-id-aliases-v5.1.0.json');
 
 const SLUG_MAP: Record<string, string> = {

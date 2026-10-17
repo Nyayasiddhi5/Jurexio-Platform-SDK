@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Transfer graph JSONL worker→nysdev via temp HTTP, ingest to NYV RDS
+# Transfer graph JSONL worker→jrx-prod via temp HTTP, ingest to JRX RDS
 set -uo pipefail
 WORKER_IP=$(aws ec2 describe-instances --instance-ids i-000115b19219bb766 --region ap-south-1 --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text)
-CANON="/opt/Nyayavigya/secrets/.env.production"
+CANON="/opt/Jurexio/secrets/.env.production"
 DB="$(grep -E '^DATABASE_URL=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')"
 JSONL="/tmp/graph-edges-pending.jsonl"
 PORT=9876
@@ -15,15 +15,15 @@ sleep 8
 HTTP_CMD=$(cat /tmp/ssm-http.txt)
 aws ssm get-command-invocation --command-id "$HTTP_CMD" --instance-id i-000115b19219bb766 --region ap-south-1 --query StandardOutputContent --output text
 
-echo "=== CURL from nysdev worker_ip=$WORKER_IP ==="
+echo "=== CURL from jrx-prod worker_ip=$WORKER_IP ==="
 curl -sf -m 120 -o "$JSONL" "http://${WORKER_IP}:${PORT}/graph-edges-pending.jsonl" && echo "downloaded $(wc -c < "$JSONL") bytes" || { echo "CURL FAILED"; exit 1; }
 
 echo "=== INGEST ==="
-docker exec -i -e NYV_DATABASE_URL="$DB" -w /app nyv-gateway node --input-type=module - <<'NODE'
+docker exec -i -e JRX_DATABASE_URL="$DB" -w /app jrx-gateway node --input-type=module - <<'NODE'
 import pg from 'pg';
 import fs from 'fs';
 const path = '/tmp/graph-edges-pending.jsonl';
-const client = new pg.Client({ connectionString: process.env.NYV_DATABASE_URL, ssl: { rejectUnauthorized: false } });
+const client = new pg.Client({ connectionString: process.env.JRX_DATABASE_URL, ssl: { rejectUnauthorized: false } });
 await client.connect();
 const lines = fs.readFileSync(path, 'utf8').split('\n');
 let n = 0, edges = 0;

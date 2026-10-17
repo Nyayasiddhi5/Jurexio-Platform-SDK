@@ -100,8 +100,8 @@ export class NvSttService {
   private geminiApiKey: string | null;
 
   constructor() {
-    this.deepgramApiKey = process.env.DEEPGRAM_API_KEY || process.env.NYV_DEEPGRAM_API_KEY || null;
-    this.sarvamApiKey = process.env.NYV_SARVAM_API_KEY || process.env.SARVAM_API_KEY || null;
+    this.deepgramApiKey = process.env.DEEPGRAM_API_KEY || process.env.JRX_DEEPGRAM_API_KEY || null;
+    this.sarvamApiKey = process.env.JRX_SARVAM_API_KEY || process.env.SARVAM_API_KEY || null;
     this.openaiApiKey = process.env.OPENAI_API_KEY || null;
     this.openrouterApiKey =
       process.env.OPENROUTER_API_KEY || process.env.AI_INTEGRATIONS_OPENROUTER_API_KEY || null;
@@ -238,7 +238,7 @@ export class NvSttService {
       return this.getSimulationResult(audioBuffer, language, 'gemini');
     }
 
-    const model = toGeminiApiModelId(process.env.NYV_GEMINI_STT_MODEL || getGeminiSttModel());
+    const model = toGeminiApiModelId(process.env.JRX_GEMINI_STT_MODEL || getGeminiSttModel());
     const mime = this.mimeForAudio(config);
     const prompt =
       `Transcribe this legal/counsel voice recording accurately. `
@@ -306,7 +306,7 @@ export class NvSttService {
   }
 
   private openRouterSttModel(): string {
-    return String(process.env.NYV_OPENROUTER_STT_MODEL || 'openai/whisper-1').trim();
+    return String(process.env.JRX_OPENROUTER_STT_MODEL || 'openai/whisper-1').trim();
   }
 
   private openRouterSttBaseUrl(): string {
@@ -483,7 +483,7 @@ export class NvSttService {
 
       const base64Audio = audioBuffer.toString('base64');
 
-      // NYV-OPS-BREAKER-SARVAM-001 (post-architect-review hardening):
+      // JRX-OPS-BREAKER-SARVAM-001 (post-architect-review hardening):
       // (a) Throw on !response.ok INSIDE the breaker so HTTP 5xx/429 actually
       //     count as breaker failures (raw fetch only rejects on network errors,
       //     so without this the breaker would never open on a degraded Sarvam
@@ -636,7 +636,7 @@ export class NvSttService {
       case 'gemini': return 'GEMINI_API_KEY';
       case 'openrouter-whisper': return 'OPENROUTER_API_KEY';
       case 'deepgram': return 'DEEPGRAM_API_KEY';
-      case 'sarvam': return 'NYV_SARVAM_API_KEY (set NYV_LANGUAGE_PROVIDER=sarvam when ready)';
+      case 'sarvam': return 'JRX_SARVAM_API_KEY (set JRX_LANGUAGE_PROVIDER=sarvam when ready)';
       case 'whisper': return 'OPENAI_API_KEY';
       default: {
         const _exhaustive: never = provider;

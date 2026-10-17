@@ -2,7 +2,7 @@
  * tests/regression/sidebar-route-render.test.tsx
  *
  * Regression sweep — for every path declared in `client/src/components/
- * NyvSidebar.tsx`, find the matching `<Route path=…>` in `client/src/App.tsx`,
+ * JrxConsoleSidebar.tsx`, find the matching `<Route path=…>` in `client/src/App.tsx`,
  * resolve the lazy-import target, and dynamic-import the page module.
  *
  * Asserts:
@@ -24,7 +24,7 @@ import * as path from 'node:path';
 import { describe, it, expect } from 'vitest';
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const SIDEBAR = path.join(ROOT, 'client', 'src', 'components', 'NyvSidebar.tsx');
+const SIDEBAR = path.join(ROOT, 'client', 'src', 'components', 'JrxConsoleSidebar.tsx');
 const APP_TSX = path.join(ROOT, 'client', 'src', 'App.tsx');
 
 function readSidebarPaths(): string[] {
@@ -45,7 +45,7 @@ interface RouteMap {
   pathToMinRole: Map<string, string>;
 }
 
-// Mirror of ROLE_LEVELS in client/src/components/NyvSidebar.tsx — kept in
+// Mirror of ROLE_LEVELS in client/src/components/JrxConsoleSidebar.tsx — kept in
 // sync manually because the sidebar file is JSX/TSX and we read it as text.
 const ROLE_LEVELS: Record<string, number> = {
   super_admin: 100, enterprise_admin: 80, org_admin: 70, manager: 60,
@@ -119,7 +119,7 @@ const sidebarPaths = readSidebarPaths();
 const sidebarItems = readSidebarItems();
 const { pathToComponent, componentToImport, pathToMinRole } = readAppRoutes();
 
-describe('NyvSidebar → App.tsx Route coverage', () => {
+describe('JrxConsoleSidebar → App.tsx Route coverage', () => {
   it('sidebar fits the 7-section / ≤25-entry IA (task-344, 2026-05-13)', () => {
     // Floor (20) guards against accidental deletions; ceiling (25) guards
     // against the sidebar drifting back toward the pre-consolidation 50+ entries.
@@ -172,7 +172,7 @@ describe('App.tsx Route coverage — every Route resolves to a defined component
 //   2. Sidebar item promises a role lower than the route actually requires
 //      (sidebar shows /audit-chain to analyst, route demands org_admin —
 //      user clicks, gets the access-denied screen).
-describe('NyvSidebar ↔ App.tsx role-gating consistency', () => {
+describe('JrxConsoleSidebar ↔ App.tsx role-gating consistency', () => {
   for (const it_ of sidebarItems) {
     const bare = it_.path.split('?')[0];
     const routeMin = pathToMinRole.get(bare);
@@ -232,7 +232,7 @@ describe('App.tsx lazy() imports — every target file exists', () => {
   }
 });
 
-describe('NyvSidebar lazy-import sweep — every sidebar page module loads', () => {
+describe('JrxConsoleSidebar lazy-import sweep — every sidebar page module loads', () => {
   for (const p of sidebarPaths) {
     const componentName = pathToComponent.get(p);
     if (!componentName) continue;

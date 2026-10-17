@@ -40,7 +40,7 @@ export type {
   ContextAssembly,
 } from './rag-service.js';
 
-export { NyvLightRAGPipeline, getLightRAGPipeline } from './nyv-lightrag-pipeline.js';
+export { JrxLightRAGPipeline, getLightRAGPipeline } from './jrx-lightrag-pipeline.js';
 export type {
   LightRAGQueryMode,
   LightRAGEntity,
@@ -49,12 +49,12 @@ export type {
   LightRAGQueryResult,
   LightRAGInsertResult,
   LightRAGConfig,
-} from './nyv-lightrag-pipeline.js';
+} from './jrx-lightrag-pipeline.js';
 
-export { NyvEntityMerger, getEntityMerger } from './nyv-entity-merger.js';
+export { JrxEntityMerger, getEntityMerger } from './jrx-entity-merger.js';
 export type {
   MergeableEntity,
   MergeResult,
   MergeGroup,
   EntityMergerConfig,
-} from './nyv-entity-merger.js';
+} from './jrx-entity-merger.js';

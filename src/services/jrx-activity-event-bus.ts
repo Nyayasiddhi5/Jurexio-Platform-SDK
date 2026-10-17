@@ -33,7 +33,7 @@
  *
  * Guardrails honored:
  *   - NV-ARCH-001: no LLM emission, pure metadata fan-out.
- *   - NV-NAMING-001: grep first showed no `nv-activity-event-bus` exists.
+ *   - NV-NAMING-001: grep first showed no `jrx-activity-event-bus` exists.
  *   - NV-LLM-001: not in the LLM-emit path.
  */
 
@@ -59,7 +59,7 @@ export interface SdkActivityEvent {
   // (jurisdiction header propagated from SDK auth context; `agent` is the
   // routed agent key when a downstream handler attaches `req.routedAgent`;
   // `eventType` is the route-prefix categorisation produced by
-  // `deriveEventType` in nv-activity-stream-routes). All default to null so
+  // `deriveEventType` in jrx-activity-stream-routes). All default to null so
   // older publishers stay forward-compatible.
   jurisdiction?: string | null;
   agent?: string | null;
@@ -164,7 +164,7 @@ class NvActivityEventBus {
   async flushNow(): Promise<void> { await this.flush(); }
 
   private enqueueForDb(ev: SdkActivityEvent): void {
-    // Skip when there's no DB wired (dev without NYV_DATABASE_URL, unit tests).
+    // Skip when there's no DB wired (dev without JRX_DATABASE_URL, unit tests).
     if (!db) return;
     this.dbQueue.push(ev);
     this.stats.enqueued++;
@@ -218,11 +218,11 @@ class NvActivityEventBus {
   private async writeBatch(batch: SdkActivityEvent[]): Promise<void> {
     if (batch.length === 0) return;
     // Build one parameterised multi-row INSERT. trace_id is UNIQUE on
-    // nv_schema.ai_activity (see nv-governance-schema.ts) so reruns or
+    // nv_schema.ai_activity (see jrx-governance-schema.ts) so reruns or
     // overlap with the Task #301 seed are no-ops. prompt_hash is NOT NULL
     // so we synthesise a stable hash from requestId+ts.
     const rowFragments = batch.map((ev) => {
-      const traceId = ev.requestId || `nv-act-${ev.ts}-${Math.random().toString(36).slice(2, 10)}`;
+      const traceId = ev.requestId || `jrx-act-${ev.ts}-${Math.random().toString(36).slice(2, 10)}`;
       const promptHash = createHash('sha256').update(`${traceId}|${ev.ts}|${ev.route}`).digest('hex');
       const jurisdiction = (ev.jurisdiction || 'IN').toUpperCase();
       const patternKey = ev.agent ?? ev.scope ?? null;

@@ -1,6 +1,6 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
- * NYV Document Intelligence Orchestrator v1.0.0
+ * JRX Document Intelligence Orchestrator v1.0.0
  * ─────────────────────────────────────────────────────────────────────────────
  * THE MISSING GLUE: Unified pipeline that chains every document service into a
  * single, coherent, asynchronous flow:
@@ -22,7 +22,7 @@
  * JOB QUEUE: All heavy work (parse/embed/index) runs in the PgJobQueue under the
  *            './jrx-documents' queue so the HTTP response is immediate (<100ms).
  *
- * @module nv-document-intelligence-orchestrator
+ * @module jrx-document-intelligence-orchestrator
  * @version 1.0.0
  */
 
@@ -36,10 +36,10 @@ const db = lazyRequire(() => _raw_db, 'db');
 import { sql } from 'drizzle-orm';
 import { createLogger } from '../utils/logger.js';
 import { jobQueue } from './job-queue.js';
-import { nyvDocumentStorage } from './nyv-document-storage-service.js';
-import { nyvRagPipeline } from './rag/nyv-rag-pipeline-enhanced.js';
+import { nyvDocumentStorage } from './jrx-document-storage-service.js';
+import { nyvRagPipeline } from './rag/jrx-rag-pipeline-enhanced.js';
 import { nvOcrAdapterService } from './document-pipeline/jrx-got-ocr-adapter-service.js';
-import { NYV_RAG, NYV_STORAGE } from '../config/nyv-master-config.js';
+import { JRX_RAG, JRX_STORAGE } from '../config/jrx-master-config.js';
 
 const require = createRequire(import.meta.url);
 
@@ -84,7 +84,7 @@ export interface IngestRequest {
 
   // RAG options
   namespaces?: ('global_statutes' | 'org_shared' | 'user_documents' | 'user_matters')[];
-  chunkSize?: number;            // Override NYV_RAG_CHUNK_SIZE
+  chunkSize?: number;            // Override JRX_RAG_CHUNK_SIZE
   enableGraphRAG?: boolean;      // Index into Legal GraphRAG (default: true)
 
   // Metadata passthrough
@@ -227,12 +227,12 @@ async function ensureSchema(): Promise<void> {
 // ORCHESTRATOR CLASS
 // ─────────────────────────────────────────────────────────────────────────────
 
-export class NyvDocumentIntelligenceOrchestrator extends EventEmitter {
-  private static instance: NyvDocumentIntelligenceOrchestrator;
+export class JrxDocumentIntelligenceOrchestrator extends EventEmitter {
+  private static instance: JrxDocumentIntelligenceOrchestrator;
   private schemaReady = false;
 
-  static getInstance(): NyvDocumentIntelligenceOrchestrator {
-    if (!this.instance) this.instance = new NyvDocumentIntelligenceOrchestrator();
+  static getInstance(): JrxDocumentIntelligenceOrchestrator {
+    if (!this.instance) this.instance = new JrxDocumentIntelligenceOrchestrator();
     return this.instance;
   }
 
@@ -246,7 +246,7 @@ export class NyvDocumentIntelligenceOrchestrator extends EventEmitter {
   // ── INGEST ────────────────────────────────────────────────────────────────
 
   /**
-   * Ingest a document into the full NYV pipeline.
+   * Ingest a document into the full JRX pipeline.
    * Returns immediately after storage upload.
    * All heavy work (parse/embed/index) is queued as an async job.
    */
@@ -303,7 +303,7 @@ export class NyvDocumentIntelligenceOrchestrator extends EventEmitter {
         language: req.language ?? 'auto',
         tags: req.tags ?? [],
         namespaces: req.namespaces ?? ['user_documents'],
-        chunkSize: req.chunkSize ?? NYV_RAG.chunkSize,
+        chunkSize: req.chunkSize ?? JRX_RAG.chunkSize,
         enableGraphRAG: req.enableGraphRAG !== false,
       },
       priority: req.isConfidential ? 10 : 5,
@@ -347,7 +347,7 @@ export class NyvDocumentIntelligenceOrchestrator extends EventEmitter {
 
   /**
    * Full processing pipeline: parse → chunk → embed → index → graph.
-   * Called by nv-job-worker when processing 'document_pipeline' tasks.
+   * Called by jrx-job-worker when processing 'document_pipeline' tasks.
    */
   async processDocument(payload: {
     docId: string;
@@ -409,7 +409,7 @@ export class NyvDocumentIntelligenceOrchestrator extends EventEmitter {
       // Step 5: Legal GraphRAG indexing
       if (enableGraphRAG) {
         try {
-          const { nyvGraphRAGLegal } = await import('./rag/nyv-graphrag-legal-service.js');
+          const { nyvGraphRAGLegal } = await import('./rag/jrx-graphrag-legal-service.js');
           const graphResult = await nyvGraphRAGLegal.indexDocument({
             docId, text: extractedText, fileName, jurisdiction: jurisdiction ?? 'IN',
             documentClass: payload.documentClass,
@@ -525,7 +525,7 @@ export class NyvDocumentIntelligenceOrchestrator extends EventEmitter {
       let graphResults: GraphSearchResult[] = [];
       if (req.enableGraphRAG !== false) {
         try {
-          const { nyvGraphRAGLegal } = await import('./rag/nyv-graphrag-legal-service.js');
+          const { nyvGraphRAGLegal } = await import('./rag/jrx-graphrag-legal-service.js');
           graphResults = await nyvGraphRAGLegal.search(req.query, req.orgId, req.userId, 5);
         } catch {}
       }
@@ -588,7 +588,7 @@ export class NyvDocumentIntelligenceOrchestrator extends EventEmitter {
    * Mirrors the synchronous document-intelligence path: text / JSON / HTML are
    * decoded as UTF-8, Word documents are parsed with mammoth, and PDFs / images
    * go through the single real OCR engine (digital text layer first, then the
-   * provider-precedence OCR in nv-got-ocr-adapter-service).
+   * provider-precedence OCR in jrx-got-ocr-adapter-service).
    *
    * When no OCR provider can produce text the adapter throws
    * OcrProviderUnavailableError; that error propagates so processDocument marks
@@ -646,7 +646,7 @@ export class NyvDocumentIntelligenceOrchestrator extends EventEmitter {
       const mapped = legalChunks
         .map((c) => (c.parentContext ? `${c.parentContext}\n${c.content}` : c.content))
         .filter((c) => c.trim().length > 20);
-      if (mapped.length > 0) return mapped.slice(0, NYV_RAG.maxChunksPerDoc);
+      if (mapped.length > 0) return mapped.slice(0, JRX_RAG.maxChunksPerDoc);
       logger.warn('legal_chunk_empty_fallback_word_split', { mimeType, jurisdiction });
     } catch (err: any) {
       logger.warn('legal_chunk_failed_fallback_word_split', { error: err?.message, mimeType, jurisdiction });
@@ -664,7 +664,7 @@ export class NyvDocumentIntelligenceOrchestrator extends EventEmitter {
       if (chunk.trim().length > 20) chunks.push(chunk);
       i += chunkSize - overlap;
     }
-    return chunks.slice(0, NYV_RAG.maxChunksPerDoc);
+    return chunks.slice(0, JRX_RAG.maxChunksPerDoc);
   }
 
   private async embedAndStore(params: {
@@ -809,5 +809,5 @@ export class NyvDocumentIntelligenceOrchestrator extends EventEmitter {
 // SINGLETON EXPORT
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const nyvDocIntelligence = NyvDocumentIntelligenceOrchestrator.getInstance();
+export const nyvDocIntelligence = JrxDocumentIntelligenceOrchestrator.getInstance();
 export default nyvDocIntelligence;

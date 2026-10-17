@@ -60,7 +60,7 @@ export function isEvidenceMediaMime(mime?: string): boolean {
   return IMAGE_MIME.test(mime);
 }
 
-/** True when NYV vision depiction is appropriate (image-heavy or classified evidence media). */
+/** True when JRX vision depiction is appropriate (image-heavy or classified evidence media). */
 export function evidenceDepictionRecommended(
   docTypeCodes: string[],
   opts?: { mime?: string; unparsedPageNos?: number[]; meanTextCharsPerPage?: number },

@@ -4,7 +4,7 @@ set -uo pipefail
 cd /opt/nyv/api || exit 1
 
 echo "=== EMBED ==="
-for u in nyv-caselaw-embed-loop@{0,1,2} nyv-caselaw-embed-dc nyv-embed-statutes-loop; do
+for u in jrx-caselaw-embed-loop@{0,1,2} jrx-caselaw-embed-dc jrx-embed-statutes-loop; do
   echo "$u: $(systemctl is-active $u 2>/dev/null || echo inactive)"
 done
 
@@ -22,7 +22,7 @@ function ssl() {
   return { rejectUnauthorized: false };
 }
 const rds = new RDSClient({ region: REGION });
-const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "nyv-caselaw-pg" }));
+const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "jrx-caselaw-pg" }));
 const inst = desc.DBInstances?.[0];
 const sm = new SecretsManagerClient({ region: REGION });
 const secret = await sm.send(new GetSecretValueCommand({ SecretId: inst.MasterUserSecret.SecretArn }));
@@ -64,12 +64,12 @@ await pool.end();
 NODE
 
 echo "=== API RESTART ==="
-systemctl restart nyv-api
+systemctl restart jrx-api
 sleep 4
-systemctl is-active nyv-api
+systemctl is-active jrx-api
 
 echo "=== CURL PROBES ==="
-KEY=$(grep -E '^NYS_SDK_API_KEYS=' /opt/nyv/api/.env | head -1 | cut -d= -f2- | cut -d, -f1)
+KEY=$(grep -E '^JRX_ECOSYSTEM_SDK_API_KEYS=' /opt/nyv/api/.env | head -1 | cut -d= -f2- | cut -d, -f1)
 for spec in "bail|fts" "Section+420+IPC|fts"; do
   q="${spec%%|*}"; mode="${spec##*|}"
   tmp=$(mktemp)
@@ -88,6 +88,6 @@ PY
 done
 
 echo "=== API LOG (last degraded) ==="
-journalctl -u nyv-api -n 15 --no-pager 2>/dev/null | grep -iE 'degraded|timeout|error|420|bail' | tail -8 || echo no_log
+journalctl -u jrx-api -n 15 --no-pager 2>/dev/null | grep -iE 'degraded|timeout|error|420|bail' | tail -8 || echo no_log
 
 echo "=== DONE ==="

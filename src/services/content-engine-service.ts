@@ -1,14 +1,14 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
- * NYV-SVC-CONTENT — Autonomous Legal Content Engine
+ * JRX-SVC-CONTENT — Autonomous Legal Content Engine
  * Ported from SIA open-source agentic framework.
  *
  * Capabilities:
  *  - Time-of-day aware proactive legal content generation
  *  - Anti-repetition enforcement (cosine similarity check against last 50 posts)
  *  - Platform-specific formatting (WhatsApp / email / portal / API)
- *  - Knowledge module context injection (from NYV-SVC-KM-MODULES)
- *  - Agent persona application (from NYV-SVC-PERSONA)
+ *  - Knowledge module context injection (from JRX-SVC-KM-MODULES)
+ *  - Agent persona application (from JRX-SVC-PERSONA)
  *  - Proactive matter insights (deadline alerts, risk flags, hearing reminders)
  *  - Post history persisted in nv_schema.nv_content_history
  */
@@ -86,7 +86,7 @@ async function ensureTables(): Promise<void> {
     `);
     tablesReady = true;
   } catch (err: any) {
-    logger.error('[NYV-SVC-CONTENT] ensureTables error:', err.message);
+    logger.error('[JRX-SVC-CONTENT] ensureTables error:', err.message);
   }
 }
 
@@ -222,7 +222,7 @@ export async function generateContent(options: ContentOptions): Promise<ContentR
     `);
     savedId = (inserted as any).rows?.[0]?.id;
   } catch (err: any) {
-    logger.error('[NYV-SVC-CONTENT] history save error:', err.message);
+    logger.error('[JRX-SVC-CONTENT] history save error:', err.message);
   }
 
   return {
@@ -273,7 +273,7 @@ export async function getProactiveInsights(orgId: string, agentKey = 'corporate-
       results.push(result);
     }
   } catch (err: any) {
-    logger.error('[NYV-SVC-CONTENT] getProactiveInsights error (matter query):', err.message);
+    logger.error('[JRX-SVC-CONTENT] getProactiveInsights error (matter query):', err.message);
 
     const result = await generateContent({
       agentKey,
@@ -327,7 +327,7 @@ export async function getContentHistory(
       topic: row.topic,
     }));
   } catch (err: any) {
-    logger.error('[NYV-SVC-CONTENT] getContentHistory error:', err.message);
+    logger.error('[JRX-SVC-CONTENT] getContentHistory error:', err.message);
     return [];
   }
 }

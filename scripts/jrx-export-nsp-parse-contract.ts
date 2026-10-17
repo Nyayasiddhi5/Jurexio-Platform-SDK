@@ -18,7 +18,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = join(__dirname, '..', 'documents', 'working', 'NSP-RESOLVE-PARSE-CONTRACT.json');
 
 const doc = {
-  $schema: 'https://nyayavigya.dev/schemas/nsp-resolve-parse-contract.v1.json',
+  $schema: 'https://jurexio.dev/schemas/nsp-resolve-parse-contract.v1.json',
   contractId: NSP_PARSE_CONTRACT_NOTES.contractId,
   generatedFrom: 'src/services/jrx-nsp-parse-contract.ts (SSoT)',
   endpoint: 'POST /api/jrx/v1/sdk/cnr/resolve',

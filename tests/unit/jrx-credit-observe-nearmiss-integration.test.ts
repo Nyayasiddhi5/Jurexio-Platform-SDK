@@ -1,9 +1,9 @@
 /**
  * NV-CREDIT-OBSERVE-001 — the near-miss is proven END TO END, unmocked
  *
- * WHY THIS SUITE EXISTS ALONGSIDE nv-credit-observe-mode.test.ts
+ * WHY THIS SUITE EXISTS ALONGSIDE jrx-credit-observe-mode.test.ts
  * ─────────────────────────────────────────────────────────────
- * That suite mocks `nv-ai-credit-enforcer` wholesale and mocks the logger. It is
+ * That suite mocks `jrx-ai-credit-enforcer` wholesale and mocks the logger. It is
  * the right shape for asserting what the MIDDLEWARE does with a refusal, but it
  * leaves two hops unexercised, and they are precisely the hops that decide
  * whether the deployed observability path is worth anything:
@@ -222,11 +222,11 @@ beforeEach(() => {
   usage.costUsdToday = 0;
   usage.hourlyCount = 0;
   usage.orgBudget = null;
-  delete process.env.NYV_CREDIT_CAP_MODE;
-  delete process.env.NYV_CREDIT_ENFORCE;
+  delete process.env.JRX_CREDIT_CAP_MODE;
+  delete process.env.JRX_CREDIT_ENFORCE;
   // The enforcer prefers a Redis L1 for `usedToday`; disabled so the stubbed PG
   // figure is definitively what the arithmetic uses.
-  process.env.NYV_CREDIT_REDIS_L1 = '0';
+  process.env.JRX_CREDIT_REDIS_L1 = '0';
   startCapture();
 });
 afterEach(() => {
@@ -381,14 +381,14 @@ describe('NV-CREDIT-OBSERVE-001 — near-miss proven through the REAL enforcer',
     const res = await post(
       buildApp({ agentKey: 'bypass' }, nextSubject(), 'pro'),
       { prompt: 'x' },
-      { 'x-nyv-platform': 'nsp', 'x-nyv-consent': 'granted' },
+      { 'x-jrx-platform': 'nsp', 'x-jrx-consent': 'granted' },
     );
     expect(res.status).toBe(200);
     expect(observeRecords()).toHaveLength(0);
   });
 
   it('refuses with the same marker once the flag is flipped to enforce', async () => {
-    process.env.NYV_CREDIT_CAP_MODE = 'enforce';
+    process.env.JRX_CREDIT_CAP_MODE = 'enforce';
     usage.tokensToday = 799_000;
     const res = await post(buildApp({ agentKey: 'enf' }, nextSubject(), 'pro'), { prompt: 'x' });
 

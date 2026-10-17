@@ -1,6 +1,6 @@
 /**
  * NV-DOCPARSE-NSP-ONBOARDING-EXTRACT-001 — KYC/firm cert parse → NSP autofill JSON.
- * Always OCR + partial LLM on NYV (same stack as agent-recover, opinionated for onboarding).
+ * Always OCR + partial LLM on JRX (same stack as agent-recover, opinionated for onboarding).
  */
 import type { ExtractionResult } from '@jurexio/docparse-sdk';
 import { createLogger } from '../utils/logger.js';
@@ -60,8 +60,8 @@ export async function runNspOnboardingExtract(
     mapExtractionToNspUserOnboarding,
     mapExtractionToNspOnboardingForm,
   } = await import('@jurexio/docparse-sdk');
-  const { createNyvPartialFieldRecoveryProvider } = await import('./jrx-docparse-partial-llm-sdk-provider.js');
-  const { createNyvCloudOcrProvider } = await import('./jrx-docparse-cloud-ocr-sdk-provider.js');
+  const { createJrxPartialFieldRecoveryProvider } = await import('./jrx-docparse-partial-llm-sdk-provider.js');
+  const { createJrxCloudOcrProvider } = await import('./jrx-docparse-cloud-ocr-sdk-provider.js');
 
   const completed = await runComplete(
     [{ bytes: new Uint8Array(req.bytes), fileName: req.fileName, mime: req.mimeType }],
@@ -71,8 +71,8 @@ export async function runNspOnboardingExtract(
       domainPackId,
       forceOcr: true,
       preferOcr: true,
-      partialFieldRecovery: createNyvPartialFieldRecoveryProvider(),
-      cloudOcr: createNyvCloudOcrProvider(),
+      partialFieldRecovery: createJrxPartialFieldRecoveryProvider(),
+      cloudOcr: createJrxCloudOcrProvider(),
     },
   );
 

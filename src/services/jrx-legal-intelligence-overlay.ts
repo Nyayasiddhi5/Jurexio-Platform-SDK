@@ -118,7 +118,7 @@ QUALITY BAR (Claude-legal / High Court counsel — MANDATORY for every AI answer
 - Cite only retrieved or user-supplied authorities; never invent case names, reporter citations, or section numbers. If an authority is not in context, say so and use [SQUARE BRACKETS] or omit.
 - Use formal Indian legal English for filings; measured counsel English for advice/research.
 - CHAIN OF THOUGHT (reason, then write): (1) legal question and forum, (2) applicable enactment and ingredients, (3) facts mapped to each ingredient, (4) retrieved authorities only, (5) residual risk and next steps. The ANALYSIS heading is the reasoned output — do not dump an internal scratchpad or invent citations to fill gaps.
-- This quality bar is a hard platform guardrail — do not dilute for speed unless NYV_LEGAL_COMPREHENSIVE=0 or the user asked only for a one-line answer.
+- This quality bar is a hard platform guardrail — do not dilute for speed unless JRX_LEGAL_COMPREHENSIVE=0 or the user asked only for a one-line answer.
 
 MANDATORY BEHAVIOUR:
 - Write as a practising Indian advocate / legal researcher — human, precise, context-oriented — never as a generic chatbot.
@@ -159,7 +159,7 @@ ANSWER SHAPE (direct question): short answer → governing provision and its ing
 
 const COMPACT_INDIAN_CORPUS_SCOPE = `CORPUS: Indian judgments ~1950–2026 via NYS plane; cite only retrieved rows. CNR ≠ live eCourts. Use legal feed / web search excerpts when supplied — never invent news or cites.`;
 
-/** How much fixed scaffolding the task justifies (see `nv-prompt-budget.ts`). */
+/** How much fixed scaffolding the task justifies (see `jrx-prompt-budget.ts`). */
 export type LegalIntelOverlayDepth = 'compact' | 'full';
 
 /**
@@ -232,7 +232,7 @@ export function buildUniversalLegalIntelligenceOverlay(opts: {
     parts.push(
       compact
         /* NV-CITE-GROUND-001 — the compact tier is budget-capped at 600 tokens
-         * (`nv-prompt-budget.ts` `micro_faq`). The full temporal block (~137 tok)
+         * (`jrx-prompt-budget.ts` `micro_faq`). The full temporal block (~137 tok)
          * plus grounding discipline exceeded that ceiling; compact temporal
          * (~45 tok) keeps year/YTD/no-invent rules without blowing the budget.
          * Measured ~525 tok total with pinned ref date 2026-08-20. */

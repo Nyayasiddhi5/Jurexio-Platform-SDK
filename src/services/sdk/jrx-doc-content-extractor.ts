@@ -51,7 +51,7 @@ function extFromName(fileName?: string, mimeType?: string): string {
  * instead of hard-failing.
  */
 async function ocrImageBufferTesseract(buf: Buffer, fileName: string): Promise<{ text: string; warnings: string[] }> {
-  const tmp = path.join(os.tmpdir(), `nyv-doc-ocr-${crypto.randomUUID()}${path.extname(fileName) || '.png'}`);
+  const tmp = path.join(os.tmpdir(), `jrx-doc-ocr-${crypto.randomUUID()}${path.extname(fileName) || '.png'}`);
   await fs.writeFile(tmp, buf);
   try {
     const tess: any = await import('tesseract.js');

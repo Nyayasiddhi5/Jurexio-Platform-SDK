@@ -10,7 +10,7 @@
  * SAFETY POSTURE (important — this deletes data):
  *   • Gated OFF by default. The sweep only runs when JRX_F_RETENTION_SWEEP=1.
  *   • DRY-RUN by default even when the timer is on: it logs the row counts it
- *     WOULD delete. Actual deletion only happens when NYV_RETENTION_APPLY=1.
+ *     WOULD delete. Actual deletion only happens when JRX_RETENTION_APPLY=1.
  *   • Every policy is guarded by `to_regclass` (table exists) and a column
  *     existence check, so a missing table/column is skipped, never an error.
  *   • Conservative windows; audit/ledger tables (nv_audit_logs, data_lineage_
@@ -23,7 +23,7 @@
 import { sql } from 'drizzle-orm';
 import { db } from '../db/index.js';
 import { createLogger } from '../utils/logger.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 
 const logger = createLogger('./jrx-retention');
 
@@ -85,11 +85,11 @@ function whereClause(p: RetentionPolicy): string {
 }
 
 /**
- * Run one retention pass. `apply` defaults to the NYV_RETENTION_APPLY env so the
+ * Run one retention pass. `apply` defaults to the JRX_RETENTION_APPLY env so the
  * scheduled timer is dry-run unless explicitly opted in.
  */
 export async function runRetentionSweep(opts?: { apply?: boolean }): Promise<RetentionReport> {
-  const apply = opts?.apply ?? (process.env.NYV_RETENTION_APPLY === '1');
+  const apply = opts?.apply ?? (process.env.JRX_RETENTION_APPLY === '1');
   const results: RetentionPolicyResult[] = [];
   let totalMatched = 0;
   let totalDeleted = 0;
@@ -134,7 +134,7 @@ let _interval: NodeJS.Timeout | null = null;
 
 /** Start the daily retention timer. No-op unless JRX_F_RETENTION_SWEEP is on. */
 export function startRetentionSweep(intervalMs = 24 * 60 * 60 * 1000): { stop: () => void } {
-  if (!isNyvFeatureOn('retentionSweep')) {
+  if (!isJrxFeatureOn('retentionSweep')) {
     logger.info('retention_sweep_disabled', { reason: 'JRX_F_RETENTION_SWEEP not enabled' });
     return { stop: () => {} };
   }
@@ -143,6 +143,6 @@ export function startRetentionSweep(intervalMs = 24 * 60 * 60 * 1000): { stop: (
   if (typeof (kick as any).unref === 'function') (kick as any).unref();
   _interval = setInterval(() => { void runRetentionSweep().catch((e) => logger.warn('retention_pass_failed', { err: String(e) })); }, intervalMs);
   if (typeof (_interval as any).unref === 'function') (_interval as any).unref();
-  logger.info('retention_sweep_started', { intervalMs, apply: process.env.NYV_RETENTION_APPLY === '1' });
+  logger.info('retention_sweep_started', { intervalMs, apply: process.env.JRX_RETENTION_APPLY === '1' });
   return { stop: () => { if (_interval) clearInterval(_interval); _interval = null; } };
 }

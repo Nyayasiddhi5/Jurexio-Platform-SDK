@@ -1,5 +1,5 @@
 /**
- * useCredits — React hook for NYV credit wallet management
+ * useCredits — React hook for JRX credit wallet management
  * @version 3.1.2
  */
 import { useState, useCallback, useEffect } from 'react';

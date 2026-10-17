@@ -19,7 +19,7 @@ import type {
   CollaborationProtocol, 
   EnterpriseFeatures,
   JurexioOrchestrationConfigV9
-} from './nyayavigya-orchestration-core-v9.js';
+} from './jurexio-orchestration-core-v9.js';
 /**
  * Structural typing of the storage facade the runtime factory depends on.
  * Declared inline so this module stays loosely coupled to the storage
@@ -54,7 +54,7 @@ export interface AgentCreationRequest {
   collaborationSettings: CollaborationSettings;
   customizations?: AgentCustomizations;
   /**
-   * NYV-RUNTIME-MANIFEST-001 (round 10e): per-agent tier + jurisdiction
+   * JRX-RUNTIME-MANIFEST-001 (round 10e): per-agent tier + jurisdiction
    * gating used to publish the manifest's per-tier capability subset on
    * the new agent. When omitted the factory defaults to the most
    * conservative surface (`lite` / `'all'`) so callers cannot
@@ -866,7 +866,7 @@ export class RuntimeAgentFactory extends EventEmitter {
   ): Promise<AgentDefinitionV9> {
     const agentId = `agent-${uuidv4()}`;
 
-    // NYV-RUNTIME-MANIFEST-001 (round 10e): publish the manifest's
+    // JRX-RUNTIME-MANIFEST-001 (round 10e): publish the manifest's
     // per-tier + per-jurisdiction capability subset onto the new agent
     // so the runtime path mirrors the SDK auto-init path. The same SSoT
     // (capability-manifest) gates both, so no surface is reachable from
@@ -980,7 +980,7 @@ Your goal is to provide expert assistance while maintaining high quality standar
   }
 
   /**
-   * NYV-RUNTIME-MANIFEST-001 (round 10e): consume the SSoT capability
+   * JRX-RUNTIME-MANIFEST-001 (round 10e): consume the SSoT capability
    * manifest and return the per-tier + per-jurisdiction subset of
    * capability IDs that should be published onto a newly-created
    * runtime agent. Skill-derived tags refine the surface so an agent

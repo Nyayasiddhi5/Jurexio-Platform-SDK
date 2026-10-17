@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Probe NYV /api/jrx/v1/sdk/cnr/resolve with case-api flag (NV-SECRETS-001: no key values).
+# Probe JRX /api/jrx/v1/sdk/cnr/resolve with case-api flag (NV-SECRETS-001: no key values).
 set -uo pipefail
 
-API="${NYV_API_BASE:-https://api.nyayasiddhi.online}"
-ENVF="${NYV_ENV_FILE:-/opt/Nyayavigya/secrets/.env.production}"
+API="${JRX_API_BASE:-https://api.jurexio.com}"
+ENVF="${JRX_ENV_FILE:-/opt/Jurexio/secrets/.env.production}"
 
 read_canon_key() {
   local k="$1"
@@ -12,20 +12,20 @@ read_canon_key() {
   fi
 }
 
-NSP_KEY="$(read_canon_key NYV_SDK_KEY_NSP)"
-CASE_FLAG="$(read_canon_key NYV_F_CASE_API_CNR)"
-CASE_KEY_LEN="$(read_canon_key NYS_CASE_API_KEY | wc -c | tr -d ' ')"
+NSP_KEY="$(read_canon_key JRX_SDK_KEY_NSP)"
+CASE_FLAG="$(read_canon_key JRX_F_CASE_API_CNR)"
+CASE_KEY_LEN="$(read_canon_key JRX_ECOSYSTEM_CASE_API_KEY | wc -c | tr -d ' ')"
 
 echo "API=$API"
-echo "NYV_F_CASE_API_CNR=${CASE_FLAG:-unset}"
-echo "NYS_CASE_API_KEY_LEN=${CASE_KEY_LEN}"
+echo "JRX_F_CASE_API_CNR=${CASE_FLAG:-unset}"
+echo "JRX_ECOSYSTEM_CASE_API_KEY_LEN=${CASE_KEY_LEN}"
 
 probe_cnr() {
   local label="$1" body="$2"
   tmp=$(mktemp)
   start=$(python3 -c 'import time; print(int(time.time()*1000))')
   code=$(curl -sS -o "$tmp" -w '%{http_code}' -m 90 -X POST \
-    -H "X-API-Key: $NSP_KEY" -H "X-NYV-Platform: nsp" -H "Content-Type: application/json" \
+    -H "X-API-Key: $NSP_KEY" -H "X-JRX-Platform: nsp" -H "Content-Type: application/json" \
     -d "$body" "${API}/api/jrx/v1/sdk/cnr/resolve" 2>/dev/null || echo ERR)
   end=$(python3 -c 'import time; print(int(time.time()*1000))')
   ms=$((end - start))
@@ -41,13 +41,13 @@ try:
     hlen = len((hearings.get('hearings') or {}).get('value') or [])
     meta = data.get('meta') or {}
     print(
-        f"NYV_CNR {label} route={route} http={code} ms={ms} success={d.get('success')} "
+        f"JRX_CNR {label} route={route} http={code} ms={ms} success={d.get('success')} "
         f"top_source={d.get('source')} status={data.get('status')} tier={data.get('source')} "
         f"meta_tier={meta.get('tier')} meta_source={meta.get('source')} "
         f"timeline={tl} hearings={hlen} claimEcourts={d.get('claimEcourts')}"
     )
 except Exception as e:
-    print(f"NYV_CNR {label} route={route} http={code} ms={ms} parse_err={e}")
+    print(f"JRX_CNR {label} route={route} http={code} ms={ms} parse_err={e}")
 PY
   rm -f "$tmp"
 }
@@ -57,7 +57,7 @@ probe_cnr_get() {
   tmp=$(mktemp)
   start=$(python3 -c 'import time; print(int(time.time()*1000))')
   code=$(curl -sS -o "$tmp" -w '%{http_code}' -m 90 \
-    -H "X-API-Key: $NSP_KEY" -H "X-NYV-Platform: nsp" \
+    -H "X-API-Key: $NSP_KEY" -H "X-JRX-Platform: nsp" \
     "${API}/api/jrx/v1/sdk/cnr/${cnr}${qs}" 2>/dev/null || echo ERR)
   end=$(python3 -c 'import time; print(int(time.time()*1000))')
   ms=$((end - start))
@@ -69,13 +69,13 @@ try:
     data = d.get('data') or {}
     meta = data.get('meta') or {}
     print(
-        f"NYV_CNR {label} route={route} http={code} ms={ms} success={d.get('success')} "
+        f"JRX_CNR {label} route={route} http={code} ms={ms} success={d.get('success')} "
         f"top_source={d.get('source')} status={data.get('status')} tier={data.get('source')} "
         f"meta_tier={meta.get('tier')} meta_source={meta.get('source')} "
         f"claimEcourts={d.get('claimEcourts')}"
     )
 except Exception as e:
-    print(f"NYV_CNR {label} route={route} http={code} ms={ms} parse_err={e}")
+    print(f"JRX_CNR {label} route={route} http={code} ms={ms} parse_err={e}")
 PY
   rm -f "$tmp"
 }
@@ -100,7 +100,7 @@ probe_cnr_get "ZZZZ_GET" "ZZZZ000000000000"
 
 tmp=$(mktemp)
 code=$(curl -sS -o "$tmp" -w '%{http_code}' -m 60 \
-  -H "X-API-Key: $NSP_KEY" -H "X-NYV-Platform: nsp" \
+  -H "X-API-Key: $NSP_KEY" -H "X-JRX-Platform: nsp" \
   "${API}/api/jrx/v1/sdk/cnr/search?court_type=HC&party_name=patel&page=1&page_size=3&want_total=false" 2>/dev/null || echo ERR)
 python3 - "$code" "$tmp" <<'PY'
 import json, sys
@@ -109,8 +109,8 @@ try:
     d = json.load(open(path))
     data = d.get('data') or {}
     returned = data.get('returned') or len(data.get('cases') or [])
-    print(f"NYV_CNR search_HC http={code} success={d.get('success')} top_source={d.get('source')} returned={returned}")
+    print(f"JRX_CNR search_HC http={code} success={d.get('success')} top_source={d.get('source')} returned={returned}")
 except Exception as e:
-    print(f"NYV_CNR search_HC http={code} parse_err={e}")
+    print(f"JRX_CNR search_HC http={code} parse_err={e}")
 PY
 rm -f "$tmp"

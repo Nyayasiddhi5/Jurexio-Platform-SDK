@@ -1,20 +1,20 @@
 #!/usr/bin/env tsx
 /**
- * NSP P0 SDK smoke — typed @nyayavigya/client-sdk only (no raw fetch).
+ * NSP P0 SDK smoke — typed @jurexio/client-sdk only (no raw fetch).
  *
  * Usage:
- *   cd nyayavigya-platform-312
- *   NYV_SDK_KEY_NSP=nyv_live_sk_... npm run sdk:smoke:nsp
- *   NV_TARGET=ec2 NYV_SDK_KEY_NSP=... npm run sdk:smoke:nsp
+ *   cd Jurexio-Platform-SDK
+ *   JRX_SDK_KEY_NSP=nyv_live_sk_... npm run sdk:smoke:nsp
+ *   NV_TARGET=ec2 JRX_SDK_KEY_NSP=... npm run sdk:smoke:nsp
  */
 
-import { NyvClient } from '../packages/client-sdk/src/NyvClient.js';
+import { JrxClient } from '../packages/client-sdk/src/JrxClient.js';
 
 const TARGET = process.env.NV_TARGET ?? 'local';
 const BASE =
   process.env.NV_BASE_URL ??
-  (TARGET === 'ec2' || TARGET === 'prod' ? 'https://api.nyayasiddhi.online' : 'http://127.0.0.1:5000');
-const KEY = process.env.NYV_SDK_KEY_NSP ?? process.env.NYV_SDK_KEY ?? '';
+  (TARGET === 'ec2' || TARGET === 'prod' ? 'https://api.jurexio.com' : 'http://127.0.0.1:5000');
+const KEY = process.env.JRX_SDK_KEY_NSP ?? process.env.JRX_SDK_KEY ?? '';
 
 interface Step {
   name: string;
@@ -38,11 +38,11 @@ async function main() {
   console.log(`\n── NSP SDK smoke (typed) — ${BASE} ──\n`);
 
   if (!KEY) {
-    fail('config', 'NYV_SDK_KEY_NSP unset');
+    fail('config', 'JRX_SDK_KEY_NSP unset');
     process.exit(1);
   }
 
-  const nyv = new NyvClient({
+  const nyv = new JrxClient({
     apiKey: KEY,
     baseUrl: BASE,
     platformClient: 'nyayasiddhi-professional/1.0.0',

@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
- * NYV Agent Skills Routes v1.0.0
- * NYV-SVC-SKILLS-ROUTES-001
+ * JRX Agent Skills Routes v1.0.0
+ * JRX-SVC-SKILLS-ROUTES-001
  *
  * Exposes the Skills System Service as a full HTTP REST API.
  * Skills are composable, versioned capability modules that enhance any
@@ -86,7 +86,7 @@ router.get('/health', (_req: Request, res: Response) => {
     const health = skillsSystem.healthCheck();
     res.json({
       success: true,
-      service: 'NYV-SVC-SKILLS-SYSTEM-001',
+      service: 'JRX-SVC-SKILLS-SYSTEM-001',
       version: '1.0.0',
       ...health,
       timestamp: new Date().toISOString(),
@@ -321,7 +321,7 @@ router.get('/meta/categories', (_req: Request, res: Response) => {
         { id: 'basic', name: 'Basic', description: 'Essential skills, free tier' },
         { id: 'professional', name: 'Professional', description: 'Advanced skills, Pro/Enterprise' },
         { id: 'expert', name: 'Expert', description: 'Specialist skills, Enterprise only' },
-        { id: 'sovereign', name: 'Sovereign', description: 'Government/Ministry grade, NYS-MIN only' },
+        { id: 'sovereign', name: 'Sovereign', description: 'Government/Ministry grade, JRX-MIN only' },
       ],
     },
   });
@@ -350,8 +350,8 @@ router.get('/meta/stats', authenticateToken, (_req: Request, res: Response) => {
       data: {
         totalSkills: all.length,
         publicSkills: all.filter(s => s.isPublic).length,
-        coreSkills: all.filter(s => s.author === 'nyayavigya-core').length,
-        customSkills: all.filter(s => s.author !== 'nyayavigya-core').length,
+        coreSkills: all.filter(s => s.author === 'jurexio-core').length,
+        customSkills: all.filter(s => s.author !== 'jurexio-core').length,
         totalUsage,
         avgQualityScore: Math.round(avgQuality * 10) / 10,
         byCategory,

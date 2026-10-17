@@ -4,7 +4,7 @@ import { resolveRedisTcpUrl, CANONICAL_REDIS_VAR } from './redis-tcp-url.js';
 const logger = createLogger('env-validator');
 
 /**
- * NYV Environment Validator — startup-blocking secret validation
+ * JRX Environment Validator — startup-blocking secret validation
  * Runs as the FIRST executable line in src/index.ts before any service initialises.
  *
  * GUARDRAIL: Every new required secret MUST be added to REQUIRED_SECRETS below.
@@ -32,14 +32,14 @@ const REQUIRED_SECRETS: SecretSpec[] = [
     key: 'JWT_SECRET',
     minLength: 32,
     forbidden: [
-      'dev', 'test', 'secret', 'password', 'nyayavigya',
+      'dev', 'test', 'secret', 'password', 'jurexio',
       'jwt-secret-dev', 'change-me', 'changeme', '123456',
     ],
     required: false,
     description: 'JWT signing secret (min 32 chars) — REQUIRED in production',
   },
   {
-    key: 'NYV_JWT_REFRESH_SECRET',
+    key: 'JRX_JWT_REFRESH_SECRET',
     minLength: 32,
     required: false,
     description: 'JWT refresh token signing secret',
@@ -136,16 +136,16 @@ export function validateEnv(): ValidationResult {
     );
   }
 
-  if (process.env.NYV_LLM_COST_PROFILE) {
-    const v = String(process.env.NYV_LLM_COST_PROFILE).trim().toLowerCase();
+  if (process.env.JRX_LLM_COST_PROFILE) {
+    const v = String(process.env.JRX_LLM_COST_PROFILE).trim().toLowerCase();
     if (v === 'cost-first' || v === 'production-cost' || v === 'production_cost') {
       warnings.push(
-        'NYV_LLM_COST_PROFILE is active: Bedrock prefers ap-south-1 and Nova/Haiku-first ladders. ' +
+        'JRX_LLM_COST_PROFILE is active: Bedrock prefers ap-south-1 and Nova/Haiku-first ladders. ' +
           'Ensure this is intentional for the target environment (not jrx-staging demo unless piloting).',
       );
     } else {
       warnings.push(
-        `NYV_LLM_COST_PROFILE=${process.env.NYV_LLM_COST_PROFILE} is unrecognized; ` +
+        `JRX_LLM_COST_PROFILE=${process.env.JRX_LLM_COST_PROFILE} is unrecognized; ` +
           'use cost-first or production-cost to enable the cost profile.',
       );
     }

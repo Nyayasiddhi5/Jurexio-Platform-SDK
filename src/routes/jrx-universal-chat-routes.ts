@@ -5,7 +5,7 @@
  * (`client/src/pages/UniversalChat.tsx`).
  *
  * Replaces the stub handlers that previously lived in
- * `nv-console-page-stubs-routes.ts` (the selector + sessions block) with a
+ * `jrx-console-page-stubs-routes.ts` (the selector + sessions block) with a
  * real, LRM-routed chat backend so users get actual agent replies instead of
  * a placeholder string and an amber "stub mode" banner.
  *
@@ -25,7 +25,7 @@
  *  - NV-LRM-001: assistant replies go through `orchestrateLLM` (single-router
  *    rule). No direct LLM calls.
  *  - NV-WIRING-001: mounted from `src/index.ts`.
- *  - NV-NAMING-001: file prefix `nv-`, edits to existing stub file rather
+ *  - NV-NAMING-001: file prefix `jrx-`, edits to existing stub file rather
  *    than introducing parallel chat infra.
  *  - Session storage is intentionally process-local (Map with TTL eviction).
  *    Universal Chat is a single-user testbed against the orchestrator; it is
@@ -40,12 +40,12 @@ import fs from 'fs';
 import os from 'os';
 import { createLogger } from '../utils/logger.js';
 import { sendApiError, safeError } from '../utils/jrx-api-error.js';
-import { NYV_AGENTS } from '../config/nyv-master-config.js';
+import { JRX_AGENTS } from '../config/jrx-master-config.js';
 import { orchestrateLLM } from '../services/intelligent-router/index.js';
 import type { OrchestrationInput } from '../services/intelligent-router/index.js';
 import { authenticateToken } from '../middleware/jrx-auth.js';
 import { aiPatternRateLimit, authenticatedRateLimit } from '../middleware/jrx-rate-limit-middleware.js';
-import { NyvDocumentStorageService } from '../services/nyv-document-storage-service.js';
+import { JrxDocumentStorageService } from '../services/jrx-document-storage-service.js';
 
 const logger = createLogger('./jrx-universal-chat-routes');
 
@@ -138,7 +138,7 @@ interface ChatAttachmentMeta {
   uploadedAt: string;
 }
 
-const SCRATCH_DIR = path.join(os.tmpdir(), 'nyv-universal-chat');
+const SCRATCH_DIR = path.join(os.tmpdir(), 'jrx-universal-chat');
 
 interface ChatTurn {
   messageId: string;
@@ -204,12 +204,12 @@ function getSession(sessionId: string): ChatSessionRecord | null {
 
 // ── Object storage adapter (lazy) ───────────────────────────────────────────
 
-let _chatStorageService: NyvDocumentStorageService | null = null;
+let _chatStorageService: JrxDocumentStorageService | null = null;
 
-async function getChatStorage(): Promise<NyvDocumentStorageService | null> {
+async function getChatStorage(): Promise<JrxDocumentStorageService | null> {
   if (_chatStorageService) return _chatStorageService;
   try {
-    _chatStorageService = NyvDocumentStorageService.getInstance();
+    _chatStorageService = JrxDocumentStorageService.getInstance();
     return _chatStorageService;
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
@@ -292,7 +292,7 @@ export function createUniversalChatRouter(): Router {
     res.json({
       success: true,
       data: AGENT_GROUPS.map(({ id, name, description }) => ({ id, name, description })),
-      meta: { totalAgents: NYV_AGENTS.totalAgents },
+      meta: { totalAgents: JRX_AGENTS.totalAgents },
     });
   });
 

@@ -27,7 +27,7 @@
  * Org id is resolved similarly (user.orgId → sdkContext.organizationId
  * / orgId → body.tenantId/orgId).
  *
- * @module nv-consent-gate
+ * @module jrx-consent-gate
  */
 import type { Request, Response, NextFunction, RequestHandler } from 'express';
 import crypto from 'crypto';
@@ -97,7 +97,7 @@ function resolveUserId(req: Request): string | null {
   //   (a) sdk-gateway shape: { applicationId, organizationId, apiKeyId, jurisdiction }
   //       — used by sdk-doc-pipeline + most v5 SDK routes.
   //   (b) doc-sharing shape: { platformCode, orgId, keyId, userId }
-  //       — used by nv-doc-sharing-routes (third-party sharing flow).
+  //       — used by jrx-doc-sharing-routes (third-party sharing flow).
   if (ctx?.applicationId) return `sdk:app:${ctx.applicationId}`;
   if (ctx?.organizationId) return `sdk:org:${ctx.organizationId}`;
   if (ctx?.apiKeyId) return `sdk:key:${ctx.apiKeyId}`;

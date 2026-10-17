@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Baseline check against the CURRENTLY DEPLOYED NYS (unchanged code): confirm both
 # landmark judgments still 413, and that a routine judgment still extracts. This
-# is the "before" half of the NYS-ARCHIVE-LARGE-PDF-001 evidence; the "after"
+# is the "before" half of the JRX-ARCHIVE-LARGE-PDF-001 evidence; the "after"
 # half cannot be measured over HTTP until NYS is deployed.
 set -uo pipefail
 echo "probe-positive-control 5150"
 cd /opt/nyv/api || { echo "PROBE FAIL: /opt/nyv/api missing"; exit 1; }
-KEY=$(grep -m1 '^NYS_SDK_API_KEYS=' .env 2>/dev/null | cut -d= -f2- | tr -d '"' | cut -d, -f1)
+KEY=$(grep -m1 '^JRX_ECOSYSTEM_SDK_API_KEYS=' .env 2>/dev/null | cut -d= -f2- | tr -d '"' | cut -d, -f1)
 echo "api_key_len=${#KEY}"
 [ "${#KEY}" -lt 8 ] && { echo "PROBE INVALID: no usable key"; exit 1; }
 

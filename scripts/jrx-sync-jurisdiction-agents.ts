@@ -1,6 +1,6 @@
 #!/usr/bin/env -S npx tsx
 /**
- * nv-sync-jurisdiction-agents.ts
+ * jrx-sync-jurisdiction-agents.ts
  *
  * Legacy bulk sync for the pre-v5.1.0 multi-jurisdiction registry layout.
  *
@@ -29,7 +29,7 @@
  *      failures roll back cleanly.
  *   5. Log a final summary: inserted / updated / soft-deactivated / errors.
  *
- * Apply this template to: nv-seed-agents.ts, sdk-data-seed-service.ts,
+ * Apply this template to: jrx-seed-agents.ts, sdk-data-seed-service.ts,
  * any future *-seed-* or *-sync-* scripts. Search for `TRUNCATE` in the
  * codebase before deploying — every occurrence outside of test fixtures is
  * a bug.
@@ -171,13 +171,13 @@ async function main() {
   const allRows: LegalAgentRow[] = [];
 
   console.log('═══════════════════════════════════════════════════════');
-  console.log(`  nv-sync-jurisdiction-agents (UPSERT + soft-deactivate)`);
+  console.log(`  jrx-sync-jurisdiction-agents (UPSERT + soft-deactivate)`);
   console.log(`  Target table: legal_agents (canonical source of truth)`);
   console.log(`  Mode: ${DRY_RUN ? 'DRY-RUN (no writes)' : 'WRITE'}`);
   console.log('═══════════════════════════════════════════════════════');
 
   for (const j of REGISTRIES) {
-    const file = path.join(REGISTRY_DIR, `Nyayavigya-Legal-registry-${j}.json`);
+    const file = path.join(REGISTRY_DIR, `Jurexio-Legal-registry-${j}.json`);
     if (!fs.existsSync(file)) {
       console.warn(`  ⚠ ${j}: file not found, skipping`);
       continue;

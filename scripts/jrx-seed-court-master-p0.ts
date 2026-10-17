@@ -14,7 +14,7 @@
  *
  * The existing jurisdiction master (nv_cnr_prefix_rules / nv_court_jurisdictions
  * / nv_case_type_codes / nv_district_master, seeded by
- * migrations/2026-09-24-nv-jurisdiction-master.sql) is NOT touched — this
+ * migrations/2026-09-24-jrx-jurisdiction-master.sql) is NOT touched — this
  * seeder only writes nv_court_complexes and reports the prefix-rule count as a
  * cross-check.
  *

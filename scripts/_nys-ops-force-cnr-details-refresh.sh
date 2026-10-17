@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Force cnr_case_details re-sync — clear hc-case-details checkpoints then re-ingest
 set -euo pipefail
-API="${NYS_API_DIR:-/opt/nyv/api}"
-LIMIT="${NYS_CNR_DETAILS_LIMIT:-11}"
+API="${JRX_ECOSYSTEM_API_DIR:-/opt/nyv/api}"
+LIMIT="${JRX_ECOSYSTEM_CNR_DETAILS_LIMIT:-11}"
 echo "=== FORCE CNR DETAILS REFRESH $(date -u +%Y-%m-%dT%H:%M:%SZ) limit=$LIMIT ==="
 
 cd "$API" || exit 1
@@ -19,7 +19,7 @@ function ssl() {
   return { rejectUnauthorized: false };
 }
 const rds = new RDSClient({ region: REGION });
-const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "nyv-caselaw-pg" }));
+const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "jrx-caselaw-pg" }));
 const inst = desc.DBInstances[0];
 const sm = new SecretsManagerClient({ region: REGION });
 const secret = await sm.send(new GetSecretValueCommand({ SecretId: inst.MasterUserSecret.SecretArn }));
@@ -56,7 +56,7 @@ function ssl() {
   return { rejectUnauthorized: false };
 }
 const rds = new RDSClient({ region: REGION });
-const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "nyv-caselaw-pg" }));
+const desc = await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "jrx-caselaw-pg" }));
 const inst = desc.DBInstances[0];
 const sm = new SecretsManagerClient({ region: REGION });
 const secret = await sm.send(new GetSecretValueCommand({ SecretId: inst.MasterUserSecret.SecretArn }));

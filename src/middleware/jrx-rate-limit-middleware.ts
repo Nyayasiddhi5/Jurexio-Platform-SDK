@@ -1,10 +1,10 @@
 /**
- * NYV Rate Limit Middleware — Redis-backed, tier-aware, multi-pod safe
+ * JRX Rate Limit Middleware — Redis-backed, tier-aware, multi-pod safe
  * Fixes Audit Finding A001: 170 rate limit configs existed but ZERO applied as HTTP middleware
  * Targets: P0-2 (no Redis-backed rate limiting), AI pattern throttling for 120M users
  *
  * Redis Strategy (priority order):
- *   1. NYV_REDIS_TCP_URL = rediss:// TCP URL  → ioredis (preferred, low latency)
+ *   1. JRX_REDIS_TCP_URL = rediss:// TCP URL  → ioredis (preferred, low latency)
  *   2. REDIS_URL         = https:// REST URL  → @upstash/redis REST client (read-write, HTTP/2)
  *   3. In-memory Map fallback (single-pod, dev/test only)
  *
@@ -45,7 +45,7 @@ function createInMemoryStore() {
 // ── Strategy 2: Upstash REST client (@upstash/redis) — for REDIS_URL (https://) ─
 async function createUpstashRestStore(restUrl: string) {
   try {
-    const upstashToken = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.NYV_UPSTASH_REST_TOKEN;
+    const upstashToken = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.JRX_UPSTASH_REST_TOKEN;
     if (!upstashToken) {
       logger.warn('[RateLimit] REDIS_URL is an Upstash REST URL but UPSTASH_REDIS_REST_TOKEN not set — falling back to in-memory');
       return null;
@@ -94,7 +94,7 @@ async function createUpstashRestStore(restUrl: string) {
   }
 }
 
-// ── Strategy 1: ioredis TCP — for NYV_REDIS_TCP_URL (rediss://) ──────────────
+// ── Strategy 1: ioredis TCP — for JRX_REDIS_TCP_URL (rediss://) ──────────────
 // Same fail-fast-on-auth-failure semantics as bullmq-queue.ts: when the
 // URL is right but the password is wrong, ioredis would otherwise emit
 // "[ioredis] Unhandled error event: WRONGPASS" several times per second
@@ -190,7 +190,7 @@ async function createRedisStore() {
   }
 
   // Upstash REST fallback — own walk because resolveRedisTcpUrl() rejects https://.
-  const restRaw = process.env.REDIS_URL || process.env.NYV_REDIS_URL || '';
+  const restRaw = process.env.REDIS_URL || process.env.JRX_REDIS_URL || '';
   const restUrl = restRaw.trim().replace(/^["']+|["']+$/g, '');
   if (restUrl && (restUrl.startsWith('https://') || restUrl.startsWith('http://'))) {
     const store = await createUpstashRestStore(restUrl);
@@ -265,7 +265,7 @@ export const NV_E2E_BYPASS =
   process.env.NV_E2E_BYPASS === '1' && process.env.NODE_ENV !== 'production';
 if (NV_E2E_BYPASS) {
   // eslint-disable-next-line no-console
-  console.warn('[nv-rate-limit] NV_E2E_BYPASS=1 — ALL rate limits disabled (dev/test)');
+  console.warn('[jrx-rate-limit] NV_E2E_BYPASS=1 — ALL rate limits disabled (dev/test)');
 }
 // NV-PLATFORM-UAT-BYPASS-001 (2026-05-14): production-safe targeted bypass for
 // the 7 internal Jurexio platform keys only (sha256 fingerprint match).
@@ -292,7 +292,7 @@ export const publicRateLimit = rateLimit({
     if (p === '/health' || p.endsWith('/health') || p.endsWith('/docs')) return true;
     const auth = req.headers['authorization'];
     if (typeof auth === 'string' && /^Bearer\s+\S+/i.test(auth)) return true;
-    // NYV-AUDIT-F6 (2026-05-05): SDK API-key requests must NOT be rate-limited as
+    // JRX-AUDIT-F6 (2026-05-05): SDK API-key requests must NOT be rate-limited as
     // public traffic. They have their own sdkApiKeyRateLimit (200/min). Without
     // this skip, the 30/min public bucket throttles legit SDK clients.
     const xApiKey = req.headers['x-api-key'];
@@ -302,7 +302,7 @@ export const publicRateLimit = rateLimit({
   },
   message: {
     error: 'RATE_LIMIT_EXCEEDED',
-    code: 'NYV-RATE-001',
+    code: 'JRX-RATE-001',
     retryAfterSeconds: 60,
     message: 'Public rate limit exceeded. Authenticate for higher limits.',
   },
@@ -315,7 +315,7 @@ export const publicRateLimit = rateLimit({
 // normal admin session crossed the old 120/min cap within a few page loads and
 // every widget went blank (429). 600/min gives headroom for real console usage
 // while still bounding abuse; expensive LLM calls remain separately gated by the
-// 20/min aiPatternRateLimit (NYV-RATE-003).
+// 20/min aiPatternRateLimit (JRX-RATE-003).
 export const authenticatedRateLimit = rateLimit({
   windowMs: 60_000,
   max: 600,
@@ -326,7 +326,7 @@ export const authenticatedRateLimit = rateLimit({
   skip: _bypass,
   message: {
     error: 'RATE_LIMIT_EXCEEDED',
-    code: 'NYV-RATE-002',
+    code: 'JRX-RATE-002',
     retryAfterSeconds: 60,
   },
 });
@@ -342,10 +342,10 @@ export const aiPatternRateLimit = rateLimit({
   skip: _bypass,
   message: {
     error: 'AI_RATE_LIMIT_EXCEEDED',
-    code: 'NYV-RATE-003',
+    code: 'JRX-RATE-003',
     message: 'AI pattern limit reached. Upgrade your plan for higher limits.',
     retryAfterSeconds: 60,
-    upgradeUrl: process.env.NYV_PRICING_URL || 'https://nyayasiddhi.com/pricing',
+    upgradeUrl: process.env.JRX_PRICING_URL || 'https://nyayasiddhi.com/pricing',
   },
 });
 
@@ -360,7 +360,7 @@ export const authLoginRateLimit = rateLimit({
   skip: _bypass,
   message: {
     error: 'AUTH_RATE_LIMIT',
-    code: 'NYV-RATE-004',
+    code: 'JRX-RATE-004',
     message: 'Too many login attempts. Please wait 15 minutes.',
   },
 });
@@ -387,7 +387,7 @@ export const sdkApiKeyRateLimit = rateLimit({
   skip: _bypass,
   message: {
     error: 'SDK_RATE_LIMIT_EXCEEDED',
-    code: 'NYV-RATE-005',
+    code: 'JRX-RATE-005',
     retryAfterSeconds: 60,
   },
 });

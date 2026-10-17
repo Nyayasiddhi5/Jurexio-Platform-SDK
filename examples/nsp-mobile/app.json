@@ -22,7 +22,7 @@
       "permissions": ["CAMERA", "RECORD_AUDIO", "READ_MEDIA_IMAGES", "READ_MEDIA_VIDEO", "POST_NOTIFICATIONS"]
     },
     "extra": {
-      "NYV_BASE_URL": "https://api.nyayavigya.com"
+      "JRX_BASE_URL": "https://api.nyayavigya.com"
     },
     "plugins": [
       "expo-secure-store",

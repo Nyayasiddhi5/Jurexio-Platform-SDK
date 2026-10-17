@@ -5,13 +5,13 @@
  * Backend: src/routes/jrx-operations-aggregators.ts → GET /api/jrx/cost/overview
  * Auth:    super_admin; 30s refetch.
  *
- * Path imported via `p('COST_OVERVIEW')` from nv-api-paths.ts (NV-CONTRACT-001
+ * Path imported via `p('COST_OVERVIEW')` from jrx-api-paths.ts (NV-CONTRACT-001
  * / no-hardcoded-api-paths). The page renders the byProvider / byModel /
  * byTenant rollups returned directly (no { success, data } envelope).
  */
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { NyvErrorState } from "@/components/NyvErrorState";
+import { JrxErrorState } from "@/components/JrxErrorState";
 import { p } from "@/lib/jrx-api-paths";
 
 type Totals = { tokens: number; usd: number; requests: number };
@@ -128,7 +128,7 @@ export default function CostOptimizerPage() {
 
         {summary.isError && (
           <div className="mb-6">
-            <NyvErrorState
+            <JrxErrorState
               title="Could not load cost overview"
               description="Backend may be down or you may not have super_admin access."
               error={summary.error}
@@ -330,7 +330,7 @@ export default function CostOptimizerPage() {
             </span>
           </div>
           {suggestionsQ.isError && (
-            <NyvErrorState title="Could not load suggestions" error={suggestionsQ.error} onRetry={() => suggestionsQ.refetch()} variant="inline"/>
+            <JrxErrorState title="Could not load suggestions" error={suggestionsQ.error} onRetry={() => suggestionsQ.refetch()} variant="inline"/>
           )}
           {suggestions.length > 0 ? (
             <ul className="space-y-3">

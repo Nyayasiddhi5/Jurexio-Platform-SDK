@@ -6,7 +6,7 @@
  * against the real registry, for the taskType values partner callers actually send.
  *
  * It is a *copy* of the predicate rather than an import because importing
- * nv-client pulls the whole service graph and hangs. The copy is asserted against
+ * jrx-client pulls the whole service graph and hangs. The copy is asserted against
  * the source by tests/unit/jrx-agent-selection.test.ts, so drift is caught.
  *
  * NV-VALIDATE-THE-PROBE-001: runs a positive control first. If the registry does
@@ -36,7 +36,7 @@ const TIER_PRIORITY: Record<string, number> = {
 };
 
 /**
- * Port of nv-client.ts `resolveAgentByCapability` AFTER
+ * Port of jrx-client.ts `resolveAgentByCapability` AFTER
  * NV-AGENT-CAPABILITY-ALIAS-001 + NV-AGENT-JURISDICTION-LIST-001 +
  * NV-AGENT-SUBJECT-MATTER-001. The alias/subject tables are imported (not
  * copied), so the part most likely to drift is shared with production.

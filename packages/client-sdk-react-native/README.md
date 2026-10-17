@@ -37,11 +37,11 @@ npx expo install expo-secure-store expo-camera expo-av expo-notifications expo-i
 ## 60-second quickstart
 
 ```tsx
-import { NyvClientRN } from '@jurexio/client-sdk-react-native';
+import { JrxClientRN } from '@jurexio/client-sdk-react-native';
 
 // 1) Create the client (restores any saved key from secure storage)
-const nyv = await NyvClientRN.create({
-  baseUrl: 'https://api.nyayavigya.com',
+const nyv = await JrxClientRN.create({
+  baseUrl: 'https://api.jurexio.com',
 });
 
 // 2) On first run, persist the API key:
@@ -106,8 +106,8 @@ boilerplate (`app.json`, `eas.json`).
 
 ## Documentation
 
-- [Mobile Integration Guide](../../docs/v3.1.2/completed_docs/NYV-MOBILE-INTEGRATION-GUIDE.md)
-- [v6 SDK API Reference](../../docs/v3.1.2/completed_docs/NYV-SDK-v6-API-REFERENCE.md)
+- [Mobile Integration Guide](../../docs/v3.1.2/completed_docs/JRX-MOBILE-INTEGRATION-GUIDE.md)
+- [v6 SDK API Reference](../../docs/v3.1.2/completed_docs/JRX-SDK-v6-API-REFERENCE.md)
 - [`CHANGELOG.md`](./CHANGELOG.md)
 
 ## License

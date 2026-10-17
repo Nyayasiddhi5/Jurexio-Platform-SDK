@@ -1,6 +1,6 @@
 /**
  * Agent Orchestration — REAL DELEGATION SEAM
- * NYV-ORCH-SEAM-001 (Task #32)
+ * JRX-ORCH-SEAM-001 (Task #32)
  *
  * Replaces previous stub. All work routes to the Queen Orchestrator and the
  * Capability Manifest. Keeps the legacy class shape so existing imports

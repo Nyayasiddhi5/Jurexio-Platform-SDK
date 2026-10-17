@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
-# nysapi live endpoint probes — runs ON nysdev EC2. NV-SECRETS-001.
+# nysapi live endpoint probes — runs ON jrx-prod EC2. NV-SECRETS-001.
 set -uo pipefail
-CANON="/opt/Nyayavigya/secrets/.env.production"
-NYSAPI="${NYS_CASE_API_BASE_URL:-https://nysapi.nyayasiddhi.online}"
+CANON="/opt/Jurexio/secrets/.env.production"
+NYSAPI="${JRX_ECOSYSTEM_CASE_API_BASE_URL:-https://nysapi.jurexio.com}"
 
 read_canon_key() {
   grep -E "^${1}=" "$CANON" 2>/dev/null | head -1 | cut -d= -f2- \
     | sed -E 's/^[[:space:]"'\'' ]+//; s/[[:space:]"'\'' ]+$//; s/\r$//'
 }
 
-CASE_API_KEY="$(read_canon_key NYS_CASE_API_KEY)"
-NSP_KEY="$(read_canon_key NYV_SDK_KEY_NSP)"
-API="${NYV_API_BASE:-https://api.nyayasiddhi.online}"
+CASE_API_KEY="$(read_canon_key JRX_ECOSYSTEM_CASE_API_KEY)"
+NSP_KEY="$(read_canon_key JRX_SDK_KEY_NSP)"
+API="${JRX_API_BASE:-https://api.jurexio.com}"
 
 echo "=== NYSAPI LIVE FRESHNESS $(date -u +%Y-%m-%dT%H:%M:%SZ) ==="
 echo "nysapi_base=$NYSAPI"
@@ -105,7 +105,7 @@ else
   echo "SKIP nysapi probes — no case api key"
 fi
 
-# NYV wrapper path
+# JRX wrapper path
 if [ "$(printf %s "$NSP_KEY" | wc -c)" -gt 8 ]; then
   for pair in "TSWL|HC" "RJHC|HC" "17329|DIARY"; do
     label="${pair%%|*}"; kind="${pair##*|}"
@@ -119,7 +119,7 @@ if [ "$(printf %s "$NSP_KEY" | wc -c)" -gt 8 ]; then
       [ "$label" = "TSWL" ] && body='{"cnr":"TSWL000000742024","options":{"includeDocuments":false}}'
     fi
     code=$(curl -sS -o "$tmp" -w '%{http_code}' --max-time 90 -X POST \
-      -H "X-API-Key: $NSP_KEY" -H "X-NYV-Platform: nsp" -H "Content-Type: application/json" \
+      -H "X-API-Key: $NSP_KEY" -H "X-JRX-Platform: nsp" -H "Content-Type: application/json" \
       -d "$body" "$API/api/jrx/v1/sdk/cnr/resolve" 2>/dev/null || echo ERR)
     t1=$(python3 -c 'import time; print(int(time.time()*1000))')
     python3 - "$label" "$kind" "$code" "$((t1-t0))" "$tmp" <<'PY'
@@ -129,9 +129,9 @@ try:
     d = json.load(open(path))
     data = d.get("data") or {}
     meta = data.get("meta") or {}
-    print(f"NYV_CNR {label} kind={kind} http={code} ms={ms} success={d.get('success')} status={data.get('status')} tier={meta.get('tier')} source={data.get('source')}")
+    print(f"JRX_CNR {label} kind={kind} http={code} ms={ms} success={d.get('success')} status={data.get('status')} tier={meta.get('tier')} source={data.get('source')}")
 except Exception as e:
-    print(f"NYV_CNR {label} http={code} ms={ms} err={e}")
+    print(f"JRX_CNR {label} http={code} ms={ms} err={e}")
 PY
     rm -f "$tmp"
   done

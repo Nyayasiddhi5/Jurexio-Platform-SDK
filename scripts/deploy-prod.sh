@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# NYV-OPS-DEPLOY-MODE-001 (2026-05-01)
+# JRX-OPS-DEPLOY-MODE-001 (2026-05-01)
 #
 # Convenience wrapper: deploy to the PROD EC2 (blue/green gateway-a +
 # gateway-b under docker-compose.ecosystem.yml). Delegates to the canonical
@@ -12,13 +12,13 @@
 #   bash scripts/deploy-prod.sh --rollback         # rollback to LAST_GOOD
 #
 # Equivalent to:
-#   NYV_DEPLOY_COMPOSE=docker-compose.ecosystem.yml bash scripts/deploy-replit-direct.sh "$@"
+#   JRX_DEPLOY_COMPOSE=docker-compose.ecosystem.yml bash scripts/deploy-replit-direct.sh "$@"
 #
 # SAFETY: production deploys ALSO require the standard preflight chain
 # (typecheck, lint, vitest, gitleaks, audit). Skipping requires
-# NYV_DEPLOY_SKIP_PREFLIGHT=1 which is logged as UNGATED on EC2.
+# JRX_DEPLOY_SKIP_PREFLIGHT=1 which is logged as UNGATED on EC2.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
-export NYV_DEPLOY_COMPOSE="${NYV_DEPLOY_COMPOSE:-docker-compose.ecosystem.yml}"
+export JRX_DEPLOY_COMPOSE="${JRX_DEPLOY_COMPOSE:-docker-compose.ecosystem.yml}"
 exec bash "$HERE/deploy-replit-direct.sh" "$@"

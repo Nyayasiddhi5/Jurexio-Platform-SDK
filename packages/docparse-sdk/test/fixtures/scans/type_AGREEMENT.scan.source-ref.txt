@@ -1,1 +1,1 @@
-/Users/vamsit/Desktop/cursor-workspace/nyayavigya-platform-5.0.0-CURSOR-CLOUD/nyayavigya-platform-5.0.0/nyayavigya-platform-312/packages/docparse-sdk/test/fixtures/scans/type_AGREEMENT.scan.p1-1.png
+/Users/vamsit/Desktop/cursor-workspace/jurexio-platform-5.0.0-CURSOR-CLOUD/jurexio-platform-5.0.0/Jurexio-Platform-SDK/packages/docparse-sdk/test/fixtures/scans/type_AGREEMENT.scan.p1-1.png

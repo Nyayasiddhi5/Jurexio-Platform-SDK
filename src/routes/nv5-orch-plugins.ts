@@ -1,14 +1,14 @@
-// /api/nv5/orch/plugins/* — NyvIntegrationPluginManager introspection.
+// /api/nv5/orch/plugins/* — JrxIntegrationPluginManager introspection.
 // Read-only endpoints; no LLM emission.
 import { Router, type Request, type Response } from 'express';
-import { pluginManager } from '../services/nyv-integration-plugin-manager.js';
+import { pluginManager } from '../services/jrx-integration-plugin-manager.js';
 import { requireSdkKey, safeError } from './_nv5-orch-auth.js';
 
 const router = Router();
 router.use(requireSdkKey);
 
 router.get('/health', (_req: Request, res: Response) => {
-  res.json({ success: true, service: 'nyv-integration-plugin-manager' });
+  res.json({ success: true, service: 'jrx-integration-plugin-manager' });
 });
 
 router.get('/status-report', (_req: Request, res: Response) => {

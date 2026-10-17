@@ -1,6 +1,6 @@
 {
   "version": "5.0.1-dev-unlimited",
-  "_doc": "DEV/UAT mode (2026-05-11 → revisit at 2026-06-30 per user mandate). Ecosystem partners (NSP, NSPM, NYM, NSI, NSA, NSM, JRX) are running effectively unlimited via `internal` tier so we can complete feature testing without artificial back-pressure. Production tiers below remain ACCURATE — flip ecosystem partners back to their natural tier (nyayamitra→pro, nys-professional→pro, nys-institutional→enterprise, nys-academy→plus, nys-ministry→government) before any production cutover. Owner: Replit Agent (autonomous, gated on user GO). NV-DOC-001 compliant: change history in CHANGELOG.md Session-15 v17 entry.",
+  "_doc": "DEV/UAT mode (2026-05-11 → revisit at 2026-06-30 per user mandate). Ecosystem partners (NSP, NSPM, NYM, NSI, NSA, NSM, JRX) are running effectively unlimited via `internal` tier so we can complete feature testing without artificial back-pressure. Production tiers below remain ACCURATE — flip ecosystem partners back to their natural tier (jurexio-citizen→pro, nys-professional→pro, nys-institutional→enterprise, nys-academy→plus, nys-ministry→government) before any production cutover. Owner: Replit Agent (autonomous, gated on user GO). NV-DOC-001 compliant: change history in CHANGELOG.md Session-15 v17 entry.",
   "default": {
     "rpm": 60, "rph": 2000, "rpd": 20000, "burst": 30,
     "concurrentStreams": 4, "uploadsPerHour": 100, "maxUploadMb": 25
@@ -15,12 +15,12 @@
     "internal":   { "rpm": 9999,  "rph": 999999, "rpd": 9999999, "burst": 9999, "concurrentStreams": 64,"uploadsPerHour": 9999, "maxUploadMb": 500, "creditsMonthly": -1 }
   },
   "platformOverrides": {
-    "nyayamitra":       { "tier": "internal", "_prod_tier": "pro",        "rpm": 9999, "rph": 999999, "rpd": 9999999, "concurrentStreams": 64, "voiceMinutesPerDay": 999999, "notes": "DEV-LIFTED 2026-05-11 — citizen-facing, production target = pro tier (rpm:200, rph:8000, rpd:50000)" },
+    "jurexio-citizen":       { "tier": "internal", "_prod_tier": "pro",        "rpm": 9999, "rph": 999999, "rpd": 9999999, "concurrentStreams": 64, "voiceMinutesPerDay": 999999, "notes": "DEV-LIFTED 2026-05-11 — citizen-facing, production target = pro tier (rpm:200, rph:8000, rpd:50000)" },
     "nys-professional": { "tier": "internal", "_prod_tier": "pro",        "rpm": 9999, "rph": 999999, "rpd": 9999999, "concurrentStreams": 64, "notes": "DEV-LIFTED 2026-05-11 — production target = pro tier (rpm:120, rph:6000, rpd:30000)" },
     "nys-institutional":{ "tier": "internal", "_prod_tier": "enterprise", "rpm": 9999, "rph": 999999, "rpd": 9999999, "concurrentStreams": 64, "perOrgRpm": 9999, "notes": "DEV-LIFTED 2026-05-11 — production target = enterprise tier (rpm:600, rph:50000, rpd:200000)" },
     "nys-academy":      { "tier": "internal", "_prod_tier": "plus",       "rpm": 9999, "rph": 999999, "rpd": 9999999, "concurrentStreams": 64, "notes": "DEV-LIFTED 2026-05-11 — production target = plus tier (rpm:40, rph:1500, rpd:5000)" },
     "nys-ministry":     { "tier": "internal", "_prod_tier": "government", "rpm": 9999, "rph": 999999, "rpd": 9999999, "concurrentStreams": 64, "pqcRequired": true, "notes": "DEV-LIFTED 2026-05-11 — production target = government tier (rpm:600, rph:50000, rpd:200000)" },
-    "nys":              { "tier": "internal", "rpm": 9999, "rph": 999999, "rpd": 9999999, "concurrentStreams": 64, "notes": "NV-NYS-CNR-SSOT-001 — NyayaSearch caselaw-worker BFF (X-NYV-Platform: nys)" }
+    "nys":              { "tier": "internal", "rpm": 9999, "rph": 999999, "rpd": 9999999, "concurrentStreams": 64, "notes": "NV-JRX-CNR-SSOT-001 — NyayaSearch caselaw-worker BFF (X-JRX-Platform: nys)" }
   },
   "endpointOverrides": {
     "/api/nv/orchestrate":            { "weight": 1 },

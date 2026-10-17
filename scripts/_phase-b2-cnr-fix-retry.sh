@@ -5,7 +5,7 @@ cd /opt/nyv/api
 # Bundled ingest embeds dev-machine pino worker path — symlink from node_modules
 WORKER_SRC="$(find node_modules -path '*/thread-stream/lib/worker.js' 2>/dev/null | head -1)"
 echo "pino_worker_src=${WORKER_SRC:-MISSING}"
-BROKEN='/Users/vamsit/Desktop/cursor-workspace/nyayavigya-platform-5.0.0-CURSOR-CLOUD/nyayavigya-platform-5.0.0/nyayavigya-platform-312/jrx-search/artifacts/api-server/dist/thread-stream-worker.mjs'
+BROKEN='/Users/vamsit/Desktop/cursor-workspace/jurexio-platform-5.0.0-CURSOR-CLOUD/jurexio-platform-5.0.0/Jurexio-Platform-SDK/jrx-search/artifacts/api-server/dist/thread-stream-worker.mjs'
 mkdir -p "$(dirname "$BROKEN")" 2>/dev/null || true
 if [ -n "$WORKER_SRC" ]; then
   cp "$WORKER_SRC" "$BROKEN" 2>/dev/null || ln -sf "$WORKER_SRC" "$BROKEN" 2>/dev/null || true
@@ -16,7 +16,7 @@ node --input-type=module <<'NODE'
 import pg from 'pg';
 import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-secrets-manager';
 import { RDSClient, DescribeDBInstancesCommand } from '@aws-sdk/client-rds';
-const r = await new RDSClient({ region: 'ap-south-1' }).send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: 'nyv-caselaw-pg' }));
+const r = await new RDSClient({ region: 'ap-south-1' }).send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: 'jrx-caselaw-pg' }));
 const i = r.DBInstances[0];
 const s = await new SecretsManagerClient({ region: 'ap-south-1' }).send(new GetSecretValueCommand({ SecretId: i.MasterUserSecret.SecretArn }));
 const c = JSON.parse(s.SecretString);

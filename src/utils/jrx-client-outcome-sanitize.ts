@@ -11,7 +11,7 @@ const logger = createLogger('./jrx-client-outcome-sanitize');
 
 /** When true, allow executions / pattern / failed-branch diagnostics in API JSON. */
 export function isOrchestrationDiagnosticsExposed(): boolean {
-  const v = String(process.env.NYV_EXPOSE_ORCHESTRATION_DIAGNOSTICS ?? '').trim().toLowerCase();
+  const v = String(process.env.JRX_EXPOSE_ORCHESTRATION_DIAGNOSTICS ?? '').trim().toLowerCase();
   return v === '1' || v === 'true' || v === 'on' || v === 'yes';
 }
 
@@ -267,12 +267,12 @@ export function sanitizeOrchestrationPayloadForClient<T extends Record<string, u
 
   // Provider label for partners — generic, not "queen-orchestrator"
   if (typeof out.provider === 'string' && /queen|swarm|orchestrat/i.test(out.provider)) {
-    out.provider = 'nyayavigya';
+    out.provider = 'jurexio';
   }
   if (out.cost && typeof out.cost === 'object') {
     const c = { ...(out.cost as Record<string, unknown>) };
     if (typeof c.provider === 'string' && /queen|swarm|orchestrat/i.test(c.provider)) {
-      c.provider = 'nyayavigya';
+      c.provider = 'jurexio';
     }
     if (typeof c.path === 'string' && /queen|swarm/i.test(c.path)) {
       c.path = 'legal-ai';

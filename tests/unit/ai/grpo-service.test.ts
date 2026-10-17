@@ -167,7 +167,7 @@ describe('GRPOOptimizationService', () => {
         grpo.recordFeedback({
           patternKey: 'P01',
           route: '/api/jrx/patterns/react',
-          agentId: 'NYV-AGT-CONTRACT-001',
+          agentId: 'JRX-AGT-CONTRACT-001',
           jurisdiction: 'IN',
           taskSnippet: 'Analyze this contract clause',
           responseSnippet: 'The clause contains a liquidated damages provision...',

@@ -11,7 +11,7 @@
  * This is intentionally simple — no event bus, no leases, single-process.
  * Sufficient for the bot/workflow services where the failure mode is
  * "lost user-visible state" not "privacy violation". For the latter
- * (federated-privacy ε-budget) see `nv-federated-privacy-service.ts`,
+ * (federated-privacy ε-budget) see `jrx-federated-privacy-service.ts`,
  * which uses SERIALIZABLE transactions directly rather than this helper.
  */
 

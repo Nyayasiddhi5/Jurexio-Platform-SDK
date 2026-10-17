@@ -2,7 +2,7 @@
  * NV-COT-TRUNCATED-JSON-001 — the reasoning trail must survive a truncated payload.
  *
  * Why this exists: NSP reported no reasoning trail under any key. The wiring was complete
- * end to end (`enableCoT` → safety-ring wrapper line 153 → nv-client → contract, and the
+ * end to end (`enableCoT` → safety-ring wrapper line 153 → jrx-client → contract, and the
  * sanitizer does not strip `chainOfThought`), but the parse failed live with
  * `Unterminated string in JSON at position 320 (line 4 column 300)` — the model hit its
  * output ceiling mid-string. `JSON.parse` rejected everything, the caller swallowed the

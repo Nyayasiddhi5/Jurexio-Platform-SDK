@@ -10,7 +10,7 @@
  */
 
 import { v4 as uuidv4 } from 'uuid';
-import { isNyvFeatureOn } from '../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../../config/jrx-feature-flags.js';
 import { createLogger } from '../../utils/logger.js';
 
 const cragLogger = createLogger('corrective-rag');
@@ -270,7 +270,7 @@ class CorrectiveRAGService {
    *          performed / did not yield a usefully different query.
    */
   async llmReformulateQuery(query: string, weakSnippets: string[] = []): Promise<string | null> {
-    if (!isNyvFeatureOn('ragLlmReformulate')) return null;
+    if (!isJrxFeatureOn('ragLlmReformulate')) return null;
     const original = (query || '').trim();
     if (original.length < 3) return null;
 

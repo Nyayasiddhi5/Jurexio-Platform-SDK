@@ -2,7 +2,7 @@
   "version": "5.0.0",
   "primary": {
     "provider": "redis",
-    "envVar": "NYV_REDIS_TCP_URL",
+    "envVar": "JRX_REDIS_TCP_URL",
     "mode": "cluster",
     "nodes": 6,
     "tls": true,

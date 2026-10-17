@@ -4,7 +4,7 @@
 #
 # WHAT IT DOES (in order, idempotent):
 #   1. Tar the working tree (minus .git/node_modules/dist/archive/.local).
-#   2. aws s3 cp the tarball to s3://${NYV_DEPLOY_BUCKET}/deploys/<id>.tgz.
+#   2. aws s3 cp the tarball to s3://${JRX_DEPLOY_BUCKET}/deploys/<id>.tgz.
 #   3. aws ssm send-command with a base64-encoded shell that:
 #        a. downloads the tarball on EC2,
 #        b. extracts to /opt/nyayavigya/repo/<id>/,
@@ -24,9 +24,9 @@
 # REQUIRED ENV (set in the deployment environment / env.production):
 #   AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY  — IAM user with ssm:SendCommand
 #                                                + s3:PutObject on the bucket
-#   NYV_EC2_INSTANCE_ID                       — e.g. i-0df71e5ea1df8f588
-#   NYV_AWS_REGION                            — e.g. ap-south-1
-#   NYV_DEPLOY_BUCKET                         — e.g. nyayavigya-sdk-devapp
+#   JRX_EC2_INSTANCE_ID                       — e.g. i-0df71e5ea1df8f588
+#   JRX_AWS_REGION                            — e.g. ap-south-1
+#   JRX_DEPLOY_BUCKET                         — e.g. jurexio-sdk-devapp
 #
 # AUDIT TRAIL
 #   Every successful run appends ONE line to /opt/nyayavigya/deploys.log on
@@ -58,24 +58,24 @@ done
 
 : "${AWS_ACCESS_KEY_ID:?missing AWS_ACCESS_KEY_ID in env.production}"
 : "${AWS_SECRET_ACCESS_KEY:?missing AWS_SECRET_ACCESS_KEY in env.production}"
-: "${NYV_EC2_INSTANCE_ID:?missing NYV_EC2_INSTANCE_ID (set in env.production — e.g. i-0df71e5ea1df8f588)}"
-: "${NYV_AWS_REGION:=ap-south-1}"
-: "${NYV_DEPLOY_BUCKET:=nyayavigya-sdk-devapp}"
+: "${JRX_EC2_INSTANCE_ID:?missing JRX_EC2_INSTANCE_ID (set in env.production — e.g. i-0df71e5ea1df8f588)}"
+: "${JRX_AWS_REGION:=ap-south-1}"
+: "${JRX_DEPLOY_BUCKET:=jurexio-sdk-devapp}"
 
 command -v aws >/dev/null 2>&1 || { echo "aws cli not installed" >&2; exit 1; }
 
 DEPLOY_ID="$(date -u +%Y-%m-%dT%H%MZ)-aws-ssm"
 SHA="$(git --no-optional-locks rev-parse --short=8 HEAD 2>/dev/null || echo nogit)"
-TARBALL="/tmp/nyv-${DEPLOY_ID}-${SHA}.tgz"
+TARBALL="/tmp/jrx-${DEPLOY_ID}-${SHA}.tgz"
 
 echo "==> [1/4] Building tarball ${TARBALL}"
 # IMPORTANT: never ship the local-dev .env — it is the local-dev template
 # (33 keys: feature flags only). The EC2-side production .env (350+ keys with
 # DATABASE_URL=...rds.amazonaws.com, REDIS_URL=...elasticache, NV_PII_ENCRYPTION_KEY,
-# 100+ provider API keys, etc.) lives canonically at /opt/Nyayavigya/secrets/.env.production
+# 100+ provider API keys, etc.) lives canonically at /opt/Jurexio/secrets/.env.production
 # and is overlaid onto the deploy dir's .env after extract (see EC2-side step
 # below). Shipping the local .env would clobber DB/Redis/secrets and crash the
-# gateway with NyvMissingDependencyError [NYV-NS-005] (proven 2026-05-02T0946Z).
+# gateway with JrxMissingDependencyError [JRX-NS-005] (proven 2026-05-02T0946Z).
 tar --exclude='.git' --exclude='node_modules' --exclude='dist' \
     --exclude='archive' --exclude='.local' --exclude='graphify-out' \
     --exclude='nohup.out' --exclude='*.log' \
@@ -90,25 +90,25 @@ TARBALL_SIZE="$(du -h "$TARBALL" | awk '{print $1}')"
 echo "    tarball size: ${TARBALL_SIZE}"
 
 S3_KEY="deploys/${DEPLOY_ID}-${SHA}.tgz"
-echo "==> [2/4] Uploading to s3://${NYV_DEPLOY_BUCKET}/${S3_KEY}"
-aws s3 cp --region "$NYV_AWS_REGION" "$TARBALL" "s3://${NYV_DEPLOY_BUCKET}/${S3_KEY}" \
+echo "==> [2/4] Uploading to s3://${JRX_DEPLOY_BUCKET}/${S3_KEY}"
+aws s3 cp --region "$JRX_AWS_REGION" "$TARBALL" "s3://${JRX_DEPLOY_BUCKET}/${S3_KEY}" \
   --only-show-errors
 
 if [ "$DRY_RUN" = "1" ]; then
   echo "==> --dry-run: stopping after S3 upload."
   echo "    deploy id : ${DEPLOY_ID}"
   echo "    sha       : ${SHA}"
-  echo "    s3 object : s3://${NYV_DEPLOY_BUCKET}/${S3_KEY}"
+  echo "    s3 object : s3://${JRX_DEPLOY_BUCKET}/${S3_KEY}"
   exit 0
 fi
 
 # Build the EC2-side script — kept inline so this file is self-contained.
 # Critical post-extract steps (proven by T013 RECOVERY 2026-05-02T1011Z):
-#   1. Overlay /opt/Nyayavigya/secrets/.env.production over the tarball's .env
+#   1. Overlay /opt/Jurexio/secrets/.env.production over the tarball's .env
 #      (local .env is the local-dev template — only 33 keys; production has
 #      350+ keys including DATABASE_URL=...rds, REDIS_URL=...elasticache,
 #      NV_PII_ENCRYPTION_KEY, 100+ provider API keys). Without this overlay
-#      the gateway crashes with NyvMissingDependencyError [NYV-NS-005].
+#      the gateway crashes with JrxMissingDependencyError [JRX-NS-005].
 #      The tarball no longer ships .env (excluded above) but we still verify.
 #   2. After force-recreating the gateway, restart the console so its nginx
 #      worker re-resolves the gateway's new docker network IP (otherwise
@@ -125,23 +125,23 @@ EC2_SCRIPT=$(cat <<EOF
 set -euo pipefail
 DEPLOY_ID="${DEPLOY_ID}"
 SHA="${SHA}"
-S3_URI="s3://${NYV_DEPLOY_BUCKET}/${S3_KEY}"
+S3_URI="s3://${JRX_DEPLOY_BUCKET}/${S3_KEY}"
 NOTE="\$(echo '${NOTE_B64}' | base64 -d)"
-CANON_ENV="/opt/Nyayavigya/secrets/.env.production"
+CANON_ENV="/opt/Jurexio/secrets/.env.production"
 # Required keys for gateway boot — file-exists is not enough; we have seen
-# stale env files cause [NYV-NS-005] crashes. Validate before compose up.
+# stale env files cause [JRX-NS-005] crashes. Validate before compose up.
 REQUIRED_ENV_KEYS="DATABASE_URL REDIS_URL NV_PII_ENCRYPTION_KEY JWT_SECRET"
-DEST="/opt/Nyayavigya/repo/\${DEPLOY_ID}-\${SHA}"
+DEST="/opt/Jurexio/repo/\${DEPLOY_ID}-\${SHA}"
 mkdir -p "\$DEST"
 echo "[ec2] downloading \$S3_URI"
 aws s3 cp "\$S3_URI" "\$DEST/release.tgz" --only-show-errors
 echo "[ec2] extracting"
 tar -xzf "\$DEST/release.tgz" -C "\$DEST"
 rm "\$DEST/release.tgz"
-LIVE_DIR="\$(find "\$DEST" -maxdepth 2 -type d -name 'nyayavigya-platform-312' | head -1)"
+LIVE_DIR="\$(find "\$DEST" -maxdepth 2 -type d -name 'Jurexio-Platform-SDK' | head -1)"
 if [ -z "\$LIVE_DIR" ]; then
-  # NYV-NS-028 fix (2026-05-05): the local-side tar packs from INSIDE
-  # nyayavigya-platform-312 (\`tar -czf "\$TARBALL" .\`), so the tarball
+  # JRX-NS-028 fix (2026-05-05): the local-side tar packs from INSIDE
+  # Jurexio-Platform-SDK (\`tar -czf "\$TARBALL" .\`), so the tarball
   # contents land directly under \$DEST with no wrapper subdir. Fall back
   # to \$DEST when it looks like a valid project root.
   if [ -f "\$DEST/package.json" ] && [ -d "\$DEST/src" ] && [ -d "\$DEST/scripts" ]; then
@@ -149,7 +149,7 @@ if [ -z "\$LIVE_DIR" ]; then
     echo "[ec2] no wrapper subdir; using \$DEST as project root (package.json + src/ + scripts/ present)"
   fi
 fi
-[ -n "\$LIVE_DIR" ] || { echo "[ec2] FATAL: no project root (no nyayavigya-platform-312 dir AND no package.json+src/+scripts/ at root)"; exit 1; }
+[ -n "\$LIVE_DIR" ] || { echo "[ec2] FATAL: no project root (no Jurexio-Platform-SDK dir AND no package.json+src/+scripts/ at root)"; exit 1; }
 cd "\$LIVE_DIR"
 
 echo "[ec2] overlaying canonical .env.production (tarball ships none)"
@@ -176,15 +176,15 @@ fi
 echo "[ec2]   required keys present:\$(printf ' %s' \$REQUIRED_ENV_KEYS)"
 
 # NV-DEPLOY-NET-PROJECT-001: stable compose project so console nginx upstream
-# "gateway" resolves on nyayavigya-platform-312_nyv-net (not per-deploy dir name).
-export COMPOSE_PROJECT_NAME=nyayavigya-platform-312
+# "gateway" resolves on Jurexio-Platform-SDK_jrx-net (not per-deploy dir name).
+export COMPOSE_PROJECT_NAME=Jurexio-Platform-SDK
 
 echo "[ec2] docker compose build --pull gateway"
 docker compose -f docker-compose.aws-dev.yml build --pull gateway
 
 # NV-DEPLOY-COMPOSE-RECREATE-001 (2026-05-14, hard guardrail):
 # docker compose up -d --force-recreate periodically aborts with
-# "Container nyv-gateway is already in use" because compose tries to create the
+# "Container jrx-gateway is already in use" because compose tries to create the
 # new container BEFORE removing the old one (project-name change between
 # deploys puts them in different "scopes" so compose loses track). Hit by
 # task #365 BCD5 and again by task #390. Always stop+rm explicitly, then
@@ -202,28 +202,28 @@ echo "[ec2] NV-DEPLOY-DRAIN-001: graceful stop of the OLD gateway before recreat
 #      in src/index.ts) can finish in-flight requests instead of being killed mid-response.
 #   2. Record the outage window in the deploy log, so a partner failure inside it can be
 #      attributed in seconds rather than by cross-referencing timestamps for an hour.
-DRAIN_TIMEOUT=\${NYV_DEPLOY_STOP_TIMEOUT:-25}
+DRAIN_TIMEOUT=\${JRX_DEPLOY_STOP_TIMEOUT:-25}
 # NV-DEPLOY-DRAIN-001 (coherence guard added 2026-08-19). Three timeouts must nest:
 #
-#   app drain   NYV_SHUTDOWN_DRAIN_MS   default 15000 ms  (src/index.ts, clamp 0..60000)
-#     <  deploy stop   NYV_DEPLOY_STOP_TIMEOUT  default 25 s   (docker stop -t, below)
+#   app drain   JRX_SHUTDOWN_DRAIN_MS   default 15000 ms  (src/index.ts, clamp 0..60000)
+#     <  deploy stop   JRX_DEPLOY_STOP_TIMEOUT  default 25 s   (docker stop -t, below)
 #       <  docker grace  stop_grace_period      30 s          (docker-compose.aws-dev.yml)
 #
-# Before this guard stop_grace_period was unset, so a bare "docker stop nyv-gateway"
+# Before this guard stop_grace_period was unset, so a bare "docker stop jrx-gateway"
 # used docker's 10 s default and SIGKILLed the process 5 s INTO a 15 s drain — the
 # graceful shutdown could never complete and in-flight partner requests were
 # truncated. Read the app's actual drain value from the overlaid .env (not the
 # hard-coded default) so the two cannot silently diverge again, and raise the stop
 # timeout if someone lengthens the drain without touching this script.
 # NV-DEPLOY-GREP-PIPEFAIL-001 (2026-08-20): this grep MUST tolerate a missing key.
-# The EC2 script runs under \`set -euo pipefail\`, and NYV_SHUTDOWN_DRAIN_MS is absent
+# The EC2 script runs under \`set -euo pipefail\`, and JRX_SHUTDOWN_DRAIN_MS is absent
 # from the canonical .env.production (272 keys, 0 matches — measured). grep then exits
 # 1, pipefail propagates it through \`| head | sed\`, the assignment inherits it and
 # set -e killed the deploy at this line — after the image was built but BEFORE the
 # gateway was drained. That is why the 2026-08-20T0205Z run exited 1 having touched
 # nothing. The \`|| true\` makes the absent-key path fall through to the default on
 # the next line, which is what it was always meant to do.
-APP_DRAIN_MS="\$( { grep -E '^NYV_SHUTDOWN_DRAIN_MS=' "\$LIVE_DIR/.env" || true; } | head -1 | sed -E 's/^NYV_SHUTDOWN_DRAIN_MS=//; s/[^0-9]//g')"
+APP_DRAIN_MS="\$( { grep -E '^JRX_SHUTDOWN_DRAIN_MS=' "\$LIVE_DIR/.env" || true; } | head -1 | sed -E 's/^JRX_SHUTDOWN_DRAIN_MS=//; s/[^0-9]//g')"
 [ -n "\$APP_DRAIN_MS" ] || APP_DRAIN_MS=15000
 APP_DRAIN_S=\$(( (APP_DRAIN_MS + 999) / 1000 ))
 MIN_STOP_TIMEOUT=\$(( APP_DRAIN_S + 5 ))
@@ -239,16 +239,16 @@ if [ -n "\$COMPOSE_GRACE_S" ] && [ "\$DRAIN_TIMEOUT" -gt "\$COMPOSE_GRACE_S" ]; 
   echo "[ec2] WARN NV-DEPLOY-DRAIN-001: docker stop -t \$DRAIN_TIMEOUT exceeds compose stop_grace_period \${COMPOSE_GRACE_S}s — raise stop_grace_period in docker-compose.aws-dev.yml"
 fi
 echo "[ec2] drain budget: app=\${APP_DRAIN_MS}ms < docker stop -t=\${DRAIN_TIMEOUT}s <= stop_grace_period=\${COMPOSE_GRACE_S:-unset}s"
-if docker ps --format '{{.Names}}' | grep -qx nyv-gateway; then
-  echo "[ec2] stopping nyv-gateway with -t \$DRAIN_TIMEOUT (SIGTERM drain, then SIGKILL)"
+if docker ps --format '{{.Names}}' | grep -qx jrx-gateway; then
+  echo "[ec2] stopping jrx-gateway with -t \$DRAIN_TIMEOUT (SIGTERM drain, then SIGKILL)"
   OUTAGE_START=\$(date -u +%s)
-  docker stop -t "\$DRAIN_TIMEOUT" nyv-gateway 2>/dev/null || true
+  docker stop -t "\$DRAIN_TIMEOUT" jrx-gateway 2>/dev/null || true
   echo "[ec2] drained in \$((\$(date -u +%s) - OUTAGE_START))s"
 else
-  echo "[ec2] no running nyv-gateway to drain"
+  echo "[ec2] no running jrx-gateway to drain"
   OUTAGE_START=\$(date -u +%s)
 fi
-docker rm   nyv-gateway 2>/dev/null || true
+docker rm   jrx-gateway 2>/dev/null || true
 echo "[ec2] docker compose up -d --no-deps gateway"
 docker compose -f docker-compose.aws-dev.yml up -d --no-deps gateway
 
@@ -270,19 +270,19 @@ fi
 if [ "\$HEALTH_OK" != "1" ]; then
   echo "[ec2] FATAL: gateway :5000/api/jrx/health not 200 within 120s"
   echo "[ec2] container state:"
-  docker ps -a --filter name=nyv-gateway --format '    {{.Names}} {{.Status}} {{.Image}}'
-  echo "[ec2] last 60 lines of nyv-gateway logs:"
-  docker logs --tail 60 nyv-gateway 2>&1 | sed 's/^/    /'
+  docker ps -a --filter name=jrx-gateway --format '    {{.Names}} {{.Status}} {{.Image}}'
+  echo "[ec2] last 60 lines of jrx-gateway logs:"
+  docker logs --tail 60 jrx-gateway 2>&1 | sed 's/^/    /'
   exit 1
 fi
 
 # NV-DEPLOY-NET-BRIDGE-001: gateway may land on a deploy-scoped network; connect
 # the stable alias "gateway" on the legacy console network before nginx starts.
-LEGACY_NET="nyayavigya-platform-312_nyv-net"
+LEGACY_NET="Jurexio-Platform-SDK_jrx-net"
 if docker network inspect "\$LEGACY_NET" >/dev/null 2>&1; then
-  if ! docker inspect nyv-gateway --format '{{json .NetworkSettings.Networks}}' 2>/dev/null | grep -q "\"\${LEGACY_NET}\""; then
-    docker network connect --alias gateway "\$LEGACY_NET" nyv-gateway 2>/dev/null || true
-    echo "[ec2] bridged nyv-gateway -> \${LEGACY_NET} (NV-DEPLOY-NET-BRIDGE-001)"
+  if ! docker inspect jrx-gateway --format '{{json .NetworkSettings.Networks}}' 2>/dev/null | grep -q "\"\${LEGACY_NET}\""; then
+    docker network connect --alias gateway "\$LEGACY_NET" jrx-gateway 2>/dev/null || true
+    echo "[ec2] bridged jrx-gateway -> \${LEGACY_NET} (NV-DEPLOY-NET-BRIDGE-001)"
   fi
 fi
 
@@ -295,7 +295,7 @@ echo "[ec2] running idempotent post-deploy migrations (task-245: openbot org_id 
 # deploy is safe and becomes a no-op once backfill has succeeded. We pull
 # DATABASE_URL from the canonical .env (already overlaid + validated above)
 # and execute via the postgres:16-alpine image (same one used by the
-# nyv-postgres sidecar, so already on disk — no extra pull). Failure is
+# jrx-postgres sidecar, so already on disk — no extra pull). Failure is
 # WARN-only: gateway hydrate path keeps the system functional, and we don't
 # want a backfill regression to gate LAST_GOOD_DEPLOY advancement.
 MIGRATION_FILE="\$LIVE_DIR/scripts/migrations/2026-05-12-openbot-org-id-backfill.sql"
@@ -331,7 +331,7 @@ else
 fi
 
 echo "[ec2] running idempotent post-deploy migrations (NV-SCHEMA-DRIFT-B-001: telemetry tables)"
-DRIFT_FILE="\$LIVE_DIR/migrations/2026-07-05-nv-drift-b-telemetry.sql"
+DRIFT_FILE="\$LIVE_DIR/migrations/2026-07-05-jrx-drift-b-telemetry.sql"
 DRIFT_DB_URL="\$(grep -E '^DATABASE_URL=' "\$LIVE_DIR/.env" | head -1 | sed -E 's/^DATABASE_URL=//; s/^\"(.*)\"\$/\\1/; s/^'\\''(.*)'\\''\$/\\1/')"
 if [ -f "\$DRIFT_FILE" ] && [ -n "\$DRIFT_DB_URL" ]; then
   DRIFT_LOG="/tmp/jrx-drift-b-telemetry-\${DEPLOY_ID}.log"
@@ -377,9 +377,9 @@ sleep 6
 # That returned 200 the whole time. It bypasses nginx — the only hop that was
 # broken. Verification that skips the ingress path cannot detect an ingress
 # failure, so the check now lives in scripts/jrx-verify-ingress.sh and asserts:
-#   gateway/console share a docker network, 'gateway' resolves inside nyv-console,
+#   gateway/console share a docker network, 'gateway' resolves inside jrx-console,
 #   :80 returns 200, the "gw 200 + ingress 5xx" divergence is a HARD FAIL, and
-#   nyv-console's docker healthcheck is not 'unhealthy' (it sat unhealthy with
+#   jrx-console's docker healthcheck is not 'unhealthy' (it sat unhealthy with
 #   failingStreak=83 for ~50 min during the incident and nothing escalated).
 #
 # That script carries its own negative control: \`bash scripts/jrx-verify-ingress.sh
@@ -418,21 +418,21 @@ fi
 # advances when BOTH gateway (:5000) AND the ingress (:80 through nginx) are
 # green; a degraded ingress means user-facing traffic is broken even though the
 # gateway is healthy — which is precisely the 2026-08-19 failure.
-echo "\$DEPLOY_ID-\$SHA" > /opt/Nyayavigya/CURRENT_DEPLOY
+echo "\$DEPLOY_ID-\$SHA" > /opt/Jurexio/CURRENT_DEPLOY
 PROXY_LABEL="WARN"
 if [ "\$PROXY_OK" = "1" ]; then
-  echo "\$DEPLOY_ID-\$SHA" > /opt/Nyayavigya/LAST_GOOD_DEPLOY
+  echo "\$DEPLOY_ID-\$SHA" > /opt/Jurexio/LAST_GOOD_DEPLOY
   PROXY_LABEL="OK"
 else
   echo "[ec2] FAIL: ingress verification did not pass (gateway :5000 IS healthy)"
   echo "[ec2]   CURRENT_DEPLOY advanced; LAST_GOOD_DEPLOY NOT advanced (rollback target unchanged)"
-  echo "[ec2]   Most likely cause: nyv-gateway is not on nyayavigya-platform-312_nyv-net."
+  echo "[ec2]   Most likely cause: jrx-gateway is not on Jurexio-Platform-SDK_jrx-net."
   echo "[ec2]   Zero-downtime remedy (no restart — reclaims the IP nginx already cached):"
-  echo "[ec2]     docker network connect --alias gateway --alias nyv-gateway nyayavigya-platform-312_nyv-net nyv-gateway"
-  echo "[ec2]     docker exec nyv-console sh -c 'nginx -t && nginx -s reload'"
+  echo "[ec2]     docker network connect --alias gateway --alias jrx-gateway Jurexio-Platform-SDK_jrx-net jrx-gateway"
+  echo "[ec2]     docker exec jrx-console sh -c 'nginx -t && nginx -s reload'"
   echo "[ec2]   Then re-run: bash \$LIVE_DIR/scripts/jrx-verify-ingress.sh"
 fi
-echo "\$(date -u +%FT%TZ) | \$DEPLOY_ID | \$SHA | \$LIVE_DIR | gw=:5000-OK ingress=:80-\$PROXY_LABEL backfill=\${BACKFILL_LABEL:-N/A} drift=\${DRIFT_LABEL:-N/A} | \$NOTE" >> /opt/Nyayavigya/deploys.log
+echo "\$(date -u +%FT%TZ) | \$DEPLOY_ID | \$SHA | \$LIVE_DIR | gw=:5000-OK ingress=:80-\$PROXY_LABEL backfill=\${BACKFILL_LABEL:-N/A} drift=\${DRIFT_LABEL:-N/A} | \$NOTE" >> /opt/Jurexio/deploys.log
 echo "[ec2] DONE \$DEPLOY_ID (gateway=OK ingress=\$PROXY_LABEL)"
 # Non-zero exit on a degraded ingress so the SSM caller and CI/operator see a
 # non-success status. Do NOT relax this to a warning: the 51-minute outage was
@@ -442,10 +442,10 @@ EOF
 )
 B64="$(nv_b64_encode "$EC2_SCRIPT")"
 
-echo "==> [3/4] Sending SSM command to ${NYV_EC2_INSTANCE_ID} (region ${NYV_AWS_REGION})"
+echo "==> [3/4] Sending SSM command to ${JRX_EC2_INSTANCE_ID} (region ${JRX_AWS_REGION})"
 CMD_ID="$(aws ssm send-command \
-  --region "$NYV_AWS_REGION" \
-  --instance-ids "$NYV_EC2_INSTANCE_ID" \
+  --region "$JRX_AWS_REGION" \
+  --instance-ids "$JRX_EC2_INSTANCE_ID" \
   --document-name 'AWS-RunShellScript' \
   --comment "deploy-aws-ssm ${DEPLOY_ID}" \
   --parameters "commands=[\"echo $B64 | base64 -d | bash\"]" \
@@ -455,9 +455,9 @@ echo "    SSM command id: ${CMD_ID}"
 echo "==> [4/4] Waiting for SSM completion (max 15min)"
 for i in $(seq 1 180); do
   status="$(aws ssm get-command-invocation \
-    --region "$NYV_AWS_REGION" \
+    --region "$JRX_AWS_REGION" \
     --command-id "$CMD_ID" \
-    --instance-id "$NYV_EC2_INSTANCE_ID" \
+    --instance-id "$JRX_EC2_INSTANCE_ID" \
     --query 'Status' --output text 2>/dev/null || echo Pending)"
   case "$status" in
     Success) echo "    SSM Success"; break ;;
@@ -468,17 +468,17 @@ done
 
 echo "==> Stdout:"
 aws ssm get-command-invocation \
-  --region "$NYV_AWS_REGION" \
+  --region "$JRX_AWS_REGION" \
   --command-id "$CMD_ID" \
-  --instance-id "$NYV_EC2_INSTANCE_ID" \
+  --instance-id "$JRX_EC2_INSTANCE_ID" \
   --query 'StandardOutputContent' --output text || true
 
 if [ "$status" != "Success" ]; then
   echo "==> Stderr:"
   aws ssm get-command-invocation \
-    --region "$NYV_AWS_REGION" \
+    --region "$JRX_AWS_REGION" \
     --command-id "$CMD_ID" \
-    --instance-id "$NYV_EC2_INSTANCE_ID" \
+    --instance-id "$JRX_EC2_INSTANCE_ID" \
     --query 'StandardErrorContent' --output text || true
   exit 1
 fi
@@ -489,5 +489,5 @@ echo
 echo "==> SUCCESS"
 echo "    deploy id : ${DEPLOY_ID}"
 echo "    sha       : ${SHA}"
-echo "    s3 object : s3://${NYV_DEPLOY_BUCKET}/${S3_KEY}"
+echo "    s3 object : s3://${JRX_DEPLOY_BUCKET}/${S3_KEY}"
 echo "    SSM cmd   : ${CMD_ID}"

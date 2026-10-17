@@ -41,13 +41,13 @@ export class NvQdrantAdapterService {
   private qdrantApiKey: string | null;
   private inMemoryStore: Map<string, Map<string, VectorRecord>> = new Map();
 
-  // NYV-RAG-HEAP-CAP-002 (2026-04-30): when running without Qdrant configured,
+  // JRX-RAG-HEAP-CAP-002 (2026-04-30): when running without Qdrant configured,
   // the in-memory backing store grows forever per upsert. Cap each collection at a
   // configurable max so we don't blow the heap on EC2 dev (the 96% pressure regression).
   // When QDRANT_URL is set this code path is never taken — vectors go to Qdrant.
   // Post-architect-review hardening: validate parsed env (NaN/0/negative falls back to default).
   private static readonly MAX_VECTORS_PER_COLLECTION: number = (() => {
-    const raw = process.env.NYV_QDRANT_INMEM_MAX_VECTORS;
+    const raw = process.env.JRX_QDRANT_INMEM_MAX_VECTORS;
     if (raw === undefined || raw === '') return 50_000;
     const n = Number(raw);
     return (Number.isFinite(n) && n > 0 && Number.isInteger(n)) ? n : 50_000;
@@ -89,7 +89,7 @@ export class NvQdrantAdapterService {
         const store = this.inMemoryStore.get(collection)!;
         const cap = NvQdrantAdapterService.MAX_VECTORS_PER_COLLECTION;
         for (const v of vectors) {
-          // NYV-RAG-HEAP-CAP-002: insertion-order LRU eviction. If at cap and the
+          // JRX-RAG-HEAP-CAP-002: insertion-order LRU eviction. If at cap and the
           // incoming id is new, drop the oldest entry first. Updates to existing ids
           // never trigger eviction because Map.set() of an existing key is in-place.
           if (store.size >= cap && !store.has(v.id)) {

@@ -1,6 +1,6 @@
 /**
  * SLM-vs-LLM routing integration test
- * NYV-T013 (Stream D, 2026-05-06).
+ * JRX-T013 (Stream D, 2026-05-06).
  *
  * Asserts that the intelligent router selects:
  *   • a SMALL language model (SLM) for short, low-complexity, deterministic

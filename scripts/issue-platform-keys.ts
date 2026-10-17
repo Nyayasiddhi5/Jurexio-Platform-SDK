@@ -2,11 +2,11 @@
 /**
  * scripts/issue-platform-keys.ts — operator-only one-shot
  *
- * 2026-04-25 (NYV-PLATFORMS-KEYS-001): Provision the three Nyayasiddhi
+ * 2026-04-25 (JRX-PLATFORMS-KEYS-001): Provision the three Nyayasiddhi
  * ecosystem platforms requested by ops:
  *   1. nsp-web         (Nyayasiddhi Professional — web client)
  *   2. nsp-mobile      (Nyayasiddhi Professional — mobile/RN client)
- *   3. nyayamitra      (Nyayamitra — citizen legal-aid)
+ *   3. jurexio-citizen      (Jurexio Citizen — citizen legal-aid)
  *
  * For each platform this script:
  *   - Upserts the row in nv_sdk_applications (idempotent on app_type + name).
@@ -20,16 +20,16 @@
  * gateway's POST /api/jrx/sdk/keys/:appId/rotate endpoint.
  *
  * Usage:
- *   cd nyayavigya-platform-312
+ *   cd Jurexio-Platform-SDK
  *   npx tsx scripts/issue-platform-keys.ts                   # sandbox keys
- *   NYV_PLATFORM_ENV=production npx tsx scripts/issue-platform-keys.ts  # prod keys
+ *   JRX_PLATFORM_ENV=production npx tsx scripts/issue-platform-keys.ts  # prod keys
  */
 
 import crypto from 'crypto';
 import { Pool } from 'pg';
 import { normalizePgConnectionString } from '../src/utils/jrx-pg-url.js';
 
-const env = (process.env.NYV_PLATFORM_ENV ?? 'sandbox') as 'sandbox' | 'production';
+const env = (process.env.JRX_PLATFORM_ENV ?? 'sandbox') as 'sandbox' | 'production';
 const dbUrl = process.env.DATABASE_URL;
 if (!dbUrl) {
   console.error('FATAL: DATABASE_URL not set');
@@ -159,10 +159,10 @@ const PLATFORMS: PlatformSpec[] = [
     },
   },
   {
-    name: 'nyayamitra',
-    display_name: 'Nyayamitra — Citizen Legal Aid',
+    name: 'jurexio-citizen',
+    display_name: 'Jurexio Citizen — Citizen Legal Aid',
     app_type: 'citizen_app',
-    platform_type: 'nyayamitra',
+    platform_type: 'jurexio-citizen',
     contact_email: 'platforms@nyayasiddhi.in',
     jurisdiction: 'IN',
     jurisdictions: ['IN'],
@@ -251,7 +251,7 @@ async function issueKey(appId: string, type: KeyType): Promise<IssuedKey> {
 
 (async () => {
   console.log(`\n══════════════════════════════════════════════════════════════════════`);
-  console.log(`  NYV Platform Key Provisioning — env=${env}  ${new Date().toISOString()}`);
+  console.log(`  JRX Platform Key Provisioning — env=${env}  ${new Date().toISOString()}`);
   console.log(`══════════════════════════════════════════════════════════════════════\n`);
 
   for (const spec of PLATFORMS) {

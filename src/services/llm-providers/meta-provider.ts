@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * Meta/LLaMA Provider - Real API Integration
  * 
@@ -174,7 +174,7 @@ export class MetaProvider extends UnifiedLLMAdapter {
       headers: {
         'Authorization': `Bearer ${this.apiKey}`,
         'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://nyayavigya-devstudio.com',
+        'HTTP-Referer': 'https://jurexio-devstudio.com',
         'X-Title': 'Jurexio DevStudio'
       },
       body: JSON.stringify({
@@ -338,7 +338,7 @@ export class MetaProvider extends UnifiedLLMAdapter {
 
     // Add specific headers based on API endpoint
     if (this.baseUrl.includes('openrouter.ai')) {
-      headers['HTTP-Referer'] = 'https://nyayavigya-devstudio.com';
+      headers['HTTP-Referer'] = 'https://jurexio-devstudio.com';
       headers['X-Title'] = 'Jurexio DevStudio';
     }
 

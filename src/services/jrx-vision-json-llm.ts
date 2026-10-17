@@ -50,7 +50,7 @@ async function callGeminiVision(req: VisionJsonLlmRequest): Promise<VisionJsonLl
 
   const { mimeType, base64 } = parseDataUrl(req.imageDataUrl);
   const model = toGeminiApiModelId(getGeminiFlashModel());
-  const baseUrl = (process.env.NYV_GOOGLE_BASE_URL ?? 'https://generativelanguage.googleapis.com/v1beta').replace(
+  const baseUrl = (process.env.JRX_GOOGLE_BASE_URL ?? 'https://generativelanguage.googleapis.com/v1beta').replace(
     /\/$/,
     '',
   );
@@ -109,7 +109,7 @@ async function callOpenAiVision(req: VisionJsonLlmRequest): Promise<VisionJsonLl
   const dataUrl = req.imageDataUrl.startsWith('data:')
     ? req.imageDataUrl
     : `data:image/jpeg;base64,${req.imageDataUrl}`;
-  const model = (process.env.NYV_VISION_OPENAI_MODEL ?? 'gpt-4o').trim();
+  const model = (process.env.JRX_VISION_OPENAI_MODEL ?? 'gpt-4o').trim();
   const baseUrl = (process.env.OPENAI_BASE_URL ?? 'https://api.openai.com/v1').replace(/\/$/, '');
   const timeoutMs = req.timeoutMs ?? 45_000;
 
@@ -148,7 +148,7 @@ async function callOpenAiVision(req: VisionJsonLlmRequest): Promise<VisionJsonLl
 
 /** Prefer Gemini (jrx-staging default), then OpenAI. */
 export async function executeVisionJsonLlm(req: VisionJsonLlmRequest): Promise<VisionJsonLlmResponse> {
-  const prefer = (process.env.NYV_VISION_LLM_PREFER ?? 'gemini,openai').split(',').map((s) => s.trim());
+  const prefer = (process.env.JRX_VISION_LLM_PREFER ?? 'gemini,openai').split(',').map((s) => s.trim());
   const errors: string[] = [];
   for (const p of prefer) {
     try {

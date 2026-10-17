@@ -36,7 +36,7 @@
     "lint": "tsc --noEmit"
   },
   "keywords": [
-    "nyayavigya",
+    "jurexio",
     "legal-ai",
     "enterprise",
     "compliance",

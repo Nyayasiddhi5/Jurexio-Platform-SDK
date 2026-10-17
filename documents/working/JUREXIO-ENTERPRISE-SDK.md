@@ -1,7 +1,7 @@
 # Jurexio Enterprise SDK — integration guide
 
 **Product:** Jurexio Enterprise Platform (global).  
-**Do not use:** Nyayasiddhi URLs, `NYV_SDK_KEY_*`, or legacy NYV partner JRX keys for Enterprise.
+**Do not use:** Nyayasiddhi URLs, `JRX_SDK_KEY_*`, or legacy JRX partner JRX keys for Enterprise.
 
 ## Base URL
 
@@ -36,6 +36,6 @@ const health = await jrx.http.get('/api/jrx/health');
 | `@jurexio/docparse-sdk` | Document understanding (US/global packs) |
 | `@jurexio/mcp-server` | MCP tools |
 
-## Legacy NYV partner JRX
+## Legacy JRX partner JRX
 
-Integrators on **Nyayavigya** gateway remain on `/api/nv/` — see upstream NYV docs in `archive/upstream-nyv/` (reference only).
+Integrators on **Jurexio** gateway remain on `/api/nv/` — see upstream JRX docs in `archive/upstream-nyv/` (reference only).

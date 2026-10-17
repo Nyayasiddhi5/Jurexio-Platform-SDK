@@ -1,6 +1,6 @@
 import { getAuthToken } from '@/lib/jrx-auth-token';
 import { p, NV_API } from '@/lib/jrx-api-paths';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 /**
  * ClaWdBot™ Console — Legal Chatbot Builder
  * Jurexio Enterprise Platform 312 | Admin Interface
@@ -33,7 +33,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
-import { NyvGovernanceBadge } from '@/components/NyvGovernanceBadge';
+import { JrxGovernanceBadge } from '@/components/JrxGovernanceBadge';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TYPES
@@ -227,7 +227,7 @@ export default function ClaWdBotConsole() {
             <Badge variant="outline" className="border-green-500/30 text-green-400 text-xs" role="status">
               {bots.filter((b) => b.status === 'active').length} Active
             </Badge>
-            <NyvGovernanceBadge compact governance={{ risk_score: 30, risk_badge: 'YELLOW', risk_blocked: false, pattern_key: 'CLAWDBOT', warnings: ['AI Legal Chatbot — Not a substitute for professional legal advice'], timestamp: new Date().toISOString() }} />
+            <JrxGovernanceBadge compact governance={{ risk_score: 30, risk_badge: 'YELLOW', risk_blocked: false, pattern_key: 'CLAWDBOT', warnings: ['AI Legal Chatbot — Not a substitute for professional legal advice'], timestamp: new Date().toISOString() }} />
             <Button size="sm" onClick={() => setShowCreateForm(true)}
               className="bg-green-600 hover:bg-green-700 text-slate-50 text-xs">
               <Plus className="h-3.5 w-3.5 mr-1.5" /> New Bot
@@ -258,7 +258,7 @@ export default function ClaWdBotConsole() {
                 </div>
               ) : bots.length === 0 ? (
                 <div className="p-4 h-full flex items-center justify-center" data-testid="bots-empty">
-                  <NyvEmptyState
+                  <JrxEmptyState
                     size="sm"
                     icon={Bot}
                     title="No bots yet"
@@ -573,7 +573,7 @@ export default function ClaWdBotConsole() {
               <div>
                 <Label className="text-slate-600 text-sm">Bot Name *</Label>
                 <Input value={newBotName} onChange={(e) => setNewBotName(e.target.value)}
-                  placeholder="e.g. Nyayamitra Intake Bot"
+                  placeholder="e.g. Jurexio Citizen Intake Bot"
                   className="mt-1.5 bg-slate-100 border-slate-200 text-slate-900 placeholder:text-slate-600" />
               </div>
               <div>

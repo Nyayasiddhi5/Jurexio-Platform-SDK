@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 import { requireDb } from '../utils/jrx-type-helpers.js';
 import { Router, Request, Response } from 'express';
 import { authenticateToken, requireRole } from '../middleware/auth.js';

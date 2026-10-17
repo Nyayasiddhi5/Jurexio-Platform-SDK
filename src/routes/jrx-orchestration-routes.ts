@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 import { Router, Request, Response } from 'express';
 import { authenticateToken, requireRole } from '../middleware/auth.js';
 import { dualSdkOrJwt } from '../middleware/jrx-dual-auth.js';
@@ -12,7 +12,7 @@ import {
   applyPartnerSyncTaskTypeAlias,
   getPartnerDraftDocumentTypeResolution,
   isIndiaOnlyPartner,
-  isNyvDependentPlatform,
+  isJrxDependentPlatform,
   isPartnerExplicitFastAlias,
   resolveNspNymBestOutcomeQuality,
   resolvePartnerDispatchEnableCoT,
@@ -105,7 +105,7 @@ import { trackRomaOrchestrateOutcome } from '../utils/jrx-roma-track-orchestrate
 import { queenOrchestrator, type OrchestrationRequest, type OrchestrationResult, QueenLifecycleEmitter, type QueenAgentStartedEvent, type QueenAgentCompletedEvent, type QueenAgentFailedEvent, type QueenDecompositionCompleteEvent, type QueenSynthesisStartedEvent, type QueenSynthesisCompleteEvent } from '../orchestration/jrx-queen-orchestrator.js';
 import { DAGOrchestrationService } from '../services/dag-orchestration-service.js';
 import { mapBillingTierToCapabilityTier } from '../orchestration/capability-manifest.js';
-import { NYV_PLATFORM_VERSION } from '../config/nyv-master-config.js';
+import { JRX_PLATFORM_VERSION } from '../config/jrx-master-config.js';
 import { randomUUID } from 'crypto';
 import {
   nvHallucinationDetector, nvHITLService, nvExplainabilityService,
@@ -126,7 +126,7 @@ import { db } from '../db/index.js';
 import { sql } from 'drizzle-orm';
 import * as path from 'path';
 import { createLogger } from '../utils/logger.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import { appendAuditRecord } from '../middleware/jrx-sdk-tracking-middleware.js';
 import { getRequestUsage, claimRequestUsageForBilling } from '../utils/jrx-request-usage-context.js';
 import { nvHitlEventBus, type HitlChangeEvent } from '../services/jrx-hitl-event-bus.js';
@@ -154,7 +154,7 @@ function emitOrchestrationAudit(args: {
   success?: boolean;
   citationsCount?: number;
 }): void {
-  if (!isNyvFeatureOn('auditWire')) {
+  if (!isJrxFeatureOn('auditWire')) {
     logger.info('[Orch:T-01] audit-wire flag OFF — env JRX_F_AUDIT_WIRE=' + JSON.stringify(process.env.JRX_F_AUDIT_WIRE));
     return;
   }
@@ -208,12 +208,12 @@ function emitOrchestrationAudit(args: {
   });
 }
 
-// ── NYV-P1-ORCH-CORE-001 (item D): post-call AI-credit accounting ─────────────
+// ── JRX-P1-ORCH-CORE-001 (item D): post-call AI-credit accounting ─────────────
 // The pre-call gate (nvAICreditEnforcer.enforce) was already wired into the
 // /orchestrate handler, but NO path called record() afterward — so
 // getUsedToday() always summed to 0 and the daily budget gate could never
 // actually fire for orchestrate traffic. This helper persists the REAL
-// per-request token/cost (accumulated by nv-request-usage-context, with a
+// per-request token/cost (accumulated by jrx-request-usage-context, with a
 // fallback to the route-computed totals) so the already-wired gate becomes
 // functional. Flag-gated (JRX_F_CREDIT_RECORD, default ON in non-dev / OFF in
 // dev+test) and fully fail-soft: record() swallows its own errors and we also
@@ -230,7 +230,7 @@ function recordOrchestrateCredit(args: {
   fallbackModel?: string;
   fallbackCostUsd?: number;
 }): void {
-  if (!isNyvFeatureOn('creditRecord')) return;
+  if (!isJrxFeatureOn('creditRecord')) return;
   try {
     const usage = getRequestUsage();
     const tokensIn = usage?.promptTokens ?? args.fallbackTokensIn;
@@ -262,7 +262,7 @@ function recordOrchestrateCredit(args: {
   }
 }
 
-// ── NYV-SDK-AUTO-ORCH-001 (2026-06-12): shared citation-grounding gate ────────
+// ── JRX-SDK-AUTO-ORCH-001 (2026-06-12): shared citation-grounding gate ────────
 // Extracted from the single-agent branch (T-DLR-05) so the Queen multi-agent
 // branch returns the SAME grounding metadata. Pure function — no I/O.
 function computeGroundingStatus(content: string, citations: any): {
@@ -298,8 +298,8 @@ function computeGroundingStatus(content: string, citations: any): {
   };
 }
 
-// NYV-SDK-AUTO-ORCH-001: map a partner platform's per-app llmConfig.budget_mode
-// onto the nv-client ProductTier ladder so X-API-Key callers inherit their
+// JRX-SDK-AUTO-ORCH-001: map a partner platform's per-app llmConfig.budget_mode
+// onto the jrx-client ProductTier ladder so X-API-Key callers inherit their
 // platform's intended routing quality instead of the silent 'default'
 // (balanced/free-model) tier. Explicit body.tier always wins.
 const BUDGET_MODE_TO_TIER: Record<string, string> = {
@@ -335,7 +335,7 @@ function resolveSdkTier(sdkCtx: any): string | undefined {
  * would make a successful injection indistinguishable from a failed one.
  *
  * The diagnostic carries counts and a reason only; the caller-safe guarantee is
- * enforced in `nv-firm-clause-library.ts`, not here.
+ * enforced in `jrx-firm-clause-library.ts`, not here.
  */
 function firmClauseExtras(): { firmClauses: FirmClauseDiagnostic } | Record<string, never> {
   const diagnostic = getFirmClauseDiagnostic();
@@ -365,10 +365,10 @@ router.get('/status', authenticateToken, async (_req: Request, res: Response) =>
         jurisdictions: (stats as any).jurisdictions ?? [],
       },
       flags: {
-        auditWire:        isNyvFeatureOn('auditWire'),
-        makerChecker:     isNyvFeatureOn('govMakerChecker'),
-        canonicalRequestLogger: isNyvFeatureOn('canonicalRequestLogger'),
-        tracing:          isNyvFeatureOn('tracing'),
+        auditWire:        isJrxFeatureOn('auditWire'),
+        makerChecker:     isJrxFeatureOn('govMakerChecker'),
+        canonicalRequestLogger: isJrxFeatureOn('canonicalRequestLogger'),
+        tracing:          isJrxFeatureOn('tracing'),
       },
       timestamp: new Date().toISOString(),
     });
@@ -420,7 +420,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
     applyPartnerComprehensiveAgenticUpgradeTaskType(req);
     taskType = String((req.body as Record<string, unknown>)?.taskType || taskType || '');
 
-    // ── NYV-SDK-AUTO-ORCH-001: resolve identity + tier ONCE for both the
+    // ── JRX-SDK-AUTO-ORCH-001: resolve identity + tier ONCE for both the
     // Queen multi-agent branch and the single-agent ring. Partner SDK calls
     // (X-API-Key via dualSdkOrJwt → sdkGatewayAuth) carry req.sdkContext but
     // no req.user — previously they degraded to userId='anon', tenantId
@@ -451,7 +451,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
 
     /* ── NV-ADAPTIVE-ROUTER-001: Queen | specialist | doc-pipeline ─────────── */
     // Partner lean semantics unchanged: partnerSyncLean → specialist only.
-    // Hybrid routing replaces blanket "force Queen for all NYV-dependent".
+    // Hybrid routing replaces blanket "force Queen for all JRX-dependent".
     const MULTI_AGENT_MODES = ['sequential', 'parallel', 'hierarchical', 'swarm', 'dag', 'multi-agent'];
     const QUEEN_FORCED_MODES = ['single_agent', 'sequential', 'parallel', 'dag', 'swarm', 'hierarchical'];
     const engageQueenForced = !!(orchestrationMode && MULTI_AGENT_MODES.includes(orchestrationMode));
@@ -465,11 +465,11 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
     let sessionId = typeof bodySessionId === 'string' ? bodySessionId.trim() : '';
     /* NV-SESSION-ECHO-001 — honour the partner's own thread id.
      *
-     * Precedence is body `sessionId` → `X-Customer-Session-Id` → NYV mint. The body
+     * Precedence is body `sessionId` → `X-Customer-Session-Id` → JRX mint. The body
      * wins because it is the more specific, per-call statement; the header is the
      * partner's ambient thread for the request. NSP sends the header on every AI
      * call and we were reading neither it nor `x-customer-user-id`, so a partner
-     * that had correctly scoped its own threads was still handed a NYV-minted
+     * that had correctly scoped its own threads was still handed a JRX-minted
      * session — and, before NV-SESSION-POOLING-001, a *shared* one. */
     if (!sessionId) {
       sessionId = resolveCustomerSessionId(req) || '';
@@ -551,13 +551,13 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
           explicitSessionId: bodySessionId,
         });
       } catch {
-        sessionId = `nv-sess-eco-${Date.now().toString(36)}`;
+        sessionId = `jrx-sess-eco-${Date.now().toString(36)}`;
       }
     } else if (!sessionId && bodySessionId) {
       sessionId = String(bodySessionId);
     }
     const partnerLean = wantsPartnerSyncLean(req, { explicitAgentKey, taskType });
-    const nyvDependent = isNyvDependentPlatform(req) || nspNymBest;
+    const nyvDependent = isJrxDependentPlatform(req) || nspNymBest;
 
     /* ── NV-INLINE-DOC-PROMPT-001 — fold the inline document into the prompt ────
      *
@@ -665,7 +665,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
       adaptiveDecision = await applyAdaptivePathLearning(adaptiveDecisionBase, adaptiveInput);
     } catch { /* non-fatal — heuristics stand */ }
 
-    let engageQueen = adaptiveDecision.path === 'queen' && isNyvFeatureOn('sdkAutoOrch');
+    let engageQueen = adaptiveDecision.path === 'queen' && isJrxFeatureOn('sdkAutoOrch');
     if (engageQueenForced) engageQueen = true;
     if (partnerLean) engageQueen = false;
     if (shouldSkipQueenForTransactionalCounselDraft(req, taskType)) engageQueen = false;
@@ -758,9 +758,9 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
      * "Tools before agents" was true on the specialist path only.
      *
      * Phase 1 wired the deterministic tier through Auto-RAG
-     * (`autoRag.deterministic.answer`) and `nv-client.ts:891` returns it before
+     * (`autoRag.deterministic.answer`) and `jrx-client.ts:891` returns it before
      * dispatching a completion. But the Queen path does not go through
-     * `nv-client`: `nv-queen-orchestrator` calls `autoRagRetrieve` itself at
+     * `jrx-client`: `jrx-queen-orchestrator` calls `autoRagRetrieve` itself at
      * Step-0 and consumes only `.contextBlock`, so a request NYS had already
      * answered in ~50 ms still decomposed into subtasks and billed leaf
      * completions. Per NV-WIRING-001 the resolver was exported and live on one
@@ -880,7 +880,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
         requestId, agentKey: explicitAgentKey, sdkPlatform: sdkCtx?.appName,
       });
     } else if (nspNymBest && (req.body as any)?.partnerSyncLean) {
-      logger.info('[NV-Orchestrate] NSP/NYM best-outcome — partnerSyncLean ignored (set NYV_ALLOW_NSP_NYM_LEAN=1 to permit)', {
+      logger.info('[NV-Orchestrate] NSP/NYM best-outcome — partnerSyncLean ignored (set JRX_ALLOW_NSP_NYM_LEAN=1 to permit)', {
         requestId, sdkPlatform: sdkCtx?.appName,
       });
     }
@@ -916,7 +916,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
       });
       if (!creditCheck.allowed) {
         return void sendApiError(res, 'RATE_LIMIT_EXCEEDED', {
-          overrideMessage: 'NYV-CREDIT-001: AI token budget exceeded for this billing period.',
+          overrideMessage: 'JRX-CREDIT-001: AI token budget exceeded for this billing period.',
           details: {
             code: 'CREDIT_CAP_EXCEEDED',
             reason: creditCheck.reason,
@@ -960,8 +960,8 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
           // This previously defaulted to 'zero_shot_cot' here, which made the
           // option always truthy downstream and so pinned every request to the
           // cheapest scaffold, leaving the other seven implemented strategies
-          // unreachable. Leaving it undefined lets nv-client select from the
-          // task shape; nv-client still falls back to zero_shot_cot.
+          // unreachable. Leaving it undefined lets jrx-client select from the
+          // task shape; jrx-client still falls back to zero_shot_cot.
           cotStrategy: cotStrategy || undefined,
           preferences: preferences || {},
           context: {
@@ -1058,7 +1058,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
           orchestrationPattern: queenResult.metadata.orchestrationPattern,
           totalTime: queenResult.metadata.totalTime,
           totalTokens: queenResult.metadata.totalTokens,
-          // NYV-A5-VERBALISE-001: surface verbalised confidence to the
+          // JRX-A5-VERBALISE-001: surface verbalised confidence to the
           // caller when the Queen produced one (priority high|critical or
           // metadata.verbalize). Absent otherwise; never breaks shape.
           ...(queenResult.metadata.verbalizedConfidence
@@ -1074,7 +1074,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
             subtaskCount: queenResult.taskDecomposition.subtasks.length,
             algorithm: queenResult.taskDecomposition.decompositionAlgorithm,
           },
-          // NYV-SDK-AUTO-ORCH-001 — additive parity fields so the partner
+          // JRX-SDK-AUTO-ORCH-001 — additive parity fields so the partner
           // envelope carries the same metadata as the single-agent branch:
           requestId,
           model: primaryModel,
@@ -1317,7 +1317,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
           )
           .catch(() => {});
 
-        // NYV-P1-ORCH-CORE-001 (item D): post-call credit accounting for the
+        // JRX-P1-ORCH-CORE-001 (item D): post-call credit accounting for the
         // Queen multi-agent path (closes the pre-call enforce() loop).
         recordOrchestrateCredit({
           userId,
@@ -1383,7 +1383,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
 
     // Credit already enforced above (before Queen). Specialist/doc paths continue.
 
-    // NYV-SDK-AUTO-ORCH-001 + NV-NSP-NYM-BEST-OUTCOME-001: RAG/citations/hallucination ON
+    // JRX-SDK-AUTO-ORCH-001 + NV-NSP-NYM-BEST-OUTCOME-001: RAG/citations/hallucination ON
     // for deep legal work. SLA fast tasks (web-search / workflow-suggest) stay lean.
     const partnerSyncLean = partnerLean;
     const bestQuality = resolveNspNymBestOutcomeQuality(req, {
@@ -1544,8 +1544,8 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
       }
     }
 
-    let ragMeta: any = effectiveEnableRAG ? { path: 'adaptive-crag-via-nv-client' } : undefined;
-    let memoryMeta: any = effectiveEnableMemory ? { path: 'graph-memory-via-nv-client' } : undefined;
+    let ragMeta: any = effectiveEnableRAG ? { path: 'adaptive-crag-via-jrx-client' } : undefined;
+    let memoryMeta: any = effectiveEnableMemory ? { path: 'graph-memory-via-jrx-client' } : undefined;
 
     // NV-WEB-SEARCH-SLA-001: when tools/taskType ask for live web search, ground
     // the specialist prompt with real SERP (Gemini/Tavily cascade) — never invent titles.
@@ -1583,7 +1583,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
       : null;
 
     // NV-PARTNER-LEGAL-PREMIUM-001: counsel-grade India system prompt for NSP/NYM
-    // when client did not supply a richer systemPrompt (overlay also injects in nv-client).
+    // when client did not supply a richer systemPrompt (overlay also injects in jrx-client).
     const { resolvePinnedAgentIdForDocumentType } = await import('../services/jrx-document-type-agent-pin.js');
     const bodyParamsForPin = ((req.body as Record<string, unknown>)?.parameters || {}) as Record<string, unknown>;
     const pinnedAgentId = resolvePinnedAgentIdForDocumentType({
@@ -1806,7 +1806,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
       errorCode: specialistOk ? undefined : 'llm_provider_transient',
     });
 
-    // NYV-UAT-LLM-503-001: when the underlying LLM provider was unreachable the
+    // JRX-UAT-LLM-503-001: when the underlying LLM provider was unreachable the
     // service returns model='error' with a placeholder content string. Surface
     // that as a real 503 rather than masquerading as a successful 200 — the UAT
     // runner must not fake-pass on placeholder LLM responses.
@@ -1825,7 +1825,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
             content: degradedContent,
             degraded: true,
             degradedReason: 'llm_provider_transient',
-            model: 'nyv-never-empty-fallback',
+            model: 'jrx-never-empty-fallback',
             provider: 'agentzero',
             requestId,
             tier: effectiveTier,
@@ -1868,7 +1868,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
     }
 
     const response: any = { ...result, requestId };
-    // NYV-SDK-AUTO-ORCH-001 — additive: surface the safety-ring envelope
+    // JRX-SDK-AUTO-ORCH-001 — additive: surface the safety-ring envelope
     // (agent id, pattern, PII/compliance flags, router decision, audit id,
     // per-stage timings) that executeWithFullSafetyRing already produced but
     // the route previously discarded, plus the resolved routing tier and the
@@ -1899,10 +1899,10 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
         response.hitlStatus = hitl;
 
         // T-03/T-04/T-05: registry-driven HITL workflow execution (JRX_F_HITL_REGISTRY).
-        if (isNyvFeatureOn('hitlRegistry')) {
+        if (isJrxFeatureOn('hitlRegistry')) {
           const { hitlWorkflowService } = await import('../services/hitl-workflow-service.js');
           const workflowId = await hitlWorkflowService.resolveOrCreatePlatformOrchestrateWorkflow(
-            String(userId || tenantId || 'nyv-platform'),
+            String(userId || tenantId || 'jrx-platform'),
           );
           const execution = await hitlWorkflowService.startExecution({
             workflowId,
@@ -1946,7 +1946,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
         response.citations = citations;
 
         // T-DLR-05: Citation grounding gate (shared with the Queen branch via
-        // computeGroundingStatus — NYV-SDK-AUTO-ORCH-001). Purely additive
+        // computeGroundingStatus — JRX-SDK-AUTO-ORCH-001). Purely additive
         // metadata; never blocks delivery. Downstream consumers (CAM
         // dashboard, HITL queue) act on requiresHumanReview without changing
         // the orchestrate contract.
@@ -1967,7 +1967,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
     if (ragMeta) response.ragContext = ragMeta;
     if (memoryMeta) response.memoryContext = memoryMeta;
 
-    // NV-NYS-OBS-001 — surface retrieval layers + ungrounded badge for partners
+    // NV-JRX-OBS-001 — surface retrieval layers + ungrounded badge for partners
     const orchLayers = (llmWrapped.orchestration as any)?.layersUsed
       || (llmWrapped.metadata as any)?.layersUsed
       || ragMeta?.layersUsed
@@ -2245,7 +2245,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
       )
       .catch(() => {});
 
-    // NYV-P1-ORCH-CORE-001 (item D): post-call credit accounting for the
+    // JRX-P1-ORCH-CORE-001 (item D): post-call credit accounting for the
     // single-agent safety-ring path (closes the pre-call enforce() loop).
     recordOrchestrateCredit({
       userId,
@@ -2322,7 +2322,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
 });
 
 router.post('/orchestrate/stream', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGate({ purpose: 'ai_processing', triggeredBy: 'orchestration-routes:/orchestrate/stream' }), async (req: Request, res: Response) => {
-  // NYV-ORCH-STREAM-001: Queen-backed AG-UI SSE for partner SDK
+  // JRX-ORCH-STREAM-001: Queen-backed AG-UI SSE for partner SDK
   // `nyv.orchestrate.stream(...)`. Emits real lifecycle events from the
   // per-request QueenLifecycleEmitter (not decorative word-chunk mocks).
   try {
@@ -2391,7 +2391,7 @@ router.post('/orchestrate/stream', dualSdkOrJwt, partnerIndiaScopeMiddleware, co
           explicitSessionId: bodyStreamSessionId,
         });
       } catch {
-        sessionId = `nv-sess-stream-${Date.now().toString(36)}`;
+        sessionId = `jrx-sess-stream-${Date.now().toString(36)}`;
       }
     }
 
@@ -2417,7 +2417,7 @@ router.post('/orchestrate/stream', dualSdkOrJwt, partnerIndiaScopeMiddleware, co
       ? agentKey.trim() : '';
     const streamNspNymBest = wantsNspNymBestOutcome(req);
     const streamLean = wantsPartnerSyncLean(req, { explicitAgentKey: streamAgentKey, taskType });
-    const streamNyvDep = isNyvDependentPlatform(req) || streamNspNymBest;
+    const streamJrxDep = isJrxDependentPlatform(req) || streamNspNymBest;
 
     /* NV-INLINE-DOC-PROMPT-001 — composed once here so the Queen, doc-pipeline and
      * specialist stream branches below all dispatch on the same grounded string.
@@ -2480,7 +2480,7 @@ router.post('/orchestrate/stream', dualSdkOrJwt, partnerIndiaScopeMiddleware, co
       complexity: streamComplexity?.complexity,
       risk: streamRisk,
       partnerLean: streamLean,
-      nyvDependent: streamNyvDep,
+      nyvDependent: streamJrxDep,
       forceLegalBestOutcome: streamNspNymBest,
       explicitAgentKey: streamAgentKey,
       engageQueenForced,
@@ -2499,7 +2499,7 @@ router.post('/orchestrate/stream', dualSdkOrJwt, partnerIndiaScopeMiddleware, co
       complexity: streamComplexity?.complexity,
       risk: streamRisk,
       partnerLean: streamLean,
-      nyvDependent: streamNyvDep,
+      nyvDependent: streamJrxDep,
       forceLegalBestOutcome: streamNspNymBest,
       explicitAgentKey: streamAgentKey,
       engageQueenForced,
@@ -2517,7 +2517,7 @@ router.post('/orchestrate/stream', dualSdkOrJwt, partnerIndiaScopeMiddleware, co
       const { applyAdaptivePathLearning } = await import('../services/jrx-adaptive-path-ema.js');
       streamAdaptive = await applyAdaptivePathLearning(streamAdaptiveBase, streamAdaptiveInput);
     } catch { /* non-fatal */ }
-    let streamEngageQueen = streamAdaptive.path === 'queen' && isNyvFeatureOn('sdkAutoOrch');
+    let streamEngageQueen = streamAdaptive.path === 'queen' && isJrxFeatureOn('sdkAutoOrch');
     if (engageQueenForced) streamEngageQueen = true;
     if (streamLean) streamEngageQueen = false;
     if (shouldSkipQueenForTransactionalCounselDraft(req, taskType)) streamEngageQueen = false;
@@ -2861,8 +2861,8 @@ router.post('/orchestrate/stream', dualSdkOrJwt, partnerIndiaScopeMiddleware, co
 
       try {
         send({ type: 'pipeline_ready', runId, timestamp: ts(), taskType: taskType || 'analysis' });
-        const { isNyvFeatureOn } = await import('../config/jrx-feature-flags.js');
-        if (isNyvFeatureOn('providerTokenStream')) {
+        const { isJrxFeatureOn } = await import('../config/jrx-feature-flags.js');
+        if (isJrxFeatureOn('providerTokenStream')) {
           const { streamProviderTokensThroughSafetyRing } = await import('../orchestration/jrx-provider-token-stream.js');
           const streamed = await streamProviderTokensThroughSafetyRing({
             prompt: streamDispatchPrompt,
@@ -3020,7 +3020,7 @@ router.post('/orchestrate/stream', dualSdkOrJwt, partnerIndiaScopeMiddleware, co
       enableCoT: resolvePartnerDispatchEnableCoT(
         taskType,
         streamBestQ.enableCoT,
-        streamAdaptive.requireCoT || (streamNyvDep && !streamLean),
+        streamAdaptive.requireCoT || (streamJrxDep && !streamLean),
       ),
       preferences: preferences || {},
       context: {
@@ -3033,9 +3033,9 @@ router.post('/orchestrate/stream', dualSdkOrJwt, partnerIndiaScopeMiddleware, co
       orchestrationId,
       lifecycleEvents: queenEvents,
       metadata: {
-        queenDepth: streamAdaptive.requireQueenDepth || (streamNyvDep && !streamLean) || streamNspNymBest,
+        queenDepth: streamAdaptive.requireQueenDepth || (streamJrxDep && !streamLean) || streamNspNymBest,
         partnerSyncLean: streamLean,
-        nyvDependentPlatform: streamNyvDep,
+        nyvDependentPlatform: streamJrxDep,
         nspNymBestOutcome: streamNspNymBest,
         enableRAG: streamBestQ.enableRAG,
         enableMemory: streamBestQ.enableMemory,
@@ -3314,7 +3314,7 @@ router.post('/hitl/workflow/execute', authenticateToken, async (req: Request, re
     const { hitlWorkflowService } = await import('../services/hitl-workflow-service.js');
     const workflowId = bodyWorkflowId
       || await hitlWorkflowService.resolveOrCreatePlatformOrchestrateWorkflow(
-        String(req.user?.id || tenantId || 'nyv-platform'),
+        String(req.user?.id || tenantId || 'jrx-platform'),
       );
     const execution = await hitlWorkflowService.startExecution({
       workflowId,
@@ -3332,7 +3332,7 @@ router.post('/hitl/workflow/execute', authenticateToken, async (req: Request, re
     res.json({
       success: true,
       data: execution,
-      hitlRegistryFlag: isNyvFeatureOn('hitlRegistry'),
+      hitlRegistryFlag: isJrxFeatureOn('hitlRegistry'),
     });
   } catch (error: any) {
     safeError(res, error, 500);
@@ -3374,7 +3374,7 @@ router.get('/hitl/stats', authenticateToken, async (req: Request, res: Response)
 // those rows show up in every tenant's aggregation anyway).
 const HITL_STREAM_HEARTBEAT_MS = 25_000;
 const HITL_STREAM_DEBOUNCE_MS = 200;
-const HITL_JWT_SECRET = process.env.NYV_JWT_SECRET || process.env.JWT_SECRET || 'dev-secret';
+const HITL_JWT_SECRET = process.env.JRX_JWT_SECRET || process.env.JWT_SECRET || 'dev-secret';
 function decodeHitlQueryToken(req: Request): { id?: string | number } | null {
   const token = (req.query.token as string) || '';
   if (!token) return null;
@@ -3595,7 +3595,7 @@ router.get('/agent/metrics', authenticateToken, async (req: Request, res: Respon
 });
 
 /**
- * NYV-ORCH-SMART-003 (Task #33): expose the live routing weights the
+ * JRX-ORCH-SMART-003 (Task #33): expose the live routing weights the
  * hierarchical task allocator uses to pick a specialist. Lets ops + the
  * dashboard see *why* a particular agent is being chosen right now —
  * jurisdiction match, recent success rate, P95 latency, current load,
@@ -3684,8 +3684,8 @@ router.get('/lineage/:requestId', authenticateToken, async (req: Request, res: R
   try {
     const requestIdRaw = req.params.requestId;
     const requestId = Array.isArray(requestIdRaw) ? requestIdRaw[0] : requestIdRaw;
-    // Reserved literal subroutes owned by other routers (nv-completions-routes,
-    // nv-phase5-routes). Express matches the first registered route so we
+    // Reserved literal subroutes owned by other routers (jrx-completions-routes,
+    // jrx-phase5-routes). Express matches the first registered route so we
     // explicitly fall through for these segments instead of treating them as
     // a `:requestId` value (which would 404 every time).
     const RESERVED_LINEAGE_SUBROUTES = new Set(['audit', 'export', 'summary', 'org']);
@@ -3841,7 +3841,7 @@ router.get('/model-governance', authenticateToken, async (req: Request, res: Res
     let result = await nvModelGovernanceService.getRegistry(req.query.status as string);
     if (!result.length) {
       result = [
-        { id: 'cto-001', name: 'No AI Legal Advice (Nyayamitra)', rule: 'No AI Legal Advice (Nyayamitra)', active: true, status: 'approved' },
+        { id: 'cto-001', name: 'No AI Legal Advice (Jurexio Citizen)', rule: 'No AI Legal Advice (Jurexio Citizen)', active: true, status: 'approved' },
         { id: 'cto-002', name: 'No Visible Lawyer Ratings', rule: 'No Visible Lawyer Ratings', active: true, status: 'approved' },
         { id: 'cto-003', name: 'No Notice Drafting', rule: 'No Notice Drafting', active: true, status: 'approved' },
         { id: 'cto-004', name: 'No Bail Advice', rule: 'No Bail Advice', active: true, status: 'approved' },
@@ -4669,7 +4669,7 @@ router.get('/health', (_req: Request, res: Response) => {
     success: true,
     data: {
       status: 'healthy',
-      version: NYV_PLATFORM_VERSION,
+      version: JRX_PLATFORM_VERSION,
       aiMaturityScore: '98/100',
       piiPatterns: 30,
       totalEndpoints: 67,
@@ -4705,7 +4705,7 @@ router.post('/gateway', authenticateToken, async (req: Request, res: Response) =
       return void sendApiError(res, 'BAD_REQUEST', { overrideMessage: 'prompt or userPrompt is required' });
     }
 
-    const effectiveSystem = systemPrompt || `You are ${agentKey || 'nyayavigya'}, an expert Indian legal AI assistant. Jurisdiction: ${jurisdiction || 'IN'}. Provide accurate, well-reasoned legal analysis.`;
+    const effectiveSystem = systemPrompt || `You are ${agentKey || 'jurexio'}, an expert Indian legal AI assistant. Jurisdiction: ${jurisdiction || 'IN'}. Provide accurate, well-reasoned legal analysis.`;
 
     const requestId = crypto.randomUUID();
     const request = {
@@ -4755,7 +4755,7 @@ router.post('/gateway', authenticateToken, async (req: Request, res: Response) =
         responseTime: llmResponse.responseTime,
         tier:         tier || 'professional',
         jurisdiction: jurisdiction || 'IN',
-        agentKey:     agentKey || 'nyayavigya',
+        agentKey:     agentKey || 'jurexio',
         orchestration: (llmResponse as any).orchestration,
       },
     });
@@ -4998,7 +4998,7 @@ router.post('/avatar/session', authenticateToken, async (req: Request, res: Resp
 
     /* Initialise an AI response for the avatar opening statement */
     const openingResult = await callJurexio(
-      'nyayamitra-chatdoll-agent',
+      'jurexio-citizen-chatdoll-agent',
       `You are ${profile.name}, a ${profile.persona} AI avatar for Jurexio legal platform. Greet the client warmly in ${language === 'hi' ? 'Hindi' : 'English'}, introduce yourself, and ask how you can help today. Be professional and reassuring. Keep response under 60 words.`,
       `New avatar session started. Jurisdiction: ${jurisdiction}. Context: ${JSON.stringify(sessionContext || {})}`,
       // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
@@ -5114,7 +5114,7 @@ router.post('/dag', authenticateToken, async (req: Request, res: Response) => {
       ? body.totalContextBudget
       : 500_000;
 
-    // NYV-DAG-ROUTE-ISOLATION-001: instantiate a fresh DAGOrchestrationService
+    // JRX-DAG-ROUTE-ISOLATION-001: instantiate a fresh DAGOrchestrationService
     // PER REQUEST. The exported singleton holds tier/executor/contextDefaults
     // as instance state; mutating it from a request handler under concurrent
     // load would leak userId/tenantId/jurisdiction across tenants (architect
@@ -5169,7 +5169,7 @@ router.post('/dag', authenticateToken, async (req: Request, res: Response) => {
 
 /**
  * ────────────────────────────────────────────────────────────────────────────
- * NYV-F-USECASES-WIRING-001 (2026-05-10) — Track F surface
+ * JRX-F-USECASES-WIRING-001 (2026-05-10) — Track F surface
  *
  * Exposes `src/data/indian-jurisdiction-use-cases.json` (60 packaged India
  * use-cases, UC-IN-001..060) over HTTP. Until this commit the JSON existed
@@ -5193,7 +5193,7 @@ function _loadIndiaUseCases() {
   // (gateway start scripts always cd into project root or one level above).
   const candidates = [
     path.join(process.cwd(), 'src', 'data', 'indian-jurisdiction-use-cases.json'),
-    path.join(process.cwd(), 'nyayavigya-platform-312', 'src', 'data', 'indian-jurisdiction-use-cases.json'),
+    path.join(process.cwd(), 'Jurexio-Platform-SDK', 'src', 'data', 'indian-jurisdiction-use-cases.json'),
     path.join(process.cwd(), '..', 'src', 'data', 'indian-jurisdiction-use-cases.json'),
   ];
   for (const c of candidates) {

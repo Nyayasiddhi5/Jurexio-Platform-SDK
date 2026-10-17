@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — Master Seed Runner
- * NYV-SCRIPT-SEED-001
+ * Jurexio Platform 3.1.2 — Master Seed Runner
+ * JRX-SCRIPT-SEED-001
  * Runs all seed scripts in correct dependency order (idempotent)
  */
 
@@ -8,7 +8,7 @@ import { execSync } from 'child_process';
 
 async function seedAll() {
   console.log('\n══════════════════════════════════════════════════════');
-  console.log('  Nyayavigya Platform 3.1.2 — Master Data Seeding');
+  console.log('  Jurexio Platform 3.1.2 — Master Data Seeding');
   console.log('══════════════════════════════════════════════════════\n');
 
   const seeds = [

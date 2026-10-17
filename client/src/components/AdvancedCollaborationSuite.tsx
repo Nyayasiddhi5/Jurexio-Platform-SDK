@@ -146,38 +146,38 @@ export default function AdvancedCollaborationSuite() {
 
   // Fetch collaboration rooms using Jurexio orchestration
   const { data: rooms = [], isLoading: roomsLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/collaboration/rooms'],
-    queryFn: () => apiRequest('/api/nyayavigya/collaboration/rooms')
+    queryKey: ['/api/jurexio/collaboration/rooms'],
+    queryFn: () => apiRequest('/api/jurexio/collaboration/rooms')
   });
 
   // Fetch room details using Jurexio orchestration
   const { data: roomDetails, isLoading: roomDetailsLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/collaboration/rooms', selectedRoom],
-    queryFn: () => apiRequest(`/api/nyayavigya/collaboration/rooms/${selectedRoom}`),
+    queryKey: ['/api/jurexio/collaboration/rooms', selectedRoom],
+    queryFn: () => apiRequest(`/api/jurexio/collaboration/rooms/${selectedRoom}`),
     enabled: !!selectedRoom
   });
 
   // Fetch collaboration activity using Jurexio orchestration
   const { data: activity = [], isLoading: activityLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/collaboration/activity', selectedRoom],
-    queryFn: () => apiRequest(`/api/nyayavigya/collaboration/activity?room=${selectedRoom || 'all'}`)
+    queryKey: ['/api/jurexio/collaboration/activity', selectedRoom],
+    queryFn: () => apiRequest(`/api/jurexio/collaboration/activity?room=${selectedRoom || 'all'}`)
   });
 
   // Fetch version history using Jurexio orchestration
   const { data: versions = [], isLoading: versionsLoading } = useQuery({
-    queryKey: ['/api/nyayavigya/collaboration/versions', selectedRoom],
-    queryFn: () => apiRequest(`/api/nyayavigya/collaboration/versions?room=${selectedRoom || ''}`),
+    queryKey: ['/api/jurexio/collaboration/versions', selectedRoom],
+    queryFn: () => apiRequest(`/api/jurexio/collaboration/versions?room=${selectedRoom || ''}`),
     enabled: !!selectedRoom
   });
 
   // Create room mutation
   const createRoom = useMutation({
-    mutationFn: (room: any) => apiRequest('/api/nyayavigya/collaboration/rooms', {
+    mutationFn: (room: any) => apiRequest('/api/jurexio/collaboration/rooms', {
       method: 'POST',
       body: JSON.stringify(room)
     }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya/collaboration/rooms'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio/collaboration/rooms'] });
       setIsCreatingRoom(false);
       setRoomForm({
         name: '',
@@ -201,11 +201,11 @@ export default function AdvancedCollaborationSuite() {
 
   // Join room mutation
   const joinRoom = useMutation({
-    mutationFn: (roomId: string) => apiRequest(`/api/nyayavigya/collaboration/rooms/${roomId}/join`, {
+    mutationFn: (roomId: string) => apiRequest(`/api/jurexio/collaboration/rooms/${roomId}/join`, {
       method: 'POST'
     }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya/collaboration'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio/collaboration'] });
       toast({
         title: "Joined Room",
         description: "You have successfully joined the collaboration room"
@@ -216,12 +216,12 @@ export default function AdvancedCollaborationSuite() {
   // Invite user mutation
   const inviteUser = useMutation({
     mutationFn: (data: { roomId: string; email: string; role: string }) => 
-      apiRequest(`/api/nyayavigya/collaboration/rooms/${data.roomId}/invite`, {
+      apiRequest(`/api/jurexio/collaboration/rooms/${data.roomId}/invite`, {
         method: 'POST',
         body: JSON.stringify({ email: data.email, role: data.role })
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/nyayavigya/collaboration'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/jurexio/collaboration'] });
       toast({
         title: "Invitation Sent",
         description: "User invitation has been sent successfully"

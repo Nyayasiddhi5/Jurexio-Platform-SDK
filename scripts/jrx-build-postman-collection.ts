@@ -2,19 +2,19 @@
  * scripts/jrx-build-postman-collection.ts — Phase 6 deliverable A
  * ─────────────────────────────────────────────────────────────────────────────
  * Transforms the canonical OpenAPI snapshot at
- *   docs/openapi/nyayavigya-v5.openapi.json
+ *   docs/openapi/jurexio-v5.openapi.json
  * into a Postman v2.1 collection at
- *   docs/postman/nyayavigya-v5.postman_collection.json
+ *   docs/postman/jurexio-v5.postman_collection.json
  *
  * Design:
  *   - SINGLE unified collection covering the full /api/jrx/* + /api/nv5/*
- *     surface — same approach as the SDK: ONE NYV API for every platform
+ *     surface — same approach as the SDK: ONE JRX API for every platform
  *     (NSP, NSPM, NYM, NSI, NSA, NSM, JRX), differentiated only by the SDK
- *     key supplied via the `{{NYV_API_KEY}}` variable. No per-platform forks.
+ *     key supplied via the `{{JRX_API_KEY}}` variable. No per-platform forks.
  *   - Folder hierarchy matches the OpenAPI tag of the operation; falls back
  *     to the URL's first path segment if untagged.
  *   - Auth = X-API-Key header (canonical per NV-AUTH-HEADER-001) populated
- *     from the collection variable `{{NYV_API_KEY}}`.
+ *     from the collection variable `{{JRX_API_KEY}}`.
  *   - Idempotent — output is sorted, so re-runs produce stable diffs.
  *
  * Usage:
@@ -33,8 +33,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const REPO = path.resolve(__dirname, '..');
-const SPEC_PATH = path.join(REPO, 'docs/openapi/nyayavigya-v5.openapi.json');
-const OUT_PATH = process.env.NV_POSTMAN_OUT || path.join(REPO, 'docs/postman/nyayavigya-v5.postman_collection.json');
+const SPEC_PATH = path.join(REPO, 'docs/openapi/jurexio-v5.openapi.json');
+const OUT_PATH = process.env.NV_POSTMAN_OUT || path.join(REPO, 'docs/postman/jurexio-v5.postman_collection.json');
 
 interface OASOperation {
   summary?: string;
@@ -76,13 +76,13 @@ function pathToPostman(p: string): { raw: string; host: string[]; path: string[]
   const segments = p.replace(/^\//, '').split('/').map(seg =>
     seg.startsWith('{') && seg.endsWith('}') ? `:${seg.slice(1, -1)}` : seg,
   );
-  return { raw: `{{NYV_BASE_URL}}/${segments.join('/')}`, host: ['{{NYV_BASE_URL}}'], path: segments };
+  return { raw: `{{JRX_BASE_URL}}/${segments.join('/')}`, host: ['{{JRX_BASE_URL}}'], path: segments };
 }
 
 function operationToItem(method: string, route: string, op: OASOperation): PostmanItem {
   const headers: PostmanItem['request']['header'] = [
-    { key: 'X-API-Key', value: '{{NYV_API_KEY}}', type: 'text', description: 'Canonical SDK auth header (NV-AUTH-HEADER-001).' },
-    { key: 'X-API-Version', value: '{{NYV_API_VERSION}}', type: 'text', description: 'Default v1; bump per docs/openapi.' },
+    { key: 'X-API-Key', value: '{{JRX_API_KEY}}', type: 'text', description: 'Canonical SDK auth header (NV-AUTH-HEADER-001).' },
+    { key: 'X-API-Version', value: '{{JRX_API_VERSION}}', type: 'text', description: 'Default v1; bump per docs/openapi.' },
   ];
   let body: PostmanItem['request']['body'] | undefined;
   if (op.requestBody?.content?.['application/json']) {
@@ -130,26 +130,26 @@ function build(): { generated: number; folders: number; outBytes: number } {
 
   const collection = {
     info: {
-      _postman_id: 'nyayavigya-v5-collection',
+      _postman_id: 'jurexio-v5-collection',
       name: `${spec.info.title} v${spec.info.version}`,
       description:
-        '# Nyayavigya Unified API Collection\n\n' +
-        'ONE collection covers the entire NYV API surface for every platform ' +
+        '# Jurexio Unified API Collection\n\n' +
+        'ONE collection covers the entire JRX API surface for every platform ' +
         '(NSP, NSPM, NYM, NSI, NSA, NSM, JRX). Differentiation is by SDK key, ' +
         'never by URL prefix.\n\n' +
         '## Variables to set\n' +
-        '- `NYV_BASE_URL` — e.g. `http://localhost:5000` or `https://api.nyayasiddhi.online`\n' +
-        '- `NYV_API_KEY`  — your platform SDK key (e.g. `$NYV_SDK_KEY_NSP`)\n' +
-        '- `NYV_API_VERSION` — defaults to `v1`\n\n' +
+        '- `JRX_BASE_URL` — e.g. `http://localhost:5000` or `https://api.jurexio.com`\n' +
+        '- `JRX_API_KEY`  — your platform SDK key (e.g. `$JRX_SDK_KEY_NSP`)\n' +
+        '- `JRX_API_VERSION` — defaults to `v1`\n\n' +
         '## Auth\n' +
         'Sent as `X-API-Key` per NV-AUTH-HEADER-001.\n\n' +
-        `## Stats\n${count} operations across ${folders.size} folders. Auto-generated from \`docs/openapi/nyayavigya-v5.openapi.json\`.`,
+        `## Stats\n${count} operations across ${folders.size} folders. Auto-generated from \`docs/openapi/jurexio-v5.openapi.json\`.`,
       schema: 'https://schema.getpostman.com/json/collection/v2.1.0/collection.json',
     },
     variable: [
-      { key: 'NYV_BASE_URL', value: 'http://localhost:5000', type: 'string' },
-      { key: 'NYV_API_KEY', value: '', type: 'string', description: 'Set to one of NYV_SDK_KEY_{NSP,NSPM,NYM,NSI,NSA,NSM,JRX}' },
-      { key: 'NYV_API_VERSION', value: 'v1', type: 'string' },
+      { key: 'JRX_BASE_URL', value: 'http://localhost:5000', type: 'string' },
+      { key: 'JRX_API_KEY', value: '', type: 'string', description: 'Set to one of JRX_SDK_KEY_{NSP,NSPM,NYM,NSI,NSA,NSM,JRX}' },
+      { key: 'JRX_API_VERSION', value: 'v1', type: 'string' },
     ],
     item: Array.from(folders.values()).sort((a, b) => a.name.localeCompare(b.name)),
   };

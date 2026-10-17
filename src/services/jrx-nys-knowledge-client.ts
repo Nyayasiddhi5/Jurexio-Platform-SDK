@@ -1,17 +1,17 @@
 /**
- * NV-NYS-KNOWLEDGE-001 — HTTP client for the NYS Knowledgesearch plane.
+ * NV-JRX-KNOWLEDGE-001 — HTTP client for the NYS Knowledgesearch plane.
  *
- * Talks to the live NYS API (nyayasearch / EC2 nyv-api) with:
+ * Talks to the live NYS API (nyayasearch / EC2 jrx-api) with:
  *   - X-API-Key auth (NV-AUTH-HEADER-001)
  *   - Circuit breaker + timeout
  *   - Graceful degrade (returns null / empty — never throws into Queen hot path)
  *
  * Env (names only):
- *   NYS_KNOWLEDGE_BASE_URL   e.g. https://nyayasearch.jurexio.example/api
- *   NYS_KNOWLEDGE_API_KEY    machine key accepted by NYS authGuard
- *   NYS_KNOWLEDGE_TIMEOUT_MS default 15000
- *   NYS_KNOWLEDGE_CB_FAILURES default 5 (open after N consecutive failures)
- *   NYS_KNOWLEDGE_CB_COOLDOWN_MS default 30000
+ *   JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL   e.g. https://nyayasearch.jurexio.example/api
+ *   JRX_ECOSYSTEM_KNOWLEDGE_API_KEY    machine key accepted by NYS authGuard
+ *   JRX_ECOSYSTEM_KNOWLEDGE_TIMEOUT_MS default 15000
+ *   JRX_ECOSYSTEM_KNOWLEDGE_CB_FAILURES default 5 (open after N consecutive failures)
+ *   JRX_ECOSYSTEM_KNOWLEDGE_CB_COOLDOWN_MS default 30000
  */
 import { createLogger } from '../utils/logger.js';
 import { sanitizeErrorForClient } from '../utils/error-sanitizer.js';
@@ -70,28 +70,28 @@ function bucket(key: string): BreakerBucket {
 }
 
 function baseUrl(): string | null {
-  const raw = (process.env.NYS_KNOWLEDGE_BASE_URL ?? '').trim().replace(/\/$/, '');
+  const raw = (process.env.JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL ?? '').trim().replace(/\/$/, '');
   return raw || null;
 }
 
 function apiKey(): string | null {
-  const k = (process.env.NYS_KNOWLEDGE_API_KEY ?? '').trim();
+  const k = (process.env.JRX_ECOSYSTEM_KNOWLEDGE_API_KEY ?? '').trim();
   return k || null;
 }
 
 function timeoutMs(): number {
   // NV-TIMEOUT-POLICY-001: 45s default for caselaw under Queen (was 30s)
-  const n = Number(process.env.NYS_KNOWLEDGE_TIMEOUT_MS ?? '45000');
+  const n = Number(process.env.JRX_ECOSYSTEM_KNOWLEDGE_TIMEOUT_MS ?? '45000');
   return Number.isFinite(n) && n > 0 ? n : 45_000;
 }
 
 function cbFailures(): number {
-  const n = Number(process.env.NYS_KNOWLEDGE_CB_FAILURES ?? '5');
+  const n = Number(process.env.JRX_ECOSYSTEM_KNOWLEDGE_CB_FAILURES ?? '5');
   return Number.isFinite(n) && n > 0 ? n : 5;
 }
 
 function cbCooldownMs(): number {
-  const n = Number(process.env.NYS_KNOWLEDGE_CB_COOLDOWN_MS ?? '30000');
+  const n = Number(process.env.JRX_ECOSYSTEM_KNOWLEDGE_CB_COOLDOWN_MS ?? '30000');
   return Number.isFinite(n) && n > 0 ? n : 30_000;
 }
 
@@ -174,16 +174,16 @@ export interface NysRequestOptions {
   /** Override timeout for long agentic runs (legal-work). */
   timeoutMs?: number;
   /**
-   * Deprecated for NYS federation: partner NYV SDK keys are not valid on NYS.
-   * Machine auth always uses NYS_KNOWLEDGE_API_KEY. Kept for call-site compat.
+   * Deprecated for NYS federation: partner JRX SDK keys are not valid on NYS.
+   * Machine auth always uses JRX_ECOSYSTEM_KNOWLEDGE_API_KEY. Kept for call-site compat.
    */
   forwardApiKey?: string | null;
-  /** Extra transient retries (default from NYS_KNOWLEDGE_RETRIES, usually 2). */
+  /** Extra transient retries (default from JRX_ECOSYSTEM_KNOWLEDGE_RETRIES, usually 2). */
   retries?: number;
 }
 
 function maxRetries(): number {
-  const n = Number(process.env.NYS_KNOWLEDGE_RETRIES ?? '2');
+  const n = Number(process.env.JRX_ECOSYSTEM_KNOWLEDGE_RETRIES ?? '2');
   return Number.isFinite(n) && n >= 0 ? Math.min(5, n) : 2;
 }
 
@@ -207,7 +207,7 @@ export async function nysKnowledgeRequest<T = unknown>(
 > {
   const base = baseUrl();
   if (!base) {
-    return { ok: false, status: 503, error: 'NYS_KNOWLEDGE_BASE_URL not configured' };
+    return { ok: false, status: 503, error: 'JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL not configured' };
   }
 
   const key = breakerKey(opts.path);
@@ -341,7 +341,7 @@ export async function nysKnowledgeHealthz(): Promise<{
 
 /**
  * Returns the NYS machine key for proxy call-sites.
- * Does not forward inbound NYV partner keys (they are invalid on NYS).
+ * Does not forward inbound JRX partner keys (they are invalid on NYS).
  */
 export function forwardKeyFromReq(_req?: { headers: Record<string, unknown> }): string | null {
   return apiKey();

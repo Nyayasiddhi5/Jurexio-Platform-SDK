@@ -1,9 +1,9 @@
 {
-  "name": "nyayamitra-mobile",
+  "name": "jurexio-citizen-mobile",
   "version": "1.0.0",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
-  "description": "Nyayamitra (citizen) Expo sample — Hindi-first conversational chat, clause classification, case brief, with offline-draft queue.",
+  "description": "Jurexio Citizen (citizen) Expo sample — Hindi-first conversational chat, clause classification, case brief, with offline-draft queue.",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -14,7 +14,7 @@
   "dependencies": {
     "@nyayavigya/client-sdk": "file:../../packages/client-sdk",
     "@nyayavigya/client-sdk-react-native": "file:../../packages/client-sdk-react-native",
-    "@nyayavigya/nyayamitra-sdk": "file:../../packages/nyayamitra-sdk",
+    "@nyayavigya/jurexio-citizen-sdk": "file:../../packages/jurexio-citizen-sdk",
     "@nyayavigya/types": "file:../../packages/types",
     "@react-native-async-storage/async-storage": "1.21.0",
     "@react-native-community/netinfo": "11.1.0",

@@ -11,12 +11,12 @@ npm install @jurexio/react-hooks @jurexio/types react
 ## Quick Start
 
 ```tsx
-import { useNyvClient, usePatternStream, useGovernanceBadge } from '@jurexio/react-hooks';
+import { useJrxClient, usePatternStream, useGovernanceBadge } from '@jurexio/react-hooks';
 
 function LegalAssistant() {
-  const { initialize, isReady, getHeaders } = useNyvClient({
+  const { initialize, isReady, getHeaders } = useJrxClient({
     apiKey: 'nyv_live_sk_your_key',
-    baseUrl: 'https://app.nyayavigya.in',
+    baseUrl: 'https://app.jurexio.com',
   });
 
   const { stream, tokens, isStreaming, governance } = usePatternStream({
@@ -39,7 +39,7 @@ function LegalAssistant() {
 
 ## Available Hooks
 
-### useNyvClient
+### useJrxClient
 
 Client configuration and auth header management.
 
@@ -52,7 +52,7 @@ const {
   initialize,
   reset,
   getHeaders,
-} = useNyvClient({ apiKey: '...', baseUrl: '...' });
+} = useJrxClient({ apiKey: '...', baseUrl: '...' });
 ```
 
 ### usePatternStream

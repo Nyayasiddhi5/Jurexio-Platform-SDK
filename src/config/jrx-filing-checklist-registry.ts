@@ -2,16 +2,16 @@
  * NV-FILING-CHECKLIST-REGISTRY-001 — data-only enclosure manifest per NSP FB-468
  * `nvTemplateKey`, seeded from the reconciled filing-book manifest (16 P0 keys).
  *
- * This is the still-absent registry the NYV joint plan called for
+ * This is the still-absent registry the JRX joint plan called for
  * (`documents/working/NSP-LEGAL-INTELLIGENCE-SDK-SURFACE-2026-08.md` §Filing
  * enclosure manifest / §E item 3). It is consumed by the `draftProfile`
- * assembler (`nv-draft-profile-assembler.ts`) and emitted on the orchestration
+ * assembler (`jrx-draft-profile-assembler.ts`) and emitted on the orchestration
  * response contract as `draftProfile.filingChecklist[]`.
  *
  * Honesty (NV-EXECUTE-BEFORE-CLAIM-001 / joint-plan §Honesty): these are
  * **practice-pattern** enclosure hints, not certified court requirements. Rows
  * are MINIMAL P0 seeds; the full 96pp OCR manifest ingest (SME-gated, ≥0.75) is
- * P1. NSP renders + tracks attach state; NYV never invents a filed enclosure.
+ * P1. NSP renders + tracks attach state; JRX never invents a filed enclosure.
  */
 import type { DraftDocumentType } from './jrx-draft-length-registry.js';
 import {
@@ -33,7 +33,7 @@ export interface FilingChecklistItem {
   label: string;
   /** True when the enclosure is a hard filing requirement for this instrument. */
   mandatory: boolean;
-  /** Requirement class — NSP tracks actual attach state, NYV only states the rule. */
+  /** Requirement class — NSP tracks actual attach state, JRX only states the rule. */
   status: FilingChecklistStatus;
   /** Statutory / rule basis (CPC Order-Rule, section, or practice note). */
   basis: string;
@@ -321,7 +321,7 @@ export const FILING_CHECKLIST_MANIFEST: Readonly<Record<NvTemplateKey, FilingChe
   /* ── Wave C (NV-FILING-BOOK-WAVEC-001) — full book-manifest ingest ──────────
    * All rows are grounded in the "Book of Filing, Drafting & Legal Notices"
    * (see scripts/jrx-filing-book-extract.ts). Enclosure hints only; NSP tracks
-   * actual attach state, NYV never invents a filed enclosure. */
+   * actual attach state, JRX never invents a filed enclosure. */
 
   // Civil legal-notice model forms (Book Pt.II §7 — Model Form of Notices).
   promissory_note_demand_notice: {
@@ -514,7 +514,7 @@ export const FILING_CHECKLIST_MANIFEST: Readonly<Record<NvTemplateKey, FilingChe
     rows: [
       item('impugned-order-copy', 'Certified copy of the appealable order', 'CPC Order XLIII Rule 1'),
       item('memorandum-grounds', 'Memorandum of appeal (first-appeal model form may be followed)', 'Book O.43 R.2 — CMA practice'),
-      item('appealability-check', 'Confirm order is in the O.43 R.1 appealable list (advisory index on NYV)', 'CPC Order XLIII Rule 1'),
+      item('appealability-check', 'Confirm order is in the O.43 R.1 appealable list (advisory index on JRX)', 'CPC Order XLIII Rule 1'),
       COURT_FEE,
       VAKALATNAMA,
       VAKALATNAMA_TN_STAMPS,

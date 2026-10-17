@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * NV RAG Live Service v3.1.2 — pgvector + OpenRouter Embeddings
  * ─────────────────────────────────────────────────────────────────────────────
@@ -43,26 +43,26 @@ export interface RagQueryOptions {
 // Prefer OpenAI text-embedding-3-small (1536 dims = rag_documents vector).
 // When OpenAI quota/keys fail, fall back to Amazon Titan Embed Text v1
 // (also 1536 dims) via Bedrock — same IAM path already used for caselaw embed.
-// Set NYV_EMBEDDING_PROVIDER=bedrock to prefer Titan first (no OpenAI needed).
+// Set JRX_EMBEDDING_PROVIDER=bedrock to prefer Titan first (no OpenAI needed).
 
 async function generateBedrockTitanEmbedding(text: string): Promise<number[] | null> {
   const preferOff =
-    (process.env.NYV_EMBEDDING_PROVIDER || '').trim().toLowerCase() === 'none' ||
-    process.env.NYV_BEDROCK_EMBEDDINGS === '0';
+    (process.env.JRX_EMBEDDING_PROVIDER || '').trim().toLowerCase() === 'none' ||
+    process.env.JRX_BEDROCK_EMBEDDINGS === '0';
   if (preferOff) return null;
   try {
     const mod: any = await import('@aws-sdk/client-bedrock-runtime');
     const region =
       process.env.AWS_BEDROCK_REGION || process.env.AWS_REGION || 'ap-south-1';
     // v2 → 1024/512/256 dims; prefer v2 with 1024 when v1 unavailable in-region.
-    // Override with NYV_BEDROCK_EMBED_MODEL. Gemini is preferred when Titan fails.
+    // Override with JRX_BEDROCK_EMBED_MODEL. Gemini is preferred when Titan fails.
     const modelId =
-      process.env.NYV_BEDROCK_EMBED_MODEL || 'amazon.titan-embed-text-v2:0';
+      process.env.JRX_BEDROCK_EMBED_MODEL || 'amazon.titan-embed-text-v2:0';
     const client = new mod.BedrockRuntimeClient({ region });
     const truncated = text.length > 8000 ? text.slice(0, 8000) : text;
     const body: Record<string, unknown> = { inputText: truncated };
     if (String(modelId).includes('titan-embed-text-v2')) {
-      body.dimensions = Number(process.env.NYV_BEDROCK_EMBED_DIMS) || 1024;
+      body.dimensions = Number(process.env.JRX_BEDROCK_EMBED_DIMS) || 1024;
       body.normalize = true;
     }
     const out = await client.send(

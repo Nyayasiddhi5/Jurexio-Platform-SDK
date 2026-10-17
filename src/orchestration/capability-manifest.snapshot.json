@@ -49,15 +49,15 @@
       "tools.execute",
       "templates.catalog",
       "templates.generate",
-      "nyaya-tools.amend",
-      "nyaya-tools.compare",
-      "nyaya-tools.forensic",
-      "nyaya-tools.graph",
-      "nyaya-tools.template",
-      "nyaya-tools.timeline",
-      "nyaya-tools.trail",
-      "nyaya-tools.watch",
-      "nyaya-tools.agent-lifecycle",
+      "jrx-legal-tools.amend",
+      "jrx-legal-tools.compare",
+      "jrx-legal-tools.forensic",
+      "jrx-legal-tools.graph",
+      "jrx-legal-tools.template",
+      "jrx-legal-tools.timeline",
+      "jrx-legal-tools.trail",
+      "jrx-legal-tools.watch",
+      "jrx-legal-tools.agent-lifecycle",
       "clawdbot.crawl",
       "enterprise.financial-data",
       "enterprise.web-search"
@@ -206,8 +206,8 @@
       "templates.generate",
       "agent.auto-select",
       "governance.model-policy",
-      "nyaya-tools.compare",
-      "nyaya-tools.template",
+      "jrx-legal-tools.compare",
+      "jrx-legal-tools.template",
       "docs.parse",
       "intelligence.summarize",
       "agent.persona"
@@ -249,13 +249,13 @@
       "docs.parse-legal",
       "docs.chunk-legal",
       "docs.esign",
-      "nyaya-tools.amend",
-      "nyaya-tools.compare",
-      "nyaya-tools.graph",
-      "nyaya-tools.template",
-      "nyaya-tools.timeline",
-      "nyaya-tools.trail",
-      "nyaya-tools.watch",
+      "jrx-legal-tools.amend",
+      "jrx-legal-tools.compare",
+      "jrx-legal-tools.graph",
+      "jrx-legal-tools.template",
+      "jrx-legal-tools.timeline",
+      "jrx-legal-tools.trail",
+      "jrx-legal-tools.watch",
       "jurisdiction.overlay",
       "clm.lifecycle",
       "e-filing.submit",
@@ -343,15 +343,15 @@
       "docs.ocr",
       "docs.esign",
       "docs.pdfa",
-      "nyaya-tools.amend",
-      "nyaya-tools.compare",
-      "nyaya-tools.forensic",
-      "nyaya-tools.graph",
-      "nyaya-tools.template",
-      "nyaya-tools.timeline",
-      "nyaya-tools.trail",
-      "nyaya-tools.watch",
-      "nyaya-tools.agent-lifecycle",
+      "jrx-legal-tools.amend",
+      "jrx-legal-tools.compare",
+      "jrx-legal-tools.forensic",
+      "jrx-legal-tools.graph",
+      "jrx-legal-tools.template",
+      "jrx-legal-tools.timeline",
+      "jrx-legal-tools.trail",
+      "jrx-legal-tools.watch",
+      "jrx-legal-tools.agent-lifecycle",
       "jurisdiction.overlay",
       "jurisdiction.sync",
       "clm.lifecycle",
@@ -484,15 +484,15 @@
       "docs.ocr",
       "docs.esign",
       "docs.pdfa",
-      "nyaya-tools.amend",
-      "nyaya-tools.compare",
-      "nyaya-tools.forensic",
-      "nyaya-tools.graph",
-      "nyaya-tools.template",
-      "nyaya-tools.timeline",
-      "nyaya-tools.trail",
-      "nyaya-tools.watch",
-      "nyaya-tools.agent-lifecycle",
+      "jrx-legal-tools.amend",
+      "jrx-legal-tools.compare",
+      "jrx-legal-tools.forensic",
+      "jrx-legal-tools.graph",
+      "jrx-legal-tools.template",
+      "jrx-legal-tools.timeline",
+      "jrx-legal-tools.trail",
+      "jrx-legal-tools.watch",
+      "jrx-legal-tools.agent-lifecycle",
       "jurisdiction.overlay",
       "jurisdiction.sync",
       "clm.lifecycle",
@@ -628,15 +628,15 @@
       "docs.ocr",
       "docs.esign",
       "docs.pdfa",
-      "nyaya-tools.amend",
-      "nyaya-tools.compare",
-      "nyaya-tools.forensic",
-      "nyaya-tools.graph",
-      "nyaya-tools.template",
-      "nyaya-tools.timeline",
-      "nyaya-tools.trail",
-      "nyaya-tools.watch",
-      "nyaya-tools.agent-lifecycle",
+      "jrx-legal-tools.amend",
+      "jrx-legal-tools.compare",
+      "jrx-legal-tools.forensic",
+      "jrx-legal-tools.graph",
+      "jrx-legal-tools.template",
+      "jrx-legal-tools.timeline",
+      "jrx-legal-tools.trail",
+      "jrx-legal-tools.watch",
+      "jrx-legal-tools.agent-lifecycle",
       "jurisdiction.overlay",
       "jurisdiction.sync",
       "clm.lifecycle",
@@ -2023,7 +2023,7 @@
       "output": null
     },
     {
-      "id": "nyaya-tools.amend",
+      "id": "jrx-legal-tools.amend",
       "displayName": "NyayaAmend — Statute Amendment Tracker",
       "category": "tools",
       "tiers": [
@@ -2045,12 +2045,12 @@
         "statute",
         "tracking"
       ],
-      "source": "../services/nyaya-tools/jrx-nyayaamend-service.js",
+      "source": "../services/jrx-legal-tools/jrx-nyayaamend-service.js",
       "inputs": null,
       "output": null
     },
     {
-      "id": "nyaya-tools.compare",
+      "id": "jrx-legal-tools.compare",
       "displayName": "NyayaCompare — Document Diff & Compare",
       "category": "tools",
       "tiers": [
@@ -2074,12 +2074,12 @@
         "diff",
         "documents"
       ],
-      "source": "../services/nyaya-tools/jrx-nyayacompare-service.js",
+      "source": "../services/jrx-legal-tools/jrx-nyayacompare-service.js",
       "inputs": null,
       "output": null
     },
     {
-      "id": "nyaya-tools.forensic",
+      "id": "jrx-legal-tools.forensic",
       "displayName": "NyayaForensic — Document Forensics",
       "category": "tools",
       "tiers": [
@@ -2099,12 +2099,12 @@
         "integrity",
         "audit"
       ],
-      "source": "../services/nyaya-tools/jrx-nyayaforensic-service.js",
+      "source": "../services/jrx-legal-tools/jrx-nyayaforensic-service.js",
       "inputs": null,
       "output": null
     },
     {
-      "id": "nyaya-tools.graph",
+      "id": "jrx-legal-tools.graph",
       "displayName": "NyayaGraph — Citation / Entity Graph",
       "category": "tools",
       "tiers": [
@@ -2126,12 +2126,12 @@
         "citation",
         "entities"
       ],
-      "source": "../services/nyaya-tools/jrx-nyayagraph-service.js",
+      "source": "../services/jrx-legal-tools/jrx-nyayagraph-service.js",
       "inputs": null,
       "output": null
     },
     {
-      "id": "nyaya-tools.template",
+      "id": "jrx-legal-tools.template",
       "displayName": "NyayaTemplate — Legal Template Generator",
       "category": "tools",
       "tiers": [
@@ -2153,12 +2153,12 @@
         "generation",
         "drafting"
       ],
-      "source": "../services/nyaya-tools/jrx-nyayatemplate-service.js",
+      "source": "../services/jrx-legal-tools/jrx-nyayatemplate-service.js",
       "inputs": null,
       "output": null
     },
     {
-      "id": "nyaya-tools.timeline",
+      "id": "jrx-legal-tools.timeline",
       "displayName": "NyayaTimeline — Case Timeline Builder",
       "category": "tools",
       "tiers": [
@@ -2180,12 +2180,12 @@
         "chronology",
         "case"
       ],
-      "source": "../services/nyaya-tools/jrx-nyayatimeline-service.js",
+      "source": "../services/jrx-legal-tools/jrx-nyayatimeline-service.js",
       "inputs": null,
       "output": null
     },
     {
-      "id": "nyaya-tools.trail",
+      "id": "jrx-legal-tools.trail",
       "displayName": "NyayaTrail — Audit Trail",
       "category": "tools",
       "tiers": [
@@ -2206,12 +2206,12 @@
         "trail",
         "evidence"
       ],
-      "source": "../services/nyaya-tools/jrx-nyayatrail-service.js",
+      "source": "../services/jrx-legal-tools/jrx-nyayatrail-service.js",
       "inputs": null,
       "output": null
     },
     {
-      "id": "nyaya-tools.watch",
+      "id": "jrx-legal-tools.watch",
       "displayName": "NyayaWatch — Regulatory & Case Watch",
       "category": "tools",
       "tiers": [
@@ -2233,12 +2233,12 @@
         "alerts",
         "regulatory"
       ],
-      "source": "../services/nyaya-tools/jrx-nyayawatch-service.js",
+      "source": "../services/jrx-legal-tools/jrx-nyayawatch-service.js",
       "inputs": null,
       "output": null
     },
     {
-      "id": "nyaya-tools.agent-lifecycle",
+      "id": "jrx-legal-tools.agent-lifecycle",
       "displayName": "Nyaya Agent Lifecycle Manager",
       "category": "tools",
       "tiers": [
@@ -2258,7 +2258,7 @@
         "lifecycle",
         "governance"
       ],
-      "source": "../services/nyaya-tools/jrx-agent-lifecycle-service.js",
+      "source": "../services/jrx-legal-tools/jrx-agent-lifecycle-service.js",
       "inputs": null,
       "output": null
     },
@@ -3233,7 +3233,7 @@
         "knowledge-graph",
         "legal"
       ],
-      "source": "src/services/rag/nyv-graphrag-legal-service.ts",
+      "source": "src/services/rag/jrx-graphrag-legal-service.ts",
       "inputs": null,
       "output": null
     },
@@ -3260,7 +3260,7 @@
         "hybrid",
         "retrieval"
       ],
-      "source": "src/services/rag/nyv-lightrag-pipeline.ts",
+      "source": "src/services/rag/jrx-lightrag-pipeline.ts",
       "inputs": null,
       "output": null
     },

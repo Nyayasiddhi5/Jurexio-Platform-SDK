@@ -1,17 +1,17 @@
 /**
- * nv-storage-file-routes.ts — serves local-backend signed URLs.
+ * jrx-storage-file-routes.ts — serves local-backend signed URLs.
  *
  * NV-LOCAL-SIGNED-URL-001. `LocalStorageAdapter.getSignedUrl()` has always emitted
  * `/api/jrx/storage/files/<path>?exp=…&token=…`, but **no route existed for it**, so every
  * signed URL 404'd. Because `local` is the default backend when no S3 bucket is
- * configured (`nyv-master-config.ts:290-292`), that meant dev and any non-S3 deployment
+ * configured (`jrx-master-config.ts:290-292`), that meant dev and any non-S3 deployment
  * could not serve a document it had successfully stored.
  *
  * Deliberately NOT mounted behind `dualSdkOrJwt`: the token IS the authorisation, exactly
  * as with an S3 presigned URL. That is the whole point of a signed URL — it is handed to
  * a browser or a partner that does not hold an API key. Security therefore rests on:
  *   1. a timing-safe HMAC over `path:exp` (`verifyLocalSignedUrlToken`),
- *   2. a short expiry (default 3600 s, `NYV_S3_SIGNED_URL_EXPIRY`),
+ *   2. a short expiry (default 3600 s, `JRX_S3_SIGNED_URL_EXPIRY`),
  *   3. path-traversal rejection before any filesystem access,
  *   4. S3 backend never reaching this route at all.
  *
@@ -21,8 +21,8 @@
 import { Router, type Request, type Response } from 'express';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { verifyLocalSignedUrlToken } from '../services/nyv-document-storage-service.js';
-import { NYV_STORAGE } from '../config/nyv-master-config.js';
+import { verifyLocalSignedUrlToken } from '../services/jrx-document-storage-service.js';
+import { JRX_STORAGE } from '../config/jrx-master-config.js';
 import { createLogger } from '../utils/logger.js';
 
 const router = Router();
@@ -48,7 +48,7 @@ router.get('/files/*', async (req: Request, res: Response): Promise<void> => {
   const exp = Number(req.query.exp);
   const token = String(req.query.token || '');
 
-  if (NYV_STORAGE.backend === 's3') {
+  if (JRX_STORAGE.backend === 's3') {
     /* On S3 the adapter issues real presigned URLs; this route must never be used as a
      * side door around them. */
     res.status(404).json({ success: false, error: 'Not available on the S3 backend', code: 'STORAGE_ROUTE_INERT' });
@@ -70,7 +70,7 @@ router.get('/files/*', async (req: Request, res: Response): Promise<void> => {
     return;
   }
 
-  const full = resolveWithinRoot(NYV_STORAGE.local.basePath, storagePath);
+  const full = resolveWithinRoot(JRX_STORAGE.local.basePath, storagePath);
   if (!full) {
     logger.error('storage_path_traversal_blocked', { storagePath: storagePath.slice(0, 120) });
     res.status(400).json({ success: false, error: 'Invalid storage path', code: 'STORAGE_PATH_INVALID' });

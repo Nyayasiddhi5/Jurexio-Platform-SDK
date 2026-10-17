@@ -1086,7 +1086,7 @@ export function assembleSystemPromptForId(agentId: string, registry: AgentV2Sche
   return assembleSystemPrompt(agent);
 }
 
-import { getPromptCompiler } from './nyv-prompt-compiler.js';
+import { getPromptCompiler } from './jrx-prompt-compiler.js';
 
 export function assembleCompiledPrompt(
   agent: AgentV2Schema,

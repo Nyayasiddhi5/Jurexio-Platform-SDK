@@ -1,7 +1,7 @@
 /**
- * Redis Seam — NYV-ORCH-SEAM-007 (Task #32 round 10e).
+ * Redis Seam — JRX-ORCH-SEAM-007 (Task #32 round 10e).
  *
- * Canonical export: `nvRedisCache` from `nv-redis-cache-service` is the
+ * Canonical export: `nvRedisCache` from `jrx-redis-cache-service` is the
  * single SSoT cache primitive (semantic LLM cache, distributed
  * rate-limit counters, WebSocket session store, idempotent tool-result
  * cache, with graceful in-memory LRU fallback when Redis is

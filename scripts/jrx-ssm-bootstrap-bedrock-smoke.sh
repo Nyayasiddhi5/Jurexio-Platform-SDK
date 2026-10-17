@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-# JRX-SSM-SMOKE-001 — copy Bedrock/LLM-related SSM params NYV → /jurexio/prod for smoke only.
-# Never prints secret values. Never writes to nysdev env files.
+# JRX-SSM-SMOKE-002 — bootstrap Bedrock/LLM SSM params under /jurexio/prod for smoke.
+# Jurexio-only: never reads legacy SSM prefixes. Never prints secret values.
 set -euo pipefail
 
 DRY_RUN=0
-SRC_PREFIX="${JRX_SSM_SOURCE_PREFIX:-/nyayavigya/dev}"
 DST_PREFIX="${JRX_SSM_DEST_PREFIX:-/jurexio/prod}"
-REGION="${JRX_AWS_REGION:-ap-south-1}"
+REGION="${JRX_AWS_REGION:-us-east-1}"
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -17,35 +16,47 @@ done
 
 : "${AWS_ACCESS_KEY_ID:?AWS creds required}"
 
-# Param names only (values fetched at runtime, never logged)
-NAMES=(
-  NYV_BEDROCK_ENABLED
-  NYV_ROUTER_BEDROCK_FIRST
+JRX_NAMES=(
+  JRX_BEDROCK_ENABLED
+  JRX_ROUTER_BEDROCK_FIRST
   AWS_BEDROCK_REGION
-  NYV_BEDROCK_REGION_ORDER
+  JRX_BEDROCK_REGION_ORDER
   BEDROCK_MODEL_ID
   AWS_ACCESS_KEY_ID
   AWS_SECRET_ACCESS_KEY
   AWS_SESSION_TOKEN
 )
 
-copy_one() {
-  local name="$1"
-  local src="${SRC_PREFIX}/${name}"
-  local dst="${DST_PREFIX}/${name}"
-  if ! aws ssm get-parameter --name "$src" --with-decryption --region "$REGION" >/dev/null 2>&1; then
-    echo "skip missing src param name=${name}"
-    return 0
-  fi
+put_param() {
+  local dst_name="$1"
+  local val="$2"
+  local dst="${DST_PREFIX}/${dst_name}"
   if [ "$DRY_RUN" = "1" ]; then
-    echo "would copy ${src} -> ${dst}"
+    echo "would put ${dst} len=${#val}"
     return 0
   fi
-  val="$(aws ssm get-parameter --name "$src" --with-decryption --region "$REGION" --query Parameter.Value --output text)"
   aws ssm put-parameter --name "$dst" --value "$val" --type SecureString --overwrite --region "$REGION" >/dev/null
-  echo "copied param name=${name} len=${#val}"
+  echo "put param name=${dst_name} len=${#val}"
 }
 
-echo "== JRX SSM Bedrock smoke bootstrap region=${REGION} =="
-for n in "${NAMES[@]}"; do copy_one "$n"; done
-echo "== done (store JRX-specific JWT/DB under ${DST_PREFIX}/ separately) =="
+ensure_jrx_from_env() {
+  local name="$1"
+  if [ -z "${!name:-}" ]; then
+    echo "skip unset env for ${name}"
+    return 0
+  fi
+  put_param "$name" "${!name}"
+}
+
+echo "== JRX SSM Bedrock smoke bootstrap region=${REGION} dst=${DST_PREFIX} =="
+
+for n in "${JRX_NAMES[@]}"; do
+  dst="${DST_PREFIX}/${n}"
+  if aws ssm get-parameter --name "$dst" --with-decryption --region "$REGION" >/dev/null 2>&1; then
+    echo "exists param name=${n}"
+    continue
+  fi
+  ensure_jrx_from_env "$n"
+done
+
+echo "== done (also store JRX DATABASE_URL, JWT, SDK keys under ${DST_PREFIX}/ separately) =="

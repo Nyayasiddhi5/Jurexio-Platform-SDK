@@ -32,7 +32,7 @@ import { isPlatformUatRequest } from './jrx-platform-uat-bypass.js';
 
 const logger = createLogger('redis-platform-rate-limiter');
 
-// NYV-OPS-RATELIMIT-DISABLE-001 (Task #28): same WRONGPASS-spam fix as
+// JRX-OPS-RATELIMIT-DISABLE-001 (Task #28): same WRONGPASS-spam fix as
 // BullMQ. If no real TCP URL is set, do NOT construct ioredis (it would
 // retry every second forever). Log once, then fail open at the
 // middleware layer so the in-memory limiter (createTieredRateLimit)
@@ -45,8 +45,8 @@ if (!REDIS_TCP_AVAILABLE && _redisResolution.reason) {
   logRedisDisabledOnce('RedisPlatformRateLimiter', _redisResolution.reason);
 }
 
-// NYV-OPS-RATELIMIT-AUTH-GATE-001 (Task #28 round 4): full parity with the
-// BullMQ + nv-rate-limit-middleware fix. If the URL is right but the
+// JRX-OPS-RATELIMIT-AUTH-GATE-001 (Task #28 round 4): full parity with the
+// BullMQ + jrx-rate-limit-middleware fix. If the URL is right but the
 // password is wrong, ioredis would otherwise emit
 // "[ioredis] Unhandled error event: WRONGPASS" several times per second
 // for the entire process lifetime. We attach an `error` listener that
@@ -100,7 +100,7 @@ let _config: RateConfig | null = null;
 function loadConfig(): RateConfig {
   if (_config) return _config;
   const candidates = [
-    process.env.NYV_RATE_LIMITS_FILE,
+    process.env.JRX_RATE_LIMITS_FILE,
     path.resolve('config/rate-limits/rate-limits.json'),
     path.resolve(process.cwd(), 'config/rate-limits/rate-limits.json'),
   ].filter(Boolean) as string[];
@@ -146,12 +146,12 @@ function resolvePlatform(req: Request): string {
   const explicit = (req as any).platform || (req as any).sdkApp?.platformType;
   if (explicit) return String(explicit);
 
-  const nyvPlatform = String(req.headers['x-nyv-platform'] || '').trim().toLowerCase();
+  const nyvPlatform = String(req.headers['x-jrx-platform'] || '').trim().toLowerCase();
   if (nyvPlatform === 'nys' || nyvPlatform.includes('nyayasearch')) return 'nys';
 
   const hint = resolvePartnerPlatformHint(req);
   if (hint === 'NSP' || hint === 'NSPM') return 'nys-professional';
-  if (hint === 'NYM') return 'nyayamitra';
+  if (hint === 'NYM') return 'jurexio-citizen';
 
   const clientId = req.headers['x-client-id'] as string | undefined;
   if (clientId) return clientId;
@@ -172,9 +172,9 @@ function resolveLimitsFor(platform: string, tier: string, endpoint: string, cfg:
 /* ---------- middleware factory ---------- */
 
 export function createRedisPlatformRateLimiter(opts: { enabled?: boolean } = {}) {
-  const enabled = (opts.enabled ?? process.env.NYV_RATE_LIMITER !== 'off') && REDIS_TCP_AVAILABLE;
+  const enabled = (opts.enabled ?? process.env.JRX_RATE_LIMITER !== 'off') && REDIS_TCP_AVAILABLE;
   const cfg = loadConfig();
-  // NYV-OPS-RATELIMIT-LIVE-CLIENT-001 (Task #28 round 6): the previous
+  // JRX-OPS-RATELIMIT-LIVE-CLIENT-001 (Task #28 round 6): the previous
   // version captured `client = getClient()` once at factory creation.
   // If runtime auth-failure later flipped `_runtimeDisabled=true` and
   // nulled the module-level `_client`, the captured reference was

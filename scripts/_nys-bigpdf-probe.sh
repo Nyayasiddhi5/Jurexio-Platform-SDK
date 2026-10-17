@@ -91,6 +91,6 @@ rc=$?
 rm -f _probe_bigpdf.mjs
 echo "probe-exit=$rc"
 echo "=== api service still running? ==="
-systemctl is-active nyv-api.service
+systemctl is-active jrx-api.service
 free -m | head -2
 echo "probe-done 5150"

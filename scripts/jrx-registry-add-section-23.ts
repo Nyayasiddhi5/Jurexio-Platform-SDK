@@ -1,5 +1,5 @@
 /**
- * Nyayavigya v5.0.0 — Registry §23 augmentor (idempotent, append-only).
+ * Jurexio v5.0.0 — Registry §23 augmentor (idempotent, append-only).
  *
  * Adds <section_23_data_privacy_pii> to every agent's systemPrompt across the
  * 7 large jurisdiction registries (IN, UK, US, EU, GC, SG, Default), wiring
@@ -25,7 +25,7 @@ import * as path from 'node:path';
 
 const REGISTRIES_DIR = path.join(
   process.cwd(),
-  'nyayavigya-platform-312',
+  'Jurexio-Platform-SDK',
   'src',
   'data',
   'jurisdiction-registries',
@@ -35,7 +35,7 @@ const ALT_REGISTRIES_DIR = path.join(process.cwd(), 'src', 'data', 'jurisdiction
 
 const PII_PATTERNS_FILE = path.join(
   process.cwd(),
-  'nyayavigya-platform-312',
+  'Jurexio-Platform-SDK',
   'src',
   'data',
   'jurisdiction-pii-patterns.json',
@@ -103,7 +103,7 @@ function buildSection23(jurisdictionCode: string, jurisdictionFullName: string):
 
   return `\n\n<section_23_data_privacy_pii>
 <charter>
-  This agent operates under the Nyayavigya v5.0.0 Data-Privacy & PII Redaction
+  This agent operates under the Jurexio v5.0.0 Data-Privacy & PII Redaction
   Charter. All inputs MUST be considered PII-suspect until run through the
   jurisdiction-aware redaction pipeline. All outputs MUST carry an IronLedger
   audit hash. Every HITL escalation MUST be reviewer-routed via escalationPath.
@@ -138,7 +138,7 @@ function buildSection23(jurisdictionCode: string, jurisdictionFullName: string):
 <security_monitor_contract>
   <a2a>HMAC-signed only (T-07 wired Phase C); rogue agents rejected at middleware</a2a>
   <injection_sniffer>inline detector flags prompt-injection attempts (T-08 wired Phase C)</injection_sniffer>
-  <feature_flags>NYV_F_AUDIT_WIRE, NYV_F_HITL_REGISTRY, NYV_F_PII_JCN, NYV_F_SECURITY_MONITOR</feature_flags>
+  <feature_flags>JRX_F_AUDIT_WIRE, JRX_F_HITL_REGISTRY, JRX_F_PII_JCN, JRX_F_SECURITY_MONITOR</feature_flags>
 </security_monitor_contract>
 </section_23_data_privacy_pii>`;
 }
@@ -153,9 +153,9 @@ interface RegistryFile {
 function discoverRegistries(dir: string, filterJurisdiction: string | null): RegistryFile[] {
   const all = fs
     .readdirSync(dir)
-    .filter((f) => f.startsWith('Nyayavigya-Legal-registry-') && f.endsWith('.json'))
+    .filter((f) => f.startsWith('Jurexio-Legal-registry-') && f.endsWith('.json'))
     .map((f) => {
-      const code = f.replace('Nyayavigya-Legal-registry-', '').replace('.json', '');
+      const code = f.replace('Jurexio-Legal-registry-', '').replace('.json', '');
       return { path: path.join(dir, f), jurisdictionCode: code };
     });
   if (!filterJurisdiction) return all;
@@ -273,7 +273,7 @@ function main(): void {
     process.exit(2);
   }
 
-  console.log(`\n========== nv-registry-add-section-23 ==========`);
+  console.log(`\n========== jrx-registry-add-section-23 ==========`);
   console.log(`Mode:          ${args.dryRun ? 'DRY-RUN (no writes)' : 'APPLY (will write)'}`);
   console.log(`Jurisdiction:  ${args.jurisdiction ?? 'ALL'}`);
   console.log(`Files matched: ${targets.length}`);

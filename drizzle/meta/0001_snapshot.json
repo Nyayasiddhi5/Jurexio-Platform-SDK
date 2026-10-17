@@ -7579,8 +7579,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.nyayamitra_cases": {
-      "name": "nyayamitra_cases",
+    "public.jurexio-citizen_cases": {
+      "name": "jurexio-citizen_cases",
       "schema": "",
       "columns": {
         "id": {
@@ -7657,8 +7657,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.nyayamitra_users": {
-      "name": "nyayamitra_users",
+    "public.jurexio-citizen_users": {
+      "name": "jurexio-citizen_users",
       "schema": "",
       "columns": {
         "id": {
@@ -7725,8 +7725,8 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "nyayamitra_users_email_unique": {
-          "name": "nyayamitra_users_email_unique",
+        "jurexio-citizen_users_email_unique": {
+          "name": "jurexio-citizen_users_email_unique",
           "nullsNotDistinct": false,
           "columns": [
             "email"

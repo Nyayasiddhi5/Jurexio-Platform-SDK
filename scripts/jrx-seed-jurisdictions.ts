@@ -1,6 +1,6 @@
 /**
- * Nyayavigya Platform 3.1.2 — Jurisdictions Seed
- * NYV-SCRIPT-SEED-JURISDICTIONS-001
+ * Jurexio Platform 3.1.2 — Jurisdictions Seed
+ * JRX-SCRIPT-SEED-JURISDICTIONS-001
  *
  * Canonical 6 Jurisdictions: India, UK, GCC, Europe, USA, Singapore
  * ─────────────────────────────────────────────────────────────────────────────
@@ -29,7 +29,7 @@ dotenv.config();
 const sql = makePgSql();
 
 /**
- * CANONICAL_JURISDICTIONS — single source of truth for all 6 Nyayavigya jurisdictions.
+ * CANONICAL_JURISDICTIONS — single source of truth for all 6 Jurexio jurisdictions.
  * Any jurisdiction code change requires full migration audit across ALL files.
  */
 const CANONICAL_JURISDICTIONS = [

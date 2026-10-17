@@ -13,28 +13,28 @@
  *   6. SDK call with no X-Customer-Org-Id     → resolves to the synthetic
  *      per-platform default (legacy callers keep working).
  *
- * Targets the local gateway by default; override with NYV_GATEWAY_URL.
+ * Targets the local gateway by default; override with JRX_GATEWAY_URL.
  * Skips with a yellow note when no NSP key is provisioned in the env so
  * the script is safe to wire into CI smoke runs even on minimal envs.
  */
-const BASE = process.env.NYV_GATEWAY_URL || 'http://localhost:5000';
+const BASE = process.env.JRX_GATEWAY_URL || 'http://localhost:5000';
 // Customer-org admin endpoints require an admin / wildcard scope. NSP /
 // NSPM / NSA / NYM keys are intentionally scope-limited per the docs, so
 // pick the first available wildcard key (NSI / NSM / JRX) and fall back
 // only if none of those are provisioned in this env.
-const KEY = process.env.NYV_SDK_KEY_NSI
-  || process.env.NYV_SDK_KEY_NSM
-  || process.env.NYV_SDK_KEY_JRX
+const KEY = process.env.JRX_SDK_KEY_NSI
+  || process.env.JRX_SDK_KEY_NSM
+  || process.env.JRX_SDK_KEY_JRX
   || process.env.NV_SDK_KEY_NSI
   || process.env.NV_SDK_KEY_NSM
   || process.env.NV_SDK_KEY_JRX
-  || process.env.NYV_SDK_KEY_NSP;
+  || process.env.JRX_SDK_KEY_NSP;
 
 const c = { ok: '\x1b[32m', no: '\x1b[31m', warn: '\x1b[33m', dim: '\x1b[2m', x: '\x1b[0m' };
 const log = (s) => process.stdout.write(s + '\n');
 
 if (!KEY) {
-  log(`${c.warn}[skip]${c.x} NYV_SDK_KEY_NSP not set — cannot exercise customer-org isolation E2E`);
+  log(`${c.warn}[skip]${c.x} JRX_SDK_KEY_NSP not set — cannot exercise customer-org isolation E2E`);
   process.exit(0);
 }
 
@@ -203,8 +203,8 @@ async function main() {
   // helper and assert directly that omitting customerOrgId for a
   // non-platform-admin layer yields a `1 = 0` SQL fragment.
   try {
-    const rbac = await import('../src/services/rbac/nv-customer-org-rbac.ts').catch(() => null)
-              ?? await import('../dist/server/services/rbac/nv-customer-org-rbac.js').catch(() => null);
+    const rbac = await import('../src/services/rbac/jrx-customer-org-rbac.ts').catch(() => null)
+              ?? await import('../dist/server/services/rbac/jrx-customer-org-rbac.js').catch(() => null);
     if (rbac && typeof rbac.scopeForIdentity === 'function') {
       const noCO = rbac.scopeForIdentity({ role: 'reviewer', platformId: 1, customerOrgId: null, isAdmin: false });
       check('rbac.scopeForIdentity({customer_user, customerOrgId=null}) → fail-closed FALSE',

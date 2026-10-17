@@ -5,7 +5,7 @@
 import { randomUUID } from 'node:crypto';
 import { z } from 'zod';
 import { createLogger } from '../utils/logger.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 
 const logger = createLogger('./jrx-docparse-nsp-attach-understand');
 
@@ -86,7 +86,7 @@ const PROMPT_VERSION = 'attach-understand-v1';
 export async function runNspAttachUnderstand(
   req: NspAttachUnderstandRequest,
 ): Promise<NspAttachUnderstandResponse> {
-  if (!isNyvFeatureOn('docparseAttachUnderstand')) {
+  if (!isJrxFeatureOn('docparseAttachUnderstand')) {
     throw new Error('DOCPARSE_ATTACH_UNDERSTAND_DISABLED');
   }
   const prompt = (req.userPrompt ?? '').trim();
@@ -129,7 +129,7 @@ export async function runNspAttachUnderstand(
     taskKind: 'extraction' as const,
     jurisdiction: req.jurisdiction ?? 'IN',
     expectJson: true,
-    maxCostUsd: Number(process.env.NYV_DOCPARSE_ATTACH_UNDERSTAND_MAX_COST_USD || 0.02),
+    maxCostUsd: Number(process.env.JRX_DOCPARSE_ATTACH_UNDERSTAND_MAX_COST_USD || 0.02),
     requirements: {
       complexity: 'medium' as const,
       domain: 'analytical' as const,

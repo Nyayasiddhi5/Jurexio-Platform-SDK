@@ -37,7 +37,7 @@
  * Idempotent: callers supply a stable `incidentId`. Re-firing the same
  * incident is a no-op past the first call.
  *
- * NV-NAMING-001: nv- prefix.
+ * NV-NAMING-001: jrx- prefix.
  * NV-WIRING-001: mounted at /api/jrx/compliance/breach via
  *                src/routes/jrx-breach-notice-routes.ts.
  * NV-OWNERSHIP-001: dispatch failures surface as `delivery_status='failed'`
@@ -63,7 +63,7 @@ export type BreachRecipient =
   | 'NY_RESIDENTS'
   | 'NY_OAG'
   | 'NY_DOS'
-  | 'NYS_POLICE'
+  | 'JRX_ECOSYSTEM_POLICE'
   | 'MA_RESIDENTS'
   | 'MA_AG'
   | 'MA_OCABR'
@@ -170,7 +170,7 @@ const RECIPIENTS: Record<BreachRecipient, RecipientSpec> = {
     template: 'NY-SHIELD-899aa-dos-filing',
     policyCode: 'POL-US-NYSHIELD-899-bb',
   },
-  NYS_POLICE: {
+  JRX_ECOSYSTEM_POLICE: {
     channel: 'email',
     destination: 'cyber.intel@troopers.ny.gov',
     template: 'NY-SHIELD-899aa-nysp-filing',
@@ -424,7 +424,7 @@ export function planNotices(input: BreachIncidentInput): BreachRecipient[] {
       out.push('NY_RESIDENTS');
       if (bucket.count > NY_AG_THRESHOLD) {
         // §899-aa(8)(a) — concurrent notice to AG, DOS, NYS Police.
-        out.push('NY_OAG', 'NY_DOS', 'NYS_POLICE');
+        out.push('NY_OAG', 'NY_DOS', 'JRX_ECOSYSTEM_POLICE');
       }
     } else if (bucket.state === 'MA') {
       // c.93H §3(b) — notice to OAG, OCABR, and affected residents.
@@ -495,7 +495,7 @@ function renderNoticeBody(
         subject: `§899-aa Breach Notification — NY Department of State / Incident ${input.incidentId}`,
         body: `# §899-aa(8)(a) Concurrent Notification — NY Department of State\n\nThis filing is submitted pursuant to NY GBL §899-aa(8)(a). The NY Department of State (Division of Consumer Protection) is being notified concurrently with the NY OAG and NYS Police.\n\n${factsBlock}\n\n${orgLine}\n${contactLine}\n${incidentLine}\n`,
       };
-    case 'NYS_POLICE':
+    case 'JRX_ECOSYSTEM_POLICE':
       return {
         subject: `§899-aa Breach Notification — NYS Police / Incident ${input.incidentId}`,
         body: `# §899-aa(8)(a) Concurrent Notification — New York State Police (Cyber Analysis Unit)\n\nThis filing is submitted pursuant to NY GBL §899-aa(8)(a) (concurrent agency notification when affected NY residents exceed 500).\n\n${factsBlock}\n\n${orgLine}\n${contactLine}\n${incidentLine}\n`,

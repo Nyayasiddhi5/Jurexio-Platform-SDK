@@ -21,15 +21,15 @@ interface SlmAvailability {
 }
 
 const SLM_MODELS: Record<JurisdictionCode, string> = {
-  'IN': process.env.NYV_SLM_MODEL_IN || 'sarvam-2b',
-  'UK': process.env.NYV_SLM_MODEL_UK || 'phi-3.5-mini',
-  'EU': process.env.NYV_SLM_MODEL_EU || 'mistral-7b-legal',
-  'US': process.env.NYV_SLM_MODEL_US || 'llama-3.1-8b',
-  'GCC': process.env.NYV_SLM_MODEL_GCC || 'acegpt-7b',
-  'SG': process.env.NYV_SLM_MODEL_SG || 'phi-3.5-mini',
+  'IN': process.env.JRX_SLM_MODEL_IN || 'sarvam-2b',
+  'UK': process.env.JRX_SLM_MODEL_UK || 'phi-3.5-mini',
+  'EU': process.env.JRX_SLM_MODEL_EU || 'mistral-7b-legal',
+  'US': process.env.JRX_SLM_MODEL_US || 'llama-3.1-8b',
+  'GCC': process.env.JRX_SLM_MODEL_GCC || 'acegpt-7b',
+  'SG': process.env.JRX_SLM_MODEL_SG || 'phi-3.5-mini',
 };
 
-const SLM_CONFIDENCE_THRESHOLD = parseFloat(process.env.NYV_SLM_CONFIDENCE_THRESHOLD || '0.75');
+const SLM_CONFIDENCE_THRESHOLD = parseFloat(process.env.JRX_SLM_CONFIDENCE_THRESHOLD || '0.75');
 
 class NvSlmRouterService {
   async isSlmAvailable(jurisdiction: JurisdictionCode): Promise<boolean> {

@@ -1,6 +1,6 @@
 /**
  * Orchestration Smoke Suite — 5 patterns
- * Task #32 / NYV-TEST-ORCH-001
+ * Task #32 / JRX-TEST-ORCH-001
  *
  * Exercises the SSoT capability manifest, orchestration policy, middleware,
  * and DAG service through the same code paths Queen / SDK / tools take.
@@ -437,23 +437,23 @@ describe('Orchestration smoke — Middleware contract', () => {
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Real-services capability coverage — assert that the manifest registers the
-// production catalog (nyaya-tools, jurisdiction-agents, contract-lifecycle,
+// production catalog (jrx-legal-tools, jurisdiction-agents, contract-lifecycle,
 // digital-twin, e-filing, automateai, clawdbot, multi-org, enterprise-platform)
 // and that the JSON snapshot mirrors the in-memory registry.
 // ──────────────────────────────────────────────────────────────────────────────
 
 describe('Orchestration smoke — Full services catalog coverage', () => {
   const REQUIRED_PRODUCTION_IDS = [
-    // nyaya-tools suite
-    'nyaya-tools.amend',
-    'nyaya-tools.compare',
-    'nyaya-tools.forensic',
-    'nyaya-tools.graph',
-    'nyaya-tools.template',
-    'nyaya-tools.timeline',
-    'nyaya-tools.trail',
-    'nyaya-tools.watch',
-    'nyaya-tools.agent-lifecycle',
+    // jrx-legal-tools suite
+    'jrx-legal-tools.amend',
+    'jrx-legal-tools.compare',
+    'jrx-legal-tools.forensic',
+    'jrx-legal-tools.graph',
+    'jrx-legal-tools.template',
+    'jrx-legal-tools.timeline',
+    'jrx-legal-tools.trail',
+    'jrx-legal-tools.watch',
+    'jrx-legal-tools.agent-lifecycle',
     // jurisdiction agents
     'jurisdiction.overlay',
     'jurisdiction.sync',
@@ -957,7 +957,7 @@ describe('Orchestration smoke — Shared circuit-breaker policy', () => {
     // smoke.echo is registered in the suite-level beforeAll
     const out = await capabilityManifest.invoke('smoke.echo', { value: 'hello' }, { tier: 'lite', jurisdiction: 'IN' } as any);
     expect((out as any).echoed).toBe('hello');
-    // Round 10d (NYV-CB-RETRY-001): the per-capability breaker is now
+    // Round 10d (JRX-CB-RETRY-001): the per-capability breaker is now
     // registered under the retry-prefixed name so retry-with-backoff and
     // breaker share a single primitive. Either name shape is acceptable.
     expect(cb.listBreakers().some((n) => n === 'cap:smoke.echo' || n === 'retry::cap:smoke.echo')).toBe(true);
@@ -1813,7 +1813,7 @@ describe('Orchestration smoke — Task #34: Safety verdict + audit persistence',
   });
 
   it('Queen manifest dispatch routes a non-leaf capability through audit.safety-verdict', async () => {
-    // Round-trip proof (Task #34 code-review NYV-ORCH-MW-003-CR-2): when
+    // Round-trip proof (Task #34 code-review JRX-ORCH-MW-003-CR-2): when
     // _executeAgentInner dispatches ANY manifest-bound subtask, the safety
     // verdict step MUST run and audit.safety-verdict MUST be invoked. This
     // guards against future regressions that re-introduce a bypass path
@@ -1892,7 +1892,7 @@ describe('Orchestration smoke — Task #34: Safety verdict + audit persistence',
   });
 
   it('Queen manifest dispatch routes a previously-exempt capability (safety.explainability) through audit.safety-verdict', async () => {
-    // Task #34 code-review round 2 NYV-ORCH-MW-003-CR-2: capabilities like
+    // Task #34 code-review round 2 JRX-ORCH-MW-003-CR-2: capabilities like
     // safety.explainability, compliance.consent, metering.usage-log,
     // memory.tiered.recall, rag.search ARE reachable from
     // INTENT_CAPABILITY_MAP and so could become a final user-facing answer
@@ -2446,7 +2446,7 @@ describe('Orchestration smoke — Round 10d: Orphan capability reachability via 
       .map((c) => ({ id: c.id, category: c.category, tags: [...c.tags] }));
 
     const cases: Array<{ hint: string; expected: string[] }> = [
-      { hint: 'template', expected: ['templates.generate', 'templates.catalog', 'nyaya-tools.template'] },
+      { hint: 'template', expected: ['templates.generate', 'templates.catalog', 'jrx-legal-tools.template'] },
       { hint: 'twin', expected: ['digital_twin.simulate', 'twindesk.simulate'] },
       { hint: 'filing', expected: ['efiling.steps', 'e-filing.submit'] },
       { hint: 'playbook', expected: ['clm.playbook', 'workflow.contract-playbook'] },

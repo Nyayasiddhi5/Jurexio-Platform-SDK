@@ -61,7 +61,7 @@ describe('NV-CNR-COURT-TYPE-INFER-001', () => {
 
     /**
      * TSWL is corpus-classified DC despite Telangana association — positions 3–4 are WL not HC.
-     * NYV must not treat TSWL as High Court from prefix alone.
+     * JRX must not treat TSWL as High Court from prefix alone.
      */
     it('documents TSWL tricky case as dc not hc', () => {
       const out = inferCourtTypeFromIdentifier('TSWL000000742024');

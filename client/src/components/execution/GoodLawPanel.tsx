@@ -9,7 +9,7 @@
  * The rendering contract, and why each rule is absolute:
  *
  *  - There is NO affirmative badge, because there is no affirmative verdict.
- *    `good` is unreachable in `nv-citator-treatment.ts` by construction, and a
+ *    `good` is unreachable in `jrx-citator-treatment.ts` by construction, and a
  *    green tick here would be read as a clearance the platform cannot give.
  *  - `unknown` gets its own amber state and the words "not cleared". A grey tick
  *    or a hidden panel reads as "safe" to a scanning eye, which is the failure

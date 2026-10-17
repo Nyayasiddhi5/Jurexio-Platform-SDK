@@ -3,7 +3,7 @@ import crypto from 'crypto';
 
 const logger = createLogger('./jrx-agent-lifecycle');
 
-type AgentState = 'IDLE' | 'PLANNING' | 'EXECUTING' | 'WAITING' | 'PAUSED' | 'ERROR' | 'COMPLETED' | 'TERMINATED';
+type AgentState = 'IDLE' | 'PLANNING' | 'EXECUTING' | 'JRXTING' | 'PAUSED' | 'ERROR' | 'COMPLETED' | 'TERMINATED';
 type JurisdictionCode = 'IN' | 'UK' | 'EU' | 'US' | 'GC' | 'SG';
 
 export interface AgentInstance {
@@ -50,8 +50,8 @@ export interface HealthReport {
 const VALID_TRANSITIONS: Record<AgentState, AgentState[]> = {
   'IDLE': ['PLANNING', 'TERMINATED'],
   'PLANNING': ['EXECUTING', 'PAUSED', 'ERROR', 'TERMINATED'],
-  'EXECUTING': ['WAITING', 'PAUSED', 'COMPLETED', 'ERROR', 'TERMINATED'],
-  'WAITING': ['EXECUTING', 'PAUSED', 'ERROR', 'TERMINATED'],
+  'EXECUTING': ['JRXTING', 'PAUSED', 'COMPLETED', 'ERROR', 'TERMINATED'],
+  'JRXTING': ['EXECUTING', 'PAUSED', 'ERROR', 'TERMINATED'],
   'PAUSED': ['EXECUTING', 'PLANNING', 'TERMINATED'],
   'ERROR': ['PLANNING', 'TERMINATED'],
   'COMPLETED': ['TERMINATED'],
@@ -205,7 +205,7 @@ export class NvAgentLifecycleService {
   getHealthReport(): HealthReport {
     const now = Date.now();
     const byState: Record<AgentState, number> = {
-      IDLE: 0, PLANNING: 0, EXECUTING: 0, WAITING: 0,
+      IDLE: 0, PLANNING: 0, EXECUTING: 0, JRXTING: 0,
       PAUSED: 0, ERROR: 0, COMPLETED: 0, TERMINATED: 0,
     };
     const staleInstances: string[] = [];
@@ -266,7 +266,7 @@ export class NvAgentLifecycleService {
     const recovered: string[] = [];
 
     for (const [id, inst] of this.instances) {
-      if (['EXECUTING', 'WAITING', 'PLANNING'].includes(inst.state)) {
+      if (['EXECUTING', 'JRXTING', 'PLANNING'].includes(inst.state)) {
         if (now - inst.lastActivityAt.getTime() > maxStaleMs) {
           this.transition(id, 'ERROR', 'Stale instance recovered', 'lifecycle-monitor');
           recovered.push(id);

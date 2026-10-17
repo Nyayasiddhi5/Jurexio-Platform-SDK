@@ -16,11 +16,11 @@ import { filterCuratedTools, type CuratedToolDef } from './curated-tools.js';
 import { ToolExecutor } from './executor.js';
 import { AuditLogger } from './audit-log.js';
 
-export interface NyvMcpServerOptions {
+export interface JrxMcpServerOptions {
   config: McpServerConfig;
 }
 
-export function createNyvMcpServer(options: NyvMcpServerOptions): {
+export function createJrxMcpServer(options: JrxMcpServerOptions): {
   server: Server;
   tools: CuratedToolDef[];
   executor: ToolExecutor;
@@ -34,7 +34,7 @@ export function createNyvMcpServer(options: NyvMcpServerOptions): {
 
   const server = new Server(
     {
-      name: 'nyayavigya-mcp-server',
+      name: 'jurexio-mcp-server',
       version: '5.0.0',
     },
     {
@@ -118,13 +118,13 @@ export function createNyvMcpServer(options: NyvMcpServerOptions): {
 }
 
 export async function runStdioServer(config: McpServerConfig): Promise<void> {
-  const { server } = createNyvMcpServer({ config });
+  const { server } = createJrxMcpServer({ config });
   const transport = new StdioServerTransport();
   await server.connect(transport);
 }
 
 export async function runSseServer(config: McpServerConfig): Promise<void> {
-  const { server } = createNyvMcpServer({ config });
+  const { server } = createJrxMcpServer({ config });
   const transports = new Map<string, SSEServerTransport>();
 
   const httpServer = createHttpServer(async (req: IncomingMessage, res: ServerResponse) => {
@@ -164,7 +164,7 @@ export async function runSseServer(config: McpServerConfig): Promise<void> {
   });
 
   process.stderr.write(
-    `[nyayavigya-mcp-server] SSE listening on http://${config.sseHost}:${config.ssePort}/sse (${createNyvMcpServer({ config }).tools.length} tools)\n`,
+    `[jurexio-mcp-server] SSE listening on http://${config.sseHost}:${config.ssePort}/sse (${createJrxMcpServer({ config }).tools.length} tools)\n`,
   );
 }
 

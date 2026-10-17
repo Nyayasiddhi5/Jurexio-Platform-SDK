@@ -1,8 +1,8 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 import { db as rawDb } from '../db/index.js';
 import { requireDb } from '../utils/jrx-type-helpers.js';
-// NYV-NS-005 (2026-05-01): rebind db locally; was ~101 TS18047 errors here.
-// NYV-NS-022 (2026-05-07): lazy Proxy — see nv-orchestration-services.ts.
+// JRX-NS-005 (2026-05-01): rebind db locally; was ~101 TS18047 errors here.
+// JRX-NS-022 (2026-05-07): lazy Proxy — see jrx-orchestration-services.ts.
 const db: NonNullable<typeof rawDb> = new Proxy({} as any, {
   get(_t, prop, receiver) {
     const real = requireDb(rawDb) as any;

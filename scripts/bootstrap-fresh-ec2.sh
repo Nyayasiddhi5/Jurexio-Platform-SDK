@@ -28,12 +28,12 @@ for arg in "$@"; do
 done
 
 REGION="${AWS_REGION:-ap-south-1}"
-ACCOUNT="${NYV_ACCOUNT_ID:-789925699169}"
+ACCOUNT="${JRX_ACCOUNT_ID:-789925699169}"
 ECR_REGISTRY="${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com"
-REPO_DIR="/opt/nyayavigya/repo/nyayavigya-platform-312"
+REPO_DIR="/opt/nyayavigya/repo/Jurexio-Platform-SDK"
 COMPOSE="docker-compose.ecosystem.yml"
 [ "$ENV" = "staging" ] && COMPOSE="docker-compose.staging.yml"
-DATA_DEV="${NYV_DATA_DEV:-/dev/nvme1n1}"   # second EBS volume from Terraform
+DATA_DEV="${JRX_DATA_DEV:-/dev/nvme1n1}"   # second EBS volume from Terraform
 DATA_MOUNT="/opt/nyayavigya/data"
 REPORT="/opt/nyayavigya/logs/bootstrap-report-$(date -u +%Y%m%dT%H%M%SZ).log"
 
@@ -93,7 +93,7 @@ F2B
   sudo systemctl enable --now fail2ban
 
   # unattended-upgrades: security only, auto-reboot Sunday 04:00
-  sudo tee /etc/apt/apt.conf.d/52nyayavigya-auto >/dev/null <<'AUC'
+  sudo tee /etc/apt/apt.conf.d/52jurexio-auto >/dev/null <<'AUC'
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";
 Unattended-Upgrade::Automatic-Reboot "true";
@@ -110,14 +110,14 @@ LOG "[3/8] EBS data disk: $DATA_DEV -> $DATA_MOUNT"
 if [ -b "$DATA_DEV" ]; then
   if ! lsblk -no FSTYPE "$DATA_DEV" | grep -q ext4; then
     LOG "       formatting $DATA_DEV ext4"
-    sudo mkfs.ext4 -F -L nyv-data "$DATA_DEV" >>"$REPORT" 2>&1
+    sudo mkfs.ext4 -F -L jrx-data "$DATA_DEV" >>"$REPORT" 2>&1
   else
     LOG "       $DATA_DEV already ext4 — skipping mkfs"
   fi
   sudo mkdir -p "$DATA_MOUNT"
   if ! mountpoint -q "$DATA_MOUNT"; then sudo mount "$DATA_DEV" "$DATA_MOUNT"; fi
-  if ! grep -q "LABEL=nyv-data" /etc/fstab; then
-    echo "LABEL=nyv-data $DATA_MOUNT ext4 defaults,nofail 0 2" | sudo tee -a /etc/fstab >/dev/null
+  if ! grep -q "LABEL=jrx-data" /etc/fstab; then
+    echo "LABEL=jrx-data $DATA_MOUNT ext4 defaults,nofail 0 2" | sudo tee -a /etc/fstab >/dev/null
     LOG "       added /etc/fstab entry"
   fi
   sudo chown -R "$USER:$USER" "$DATA_MOUNT"
@@ -137,10 +137,10 @@ aws ecr get-login-password --region "$REGION" \
   >>"$REPORT" 2>&1 \
   || DIE "ecr login failed — check IAM instance role + region"
 
-TAG="${NYV_IMAGE_TAG:-latest}"
-[ "$ENV" = "staging" ] && TAG="${NYV_IMAGE_TAG:-staging}"
+TAG="${JRX_IMAGE_TAG:-latest}"
+[ "$ENV" = "staging" ] && TAG="${JRX_IMAGE_TAG:-staging}"
 PULLED=0; SKIPPED=0
-for repo in nyv-gateway nyv-console nyv-nym-app nyv-nsp-app nyv-nsi-app nyv-nsa-app nyv-nsm-app; do
+for repo in jrx-gateway jrx-console jrx-nym-app jrx-nsp-app jrx-nsi-app jrx-nsa-app jrx-nsm-app; do
   if sg docker -c "docker pull $ECR_REGISTRY/$repo:$TAG" >>"$REPORT" 2>&1; then
     PULLED=$((PULLED+1)); LOG "       pulled $repo:$TAG"
   else
@@ -155,12 +155,12 @@ ENV_FILE="$REPO_DIR/.env"
 [ "$ENV" = "staging" ] && ENV_FILE="$REPO_DIR/.env.staging"
 if [ ! -f "$ENV_FILE" ]; then
   cat > "$ENV_FILE" <<EOF
-NYV_ENV=$ENV
+JRX_ENV=$ENV
 AWS_REGION=$REGION
-NYV_SECRETS_BACKEND=aws-secrets-manager
-NYV_SECRETS_PREFIX=nyayavigya/$ENV/gateway
-NYV_IMAGE_TAG=$TAG
-NYV_DATA_DIR=$DATA_MOUNT
+JRX_SECRETS_BACKEND=aws-secrets-manager
+JRX_SECRETS_PREFIX=nyayavigya/$ENV/gateway
+JRX_IMAGE_TAG=$TAG
+JRX_DATA_DIR=$DATA_MOUNT
 EOF
   LOG "       wrote $ENV_FILE"
 else

@@ -1,5 +1,5 @@
 /**
- * NYV Product Config — centralised product identity, emails, and URLs
+ * JRX Product Config — centralised product identity, emails, and URLs
  * ALL product-specific values live here. NEVER hardcode in route/service files.
  *
  * GUARDRAIL: Any new product email, URL, or identity value MUST be added here
@@ -18,22 +18,22 @@ export const NV_PRODUCT = {
 } as const;
 
 export const NV_EMAILS = {
-  support:      process.env.NYV_EMAIL_SUPPORT        || 'support@nyayasiddhi.com',
-  legal:        process.env.NYV_EMAIL_LEGAL           || 'legal@nyayavigya.in',
-  privacy:      process.env.NYV_EMAIL_PRIVACY         || 'privacy@nyayasiddhi.com',
-  dpo:          process.env.NYV_EMAIL_DPO             || 'dpo@nyayasiddhi.com',
-  noreply:      process.env.NYV_EMAIL_NOREPLY         || 'noreply@nyayasiddhi.com',
-  superadmin:   process.env.NYV_SUPERADMIN_EMAIL      || '[PURGED-NV_UAT_EMAIL]',
-  serviceAccount: process.env.NYV_SERVICE_ACCOUNT_EMAIL || 'service@nyayavigya.internal',
+  support:      process.env.JRX_EMAIL_SUPPORT        || 'support@nyayasiddhi.com',
+  legal:        process.env.JRX_EMAIL_LEGAL           || 'legal@jurexio.com',
+  privacy:      process.env.JRX_EMAIL_PRIVACY         || 'privacy@nyayasiddhi.com',
+  dpo:          process.env.JRX_EMAIL_DPO             || 'dpo@nyayasiddhi.com',
+  noreply:      process.env.JRX_EMAIL_NOREPLY         || 'noreply@nyayasiddhi.com',
+  superadmin:   process.env.JRX_SUPERADMIN_EMAIL      || '[PURGED-NV_UAT_EMAIL]',
+  serviceAccount: process.env.JRX_SERVICE_ACCOUNT_EMAIL || 'service@jurexio.comternal',
 } as const;
 
 export const NV_URLS = {
-  app:        process.env.NYV_APP_URL       || 'https://app.nyayasiddhi.com',
-  www:        process.env.NYV_WWW_URL       || 'https://www.nyayasiddhi.com',
-  pricing:    process.env.NYV_PRICING_URL   || 'https://nyayasiddhi.com/pricing',
-  docs:       process.env.NYV_DOCS_URL      || 'https://docs.nyayavigya.in',
-  institutional: process.env.NYV_INST_URL  || 'https://institutional.nyayasiddhi.com',
-  cdn:        process.env.NYV_CDN_URL       || '',
+  app:        process.env.JRX_APP_URL       || 'https://app.nyayasiddhi.com',
+  www:        process.env.JRX_WWW_URL       || 'https://www.nyayasiddhi.com',
+  pricing:    process.env.JRX_PRICING_URL   || 'https://nyayasiddhi.com/pricing',
+  docs:       process.env.JRX_DOCS_URL      || 'https://docs.jurexio.com',
+  institutional: process.env.JRX_INST_URL  || 'https://institutional.nyayasiddhi.com',
+  cdn:        process.env.JRX_CDN_URL       || '',
 } as const;
 
 export const NV_COMPLIANCE = {

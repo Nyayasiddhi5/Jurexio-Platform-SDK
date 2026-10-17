@@ -170,15 +170,15 @@ export const NV_MESSAGE_CATALOG = {
   },
 
   // Platform registry
-  NYV_PLAT_NOT_FOUND: {
-    code: 'NYV-PLAT-404',
+  JRX_PLAT_NOT_FOUND: {
+    code: 'JRX-PLAT-404',
     message: 'Platform not found.',
     httpStatus: 404,
     severity: 'error',
     userTitle: 'Platform not found',
   },
-  NYV_PLAT_VALIDATION: {
-    code: 'NYV-PLAT-VAL-001',
+  JRX_PLAT_VALIDATION: {
+    code: 'JRX-PLAT-VAL-001',
     message: 'Platform configuration is invalid.',
     httpStatus: 400,
     severity: 'warning',

@@ -4,14 +4,14 @@
  */
 
 import type {
-  NyvDocumentUploadResponse,
-  NyvDocumentStatus,
-  NyvDocumentSearchResult,
-  NyvDocumentAnalysis,
-  NyvListResponse,
-  NyvPaginationOptions,
+  JrxDocumentUploadResponse,
+  JrxDocumentStatus,
+  JrxDocumentSearchResult,
+  JrxDocumentAnalysis,
+  JrxListResponse,
+  JrxPaginationOptions,
 } from '../types/index.js';
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export interface DocumentUploadOptions {
   fileName: string;
@@ -43,7 +43,7 @@ export interface DocumentAnalysisOptions {
 }
 
 export class DocumentsApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   /**
    * Upload a document buffer for RAG indexing.
@@ -53,7 +53,7 @@ export class DocumentsApi {
   async upload(
     fileBuffer: Buffer | Uint8Array,
     options: DocumentUploadOptions
-  ): Promise<NyvDocumentUploadResponse> {
+  ): Promise<JrxDocumentUploadResponse> {
     return this.uploadBuffer(fileBuffer, options);
   }
 
@@ -61,7 +61,7 @@ export class DocumentsApi {
   async uploadBuffer(
     fileBuffer: Buffer | Uint8Array,
     options: DocumentUploadOptions
-  ): Promise<NyvDocumentUploadResponse> {
+  ): Promise<JrxDocumentUploadResponse> {
     const fileBase64 = Buffer.from(fileBuffer).toString('base64');
     return this.http.post('/api/jrx/doc-analyze/extract', {
       fileBase64,
@@ -77,7 +77,7 @@ export class DocumentsApi {
   async uploadFormData(
     file: File | Blob,
     options: Omit<DocumentUploadOptions, 'mimeType'>
-  ): Promise<NyvDocumentUploadResponse> {
+  ): Promise<JrxDocumentUploadResponse> {
     const form = new FormData();
     form.append('file', file, options.fileName);
     if (options.tags) form.append('tags', JSON.stringify(options.tags));
@@ -87,7 +87,7 @@ export class DocumentsApi {
   }
 
   /** Poll document indexing status by docId */
-  getStatus(docId: string): Promise<NyvDocumentStatus> {
+  getStatus(docId: string): Promise<JrxDocumentStatus> {
     return this.http.get(`/api/jrx/documents/${docId}/status`);
   }
 
@@ -97,7 +97,7 @@ export class DocumentsApi {
   async waitForCompletion(
     docId: string,
     { intervalMs = 2000, timeoutMs = 120_000 } = {}
-  ): Promise<NyvDocumentStatus> {
+  ): Promise<JrxDocumentStatus> {
     const start = Date.now();
     while (Date.now() - start < timeoutMs) {
       const status = await this.getStatus(docId);
@@ -108,12 +108,12 @@ export class DocumentsApi {
   }
 
   /** Hybrid RAG search across all indexed documents */
-  search(query: string, options: DocumentSearchOptions = {}): Promise<NyvDocumentSearchResult> {
+  search(query: string, options: DocumentSearchOptions = {}): Promise<JrxDocumentSearchResult> {
     return this.http.post('/api/jrx/documents/search', { query, ...options });
   }
 
   /** List all documents for the current user/org */
-  list(pagination: NyvPaginationOptions = {}): Promise<NyvListResponse<{ docId: string; fileName: string; status: string; createdAt: string }>> {
+  list(pagination: JrxPaginationOptions = {}): Promise<JrxListResponse<{ docId: string; fileName: string; status: string; createdAt: string }>> {
     const params = new URLSearchParams();
     if (pagination.page) params.set('page', String(pagination.page));
     if (pagination.pageSize) params.set('pageSize', String(pagination.pageSize));
@@ -129,7 +129,7 @@ export class DocumentsApi {
    * Analyze document text (extract clauses, obligations, risks, summaries).
    * For pure text input — no upload required.
    */
-  analyzeText(text: string, options: DocumentAnalysisOptions = {}): Promise<NyvDocumentAnalysis> {
+  analyzeText(text: string, options: DocumentAnalysisOptions = {}): Promise<JrxDocumentAnalysis> {
     return this.http.post('/api/jrx/doc-analyze/analyze', { text, options });
   }
 
@@ -153,7 +153,7 @@ export class DocumentsApi {
     fileBuffer: Buffer | Uint8Array,
     fileName: string,
     options: DocumentAnalysisOptions = {}
-  ): Promise<NyvDocumentAnalysis & NyvDocumentUploadResponse> {
+  ): Promise<JrxDocumentAnalysis & JrxDocumentUploadResponse> {
     const fileBase64 = Buffer.from(fileBuffer).toString('base64');
     return this.http.post('/api/jrx/doc-analyze/extract-and-analyze', { fileBase64, fileName, options });
   }

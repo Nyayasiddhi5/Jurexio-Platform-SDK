@@ -6,12 +6,12 @@
 //
 // Service classification (per task-101.md step 1):
 //   - maker-checker-service        → admin route only (HITL queue read)
-//   - nv-security-monitor          → admin route only (already mounted as
+//   - jrx-security-monitor          → admin route only (already mounted as
 //                                    middleware via JRX_F_SECURITY_MONITOR
 //                                    in src/index.ts; this barrel adds the
 //                                    static-import edge so the wiring
 //                                    auditor counts it WIRED)
-//   - nv-cost-optimization-suite   → admin route only (cache + budget read)
+//   - jrx-cost-optimization-suite   → admin route only (cache + budget read)
 //   - concurrency-governor         → admin route only (snapshot read)
 //   - org-rate-limiter             → admin /check (read) + /cache/:orgId/
 //                                    invalidate (cache flush — documented
@@ -21,7 +21,7 @@
 //                                    (JRX_F_GOV_ORG_RATELIMIT, default OFF) —
 //                                    architect-final 2026-05-10.
 import { Router, type Request, type Response, type NextFunction } from 'express';
-import { isNyvFeatureOn, type NyvFeatureFlag } from '../../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn, type JrxFeatureFlag } from '../../../config/jrx-feature-flags.js';
 import makerCheckerRouter from './maker-checker-routes.js';
 import securityMonitorRouter from './security-monitor-routes.js';
 import costOptimizerRouter from './cost-optimizer-routes.js';
@@ -38,18 +38,18 @@ router.get('/health', (_req: Request, res: Response) => {
     version: 'v5.0.1',
     uptimeSec: Math.floor(process.uptime()),
     flags: {
-      makerChecker:    isNyvFeatureOn('govMakerChecker'),
-      securityMonitor: isNyvFeatureOn('govSecurityMon'),
-      costOptimizer:   isNyvFeatureOn('govCostOpt'),
-      concurrency:     isNyvFeatureOn('govConcurrency'),
-      orgRatelimit:    isNyvFeatureOn('govOrgRatelimit'),
+      makerChecker:    isJrxFeatureOn('govMakerChecker'),
+      securityMonitor: isJrxFeatureOn('govSecurityMon'),
+      costOptimizer:   isJrxFeatureOn('govCostOpt'),
+      concurrency:     isJrxFeatureOn('govConcurrency'),
+      orgRatelimit:    isJrxFeatureOn('govOrgRatelimit'),
     },
   });
 });
 
-const gate = (flag: NyvFeatureFlag, sub: Router) =>
+const gate = (flag: JrxFeatureFlag, sub: Router) =>
   (req: Request, res: Response, next: NextFunction) =>
-    isNyvFeatureOn(flag) ? sub(req, res, next) : next();
+    isJrxFeatureOn(flag) ? sub(req, res, next) : next();
 
 router.use('/maker-checker',    gate('govMakerChecker',  makerCheckerRouter));
 router.use('/security-monitor', gate('govSecurityMon',   securityMonitorRouter));

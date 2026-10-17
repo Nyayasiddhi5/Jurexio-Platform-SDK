@@ -1,5 +1,5 @@
 /**
- * NYV Console-to-Logger Migration Script
+ * JRX Console-to-Logger Migration Script
  * Replaces all console.* calls with structured logger.* calls in src/ server files.
  *
  * Skips: guardrails/scripts, data/, scripts/ (console is intentional in utilities)
@@ -44,7 +44,7 @@ function getRelativeLoggerPath(filePath) {
 
 function getModuleName(filePath) {
   const name = path.basename(filePath, '.ts');
-  return name.replace(/^nv-/, '').replace(/-/g, '-').slice(0, 32);
+  return name.replace(/^jrx-/, '').replace(/-/g, '-').slice(0, 32);
 }
 
 function hasLoggerImport(content) {

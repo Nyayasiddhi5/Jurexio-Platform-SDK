@@ -37,8 +37,8 @@ import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import {
   Building2, Globe, Activity, AlertTriangle, CheckCircle2,
   RefreshCw, Search, Server, Shield, TrendingUp, Users,
@@ -346,7 +346,7 @@ export default function SuperAdminFederatedTenants() {
             )}
             {tenantsQ.isError && (
               <div data-testid="state-error-tenants">
-                <NyvErrorState
+                <JrxErrorState
                   title="Could not load tenants"
                   error={tenantsQ.error}
                   onRetry={() => tenantsQ.refetch()}
@@ -357,7 +357,7 @@ export default function SuperAdminFederatedTenants() {
             )}
             {tenantsQ.isSuccess && filteredTenants.length === 0 && (
               <div data-testid="state-empty-tenants">
-                <NyvEmptyState
+                <JrxEmptyState
                   icon={Users}
                   title="No tenants match the current filters"
                   description="Adjust the filters above or invite a new tenant."
@@ -435,7 +435,7 @@ export default function SuperAdminFederatedTenants() {
                   )}
                   {usageQ.isError && (
                     <div data-testid="state-error-usage">
-                      <NyvErrorState
+                      <JrxErrorState
                         title="Usage unavailable"
                         error={usageQ.error}
                         onRetry={() => usageQ.refetch()}
@@ -522,7 +522,7 @@ export default function SuperAdminFederatedTenants() {
           )}
           {healthQ.isError && (
             <div data-testid="state-error-health">
-              <NyvErrorState
+              <JrxErrorState
                 title="Health endpoint unavailable"
                 error={healthQ.error}
                 onRetry={() => healthQ.refetch()}

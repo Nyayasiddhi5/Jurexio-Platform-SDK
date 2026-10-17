@@ -74,7 +74,7 @@ const LLM_PROVIDER_STREAM_TIMEOUT_MS = Math.max(10_000, NV_TIMEOUTS.llmProviderS
 
 // NV-LLM-QUARANTINE-001 → NV-LLM-BREAKER-SHARED-001: the process-level
 // quarantine Map has been replaced by the shared, Redis-backed provider gate in
-// `nv-provider-breaker.ts`. That module keeps an in-process mirror, so a Redis
+// `jrx-provider-breaker.ts`. That module keeps an in-process mirror, so a Redis
 // outage degrades to exactly the previous per-pod behaviour, while the streaming
 // path (which used to keep its own per-invocation Set and therefore re-hit
 // providers already known to return 402) now consults the same state.
@@ -129,14 +129,14 @@ async function isProviderAllowed(
 /**
  * NV-LLM-HEDGE-001 — delayed parallel fallback so a slow Bedrock primary does
  * not burn the full provider timeout before Gemini/OmniRoute starts.
- * Set NYV_LLM_HEDGE_MS (e.g. 3000). Default 2500 when unset so slow Bedrock
+ * Set JRX_LLM_HEDGE_MS (e.g. 3000). Default 2500 when unset so slow Bedrock
  * primary does not burn the full attempt budget before cascade/OpenRouter free.
  */
 const LLM_HEDGE_MS = Math.max(
   0,
   Number(
-    process.env.NYV_LLM_HEDGE_MS != null && process.env.NYV_LLM_HEDGE_MS !== ''
-      ? process.env.NYV_LLM_HEDGE_MS
+    process.env.JRX_LLM_HEDGE_MS != null && process.env.JRX_LLM_HEDGE_MS !== ''
+      ? process.env.JRX_LLM_HEDGE_MS
       : 2500,
   ) || 0,
 );
@@ -151,7 +151,7 @@ function resolveGeminiApiKeys(): string[] {
     process.env.GEMINI_API_KEY,
     process.env.GOOGLE_API_KEY,
     process.env.GOOGLE_AI_API_KEY,
-    process.env.NYV_GOOGLE_API_KEY,
+    process.env.JRX_GOOGLE_API_KEY,
   ].filter((k): k is string => !!k && !!String(k).trim());
   const seen = new Set<string>();
   const out: string[] = [];
@@ -337,7 +337,7 @@ function hasJurisdictionGrounding(systemPrompt: string, jurisdiction: Jurisdicti
  *
  * Defect: `messagesForOpenAIStyle` unconditionally prepended
  * `{ role: 'system', content: systemPrompt }` to `input.messages`. Callers on
- * the live specialist path (`nv-client.ts`) already build `messages` with the
+ * the live specialist path (`jrx-client.ts`) already build `messages` with the
  * system prompt as element 0, so OpenAI-style providers received the SAME system
  * prompt twice — once from the prepend and once from the caller's array.
  *
@@ -404,8 +404,8 @@ async function callAnthropicDirect(
    * exists to avoid paying the write premium below the provider's ~1,024-token minimum
    * where no cache entry is created. Unrecognised fields are ignored by the API, so the
    * worst case is no saving rather than a failed call. */
-  const cacheEnabled = String(process.env.NYV_PROMPT_CACHE ?? '1') !== '0';
-  const minChars = Number(process.env.NYV_PROMPT_CACHE_MIN_CHARS || 4000);
+  const cacheEnabled = String(process.env.JRX_PROMPT_CACHE ?? '1') !== '0';
+  const minChars = Number(process.env.JRX_PROMPT_CACHE_MIN_CHARS || 4000);
   const useCache = cacheEnabled && !!systemPrompt && systemPrompt.length >= minChars;
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -636,7 +636,7 @@ async function callOpenRouter(
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${apiKey}`,
-      'HTTP-Referer': 'https://nyayavigya.in',
+      'HTTP-Referer': 'https://jurexio.com',
       'X-Title': 'Jurexio Enterprise Platform 3.1.2',
     },
     body: JSON.stringify(body),
@@ -665,9 +665,9 @@ async function callSarvam(
   temperature: number,
   expectJson: boolean
 ): Promise<ProviderCallResult> {
-  const apiKey = process.env.SARVAM_API_KEY ?? process.env.NYV_SARVAM_API_KEY;
+  const apiKey = process.env.SARVAM_API_KEY ?? process.env.JRX_SARVAM_API_KEY;
   if (!apiKey) throw new Error('SARVAM_API_KEY not set');
-  const baseUrl = process.env.NYV_SARVAM_BASE_URL ?? 'https://api.sarvam.ai';
+  const baseUrl = process.env.JRX_SARVAM_BASE_URL ?? 'https://api.sarvam.ai';
   const body: Record<string, unknown> = {
     model: modelId,
     messages,
@@ -1023,7 +1023,7 @@ async function callModel(
         expectJson,
         timeoutMs: Math.min(
           LLM_PROVIDER_TIMEOUT_MS,
-          Math.max(5_000, Number(process.env.NYV_OMNIROUTE_TIMEOUT_MS) || 12_000),
+          Math.max(5_000, Number(process.env.JRX_OMNIROUTE_TIMEOUT_MS) || 12_000),
         ),
         budgetUsd: routing?.maxCostUsd,
         platformTag: routing?.app || requestId,
@@ -1099,7 +1099,7 @@ function resolveMasterDeadlineMs(input: OrchestrationInput, attemptTier: LlmAtte
     || isPartnerLegalQualityTask(input.routing?.taskKind)
     || (input.maxTokens ?? 0) >= 4_000);
   if (!needsExtended) return configured;
-  const envPartner = Number(process.env.NYV_LLM_PARTNER_DRAFT_TIMEOUT_MS);
+  const envPartner = Number(process.env.JRX_LLM_PARTNER_DRAFT_TIMEOUT_MS);
   const partnerFloor = Number.isFinite(envPartner) && envPartner >= 60_000 ? envPartner : 0;
   const deepFloor = Math.max(NV_TASK_TIER_TIMEOUTS.deep * 2, partnerFloor);
   return Math.max(configured, deepFloor);
@@ -1109,7 +1109,7 @@ function resolveMasterDeadlineMs(input: OrchestrationInput, attemptTier: LlmAtte
 function effectiveMaxTokensForModel(model: ModelEntry, requested: number): number {
   let cap = model.maxOutput > 0 ? model.maxOutput : requested;
   if (model.provider === 'sarvam') {
-    const sarvamCap = Number(process.env.NYV_SARVAM_MAX_OUTPUT_TOKENS);
+    const sarvamCap = Number(process.env.JRX_SARVAM_MAX_OUTPUT_TOKENS);
     cap = Number.isFinite(sarvamCap) && sarvamCap > 0 ? sarvamCap : 4_096;
   }
   return Math.max(1, Math.min(requested, cap));
@@ -1680,7 +1680,7 @@ export async function orchestrateLLM(input: OrchestrationInput): Promise<Orchest
   });
   return {
     content: finalContent,
-    model: 'nyv-never-empty-fallback',
+    model: 'jrx-never-empty-fallback',
     provider: 'simulation',
     tokensIn: 0,
     tokensOut: Math.ceil(finalContent.length / 4),
@@ -1980,7 +1980,7 @@ async function* streamFromModel(
       yield* streamOpenAICompat(
         'https://openrouter.ai/api/v1/chat/completions',
         apiKey, model.id, messages, maxTokens, temperature, expectJson,
-        { 'HTTP-Referer': 'https://nyayavigya.in', 'X-Title': 'Jurexio Enterprise Platform 3.1.2' },
+        { 'HTTP-Referer': 'https://jurexio.com', 'X-Title': 'Jurexio Enterprise Platform 3.1.2' },
         usageSink
       );
       return;
@@ -1989,9 +1989,9 @@ async function* streamFromModel(
       yield* streamGoogle(model.id, systemPrompt, messages, maxTokens, temperature, usageSink);
       return;
     case 'sarvam': {
-      const apiKey = process.env.SARVAM_API_KEY ?? process.env.NYV_SARVAM_API_KEY;
+      const apiKey = process.env.SARVAM_API_KEY ?? process.env.JRX_SARVAM_API_KEY;
       if (!apiKey) throw new Error('SARVAM_API_KEY not set');
-      const baseUrl = process.env.NYV_SARVAM_BASE_URL ?? 'https://api.sarvam.ai';
+      const baseUrl = process.env.JRX_SARVAM_BASE_URL ?? 'https://api.sarvam.ai';
       // Sarvam-M chat-completions is OpenAI-SSE-compatible.
       yield* streamOpenAICompat(
         `${baseUrl}/v1/chat/completions`,

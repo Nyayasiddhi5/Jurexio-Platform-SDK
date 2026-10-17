@@ -3,7 +3,7 @@
  * "Book of Filing, Drafting & Legal Notices" (TN/Madras practitioner manual).
  *
  * NV-EXECUTE-BEFORE-CLAIM-001 / joint-plan §Honesty: the filing-book manifest
- * rows added to `nv-filing-checklist-registry.ts` must be *grounded* in the book,
+ * rows added to `jrx-filing-checklist-registry.ts` must be *grounded* in the book,
  * not invented. This script reads the OCR'd text (path via argv or
  * `FILING_BOOK_TEXT`) and locates each model form / statutory notice heading,
  * emitting the line number that becomes the manifest `bookSection` id.

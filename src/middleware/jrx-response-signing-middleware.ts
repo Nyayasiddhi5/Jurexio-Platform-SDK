@@ -6,8 +6,8 @@ const logger = createLogger('./jrx-response-signing');
 
 const SECRET_ENV_VARS = [
   'NV_SDK_RESPONSE_SECRET',
-  'NYV_SDK_RESPONSE_SECRET',
-  'NYV_NSP_RESPONSE_SECRET',
+  'JRX_SDK_RESPONSE_SECRET',
+  'JRX_NSP_RESPONSE_SECRET',
   'NV_NSP_RESPONSE_SECRET',
 ] as const;
 
@@ -27,7 +27,7 @@ function isNspOriginated(req: Request): boolean {
   if (req.headers['x-nsp-tier']) return true;
   if (req.headers['x-nsp-org']) return true;
   const origin = (req.headers.origin || '') as string;
-  return /(^|\.)(nyayasiddhi|nyv|nyayamitra)\.(online|com|in)/i.test(origin);
+  return /(^|\.)(nyayasiddhi|nyv|jurexio-citizen)\.(online|com|in)/i.test(origin);
 }
 
 export function nvResponseSigningMiddleware(req: Request, res: Response, next: NextFunction): void {
@@ -60,8 +60,8 @@ export function nvResponseSigningMiddleware(req: Request, res: Response, next: N
 
   const markStreaming = (): void => {
     if (streaming || signed || res.headersSent) return;
-    res.setHeader('X-NYV-Streaming', '1');
-    res.setHeader('X-NYV-Signature-Algorithm', 'streaming-no-signature');
+    res.setHeader('X-JRX-Streaming', '1');
+    res.setHeader('X-JRX-Signature-Algorithm', 'streaming-no-signature');
     streaming = true;
   };
 
@@ -69,9 +69,9 @@ export function nvResponseSigningMiddleware(req: Request, res: Response, next: N
     if (signed || streaming || res.headersSent) return;
     const ts = new Date().toISOString();
     const sig = 'sha256=' + createHmac('sha256', secret).update(`${ts}.${bodyString}`).digest('hex');
-    res.setHeader('X-NYV-Signature', sig);
-    res.setHeader('X-NYV-Timestamp', ts);
-    res.setHeader('X-NYV-Signature-Algorithm', 'sha256-ts-body');
+    res.setHeader('X-JRX-Signature', sig);
+    res.setHeader('X-JRX-Timestamp', ts);
+    res.setHeader('X-JRX-Signature-Algorithm', 'sha256-ts-body');
     signed = true;
   };
 
@@ -108,7 +108,7 @@ export function nvResponseSigningMiddleware(req: Request, res: Response, next: N
 
   // Streaming detection: any direct call to res.write() (SSE / NDJSON / chunked
   // transfer) means the full body cannot be HMAC'd without buffering all chunks
-  // in memory. Mark the response as deliberately unsigned via X-NYV-Streaming
+  // in memory. Mark the response as deliberately unsigned via X-JRX-Streaming
   // so NSP's guard can branch on intent rather than accidental absence.
   (res as any).write = function (chunk: any, encoding?: any, cb?: any): boolean {
     try {

@@ -167,7 +167,7 @@ export function platformFromAppType(appType?: string): string {
     nsa: 'NSA',
     nsm: 'NSM',
     jrx: 'JRX',
-    nyv: 'NYV',
+    nyv: 'JRX',
   };
   return map[(appType || '').toLowerCase()] || (appType || 'NSP').toUpperCase();
 }

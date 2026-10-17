@@ -1,5 +1,5 @@
 /**
- * Orchestration Middleware (NYV-ORCH-MW-001).
+ * Orchestration Middleware (JRX-ORCH-MW-001).
  *
  * Pre/post ring applied to every Queen plan.
  *   PRE  : memory recall → RAG enrich
@@ -15,7 +15,7 @@ import { AsyncLocalStorage } from 'node:async_hooks';
 import { capabilityManifest, type CapabilityContext, type CapabilityTier } from './capability-manifest.js';
 import { fanInMemoryRecall, type MemoryRecallSource } from './jrx-memory-fan-in.js';
 import { createLogger } from '../utils/logger.js';
-import { withSpan } from '../utils/nyv-tracer.js';
+import { withSpan } from '../utils/jrx-tracer.js';
 
 const logger = createLogger('orchestration-middleware');
 
@@ -33,8 +33,8 @@ const logger = createLogger('orchestration-middleware');
  * measurement; these spans turn the same number into a directly reported
  * `durationMs`.
  *
- * Deliberately reuses `withSpan` from `utils/nyv-tracer.js` — the SAME helper
- * `nv-queen-orchestrator` already uses for `queen.orchestrate` / `queen.agent`
+ * Deliberately reuses `withSpan` from `utils/jrx-tracer.js` — the SAME helper
+ * `jrx-queen-orchestrator` already uses for `queen.orchestrate` / `queen.agent`
  * — rather than adding a second timing mechanism (NV-NO-DUPLICATE-001). Spans
  * auto-parent to the ambient ALS span, so a leaf's ring stages nest under its
  * `queen.agent` span for free and `spanLatenciesByTag` aggregates them without
@@ -49,7 +49,7 @@ const logger = createLogger('orchestration-middleware');
 const MW_SPAN_OP = 'queen.mw';
 
 /**
- * NYV-ORCH-MW-003 (Task #34): recursion guard for the safety ring.
+ * JRX-ORCH-MW-003 (Task #34): recursion guard for the safety ring.
  *
  * `withMiddleware` is the single source of truth for "user-facing answer".
  * Queen ALWAYS wraps its dispatches with it — there is NO capability-id
@@ -390,7 +390,7 @@ export async function postMiddleware(input: PostInput): Promise<PostContext> {
           input.ctx,
         );
         tokenized.push({ piiType: m.type, token: r });
-        // NYV-ORCH-MW-003 (Task #34): only count this match as "tokenized"
+        // JRX-ORCH-MW-003 (Task #34): only count this match as "tokenized"
         // when the vault actually returned a token (not a null/failed
         // tokenization). The verdict step uses the (matched - tokenized)
         // gap to detect un-vaulted PII and reject the answer in PROD.
@@ -433,7 +433,7 @@ export async function postMiddleware(input: PostInput): Promise<PostContext> {
     }
   }
 
-  // 6. Governance / model policy. NYV-ORCH-MW-002 (round 10c): runs uniformly
+  // 6. Governance / model policy. JRX-ORCH-MW-002 (round 10c): runs uniformly
   // when EITHER model or provider is present. The capability itself fails
   // loud with a structured error if both are not supplied — middleware
   // no longer silently skips governance just because metadata is partial.
@@ -512,7 +512,7 @@ export async function postMiddleware(input: PostInput): Promise<PostContext> {
     }
   }
 
-  // 10. Safety verdict aggregation + persistence (Task #34 — NYV-ORCH-MW-003).
+  // 10. Safety verdict aggregation + persistence (Task #34 — JRX-ORCH-MW-003).
   // Computes a single pass/review/reject verdict from the safety stages so
   // the audit log carries one canonical decision per answer (not just raw
   // signals). When NV_SAFETY_VERDICT_MODE='enforce' (default in PROD), a
@@ -808,7 +808,7 @@ export async function withMiddleware(
   input: MiddlewareInput,
   exec: (pre: PreContext) => Promise<{ output: string; tokens?: { input: number; output: number }; model?: string; provider?: string; costUsd?: number }>,
 ): Promise<{ output: string; pre: PreContext; post: PostContext }> {
-  // NYV-ORCH-MW-003 (Task #34): if we're already inside a withMiddleware
+  // JRX-ORCH-MW-003 (Task #34): if we're already inside a withMiddleware
   // frame on this async chain, treat this as a no-op pass-through. This
   // is the recursion guard that lets Queen safely wrap EVERY dispatch
   // (including capabilities like safety.* / audit.* that postMiddleware

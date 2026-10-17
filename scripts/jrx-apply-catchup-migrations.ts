@@ -2,9 +2,9 @@
  * Apply idempotent SQL catch-up migrations (public + legal-doc domain).
  *
  * Usage:
- *   cd nyayavigya-platform-312 && npx tsx scripts/jrx-apply-catchup-migrations.ts
+ *   cd Jurexio-Platform-SDK && npx tsx scripts/jrx-apply-catchup-migrations.ts
  *
- * R-SCHEMA-B: nv_schema parity is still deferred unless NYV_DRIFT_STRICT_NV_SCHEMA=1.
+ * R-SCHEMA-B: nv_schema parity is still deferred unless JRX_DRIFT_STRICT_NV_SCHEMA=1.
  * This script provisions public-schema tables referenced by the gateway boot path
  * (ns_parsed_documents, legal_chat_*, etc.) without requiring drizzle-kit push.
  */
@@ -20,9 +20,9 @@ const CATCHUP_FILES = [
 ] as const;
 
 async function main(): Promise<void> {
-  const url = process.env.DATABASE_URL || process.env.NYV_DATABASE_URL;
+  const url = process.env.DATABASE_URL || process.env.JRX_DATABASE_URL;
   if (!url) {
-    console.error('[catchup] DATABASE_URL or NYV_DATABASE_URL required');
+    console.error('[catchup] DATABASE_URL or JRX_DATABASE_URL required');
     process.exit(1);
   }
 
@@ -47,10 +47,10 @@ async function main(): Promise<void> {
       console.log(`[catchup] ${present.has(t) ? '✓' : '✗'} public.${t}`);
     }
 
-    if (process.env.NYV_DRIFT_STRICT_NV_SCHEMA === '1') {
-      console.log('[catchup] NYV_DRIFT_STRICT_NV_SCHEMA=1 — run npm run guardrail:schema-drift after nv_schema DDL lands');
+    if (process.env.JRX_DRIFT_STRICT_NV_SCHEMA === '1') {
+      console.log('[catchup] JRX_DRIFT_STRICT_NV_SCHEMA=1 — run npm run guardrail:schema-drift after nv_schema DDL lands');
     } else {
-      console.log('[catchup] R-SCHEMA-B: nv_schema strict parity deferred (set NYV_DRIFT_STRICT_NV_SCHEMA=1 when ready)');
+      console.log('[catchup] R-SCHEMA-B: nv_schema strict parity deferred (set JRX_DRIFT_STRICT_NV_SCHEMA=1 when ready)');
     }
   } finally {
     await pool.end();

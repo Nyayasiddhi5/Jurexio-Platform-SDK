@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # GO embed accelerate deploy — stall-detector fix, full-speed resume, peak suspend, coverage API.
-# Usage: cd nyayavigya-platform-312 && npm run protect:secrets:ec2 && bash scripts/_nys-embed-accelerate-deploy.sh
+# Usage: cd Jurexio-Platform-SDK && npm run protect:secrets:ec2 && bash scripts/_nys-embed-accelerate-deploy.sh
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"

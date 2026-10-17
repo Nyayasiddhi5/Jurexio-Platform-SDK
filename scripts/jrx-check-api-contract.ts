@@ -1,6 +1,6 @@
 /**
- * nv-check-api-contract.ts
- * NYV-API-CONTRACT-001 (2026-05-10)
+ * jrx-check-api-contract.ts
+ * JRX-API-CONTRACT-001 (2026-05-10)
  *
  * Backward-compatibility guardrail for the published HTTP API.
  *
@@ -8,7 +8,7 @@
  *   1. Regenerates the current OpenAPI snapshot in-memory using the same
  *      static walker as `scripts/generate-openapi-spec.ts`.
  *   2. Diffs the live (method, path) set against the committed baseline at
- *      `docs/openapi/nyayavigya-v5.openapi.json`.
+ *      `docs/openapi/jurexio-v5.openapi.json`.
  *   3. FAILS (exit 1) if ANY (method, path) present in the baseline is
  *      missing from current — that is a breaking change for live SDK clients.
  *   4. PASSES on additions — backward-compatible by design.
@@ -19,7 +19,7 @@
  *   2. Commit the new baseline in the SAME PR as the route removal, with a
  *      changelog entry referencing the version-bump.
  *
- * This is the third nv-check guardrail (joins auth-header + script-db).
+ * This is the third jrx-check guardrail (joins auth-header + script-db).
  * Run via: npm run guardrail:api-contract
  */
 
@@ -30,7 +30,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
-const BASELINE = path.join(ROOT, 'docs', 'openapi', 'nyayavigya-v5.openapi.json');
+const BASELINE = path.join(ROOT, 'docs', 'openapi', 'jurexio-v5.openapi.json');
 
 interface OpenAPIDoc {
   paths?: Record<string, Record<string, unknown>>;
@@ -49,7 +49,7 @@ function loadBaseline(): OpenAPIDoc {
 function regenerateLive(): OpenAPIDoc {
   // Run the existing generator into a tmp file so we don't clobber the
   // committed baseline during a check. The generator always writes to
-  // docs/openapi/nyayavigya-v5.openapi.json, so we snapshot+restore.
+  // docs/openapi/jurexio-v5.openapi.json, so we snapshot+restore.
   const backup = fs.readFileSync(BASELINE);
   try {
     execFileSync('npx', ['tsx', path.join(ROOT, 'scripts', 'generate-openapi-spec.ts')], {

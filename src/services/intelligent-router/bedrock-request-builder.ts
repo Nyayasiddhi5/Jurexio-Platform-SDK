@@ -170,7 +170,7 @@ export function buildBedrockRequest(
       /claude-opus-4/i.test(familyId) ||
       /claude-opus-5/i.test(familyId) ||
       isClaude55BedrockModelId(familyId) ||
-      process.env.NYV_BEDROCK_OMIT_TEMPERATURE === '1';
+      process.env.JRX_BEDROCK_OMIT_TEMPERATURE === '1';
 
     /* NV-PROMPT-CACHE-001 — mark the system prompt as a cacheable prefix.
      *
@@ -192,10 +192,10 @@ export function buildBedrockRequest(
      * silently not created and we would just pay the 1.25x premium. 4,000 chars ≈ 1,000
      * tokens is the conservative floor.
      *
-     * Default ON, with `NYV_PROMPT_CACHE=0` as the escape hatch: a provider that ignores
+     * Default ON, with `JRX_PROMPT_CACHE=0` as the escape hatch: a provider that ignores
      * `cache_control` simply drops the field, so the failure mode is "no saving", never a
      * broken request. */
-    const cacheEnabled = String(process.env.NYV_PROMPT_CACHE ?? '1') !== '0';
+    const cacheEnabled = String(process.env.JRX_PROMPT_CACHE ?? '1') !== '0';
     const MIN_CACHEABLE_CHARS = resolvePromptCacheMinCharsForModel(modelId);
     const useCache = cacheEnabled && !!systemPrompt && systemPrompt.length >= MIN_CACHEABLE_CHARS;
 
@@ -214,17 +214,17 @@ export function buildBedrockRequest(
     }
     // NV-BEDROCK-CLAUDE55-001 — Haiku 5.5 defaults adaptive thinking ON; disable on `-fast` SLA path.
     if (isClaude55HaikuModelId(familyId) && isBedrockHaiku55FastEnabled()) {
-      const thinkingOn = String(process.env.NYV_BEDROCK_HAIKU55_THINKING ?? '0') === '1';
+      const thinkingOn = String(process.env.JRX_BEDROCK_HAIKU55_THINKING ?? '0') === '1';
       if (!thinkingOn) {
         body.thinking = { type: 'disabled' };
       }
-      const effort = String(process.env.NYV_BEDROCK_HAIKU55_EFFORT ?? 'low').trim();
+      const effort = String(process.env.JRX_BEDROCK_HAIKU55_EFFORT ?? 'low').trim();
       if (effort) {
         body.output_config = { effort };
       }
     }
     if (
-      String(process.env.NYV_BEDROCK_BATCH_FLEX ?? '0') === '1'
+      String(process.env.JRX_BEDROCK_BATCH_FLEX ?? '0') === '1'
       && isClaude55BedrockModelId(familyId)
     ) {
       body.service_tier = 'flex';

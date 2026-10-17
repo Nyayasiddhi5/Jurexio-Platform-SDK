@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Re-apply Jurexio-only files after nyayavigya export (NYV repo is read-only upstream).
+# Re-apply Jurexio-only files after nyayavigya export (JRX repo is read-only upstream).
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PATCH="$ROOT/patches/jurexio"

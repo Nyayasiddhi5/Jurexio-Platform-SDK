@@ -35,8 +35,8 @@ export class GatewayMcpClient {
       'Content-Type': 'application/json',
       'X-API-Key': this.apiKey,
       Authorization: `Bearer ${this.apiKey}`,
-      'X-NYV-SDK-Version': '5.0.0',
-      'X-NYV-Platform': 'mcp-server',
+      'X-JRX-SDK-Version': '5.0.0',
+      'X-JRX-Platform': 'mcp-server',
     };
   }
 

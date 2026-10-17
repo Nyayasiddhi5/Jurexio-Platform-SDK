@@ -132,7 +132,7 @@ export async function ensureNvSchemaTables(db: {
           warnedMissing = true;
           logger.warn('nv_schema_tables_missing_need_admin_migration', {
             missing: stillMissing,
-            hint: 'Apply migrations/2026-06-29-nv-maker-checker-sessions.sql via DATABASE_URL_ADMIN',
+            hint: 'Apply migrations/2026-06-29-jrx-maker-checker-sessions.sql via DATABASE_URL_ADMIN',
           });
         }
         return false;

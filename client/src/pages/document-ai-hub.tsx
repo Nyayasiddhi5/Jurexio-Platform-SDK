@@ -16,7 +16,7 @@ import {
   nvAsArray, nvAsObject, nvHealthStatus, nvJurisdictionsFromStatutesSummary,
   NV_JURISDICTION_META,
 } from '@/lib/jrx-console-data';
-import { NyvPageShell } from '@/components/NyvPageShell';
+import { JrxPageShell } from '@/components/JrxPageShell';
 
 const PIPELINE_STEPS = [
   { id: 'ingest', label: 'Ingest', desc: 'Upload PDFs, scans, or bulk batches', path: '/bulk-doc-upload', icon: Upload },
@@ -90,7 +90,7 @@ export default function DocumentAiHub() {
     ?? NV_JURISDICTION_META.find(j => j.code === jurisdiction)!;
 
   return (
-    <NyvPageShell
+    <JrxPageShell
       testId="page-document-ai-hub"
       title="Document AI Hub"
       description="End-to-end document intelligence — ingest, extract, statute linkage, summarize, embed, and compliance."
@@ -227,6 +227,6 @@ export default function DocumentAiHub() {
           ))}
         </div>
       </div>
-    </NyvPageShell>
+    </JrxPageShell>
   );
 }

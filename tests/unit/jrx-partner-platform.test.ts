@@ -1,13 +1,13 @@
 /**
- * NV-PARTNER-INDIA-SCOPE + NYV-dependent Queen depth unit tests.
+ * NV-PARTNER-INDIA-SCOPE + JRX-dependent Queen depth unit tests.
  */
 import { describe, it, expect } from 'vitest';
 import type { Request } from 'express';
 import {
   INDIA_ONLY_PARTNER_CODES,
-  NYV_DEPENDENT_PLATFORM_CODES,
+  JRX_DEPENDENT_PLATFORM_CODES,
   isIndiaOnlyPartner,
-  isNyvDependentPlatform,
+  isJrxDependentPlatform,
   isNspOrNymPartner,
   resolvePartnerPlatformCode,
   resolvePartnerMemoryUserId,
@@ -76,27 +76,27 @@ describe('./jrx-partner-platform India-only', () => {
   });
 });
 
-describe('NYV-dependent full Queen depth', () => {
-  it('marks NSP/NYM/NSI as NYV-dependent; JRX is not', () => {
-    expect(NYV_DEPENDENT_PLATFORM_CODES.has('NSP')).toBe(true);
-    expect(isNyvDependentPlatform(fakeReq({ platformUatLabel: 'NSP' }))).toBe(true);
-    expect(isNyvDependentPlatform(fakeReq({ platformUatLabel: 'NSI' }))).toBe(true);
-    expect(isNyvDependentPlatform(fakeReq({ platformUatLabel: 'JRX' }))).toBe(false);
+describe('JRX-dependent full Queen depth', () => {
+  it('marks NSP/NYM/NSI as JRX-dependent; JRX is not', () => {
+    expect(JRX_DEPENDENT_PLATFORM_CODES.has('NSP')).toBe(true);
+    expect(isJrxDependentPlatform(fakeReq({ platformUatLabel: 'NSP' }))).toBe(true);
+    expect(isJrxDependentPlatform(fakeReq({ platformUatLabel: 'NSI' }))).toBe(true);
+    expect(isJrxDependentPlatform(fakeReq({ platformUatLabel: 'JRX' }))).toBe(false);
   });
 
-  it('partnerSyncLean ignored for ecosystem best-outcome unless NYV_ALLOW_NSP_NYM_LEAN=1', () => {
+  it('partnerSyncLean ignored for ecosystem best-outcome unless JRX_ALLOW_NSP_NYM_LEAN=1', () => {
     const leanNsi = fakeReq(
       { platformUatLabel: 'NSI' },
       { body: { partnerSyncLean: true }, headers: {} },
     );
     expect(wantsPartnerSyncLean(leanNsi, { explicitAgentKey: 'clause-extractor', taskType: 'extract' })).toBe(false);
-    const prev = process.env.NYV_ALLOW_NSP_NYM_LEAN;
-    process.env.NYV_ALLOW_NSP_NYM_LEAN = '1';
+    const prev = process.env.JRX_ALLOW_NSP_NYM_LEAN;
+    process.env.JRX_ALLOW_NSP_NYM_LEAN = '1';
     try {
       expect(wantsPartnerSyncLean(leanNsi, { explicitAgentKey: 'clause-extractor', taskType: 'extract' })).toBe(true);
     } finally {
-      if (prev === undefined) delete process.env.NYV_ALLOW_NSP_NYM_LEAN;
-      else process.env.NYV_ALLOW_NSP_NYM_LEAN = prev;
+      if (prev === undefined) delete process.env.JRX_ALLOW_NSP_NYM_LEAN;
+      else process.env.JRX_ALLOW_NSP_NYM_LEAN = prev;
     }
     // JRX is not ecosystem-best-outcome — lean still works when opted in
     const leanJrx = fakeReq(
@@ -244,9 +244,9 @@ describe('NYV-dependent full Queen depth', () => {
     }
   });
 
-  it('NYV_NSP_COUNSEL_QUEEN=0 restores grounded-fast (RAG on, CoT off)', () => {
-    const prev = process.env.NYV_NSP_COUNSEL_QUEEN;
-    process.env.NYV_NSP_COUNSEL_QUEEN = '0';
+  it('JRX_NSP_COUNSEL_QUEEN=0 restores grounded-fast (RAG on, CoT off)', () => {
+    const prev = process.env.JRX_NSP_COUNSEL_QUEEN;
+    process.env.JRX_NSP_COUNSEL_QUEEN = '0';
     try {
       const chat = fakeReq(
         { platformUatLabel: 'NSP' },
@@ -262,8 +262,8 @@ describe('NYV-dependent full Queen depth', () => {
       expect(q.enableRAG).toBe(false);
       expect(q.enableCoT).toBe(false);
     } finally {
-      if (prev === undefined) delete process.env.NYV_NSP_COUNSEL_QUEEN;
-      else process.env.NYV_NSP_COUNSEL_QUEEN = prev;
+      if (prev === undefined) delete process.env.JRX_NSP_COUNSEL_QUEEN;
+      else process.env.JRX_NSP_COUNSEL_QUEEN = prev;
     }
   });
 
@@ -298,35 +298,35 @@ describe('NYV-dependent full Queen depth', () => {
     const extractReq = fakeReq({ platformUatLabel: 'NSP' }, { body: { taskType: 'extract' } });
     expect(mod.applyPartnerMaxTokensFloor(extractReq, undefined)).toBeLessThanOrEqual(2_048);
     expect(mod.resolvePartnerServingProfile(nsp).effectiveTier).toBe('enterprise');
-    const prev = process.env.NYV_PARTNER_DEMO_UNLIMITED;
-    process.env.NYV_PARTNER_DEMO_UNLIMITED = '0';
+    const prev = process.env.JRX_PARTNER_DEMO_UNLIMITED;
+    process.env.JRX_PARTNER_DEMO_UNLIMITED = '0';
     try {
       // NSP unlimited remains ON even when partner demo flag is off
       expect(mod.wantsPartnerDemoUnlimited(nsp)).toBe(true);
       expect(mod.wantsNspUnlimited(nsp)).toBe(true);
     } finally {
-      if (prev === undefined) delete process.env.NYV_PARTNER_DEMO_UNLIMITED;
-      else process.env.NYV_PARTNER_DEMO_UNLIMITED = prev;
+      if (prev === undefined) delete process.env.JRX_PARTNER_DEMO_UNLIMITED;
+      else process.env.JRX_PARTNER_DEMO_UNLIMITED = prev;
     }
   });
 
-  it('NSP unlimited via X-NYV-Platform header (any user key)', async () => {
+  it('NSP unlimited via X-JRX-Platform header (any user key)', async () => {
     const mod = await import('../../src/utils/jrx-partner-platform.js');
     const req = {
-      headers: { 'x-nyv-platform': 'nsp' },
+      headers: { 'x-jrx-platform': 'nsp' },
       body: {},
       sdkContext: undefined,
     } as any;
     expect(mod.isNspPlatformRequest(req)).toBe(true);
     expect(mod.wantsNspUnlimited(req)).toBe(true);
     expect(mod.shouldSkipPartnerProductRateLimits(req)).toBe(true);
-    const prev = process.env.NYV_NSP_UNLIMITED;
-    process.env.NYV_NSP_UNLIMITED = '0';
+    const prev = process.env.JRX_NSP_UNLIMITED;
+    process.env.JRX_NSP_UNLIMITED = '0';
     try {
       expect(mod.wantsNspUnlimited(req)).toBe(false);
     } finally {
-      if (prev === undefined) delete process.env.NYV_NSP_UNLIMITED;
-      else process.env.NYV_NSP_UNLIMITED = prev;
+      if (prev === undefined) delete process.env.JRX_NSP_UNLIMITED;
+      else process.env.JRX_NSP_UNLIMITED = prev;
     }
   });
 });
@@ -371,7 +371,7 @@ describe('multitenant storage keys', () => {
   it('rejects cross-tenant keys', () => {
     expect(() =>
       assertKeyWithinTenant('orgs/99/nym/users/u/documents/d/f.pdf', { orgId: 42, platform: 'NSP' }),
-    ).toThrow(/NYV-MT-002/);
+    ).toThrow(/JRX-MT-002/);
   });
 });
 
@@ -398,7 +398,7 @@ describe('NV-MEM-PARTNER-USER-001 resolvePartnerMemoryUserId', () => {
       { platformUatLabel: 'NSP' },
       {
         body: { taskType: 'legal-chat-fast', enableMemory: true },
-        headers: { 'x-nyv-user-id': '88421' },
+        headers: { 'x-jrx-user-id': '88421' },
       },
     );
     const turnB = fakeReq(
@@ -476,7 +476,7 @@ describe('R-DRAFT-NSP-QUALITY P2/P3 transactional counsel routing', () => {
           options: { draftLength: 'comprehensive' },
           parameters: { documentType: 'legal_notice' },
         },
-        headers: { 'x-nyv-platform': 'NSP' },
+        headers: { 'x-jrx-platform': 'NSP' },
       },
     );
     applyPartnerDraftDocumentTypeInference(req, 'legal-draft');

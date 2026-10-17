@@ -8,7 +8,7 @@ import {
   providerKeyRequirement,
   pickSequence,
 } from '../services/intelligent-router/index.js';
-import { ALLOWED_PROVIDERS } from '../config/nyv-allowed-providers.js';
+import { ALLOWED_PROVIDERS } from '../config/jrx-allowed-providers.js';
 import { getStep0Counters } from '../orchestration/jrx-completion-driven.js';
 import { getPersistentLogStats } from '../services/intelligent-router/router-stats.js';
 import { pool } from '../db/index.js';

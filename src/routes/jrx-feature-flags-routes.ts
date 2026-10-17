@@ -1,16 +1,16 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
- * NYV Feature Flag Routes
+ * JRX Feature Flag Routes
  * /api/jrx/flags/*
  * ─────────────────────────────────────────────────────────────────────────────
  * Full CRUD REST API for feature flag management.
  * Includes kill switch, A/B testing, and per-tenant flag evaluation.
  *
- * @module nv-feature-flags-routes
+ * @module jrx-feature-flags-routes
  */
 
 import { Router, Request, Response } from 'express';
-import { featureFlagManager, FlagEvalContext, FlagPlatform, JurisdictionCode } from '../services/nyv-feature-flag-manager.js';
+import { featureFlagManager, FlagEvalContext, FlagPlatform, JurisdictionCode } from '../services/jrx-feature-flag-manager.js';
 import { authenticateToken, requireRole } from '../middleware/jrx-auth.js';
 import { createLogger } from '../utils/logger.js';
 import { sendApiError, safeError } from '../utils/jrx-api-error.js';

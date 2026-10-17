@@ -3,17 +3,17 @@
  *
  * Authority sources: US Code (uscode.house.gov / govinfo) for statutes and
  * CourtListener for case-law. Live lookup gated by JRX_F_CITATION_LIVE_US
- * (+ optional NYV_COURTLISTENER_API_BASE / NYV_COURTLISTENER_TOKEN).
+ * (+ optional JRX_COURTLISTENER_API_BASE / JRX_COURTLISTENER_TOKEN).
  */
 
-import { isNyvFeatureOn } from '../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../../config/jrx-feature-flags.js';
 import {
   BaseAuthorityAdapter,
   authorityFetch,
   type AuthorityCitationCandidate,
 } from './jrx-authority-adapter.js';
 
-const COURTLISTENER_BASE = (process.env.NYV_COURTLISTENER_API_BASE || 'https://www.courtlistener.com/api/rest/v4').replace(/\/+$/, '');
+const COURTLISTENER_BASE = (process.env.JRX_COURTLISTENER_API_BASE || 'https://www.courtlistener.com/api/rest/v4').replace(/\/+$/, '');
 const LOOKUP_TIMEOUT_MS = 8000; // CourtListener can be slow/cold under load
 
 const US_KNOWN_INSTRUMENTS = [
@@ -32,7 +32,7 @@ const US_KNOWN_INSTRUMENTS = [
 
 /**
  * CourtListener opinion search. Works without a token (rate-limited); a
- * `NYV_COURTLISTENER_TOKEN` lifts the anonymous rate limit and is the operator
+ * `JRX_COURTLISTENER_TOKEN` lifts the anonymous rate limit and is the operator
  * action item for sustained live US case-law verification. Inconclusive
  * (non-200, e.g. a 429 rate-limit, or timeout) → null → explicit `unverified`,
  * never a false negative.
@@ -40,7 +40,7 @@ const US_KNOWN_INSTRUMENTS = [
 async function courtListenerLookup(citation: AuthorityCitationCandidate): Promise<boolean | null> {
   const q = encodeURIComponent(citation.raw);
   const headers: Record<string, string> = { Accept: 'application/json' };
-  const token = process.env.NYV_COURTLISTENER_TOKEN;
+  const token = process.env.JRX_COURTLISTENER_TOKEN;
   if (token) headers.Authorization = `Token ${token}`;
   const res = await authorityFetch(`${COURTLISTENER_BASE}/search/?q=${q}&type=o&page_size=1`, {
     timeoutMs: LOOKUP_TIMEOUT_MS,
@@ -74,7 +74,7 @@ export const usAuthorityAdapter = new BaseAuthorityAdapter({
     /\b\d+\s+(?:U\.?S\.?|F\.(?:\s?\dd|\s?Supp\.?(?:\s?\dd)?)|S\.?\s?Ct\.?|L\.?\s?Ed\.?(?:\s?\dd)?)\s+\d+/g,
   ],
   knownInstruments: US_KNOWN_INSTRUMENTS,
-  liveApiEnabled: () => isNyvFeatureOn('citationLiveUs'),
+  liveApiEnabled: () => isJrxFeatureOn('citationLiveUs'),
   liveLookup: courtListenerLookup,
   structuralValidator: (c) => {
     // The U.S. Code has 54 titles. A "999 U.S.C." citation is impossible.

@@ -1,5 +1,5 @@
 /**
- * nv-agents-boot-smoke.ts — Agent registry exhaustive boot
+ * jrx-agents-boot-smoke.ts — Agent registry exhaustive boot
  * NV-OPT+UAT-2026-05-09 P2 #11
  *
  * Loads every agent registry JSON, asserts every agent has:

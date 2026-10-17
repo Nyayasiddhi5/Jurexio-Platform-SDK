@@ -1,5 +1,5 @@
 /**
- * NYV Express Type Declarations — typed Express Request extensions
+ * JRX Express Type Declarations — typed Express Request extensions
  * Eliminates (req as any).user, (req as any).orgId etc. across the entire codebase.
  *
  * GUARDRAIL: Any new property added to req by middleware MUST be declared here.

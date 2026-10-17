@@ -62,8 +62,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import {
   Activity, AlertTriangle, BarChart3, Brain, CheckCircle2, ChevronRight,
   Lightbulb, RefreshCw, Send, Sparkles, Target, TrendingUp, XCircle,
@@ -491,7 +491,7 @@ export default function GRPOTrainingDashboard() {
               )}
               {statsQ.isError && (
                 <div data-testid="state-error-stats">
-                  <NyvErrorState
+                  <JrxErrorState
                     title="Could not load GRPO stats"
                     error={statsQ.error}
                     onRetry={() => statsQ.refetch()}
@@ -502,7 +502,7 @@ export default function GRPOTrainingDashboard() {
               )}
               {!statsQ.isLoading && topAgents.length === 0 && !statsQ.isError && (
                 <div data-testid="state-empty-leaderboard">
-                  <NyvEmptyState
+                  <JrxEmptyState
                     icon={BarChart3}
                     title="No agent performance data yet"
                     description="Submit advocate feedback (Submit tab) to populate."
@@ -602,7 +602,7 @@ export default function GRPOTrainingDashboard() {
               )}
               {!episodesQ.isLoading && !episodesForbidden && episodes.length === 0 && (
                 <div data-testid="state-empty-episodes">
-                  <NyvEmptyState
+                  <JrxEmptyState
                     title="No episodes recorded yet"
                     description="GRPO training episodes will appear here as agents run."
                     size="sm"
@@ -653,7 +653,7 @@ export default function GRPOTrainingDashboard() {
                 <Input
                   value={agentKey}
                   onChange={(e) => setAgentKey(e.target.value)}
-                  placeholder="agent key (e.g. nv-agent-001)"
+                  placeholder="agent key (e.g. jrx-agent-001)"
                   className="text-sm"
                   data-testid="input-agent-key"
                 />

@@ -16,7 +16,7 @@
  * harness consumes) rather than duplicating a parallel dataset — each gold
  * item already carries the expected relevant statute citations + answer
  * keywords, which are exactly the gold-relevance signals a retrieval eval
- * needs. Override the directory with NYV_RAGAS_GOLDEN_DIR.
+ * needs. Override the directory with JRX_RAGAS_GOLDEN_DIR.
  *
  * ── Metrics (ALL computed from real retrieval; never hardcoded/random) ──────
  *
@@ -36,12 +36,12 @@
  *   citationMatch(c, cits): the citation's distinctive tokens (4+ letter words
  *     and numbers, minus generic legal stopwords like "section"/"article"/
  *     "act"/"code") must appear in the chunk text (content + citationRef +
- *     statute/section metadata) at a ratio ≥ NYV_RAGAS_CITATION_MATCH (0.6).
+ *     statute/section metadata) at a ratio ≥ JRX_RAGAS_CITATION_MATCH (0.6).
  *   keywordCoverage(c, kws) = (# expectedAnswerKeywords present in chunk) / |kws|.
  *
  *   (Optional) LLM-judge faithfulness + answer-relevancy — ONLY routed through
- *   the safety-ring orchestrator (`callNyayavigyaSimple` →
- *   `callNyayavigya`, NV-LLM-001 compliant). For each item we ask the judge to
+ *   the safety-ring orchestrator (`callJurexioSimple` →
+ *   `callJurexio`, NV-LLM-001 compliant). For each item we ask the judge to
  *   rate, in [0,1], whether the gold reference answer is (a) faithful to the
  *   chunks we actually retrieved and (b) relevant to the question. The score is
  *   PARSED from the model's JSON output. If no LLM key is configured, or the
@@ -59,18 +59,18 @@
  *     non-zero so this can gate CI. Suppress the gate with --no-gate.
  *
  *   Thresholds (env-overridable, default lenient):
- *     NYV_RAGAS_MIN_CONTEXT_PRECISION   default 0.30
- *     NYV_RAGAS_MIN_CONTEXT_RECALL      default 0.30
- *     NYV_RAGAS_MIN_FAITHFULNESS        default 0    (0 = informational only)
- *     NYV_RAGAS_MIN_ANSWER_RELEVANCY    default 0    (0 = informational only)
+ *     JRX_RAGAS_MIN_CONTEXT_PRECISION   default 0.30
+ *     JRX_RAGAS_MIN_CONTEXT_RECALL      default 0.30
+ *     JRX_RAGAS_MIN_FAITHFULNESS        default 0    (0 = informational only)
+ *     JRX_RAGAS_MIN_ANSWER_RELEVANCY    default 0    (0 = informational only)
  *
  *   Retrieval knobs:
- *     NYV_RAGAS_TOPK                    default 5
- *     NYV_RAGAS_MIN_SIMILARITY         default 0.2
- *     NYV_RAGAS_CITATION_MATCH         default 0.6
- *     NYV_RAGAS_KW_RELEVANCE           default 0.5
- *     NYV_RAGAS_NAMESPACE              default per-jurisdiction (see map)
- *     NYV_RAGAS_GOLDEN_DIR             default docs/audit/eval/golden
+ *     JRX_RAGAS_TOPK                    default 5
+ *     JRX_RAGAS_MIN_SIMILARITY         default 0.2
+ *     JRX_RAGAS_CITATION_MATCH         default 0.6
+ *     JRX_RAGAS_KW_RELEVANCE           default 0.5
+ *     JRX_RAGAS_NAMESPACE              default per-jurisdiction (see map)
+ *     JRX_RAGAS_GOLDEN_DIR             default docs/audit/eval/golden
  *
  * Usage:
  *   npm run eval:ragas                       # gate enforced
@@ -88,13 +88,13 @@ import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync } from 
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { retrieveDocuments, type JurisdictionCode } from '../src/services/jrx-rag-live-service.js';
-import { callNyayavigyaSimple } from '../src/services/jrx-client.js';
+import { callJurexioSimple } from '../src/services/jrx-client.js';
 import { checkDatabaseHealth, pool } from '../src/db/index.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(__dirname, '..');
-const GOLDEN_DIR = process.env.NYV_RAGAS_GOLDEN_DIR
-  ? join(REPO_ROOT, process.env.NYV_RAGAS_GOLDEN_DIR)
+const GOLDEN_DIR = process.env.JRX_RAGAS_GOLDEN_DIR
+  ? join(REPO_ROOT, process.env.JRX_RAGAS_GOLDEN_DIR)
   : join(REPO_ROOT, 'docs/audit/eval/golden');
 const OUT_DIR = join(REPO_ROOT, 'docs/audit/eval');
 
@@ -111,20 +111,20 @@ const ENFORCE_GATE = !flag('no-gate');
 const USE_LLM_JUDGE = !flag('no-llm-judge');
 
 /* ── Tunables / gate (env-overridable, default lenient) ─────── */
-const TOPK = parseInt(process.env.NYV_RAGAS_TOPK || '5', 10);
-const MIN_SIMILARITY = parseFloat(process.env.NYV_RAGAS_MIN_SIMILARITY || '0.2');
-const CITATION_MATCH = parseFloat(process.env.NYV_RAGAS_CITATION_MATCH || '0.6');
-const KW_RELEVANCE = parseFloat(process.env.NYV_RAGAS_KW_RELEVANCE || '0.5');
+const TOPK = parseInt(process.env.JRX_RAGAS_TOPK || '5', 10);
+const MIN_SIMILARITY = parseFloat(process.env.JRX_RAGAS_MIN_SIMILARITY || '0.2');
+const CITATION_MATCH = parseFloat(process.env.JRX_RAGAS_CITATION_MATCH || '0.6');
+const KW_RELEVANCE = parseFloat(process.env.JRX_RAGAS_KW_RELEVANCE || '0.5');
 
 const GATE = {
-  minContextPrecision: parseFloat(process.env.NYV_RAGAS_MIN_CONTEXT_PRECISION || '0.30'),
-  minContextRecall: parseFloat(process.env.NYV_RAGAS_MIN_CONTEXT_RECALL || '0.30'),
-  minFaithfulness: parseFloat(process.env.NYV_RAGAS_MIN_FAITHFULNESS || '0'),
-  minAnswerRelevancy: parseFloat(process.env.NYV_RAGAS_MIN_ANSWER_RELEVANCY || '0'),
+  minContextPrecision: parseFloat(process.env.JRX_RAGAS_MIN_CONTEXT_PRECISION || '0.30'),
+  minContextRecall: parseFloat(process.env.JRX_RAGAS_MIN_CONTEXT_RECALL || '0.30'),
+  minFaithfulness: parseFloat(process.env.JRX_RAGAS_MIN_FAITHFULNESS || '0'),
+  minAnswerRelevancy: parseFloat(process.env.JRX_RAGAS_MIN_ANSWER_RELEVANCY || '0'),
 };
 
 /* ── Jurisdiction → live-service code + RAG namespace (mirrors
- *    nv-statute-rag-backfill-service.ts so we query the exact store the
+ *    jrx-statute-rag-backfill-service.ts so we query the exact store the
  *    statutes were seeded into). ───────────────────────────────────────── */
 const LIVE_JURIS: Record<string, JurisdictionCode> = {
   IN: 'IN', UK: 'UK', US: 'US', EU: 'EU', SG: 'SG', GC: 'GCC', GCC: 'GCC',
@@ -249,12 +249,12 @@ async function judgeRetrieval(
 
   let raw: string;
   try {
-    raw = await callNyayavigyaSimple(system, userPrompt, 256);
+    raw = await callJurexioSimple(system, userPrompt, 256);
   } catch (e) {
     console.error(`  ! ${item.id} LLM judge call failed: ${(e as Error).message}`);
     return null;
   }
-  if (!raw || /service (temporarily )?unavailable|blocked by nyayavigya/i.test(raw)) {
+  if (!raw || /service (temporarily )?unavailable|blocked by jurexio/i.test(raw)) {
     console.error(`  ! ${item.id} LLM judge returned no usable content — skipping LLM score`);
     return null;
   }
@@ -307,7 +307,7 @@ interface ItemResult {
 
 async function evaluateItem(item: GoldenItem, code: string): Promise<ItemResult> {
   const liveJur = LIVE_JURIS[code] || (code as JurisdictionCode);
-  const namespace = process.env.NYV_RAGAS_NAMESPACE || NAMESPACE_BY_JURIS[code] || 'default';
+  const namespace = process.env.JRX_RAGAS_NAMESPACE || NAMESPACE_BY_JURIS[code] || 'default';
 
   const chunks = await retrieveDocuments({
     query: item.prompt,
@@ -451,7 +451,7 @@ async function main(): Promise<void> {
     retrievalEntrypoint: 'src/services/jrx-rag-live-service.ts#retrieveDocuments',
     goldenDir: GOLDEN_DIR.replace(REPO_ROOT + '/', ''),
     ragDocumentCount: reach.ragDocumentCount,
-    llmJudge: llmEnabled ? 'enabled (safety-ring: callNyayavigyaSimple)' : 'skipped (no LLM key or --no-llm-judge)',
+    llmJudge: llmEnabled ? 'enabled (safety-ring: callJurexioSimple)' : 'skipped (no LLM key or --no-llm-judge)',
     knobs: { TOPK, MIN_SIMILARITY, CITATION_MATCH, KW_RELEVANCE },
     gate: GATE,
     overall,
@@ -487,7 +487,7 @@ function printSkipBanner(reason: string): void {
 
 function renderMarkdown(s: Record<string, any>): string {
   const lines: string[] = [];
-  lines.push('# Nyayavigya — RAGAS Retrieval Scoreboard');
+  lines.push('# Jurexio — RAGAS Retrieval Scoreboard');
   lines.push('');
   lines.push(`- **Generated:** ${s.generatedAt}`);
   lines.push(`- **Retrieval entrypoint:** \`${s.retrievalEntrypoint}\``);
@@ -512,7 +512,7 @@ function renderMarkdown(s: Record<string, any>): string {
 }
 
 function printConsole(s: Record<string, any>): void {
-  console.log(`\nNyayavigya RAGAS retrieval eval — gate=${s.releaseGatePassed ? 'PASS' : 'FAIL'}`);
+  console.log(`\nJurexio RAGAS retrieval eval — gate=${s.releaseGatePassed ? 'PASS' : 'FAIL'}`);
   console.log('─'.repeat(80));
   console.log('JCN'.padEnd(5) + 'Items'.padStart(7) + 'Prec'.padStart(8) + 'Recall'.padStart(8) + 'Faith'.padStart(8) + 'AnsRel'.padStart(8) + '  Gate');
   for (const j of s.jurisdictions) {

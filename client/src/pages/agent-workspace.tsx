@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { NyvEmptyState } from "@/components/NyvEmptyState";
+import { JrxEmptyState } from "@/components/JrxEmptyState";
 import AgentDashboard from "@/components/agent-dashboard";
 import CodeEditor from "@/components/workspace/code-editor";
 import LivePreview from "@/components/workspace/live-preview";
@@ -316,7 +316,7 @@ export default function AgentWorkspace() {
                         ))}
                         
                         {agents.filter(a => a.status === 'working').length === 0 && (
-                          <NyvEmptyState title="No agents currently working" size="sm" />
+                          <JrxEmptyState title="No agents currently working" size="sm" />
                         )}
                       </div>
                     </ScrollArea>

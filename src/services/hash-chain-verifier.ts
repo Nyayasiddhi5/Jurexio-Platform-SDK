@@ -1,10 +1,10 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Hash Chain Integrity Verifier — Algorithm P2
  * @version 5.2.1
  *
  * Verifies the SHA-256 hash chain of audit trail records for NSP, NSI, and Core.
- * Uses the same canonical hash SSoT as appendAuditRecord (nv-audit-hash.ts).
+ * Uses the same canonical hash SSoT as appendAuditRecord (jrx-audit-hash.ts).
  *
  * Scheduled via cron (daily at 02:00 UTC). Can also be triggered on-demand.
  */

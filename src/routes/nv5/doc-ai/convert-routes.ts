@@ -7,7 +7,7 @@
 //   GET  /jobs/:id/result → download converted bytes (mimeType from converter)
 //   GET  /supported       → list { source: target[] } supported pairs
 //
-// NYV-WIRING-BUDGET-001 Session-11 (2026-05-10): refactored from
+// JRX-WIRING-BUDGET-001 Session-11 (2026-05-10): refactored from
 // memoryStorage → diskStorage so multer streams the multipart body straight
 // to a tmp file instead of buffering up to 1 GB in RSS during parse.
 //
@@ -20,14 +20,14 @@
 // task-130 (2026-05-11): job state moved off-pod. The job ledger lives in
 // Redis (24h TTL) keyed by jobId, source + result bytes live in Replit
 // Object Storage, and the conversion runs through the BullMQ queue
-// `nyv-doc-ai-convert`. Net effect:
+// `jrx-doc-ai-convert`. Net effect:
 //   • a pod restart mid-conversion → BullMQ re-leases the job to any live
 //     worker; the client's jobId is still resolvable.
 //   • horizontal scale-out → /jobs/:id and /jobs/:id/result resolve from
 //     ANY pod (read shared Redis + shared object storage).
-//   • concurrency cap is now GLOBAL (NYV_WORKER_DOC_AI_CONVERT_CONCURRENCY)
+//   • concurrency cap is now GLOBAL (JRX_WORKER_DOC_AI_CONVERT_CONCURRENCY)
 //     because BullMQ leases jobs cluster-wide, instead of per-pod
-//     NYV_DOC_CONVERT_CONCURRENCY × pod count.
+//     JRX_DOC_CONVERT_CONCURRENCY × pod count.
 // When BullMQ or object storage is unavailable (dev / no Redis), the
 // route falls back to the previous in-process Map + bounded-concurrency
 // dispatcher so single-pod dev keeps working. POST responses include
@@ -35,7 +35,7 @@
 // they got.
 //
 // task-129 (2026-05-11): the OUTPUT side now spills to a tmp file above
-// NYV_DOC_CONVERT_OUTPUT_DISK_THRESHOLD_BYTES (default 1 MiB) — see the
+// JRX_DOC_CONVERT_OUTPUT_DISK_THRESHOLD_BYTES (default 1 MiB) — see the
 // converter service. The legacy in-process /jobs/:id/result streams
 // that file via fs.createReadStream(...).pipe(res) instead of
 // `res.send(buffer)`, and gcLegacyJobs() unlinks the output tmp file
@@ -81,7 +81,7 @@ function isDisabledQueueResult(v: unknown): v is DisabledQueueResult {
 }
 
 const ONE_GB = 1024 * 1024 * 1024;
-const NV_TMP_DIR = path.join(os.tmpdir(), 'nyv-doc-ai-uploads');
+const NV_TMP_DIR = path.join(os.tmpdir(), 'jrx-doc-ai-uploads');
 try { fs.mkdirSync(NV_TMP_DIR, { recursive: true }); } catch { /* best-effort */ }
 
 const upload = multer({
@@ -133,7 +133,7 @@ const LEGACY_JOB_TTL_MS = 10 * 60 * 1000;
 
 const CONCURRENCY = Math.max(
   1,
-  Number.parseInt(process.env.NYV_DOC_CONVERT_CONCURRENCY ?? '4', 10) || 4,
+  Number.parseInt(process.env.JRX_DOC_CONVERT_CONCURRENCY ?? '4', 10) || 4,
 );
 let inFlight = 0;
 const waiters: Array<() => void> = [];

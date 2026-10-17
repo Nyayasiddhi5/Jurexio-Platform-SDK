@@ -1,31 +1,31 @@
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 import type {
-  NyvOracleTestReport,
-  NyvAdversarialTestReport,
-  NyvLlmJudgeResult,
-  NyvAgentScorecard,
-  NyvJurisdiction,
-  NyvLegalDomain,
+  JrxOracleTestReport,
+  JrxAdversarialTestReport,
+  JrxLlmJudgeResult,
+  JrxAgentScorecard,
+  JrxJurisdiction,
+  JrxLegalDomain,
 } from '../types/index.js';
 
 export class TestingApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
 
-  async runOracleTests(jurisdiction: NyvJurisdiction, agentId?: string): Promise<NyvOracleTestReport> {
+  async runOracleTests(jurisdiction: JrxJurisdiction, agentId?: string): Promise<JrxOracleTestReport> {
     return this.http.post('/api/jrx/testing/oracle-tests', { jurisdiction, agentId });
   }
 
-  async runAdversarialTests(agentId?: string): Promise<NyvAdversarialTestReport> {
+  async runAdversarialTests(agentId?: string): Promise<JrxAdversarialTestReport> {
     return this.http.post('/api/jrx/testing/adversarial-tests', { agentId });
   }
 
   async evaluateWithJudge(
     response: string,
     query: string,
-    jurisdiction: NyvJurisdiction,
-    domain: NyvLegalDomain,
+    jurisdiction: JrxJurisdiction,
+    domain: JrxLegalDomain,
     judgeModel?: string
-  ): Promise<NyvLlmJudgeResult> {
+  ): Promise<JrxLlmJudgeResult> {
     return this.http.post('/api/jrx/testing/llm-judge', {
       response,
       query,
@@ -35,7 +35,7 @@ export class TestingApi {
     });
   }
 
-  async generateScorecard(jurisdiction: NyvJurisdiction): Promise<NyvAgentScorecard> {
+  async generateScorecard(jurisdiction: JrxJurisdiction): Promise<JrxAgentScorecard> {
     return this.http.post('/api/jrx/testing/scorecard', { jurisdiction });
   }
 
@@ -49,7 +49,7 @@ export class TestingApi {
 
   async runAmendmentRegression(
     amendmentId: string,
-    jurisdiction: NyvJurisdiction
+    jurisdiction: JrxJurisdiction
   ): Promise<{ passed: boolean; affectedAgents: number; details: Record<string, unknown> }> {
     return this.http.post('/api/jrx/testing/amendment-regression', { amendmentId, jurisdiction });
   }

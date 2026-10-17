@@ -18,7 +18,7 @@ import { resolveRedisTcpUrl, logRedisDisabledOnce } from '../../utils/redis-tcp-
 
 const logger = createLogger('bullmq-queue');
 
-// NYV-OPS-BULLMQ-DISABLE-001 (Task #28): refuse to construct an ioredis
+// JRX-OPS-BULLMQ-DISABLE-001 (Task #28): refuse to construct an ioredis
 // client when no usable TCP URL is configured. Previously we'd default to
 // the Upstash REST URL (https://...), ioredis would parse "https" as a
 // username and the server would WRONGPASS-loop forever, spamming the
@@ -66,11 +66,11 @@ let _connection: IORedis | null = null;
  */
 function isFatalAuthError(err: Error): boolean {
   const m = (err?.message || '').toUpperCase();
-  // NYV-OPS-AUTH-DETECT-001 (Task #28 round 5): tightened from
+  // JRX-OPS-AUTH-DETECT-001 (Task #28 round 5): tightened from
   // includes('AUTH') (which would match unrelated tokens like
   // "AUTHENTICATED", "AUTHORIZATION", "ASYNC_AUTH_HOOK") to the
   // explicit Redis reply prefixes only. Same set used by
-  // nv-rate-limit-middleware and nv-redis-platform-rate-limiter.
+  // jrx-rate-limit-middleware and jrx-redis-platform-rate-limiter.
   return m.includes('WRONGPASS') || m.includes('NOAUTH');
 }
 
@@ -90,7 +90,7 @@ export function getQueueConnection(): IORedis | null {
       enableReadyCheck: false,
       // Keep TCP alive across NAT/idle so we do not silently lose worker reads.
       keepAlive: 30_000,
-      // NYV-OPS-RECONNECT-NARROW-001 (Task #28 round 7): only AUTH
+      // JRX-OPS-RECONNECT-NARROW-001 (Task #28 round 7): only AUTH
       // failures permanently disable the queue path. Transient
       // connect failures (network blips, DNS hiccups, broker
       // restarts) keep retrying with exponential backoff capped at
@@ -133,46 +133,46 @@ export function getQueueConnection(): IORedis | null {
 
 /* ---------- canonical queue names ---------- */
 
-// NYV-OPS-Q-NAMES-001 (2026-04-25): BullMQ ≥ v5 rejects queue names containing
+// JRX-OPS-Q-NAMES-001 (2026-04-25): BullMQ ≥ v5 rejects queue names containing
 // `:` (it reserves `:` for its own Redis key namespacing). Use `-` as separator.
 // If you need to reuse a Redis instance that previously held data under the old
 // `nyv:*` keys, those keys are orphaned (drain manually) — there is no
 // migration because no successful enqueue happened with the old constructor
 // (the worker registration always threw).
 export const QueueNames = {
-  WEBHOOK_DELIVERY: 'nyv-webhook-delivery',
-  WEBHOOK_DLQ: 'nyv-webhook-dlq',
+  WEBHOOK_DELIVERY: 'jrx-webhook-delivery',
+  WEBHOOK_DLQ: 'jrx-webhook-dlq',
 
-  DOC_PARSE: 'nyv-doc-parse',
-  DOC_PARSE_DLQ: 'nyv-doc-parse-dlq',
+  DOC_PARSE: 'jrx-doc-parse',
+  DOC_PARSE_DLQ: 'jrx-doc-parse-dlq',
 
-  DOC_SUMMARIZE: 'nyv-doc-summarize',
-  DOC_SUMMARIZE_DLQ: 'nyv-doc-summarize-dlq',
+  DOC_SUMMARIZE: 'jrx-doc-summarize',
+  DOC_SUMMARIZE_DLQ: 'jrx-doc-summarize-dlq',
 
-  PLATFORM_RELAY: 'nyv-platform-relay',
-  PLATFORM_RELAY_DLQ: 'nyv-platform-relay-dlq',
+  PLATFORM_RELAY: 'jrx-platform-relay',
+  PLATFORM_RELAY_DLQ: 'jrx-platform-relay-dlq',
 
-  PQC_SIGN: 'nyv-pqc-sign',
-  PQC_SIGN_DLQ: 'nyv-pqc-sign-dlq',
+  PQC_SIGN: 'jrx-pqc-sign',
+  PQC_SIGN_DLQ: 'jrx-pqc-sign-dlq',
 
   // Task #130 (2026-05-11): /api/nv5/doc-ai/convert async job queue.
   // Job payload is the jobId only; source bytes + result bytes live in
   // object storage and the ledger lives in Redis (see
   // services/queue/doc-ai-job-store.ts) so any pod can fulfil the work.
-  DOC_AI_CONVERT: 'nyv-doc-ai-convert',
-  DOC_AI_CONVERT_DLQ: 'nyv-doc-ai-convert-dlq',
+  DOC_AI_CONVERT: 'jrx-doc-ai-convert',
+  DOC_AI_CONVERT_DLQ: 'jrx-doc-ai-convert-dlq',
 
   /** Failed orchestrate / LLM requests — durable retry with backoff + DLQ */
-  ORCH_RETRY: 'nyv-orch-retry',
-  ORCH_RETRY_DLQ: 'nyv-orch-retry-dlq',
+  ORCH_RETRY: 'jrx-orch-retry',
+  ORCH_RETRY_DLQ: 'jrx-orch-retry-dlq',
 
   /** Ecosystem Document Job — durable Redis path (async_job_queue remains status ledger) */
-  ECOSYSTEM_DOC_JOB: 'nyv-ecosystem-doc-job',
-  ECOSYSTEM_DOC_JOB_DLQ: 'nyv-ecosystem-doc-job-dlq',
+  ECOSYSTEM_DOC_JOB: 'jrx-ecosystem-doc-job',
+  ECOSYSTEM_DOC_JOB_DLQ: 'jrx-ecosystem-doc-job-dlq',
 
   /** NV-DOCPARSE-JOBS-001 — Platform SDK async parse (legal-first). */
-  DOCPARSE_SDK: 'nyv-docparse-sdk',
-  DOCPARSE_SDK_DLQ: 'nyv-docparse-sdk-dlq',
+  DOCPARSE_SDK: 'jrx-docparse-sdk',
+  DOCPARSE_SDK_DLQ: 'jrx-docparse-sdk-dlq',
 } as const;
 
 export type QueueName = (typeof QueueNames)[keyof typeof QueueNames];
@@ -432,7 +432,7 @@ export interface RegisterWorkerOpts<T = unknown, R = unknown> {
 
 const _workers: Worker[] = [];
 
-// NYV-OPS-STALLED-001 (2026-04-30): in-memory per-queue stalled counter.
+// JRX-OPS-STALLED-001 (2026-04-30): in-memory per-queue stalled counter.
 // BullMQ surfaces stalled jobs via the `stalled` worker event when a
 // running job's lock is not renewed within the lockDuration. The job is
 // then moved back to the wait set for retry. Without an explicit handler,
@@ -486,7 +486,7 @@ export function registerWorker<T = unknown, R = unknown>(opts: RegisterWorkerOpt
     logger.warn('job failed (will retry)', { queue: opts.name, jobId: job?.id, attempts: job?.attemptsMade, err: err?.message }),
   );
   w.on('completed', (job) => logger.debug('job done', { queue: opts.name, jobId: job.id }));
-  // NYV-OPS-STALLED-001 (2026-04-30): track stalled jobs per-queue and
+  // JRX-OPS-STALLED-001 (2026-04-30): track stalled jobs per-queue and
   // route to DLQ when the same job stalls past max attempts. BullMQ does
   // not pass the full job here (only the jobId), so DLQ entry carries
   // {jobId, reason:'stalled'} instead of the original payload — operators
@@ -520,7 +520,7 @@ export async function shutdownWorkers(): Promise<void> {
 
 export async function getQueueHealth() {
   const out: Record<string, any> = {};
-  // NYV-OPS-QUEUE-HEALTH-001 (Task #28 round 5): null-check `q` before
+  // JRX-OPS-QUEUE-HEALTH-001 (Task #28 round 5): null-check `q` before
   // calling .getJobCounts(). When BullMQ is disabled at boot (no TCP
   // URL) or trips at runtime (WRONGPASS), getQueue() now returns null —
   // the previous code went straight into a TypeError caught by the
@@ -541,7 +541,7 @@ export async function getQueueHealth() {
         continue;
       }
       const counts = await q.getJobCounts('waiting', 'active', 'completed', 'failed', 'delayed', 'paused');
-      // NYV-OPS-STALLED-001 (2026-04-30): include stalled count + DLQ
+      // JRX-OPS-STALLED-001 (2026-04-30): include stalled count + DLQ
       // depth pointer so admin health can show worker thrash and DLQ
       // backlog at a glance. dlqDepth is null for DLQ queues themselves.
       const stalled = _stalledCounts.get(name) ?? 0;

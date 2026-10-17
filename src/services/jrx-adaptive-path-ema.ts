@@ -118,7 +118,7 @@ export async function applyAdaptivePathLearning(
   decision: AdaptiveRouterDecision,
   input: AdaptiveRouterInput,
 ): Promise<AdaptiveRouterDecision> {
-  if (process.env.NYV_ADAPTIVE_PATH_LEARNING === '0') return decision;
+  if (process.env.JRX_ADAPTIVE_PATH_LEARNING === '0') return decision;
   if (input.partnerLean || input.engageQueenForced || input.forceQueenMode) return decision;
   if (decision.complexity === 'very_complex' || decision.risk === 'critical') return decision;
   if (decision.path === 'doc-pipeline') return decision;
@@ -183,7 +183,7 @@ export async function recordAdaptivePathOutcome(opts: {
   grounded?: boolean;
   latencyMs?: number;
 }): Promise<void> {
-  if (process.env.NYV_ADAPTIVE_PATH_LEARNING === '0') return;
+  if (process.env.JRX_ADAPTIVE_PATH_LEARNING === '0') return;
   const bucket = bucketKey({
     prompt: opts.prompt,
     complexity: opts.complexity,

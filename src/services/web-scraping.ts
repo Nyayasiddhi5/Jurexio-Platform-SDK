@@ -1,5 +1,5 @@
 /**
- * NYV Web Scraping Service — v5.0.0 (2026-05-06)
+ * JRX Web Scraping Service — v5.0.0 (2026-05-06)
  * ─────────────────────────────────────────────────────────────────────────────
  * Production scraper for legal-source ingestion. Replaces the prior 6-line
  * stub. Five gaps from V5-READINESS-PLAN §3 closed:
@@ -9,11 +9,11 @@
  *   2. Per-domain rate limiter           — token-bucket, RPM from allowlist
  *   3. PII redaction wiring              — opt-in via `opts.redactPII`,
  *                                           uses jurisdiction-pii-patterns.json
- *   4. Legal-source allowlist            — `nv-scraper-allowlist.ts` is the
+ *   4. Legal-source allowlist            — `jrx-scraper-allowlist.ts` is the
  *                                           single source of truth
  *   5. GraphRAG ingestion hook           — opt-in via `opts.indexInGraphRAG`,
  *                                           routes through
- *                                           NyvGraphRAGLegalService.indexDocument
+ *                                           JrxGraphRAGLegalService.indexDocument
  *
  * Backed by Node 22's native `fetch` + `cheerio` for HTML parsing — no
  * external API keys required. Sites that need JS rendering go through the
@@ -204,7 +204,7 @@ export class WebScrapingService {
       const resp = await fetch(url, {
         signal: controller.signal,
         headers: {
-          'User-Agent': 'JurexioLegalCrawler/5.0 (+https://nyayavigya.in/crawler)',
+          'User-Agent': 'JurexioLegalCrawler/5.0 (+https://jurexio.com/crawler)',
           'Accept': 'text/html,application/xhtml+xml',
           'Accept-Language': 'en',
         },
@@ -238,7 +238,7 @@ export class WebScrapingService {
     let graphragDocId: string | undefined;
     if (options.indexInGraphRAG && finalText) {
       try {
-        const { nyvGraphRAGLegal } = await import('./rag/nyv-graphrag-legal-service.js');
+        const { nyvGraphRAGLegal } = await import('./rag/jrx-graphrag-legal-service.js');
         const svc = nyvGraphRAGLegal;
         graphragDocId = `web-${Buffer.from(url).toString('base64url').slice(0, 24)}`;
         await svc.indexDocument({

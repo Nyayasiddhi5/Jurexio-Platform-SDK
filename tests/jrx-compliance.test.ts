@@ -44,8 +44,8 @@ describe('ISO 42001 AIMS Service', () => {
   });
 
   it('filters risk register by systemId', () => {
-    const risks = aimsService.getRiskRegister({ systemId: 'nyv-ns-queen' });
-    for (const r of risks) expect(r.systemId).toBe('nyv-ns-queen');
+    const risks = aimsService.getRiskRegister({ systemId: 'jrx-ns-queen' });
+    for (const r of risks) expect(r.systemId).toBe('jrx-ns-queen');
   });
 
   it('filters risk register by status', () => {
@@ -64,8 +64,8 @@ describe('EU AI Act Compliance Service', () => {
     }
   });
 
-  it('classifies nyv-ns-queen as high risk', () => {
-    const c = euAiActComplianceService.classifySystem('nyv-ns-queen');
+  it('classifies jrx-ns-queen as high risk', () => {
+    const c = euAiActComplianceService.classifySystem('jrx-ns-queen');
     expect(c).not.toBeNull();
     expect(c!.riskCategory).toBe('high');
     expect(c!.annexIIICategory).toBeDefined();
@@ -98,7 +98,7 @@ describe('EU AI Act Compliance Service', () => {
   });
 
   it('filters bias reports by systemId', () => {
-    const reports = euAiActComplianceService.getBiasReport('nyv-ns-queen');
-    for (const r of reports) expect(r.systemId).toBe('nyv-ns-queen');
+    const reports = euAiActComplianceService.getBiasReport('jrx-ns-queen');
+    for (const r of reports) expect(r.systemId).toBe('jrx-ns-queen');
   });
 });

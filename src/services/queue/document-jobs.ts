@@ -55,7 +55,7 @@ export async function handleDocParse(data: DocParseJob, job: any) {
       chunks = out.chunks || [];
     } else {
       // NV-REAL-DATA-001: never index synthetic text. The canonical, wired
-      // document pipeline is the PgJobQueue path (nv-job-worker →
+      // document pipeline is the PgJobQueue path (jrx-job-worker →
       // nvDocumentIntelligenceOrchestrator.processDocument). This BullMQ chain
       // is currently producer-less; if a job ever reaches it without the real
       // pipeline service present, FAIL LOUD instead of poisoning the index.

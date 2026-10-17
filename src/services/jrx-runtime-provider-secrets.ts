@@ -27,8 +27,8 @@ export const PROVIDER_SECRET_CATALOG: Array<{
   { providerId: 'deepseek', label: 'DeepSeek', envNames: ['DEEPSEEK_API_KEY'], description: 'DeepSeek API' },
   { providerId: 'mistral', label: 'Mistral', envNames: ['MISTRAL_API_KEY'], description: 'Mistral API' },
   { providerId: 'sarvam', label: 'Sarvam AI', envNames: ['SARVAM_API_KEY'], description: 'Indian languages TTS/STT' },
-  { providerId: 'nys_machine', label: 'NYS Machine Key', envNames: ['NYS_KNOWLEDGE_API_KEY'], description: 'NyayaSearch knowledge-plane machine auth' },
-  { providerId: 'nys_case_api', label: 'NYS Case API Key', envNames: ['NYS_CASE_API_KEY'], description: 'NYS-Search case-api (nysapi) X-API-Key for CNR resolve' },
+  { providerId: 'nys_machine', label: 'NYS Machine Key', envNames: ['JRX_ECOSYSTEM_KNOWLEDGE_API_KEY'], description: 'NyayaSearch knowledge-plane machine auth' },
+  { providerId: 'nys_case_api', label: 'NYS Case API Key', envNames: ['JRX_ECOSYSTEM_CASE_API_KEY'], description: 'JRX-Search case-api (nysapi) X-API-Key for CNR resolve' },
 ];
 
 interface OverlayRow {
@@ -58,10 +58,10 @@ let redisClient: any = null;
 
 function encryptionKey(): Buffer {
   const raw =
-    process.env.NYV_SECRETS_ENCRYPTION_KEY ||
+    process.env.JRX_SECRETS_ENCRYPTION_KEY ||
     process.env.JWT_SECRET ||
     process.env.SESSION_SECRET ||
-    'nyv-dev-secrets-key-change-me';
+    'jrx-dev-secrets-key-change-me';
   return createHash('sha256').update(String(raw)).digest();
 }
 
@@ -93,7 +93,7 @@ async function getRedis(): Promise<any | null> {
   try {
     const { resolveRedisTcpUrl } = await import('../utils/redis-tcp-url.js');
     const { Redis } = await import('ioredis');
-    const url = resolveRedisTcpUrl() || process.env.REDIS_URL || 'redis://nyv-redis:6379';
+    const url = resolveRedisTcpUrl() || process.env.REDIS_URL || 'redis://jrx-redis:6379';
     redisClient = new Redis(url, {
       maxRetriesPerRequest: 2,
       connectTimeout: 5000,

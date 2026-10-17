@@ -11,7 +11,7 @@
  * Idempotent: re-running tops up to the floor; existing rows preserved.
  *
  * NV-DB-SCRIPT-001: makePgSql shim, not the neon HTTP driver.
- * NV-NAMING-001: nv-* prefix. Standalone, not auto-mounted in production.
+ * NV-NAMING-001: jrx-* prefix. Standalone, not auto-mounted in production.
  *
  * Dev-only guard: refuses to run when NODE_ENV === 'production' unless
  * NV_E2E_BYPASS=1 is set (matches NV-UAT-DEFAULT-ORG-001 gating).
@@ -23,11 +23,11 @@ import { assertColumns } from './_assert-columns.js';
 const isProd = process.env.NODE_ENV === 'production';
 const bypass = process.env.NV_E2E_BYPASS === '1';
 if (isProd && !bypass) {
-  console.log('[nv-seed-grpo-demo] skipped — NODE_ENV=production and NV_E2E_BYPASS!=1');
+  console.log('[jrx-seed-grpo-demo] skipped — NODE_ENV=production and NV_E2E_BYPASS!=1');
   process.exit(0);
 }
 
-const sql = makePgSql(process.env.NYV_DATABASE_URL ?? process.env.DATABASE_URL!);
+const sql = makePgSql(process.env.JRX_DATABASE_URL ?? process.env.DATABASE_URL!);
 
 const TARGET_RUNS = 3;
 const TARGET_FEEDBACK = 30;

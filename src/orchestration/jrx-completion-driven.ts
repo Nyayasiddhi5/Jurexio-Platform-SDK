@@ -23,10 +23,10 @@ function envMs(name: string, fallback: number, min: number, max: number): number
 }
 
 /** Grace after first useful optional result before aborting hangers (ms). */
-export const OPTIONAL_STAGE_GRACE_MS = envMs('NYV_OPTIONAL_STAGE_GRACE_MS', 200, 50, 2_000);
+export const OPTIONAL_STAGE_GRACE_MS = envMs('JRX_OPTIONAL_STAGE_GRACE_MS', 200, 50, 2_000);
 
 /** Skip starting CoT when the Queen wall has less than this remaining. */
-export const COT_MIN_REMAINING_MS = envMs('NYV_COT_MIN_REMAINING_MS', 8_000, 1_000, 60_000);
+export const COT_MIN_REMAINING_MS = envMs('JRX_COT_MIN_REMAINING_MS', 8_000, 1_000, 60_000);
 
 export async function settleOptional<T>(
   promise: Promise<T>,

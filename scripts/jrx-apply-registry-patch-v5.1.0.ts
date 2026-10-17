@@ -1,9 +1,9 @@
 #!/usr/bin/env npx tsx
 /**
- * Apply nyayavigya_registry_patch_v5.1.0.json → runtime registry artifacts.
+ * Apply jurexio_registry_patch_v5.1.0.json → runtime registry artifacts.
  *
  * Outputs:
- *   config/agent-registries/Nyayavigya-Legal-registry-Default.json
+ *   config/agent-registries/Jurexio-Legal-registry-Default.json
  *   config/jcn-nodes-v5.1.0.json
  *   config/bar-council-seed-v5.1.0.json
  *   config/agent-registries/archive/v5.0.0/  (moves prior 7 files)
@@ -13,18 +13,18 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
-const PATCH_PATH = path.resolve(ROOT, '..', 'product Documents', 'nyayavigya_registry_patch_v5.1.0.json');
+const PATCH_PATH = path.resolve(ROOT, '..', 'product Documents', 'jurexio_registry_patch_v5.1.0.json');
 const REG_DIR = path.join(ROOT, 'config', 'agent-registries');
 const ARCHIVE_DIR = path.join(REG_DIR, 'archive', 'v5.0.0');
 
 const LEGACY_FILES = [
-  'Nyayavigya-Legal-registry-Default.json',
-  'Nyayavigya-Legal-registry-IN.json',
-  'Nyayavigya-Legal-registry-UK.json',
-  'Nyayavigya-Legal-registry-US.json',
-  'Nyayavigya-Legal-registry-EU.json',
-  'Nyayavigya-Legal-registry-GC.json',
-  'Nyayavigya-Legal-registry-SG.json',
+  'Jurexio-Legal-registry-Default.json',
+  'Jurexio-Legal-registry-IN.json',
+  'Jurexio-Legal-registry-UK.json',
+  'Jurexio-Legal-registry-US.json',
+  'Jurexio-Legal-registry-EU.json',
+  'Jurexio-Legal-registry-GC.json',
+  'Jurexio-Legal-registry-SG.json',
 ];
 
 function main(): void {
@@ -59,12 +59,12 @@ function main(): void {
     platformVersion: '5.0.1',
     jurisdictionCode: 'DEFAULT',
     jurisdictionName: 'Cross-Jurisdiction Default',
-    jurisdictionFullName: 'Nyayavigya Default — All Six Jurisdictions',
+    jurisdictionFullName: 'Jurexio Default — All Six Jurisdictions',
     legalSystem: 'Multi-jurisdiction common + civil law hybrid',
     totalAgents: agents.length,
     primaryJurisdiction: 'DEFAULT',
-    sdkVersion: patch.registry.sdkVersion || 'NYV-SDK-v5.0.0',
-    backedBy: patch.registry.backedBy || 'Nyayasiddhi™',
+    sdkVersion: patch.registry.sdkVersion || 'JRX-SDK-v5.0.0',
+    backedBy: patch.registry.backedBy || 'Jurexio™',
     basePromptId: patch.registry.basePromptId || 'legal-base-v1',
     romaDistribution: romaCounts,
     patchMeta: patch._patchMeta,
@@ -83,7 +83,7 @@ function main(): void {
     }
   }
 
-  const defaultPath = path.join(REG_DIR, 'Nyayavigya-Legal-registry-Default.json');
+  const defaultPath = path.join(REG_DIR, 'Jurexio-Legal-registry-Default.json');
   fs.writeFileSync(defaultPath, JSON.stringify(defaultRegistry, null, 2));
   console.log(`Wrote Default registry: ${agents.length} agents → ${defaultPath}`);
 

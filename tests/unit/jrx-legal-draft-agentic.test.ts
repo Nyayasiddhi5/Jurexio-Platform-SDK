@@ -45,7 +45,7 @@ describe('agentic draft — comprehensive NSP upgrade (P1-b)', () => {
   function nspReq(body: Record<string, unknown>): Request {
     return {
       body,
-      headers: { 'x-nyv-platform': 'NSP' },
+      headers: { 'x-jrx-platform': 'NSP' },
       sdkContext: { partnerCode: 'NSP', tenantId: 't-nsp' },
     } as unknown as Request;
   }

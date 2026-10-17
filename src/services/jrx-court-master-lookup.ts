@@ -1,7 +1,7 @@
 /**
  * NV-COURT-MASTER-P0-001 — jurisdiction cascade lookup service.
  *
- * Read surface over the NYV court-master reference tables that powers the
+ * Read surface over the JRX court-master reference tables that powers the
  * eCourts/NSP-style cascade: court type → state → district → complex → case
  * type. Backs the partner lookup routes in src/routes/jrx-court-master-routes.ts.
  *
@@ -15,7 +15,7 @@
  * eCourts. The DB-backed provider is swappable for tests via
  * __setCourtMasterProviderForTests().
  *
- * Ref: NYV-CASE-CORPUS-FIELD-GAP-PLAN-2026-09.md Appendix F.5;
+ * Ref: JRX-CASE-CORPUS-FIELD-GAP-PLAN-2026-09.md Appendix F.5;
  *      NSP-CASE-SEARCH-INTEGRATION-2026-09.md §18.
  */
 import { pool } from '../db/index.js';

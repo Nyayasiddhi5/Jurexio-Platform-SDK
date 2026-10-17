@@ -1,11 +1,11 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
+// JRX-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
 // file. Runtime is unaffected (gateway runs via tsx). Opt out of strict-null
 // for the v5.0.0 deploy gate; track follow-up cleanup in INV-CLEANUP-001.
 /**
  * Legal Chat backend routes
  * ─────────────────────────────────────────────────────────────────────────────
  * Mounted at /api/jrx/legal-chat. Powers the admin Legal Chat dashboard inside
- * NYV Console. Access is gated to Superadmins and Superadmin-allocated SMEs.
+ * JRX Console. Access is gated to Superadmins and Superadmin-allocated SMEs.
  *
  * Endpoints
  * ─────────
@@ -47,7 +47,7 @@ import { MODEL_CATALOG } from '../services/intelligent-router/model-catalog.js';
 import { pickSequence } from '../services/intelligent-router/intelligent-router.js';
 import { nvAICreditEnforcer } from '../services/jrx-ai-credit-enforcer.js';
 import { estimatePromptTokens } from '../config/jrx-prompt-budget.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import { getRequestUsage, claimRequestUsageForBilling } from '../utils/jrx-request-usage-context.js';
 import {
   recallSmePreferences,
@@ -76,7 +76,7 @@ const router = Router();
  * a cap it will actually exceed.
  */
 const LEGAL_CHAT_COMPLETION_TOKEN_ESTIMATE = Number(
-  process.env.NYV_LEGAL_CHAT_COMPLETION_TOKEN_ESTIMATE || 16_384,
+  process.env.JRX_LEGAL_CHAT_COMPLETION_TOKEN_ESTIMATE || 16_384,
 );
 
 /**
@@ -87,7 +87,7 @@ const LEGAL_CHAT_COMPLETION_TOKEN_ESTIMATE = Number(
  * `nv_schema.ai_credit_usage`. Nothing on this path ever wrote a row there, so an
  * enforce() call alone would have been a permanent no-op: usedToday would stay 0
  * and neither the daily budget nor the hourly rate limit could ever trip. This is
- * the same loop `/orchestrate` closed in NYV-P1-ORCH-CORE-001 item D.
+ * the same loop `/orchestrate` closed in JRX-P1-ORCH-CORE-001 item D.
  *
  * Flag-gated on the same `creditRecord` flag (default ON outside dev/test so local
  * UAT without the credit tables is unchanged) and fully fail-soft.
@@ -103,7 +103,7 @@ function recordLegalChatCredit(args: {
   fallbackTokensOut: number;
   fallbackModel?: string;
 }): boolean {
-  if (!isNyvFeatureOn('creditRecord')) return false;
+  if (!isJrxFeatureOn('creditRecord')) return false;
   try {
     const usage = getRequestUsage();
     const tokensIn = usage?.promptTokens ?? args.fallbackTokensIn;
@@ -281,7 +281,7 @@ router.get('/sessions/:id', async (req: Request, res: Response) => {
 
 // ─────────────────────────── Uploads ────────────────────────────────────────
 
-const UPLOAD_DIR = process.env.NYV_LEGAL_CHAT_UPLOAD_DIR || '/tmp/nyv-legal-chat-uploads';
+const UPLOAD_DIR = process.env.JRX_LEGAL_CHAT_UPLOAD_DIR || '/tmp/jrx-legal-chat-uploads';
 fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
 // ─── Attachment extraction (NV-LEGALCHAT-ATTACHMENTS-2026-05-12) ──────────
@@ -598,7 +598,7 @@ router.post('/send', async (req: Request, res: Response) => {
     // body.mode/smeContext are ignored here so non-SME callers cannot
     // escalate into SME-only processing.
     const userRole = String(authReq.user?.role || '').toLowerCase();
-    const shellHeader = String(req.headers['x-nv-shell'] || '').toLowerCase();
+    const shellHeader = String(req.headers['x-jrx-shell'] || '').toLowerCase();
     // Authorization gate: SME path is role-gated. Header/mode are SIGNALS,
     // not authorization — non-superadmin, non-SME callers cannot escalate
     // into SME-only processing by setting X-NV-Shell or body.mode.
@@ -699,7 +699,7 @@ router.post('/send', async (req: Request, res: Response) => {
         preferredModel: body.preferredModel,
         // Task #156 — SME runs force CAM/maker-checker on regardless of
         // global gov flag. Honored by maybeRunMakerCheckerLoop in
-        // nv-queen-orchestrator.ts.
+        // jrx-queen-orchestrator.ts.
         forceMakerChecker: isSmeRun,
         ...(isSmeRun ? { perNodeTimeoutMs: 240_000 } : {}),
         smePreferenceContext: smeContext,

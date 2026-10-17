@@ -151,7 +151,7 @@ function ensureImport(source: string, file: string, want: { nv: boolean; base: b
   if (symbols.length === 0) return source;
 
   // Check whether already imported from the registry
-  const importRe = /import\s*(?:type\s*)?\{([^}]*)\}\s*from\s*['"]([^'"]+nv-api-paths)['"];?/m;
+  const importRe = /import\s*(?:type\s*)?\{([^}]*)\}\s*from\s*['"]([^'"]+jrx-api-paths)['"];?/m;
   const m = source.match(importRe);
   if (m) {
     const existing = m[1].split(',').map(s => s.trim().split(/\s+as\s+/)[0]).filter(Boolean);

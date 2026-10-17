@@ -1048,7 +1048,7 @@ export function generateAllEuropeAgents(): Array<{
     tier: agent.tier,
     romaLevel: agent.tier === 'executive' ? 'L4' : agent.tier === 'senior' ? 'L3' : agent.tier === 'specialist' ? 'L2' : 'L1',
     category: agent.category,
-    group: 'nyayavigya-europe-legal-agents',
+    group: 'jurexio-europe-legal-agents',
     practiceArea: agent.practiceArea,
     description: agent.description,
     systemPrompt: generateEurope22PointSystemPrompt(agent),

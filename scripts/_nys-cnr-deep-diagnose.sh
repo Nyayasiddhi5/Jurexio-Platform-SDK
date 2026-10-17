@@ -9,7 +9,7 @@ import { RDSClient, DescribeDBInstancesCommand } from "@aws-sdk/client-rds";
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
 
 const REGION = "ap-south-1";
-const DB = "nyv-caselaw-pg";
+const DB = "jrx-caselaw-pg";
 function ssl() {
   const p = process.env.RDS_CA_BUNDLE;
   if (p && existsSync(p)) return { rejectUnauthorized: true, ca: readFileSync(p, "utf8") };

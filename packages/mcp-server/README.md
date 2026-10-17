@@ -20,7 +20,7 @@ npm install @jurexio/mcp-server @jurexio/client-sdk
 Monorepo dev:
 
 ```bash
-cd nyayavigya-platform-312/packages/mcp-server
+cd Jurexio-Platform-SDK/packages/mcp-server
 npm install
 npm run build
 ```
@@ -52,7 +52,7 @@ export JRX_API_KEY=nyv_live_sk_...
 export JRX_MCP_SKU=nsp
 npx @jurexio/mcp-server
 # or
-node nyayavigya-platform-312/packages/mcp-server/dist/bin.js
+node Jurexio-Platform-SDK/packages/mcp-server/dist/bin.js
 ```
 
 **List curated tools for a SKU:**
@@ -73,7 +73,7 @@ JRX_MCP_TRANSPORT=sse JRX_MCP_SSE_PORT=8787 npx @jurexio/mcp-server --sse
 ```json
 {
   "mcpServers": {
-    "nyayavigya": {
+    "jurexio": {
       "command": "npx",
       "args": ["-y", "@jurexio/mcp-server"],
       "env": {
@@ -107,7 +107,7 @@ Gateway-backed tools call:
 
 `POST /api/jrx/sdk/workflows/protocols/mcp/tools/invoke`
 
-API-backed tools call typed NyvClient surfaces (`orchestrateApi`, `knowledge`, `legalWork`, `rag`, `gateway`, …).
+API-backed tools call typed JrxClient surfaces (`orchestrateApi`, `knowledge`, `legalWork`, `rag`, `gateway`, …).
 
 ---
 
@@ -119,7 +119,7 @@ Each `tools/list` and `tools/call` emits a structured JSON line:
 {"ts":"2026-07-14T09:00:00.000Z","event":"tool_call","toolId":"nys_retrieve","sku":"nsp","ok":true,"latencyMs":842}
 ```
 
-Set `JRX_MCP_AUDIT_LOG=/var/log/nyv-mcp-audit.jsonl` to persist to disk.
+Set `JRX_MCP_AUDIT_LOG=/var/log/jrx-mcp-audit.jsonl` to persist to disk.
 
 ---
 

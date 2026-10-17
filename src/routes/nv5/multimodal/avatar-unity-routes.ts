@@ -1,7 +1,7 @@
 // /api/nv5/multimodal/avatar-unity/* — Unity Avatar Service.
 //
 // NV-LLM-001 / NV-ARCH-001: provider-emitting paths delegate to the
-// canonical /api/jrx/sdk/multimodal/* router (nv-sdk-multimodal-voice-routes)
+// canonical /api/jrx/sdk/multimodal/* router (jrx-sdk-multimodal-voice-routes)
 // which traverses the safety ring. The package singleton is imported only
 // for wiring-audit reachability.
 //

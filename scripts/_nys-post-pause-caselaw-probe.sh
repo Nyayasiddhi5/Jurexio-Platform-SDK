@@ -4,10 +4,10 @@ set -uo pipefail
 set -a
 source /opt/nyv/api/.env 2>/dev/null || true
 set +a
-KEY="${NYS_KNOWLEDGE_API_KEY:-${NYS_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
+KEY="${JRX_ECOSYSTEM_KNOWLEDGE_API_KEY:-${JRX_ECOSYSTEM_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
 
 echo "=== EMBED STATUS ==="
-for u in nyv-caselaw-embed-loop@{0,1,2} nyv-caselaw-embed-dc nyv-embed-statutes-loop; do
+for u in jrx-caselaw-embed-loop@{0,1,2} jrx-caselaw-embed-dc jrx-embed-statutes-loop; do
   echo "$u: $(systemctl is-active $u 2>/dev/null || echo inactive)"
 done
 

@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 /**
- * NYV ↔ NYS Knowledge Plane live matrix (read-only probes + golden accuracy).
+ * JRX ↔ NYS Knowledge Plane live matrix (read-only probes + golden accuracy).
  * Usage:
- *   NYV_BASE=https://api.nyayasiddhi.online \
- *   NYV_SDK_KEY=... \
- *   NYS_BASE=https://nyayasearch.nyayasiddhi.online/api \
- *   NYS_KNOWLEDGE_API_KEY=... optional \
+ *   JRX_BASE=https://api.jurexio.com \
+ *   JRX_SDK_KEY=... \
+ *   JRX_ECOSYSTEM_BASE=https://nyayasearch.jurexio.com/api \
+ *   JRX_ECOSYSTEM_KNOWLEDGE_API_KEY=... optional \
  *   npx tsx scripts/jrx-nys-knowledge-matrix.ts
  */
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
-const NYV = (process.env.NYV_BASE || 'http://127.0.0.1:5000').replace(/\/$/, '');
-const NYS = (process.env.NYS_BASE || 'https://nyayasearch.nyayasiddhi.online/api').replace(/\/$/, '');
-const NYV_KEY = process.env.NYV_SDK_KEY || process.env.NYV_SDK_KEY_NSP || '';
-const NYS_KEY = process.env.NYS_KNOWLEDGE_API_KEY || process.env.NYS_SDK_API_KEY || '';
+const JRX = (process.env.JRX_BASE || 'http://127.0.0.1:5000').replace(/\/$/, '');
+const NYS = (process.env.JRX_ECOSYSTEM_BASE || 'https://nyayasearch.jurexio.com/api').replace(/\/$/, '');
+const JRX_KEY = process.env.JRX_SDK_KEY || process.env.JRX_SDK_KEY_NSP || '';
+const JRX_ECOSYSTEM_KEY = process.env.JRX_ECOSYSTEM_KNOWLEDGE_API_KEY || process.env.JRX_ECOSYSTEM_SDK_API_KEY || '';
 
 type Row = {
   name: string;
@@ -89,19 +89,19 @@ function goldBns103(json: any): 'PASS' | 'FAIL' | 'SKIP' {
 
 async function main() {
   const rows: Row[] = [];
-  const nyvH = NYV_KEY ? { 'X-API-Key': NYV_KEY } : {};
-  const nysH = NYS_KEY ? { 'X-API-Key': NYS_KEY } : {};
+  const nyvH = JRX_KEY ? { 'X-API-Key': JRX_KEY } : {};
+  const nysH = JRX_ECOSYSTEM_KEY ? { 'X-API-Key': JRX_ECOSYSTEM_KEY } : {};
 
   const push = (r: Row) => rows.push(r);
 
-  push((await call('nyv.health', 'GET', `${NYV}/api/jrx/health`)).row);
-  push((await call('nyv.statutes.summary', 'GET', `${NYV}/api/jrx/statutes/_summary`, undefined, nyvH)).row);
+  push((await call('nyv.health', 'GET', `${JRX}/api/jrx/health`)).row);
+  push((await call('nyv.statutes.summary', 'GET', `${JRX}/api/jrx/statutes/_summary`, undefined, nyvH)).row);
 
   {
     const { row, json } = await call(
       'nyv.statutes.search.BNS103',
       'GET',
-      `${NYV}/api/jrx/statutes/search?q=${encodeURIComponent('BNS 103')}&limit=3`,
+      `${JRX}/api/jrx/statutes/search?q=${encodeURIComponent('BNS 103')}&limit=3`,
       undefined,
       nyvH,
     );
@@ -111,13 +111,13 @@ async function main() {
     push(row);
   }
 
-  push((await call('nyv.knowledge.plane.health', 'GET', `${NYV}/api/jrx/knowledge/plane/health`, undefined, nyvH)).row);
+  push((await call('nyv.knowledge.plane.health', 'GET', `${JRX}/api/jrx/knowledge/plane/health`, undefined, nyvH)).row);
 
   {
     const { row, json } = await call(
       'nyv.knowledge.search.BNS103',
       'POST',
-      `${NYV}/api/jrx/knowledge/search`,
+      `${JRX}/api/jrx/knowledge/search`,
       { query: 'Punishment for murder under BNS section 103', jurisdiction: 'IN', limit: 5 },
       nyvH,
     );
@@ -130,7 +130,7 @@ async function main() {
       await call(
         'nyv.knowledge.caselaw',
         'GET',
-        `${NYV}/api/jrx/knowledge/caselaw/search?q=bail&jurisdiction=IN&limit=2`,
+        `${JRX}/api/jrx/knowledge/caselaw/search?q=bail&jurisdiction=IN&limit=2`,
         undefined,
         nyvH,
       )
@@ -141,7 +141,7 @@ async function main() {
       await call(
         'nyv.knowledge.compare.ipc',
         'GET',
-        `${NYV}/api/jrx/knowledge/statutes/compare/ipc-bns?section=302`,
+        `${JRX}/api/jrx/knowledge/statutes/compare/ipc-bns?section=302`,
         undefined,
         nyvH,
       )
@@ -152,7 +152,7 @@ async function main() {
       await call(
         'nyv.knowledge.cite.verify',
         'POST',
-        `${NYV}/api/jrx/knowledge/caselaw/verify-citation`,
+        `${JRX}/api/jrx/knowledge/caselaw/verify-citation`,
         { citation: '(2024) 1 SCC 1', jurisdiction: 'IN' },
         nyvH,
       )
@@ -163,19 +163,19 @@ async function main() {
       await call(
         'nyv.knowledge.athena',
         'POST',
-        `${NYV}/api/jrx/knowledge/documents/search`,
+        `${JRX}/api/jrx/knowledge/documents/search`,
         { q: 'bail anticipatory', limit: 5 },
         nyvH,
       )
     ).row,
   );
-  push((await call('nyv.knowledge.retrieve', 'POST', `${NYV}/api/jrx/knowledge/retrieve`, { query: 'BNS 103', jurisdiction: 'IN' }, nyvH)).row);
-  push((await call('nyv.knowledge.templates', 'GET', `${NYV}/api/jrx/knowledge/templates?jurisdiction=IN`, undefined, nyvH)).row);
-  push((await call('nyv.knowledge.caselaw.stats', 'GET', `${NYV}/api/jrx/knowledge/caselaw/stats`, undefined, nyvH)).row);
-  push((await call('nyv.knowledge.documents.status', 'GET', `${NYV}/api/jrx/knowledge/documents/status`, undefined, nyvH)).row);
+  push((await call('nyv.knowledge.retrieve', 'POST', `${JRX}/api/jrx/knowledge/retrieve`, { query: 'BNS 103', jurisdiction: 'IN' }, nyvH)).row);
+  push((await call('nyv.knowledge.templates', 'GET', `${JRX}/api/jrx/knowledge/templates?jurisdiction=IN`, undefined, nyvH)).row);
+  push((await call('nyv.knowledge.caselaw.stats', 'GET', `${JRX}/api/jrx/knowledge/caselaw/stats`, undefined, nyvH)).row);
+  push((await call('nyv.knowledge.documents.status', 'GET', `${JRX}/api/jrx/knowledge/documents/status`, undefined, nyvH)).row);
 
   {
-    const { row, json } = await call('nyv.legalWork.tasks', 'GET', `${NYV}/api/jrx/legal-work/tasks`, undefined, nyvH);
+    const { row, json } = await call('nyv.legalWork.tasks', 'GET', `${JRX}/api/jrx/legal-work/tasks`, undefined, nyvH);
     const n = Array.isArray(json) ? json.length : Array.isArray(json?.data) ? json.data.length : Array.isArray(json?.tasks) ? json.tasks.length : 0;
     row.accuracy = row.ok && n > 0 ? 'PASS' : row.http === 401 ? 'SKIP' : 'FAIL';
     row.brief = `${row.brief} tasks=${n}`;
@@ -186,7 +186,7 @@ async function main() {
     const { row, json } = await call(
       'nyv.patterns.nyayarag',
       'POST',
-      `${NYV}/api/jrx/patterns/nyayarag`,
+      `${JRX}/api/jrx/patterns/nyayarag`,
       { task: 'What is the punishment for murder under BNS 103?', jurisdiction: 'IN' },
       nyvH,
       120_000,
@@ -205,7 +205,7 @@ async function main() {
     const { row, json } = await call(
       'nyv.orchestrate.BNS103',
       'POST',
-      `${NYV}/api/jrx/orchestrate`,
+      `${JRX}/api/jrx/orchestrate`,
       {
         prompt: 'What is the punishment for murder under Bharatiya Nyaya Sanhita section 103?',
         jurisdiction: 'IN',
@@ -245,7 +245,7 @@ async function main() {
   }
   push((await call('nys.templates', 'GET', `${NYS}/templates?jurisdiction=IN`, undefined, nysH)).row);
 
-  console.log('\n=== NYV↔NYS matrix ===');
+  console.log('\n=== JRX↔NYS matrix ===');
   let accPass = 0;
   let accFail = 0;
   for (const r of rows) {
@@ -268,14 +268,14 @@ async function main() {
   }
   const out = join(outDir, `nys-knowledge-matrix-${stamp}.json`);
   try {
-    writeFileSync(out, JSON.stringify({ when: new Date().toISOString(), nyv: NYV, nys: NYS, accPass, accFail, rows }, null, 2));
+    writeFileSync(out, JSON.stringify({ when: new Date().toISOString(), nyv: JRX, nys: NYS, accPass, accFail, rows }, null, 2));
     console.log('wrote', out);
   } catch {
     writeFileSync('/tmp/nys-knowledge-matrix.json', JSON.stringify({ rows, accPass, accFail }, null, 2));
     console.log('wrote /tmp/nys-knowledge-matrix.json');
   }
 
-  if (accFail > 0 && process.env.NYV_MATRIX_STRICT === '1') process.exit(2);
+  if (accFail > 0 && process.env.JRX_MATRIX_STRICT === '1') process.exit(2);
 }
 
 main().catch((e) => {

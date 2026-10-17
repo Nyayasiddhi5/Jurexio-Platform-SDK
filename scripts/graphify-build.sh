@@ -4,7 +4,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 echo "═══════════════════════════════════════════════════════════"
-echo "  Graphify — Nyayavigya Platform 3.1.2 Knowledge Graph"
+echo "  Graphify — Jurexio Platform 3.1.2 Knowledge Graph"
 echo "═══════════════════════════════════════════════════════════"
 
 python3 << 'PYEOF'

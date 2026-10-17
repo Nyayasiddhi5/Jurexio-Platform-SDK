@@ -36,7 +36,7 @@ function isPrivateHost(host: string): boolean {
 
 function assertPublicWebhookUrl(rawUrl: string) {
   // explicit allowlist override for testing only
-  if (process.env.NYV_WEBHOOK_ALLOW_PRIVATE === 'true') return;
+  if (process.env.JRX_WEBHOOK_ALLOW_PRIVATE === 'true') return;
   let u: URL;
   try { u = new URL(rawUrl); } catch { throw new Error(`webhook url invalid: ${rawUrl}`); }
   if (u.protocol !== 'https:' && u.protocol !== 'http:') {
@@ -61,8 +61,8 @@ export async function dispatchWebhook(j: WebhookDeliveryJob): Promise<{ jobId: s
 }
 
 /**
- * Canonical X-NYV-Signature header. Format: `sha256=<hex>` over `${ts}.${body}`
- * — the timestamp is in `X-NYV-Timestamp` and prevents replay.
+ * Canonical X-JRX-Signature header. Format: `sha256=<hex>` over `${ts}.${body}`
+ * — the timestamp is in `X-JRX-Timestamp` and prevents replay.
  */
 export function signWebhookBody(rawBody: string, secret: string, timestamp: string): string {
   return 'sha256=' + crypto.createHmac('sha256', secret).update(`${timestamp}.${rawBody}`).digest('hex');
@@ -92,11 +92,11 @@ export async function handleWebhookDelivery(data: WebhookDeliveryJob): Promise<{
       headers: {
         'Content-Type': 'application/json',
         'User-Agent': 'Jurexio-Webhook/5.0.0',
-        'X-NYV-Event': data.event,
-        'X-NYV-Platform': data.platform,
-        'X-NYV-Timestamp': ts,
-        'X-NYV-Signature': sig,
-        'X-NYV-Correlation-Id': data.correlationId ?? '',
+        'X-JRX-Event': data.event,
+        'X-JRX-Platform': data.platform,
+        'X-JRX-Timestamp': ts,
+        'X-JRX-Signature': sig,
+        'X-JRX-Correlation-Id': data.correlationId ?? '',
       },
       body,
       signal: ctrl.signal,

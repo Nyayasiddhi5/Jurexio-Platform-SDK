@@ -4,7 +4,7 @@
  * Default OFF: ladders unchanged until JRX_F_BEDROCK_* flags are set.
  * NSP /orchestrate contract unchanged — routing only.
  */
-import { isNyvFeatureOn } from './jrx-feature-flags.js';
+import { isJrxFeatureOn } from './jrx-feature-flags.js';
 
 export const BEDROCK_CLAUDE_HAIKU_55 = 'global.anthropic.claude-haiku-5-5';
 export const BEDROCK_CLAUDE_SONNET_55 = 'global.anthropic.claude-sonnet-5-5';
@@ -13,24 +13,24 @@ export const BEDROCK_CLAUDE_OPUS_55 = 'us.anthropic.claude-opus-5-5';
 export const BEDROCK_CLAUDE_OPUS_55_GLOBAL = 'global.anthropic.claude-opus-5-5';
 
 export function isBedrockHaiku55FastEnabled(): boolean {
-  return isNyvFeatureOn('bedrockHaiku55Fast');
+  return isJrxFeatureOn('bedrockHaiku55Fast');
 }
 
 export function isBedrockSonnet55ChatEnabled(): boolean {
-  return isNyvFeatureOn('bedrockSonnet55Chat');
+  return isJrxFeatureOn('bedrockSonnet55Chat');
 }
 
 export function isBedrockOpus55CounselEnabled(): boolean {
-  return isNyvFeatureOn('bedrockOpus55Counsel');
+  return isJrxFeatureOn('bedrockOpus55Counsel');
 }
 
 export function isBedrockQueen55LeavesEnabled(): boolean {
-  return isNyvFeatureOn('bedrockQueen55Leaves');
+  return isJrxFeatureOn('bedrockQueen55Leaves');
 }
 
 /** Ops convention: QA regression lane keeps legacy ladders when set. */
 export function isLlmBaselineFrozen(): boolean {
-  const v = String(process.env.NYV_LLM_BASELINE_FROZEN ?? '').trim().toLowerCase();
+  const v = String(process.env.JRX_LLM_BASELINE_FROZEN ?? '').trim().toLowerCase();
   return v === '1' || v === 'true' || v === 'on' || v === 'yes';
 }
 
@@ -117,8 +117,8 @@ export function remapQueenPreferredForClaude55(modelId: string, role: 'explorati
 
 export function resolvePromptCacheMinCharsForModel(modelId: string): number {
   if (isClaude55BedrockModelId(modelId)) {
-    const n = Number(process.env.NYV_PROMPT_CACHE_MIN_CHARS_CLAUDE55 ?? 512);
+    const n = Number(process.env.JRX_PROMPT_CACHE_MIN_CHARS_CLAUDE55 ?? 512);
     return Number.isFinite(n) && n > 0 ? Math.floor(n) : 512;
   }
-  return Number(process.env.NYV_PROMPT_CACHE_MIN_CHARS || 4000);
+  return Number(process.env.JRX_PROMPT_CACHE_MIN_CHARS || 4000);
 }

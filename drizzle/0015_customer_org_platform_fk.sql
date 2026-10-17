@@ -36,7 +36,7 @@
 --   We deliberately RAISE EXCEPTION on any orphan or NULL row rather
 --   than silently re-binding to the per-platform synthetic default. A
 --   wrong rebind is worse than a hard stop — the operator must inspect
---   the rows and decide explicitly. See `scripts/nv-task385-preflight.ts`
+--   the rows and decide explicitly. See `scripts/jrx-task385-preflight.ts`
 --   for the read-only inventory pass meant to be run against prod RDS
 --   BEFORE this migration is applied via the SSM + psql sidecar pattern.
 --
@@ -69,7 +69,7 @@ BEGIN
 
   IF orphan_count > 0 THEN
     RAISE EXCEPTION
-      'Task #385 / 0015: % nv_customer_organizations row(s) reference a non-existent sdk_applications.id — fix the data and retry (see scripts/nv-task385-preflight.ts for the inventory)',
+      'Task #385 / 0015: % nv_customer_organizations row(s) reference a non-existent sdk_applications.id — fix the data and retry (see scripts/jrx-task385-preflight.ts for the inventory)',
       orphan_count;
   END IF;
 

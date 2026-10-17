@@ -1,10 +1,10 @@
 /**
- * NYV LLM Circuit Breaker — opossum-based circuit breaker for all LLM API calls
+ * JRX LLM Circuit Breaker — opossum-based circuit breaker for all LLM API calls
  * Fixes Audit Finding AI003: No circuit breaker on OpenRouter/external LLM calls
  * Pattern: Circuit opens at 50% failure rate → fast-fail for 60s → probe → close
  * @file src/utils/jrx-circuit-breaker.ts
  */
-// NYV-PREFLIGHT-FIX-001 (2026-04-30): @types/opossum is now installed (transitively via
+// JRX-PREFLIGHT-FIX-001 (2026-04-30): @types/opossum is now installed (transitively via
 // our dependencies), so the @ts-expect-error suppression became an unused-directive TS2578.
 // Removed it. The CircuitBreaker generic is still loose because opossum's typings don't
 // thread through Parameters<T>/ReturnType<T> precisely, so we cast at the boundary below.
@@ -91,7 +91,7 @@ export function createLlmCircuitBreaker<T extends (...args: any[]) => Promise<an
     });
   }
 
-  // NYV-PREFLIGHT-FIX-001: opossum's `new CircuitBreaker(fn, opts)` returns
+  // JRX-PREFLIGHT-FIX-001: opossum's `new CircuitBreaker(fn, opts)` returns
   // `CircuitBreaker<unknown[], unknown>` because the constructor doesn't preserve the
   // wrapped function's parameter/return types. We assert to the precise generic that
   // matches the wrapped fn so downstream callers get correct types.

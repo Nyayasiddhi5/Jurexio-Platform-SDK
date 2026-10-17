@@ -1,6 +1,6 @@
 /**
  * Hierarchical Task Allocator — live-signal smart routing
- * NYV-ORCH-SMART-003 (Task #33)
+ * JRX-ORCH-SMART-003 (Task #33)
  *
  * Verifies that the allocator now blends live signals (recent success
  * rate, P95 latency, active concurrency, per-jurisdiction outcomes)

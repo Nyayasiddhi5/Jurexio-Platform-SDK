@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# NYS-EMBED-STALL-DETECTOR-001 (2026-08-18) — /opt/nyv/api/jrx-embed-stall-detector.sh
+# JRX-EMBED-STALL-DETECTOR-001 (2026-08-18) — /opt/nyv/api/jrx-embed-stall-detector.sh
 #
 # Why this exists: HC shard 2 was dark for ~40 HOURS while `systemctl is-active` reported
 # `active` and `NRestarts=0`, so nothing alerted. Its worker held a Postgres backend that
@@ -36,10 +36,10 @@ log() { echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] $*" >> "$LOG"; }
 # `hc:s2of3` is intentionally absent: shard 2 runs EMBED_YEAR_MIN=2025 and writes
 # `hc:s2of3:y2025`; monitoring the preserved hc:s2of3 row caused restart loops every ~11 min.
 declare -A UNIT_FOR=(
-  ["hc:s0of3"]="nyv-caselaw-embed-loop@0"
-  ["hc:s1of3"]="nyv-caselaw-embed-loop@1"
-  ["hc:s2of3:y2025"]="nyv-caselaw-embed-loop@2"
-  ["dc"]="nyv-caselaw-embed-dc"
+  ["hc:s0of3"]="jrx-caselaw-embed-loop@0"
+  ["hc:s1of3"]="jrx-caselaw-embed-loop@1"
+  ["hc:s2of3:y2025"]="jrx-caselaw-embed-loop@2"
+  ["dc"]="jrx-caselaw-embed-dc"
 )
 
 # Ask the caselaw DB how stale each checkpoint is. Connection is built exactly as
@@ -50,7 +50,7 @@ read_staleness() {
   # directory upward, so a copy in /tmp cannot see /opt/nyv/api/node_modules and fails with
   # ERR_MODULE_NOT_FOUND for @aws-sdk/*. That produced an empty read and a "PROBE FAILED"
   # on first install — caught because the detector fails closed.
-  local probe="$API_DIR/.nv-embed-stall-probe.mjs"
+  local probe="$API_DIR/.jrx-embed-stall-probe.mjs"
   cat > "$probe" <<'JS'
 import { RDSClient, DescribeDBInstancesCommand } from "@aws-sdk/client-rds";
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
@@ -58,7 +58,7 @@ import pg from "pg";
 const R = "ap-south-1";
 try {
   const d = await new RDSClient({ region: R }).send(
-    new DescribeDBInstancesCommand({ DBInstanceIdentifier: "nyv-caselaw-pg" }));
+    new DescribeDBInstancesCommand({ DBInstanceIdentifier: "jrx-caselaw-pg" }));
   const i = d.DBInstances?.[0];
   if (!i?.Endpoint?.Address) { console.log("PROBE_BROKEN no_endpoint"); process.exit(3); }
   const s = await new SecretsManagerClient({ region: R }).send(

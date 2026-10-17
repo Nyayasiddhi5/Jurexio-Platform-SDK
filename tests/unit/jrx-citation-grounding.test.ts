@@ -2,7 +2,7 @@
  * NV-CITE-GROUND-001 — retrieved authorities must reach the model, and
  * `trust.citationsPresent` must mean what it says.
  *
- * The shipped defect, measured live on nysdev: asked for "leading Supreme Court
+ * The shipped defect, measured live on jrx-prod: asked for "leading Supreme Court
  * authorities on anticipatory bail for economic offences", `/api/jrx/orchestrate`
  * returned 6,925 chars of well-structured prose containing ZERO case citations,
  * while reporting `trust: { grounded: true, citationsPresent: true }` and
@@ -14,7 +14,7 @@
  *
  *  (a) `caseToChunk()` populated `citationRef`, but the only place it was ever
  *      RENDERED into an LLM-visible block was the SDK research route
- *      (`nv-sdk-gateway-routes.ts:1147`) — not `formatAutoRagContext`, which is
+ *      (`jrx-sdk-gateway-routes.ts:1147`) — not `formatAutoRagContext`, which is
  *      what the Queen/orchestrate path (NSP + console) actually uses. The model
  *      received snippet prose with nothing quotable, and our own
  *      anti-fabrication rule then guaranteed a citation-free answer.

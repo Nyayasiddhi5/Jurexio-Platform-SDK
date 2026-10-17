@@ -1,5 +1,5 @@
 /**
- * Single export path for NYV / NSP — Result v1 + LegalParseGuide + Intelligence + PII policy.
+ * Single export path for JRX / NSP — Result v1 + LegalParseGuide + Intelligence + PII policy.
  */
 import type { ExtractionResult } from "../types.js";
 import { buildLegalParseGuide } from "./legal-parse-guide.js";

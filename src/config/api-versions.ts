@@ -58,12 +58,12 @@ export const API_VERSIONS = {
     sunsetDate: {}
   },
 
-  // Nyayamitra (Citizen Legal Platform)
+  // Jurexio Citizen (Citizen Legal Platform)
   nm: {
     current: 'v1',
     supported: ['v1'],
     deprecated: [],
-    description: 'Nyayamitra - Citizen Legal Assistance & Guidance',
+    description: 'Jurexio Citizen - Citizen Legal Assistance & Guidance',
     releaseDate: '2025-07-01',
     sunsetDate: {}
   },
@@ -89,7 +89,7 @@ export const PLATFORM_ROUTES = {
   ni: '/api/ni',           // Jurexio Institutional
   nmin: '/api/nmin',       // Jurexio Ministry
   nacad: '/api/nacad',     // Jurexio Academy
-  nm: '/api/nm',           // Nyayamitra
+  nm: '/api/nm',           // Jurexio Citizen
   sdk: '/api/v1/sdk'       // SDK External API
 };
 

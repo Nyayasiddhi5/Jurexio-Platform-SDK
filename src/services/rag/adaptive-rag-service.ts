@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * Adaptive RAG Service with Query Router
  * 
@@ -86,20 +86,20 @@ export interface RouterConfig {
 }
 
 class AdaptiveRAGService {
-  // NYV-RAG-HEAP-CAP-001 (2026-04-30): cap unbounded request-driven Maps to prevent
+  // JRX-RAG-HEAP-CAP-001 (2026-04-30): cap unbounded request-driven Maps to prevent
   // the EC2 96% heap-pressure regression. Both maps were growing forever (one entry
   // per call), so heap usage scaled linearly with traffic until OOM.
   // Post-architect-review hardening: validate parsed env vars (raw Number() would
   // produce NaN for non-numeric strings, making `while (map.size >= cap)` false
   // forever and disabling eviction entirely — same class of bug as LMCache).
   private static readonly MAX_QUERY_HISTORY: number = (() => {
-    const raw = process.env.NYV_RAG_MAX_HISTORY;
+    const raw = process.env.JRX_RAG_MAX_HISTORY;
     if (raw === undefined || raw === '') return 500;
     const n = Number(raw);
     return (Number.isFinite(n) && n > 0 && Number.isInteger(n)) ? n : 500;
   })();
   private static readonly MAX_RETRIEVAL_PLANS: number = (() => {
-    const raw = process.env.NYV_RAG_MAX_PLANS;
+    const raw = process.env.JRX_RAG_MAX_PLANS;
     if (raw === undefined || raw === '') return 500;
     const n = Number(raw);
     return (Number.isFinite(n) && n > 0 && Number.isInteger(n)) ? n : 500;
@@ -127,7 +127,7 @@ class AdaptiveRAGService {
     maxDocumentsPerSource: 5,
     // NV-TIMEOUT-POLICY-001: 20s default (was 10s) — thin RAG → longer LLM fills
     timeoutMs: (() => {
-      const n = Number(process.env.NYV_ADAPTIVE_RAG_TIMEOUT_MS);
+      const n = Number(process.env.JRX_ADAPTIVE_RAG_TIMEOUT_MS);
       return Number.isFinite(n) && n >= 5_000 ? Math.min(60_000, Math.floor(n)) : 20_000;
     })(),
   };

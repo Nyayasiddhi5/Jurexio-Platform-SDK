@@ -18,7 +18,7 @@
  *      check, it is a liveness check.** Exit code is NOT influenced by the
  *      publish env when REPLIT_PUBLISH_DOMAIN is absent.
  *
- *   3. **EC2 prod (api.nyayasiddhi.online)** — probes `/api/jrx/health` for
+ *   3. **EC2 prod (api.jurexio.com)** — probes `/api/jrx/health` for
  *      liveness + version, then validates each of the 7 SDK keys by sending
  *      them as `X-API-Key` against `/api/jrx/gateway/health` (the gateway
  *      health route is the cheapest authed endpoint that exercises the
@@ -33,7 +33,7 @@
  *       AND (c) all 7 SDK keys validate 200 against EC2.
  *   1 = any of the above fails.
  *
- * For full 3-env env-var enumeration (including EC2's `/opt/nyayavigya/secrets/.env.production`),
+ * For full 3-env env-var enumeration (including EC2's `/opt/jurexio/secrets/.env.production`),
  * use the SSM-driven `scripts/jrx-deep-env-diff.sh` (separate, requires AWS creds).
  *
  * Usage:
@@ -46,27 +46,27 @@
  * The verifier treats a key as "set" if ANY of [canonical, ...aliases] is set.
  */
 const REQUIRED_KEY_ALIASES: Record<string, string[]> = {
-  NYV_DATABASE_URL: ['DATABASE_URL'],                           // Drizzle/Neon also reads DATABASE_URL
-  NYV_REDIS_TCP_URL: ['NYV_REDIS_WRITE_URL', 'REDIS_URL', 'NYV_REDIS_URL'], // NV-SECRETS-001 legacy
+  JRX_DATABASE_URL: ['DATABASE_URL'],                           // Drizzle/Neon also reads DATABASE_URL
+  JRX_REDIS_TCP_URL: ['JRX_REDIS_WRITE_URL', 'REDIS_URL', 'JRX_REDIS_URL'], // NV-SECRETS-001 legacy
 };
 
 const REQUIRED_KEYS = [
   // Datastores
-  'NYV_DATABASE_URL',
-  'NYV_REDIS_TCP_URL',
+  'JRX_DATABASE_URL',
+  'JRX_REDIS_TCP_URL',
   // Auth
-  'NYV_JWT_SECRET',
-  'NYV_JWT_REFRESH_SECRET',
+  'JRX_JWT_SECRET',
+  'JRX_JWT_REFRESH_SECRET',
   'JWT_SECRET',
   'ENCRYPTION_KEY',
   // SDK keys (vault canonical, must be byte-identical across all 3 envs)
-  'NYV_SDK_KEY_NSP',
-  'NYV_SDK_KEY_NSPM',
-  'NYV_SDK_KEY_NSI',
-  'NYV_SDK_KEY_NSA',
-  'NYV_SDK_KEY_NSM',
-  'NYV_SDK_KEY_NYM',
-  'NYV_SDK_KEY_JRX',
+  'JRX_SDK_KEY_NSP',
+  'JRX_SDK_KEY_NSPM',
+  'JRX_SDK_KEY_NSI',
+  'JRX_SDK_KEY_NSA',
+  'JRX_SDK_KEY_NSM',
+  'JRX_SDK_KEY_NYM',
+  'JRX_SDK_KEY_JRX',
   // LLM providers (≥1 of these must be set)
   'OPENAI_API_KEY',
   'OPENROUTER_API_KEY',
@@ -76,16 +76,16 @@ const REQUIRED_KEYS = [
 ] as const;
 
 const OPTIONAL_KEYS = [
-  'NYV_REDIS_READ_URL',
-  'NYV_REDIS_WRITE_URL', // legacy alias — soft-deprecated
+  'JRX_REDIS_READ_URL',
+  'JRX_REDIS_WRITE_URL', // legacy alias — soft-deprecated
   'REDIS_URL',           // legacy alias — soft-deprecated
-  'NYV_REDIS_URL',       // legacy alias — soft-deprecated
+  'JRX_REDIS_URL',       // legacy alias — soft-deprecated
   'SARVAM_API_KEY',
-  'NYV_EC2_INSTANCE_ID',
+  'JRX_EC2_INSTANCE_ID',
   'DEFAULT_OBJECT_STORAGE_BUCKET_ID',
   'PUBLIC_OBJECT_SEARCH_PATHS',
   'PRIVATE_OBJECT_DIR',
-  'NYV_STORAGE_BACKEND',
+  'JRX_STORAGE_BACKEND',
   'BITBUCKET_USERNAME',
   'BITBUCKET_APP_PASSWORD',
 ] as const;
@@ -134,7 +134,7 @@ async function main() {
   };
   report.environments['local-dev'] = {
     label: 'Local / Cursor dev (this process)',
-    domain: process.env.NYV_DEV_DOMAIN || 'localhost:5000',
+    domain: process.env.JRX_DEV_DOMAIN || 'localhost:5000',
     requiredKeysSet: REQUIRED_KEYS.map((k) => {
       const r = resolveKey(k);
       return {
@@ -151,7 +151,7 @@ async function main() {
   };
 
   // 2. Public deploy — probe known EC2/public domain (if configured)
-  const publicDeployHost = process.env.NYV_PUBLIC_API_URL?.replace(/^https?:\/\//, '') || process.env.NYV_GATEWAY_URL?.replace(/^https?:\/\//, '');
+  const publicDeployHost = process.env.JRX_PUBLIC_API_URL?.replace(/^https?:\/\//, '') || process.env.JRX_GATEWAY_URL?.replace(/^https?:\/\//, '');
   if (publicDeployHost) {
     const p = await probe(`https://${publicDeployHost}/api/jrx/health`);
     report.environments['public-deploy'] = {
@@ -164,22 +164,22 @@ async function main() {
   } else {
     report.environments['public-deploy'] = {
       label: 'Public EC2 deploy',
-      note: 'NYV_PUBLIC_API_URL / NYV_GATEWAY_URL not set; cannot probe public deploy URL',
+      note: 'JRX_PUBLIC_API_URL / JRX_GATEWAY_URL not set; cannot probe public deploy URL',
     };
   }
 
-  // 3. EC2 prod — probe api.nyayasiddhi.online
-  const ec2Host = process.env.NYV_EC2_API_HOST || 'api.nyayasiddhi.online';
+  // 3. EC2 prod — probe api.jurexio.com
+  const ec2Host = process.env.JRX_EC2_API_HOST || 'api.jurexio.com';
   const ec2Health = await probe(`https://${ec2Host}/api/jrx/health`);
   const ec2KeyChecks: Record<string, any> = {};
   for (const platform of ['NSP', 'NSI', 'NSA', 'NSM', 'NYM', 'NSPM', 'JRX']) {
-    const key = process.env[`NYV_SDK_KEY_${platform}`];
+    const key = process.env[`JRX_SDK_KEY_${platform}`];
     if (!key) { ec2KeyChecks[platform] = { skipped: 'key not set in this env' }; continue; }
     const p = await probe(`https://${ec2Host}/api/jrx/gateway/health`, { 'X-API-Key': key });
     ec2KeyChecks[platform] = { status: p.status, ok: p.ok };
   }
   report.environments['ec2-prod'] = {
-    label: 'EC2 prod (api.nyayasiddhi.online)',
+    label: 'EC2 prod (api.jurexio.com)',
     domain: ec2Host,
     health: ec2Health.ok ? 'healthy' : 'unhealthy',
     status: ec2Health.status,

@@ -73,7 +73,7 @@ const INDEXES: string[] = [
   `CREATE INDEX IF NOT EXISTS idx_ns_corpus_section       ON ns_indian_law_corpus(section_number)`,
   `CREATE INDEX IF NOT EXISTS idx_ns_corpus_practice      ON ns_indian_law_corpus(practice_area)`,
 
-  /* ── nm_* (Nyayamitra citizen) ──────────────────────── */
+  /* ── nm_* (Jurexio Citizen citizen) ──────────────────────── */
   `CREATE INDEX IF NOT EXISTS idx_nm_cases_user_id        ON nm_cases(user_id)`,
   `CREATE INDEX IF NOT EXISTS idx_nm_cases_status         ON nm_cases(status)`,
   `CREATE INDEX IF NOT EXISTS idx_nm_cases_created_at     ON nm_cases(created_at DESC)`,
@@ -95,7 +95,7 @@ const INDEXES: string[] = [
   /* ── DB-03: Missing B-tree indices (audit remediation) */
   `CREATE INDEX IF NOT EXISTS idx_legal_agents_category      ON legal_agents(category)`,
   `CREATE INDEX IF NOT EXISTS idx_legal_agents_practice_area ON legal_agents(practice_area)`,
-  `CREATE INDEX IF NOT EXISTS idx_nyayamitra_cases_user_id   ON nyayamitra_cases(user_id)`,
+  `CREATE INDEX IF NOT EXISTS idx_jurexio-citizen_cases_user_id   ON jurexio-citizen_cases(user_id)`,
   `CREATE INDEX IF NOT EXISTS idx_academy_enrollments_course  ON academy_enrollments(course_id)`,
 ];
 

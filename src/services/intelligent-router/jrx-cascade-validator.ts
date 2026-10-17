@@ -32,7 +32,7 @@
  *
  * It is advisory by default — refusing to boot because one of ~200 catalog ids
  * drifted would be a worse outage than a shortened cascade — but
- * `NYV_VALIDATE_CASCADE_STRICT=1` makes it fatal so CI catches the drift.
+ * `JRX_VALIDATE_CASCADE_STRICT=1` makes it fatal so CI catches the drift.
  */
 
 import { createLogger } from '../../utils/logger.js';
@@ -194,7 +194,7 @@ export function validateCascadeModelIds(): CascadeValidationReport {
 
 function isStrict(): boolean {
   return ['1', 'true', 'on', 'yes'].includes(
-    String(process.env.NYV_VALIDATE_CASCADE_STRICT ?? '').trim().toLowerCase(),
+    String(process.env.JRX_VALIDATE_CASCADE_STRICT ?? '').trim().toLowerCase(),
   );
 }
 
@@ -204,7 +204,7 @@ function uniqueDetails(issues: CascadeValidationIssue[], kind: CascadeIssueKind)
 
 /**
  * Run once at startup. Logs a single summary line plus one line per distinct
- * issue. Throws only under `NYV_VALIDATE_CASCADE_STRICT=1`.
+ * issue. Throws only under `JRX_VALIDATE_CASCADE_STRICT=1`.
  */
 export function assertCascadeModelIdsAtStartup(): CascadeValidationReport {
   const report = validateCascadeModelIds();

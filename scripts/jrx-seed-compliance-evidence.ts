@@ -1,5 +1,5 @@
 /**
- * Nyayavigya Platform — Per-Org Compliance Evidence Seeder
+ * Jurexio Platform — Per-Org Compliance Evidence Seeder
  * For each (org_id=1) × (framework × control), produce an evidence row.
  * Pulls live counts from real platform tables where possible (audit_logs,
  * pii_detections, rate-limit hits) so the dashboard reflects real activity.

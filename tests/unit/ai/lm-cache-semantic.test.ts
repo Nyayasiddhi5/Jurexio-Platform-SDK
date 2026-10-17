@@ -6,7 +6,7 @@
  * There were two independent blockers, and fixing either alone changes nothing:
  *
  *   1. The default path was not semantic at all. With
- *      `NYV_F_LMCACHE_SEMANTIC_EMBED` off (its default), `get()` called
+ *      `JRX_F_LMCACHE_SEMANTIC_EMBED` off (its default), `get()` called
  *      `findSemanticMatch`, which scored candidates by counting matching
  *      characters of two SHA-256 hex digests. Digests of different inputs are
  *      effectively independent, so the expected score is ~1/16 = 0.0625 against
@@ -109,11 +109,11 @@ beforeEach(() => {
   embedCalls.length = 0;
   // Fuzzy serving is opt-in (see `semanticAllowed`); these tests exercise the
   // opted-in path. `stays-off-by-default` below asserts the other side.
-  process.env.NYV_F_LMCACHE_SEMANTIC_EMBED = 'true';
+  process.env.JRX_F_LMCACHE_SEMANTIC_EMBED = 'true';
 });
 
 afterEach(() => {
-  delete process.env.NYV_F_LMCACHE_SEMANTIC_EMBED;
+  delete process.env.JRX_F_LMCACHE_SEMANTIC_EMBED;
 });
 
 describe('why the old semantic path could never serve', () => {
@@ -252,7 +252,7 @@ describe('semantic matching is affordable', () => {
   });
 
   it('stays off by default: no embedding call and no fuzzy serve without the flag', async () => {
-    delete process.env.NYV_F_LMCACHE_SEMANTIC_EMBED;
+    delete process.env.JRX_F_LMCACHE_SEMANTIC_EMBED;
     const cache = semanticCache();
 
     await cache.set(STORED_Q, STORED_A, { namespace: NS_A });

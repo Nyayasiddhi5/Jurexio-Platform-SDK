@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
+// JRX-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
 // file. Runtime is unaffected (gateway runs via tsx). Opt out of strict-null
 // for the v5.0.0 deploy gate; track follow-up cleanup in INV-CLEANUP-001.
 import { Router, Request, Response } from 'express';
@@ -20,7 +20,7 @@ const ROLE_HIERARCHY: Record<string, number> = {
   super_admin: 11,
   // platform_admin (tier-1) sits directly below super_admin and above org_admin:
   // it governs a whole platform's orgs/users/keys but only its own platform_id
-  // (scoping enforced in nv-customer-org-rbac.ts).
+  // (scoping enforced in jrx-customer-org-rbac.ts).
   platform_admin: 10,
   org_admin: 9,
   manager: 8,
@@ -37,7 +37,7 @@ function hasRoleAccess(userRole: string, minRole: string): boolean {
   return (ROLE_HIERARCHY[userRole] || 0) >= (ROLE_HIERARCHY[minRole] || 0);
 }
 
-// ── /organizations schema-resilience (NYV-ENT-ORG-500 fix, 2026-06-03) ────────
+// ── /organizations schema-resilience (JRX-ENT-ORG-500 fix, 2026-06-03) ────────
 // EC2 dev-edge drift: the member/app sub-counts referenced `nv_users.org_id`
 // and `nv_sdk_applications.organization_id`. The runtime SDK-apps table is
 // seeded with `org_id` (not `organization_id`), so on a drifted RDS the
@@ -287,7 +287,7 @@ router.patch('/users/:id/role', authenticateToken, requireRole('org_admin', 'sup
 router.get('/platform-settings', authenticateToken, requireRole('manager', 'org_admin', 'super_admin'), async (req: Request, res: Response) => {
   try {
     if (!db) { res.status(500).json({ success: false, error: 'Database not available' }); return; }
-    const result = await db.execute(sql`SELECT * FROM nyayavigya_platform_settings ORDER BY created_at DESC LIMIT 50`);
+    const result = await db.execute(sql`SELECT * FROM jurexio_platform_settings ORDER BY created_at DESC LIMIT 50`);
     const settings: Record<string, any> = {};
     for (const row of (result.rows || result) as any[]) {
       const k = row.setting_key || row.key;
@@ -328,14 +328,14 @@ router.patch('/platform-settings', authenticateToken, requireRole('super_admin')
     const { settings } = req.body;
     if (!settings || typeof settings !== 'object') { res.status(400).json({ success: false, error: 'Settings object required' }); return; }
     for (const [key, value] of Object.entries(settings)) {
-      const existing = await db.execute(sql`SELECT id, setting_type, category FROM nyayavigya_platform_settings WHERE setting_key = ${key} LIMIT 1`);
+      const existing = await db.execute(sql`SELECT id, setting_type, category FROM jurexio_platform_settings WHERE setting_key = ${key} LIMIT 1`);
       const existingRows = existing.rows || existing;
       if ((existingRows as any[]).length > 0) {
-        await db.execute(sql`UPDATE nyayavigya_platform_settings SET setting_value = ${JSON.stringify(value)}::jsonb, updated_at = NOW() WHERE setting_key = ${key}`);
+        await db.execute(sql`UPDATE jurexio_platform_settings SET setting_value = ${JSON.stringify(value)}::jsonb, updated_at = NOW() WHERE setting_key = ${key}`);
       } else {
         const inferredType = typeof value === 'boolean' || value === 'true' || value === 'false' ? 'boolean' : typeof value === 'number' ? 'number' : 'string';
         const inferredCategory = key.startsWith('no') || key.includes('Redaction') || key.includes('Detection') || key.includes('Guardrail') ? 'guardrails' : key.includes('llm') || key.includes('LLM') ? 'llm' : key.includes('rate') || key.includes('Rate') || key.includes('max') || key.includes('Max') ? 'security' : 'general';
-        await db.execute(sql`INSERT INTO nyayavigya_platform_settings (setting_key, setting_name, setting_value, setting_type, category, is_editable, created_at, updated_at) VALUES (${key}, ${key}, ${JSON.stringify(value)}::jsonb, ${inferredType}, ${inferredCategory}, true, NOW(), NOW())`);
+        await db.execute(sql`INSERT INTO jurexio_platform_settings (setting_key, setting_name, setting_value, setting_type, category, is_editable, created_at, updated_at) VALUES (${key}, ${key}, ${JSON.stringify(value)}::jsonb, ${inferredType}, ${inferredCategory}, true, NOW(), NOW())`);
       }
     }
     res.json({ success: true, message: 'Settings updated. Restart application to apply changes.' });
@@ -376,7 +376,7 @@ router.get('/audit-log', authenticateToken, requireRole('org_admin', 'super_admi
     if (!db) { res.status(500).json({ success: false, error: 'Database not available' }); return; }
     const { limit = '50' } = req.query;
     const result = await db.execute(sql`
-      SELECT * FROM nyayavigya_admin_audit_logs 
+      SELECT * FROM jurexio_admin_audit_logs 
       ORDER BY created_at DESC LIMIT ${parseInt(limit as string)}
     `);
     res.json({ success: true, data: result.rows || result });
@@ -827,7 +827,7 @@ router.get('/sdlc/workflows', authenticateToken, async (req: Request, res: Respo
   try {
     const workflows = sdlcWorkflowTypes.map((w, i) => ({
       workflowId: `wf-${w.type}-${i + 1}`,
-      founderId: process.env.NYV_SUPERADMIN_EMAIL || '[PURGED-NV_UAT_EMAIL]',
+      founderId: process.env.JRX_SUPERADMIN_EMAIL || '[PURGED-NV_UAT_EMAIL]',
       projectId: 1,
       name: w.name,
       type: w.type,

@@ -1,11 +1,11 @@
 /**
- * Nyayavigya Platform — Compliance Frameworks + Controls Catalog Seeder
+ * Jurexio Platform — Compliance Frameworks + Controls Catalog Seeder
  * Idempotent. Uses makePgSql() (NV-DB-SCRIPT-001 compliant).
  *
  * Populates nv_compliance_frameworks + nv_compliance_controls with the
  * canonical control list per jurisdiction × framework. This is the
  * authoritative reference catalog — per-org evidence is layered on top
- * via nv-seed-compliance-evidence.ts.
+ * via jrx-seed-compliance-evidence.ts.
  */
 
 import { makePgSql } from './_pg-pool.js';

@@ -1,6 +1,6 @@
 /**
  * Audit Chain Routes — Demo G1A (task-297, 2026-05-13).
- * v3 (2026-06-16): unified read via nv-audit-chain-read.ts.
+ * v3 (2026-06-16): unified read via jrx-audit-chain-read.ts.
  */
 import { Router, Request, Response } from 'express';
 import { authenticateToken, requireRole } from '../middleware/jrx-auth.js';
@@ -17,7 +17,7 @@ const router = Router();
 
 // NV-AUDIT-TENANT-SCOPE-001: cross-org audit reads are super_admin ONLY.
 // Tenant-scope resolution is delegated to resolveAuditReadScope() in
-// nv-audit-chain-read.ts (single source of truth) so the list and detail
+// jrx-audit-chain-read.ts (single source of truth) so the list and detail
 // endpoints can never diverge.
 const ALLOWED_JUR = new Set(['US', 'IN', 'EU', 'UK', 'GC', 'SG']);
 

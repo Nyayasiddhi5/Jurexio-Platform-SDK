@@ -1,25 +1,25 @@
 import { useState, useCallback } from 'react';
-import { useNyvClient } from './useNyvClient.js';
-import type { NyvForensicVerifyResult } from '@jurexio/types';
+import { useJrxClient } from './useJrxClient.js';
+import type { JrxForensicVerifyResult } from '@jurexio/types';
 
 export interface UseForensicVerifierReturn {
   loading: boolean;
   error: string | null;
-  result: NyvForensicVerifyResult | null;
-  verify: (documentId: string) => Promise<NyvForensicVerifyResult>;
+  result: JrxForensicVerifyResult | null;
+  verify: (documentId: string) => Promise<JrxForensicVerifyResult>;
 }
 
 export function useForensicVerifier(): UseForensicVerifierReturn {
-  const { authHeaders, baseUrl } = useNyvClient({});
+  const { authHeaders, baseUrl } = useJrxClient({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<NyvForensicVerifyResult | null>(null);
+  const [result, setResult] = useState<JrxForensicVerifyResult | null>(null);
 
   const verify = useCallback(async (documentId: string) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${baseUrl}/api/jrx/nyaya-tools/forensic/verify`, {
+      const res = await fetch(`${baseUrl}/api/jrx/jrx-legal-tools/forensic/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...authHeaders },
         body: JSON.stringify({ documentId }),

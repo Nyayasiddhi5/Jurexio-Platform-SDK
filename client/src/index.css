@@ -1112,170 +1112,170 @@ button.bg-\[\#152448\],
 
 /* ════════════════════════════════════════════════════════════════════════
    NV-LIGHT-SCOPE — task-163: light theme for ten Agents pages
-   Wraps each page's outer div with `nv-light-scope` to convert hard-coded
+   Wraps each page's outer div with `jrx-light-scope` to convert hard-coded
    dark backgrounds, white-on-dark text, and brand-navy gradient heroes
    to a clean white surface with dark slate text + brand navy/gold accents.
 
    NOTE (task-166 rebase): the 10 Agents pages originally targeted by this
    overlay have been migrated to native light JSX styling and no longer
-   carry the `nv-light-scope` wrapper. The block is kept because other
-   pages added on main (nyayavigya-sdk-hub, orchestration/{Policy,Memory,
+   carry the `jrx-light-scope` wrapper. The block is kept because other
+   pages added on main (jurexio-sdk-hub, orchestration/{Policy,Memory,
    Lineage,GRPO} consoles, platform-v5/_shared) still depend on it.
    ════════════════════════════════════════════════════════════════════════ */
-.nv-light-scope {
-  --nv-page-bg: #F8FAFC;
-  --nv-card-bg: #FFFFFF;
-  --nv-card-bg-soft: #F1F5F9;
-  --nv-border: #E2E8F0;
-  --nv-text-primary: #0F172A;
-  --nv-text-secondary: #475569;
-  --nv-text-muted: #64748B;
-  --nv-brand: #152448;
-  --nv-accent: #C7B15B;
-  background-color: var(--nv-page-bg) !important;
-  color: var(--nv-text-primary) !important;
+.jrx-light-scope {
+  --jrx-page-bg: #F8FAFC;
+  --jrx-card-bg: #FFFFFF;
+  --jrx-card-bg-soft: #F1F5F9;
+  --jrx-border: #E2E8F0;
+  --jrx-text-primary: #0F172A;
+  --jrx-text-secondary: #475569;
+  --jrx-text-muted: #64748B;
+  --jrx-brand: #152448;
+  --jrx-accent: #C7B15B;
+  background-color: var(--jrx-page-bg) !important;
+  color: var(--jrx-text-primary) !important;
   background-image: none !important;
 }
 
 /* ─── Page / panel surfaces ──────────────────────────────────────────────── */
-.nv-light-scope [class*="bg-[hsl(222"],
-.nv-light-scope [class*="bg-[#0a0b0f]"],
-.nv-light-scope [class*="bg-[#0d0f14]"],
-.nv-light-scope [class*="bg-[#12141a]"],
-.nv-light-scope [class*="bg-[#0E1830]"],
-.nv-light-scope .bg-background,
-.nv-light-scope .bg-card,
-.nv-light-scope .bg-card\/50,
-.nv-light-scope .bg-muted,
-.nv-light-scope .bg-muted\/30,
-.nv-light-scope .bg-muted\/50,
-.nv-light-scope .bg-slate-900 {
-  background-color: var(--nv-card-bg) !important;
+.jrx-light-scope [class*="bg-[hsl(222"],
+.jrx-light-scope [class*="bg-[#0a0b0f]"],
+.jrx-light-scope [class*="bg-[#0d0f14]"],
+.jrx-light-scope [class*="bg-[#12141a]"],
+.jrx-light-scope [class*="bg-[#0E1830]"],
+.jrx-light-scope .bg-background,
+.jrx-light-scope .bg-card,
+.jrx-light-scope .bg-card\/50,
+.jrx-light-scope .bg-muted,
+.jrx-light-scope .bg-muted\/30,
+.jrx-light-scope .bg-muted\/50,
+.jrx-light-scope .bg-slate-900 {
+  background-color: var(--jrx-card-bg) !important;
   background-image: none !important;
 }
 
 /* Translucent overlays — soften rather than darken */
-.nv-light-scope [class*="bg-white/"],
-.nv-light-scope [class*="bg-white\\/"] {
-  background-color: var(--nv-card-bg-soft) !important;
+.jrx-light-scope [class*="bg-white/"],
+.jrx-light-scope [class*="bg-white\\/"] {
+  background-color: var(--jrx-card-bg-soft) !important;
 }
-.nv-light-scope [class*="bg-black/"],
-.nv-light-scope [class*="bg-black\\/"] {
-  background-color: var(--nv-card-bg-soft) !important;
+.jrx-light-scope [class*="bg-black/"],
+.jrx-light-scope [class*="bg-black\\/"] {
+  background-color: var(--jrx-card-bg-soft) !important;
 }
 
 /* ─── Borders ────────────────────────────────────────────────────────────── */
-.nv-light-scope [class*="border-white/"],
-.nv-light-scope [class*="border-white\\/"],
-.nv-light-scope .border-border,
-.nv-light-scope .border-input {
-  border-color: var(--nv-border) !important;
+.jrx-light-scope [class*="border-white/"],
+.jrx-light-scope [class*="border-white\\/"],
+.jrx-light-scope .border-border,
+.jrx-light-scope .border-input {
+  border-color: var(--jrx-border) !important;
 }
 
 /* ─── Text ───────────────────────────────────────────────────────────────── */
-.nv-light-scope .text-white {
-  color: var(--nv-text-primary) !important;
+.jrx-light-scope .text-white {
+  color: var(--jrx-text-primary) !important;
 }
-.nv-light-scope [class*="text-white/"],
-.nv-light-scope [class*="text-white\\/"] {
-  color: var(--nv-text-secondary) !important;
+.jrx-light-scope [class*="text-white/"],
+.jrx-light-scope [class*="text-white\\/"] {
+  color: var(--jrx-text-secondary) !important;
 }
-.nv-light-scope .text-gray-400,
-.nv-light-scope .text-gray-300,
-.nv-light-scope .text-slate-400,
-.nv-light-scope .text-slate-300,
-.nv-light-scope .text-muted-foreground {
-  color: var(--nv-text-muted) !important;
+.jrx-light-scope .text-gray-400,
+.jrx-light-scope .text-gray-300,
+.jrx-light-scope .text-slate-400,
+.jrx-light-scope .text-slate-300,
+.jrx-light-scope .text-muted-foreground {
+  color: var(--jrx-text-muted) !important;
 }
 
 /* ─── Headings + brand accents ───────────────────────────────────────────── */
-.nv-light-scope h1,
-.nv-light-scope h2 {
-  color: var(--nv-brand) !important;
+.jrx-light-scope h1,
+.jrx-light-scope h2 {
+  color: var(--jrx-brand) !important;
 }
 
 /* ─── Inline-style overrides (orchestration pages use brand-navy gradients
        and rgba(255,255,255,…) translucent panels via inline `style`) ─────── */
-.nv-light-scope [style*="linear-gradient(135deg, #0E1830"],
-.nv-light-scope [style*="linear-gradient(135deg,#0E1830"] {
-  background: var(--nv-page-bg) !important;
+.jrx-light-scope [style*="linear-gradient(135deg, #0E1830"],
+.jrx-light-scope [style*="linear-gradient(135deg,#0E1830"] {
+  background: var(--jrx-page-bg) !important;
 }
-.nv-light-scope [style*="rgba(255,255,255,0.04)"],
-.nv-light-scope [style*="rgba(255, 255, 255, 0.04)"],
-.nv-light-scope [style*="rgba(255,255,255,0.05)"],
-.nv-light-scope [style*="rgba(255,255,255,0.03)"] {
-  background: var(--nv-card-bg) !important;
+.jrx-light-scope [style*="rgba(255,255,255,0.04)"],
+.jrx-light-scope [style*="rgba(255, 255, 255, 0.04)"],
+.jrx-light-scope [style*="rgba(255,255,255,0.05)"],
+.jrx-light-scope [style*="rgba(255,255,255,0.03)"] {
+  background: var(--jrx-card-bg) !important;
 }
-.nv-light-scope [style*="rgba(255,255,255,0.08)"],
-.nv-light-scope [style*="rgba(255, 255, 255, 0.08)"],
-.nv-light-scope [style*="rgba(255,255,255,0.1)"],
-.nv-light-scope [style*="rgba(255,255,255,0.10)"] {
-  border-color: var(--nv-border) !important;
+.jrx-light-scope [style*="rgba(255,255,255,0.08)"],
+.jrx-light-scope [style*="rgba(255, 255, 255, 0.08)"],
+.jrx-light-scope [style*="rgba(255,255,255,0.1)"],
+.jrx-light-scope [style*="rgba(255,255,255,0.10)"] {
+  border-color: var(--jrx-border) !important;
 }
 /* Inline white-ish text colors -> dark slate */
-.nv-light-scope [style*="color: #fff"],
-.nv-light-scope [style*="color:#fff"],
-.nv-light-scope [style*="color: white"],
-.nv-light-scope [style*="color: rgba(255,255,255"],
-.nv-light-scope [style*="color: rgba(255, 255, 255"],
-.nv-light-scope [style*="color:rgba(255,255,255"] {
-  color: var(--nv-text-secondary) !important;
+.jrx-light-scope [style*="color: #fff"],
+.jrx-light-scope [style*="color:#fff"],
+.jrx-light-scope [style*="color: white"],
+.jrx-light-scope [style*="color: rgba(255,255,255"],
+.jrx-light-scope [style*="color: rgba(255, 255, 255"],
+.jrx-light-scope [style*="color:rgba(255,255,255"] {
+  color: var(--jrx-text-secondary) !important;
 }
 /* But keep the brand-gold inline color readable against white */
-.nv-light-scope [style*="#C7B15B"],
-.nv-light-scope [style*="color: #C7B15B"] {
+.jrx-light-scope [style*="#C7B15B"],
+.jrx-light-scope [style*="color: #C7B15B"] {
   color: #B48907 !important;
 }
 
 /* ─── Inputs / textareas / selects ───────────────────────────────────────── */
-.nv-light-scope input,
-.nv-light-scope textarea,
-.nv-light-scope select,
-.nv-light-scope [role="combobox"] {
-  background-color: var(--nv-card-bg) !important;
-  color: var(--nv-text-primary) !important;
-  border-color: var(--nv-border) !important;
+.jrx-light-scope input,
+.jrx-light-scope textarea,
+.jrx-light-scope select,
+.jrx-light-scope [role="combobox"] {
+  background-color: var(--jrx-card-bg) !important;
+  color: var(--jrx-text-primary) !important;
+  border-color: var(--jrx-border) !important;
 }
-.nv-light-scope input::placeholder,
-.nv-light-scope textarea::placeholder {
-  color: var(--nv-text-muted) !important;
+.jrx-light-scope input::placeholder,
+.jrx-light-scope textarea::placeholder {
+  color: var(--jrx-text-muted) !important;
   opacity: 1;
 }
 
 /* ─── Code chips inside light cards ──────────────────────────────────────── */
-.nv-light-scope code {
-  background-color: var(--nv-card-bg-soft) !important;
+.jrx-light-scope code {
+  background-color: var(--jrx-card-bg-soft) !important;
 }
 
 /* ─── Skeleton / loading shells ──────────────────────────────────────────── */
-.nv-light-scope .animate-pulse .bg-muted,
-.nv-light-scope .animate-pulse [class*="bg-muted"] {
-  background-color: var(--nv-card-bg-soft) !important;
+.jrx-light-scope .animate-pulse .bg-muted,
+.jrx-light-scope .animate-pulse [class*="bg-muted"] {
+  background-color: var(--jrx-card-bg-soft) !important;
 }
 
 /* ─── Backdrop modals stay dark for contrast ─────────────────────────────── */
-.nv-light-scope .fixed.inset-0[class*="bg-black/"] {
+.jrx-light-scope .fixed.inset-0[class*="bg-black/"] {
   background-color: rgba(15, 23, 42, 0.55) !important;
 }
 
 /* ─── task-165: SDK-Hub inline brand-navy surfaces ────────────────────────
-   nyayavigya-sdk-hub.tsx uses inline `rgba(6,27,70,…)` for its header /
+   jurexio-sdk-hub.tsx uses inline `rgba(6,27,70,…)` for its header /
    sidebar / nav surfaces and `rgba(10,42,102,…)` for hover/active chrome.
    Map these to the same light card surface used by everything else.
    ──────────────────────────────────────────────────────────────────────── */
-.nv-light-scope [style*="rgba(6,27,70"],
-.nv-light-scope [style*="rgba(6, 27, 70"],
-.nv-light-scope [style*="rgba(10,42,102"],
-.nv-light-scope [style*="rgba(10, 42, 102"],
-.nv-light-scope [style*="rgba(26,20,70"],
-.nv-light-scope [style*="rgba(26, 20, 70"] {
-  background: var(--nv-card-bg) !important;
-  border-color: var(--nv-border) !important;
+.jrx-light-scope [style*="rgba(6,27,70"],
+.jrx-light-scope [style*="rgba(6, 27, 70"],
+.jrx-light-scope [style*="rgba(10,42,102"],
+.jrx-light-scope [style*="rgba(10, 42, 102"],
+.jrx-light-scope [style*="rgba(26,20,70"],
+.jrx-light-scope [style*="rgba(26, 20, 70"] {
+  background: var(--jrx-card-bg) !important;
+  border-color: var(--jrx-border) !important;
 }
-/* Inline gold-glass chips already render their text in --nv-accent (gold).
+/* Inline gold-glass chips already render their text in --jrx-accent (gold).
    Keep their translucent gold panel readable against white surfaces. */
-.nv-light-scope [style*="rgba(212,160,23"],
-.nv-light-scope [style*="rgba(212, 160, 23"] {
+.jrx-light-scope [style*="rgba(212,160,23"],
+.jrx-light-scope [style*="rgba(212, 160, 23"] {
   background: rgba(212, 160, 23, 0.12) !important;
   border-color: rgba(180, 137, 7, 0.35) !important;
 }
@@ -1283,13 +1283,13 @@ button.bg-\[\#152448\],
    the inactive label colour — already covered by the generic white-text
    override above, but add explicit rules in case the browser dedup
    bucket misses them. */
-.nv-light-scope [style*="color: rgba(255,255,255,0.5"],
-.nv-light-scope [style*="color: rgba(255, 255, 255, 0.5"],
-.nv-light-scope [style*="color: rgba(255,255,255,0.65"],
-.nv-light-scope [style*="color: rgba(255, 255, 255, 0.65"],
-.nv-light-scope [style*="color: rgba(255,255,255,0.6"],
-.nv-light-scope [style*="color: rgba(255, 255, 255, 0.6"] {
-  color: var(--nv-text-secondary) !important;
+.jrx-light-scope [style*="color: rgba(255,255,255,0.5"],
+.jrx-light-scope [style*="color: rgba(255, 255, 255, 0.5"],
+.jrx-light-scope [style*="color: rgba(255,255,255,0.65"],
+.jrx-light-scope [style*="color: rgba(255, 255, 255, 0.65"],
+.jrx-light-scope [style*="color: rgba(255,255,255,0.6"],
+.jrx-light-scope [style*="color: rgba(255, 255, 255, 0.6"] {
+  color: var(--jrx-text-secondary) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1421,16 +1421,16 @@ body {
 }
 
 /* task-2026-09-02: light content area — enforce readable foreground on tables/cards */
-.nv-light-scope table thead th,
+.jrx-light-scope table thead th,
 #main-content table thead th {
-  color: var(--nv-text-muted, #64748B) !important;
-  background-color: var(--nv-card-bg-soft, #F1F5F9) !important;
+  color: var(--jrx-text-muted, #64748B) !important;
+  background-color: var(--jrx-card-bg-soft, #F1F5F9) !important;
 }
-.nv-light-scope table tbody td,
+.jrx-light-scope table tbody td,
 #main-content table tbody td {
-  color: var(--nv-text-primary, #0F172A) !important;
+  color: var(--jrx-text-primary, #0F172A) !important;
 }
-.nv-light-scope .text-foreground,
+.jrx-light-scope .text-foreground,
 #main-content .text-foreground {
   color: #152448 !important;
 }

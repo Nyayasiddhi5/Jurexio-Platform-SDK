@@ -6,7 +6,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { filterCuratedTools, CURATED_TOOLS } from '../../src/curated-tools.js';
 import { resolveAllowedToolIds, SKU_TOOL_SETS } from '../../src/allowlist.js';
 import { GatewayMcpClient } from '../../src/gateway-client.js';
-import { createNyvMcpServer } from '../../src/server.js';
+import { createJrxMcpServer } from '../../src/server.js';
 import type { McpServerConfig } from '../../src/config.js';
 
 const BASE_CONFIG: McpServerConfig = {
@@ -108,7 +108,7 @@ describe('@jurexio/mcp-server', () => {
 
   describe('MCP server factory', () => {
     it('registers listable tools for nym SKU', () => {
-      const { tools } = createNyvMcpServer({
+      const { tools } = createJrxMcpServer({
         config: { ...BASE_CONFIG, sku: 'nym' },
       });
       expect(tools.length).toBeGreaterThan(5);

@@ -15,7 +15,7 @@
  * `speedScore`, `preferredFor`, `jurisdictionFit`, live provider availability
  * (`isProviderAvailable`) and circuit-breaker health (`getHealthScore`).
  *
- * That mattered because `nv-queen-orchestrator.resolveAgentModelRouting()` calls
+ * That mattered because `jrx-queen-orchestrator.resolveAgentModelRouting()` calls
  * `selectModel()` for every Queen leaf. The stale catalog meant leaf routing
  * ignored availability, health, jurisdiction, task fit and real prices — the
  * "picked by whim, not by evidence" problem. Worse, it could name models this
@@ -24,7 +24,7 @@
  * The complexity classifier below is kept (it is this module's actual value —
  * a cheap, deterministic, zero-LLM read of how hard the prompt is) and is mapped
  * onto the scorer's inputs. `NV_TASK_MODEL_POLICY` in
- * `nv-llm-model-policy.ts` owns the ranking itself.
+ * `jrx-llm-model-policy.ts` owns the ranking itself.
  *
  * Tiers (cheapest → most expensive) now describe INTENT, and the scorer resolves
  * them against models that are actually live:

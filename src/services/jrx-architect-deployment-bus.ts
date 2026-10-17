@@ -3,7 +3,7 @@
  * task-258 (2026-05-13)
  *
  * In-process pub/sub for "an Architect org workflow has been deployed"
- * events. The architect deploy route (`nv-architect-routes.ts`) calls
+ * events. The architect deploy route (`jrx-architect-routes.ts`) calls
  * `nvArchitectDeploymentBus.publish(...)` after the row is persisted to
  * `sdk_workflows`; downstream subscribers consume the event to materialize
  * agents, register routing rules, write IronLedger entries, etc.
@@ -14,7 +14,7 @@
  * "trigger the appropriate provisioning side-effects" hook called out in
  * task-258's "Done looks like").
  *
- * Design mirrors `nv-activity-event-bus.ts` so anyone touching one
+ * Design mirrors `jrx-activity-event-bus.ts` so anyone touching one
  * understands the other:
  *   - In-memory EventEmitter, ring buffer of last RING_CAP events.
  *   - Subscribers may NOT throw upwards: a misbehaving subscriber cannot
@@ -24,9 +24,9 @@
  *
  * Guardrails honored:
  *   - NV-ARCH-001: no LLM emission, pure metadata fan-out.
- *   - NV-NAMING-001: file prefix `nv-`.
+ *   - NV-NAMING-001: file prefix `jrx-`.
  *   - NV-LLM-001: not in the LLM-emit path.
- *   - NV-WIRING-001: imported from `nv-architect-routes.ts`, which is
+ *   - NV-WIRING-001: imported from `jrx-architect-routes.ts`, which is
  *     mounted from `src/index.ts`.
  */
 import { EventEmitter } from 'events';

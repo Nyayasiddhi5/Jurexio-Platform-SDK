@@ -20,7 +20,7 @@
 --   - DELETE /api/nv/admin/org-console-layout/:orgId → super_admin only.
 --
 -- Task #214 (2026-05-13): the runtime CREATE TABLE IF NOT EXISTS bootstrap
--- previously living in nv-org-console-layout-routes.ts has been removed.
+-- previously living in jrx-org-console-layout-routes.ts has been removed.
 -- The table is now defined in shared/schema.ts (`nvOrgConsoleLayout`) and
 -- shipped exclusively via this migration, so it shows up in Drizzle
 -- introspection and `npm run db:parity`. Run `npm run migrate` once on a
@@ -53,7 +53,7 @@ COMMENT ON COLUMN nv_org_console_layout.logo_url          IS 'HTTPS URL of the o
 COMMENT ON COLUMN nv_org_console_layout.default_landing   IS 'Path the org should land on after login (e.g. /chat-hub). NULL = platform default';
 COMMENT ON COLUMN nv_org_console_layout.sidebar_sections  IS 'JSON map { sectionKey: bool } controlling which sidebar sections are visible';
 COMMENT ON COLUMN nv_org_console_layout.hidden_routes     IS 'JSON array of canonical route paths to suppress from menus + nav (deep-links still work)';
-COMMENT ON COLUMN nv_org_console_layout.feature_overrides IS 'JSON map of per-org feature flag overrides (subset of NYV_F_* logical keys)';
+COMMENT ON COLUMN nv_org_console_layout.feature_overrides IS 'JSON map of per-org feature flag overrides (subset of JRX_F_* logical keys)';
 COMMENT ON COLUMN nv_org_console_layout.notes             IS 'Free-text operator note (audit trail companion)';
 COMMENT ON COLUMN nv_org_console_layout.updated_by        IS 'User id of the last operator to edit this overlay';
 

@@ -1049,7 +1049,7 @@ export function generateAllUSAAgents(): Array<{
     tier: agent.tier,
     romaLevel: agent.tier === 'executive' ? 'L4' : agent.tier === 'senior' ? 'L3' : agent.tier === 'specialist' ? 'L2' : 'L1',
     category: agent.category,
-    group: 'nyayavigya-usa-legal-agents',
+    group: 'jurexio-usa-legal-agents',
     practiceArea: agent.practiceArea,
     description: agent.description,
     systemPrompt: generateUSA22PointSystemPrompt(agent),

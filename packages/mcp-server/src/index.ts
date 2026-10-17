@@ -4,4 +4,4 @@ export { CURATED_TOOLS, CURATED_TOOL_BY_ID, filterCuratedTools, type CuratedTool
 export { GatewayMcpClient } from './gateway-client.js';
 export { ToolExecutor } from './executor.js';
 export { AuditLogger } from './audit-log.js';
-export { createNyvMcpServer, startMcpServer, runStdioServer, runSseServer } from './server.js';
+export { createJrxMcpServer, startMcpServer, runStdioServer, runSseServer } from './server.js';

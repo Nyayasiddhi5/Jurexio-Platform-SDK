@@ -2,12 +2,12 @@
  * Shared helper for building / parsing the per-agent cache namespace used
  * by the LM prompt cache.
  *
- * The format `nv-agent:tenant:<id>:juris:<JURIS>:agent:<id>` is referenced
+ * The format `jrx-agent:tenant:<id>:juris:<JURIS>:agent:<id>` is referenced
  * from three places:
  *
- *   1. `nv-queen-orchestrator.ts#buildCacheNamespace` — writes/reads cache
+ *   1. `jrx-queen-orchestrator.ts#buildCacheNamespace` — writes/reads cache
  *      entries keyed by (tenant × jurisdiction × agent) (Task #38).
- *   2. `nv-sdk-gateway-routes.ts` admin invalidation endpoints (Task #66) —
+ *   2. `jrx-sdk-gateway-routes.ts` admin invalidation endpoints (Task #66) —
  *      lets ops blow away stale entries when statutes / system prompts /
  *      templates change.
  *   3. `scripts/jrx-cache-invalidate.ts` — CLI variant of (2) for ops who

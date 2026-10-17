@@ -1,12 +1,13 @@
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 
-interface AnalyticsDashboardProps {
+interface JrxAnalyticsProjectPanelProps {
   performanceMetrics?: any;
   projectId: number;
 }
 
-export function AnalyticsDashboard({ performanceMetrics, projectId }: AnalyticsDashboardProps) {
+/** Project-scoped performance / cost panel (legacy project dashboard). */
+export function JrxAnalyticsProjectPanel({ performanceMetrics, projectId }: JrxAnalyticsProjectPanelProps) {
   // Default values if no metrics provided
   const metrics = performanceMetrics || {
     costToday: 247.82,
@@ -111,3 +112,8 @@ export function AnalyticsDashboard({ performanceMetrics, projectId }: AnalyticsD
     </Card>
   );
 }
+
+/** @deprecated Use JrxAnalyticsProjectPanel */
+export type AnalyticsDashboardProps = JrxAnalyticsProjectPanelProps;
+/** @deprecated Use JrxAnalyticsProjectPanel */
+export const AnalyticsDashboard = JrxAnalyticsProjectPanel;

@@ -11,8 +11,8 @@ export * from './roma/types.js';
 export * as A2A from './a2a-collaboration-bus.js';
 
 export * from './agui-orchestration-middleware.js';
-export * from './agui-nyayavigya-integration-service.js';
-export * from './nyayavigya-agui-event-bridge.js';
+export * from './agui-jurexio-integration-service.js';
+export * from './jurexio-agui-event-bridge.js';
 
 export * from './bmad-cam-framework.js';
 export * from './bmad-method-integration.js';

@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
-# Curl graph JSONL from worker private IP and ingest into NYV RDS
+# Curl graph JSONL from worker private IP and ingest into JRX RDS
 set -euo pipefail
 WORKER_IP="${WORKER_IP:-172.31.13.128}"
-CANON="/opt/Nyayavigya/secrets/.env.production"
+CANON="/opt/Jurexio/secrets/.env.production"
 DB="$(grep -E '^DATABASE_URL=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')"
 
 curl -sf -m 180 -o /tmp/graph-edges-pending.jsonl "http://${WORKER_IP}:9876/graph-edges-pending.jsonl"
 echo "downloaded $(wc -c < /tmp/graph-edges-pending.jsonl) bytes $(wc -l < /tmp/graph-edges-pending.jsonl) lines"
-docker cp /tmp/graph-edges-pending.jsonl nyv-gateway:/tmp/graph-edges-pending.jsonl
+docker cp /tmp/graph-edges-pending.jsonl jrx-gateway:/tmp/graph-edges-pending.jsonl
 
-docker exec -e NYV_DATABASE_URL="$DB" -w /app nyv-gateway node --input-type=module - <<'NODE'
+docker exec -e JRX_DATABASE_URL="$DB" -w /app jrx-gateway node --input-type=module - <<'NODE'
 import pg from 'pg';
 import fs from 'fs';
-const client = new pg.Client({ connectionString: process.env.NYV_DATABASE_URL, ssl: { rejectUnauthorized: false } });
+const client = new pg.Client({ connectionString: process.env.JRX_DATABASE_URL, ssl: { rejectUnauthorized: false } });
 await client.connect();
 const lines = fs.readFileSync('/tmp/graph-edges-pending.jsonl', 'utf8').split('\n');
 let n = 0, e = 0;

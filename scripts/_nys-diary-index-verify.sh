@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# List diary hot-path indexes on nyv-caselaw-pg (read-only).
+# List diary hot-path indexes on jrx-caselaw-pg (read-only).
 set -euo pipefail
 cd /opt/nyv/api
-export NYS_ENV_FILE=/opt/nyv/api/.env
-if [ -f "$NYS_ENV_FILE" ]; then
-  RDS_CA_BUNDLE=$(grep -E '^RDS_CA_BUNDLE=' "$NYS_ENV_FILE" | head -1 | cut -d= -f2- | tr -d '\r\n')
+export JRX_ECOSYSTEM_ENV_FILE=/opt/nyv/api/.env
+if [ -f "$JRX_ECOSYSTEM_ENV_FILE" ]; then
+  RDS_CA_BUNDLE=$(grep -E '^RDS_CA_BUNDLE=' "$JRX_ECOSYSTEM_ENV_FILE" | head -1 | cut -d= -f2- | tr -d '\r\n')
   RDS_CA_BUNDLE="${RDS_CA_BUNDLE%\"}"; RDS_CA_BUNDLE="${RDS_CA_BUNDLE#\"}"
   export RDS_CA_BUNDLE
 fi
@@ -25,7 +25,7 @@ function sslConfig() {
   return { rejectUnauthorized: false };
 }
 const rds = new RDSClient({ region: REGION });
-const inst = (await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "nyv-caselaw-pg" }))).DBInstances?.[0];
+const inst = (await rds.send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "jrx-caselaw-pg" }))).DBInstances?.[0];
 const sm = new SecretsManagerClient({ region: REGION });
 const creds = JSON.parse((await sm.send(new GetSecretValueCommand({ SecretId: inst.MasterUserSecret.SecretArn }))).SecretString ?? "{}");
 const client = new pg.Client({

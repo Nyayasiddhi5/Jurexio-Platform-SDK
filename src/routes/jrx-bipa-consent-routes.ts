@@ -7,7 +7,7 @@
  *   GET    /api/jrx/bipa/consent/policy    — public disclosure metadata
  *   POST   /api/jrx/bipa/consent/destroy   — admin-trigger destruction worker
  *
- * @module nv-bipa-consent-routes
+ * @module jrx-bipa-consent-routes
  */
 import { Router, Request, Response } from 'express';
 import { z, ZodError } from 'zod';

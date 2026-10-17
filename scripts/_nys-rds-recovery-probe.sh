@@ -4,7 +4,7 @@ set -uo pipefail
 set -a
 source /opt/nyv/api/.env 2>/dev/null || true
 set +a
-KEY="${NYS_KNOWLEDGE_API_KEY:-${NYS_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
+KEY="${JRX_ECOSYSTEM_KNOWLEDGE_API_KEY:-${JRX_ECOSYSTEM_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
 
 echo "=== PG CLEANUP (aborted idle tx) ==="
 node /opt/nyv/scripts/_nys-cnr-pg-cleanup.mjs 2>/dev/null || \
@@ -41,7 +41,7 @@ echo "=== PG ACTIVITY ==="
 psql "$DATABASE_URL" -tAc "SELECT state, count(*) FROM pg_stat_activity WHERE datname=current_database() GROUP BY state;" 2>/dev/null || echo pg_activity_fail
 
 echo "=== API RESTART ==="
-systemctl restart nyv-api 2>/dev/null && echo "nyv-api restarted" || echo "restart_skip"
+systemctl restart jrx-api 2>/dev/null && echo "jrx-api restarted" || echo "restart_skip"
 sleep 3
 curl -sS -m 5 http://127.0.0.1:8080/health 2>/dev/null | head -c 80 || echo health_fail
 echo

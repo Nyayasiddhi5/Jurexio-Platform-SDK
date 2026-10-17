@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Suggested dedicated RDS for JRX (separate instance from NYV). Dry-run only.
+# Suggested dedicated RDS for JRX (separate instance from JRX). Dry-run only.
 set -euo pipefail
 REGION="${JRX_AWS_REGION:-ap-south-1}"
 echo "== JRX RDS plan region=${REGION} =="

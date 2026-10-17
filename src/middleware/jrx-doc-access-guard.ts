@@ -16,7 +16,7 @@
  * trust a client-supplied owner hint.
  *
  * @see src/services/jrx-doc-sharing-service.ts (assertReadAccess)
- * @module nv-doc-access-guard
+ * @module jrx-doc-access-guard
  */
 
 import type { Request, Response, NextFunction } from 'express';
@@ -28,18 +28,18 @@ import {
   assertReadAccess,
   DocAccessDeniedError,
 } from '../services/jrx-doc-sharing-service.js';
-import type { PlatformCode } from '../config/nyv-dms-config.js';
+import type { PlatformCode } from '../config/jrx-dms-config.js';
 import { createLogger } from '../utils/logger.js';
 
 const logger = createLogger('./jrx-doc-access-guard');
 
 // NV-DOC-ACCESS-DEV (R5 — 2026-05-07): permissive mode logs the would-be
 // decision but always allows. strict mode (prod default) enforces full
-// Session-7 share-grant. Switch via NYV_DOC_ACCESS_MODE.
+// Session-7 share-grant. Switch via JRX_DOC_ACCESS_MODE.
 const DOC_ACCESS_MODE: 'permissive' | 'strict' =
-  (process.env.NYV_DOC_ACCESS_MODE as any) ||
+  (process.env.JRX_DOC_ACCESS_MODE as any) ||
   (process.env.NODE_ENV === 'production' ? 'strict' : 'permissive');
-logger.info(`Doc-access mode: ${DOC_ACCESS_MODE} (NYV_DOC_ACCESS_MODE)`);
+logger.info(`Doc-access mode: ${DOC_ACCESS_MODE} (JRX_DOC_ACCESS_MODE)`);
 
 interface DocOwnerRow {
   org_id: string;

@@ -1,8 +1,8 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
- * NYV Document Intelligence Orchestrator REST Routes v1.0.0
+ * JRX Document Intelligence Orchestrator REST Routes v1.0.0
  * ─────────────────────────────────────────────────────────────────────────────
- * Exposes the NyvDocumentIntelligenceOrchestrator as a REST API.
+ * Exposes the JrxDocumentIntelligenceOrchestrator as a REST API.
  *
  * ENDPOINTS:
  *   POST   /api/jrx/documents/upload       — Upload + queue document for RAG indexing
@@ -16,7 +16,7 @@
  *
  * MULTIPART: Uses multer for file upload (buffered, max 100MB)
  *
- * @module nv-document-orchestrator-routes
+ * @module jrx-document-orchestrator-routes
  * @version 1.0.0
  */
 
@@ -29,9 +29,9 @@ import fs from 'fs';
 import { createLogger } from '../utils/logger.js';
 import { authenticateToken } from '../middleware/auth.js';
 import { nyvDocIntelligence } from '../services/jrx-document-intelligence-orchestrator.js';
-import { nyvGraphRAGLegal } from '../services/rag/nyv-graphrag-legal-service.js';
+import { nyvGraphRAGLegal } from '../services/rag/jrx-graphrag-legal-service.js';
 import { nvDocAccessGuard } from '../middleware/jrx-doc-access-guard.js';
-import { getNyvDmsConfig } from '../config/nyv-dms-config.js';
+import { getJrxDmsConfig } from '../config/jrx-dms-config.js';
 import { consentGate } from '../middleware/jrx-consent-gate.js';
 
 const logger = createLogger('doc-orchestrator-routes');
@@ -43,16 +43,16 @@ router.use(authenticateToken);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MULTER CONFIG (T010 Stream A — disk-backed streaming upload, configurable
-// limit driven by nv-dms config; default 1 GB. Switching from memoryStorage
+// limit driven by jrx-dms config; default 1 GB. Switching from memoryStorage
 // keeps RSS bounded for large legal corpora that previously OOM'd at 100 MB.)
 // ─────────────────────────────────────────────────────────────────────────────
 
-const NV_TMP_DIR = path.join(os.tmpdir(), 'nyv-uploads');
+const NV_TMP_DIR = path.join(os.tmpdir(), 'jrx-uploads');
 try { fs.mkdirSync(NV_TMP_DIR, { recursive: true }); } catch { /* best-effort */ }
 
 function resolveMaxUploadBytes(): number {
   try {
-    const cfg = getNyvDmsConfig();
+    const cfg = getJrxDmsConfig();
     const fromCfg = (cfg as any)?.uploads?.maxFileSizeMb
       ?? (cfg as any)?.limits?.maxFileSizeMb;
     if (fromCfg && Number.isFinite(Number(fromCfg))) {
@@ -320,7 +320,7 @@ router.delete('/:docId', async (req: Request, res: Response) => {
      * principal their document was deleted while still holding it.
      *
      * The ingest row carries `org_id`, `platform` and `file_name` (DDL at
-     * nv-document-intelligence-orchestrator.ts:185-215), which is exactly the tuple
+     * jrx-document-intelligence-orchestrator.ts:185-215), which is exactly the tuple
      * `deleteDocument()` needs to rebuild the three object paths (primary file, parsed
      * content, embeddings). Read them BEFORE marking the row, because the row is the only
      * place that mapping exists.
@@ -340,7 +340,7 @@ router.delete('/:docId', async (req: Request, res: Response) => {
 
     let objectDeleted = false;
     if (row) {
-      const { nyvDocumentStorage } = await import('../services/nyv-document-storage-service.js');
+      const { nyvDocumentStorage } = await import('../services/jrx-document-storage-service.js');
       try {
         await nyvDocumentStorage.deleteDocument(
           String(row.org_id),
@@ -356,7 +356,7 @@ router.delete('/:docId', async (req: Request, res: Response) => {
         logger.error('document_erasure_storage_failed', {
           docId,
           userId,
-          alertCode: 'NYV-DOC-ERASURE-001',
+          alertCode: 'JRX-DOC-ERASURE-001',
           err: storageErr instanceof Error ? storageErr.message : String(storageErr),
         });
         res.status(500).json(

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# NYV-OPS-PRECOMMIT-001 (2026-05-01)
+# JRX-OPS-PRECOMMIT-001 (2026-05-01)
 # One-shot installer for repo git hooks. Idempotent.
 set -euo pipefail
 ROOT="$(git rev-parse --show-toplevel)"
@@ -22,5 +22,5 @@ echo ""
 echo "Pre-commit hook is live. To bypass for an emergency:"
 echo "  git commit --no-verify"
 echo ""
-echo "To make TS errors a hard gate (after NYV-NS-005 lands):"
-echo "  export NYV_PRECOMMIT_TSC_BLOCKER=1"
+echo "To make TS errors a hard gate (after JRX-NS-005 lands):"
+echo "  export JRX_PRECOMMIT_TSC_BLOCKER=1"

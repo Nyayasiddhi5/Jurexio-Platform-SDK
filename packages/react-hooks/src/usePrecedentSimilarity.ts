@@ -1,19 +1,19 @@
 import { useState, useCallback } from 'react';
-import { useNyvClient } from './useNyvClient.js';
-import type { NyvPrecedentSearchResult } from '@jurexio/types';
+import { useJrxClient } from './useJrxClient.js';
+import type { JrxPrecedentSearchResult } from '@jurexio/types';
 
 export interface UsePrecedentSimilarityReturn {
   loading: boolean;
   error: string | null;
-  result: NyvPrecedentSearchResult | null;
-  search: (caseDescription: string, jurisdiction: string, options?: { maxResults?: number; crossJurisdiction?: boolean }) => Promise<NyvPrecedentSearchResult>;
+  result: JrxPrecedentSearchResult | null;
+  search: (caseDescription: string, jurisdiction: string, options?: { maxResults?: number; crossJurisdiction?: boolean }) => Promise<JrxPrecedentSearchResult>;
 }
 
 export function usePrecedentSimilarity(): UsePrecedentSimilarityReturn {
-  const { authHeaders, baseUrl } = useNyvClient({});
+  const { authHeaders, baseUrl } = useJrxClient({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<NyvPrecedentSearchResult | null>(null);
+  const [result, setResult] = useState<JrxPrecedentSearchResult | null>(null);
 
   const search = useCallback(async (
     caseDescription: string,

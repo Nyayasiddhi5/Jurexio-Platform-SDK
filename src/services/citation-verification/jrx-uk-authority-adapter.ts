@@ -3,10 +3,10 @@
  *
  * Authority source: legislation.gov.uk (statutes) + neutral citation format
  * validation for case-law (UKSC/UKHL/EWCA/EWHC). Live lookup is gated by
- * JRX_F_CITATION_LIVE_UK (+ optional NYV_UK_LEGISLATION_API_BASE).
+ * JRX_F_CITATION_LIVE_UK (+ optional JRX_UK_LEGISLATION_API_BASE).
  */
 
-import { isNyvFeatureOn } from '../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../../config/jrx-feature-flags.js';
 import {
   BaseAuthorityAdapter,
   authorityFetch,
@@ -14,7 +14,7 @@ import {
   type AuthorityCitationCandidate,
 } from './jrx-authority-adapter.js';
 
-const UK_LEGISLATION_BASE = (process.env.NYV_UK_LEGISLATION_API_BASE || 'https://www.legislation.gov.uk').replace(/\/+$/, '');
+const UK_LEGISLATION_BASE = (process.env.JRX_UK_LEGISLATION_API_BASE || 'https://www.legislation.gov.uk').replace(/\/+$/, '');
 const LOOKUP_TIMEOUT_MS = 4000;
 
 const UK_KNOWN_INSTRUMENTS = [
@@ -78,7 +78,7 @@ export const ukAuthorityAdapter = new BaseAuthorityAdapter({
     /\[(?<year>(?:19|20)\d{2})\]\s+(?:UKSC|UKHL|UKPC|EWCA|EWHC|EWFC|UKUT|UKEAT)(?:\s+(?:Civ|Crim|Admin|Ch|QB|KB|Comm|Pat|Fam|TCC))?\s+\d+/g,
   ],
   knownInstruments: UK_KNOWN_INSTRUMENTS,
-  liveApiEnabled: () => isNyvFeatureOn('citationLiveUk'),
+  liveApiEnabled: () => isJrxFeatureOn('citationLiveUk'),
   liveLookup: ukLegislationLookup,
   structuralValidator: (c) => {
     // UK statute law (in this form) doesn't predate ~1267; reject impossible years.

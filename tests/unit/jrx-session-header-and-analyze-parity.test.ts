@@ -3,7 +3,7 @@
  *
  * NSP reported sending `X-Customer-Session-Id` on every AI call. A grep proved we
  * read it **nowhere**: only the body `sessionId` was consulted, so a partner that
- * had correctly scoped its own threads was still handed a NYV-minted session — and,
+ * had correctly scoped its own threads was still handed a JRX-minted session — and,
  * before NV-SESSION-POOLING-001, a shared one.
  *
  * NV-COURT-DOC-FIELDS-001 (parity) — there are TWO analyze endpoints:
@@ -89,7 +89,7 @@ describe('NV-COURT-DOC-FIELDS-001 — both analyze endpoints return fields', () 
   it('the docs-pipeline handler (which serves the NSP /documents/analyze alias) extracts fields', () => {
     expect(PIPE).toContain('extractCourtDocumentFields');
     /* NV-COURT-DOC-FIELDS-004 — block shaped by the shared builder now; its output is
-     * asserted directly in nv-court-doc-fields-all-paths.test.ts. */
+     * asserted directly in jrx-court-doc-fields-all-paths.test.ts. */
     expect(PIPE).toContain('buildCourtDocFieldBlock(courtFields, nested, courtOutcome)');
   });
 

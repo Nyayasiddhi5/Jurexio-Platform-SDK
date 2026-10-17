@@ -3,7 +3,7 @@ set -uo pipefail
 set -a
 source /opt/nyv/api/.env
 set +a
-KEY="${NYS_KNOWLEDGE_API_KEY:-${NYS_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
+KEY="${JRX_ECOSYSTEM_KNOWLEDGE_API_KEY:-${JRX_ECOSYSTEM_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
 H=(-H "x-api-key: $KEY")
 echo "=== /api/caselaw/search bail ==="
 curl -sS -m 45 "${H[@]}" "http://127.0.0.1:8080/api/caselaw/search?q=bail&limit=2&jurisdiction=IN" | head -c 500

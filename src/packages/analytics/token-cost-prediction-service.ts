@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 import { EventEmitter } from 'events';
 import { createLogger } from '../../utils/logger.js';
 
@@ -21,7 +21,7 @@ const logger = createLogger('token-cost-prediction-service');
  */
 
 // External schema types
-const nyayavigyaOrchestrationJobs: any = {};
+const jurexioOrchestrationJobs: any = {};
 type OrchestrationJobType = string;
 type OrchestrationWorkflow = string;
 const eq = (a: any, b: any) => ({});
@@ -428,9 +428,9 @@ export class TokenCostPredictionService extends EventEmitter {
     try {
       // @ts-expect-error NV-TS230 legacy typing gap (TS2304)
       const recentJobs = await db.select()
-        .from(nyayavigyaOrchestrationJobs)
-        .where(eq(nyayavigyaOrchestrationJobs.workflow, workflow))
-        .orderBy(desc(nyayavigyaOrchestrationJobs.createdAt))
+        .from(jurexioOrchestrationJobs)
+        .where(eq(jurexioOrchestrationJobs.workflow, workflow))
+        .orderBy(desc(jurexioOrchestrationJobs.createdAt))
         .limit(20);
 
       if (recentJobs.length === 0) return null;

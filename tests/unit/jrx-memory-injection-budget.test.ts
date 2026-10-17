@@ -4,7 +4,7 @@
  * Compares the pre-fix injection (raw interpolation of every recalled node, with
  * `includeRelated` overflowing the limit) against the post-fix path (limit
  * honoured + `memoryCharCap` enforced), on the same synthetic session for each
- * complexity tier's real budget from `nv-context-budgets.ts`.
+ * complexity tier's real budget from `jrx-context-budgets.ts`.
  *
  * This is the evidence for the token-reduction claim, so it asserts a floor
  * rather than printing a number: if a future change re-inflates the injected
@@ -90,7 +90,7 @@ async function measurePreFix(limit: number, maxHops: number): Promise<number> {
     maxHops,
   });
 
-  // The exact pre-fix interpolation from nv-client.ts:701-703.
+  // The exact pre-fix interpolation from jrx-client.ts:701-703.
   const memoryContext = result.nodes
     .map((n: { type: string; content: string }) => `[Memory: ${n.type}] ${n.content}`)
     .join('\n');

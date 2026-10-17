@@ -180,7 +180,7 @@ export interface ActiveAgentLayerOptions {
  *   full_quality — standard + §4 reasoning + §5 evidence + §17 output
  *               + §18 checklist. IRAC, proof standards, self-check. ~+2.4k tok.
  *
- * Ops override: `NYV_AGENT_PROMPT_DEPTH=core|standard|full_quality` pins the rung
+ * Ops override: `JRX_AGENT_PROMPT_DEPTH=core|standard|full_quality` pins the rung
  * process-wide (`core` = pre-fix behaviour, for A/B and instant rollback).
  */
   depth?: AgentPromptDepth;
@@ -202,7 +202,7 @@ export function resolveAgentPromptDepth(opts: {
   // Ops override / A-B lever. `core` reproduces the pre-NV-AGENT-PROMPT-DEPTH-001
   // behaviour exactly, which is what makes a same-build A/B possible and gives
   // ops a rollback that does not need a redeploy.
-  const forced = String(process.env.NYV_AGENT_PROMPT_DEPTH || '').trim().toLowerCase();
+  const forced = String(process.env.JRX_AGENT_PROMPT_DEPTH || '').trim().toLowerCase();
   if (forced === 'core' || forced === 'off' || forced === '0') return 'core';
   if (forced === 'standard') return 'standard';
   if (forced === 'full_quality' || forced === 'full') return 'full_quality';
@@ -316,7 +316,7 @@ export function assembleLayeredAgentSystemPrompt(opts: {
 }): AssembledAgentSystemPrompt {
   const forceFull =
     opts.forceFull === true
-    || String(process.env.NYV_FULL_SYSTEM_PROMPT || '').trim() === '1';
+    || String(process.env.JRX_FULL_SYSTEM_PROMPT || '').trim() === '1';
   const bundle = parseAgentPromptBundle(opts.fullRegistryPrompt, opts.agentId);
   const overlay = String(opts.taskOverlay || '').trim();
   const turnNumber = Math.max(1, opts.turnNumber || 1);

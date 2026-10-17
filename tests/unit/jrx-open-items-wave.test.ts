@@ -97,7 +97,7 @@ describe('NV-MEM-RECALL-INDEX-001 — recall no longer ranks per row', () => {
   });
 
   it('caps per-user rows and evicts least-useful first', () => {
-    expect(svc).toContain('NYV_MEMORY_MAX_ROWS_PER_USER');
+    expect(svc).toContain('JRX_MEMORY_MAX_ROWS_PER_USER');
     expect(svc).toContain('ORDER BY importance ASC, last_accessed_at ASC');
     // TTL'd rows excluded so a session burst cannot evict durable matter memory.
     expect(svc).toContain('AND expires_at IS NULL');

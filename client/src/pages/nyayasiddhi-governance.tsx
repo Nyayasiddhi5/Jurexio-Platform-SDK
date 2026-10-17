@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { NyvGovernanceBadge } from '@/components/NyvGovernanceBadge';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvPageShell } from '@/components/NyvPageShell';
+import { JrxGovernanceBadge } from '@/components/JrxGovernanceBadge';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxPageShell } from '@/components/JrxPageShell';
 import { apiRequest } from '@/lib/queryClient';
 import { nv, p } from '@/lib/jrx-api-paths';
 import { nvJurisdictionsFromStatutesSummary } from '@/lib/jrx-console-data';
@@ -135,13 +135,13 @@ export default function JurexioGovernance() {
   ];
 
   return (
-    <NyvPageShell
+    <JrxPageShell
       testId="page-nyayasiddhi-governance"
       title="Jurexio Ministry™"
       description="Sovereign Regulatory & Government Legal Infrastructure Platform"
       actions={
         <div className="flex items-center gap-3">
-          <NyvGovernanceBadge compact governance={{
+          <JrxGovernanceBadge compact governance={{
             risk_score: riskScore,
             risk_badge: riskBadge as 'GREEN' | 'YELLOW' | 'RED',
             risk_blocked: riskScore >= 80,
@@ -258,7 +258,7 @@ export default function JurexioGovernance() {
               </div>
             )) : (
               <div className="col-span-2">
-                <NyvEmptyState title="No jurisdiction data" description="Statute summary unavailable — check /api/jrx/statutes/_summary." />
+                <JrxEmptyState title="No jurisdiction data" description="Statute summary unavailable — check /api/jrx/statutes/_summary." />
               </div>
             )}
           </div>
@@ -292,7 +292,7 @@ export default function JurexioGovernance() {
               ))}
             </div>
             ) : (
-              <NyvEmptyState title="No governance agents loaded" description="Registry returned no governance/compliance-tagged agents." />
+              <JrxEmptyState title="No governance agents loaded" description="Registry returned no governance/compliance-tagged agents." />
             )}
           </div>
         )}
@@ -311,7 +311,7 @@ export default function JurexioGovernance() {
                 </div>
               )) : (
                 <div className="col-span-3">
-                  <NyvEmptyState title="No compliance evidence" description="Run compliance ISO refresh to populate frameworks." />
+                  <JrxEmptyState title="No compliance evidence" description="Run compliance ISO refresh to populate frameworks." />
                 </div>
               )}
             </div>
@@ -337,6 +337,6 @@ export default function JurexioGovernance() {
           Jurexio Enterprise Platform 1.0.0 · Jurexio Ministry™ · Sovereign Regulatory Infrastructure
         </div>
       </div>
-    </NyvPageShell>
+    </JrxPageShell>
   );
 }

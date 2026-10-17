@@ -11,7 +11,7 @@
     "client/src/components/BrandManagementSystem.tsx::placeholder-comment:://via.placeholder",
     "client/src/components/BrandManagementSystem.tsx::placeholder-comment:://via.placeholder",
     "client/src/components/MultiPlatformPublisher.tsx::coming-soon::coming soon",
-    "client/src/components/NyvChatWidget.tsx::placeholder-comment::#F9FAFB] placeholder",
+    "client/src/components/JrxChatWidget.tsx::placeholder-comment::#F9FAFB] placeholder",
     "client/src/components/PhaseCScaffold.tsx::not-implemented::Not Implemented",
     "client/src/components/collaborative-code-editor.tsx::placeholder-comment::/* Placeholder",
     "client/src/components/collaborative-code-editor.tsx::placeholder-comment::// For now, using a placeholder",
@@ -74,8 +74,8 @@
     "src/services/jrx-phase4-services.ts::placeholder-comment::// breaker and we fall back to the placeholder",
     "src/services/razorpay-payment-service.ts::fake-mock-prod::Mock response",
     "src/services/real-llm-service.ts::fake-mock-prod::Mock Data",
-    "src/system-prompts/nyayavigya-system-prompts-engine-v10.ts::fake-mock-prod::Mock Data",
-    "src/system-prompts/nyayavigya-system-prompts-engine-v10.ts::fake-mock-prod::Mock data",
-    "src/system-prompts/nyayavigya-system-prompts-engine-v10.ts::fake-mock-prod::mock data"
+    "src/system-prompts/jurexio-system-prompts-engine-v10.ts::fake-mock-prod::Mock Data",
+    "src/system-prompts/jurexio-system-prompts-engine-v10.ts::fake-mock-prod::Mock data",
+    "src/system-prompts/jurexio-system-prompts-engine-v10.ts::fake-mock-prod::mock data"
   ]
 }

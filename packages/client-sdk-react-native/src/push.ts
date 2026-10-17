@@ -17,8 +17,8 @@
  * approvals") instead of crashing.
  */
 
-import type { NyvSecureStorage } from './storage.js';
-import { NyvStorageKeys } from './storage.js';
+import type { JrxSecureStorage } from './storage.js';
+import { JrxStorageKeys } from './storage.js';
 
 export interface HITLPushPayload {
   hitlId: string;
@@ -41,12 +41,12 @@ export interface HITLRegistration {
 }
 
 export interface RegisterHITLOptions {
-  /** Base URL of the NYV gateway. */
+  /** Base URL of the JRX gateway. */
   baseUrl: string;
   /** SDK API key used to authenticate the registration POST. */
   apiKey: string;
   /** Where to persist incoming HITL payloads (storage.ts). Optional. */
-  storage?: NyvSecureStorage;
+  storage?: JrxSecureStorage;
   /** Foreground callback invoked when a HITL push arrives. */
   onHITL?: (payload: HITLPushPayload) => void;
   /** Override the device-id (otherwise derived from `expo-application`). */
@@ -86,7 +86,7 @@ export async function registerForHITLPushNotifications(
     }
 
     if (options.storage) {
-      await options.storage.setItem(NyvStorageKeys.pushToken, pushToken);
+      await options.storage.setItem(JrxStorageKeys.pushToken, pushToken);
     }
 
     // Subscribe foreground listener BEFORE registering so we don't miss the
@@ -117,7 +117,7 @@ export async function registerForHITLPushNotifications(
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${options.apiKey}`,
-            'X-NYV-Platform': 'mobile',
+            'X-JRX-Platform': 'mobile',
           },
           body: JSON.stringify({
             pushToken,
@@ -140,13 +140,13 @@ export async function registerForHITLPushNotifications(
   }
 }
 
-async function persistHITLToInbox(storage: NyvSecureStorage, payload: HITLPushPayload) {
-  const raw = await storage.getItem(NyvStorageKeys.hitlInbox);
+async function persistHITLToInbox(storage: JrxSecureStorage, payload: HITLPushPayload) {
+  const raw = await storage.getItem(JrxStorageKeys.hitlInbox);
   const inbox = raw ? (safeParseArray(raw)) : [];
   inbox.unshift({ ...payload, receivedAt: payload.receivedAt ?? new Date().toISOString() });
   // Keep last 200 entries — the inbox is a UX cache, not source of truth.
   if (inbox.length > 200) inbox.length = 200;
-  await storage.setItem(NyvStorageKeys.hitlInbox, JSON.stringify(inbox));
+  await storage.setItem(JrxStorageKeys.hitlInbox, JSON.stringify(inbox));
 }
 
 function safeParseArray(raw: string): HITLPushPayload[] {

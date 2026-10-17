@@ -1,25 +1,25 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
+// JRX-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
 // file. Runtime is unaffected (gateway runs via tsx). Opt out of strict-null
 // for the v5.0.0 deploy gate; track follow-up cleanup in INV-CLEANUP-001.
 import { Router, Request, Response } from 'express';
 import { createLogger } from '../utils/logger.js';
 import { sendApiError, safeError } from '../utils/jrx-api-error.js';
-import { nvNyayaGraphService } from '../services/nyaya-tools/jrx-nyayagraph-service.js';
-import { nvNyayaWatchService } from '../services/nyaya-tools/jrx-nyayawatch-service.js';
-import { nvNyayaCompareService } from '../services/nyaya-tools/jrx-nyayacompare-service.js';
-import { nvNyayaAmendService } from '../services/nyaya-tools/jrx-nyayaamend-service.js';
-import { nvAgentLifecycleService } from '../services/nyaya-tools/jrx-agent-lifecycle-service.js';
+import { nvNyayaGraphService } from '../services/jrx-legal-tools/jrx-nyayagraph-service.js';
+import { nvNyayaWatchService } from '../services/jrx-legal-tools/jrx-nyayawatch-service.js';
+import { nvNyayaCompareService } from '../services/jrx-legal-tools/jrx-nyayacompare-service.js';
+import { nvNyayaAmendService } from '../services/jrx-legal-tools/jrx-nyayaamend-service.js';
+import { nvAgentLifecycleService } from '../services/jrx-legal-tools/jrx-agent-lifecycle-service.js';
 import { nv5TierMemoryService } from '../services/memory/jrx-5tier-memory-service.js';
 import { nvCitationVerificationService } from '../services/jrx-citation-verification-service.js';
 import { nvVectorStore } from '../services/rag/jrx-qdrant-adapter-service.js';
-import { nvNyayaTemplateService } from '../services/nyaya-tools/jrx-nyayatemplate-service.js';
-import { nvNyayaTimelineService } from '../services/nyaya-tools/jrx-nyayatimeline-service.js';
-import { nvNyayaForensicService } from '../services/nyaya-tools/jrx-nyayaforensic-service.js';
-import { nvNyayaTrailService } from '../services/nyaya-tools/jrx-nyayatrail-service.js';
+import { nvNyayaTemplateService } from '../services/jrx-legal-tools/jrx-nyayatemplate-service.js';
+import { nvNyayaTimelineService } from '../services/jrx-legal-tools/jrx-nyayatimeline-service.js';
+import { nvNyayaForensicService } from '../services/jrx-legal-tools/jrx-nyayaforensic-service.js';
+import { nvNyayaTrailService } from '../services/jrx-legal-tools/jrx-nyayatrail-service.js';
 import { NV_MCP_TOOLS_REGISTRY, EXECUTABLE_MCP_TOOL_IDS, PARTNER_CURATED_MCP_TOOL_IDS, isMcpToolExecutable, type McpTool } from '../data/jrx-mcp-tools-registry.js';
 import { requireRole } from '../middleware/jrx-auth.js';
 
-const logger = createLogger('./jrx-nyaya-tools-routes');
+const logger = createLogger('./jrx-jrx-legal-tools-routes');
 const router = Router();
 
 /**

@@ -79,7 +79,7 @@ export default function EnhancedRealTimeWebSocket() {
     setConnections([
       {
         id: 'main-websocket',
-        url: 'wss://nyayavigya-devstudio.replit.app/api/ws',
+        url: 'wss://jurexio-devstudio.replit.app/api/ws',
         status: 'connected',
         latency: 23,
         messagesPerSecond: 45,
@@ -89,7 +89,7 @@ export default function EnhancedRealTimeWebSocket() {
       },
       {
         id: 'collaboration-ws',
-        url: 'wss://collaboration.nyayavigya-devstudio.app/ws',
+        url: 'wss://collaboration.jurexio-devstudio.app/ws',
         status: 'connected',
         latency: 18,
         messagesPerSecond: 67,

@@ -36,7 +36,7 @@ vi.mock('../../src/services/jrx-ai-credit-enforcer.js', () => ({
 
 vi.mock('../../src/config/jrx-feature-flags.js', async (importOriginal) => ({
   ...(await importOriginal<Record<string, unknown>>()),
-  isNyvFeatureOn: (flag: string) => flag === 'creditRecord',
+  isJrxFeatureOn: (flag: string) => flag === 'creditRecord',
 }));
 
 vi.mock('../../src/db/index.js', () => ({
@@ -64,7 +64,7 @@ beforeEach(() => {
   recordMock.mockReset();
   enforceMock.mockResolvedValue(ALLOW);
   recordMock.mockResolvedValue(undefined);
-  delete process.env.NYV_CREDIT_CAP_MODE;
+  delete process.env.JRX_CREDIT_CAP_MODE;
 });
 afterEach(() => {
   process.env = { ...SAVED };
@@ -166,7 +166,7 @@ describe('NV-CREDIT-COST-DIM-001 — honest unmeasurability', () => {
 
   it('an unmeasurable estimate does not refuse a subject inside budget', async () => {
     /* The whole point of pricing at zero rather than guessing. */
-    process.env.NYV_CREDIT_CAP_MODE = 'enforce';
+    process.env.JRX_CREDIT_CAP_MODE = 'enforce';
     const app = buildCostApp({ capOptions: { agentKey: 'ocr', costDriver: 'ocr_pages' } });
     const res = await post(app, { document: 'no page count declared' });
 

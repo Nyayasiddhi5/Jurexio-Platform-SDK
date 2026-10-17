@@ -1,6 +1,6 @@
 /**
  * Azentzero Sovereign LLM/LRM Service — Jurexio Enterprise Platform 3.1.2
- * NYV-SVC-AZENTZERO-001
+ * JRX-SVC-AZENTZERO-001
  *
  * Role: FINAL BACKUP LLM + BACKUP LRM for the Jurexio platform.
  *   - Engaged ONLY when all 19 upstream providers (OpenRouter, OpenAI, Anthropic, Google,
@@ -10,10 +10,10 @@
  *   - LRM fallback: replaces NS-LRM when primary SLM chain is exhausted.
  *
  * Env vars:
- *   NYV_AZENTZERO_API_KEY      — Bearer token for Azentzero endpoint
- *   NYV_AZENTZERO_BASE_URL     — e.g. https://azentzero.nyayavigya.in/v1
- *   NYV_AZENTZERO_TIMEOUT_MS   — Per-request timeout in ms (default: 60000)
- *   NYV_AZENTZERO_MAX_RETRIES  — Max retry attempts (default: 3)
+ *   JRX_AZENTZERO_API_KEY      — Bearer token for Azentzero endpoint
+ *   JRX_AZENTZERO_BASE_URL     — e.g. https://azentzero.jurexio.com/v1
+ *   JRX_AZENTZERO_TIMEOUT_MS   — Per-request timeout in ms (default: 60000)
+ *   JRX_AZENTZERO_MAX_RETRIES  — Max retry attempts (default: 3)
  */
 
 import { EventEmitter } from 'events';
@@ -96,10 +96,10 @@ class AzentzeroService extends EventEmitter {
 
   constructor() {
     super();
-    this.apiKey = process.env.NYV_AZENTZERO_API_KEY ?? null;
-    this.baseUrl = (process.env.NYV_AZENTZERO_BASE_URL ?? 'https://azentzero.nyayavigya.in/v1').replace(/\/$/, '');
-    this.timeoutMs = Number(process.env.NYV_AZENTZERO_TIMEOUT_MS ?? '60000');
-    this.maxRetries = Number(process.env.NYV_AZENTZERO_MAX_RETRIES ?? '3');
+    this.apiKey = process.env.JRX_AZENTZERO_API_KEY ?? null;
+    this.baseUrl = (process.env.JRX_AZENTZERO_BASE_URL ?? 'https://azentzero.jurexio.com/v1').replace(/\/$/, '');
+    this.timeoutMs = Number(process.env.JRX_AZENTZERO_TIMEOUT_MS ?? '60000');
+    this.maxRetries = Number(process.env.JRX_AZENTZERO_MAX_RETRIES ?? '3');
 
     this.health = {
       status: this.apiKey ? 'healthy' : 'unconfigured',
@@ -116,7 +116,7 @@ class AzentzeroService extends EventEmitter {
         timeoutMs: this.timeoutMs,
       });
     } else {
-      logger.warn('[Azentzero] ⚠️ NYV_AZENTZERO_API_KEY not set — Azentzero backup LLM inactive. Set this env var to enable sovereign final fallback.');
+      logger.warn('[Azentzero] ⚠️ JRX_AZENTZERO_API_KEY not set — Azentzero backup LLM inactive. Set this env var to enable sovereign final fallback.');
     }
   }
 
@@ -149,12 +149,12 @@ class AzentzeroService extends EventEmitter {
    */
   async complete(req: AzentzeroRequest): Promise<AzentzeroResponse> {
     if (!this.apiKey) {
-      logger.warn('[Azentzero] NYV_AZENTZERO_API_KEY not configured — returning schema-valid mock AzentzeroResponse');
+      logger.warn('[Azentzero] JRX_AZENTZERO_API_KEY not configured — returning schema-valid mock AzentzeroResponse');
       const id = `aztz_mock_${Date.now()}`;
       const response: AzentzeroResponse = {
         id,
         model: req.model ?? DEFAULT_AZENTZERO_MODEL,
-        content: '[NYV Sovereign Fallback] Azentzero is not configured. Set NYV_AZENTZERO_API_KEY to enable the sovereign final backup.',
+        content: '[JRX Sovereign Fallback] Azentzero is not configured. Set JRX_AZENTZERO_API_KEY to enable the sovereign final backup.',
         tokens: { input: 0, output: 0, total: 0 },
         latencyMs: 0,
         provider: 'azentzero',
@@ -275,7 +275,7 @@ Respond ONLY with valid JSON: { "jurisdiction": "<code>", "model": "azentzero-le
         responseTimeMs: 0,
         lastChecked: new Date().toISOString(),
         available: false,
-        errorMessage: 'NYV_AZENTZERO_API_KEY not set',
+        errorMessage: 'JRX_AZENTZERO_API_KEY not set',
       };
       return this.health;
     }
@@ -287,7 +287,7 @@ Respond ONLY with valid JSON: { "jurisdiction": "<code>", "model": "azentzero-le
 
       const res = await fetch(`${this.baseUrl}/health`, {
         method: 'GET',
-        headers: { Authorization: `Bearer ${this.apiKey}`, 'X-NYV-Platform': '3.1.2' },
+        headers: { Authorization: `Bearer ${this.apiKey}`, 'X-JRX-Platform': '3.1.2' },
         signal: controller.signal,
       });
       clearTimeout(timeout);
@@ -336,7 +336,7 @@ Respond ONLY with valid JSON: { "jurisdiction": "<code>", "model": "azentzero-le
       stream: false,
       metadata: {
         ...(req.metadata ?? {}),
-        platform: 'nyayavigya-3.1.2',
+        platform: 'jurexio-3.1.2',
         request_id: requestId,
         jurisdiction: req.jurisdiction,
         template_mode: req.template_mode ?? 'STRICT',
@@ -351,8 +351,8 @@ Respond ONLY with valid JSON: { "jurisdiction": "<code>", "model": "azentzero-le
           'Content-Type': 'application/json',
           Authorization: `Bearer ${this.apiKey!}`,
           'X-Request-ID': requestId,
-          'X-NYV-Platform': '3.1.2',
-          'X-NYV-Sovereign': 'true',
+          'X-JRX-Platform': '3.1.2',
+          'X-JRX-Sovereign': 'true',
         },
         body: JSON.stringify(body),
         signal: controller.signal,

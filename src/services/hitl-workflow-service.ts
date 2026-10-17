@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
+// JRX-NS-021 (2026-05-05): pre-existing strict-null violations cluster in this
 // file. Runtime is unaffected (gateway runs via tsx). Opt out of strict-null
 // for the v5.0.0 deploy gate; track follow-up cleanup in INV-CLEANUP-001.
 /**
@@ -21,7 +21,7 @@ const db = lazyRequire(() => _raw_db, 'db');
 import { hitlWorkflows, hitlWorkflowExecutions, HitlWorkflow, HitlWorkflowExecution } from '@shared/schema.js';
 import { eq, and, desc, inArray, sql } from 'drizzle-orm';
 import { createLogger } from '../utils/logger.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 
 
 const logger = createLogger('hitl-workflow-service');
@@ -236,7 +236,7 @@ class HitlWorkflowService extends EventEmitter {
       .limit(1);
     if (byMeta) return byMeta;
 
-    const platformId = process.env.NYV_PLATFORM_HITL_WORKFLOW_ID || 'nyv-platform-orchestrate-hitl';
+    const platformId = process.env.JRX_PLATFORM_HITL_WORKFLOW_ID || 'jrx-platform-orchestrate-hitl';
     if (workflowId === platformId) {
       const [byName] = await db
         .select()
@@ -254,7 +254,7 @@ class HitlWorkflowService extends EventEmitter {
 
   /** Stable workflow id for /orchestrate HITL registry path (T-03/T-04/T-05). */
   async resolveOrCreatePlatformOrchestrateWorkflow(ownerId: string): Promise<string> {
-    const workflowId = process.env.NYV_PLATFORM_HITL_WORKFLOW_ID || 'nyv-platform-orchestrate-hitl';
+    const workflowId = process.env.JRX_PLATFORM_HITL_WORKFLOW_ID || 'jrx-platform-orchestrate-hitl';
     const existing = await this.getWorkflow(workflowId);
     if (existing) return workflowId;
 
@@ -290,7 +290,7 @@ class HitlWorkflowService extends EventEmitter {
     const ctxAgentId = (request.triggerContext?.agentId as string | undefined);
     const ctxOrgId = (request.triggerContext?.orgId as string | undefined);
     const ctxPracticeArea = (request.triggerContext?.practiceArea as string | undefined);
-    const reviewThreshold = isNyvFeatureOn('hitlRegistry')
+    const reviewThreshold = isJrxFeatureOn('hitlRegistry')
       ? await getHITLThreshold(ctxAgentId, ctxPracticeArea, workflow.requireReviewThreshold ?? undefined)
       : (workflow.requireReviewThreshold || 0.7);
 
@@ -304,7 +304,7 @@ class HitlWorkflowService extends EventEmitter {
     // `workflow.requiredApprovers` when the registry has no specific reviewer
     // (preserves prior behavior).
     let routedReviewer: string | null = null;
-    if (!shouldAutoApprove && isNyvFeatureOn('hitlRegistry')) {
+    if (!shouldAutoApprove && isJrxFeatureOn('hitlRegistry')) {
       try { routedReviewer = await resolveReviewer(ctxAgentId, ctxOrgId); } catch { routedReviewer = null; }
     }
 
@@ -341,7 +341,7 @@ class HitlWorkflowService extends EventEmitter {
     }
 
     // T-05: SOC2 CC7.1 — log every auto-approval to IronLedger (gated, non-blocking).
-    if (shouldAutoApprove && isNyvFeatureOn('hitlRegistry')) {
+    if (shouldAutoApprove && isJrxFeatureOn('hitlRegistry')) {
       auditAutoApprove({
         agentId: ctxAgentId,
         confidence: request.agentConfidence,

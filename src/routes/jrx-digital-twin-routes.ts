@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
- * NYV Digital Twin REST API Routes v1.0.0
- * NYV-SVC-DIGITAL-TWIN-ROUTES-001
+ * JRX Digital Twin REST API Routes v1.0.0
+ * JRX-SVC-DIGITAL-TWIN-ROUTES-001
  *
  * Exposes the Digital Twin Service as a full customer-facing HTTP REST API.
  * Digital Twins are live virtual replicas of legal cases, contracts,
@@ -78,7 +78,7 @@ router.get('/health', async (_req: Request, res: Response) => {
     const alertTriggered = allTwins.filter(t => t.status === 'alert-triggered').length;
     res.json({
       success: true,
-      service: 'NYV-SVC-DIGITAL-TWIN-001',
+      service: 'JRX-SVC-DIGITAL-TWIN-001',
       version: '1.0.0',
       status: 'healthy',
       stats: {

@@ -18,7 +18,7 @@ async function snap(c) {
   const m = Object.fromEntries(r.rows.map((row) => [row.scope, Number(row.n)]));
   return { at: new Date().toISOString(), scopes: m, sum: Object.values(m).reduce((a, b) => a + b, 0) };
 }
-const d = await new RDSClient({ region: R }).send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "nyv-caselaw-pg" }));
+const d = await new RDSClient({ region: R }).send(new DescribeDBInstancesCommand({ DBInstanceIdentifier: "jrx-caselaw-pg" }));
 const i = d.DBInstances?.[0];
 const s = await new SecretsManagerClient({ region: R }).send(new GetSecretValueCommand({ SecretId: i.MasterUserSecret.SecretArn }));
 const cr = JSON.parse(s.SecretString);

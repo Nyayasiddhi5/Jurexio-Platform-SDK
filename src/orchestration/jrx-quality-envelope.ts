@@ -302,7 +302,7 @@ export function scaleCoTAfterCaptureFailure(
 
 export function snapshotQualityEnvelope(env: QualityEnvelopeState): QualityEnvelopeSnapshot {
   const failClosed = process.env.NODE_ENV === 'production'
-    || process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED === '1';
+    || process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED === '1';
 
   const completed: string[] = [];
   const scaledOptional: string[] = [];
@@ -349,7 +349,7 @@ export class QualityEnvelopeError extends Error {
   public readonly snapshot: QualityEnvelopeSnapshot;
   constructor(snapshot: QualityEnvelopeSnapshot) {
     super(
-      `NYV-QUALITY-ENVELOPE-001: mandatory steps missing: ${snapshot.missingMandatory.join(', ')}`,
+      `JRX-QUALITY-ENVELOPE-001: mandatory steps missing: ${snapshot.missingMandatory.join(', ')}`,
     );
     this.name = 'QualityEnvelopeError';
     this.snapshot = snapshot;
@@ -357,7 +357,7 @@ export class QualityEnvelopeError extends Error {
 }
 
 /**
- * Assert envelope complete. Production / NYV_QUALITY_ENVELOPE_FAIL_CLOSED=1 → throw.
+ * Assert envelope complete. Production / JRX_QUALITY_ENVELOPE_FAIL_CLOSED=1 → throw.
  * Otherwise returns snapshot with ok=false for caller to attach as warning.
  */
 export function assertQualityEnvelope(env: QualityEnvelopeState): QualityEnvelopeSnapshot {

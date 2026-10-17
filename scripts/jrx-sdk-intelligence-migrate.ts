@@ -1,8 +1,8 @@
 /**
- * Nyayavigya Platform 3.1.2 — SDK Intelligence Migration
- * NYV-MIGRATE-SDK-INTEL-001
+ * Jurexio Platform 3.1.2 — SDK Intelligence Migration
+ * JRX-MIGRATE-SDK-INTEL-001
  *
- * Creates 5 new tables required by nv-sdk-intelligence-routes.ts:
+ * Creates 5 new tables required by jrx-sdk-intelligence-routes.ts:
  *   nv_document_requests       — client → firm document requests
  *   nv_document_ai_metadata    — AI classification results per document
  *   nv_client_health_scores    — cached health score + sentiment per client
@@ -23,7 +23,7 @@ dotenv.config();
 const sql = makePgSql(process.env.DATABASE_URL!);
 
 async function migrate() {
-  console.log('\n  NYV SDK Intelligence Migration — v3.1.2\n');
+  console.log('\n  JRX SDK Intelligence Migration — v3.1.2\n');
 
   if (!process.env.DATABASE_URL) {
     console.error('  ✗ DATABASE_URL not set');

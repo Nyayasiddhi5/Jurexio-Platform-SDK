@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 import crypto from 'crypto';
 import { db as _db } from '../../db/index.js';
 import { sdkClauseLibrary, sdkComplianceControls, sdkDocumentTemplates } from '@shared/schema.js';
@@ -41,7 +41,7 @@ function allowKeywordEmbedFallback(): boolean {
   // 1) local dev, 2) explicit fallback toggle, or 3) platform UAT bypass mode.
   return (
     process.env.NODE_ENV === 'development' ||
-    process.env.NYV_EMBED_KEYWORD_FALLBACK === '1' ||
+    process.env.JRX_EMBED_KEYWORD_FALLBACK === '1' ||
     process.env.NV_PLATFORM_UAT_BYPASS === '1'
   );
 }
@@ -542,7 +542,7 @@ ${documentText.substring(0, 12000)}`,
        * live: a partner summarize call returned a user-visible summary beginning
        * "```json {\"agentId\": \"A-129\" …" — internal agent ids leaked into
        * customer-facing text. Reuses the fence-strip already used by
-       * `nv-ecosystem-document-job-service.ts` (NV-NO-DUPLICATE-001). */
+       * `jrx-ecosystem-document-job-service.ts` (NV-NO-DUPLICATE-001). */
       const cleaned = String(llmResponse.content || '').replace(/```json\s*|```/gi, '').trim();
       try {
         const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
@@ -612,7 +612,7 @@ ${documentText.substring(0, 12000)}`,
 
   async getTemplates(jurisdiction: string, ctx: any): Promise<any> {
     const latency = Date.now();
-    // NYV-AUDIT-F10 (2026-05-05): same bug as F7 — sdkDocumentTemplates has no
+    // JRX-AUDIT-F10 (2026-05-05): same bug as F7 — sdkDocumentTemplates has no
     // `status` column (only is_system). Drizzle's eq(undefined, 'active')
     // produced `WHERE = 'active'` → 500 syntax error. No soft-delete on this
     // table, so an unfiltered select returns the canonical template set.
@@ -629,7 +629,7 @@ ${documentText.substring(0, 12000)}`,
 
   async getClauseLibrary(jurisdiction: string, category: string | undefined, page: number, limit: number, ctx: any): Promise<any> {
     const latencyStart = Date.now();
-    // NYV-AUDIT-F7 (2026-05-05): sdkClauseLibrary has no `status` column in the
+    // JRX-AUDIT-F7 (2026-05-05): sdkClauseLibrary has no `status` column in the
     // canonical schema (only is_system). Previous .where(eq(...status, 'active'))
     // generated `WHERE  = 'active'` (Drizzle interpolates undefined columns as
     // empty) → 500 SQL syntax error. Selecting all rows is correct here — there
@@ -668,7 +668,7 @@ ${documentText.substring(0, 12000)}`,
     const suggestionId = generateId('sug');
 
     try {
-      // NYV-AUDIT-F7-EXT (2026-05-07): same fix as line 282 — sdkClauseLibrary
+      // JRX-AUDIT-F7-EXT (2026-05-07): same fix as line 282 — sdkClauseLibrary
       // has no `status` column; selecting all rows is correct (no soft-delete).
       const clauses = await getDb().select().from(sdkClauseLibrary);
 
@@ -722,7 +722,7 @@ ${documentText.substring(0, 12000)}`,
     const checkId = generateId('comp');
 
     try {
-      // NYV-AUDIT-F7-EXT (2026-05-07): sdkComplianceControls schema has no
+      // JRX-AUDIT-F7-EXT (2026-05-07): sdkComplianceControls schema has no
       // `isActive` column (canonical schema in shared/schema.ts:177-189 has
       // controlId/framework/jurisdiction/title/category/severity/requirements/
       // automationLevel + timestamps only). Drizzle interpolates the missing

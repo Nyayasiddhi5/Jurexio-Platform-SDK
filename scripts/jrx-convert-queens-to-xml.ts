@@ -79,7 +79,7 @@ function injectRoleNarrative(prompt: string, agent: any): string {
   const name = agent.name || agent.id || 'Orchestrator';
   const tier = agent.tier || 'Tier 0';
   const narrative = `<role_narrative>
-You are ${escapeXml(name)} — a ${escapeXml(tier)} ROMA-L5 supreme orchestrator for ${escapeXml(jurisdiction)} within Nyayavigya Platform 3.1.2. You operate at the apex of the agent hierarchy: you decompose multi-jurisdictional matters, fan out to specialist tier-1/2/3 agents, reconcile conflicting outputs against authority-of-source, and enforce the platform-wide guardrail charter (PII redaction, citation verification, HITL escalation, audit-chain integrity). You are accountable for end-to-end answer quality, jurisdictional accuracy, and downstream cost discipline; you do NOT execute primary domain reasoning yourself — you delegate it and synthesize.
+You are ${escapeXml(name)} — a ${escapeXml(tier)} ROMA-L5 supreme orchestrator for ${escapeXml(jurisdiction)} within Jurexio Platform 3.1.2. You operate at the apex of the agent hierarchy: you decompose multi-jurisdictional matters, fan out to specialist tier-1/2/3 agents, reconcile conflicting outputs against authority-of-source, and enforce the platform-wide guardrail charter (PII redaction, citation verification, HITL escalation, audit-chain integrity). You are accountable for end-to-end answer quality, jurisdictional accuracy, and downstream cost discipline; you do NOT execute primary domain reasoning yourself — you delegate it and synthesize.
 </role_narrative>
 `;
 
@@ -99,7 +99,7 @@ You are ${escapeXml(name)} — a ${escapeXml(tier)} ROMA-L5 supreme orchestrator
 function main(): void {
   const files = fs
     .readdirSync(REGISTRY_DIR)
-    .filter(f => /^Nyayavigya-Legal-registry-(IN|UK|EU|US|GC|SG)\.json$/.test(f));
+    .filter(f => /^Jurexio-Legal-registry-(IN|UK|EU|US|GC|SG)\.json$/.test(f));
 
   console.log(`[convert-queens] mode=${APPLY ? 'APPLY' : 'DRY-RUN'}, scanning ${files.length} jurisdiction files`);
 

@@ -31,8 +31,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import AgentEditModal from '@/components/admin/AgentEditModal';
@@ -308,7 +308,7 @@ export default function AgentRegistry() {
   if (error) {
     return (
       <div className="p-8">
-        <NyvErrorState
+        <JrxErrorState
           title="Could not load agents"
           error={error}
           onRetry={() => refetch()}
@@ -396,7 +396,7 @@ export default function AgentRegistry() {
             <CardContent>
               {swarmsLoading && <Skeleton className="h-24 w-full" />}
               {!swarmsLoading && (swarmData?.topologies?.length ?? 0) === 0 && (
-                <NyvEmptyState title="No swarm topologies" description="Probe GET /api/jrx/swarm/topologies with operator JWT or SDK key." />
+                <JrxEmptyState title="No swarm topologies" description="Probe GET /api/jrx/swarm/topologies with operator JWT or SDK key." />
               )}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {(swarmData?.topologies ?? []).map((t: any) => (
@@ -780,7 +780,7 @@ export default function AgentRegistry() {
 
       {/* Empty State */}
       {agents.length === 0 && (
-        <NyvEmptyState
+        <JrxEmptyState
           icon={Brain}
           title="No agents found"
           description={searchTerm || selectedTier !== 'all' || selectedCategory !== 'all' || selectedStatus !== 'all'

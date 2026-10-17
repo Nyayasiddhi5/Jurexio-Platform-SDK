@@ -1,6 +1,6 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
- * NYV-SVC-FILTER — Intelligent Message Filter Service
+ * JRX-SVC-FILTER — Intelligent Message Filter Service
  * Ported from SIA open-source agentic framework.
  *
  * Capabilities:
@@ -92,7 +92,7 @@ async function ensureTables(): Promise<void> {
     `);
     tablesReady = true;
   } catch (err: any) {
-    logger.error('[NYV-SVC-FILTER] ensureTables error:', err.message);
+    logger.error('[JRX-SVC-FILTER] ensureTables error:', err.message);
   }
 }
 
@@ -149,7 +149,7 @@ Reply with ONLY a JSON object:
 
     return { allowed: true, category: 'ambiguous', confidence: 0.5, reason: 'Classification parse failed — allowing with ambiguous flag' };
   } catch (err: any) {
-    logger.error('[NYV-SVC-FILTER] classifyMessage error:', err.message);
+    logger.error('[JRX-SVC-FILTER] classifyMessage error:', err.message);
     return { allowed: true, category: 'ambiguous', confidence: 0.3, reason: 'Filter service error — allowing by default' };
   }
 }
@@ -158,7 +158,7 @@ export function isSelfReference(message: string, _agentKey: string): boolean {
   const selfRefPatterns = [
     /^as an ai/i, /^i am an ai/i, /^as a legal ai/i,
     /^i'm an ai/i, /^i am a language model/i, /^based on my training/i,
-    /^\[nyayavigya\]/i, /^\[agent\]/i,
+    /^\[jurexio\]/i, /^\[agent\]/i,
   ];
   return selfRefPatterns.some(p => p.test(message.trim()));
 }
@@ -188,7 +188,7 @@ ${rulesText}`,
       return { blocked: !!parsed.blocked, reason: parsed.reason || '' };
     }
   } catch (err: any) {
-    logger.error('[NYV-SVC-FILTER] applyFilterRules error:', err.message);
+    logger.error('[JRX-SVC-FILTER] applyFilterRules error:', err.message);
   }
 
   return { blocked: false };
@@ -219,7 +219,7 @@ export async function getFilterConfig(orgId: string, agentKey?: string): Promise
       };
     }
   } catch (err: any) {
-    logger.error('[NYV-SVC-FILTER] getFilterConfig error:', err.message);
+    logger.error('[JRX-SVC-FILTER] getFilterConfig error:', err.message);
   }
 
   return {
@@ -249,7 +249,7 @@ export async function saveFilterConfig(config: FilterConfig): Promise<void> {
             updated_at = NOW()
     `);
   } catch (err: any) {
-    logger.error('[NYV-SVC-FILTER] saveFilterConfig error:', err.message);
+    logger.error('[JRX-SVC-FILTER] saveFilterConfig error:', err.message);
     throw err;
   }
 }
@@ -332,7 +332,7 @@ export function createFilterMiddleware(options: { extractMessage?: (req: Request
       req.filterResult = filterResult;
       next();
     } catch (err: any) {
-      logger.error('[NYV-SVC-FILTER] middleware error:', err.message);
+      logger.error('[JRX-SVC-FILTER] middleware error:', err.message);
       next();
     }
   };

@@ -69,7 +69,7 @@ export interface ModelCard {
 // Jurexio AI System Inventory (per ISO 42001 §6.1)
 const AI_SYSTEMS: AISystemInventoryItem[] = [
   {
-    systemId: 'nyv-ns-queen',
+    systemId: 'jrx-ns-queen',
     name: 'Jurexio NS-Queen Orchestrator',
     description: 'Master orchestration agent routing legal queries to 149 specialist agents',
     version: '3.1.2',
@@ -87,7 +87,7 @@ const AI_SYSTEMS: AISystemInventoryItem[] = [
     lastAuditDate: '2026-04-06',
   },
   {
-    systemId: 'nyv-grpo',
+    systemId: 'jrx-grpo',
     name: 'GRPO Legal Preference Optimizer',
     description: 'Group Relative Policy Optimization for continuous legal AI improvement via RLHF',
     version: '3.1.2',
@@ -105,7 +105,7 @@ const AI_SYSTEMS: AISystemInventoryItem[] = [
     lastAuditDate: '2026-04-06',
   },
   {
-    systemId: 'nyv-rag-p11',
+    systemId: 'jrx-rag-p11',
     name: 'NyayaRAG Hybrid Retrieval System',
     description: 'BM25 + pgvector hybrid RAG for statute and precedent retrieval (P11)',
     version: '3.1.2',
@@ -123,7 +123,7 @@ const AI_SYSTEMS: AISystemInventoryItem[] = [
     lastAuditDate: '2026-04-06',
   },
   {
-    systemId: 'nyv-safety-pipeline',
+    systemId: 'jrx-safety-pipeline',
     name: '10-Step AI Safety Pipeline',
     description: 'Pre/post processing safety pipeline for all AI outputs',
     version: '3.1.2',
@@ -146,7 +146,7 @@ const AI_SYSTEMS: AISystemInventoryItem[] = [
 const RISK_REGISTER: AIRiskRegisterEntry[] = [
   {
     riskId: 'R001',
-    systemId: 'nyv-ns-queen',
+    systemId: 'jrx-ns-queen',
     riskTitle: 'AI Hallucination in Statute Citations',
     riskDescription: 'LLM may generate plausible but incorrect statute section numbers or case citations',
     likelihood: 'possible',
@@ -160,7 +160,7 @@ const RISK_REGISTER: AIRiskRegisterEntry[] = [
   },
   {
     riskId: 'R002',
-    systemId: 'nyv-ns-queen',
+    systemId: 'jrx-ns-queen',
     riskTitle: 'Unauthorised Legal Advice',
     riskDescription: 'Platform output may be interpreted as formal legal advice by laypersons',
     likelihood: 'likely',
@@ -174,7 +174,7 @@ const RISK_REGISTER: AIRiskRegisterEntry[] = [
   },
   {
     riskId: 'R003',
-    systemId: 'nyv-grpo',
+    systemId: 'jrx-grpo',
     riskTitle: 'Bias Amplification in Legal Reasoning',
     riskDescription: 'GRPO may amplify biases present in lawyer preference data',
     likelihood: 'possible',
@@ -188,7 +188,7 @@ const RISK_REGISTER: AIRiskRegisterEntry[] = [
   },
   {
     riskId: 'R004',
-    systemId: 'nyv-rag-p11',
+    systemId: 'jrx-rag-p11',
     riskTitle: 'Outdated Statute Retrieval',
     riskDescription: 'Statute corpus may not reflect latest amendments leading to incorrect advice',
     likelihood: 'possible',
@@ -205,7 +205,7 @@ const RISK_REGISTER: AIRiskRegisterEntry[] = [
 const MODEL_CARDS: ModelCard[] = [
   {
     modelId: 'mc-001',
-    systemId: 'nyv-ns-queen',
+    systemId: 'jrx-ns-queen',
     modelName: 'Claude 3.5 Sonnet (Primary)',
     provider: 'Anthropic via OpenRouter',
     version: 'claude-3-5-sonnet-20241022',

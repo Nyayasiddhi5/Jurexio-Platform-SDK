@@ -26,20 +26,20 @@ describe('NV-STREAM-TERMINAL-POLISH-001', () => {
     else process.env[name] = value;
   }
 
-  it('defaults ON via NYV_STREAM_TERMINAL_POLISH when unset in test env', () => {
-    setEnv('NYV_STREAM_TERMINAL_POLISH', '1');
+  it('defaults ON via JRX_STREAM_TERMINAL_POLISH when unset in test env', () => {
+    setEnv('JRX_STREAM_TERMINAL_POLISH', '1');
     expect(isStreamTerminalPolishEnabled()).toBe(true);
     expect(shouldApplyStreamTerminalPolish({ partnerLean: true, taskType: 'legal-draft-fast' })).toBe(true);
   });
 
   it('respects explicit opt-out', () => {
-    setEnv('NYV_STREAM_TERMINAL_POLISH', '0');
+    setEnv('JRX_STREAM_TERMINAL_POLISH', '0');
     expect(isStreamTerminalPolishEnabled()).toBe(false);
     expect(shouldApplyStreamTerminalPolish({ partnerLean: true, taskType: 'legal-draft-fast' })).toBe(false);
   });
 
   it('scopes to partner lean / -fast taskTypes only', () => {
-    setEnv('NYV_STREAM_TERMINAL_POLISH', '1');
+    setEnv('JRX_STREAM_TERMINAL_POLISH', '1');
     expect(shouldApplyStreamTerminalPolish({ taskType: 'legal-draft' })).toBe(false);
     expect(shouldApplyStreamTerminalPolish({ taskType: 'legal-chat' })).toBe(false);
     expect(shouldApplyStreamTerminalPolish({ taskType: 'legal-draft-fast' })).toBe(true);
@@ -47,7 +47,7 @@ describe('NV-STREAM-TERMINAL-POLISH-001', () => {
   });
 
   it('transforms streamed body with legal formatting (MOST RESPECTFULLY SHOWETH)', async () => {
-    setEnv('NYV_STREAM_TERMINAL_POLISH', '1');
+    setEnv('JRX_STREAM_TERMINAL_POLISH', '1');
     const raw = [
       'IN THE COURT OF SESSIONS JUDGE AT CHENNAI',
       '',

@@ -1,19 +1,19 @@
 'use client';
 
 import { useState } from 'react';
-import type { NyvPatternResponse } from '@nyayavigya/client-sdk';
-import { useNyv } from '../providers';
+import type { JrxPatternResponse } from '@nyayavigya/client-sdk';
+import { useJrx } from '../providers';
 
 interface ChatAnswer {
   answer: string;
   citations?: { label: string; url?: string }[];
 }
 
-function citationLabel(c: NonNullable<NyvPatternResponse['citations']>[number]): string {
+function citationLabel(c: NonNullable<JrxPatternResponse['citations']>[number]): string {
   return c.case ?? c.statute ?? c.section ?? c.url ?? 'unknown citation';
 }
 
-function summarize(res: NyvPatternResponse): ChatAnswer {
+function summarize(res: JrxPatternResponse): ChatAnswer {
   return {
     answer: String(res.result ?? JSON.stringify(res, null, 2)),
     citations: Array.isArray(res.citations)
@@ -23,7 +23,7 @@ function summarize(res: NyvPatternResponse): ChatAnswer {
 }
 
 export default function ChatPage() {
-  const { client } = useNyv();
+  const { client } = useJrx();
   const [q, setQ] = useState('Explain BNS Section 103 (murder) with relevant case law.');
   const [a, setA] = useState<ChatAnswer | null>(null);
   const [busy, setBusy] = useState(false);
@@ -51,7 +51,7 @@ export default function ChatPage() {
         style={{ width: '100%', padding: 8, fontSize: 14, border: '1px solid #ddd', borderRadius: 6 }}
       />
       <button onClick={ask} disabled={busy} style={{ marginTop: 8, padding: '8px 14px' }}>
-        {busy ? 'Asking…' : 'Ask Nyayavigya'}
+        {busy ? 'Asking…' : 'Ask Jurexio'}
       </button>
       {err && <pre style={{ color: 'crimson', whiteSpace: 'pre-wrap' }}>{err}</pre>}
       {a && (

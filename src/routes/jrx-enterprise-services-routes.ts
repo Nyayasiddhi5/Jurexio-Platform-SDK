@@ -1,13 +1,13 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 // task-260 (2026-05-12): legacy typing-bypass markers replaced with `getSvc()` typed accessor
-// that throws NyvMissingDependencyError when a service hasn't been registered.
+// that throws JrxMissingDependencyError when a service hasn't been registered.
 import { Router, Request, Response } from 'express';
 import { authenticateToken } from '../middleware/auth.js';
 import { dualSdkOrJwt } from '../middleware/jrx-dual-auth.js';
 import { services, type ServiceRegistry } from '../services/index.js';
 import { z } from 'zod';
 import { sanitizeErrorForClient } from '../utils/error-sanitizer.js';
-import { NyvMissingDependencyError } from '../utils/jrx-type-helpers.js';
+import { JrxMissingDependencyError } from '../utils/jrx-type-helpers.js';
 import { realWebSearchService } from '../services/enterprise-platform/real-web-search-service.js';
 
 const router = Router();
@@ -15,7 +15,7 @@ const router = Router();
 function getSvc<K extends keyof ServiceRegistry>(name: K): ServiceRegistry[K] {
   const v = services[name];
   if (v === undefined || v === null) {
-    throw new NyvMissingDependencyError(`services.${String(name)}`, 'Service not registered in services index — see src/services/index.ts');
+    throw new JrxMissingDependencyError(`services.${String(name)}`, 'Service not registered in services index — see src/services/index.ts');
   }
   return v as ServiceRegistry[K];
 }
@@ -50,7 +50,7 @@ router.post('/documents/process', async (req: Request, res: Response) => {
     const result = await getSvc('documentProcessing').process(document, options);
     res.json({ success: true, data: result });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 
@@ -60,7 +60,7 @@ router.post('/notebook/projects', async (req: Request, res: Response) => {
     const project = await getSvc('notebookLLM').createProject(name, documents);
     res.json({ success: true, data: project });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 
@@ -70,7 +70,7 @@ router.post('/scrape', async (req: Request, res: Response) => {
     const result = await getSvc('webScraping').scrape(url, options);
     res.json({ success: true, data: result });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 
@@ -80,7 +80,7 @@ router.post('/database/query', async (req: Request, res: Response) => {
     const result = await getSvc('databaseConnector').query(connectionId, query, params);
     res.json({ success: true, data: result });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 
@@ -90,7 +90,7 @@ router.post('/code/analyze', async (req: Request, res: Response) => {
     const analysis = await getSvc('codeQuality').analyze(code, language, options);
     res.json({ success: true, data: analysis });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 
@@ -101,7 +101,7 @@ router.post('/research/:domain', async (req: Request, res: Response) => {
     const results = await getSvc('domainResearch').research(domain, query, options);
     res.json({ success: true, data: results });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 
@@ -111,7 +111,7 @@ router.post('/investment/analyze', async (req: Request, res: Response) => {
     const analysis = await getSvc('investmentResearch').analyze(symbol, analysisType, options);
     res.json({ success: true, data: analysis });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 
@@ -121,7 +121,7 @@ router.get('/financial/quote/:symbol', async (req: Request, res: Response) => {
     const quote = await getSvc('financialData').getQuote(symbol);
     res.json({ success: true, data: quote });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 
@@ -131,7 +131,7 @@ router.post('/multimedia/process', async (req: Request, res: Response) => {
     const result = await getSvc('multimedia').process(type, data, options);
     res.json({ success: true, data: result });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 
@@ -141,7 +141,7 @@ router.post('/analytics/dashboards', async (req: Request, res: Response) => {
     const dashboard = await getSvc('visualAnalytics').createDashboard(name, description, widgets);
     res.json({ success: true, data: dashboard });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 
@@ -150,7 +150,7 @@ router.get('/analytics/dashboards', async (req: Request, res: Response) => {
     const dashboards = await getSvc('visualAnalytics').getDashboards();
     res.json({ success: true, data: dashboards });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 
@@ -160,7 +160,7 @@ router.post('/assets', async (req: Request, res: Response) => {
     const asset = await getSvc('contentAsset').createAsset(name, type, content, folderId, metadata);
     res.json({ success: true, data: asset });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 
@@ -170,7 +170,7 @@ router.get('/assets', async (req: Request, res: Response) => {
     const assets = await getSvc('contentAsset').getAssets(folderId as string, type as string);
     res.json({ success: true, data: assets });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 
@@ -180,7 +180,7 @@ router.post('/translate', async (req: Request, res: Response) => {
     const translation = await getSvc('multiLanguage').translate(text, targetLanguage, sourceLanguage);
     res.json({ success: true, data: translation });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 
@@ -190,7 +190,7 @@ router.post('/detect-language', async (req: Request, res: Response) => {
     const detected = await getSvc('multiLanguage').detectLanguage(text);
     res.json({ success: true, data: detected });
   } catch (error: any) {
-    res.status(error instanceof NyvMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
+    res.status(error instanceof JrxMissingDependencyError ? 500 : 400).json({ success: false, error: sanitizeErrorForClient(error) });
   }
 });
 

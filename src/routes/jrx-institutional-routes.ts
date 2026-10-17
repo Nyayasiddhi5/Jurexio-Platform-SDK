@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * Jurexio Enterprise Platform 3.1.2 — Institutional Onboarding Routes
- * NYV-ROUTE-INSTITUTIONAL-001
+ * JRX-ROUTE-INSTITUTIONAL-001
  *
  * Routes:
  *   POST /api/jrx/institutional/request    — submit 7-step wizard lead
@@ -137,7 +137,7 @@ router.post('/request', async (req: Request, res: Response): Promise<void> => {
       res.status(202).json({
         success: true,
         data: {
-          lead_id: 'NYV-INST-' + Date.now(),
+          lead_id: 'JRX-INST-' + Date.now(),
           message: 'Institutional access request received. (Database migration pending)',
         },
       });

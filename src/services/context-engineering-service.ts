@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * Context Engineering Service - Production Grade
  * Advanced context management and prompt optimization using Jurexio Enterprise Platform SDK v5.0.0
@@ -16,25 +16,25 @@ import { db as _raw_db } from '../db/index.js';
 import { lazyRequire } from '../utils/jrx-type-helpers.js';
 const db = lazyRequire(() => _raw_db, 'db');
 import { 
-  nyayavigyaFounderContextProfiles, 
-  nyayavigyaContextLearningHistory,
+  jurexioFounderContextProfiles, 
+  jurexioContextLearningHistory,
   type InsertJurexioFounderContextProfile,
   type InsertJurexioContextLearningHistory
 } from '../../shared/schema.js';
 import { eq } from 'drizzle-orm';
-import type { JurexioOrchestrationCoreV9, JurexioContextEngine } from '../orchestration/nyayavigya-orchestration-core-v9.js';
+import type { JurexioOrchestrationCoreV9, JurexioContextEngine } from '../orchestration/jurexio-orchestration-core-v9.js';
 import { createLogger } from '../utils/logger.js';
 
 
 const logger = createLogger('context-engineering-service');
 
 // Real Jurexio Enterprise Platform SDK v5.0.0 - No stubs (file iteration: v9)
-let nyayavigyaCore: JurexioOrchestrationCoreV9 | null = null;
+let jurexioCore: JurexioOrchestrationCoreV9 | null = null;
 let contextEngine: JurexioContextEngine | null = null;
 
 // Initialize Jurexio Enterprise Platform SDK on module load
-import('../orchestration/nyayavigya-orchestration-core-v9.js').then(module => {
-  nyayavigyaCore = module.nyayavigyaCore ?? module.default ?? null;
+import('../orchestration/jurexio-orchestration-core-v9.js').then(module => {
+  jurexioCore = module.jurexioCore ?? module.default ?? null;
   contextEngine = null; // JurexioContextEngine is not separately exported; core handles context
   logger.info('✅ Context Engineering Service: Jurexio Enterprise Platform SDK v5.0.0 loaded');
 }).catch(err => {
@@ -93,12 +93,12 @@ export class ContextEngineeringService extends EventEmitter {
       
       // Wait for Jurexio Enterprise Platform SDK to load (max 5 seconds)
       let attempts = 0;
-      while (!nyayavigyaCore && attempts < 50) {
+      while (!jurexioCore && attempts < 50) {
         await new Promise(resolve => setTimeout(resolve, 100));
         attempts++;
       }
       
-      if (!nyayavigyaCore || !contextEngine) {
+      if (!jurexioCore || !contextEngine) {
         logger.warn('⚠️ Jurexio Enterprise Platform SDK v5.0.0 not available yet, service will initialize when SDK loads');
         // Service can still work with basic context building
         this.isInitialized = true;
@@ -222,7 +222,7 @@ export class ContextEngineeringService extends EventEmitter {
     taskType: string
   ): Promise<void> {
     try {
-      await db.insert(nyayavigyaContextLearningHistory).values({
+      await db.insert(jurexioContextLearningHistory).values({
         // @ts-expect-error NV-TS230 legacy typing gap (TS2769)
         founderId,
         originalPrompt: enhancedRequest.originalPrompt,
@@ -273,7 +273,7 @@ export class ContextEngineeringService extends EventEmitter {
       }
 
       // Use Jurexio orchestration if available
-      if (nyayavigyaCore && contextEngine) {
+      if (jurexioCore && contextEngine) {
         
         // Emit AG-UI progress: Calling Jurexio Enterprise Platform SDK
         if (aguiSessionId) {
@@ -318,7 +318,7 @@ export class ContextEngineeringService extends EventEmitter {
         // Execute orchestration via Jurexio Enterprise Platform SDK with error handling
         let orchestrationResult;
         try {
-          orchestrationResult = await nyayavigyaCore.orchestrate(orchestrationRequest as any);
+          orchestrationResult = await jurexioCore.orchestrate(orchestrationRequest as any);
         } catch (orchestrationError: any) {
           // Orchestration failed - gracefully fallback
           logger.warn('⚠️ Jurexio orchestration failed, using fallback:', orchestrationError instanceof Error ? orchestrationError.message : 'Unknown error');
@@ -547,8 +547,8 @@ export class ContextEngineeringService extends EventEmitter {
     // Fetch learning history stats from database
     try {
       const recentHistory = await db.select()
-        .from(nyayavigyaContextLearningHistory)
-        .orderBy(nyayavigyaContextLearningHistory.createdAt)
+        .from(jurexioContextLearningHistory)
+        .orderBy(jurexioContextLearningHistory.createdAt)
         .limit(100);
       
       const avgPerformance = recentHistory.length > 0
@@ -561,7 +561,7 @@ export class ContextEngineeringService extends EventEmitter {
 
       return {
         initialized: this.isInitialized,
-        waiSDKConnected: nyayavigyaCore !== null && contextEngine !== null,
+        waiSDKConnected: jurexioCore !== null && contextEngine !== null,
         config: this.config,
         capabilities: {
           promptOptimization: this.config.enablePromptOptimization,
@@ -580,7 +580,7 @@ export class ContextEngineeringService extends EventEmitter {
       logger.error('Failed to fetch analytics:', error);
       return {
         initialized: this.isInitialized,
-        waiSDKConnected: nyayavigyaCore !== null && contextEngine !== null,
+        waiSDKConnected: jurexioCore !== null && contextEngine !== null,
         config: this.config,
         capabilities: {
           promptOptimization: this.config.enablePromptOptimization,

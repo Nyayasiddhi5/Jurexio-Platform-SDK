@@ -64,7 +64,7 @@ export default function DigitalTwinTab() {
   });
 
   const { data: dashboardData } = useQuery({
-    queryKey: ['/api/nyayavigya-admin/dashboard'],
+    queryKey: ['/api/jurexio-admin/dashboard'],
     refetchInterval: isLive ? 10000 : false,
   });
 

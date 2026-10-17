@@ -3,7 +3,7 @@ set -uo pipefail
 set -a
 source /opt/nyv/api/.env
 set +a
-KEY="${NYS_KNOWLEDGE_API_KEY:-${NYS_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
+KEY="${JRX_ECOSYSTEM_KNOWLEDGE_API_KEY:-${JRX_ECOSYSTEM_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
 for port in 8080 3000 5000 5001 8787; do
   code=$(curl -sS -m 3 -o /dev/null -w '%{http_code}' "http://127.0.0.1:${port}/health" 2>/dev/null || echo 000)
   echo "port $port /health -> $code"

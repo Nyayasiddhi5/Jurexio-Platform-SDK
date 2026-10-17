@@ -7,13 +7,13 @@
  * /api/jrx/knowledge/plane and also /api/jrx/knowledge/{caselaw,statutes,...}.
  *
  * Auth: authenticateToken (JWT or SDK key via existing gateway stack).
- * Proxies → NYS_KNOWLEDGE_BASE_URL with X-API-Key.
+ * Proxies → JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL with X-API-Key.
  */
 import { Router, type Request, type Response } from 'express';
 import crypto from 'node:crypto';
 import { dualSdkOrJwt } from '../middleware/jrx-dual-auth.js';
 import { partnerIndiaScopeMiddleware } from '../middleware/jrx-partner-india-scope.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import {
   forwardKeyFromReq,
   getNysKnowledgeClientStats,
@@ -47,16 +47,16 @@ router.use(dualSdkOrJwt);
 router.use(partnerIndiaScopeMiddleware);
 
 function flagOr503(res: Response): boolean {
-  if (!isNyvFeatureOn('nysKnowledgePlane')) {
+  if (!isJrxFeatureOn('nysKnowledgePlane')) {
     sendApiError(res, 'FORBIDDEN', {
       status: 503,
-      overrideMessage: 'NYS knowledge plane flag JRX_F_NYS_KNOWLEDGE_PLANE is off',
+      overrideMessage: 'NYS knowledge plane flag JRX_F_JRX_ECOSYSTEM_KNOWLEDGE_PLANE is off',
     });
     return false;
   }
   if (!isNysKnowledgeConfigured()) {
     sendApiError(res, 'QUEUE_UNAVAILABLE', {
-      overrideMessage: 'NYS_KNOWLEDGE_BASE_URL is not configured',
+      overrideMessage: 'JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL is not configured',
     });
     return false;
   }
@@ -93,7 +93,7 @@ async function proxy(
         : upstreamStatus;
     res.status(clientStatus).json({
       success: false,
-      error: { code: 'NYS_UPSTREAM', message: safeMsg },
+      error: { code: 'JRX_ECOSYSTEM_UPSTREAM', message: safeMsg },
     });
     return;
   }
@@ -110,7 +110,7 @@ router.get('/plane/health', async (_req, res) => {
   const probe = isNysKnowledgeConfigured() ? await nysKnowledgeHealthz() : null;
   res.json({
     success: true,
-    flag: isNyvFeatureOn('nysKnowledgePlane'),
+    flag: isJrxFeatureOn('nysKnowledgePlane'),
     client: stats,
     upstream: probe,
   });
@@ -134,12 +134,12 @@ router.post('/retrieve', async (req, res) => {
         : upstreamStatus;
     res.status(clientStatus).json({
       success: false,
-      error: { code: 'NYS_UPSTREAM', message: safeMsg },
+      error: { code: 'JRX_ECOSYSTEM_UPSTREAM', message: safeMsg },
     });
     return;
   }
 
-  // NV-NYS-RETRIEVE-SHAPE-001: normalize hybrid Athena/NYS payloads so NSP/NYM
+  // NV-JRX-RETRIEVE-SHAPE-001: normalize hybrid Athena/NYS payloads so NSP/NYM
   // always receive flat chunks + rankedResults (statutes/acts/amendments).
   const raw = (result.data ?? {}) as Record<string, any>;
   const chunks: Array<Record<string, unknown>> = [];
@@ -179,7 +179,7 @@ router.post('/retrieve', async (req, res) => {
     rank: i + 1,
   }));
 
-  // NV-NYS-LLMREQUIRED-001 — NYS returns `llmRequired` on every plan and this
+  // NV-JRX-LLMREQUIRED-001 — NYS returns `llmRequired` on every plan and this
   // route forwarded it as opaque passthrough, leaving each partner to re-derive
   // whether a model was needed (and most did not, so they paid for one). Render
   // the grounded answer here, from the plan we already have, so a partner can
@@ -237,7 +237,7 @@ router.get('/caselaw/search', async (req, res) => {
   const requestedMode = req.query.mode ? String(req.query.mode) : 'fts';
 
   /**
-   * NYS-CASELAW-SEARCH-FILTERS-001 — forward the pagination / filter / sort
+   * JRX-CASELAW-SEARCH-FILTERS-001 — forward the pagination / filter / sort
    * surface. Undefined keys are dropped by the query serializer, so an
    * unfiltered call is byte-identical to the previous behaviour.
    */
@@ -404,16 +404,16 @@ router.get('/statutes/embedding/coverage', async (req, res) => {
 
 /**
  * POST /api/jrx/knowledge/sso/launch — mint one-time URL to open nyayasearch
- * with NYS session cookie (signed launch; shared NYS_SSO_LAUNCH_SECRET).
+ * with NYS session cookie (signed launch; shared JRX_ECOSYSTEM_SSO_LAUNCH_SECRET).
  * Body: { path?: string } — relative path on NYS UI (default "/").
  */
 router.post('/sso/launch', async (req, res) => {
   try {
-    const secret = (process.env.NYS_SSO_LAUNCH_SECRET ?? '').trim();
+    const secret = (process.env.JRX_ECOSYSTEM_SSO_LAUNCH_SECRET ?? '').trim();
     if (!secret) {
       return sendApiError(res, 'QUEUE_UNAVAILABLE', {
         status: 503,
-        overrideMessage: 'NYS_SSO_LAUNCH_SECRET is not set on the gateway',
+        overrideMessage: 'JRX_ECOSYSTEM_SSO_LAUNCH_SECRET is not set on the gateway',
         details: { code: 'SSO_NOT_CONFIGURED' },
       });
     }
@@ -449,7 +449,7 @@ router.post('/sso/launch', async (req, res) => {
         ? rawPath.slice(0, 200)
         : '/';
     const username = String(
-      user?.email || user?.username || user?.userId || 'nyv-operator',
+      user?.email || user?.username || user?.userId || 'jrx-operator',
     ).slice(0, 120);
     const expMs = Date.now() + 60_000;
     const nonce = crypto.randomBytes(16).toString('hex');
@@ -458,8 +458,8 @@ router.post('/sso/launch', async (req, res) => {
     const token = `${Buffer.from(payload).toString('base64url')}.${sig}`;
 
     const uiBase = (
-      process.env.NYS_UI_BASE_URL ||
-      process.env.NYS_KNOWLEDGE_BASE_URL?.replace(/\/api\/?$/, '') ||
+      process.env.JRX_ECOSYSTEM_UI_BASE_URL ||
+      process.env.JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL?.replace(/\/api\/?$/, '') ||
       'https://nyayasearch.jurexio.example'
     ).replace(/\/$/, '');
     const url = `${uiBase}/api/auth/sso/callback?token=${encodeURIComponent(token)}`;
@@ -574,7 +574,7 @@ function resolveCompareSlug(raw: string): { kind: string; inferredFrom?: string 
  * (`overruled_case_check`) is a semantic search over the words "overruled distinguished" and
  * would let a judgment that merely discusses overruling read as one that performs it.
  *
- * `good` is unreachable by construction (see nv-citator-treatment.ts): absence of adverse
+ * `good` is unreachable by construction (see jrx-citator-treatment.ts): absence of adverse
  * language in a bounded retrieval is not evidence of good law.
  */
 router.get('/caselaw/treatment', async (req, res) => {
@@ -611,7 +611,7 @@ router.get('/caselaw/treatment', async (req, res) => {
 
   let graphEdges = 0;
   try {
-    const { nyvGraphRAGLegal } = await import('../services/rag/nyv-graphrag-legal-service.js');
+    const { nyvGraphRAGLegal } = await import('../services/rag/jrx-graphrag-legal-service.js');
     const g = await nyvGraphRAGLegal.getStats();
     graphEdges = g.totalEdges;
   } catch {
@@ -689,7 +689,7 @@ router.get('/caselaw/treatment', async (req, res) => {
 
   res.json({
     success: true,
-    source: 'nyv-deterministic-treatment',
+    source: 'jrx-deterministic-treatment',
     data: {
       authority: {
         /* Echo what was asked for, always. */
@@ -817,7 +817,7 @@ router.post('/documents/extract', async (req, res) => {
 });
 
 /**
- * POST /api/jrx/knowledge/judgments/full-text — NV-NYS-FULLTEXT-001.
+ * POST /api/jrx/knowledge/judgments/full-text — NV-JRX-FULLTEXT-001.
  *
  * The single call a caller needs for "give me the full judgment". Joins the two
  * NYS archive hops (Athena metadata resolve → S3 PDF extract) that were
@@ -855,7 +855,7 @@ router.post('/judgments/full-text', async (req, res) => {
     year: yearNum !== undefined && Number.isFinite(yearNum) ? yearNum : undefined,
     court: typeof body.court === 'string' ? body.court : undefined,
     title: typeof body.title === 'string' ? body.title : undefined,
-    // NYS-JUDGMENT-STRUCTURE-001 — opt-in `paras[]` + structured fields.
+    // JRX-JUDGMENT-STRUCTURE-001 — opt-in `paras[]` + structured fields.
     structure: body.structure === true || body.structure === 'true',
   });
 
@@ -898,7 +898,7 @@ router.post('/judgments/full-text', async (req, res) => {
   });
 });
 
-/** GET /api/jrx/knowledge/templates — prefer NYS; fall back to NYV canonical catalog */
+/** GET /api/jrx/knowledge/templates — prefer NYS; fall back to JRX canonical catalog */
 router.get('/templates', async (req, res) => {
   if (!flagOr503(res)) return;
   if (isNysKnowledgeConfigured()) {
@@ -920,7 +920,7 @@ router.get('/templates', async (req, res) => {
       });
       return;
     }
-    logger.warn('knowledge/templates NYS failed; falling back to NYV catalog', {
+    logger.warn('knowledge/templates NYS failed; falling back to JRX catalog', {
       error: result.error,
       status: result.status,
     });
@@ -932,7 +932,7 @@ router.get('/templates', async (req, res) => {
       kind: req.query.kind ? String(req.query.kind) : undefined,
       q: String(req.query.search ?? req.query.q ?? '') || undefined,
     });
-    res.json({ ...envelope, source: 'nyv-templates-catalog' });
+    res.json({ ...envelope, source: 'jrx-templates-catalog' });
   } catch (e) {
     logger.error('knowledge/templates catalog fallback failed', { error: (e as Error).message });
     sendApiError(res, 'INTERNAL_ERROR', { overrideMessage: (e as Error).message });
@@ -963,7 +963,7 @@ router.get('/templates/:id', async (req, res) => {
       sendApiError(res, 'NOT_FOUND', { overrideMessage: 'Template not found' });
       return;
     }
-    res.json({ success: true, source: 'nyv-templates-catalog', data: template });
+    res.json({ success: true, source: 'jrx-templates-catalog', data: template });
   } catch (e) {
     sendApiError(res, 'INTERNAL_ERROR', { overrideMessage: (e as Error).message });
   }
@@ -1003,7 +1003,7 @@ router.post('/search', async (req, res) => {
       ungrounded: result.chunks.length === 0,
       latencyMs: result.latencyMs,
       source: 'auto-rag+nys',
-      // NV-NYS-LLMREQUIRED-001 — surfaced so an SDK caller can skip its own
+      // NV-JRX-LLMREQUIRED-001 — surfaced so an SDK caller can skip its own
       // completion when the corpus already holds the whole answer.
       ...(result.deterministic
         ? {
@@ -1031,14 +1031,14 @@ router.post('/search', async (req, res) => {
 
 router.get('/stats', async (req, res) => {
   const stats = getNysKnowledgeClientStats();
-  const caselaw = isNysKnowledgeConfigured() && isNyvFeatureOn('nysKnowledgePlane')
+  const caselaw = isNysKnowledgeConfigured() && isJrxFeatureOn('nysKnowledgePlane')
     ? await nysKnowledgeRequest({ method: 'GET', path: '/caselaw/stats' })
     : null;
   res.json({
     success: true,
     plane: stats,
     caselaw: caselaw?.ok ? caselaw.data : null,
-    flag: isNyvFeatureOn('nysKnowledgePlane'),
+    flag: isJrxFeatureOn('nysKnowledgePlane'),
   });
 });
 

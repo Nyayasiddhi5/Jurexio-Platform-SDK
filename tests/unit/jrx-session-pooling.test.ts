@@ -6,8 +6,8 @@
  * `userId` falls back to `sdk:<appName>` — identical for EVERY end user of that
  * platform. `mintEcosystemPromptSessionId` hashed `platform|org|user|day`, so all
  * NSP traffic collapsed into one session per day and session memory was written
- * under it. Two NSP calls on nysdev both returned
- * `nv-sess-nsp-9ae2cc89bab6bce7`, and the model itself reported that "the
+ * under it. Two NSP calls on jrx-prod both returned
+ * `jrx-sess-nsp-9ae2cc89bab6bce7`, and the model itself reported that "the
  * retrieved memory context in this session appears to belong to a different
  * matter/client thread" — cross-matter context reached the prompt and only the
  * model's refusal prevented disclosure. Model discretion is not access control.
@@ -48,7 +48,7 @@ describe('NV-SESSION-POOLING-001 — minting cannot pool matters', () => {
     };
     const a = mintEcosystemPromptSessionId(opts);
     const b = mintEcosystemPromptSessionId(opts);
-    // This is the exact pair that collapsed to nv-sess-nsp-9ae2cc89bab6bce7 live.
+    // This is the exact pair that collapsed to jrx-sess-nsp-9ae2cc89bab6bce7 live.
     expect(a).not.toBe(b);
     expect(a).toContain('-req-');
   });
@@ -85,6 +85,6 @@ describe('NV-SESSION-POOLING-001 — minting cannot pool matters', () => {
   it('keeps the platform prefix so a session id stays attributable in logs', () => {
     expect(
       mintEcosystemPromptSessionId({ platform: 'NYM', userId: 'nym-user-3', orgId: 'o1' }),
-    ).toMatch(/^nv-sess-nym-/);
+    ).toMatch(/^jrx-sess-nym-/);
   });
 });

@@ -1,5 +1,5 @@
 /**
- * NYV-SVC-SOCIAL-MEM — User Social Memory Service
+ * JRX-SVC-SOCIAL-MEM — User Social Memory Service
  * Ported from SIA open-source agentic framework.
  *
  * Capabilities:
@@ -20,7 +20,7 @@ import { createLogger } from '../utils/logger.js';
 
 const logger = createLogger('social-memory-service');
 
-// NYV-PREFLIGHT-FIX-002 (2026-04-30): `db` from `../db/index.js` is typed as nullable
+// JRX-PREFLIGHT-FIX-002 (2026-04-30): `db` from `../db/index.js` is typed as nullable
 // (it's null when DATABASE_URL is unset and the system runs in degraded mode). Every
 // call site here previously did `await db.execute(...)` without a null check, raising
 // TS18047 across the file. This narrow helper asserts non-null at the call boundary —
@@ -28,7 +28,7 @@ const logger = createLogger('social-memory-service');
 // "Cannot read property 'execute' of null".
 function requireDb(): NonNullable<typeof db> {
   if (!db) {
-    throw new Error('[NYV-SVC-SOCIAL-MEM] Database not initialized — set DATABASE_URL');
+    throw new Error('[JRX-SVC-SOCIAL-MEM] Database not initialized — set DATABASE_URL');
   }
   return db;
 }
@@ -98,7 +98,7 @@ async function ensureTables(): Promise<void> {
     `);
     tablesReady = true;
   } catch (err: any) {
-    logger.error('[NYV-SVC-SOCIAL-MEM] ensureTables error:', err.message);
+    logger.error('[JRX-SVC-SOCIAL-MEM] ensureTables error:', err.message);
   }
 }
 
@@ -165,7 +165,7 @@ export async function getOrCreateSocialMemory(
       createdAt: newRow.created_at,
     };
   } catch (err: any) {
-    logger.error('[NYV-SVC-SOCIAL-MEM] getOrCreateSocialMemory error:', err.message);
+    logger.error('[JRX-SVC-SOCIAL-MEM] getOrCreateSocialMemory error:', err.message);
     return {
       id: 'error',
       userId,
@@ -213,11 +213,11 @@ export async function recordInteraction(
 
     if (newCount % 10 === 0) {
       updateOpinion(userId, agentKey, orgId, updatedHistory).catch(err =>
-        logger.error('[NYV-SVC-SOCIAL-MEM] background opinion update error:', err.message)
+        logger.error('[JRX-SVC-SOCIAL-MEM] background opinion update error:', err.message)
       );
     }
   } catch (err: any) {
-    logger.error('[NYV-SVC-SOCIAL-MEM] recordInteraction error:', err.message);
+    logger.error('[JRX-SVC-SOCIAL-MEM] recordInteraction error:', err.message);
   }
 }
 
@@ -266,7 +266,7 @@ Reply with ONLY the assessment text — no JSON, no preamble.`,
 
     return opinion;
   } catch (err: any) {
-    logger.error('[NYV-SVC-SOCIAL-MEM] updateOpinion error:', err.message);
+    logger.error('[JRX-SVC-SOCIAL-MEM] updateOpinion error:', err.message);
     return '';
   }
 }
@@ -309,7 +309,7 @@ export async function getSocialContext(
       contextString,
     };
   } catch (err: any) {
-    logger.error('[NYV-SVC-SOCIAL-MEM] getSocialContext error:', err.message);
+    logger.error('[JRX-SVC-SOCIAL-MEM] getSocialContext error:', err.message);
     return { hasHistory: false, interactionCount: 0, opinion: null, recentMessages: [], contextString: '' };
   }
 }
@@ -326,7 +326,7 @@ export async function clearHistory(userId: string, agentKey: string, orgId: stri
       WHERE user_id = ${userId} AND agent_key = ${agentKey} AND org_id = ${orgId}
     `);
   } catch (err: any) {
-    logger.error('[NYV-SVC-SOCIAL-MEM] clearHistory error:', err.message);
+    logger.error('[JRX-SVC-SOCIAL-MEM] clearHistory error:', err.message);
     throw err;
   }
 }
@@ -358,7 +358,7 @@ export async function listOrgSocialMemories(orgId: string, limit = 50, offset = 
       createdAt: row.created_at,
     }));
   } catch (err: any) {
-    logger.error('[NYV-SVC-SOCIAL-MEM] listOrgSocialMemories error:', err.message);
+    logger.error('[JRX-SVC-SOCIAL-MEM] listOrgSocialMemories error:', err.message);
     return [];
   }
 }

@@ -2,9 +2,9 @@
  * IL BIPA 740 ILCS 14/15 — Biometric Information Privacy Act consent service.
  *
  * Implements the §15(b) "written, informed consent before biometric collection"
- * contract that POL-US-BIPA-740-14-15 (nv-policy-engine.ts) declares but does
- * NOT enforce. Pairs with `nv-bipa-consent-gate.ts` (the Express middleware
- * that blocks capture pre-flight) and `nv-bipa-consent-routes.ts` (the
+ * contract that POL-US-BIPA-740-14-15 (jrx-policy-engine.ts) declares but does
+ * NOT enforce. Pairs with `jrx-bipa-consent-gate.ts` (the Express middleware
+ * that blocks capture pre-flight) and `jrx-bipa-consent-routes.ts` (the
  * Console + SDK surface).
  *
  * Why a dedicated table (vs. reusing nv_consent_records / `biometric` purpose):
@@ -21,7 +21,7 @@
  *     / revoke / destruction event to be independently auditable via
  *     nv_audit_logs — the dedicated service centralises that emission.
  *
- * @module nv-bipa-consent-service
+ * @module jrx-bipa-consent-service
  */
 import { db as _raw_db } from '../../db/index.js';
 import { lazyRequire } from '../../utils/jrx-type-helpers.js';
@@ -181,7 +181,7 @@ async function writeAudit(action: string, userId: string, biometricType: BipaBio
         userId,
         err: err.message,
         severity: 'CRITICAL',
-        alertCode: 'NYV-AUDIT-CHAIN-001',
+        alertCode: 'JRX-AUDIT-CHAIN-001',
       });
     } else {
       logger.warn('bipa_audit_write_failed', { action, userId, err: err?.message });

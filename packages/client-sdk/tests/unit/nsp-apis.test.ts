@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import type { NyvHttpClient } from '../../src/NyvClient.js';
+import type { JrxHttpClient } from '../../src/JrxClient.js';
 import { OrchestrateApi } from '../../src/api/OrchestrateApi.js';
 import { GatewayApi } from '../../src/api/GatewayApi.js';
 import { PartnerIntelligenceApi } from '../../src/api/PartnerIntelligenceApi.js';
@@ -16,7 +16,7 @@ import { EcosystemDocumentsApi } from '../../src/api/EcosystemDocumentsApi.js';
 import { KnowledgeApi } from '../../src/api/KnowledgeApi.js';
 import { LegalWorkApi } from '../../src/api/LegalWorkApi.js';
 
-function mockHttp(): NyvHttpClient & { get: ReturnType<typeof vi.fn>; post: ReturnType<typeof vi.fn> } {
+function mockHttp(): JrxHttpClient & { get: ReturnType<typeof vi.fn>; post: ReturnType<typeof vi.fn> } {
   return {
     get: vi.fn().mockResolvedValue({ ok: true }),
     post: vi.fn().mockResolvedValue({ ok: true }),

@@ -15,7 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NyvErrorState } from '@/components/NyvErrorState';
+import { JrxErrorState } from '@/components/JrxErrorState';
 import { p } from '@/lib/jrx-api-paths';
 import { nvFetchJson } from '@/lib/jrx-fetch-json';
 
@@ -136,7 +136,7 @@ export default function DpdpaCompliance() {
 
         {q.isError && (
           <div className="mb-5">
-            <NyvErrorState
+            <JrxErrorState
               title="DPDPA registry unavailable"
               description="Could not load /api/jrx/compliance/dpdpa — sign in again or retry."
               onRetry={() => q.refetch()}

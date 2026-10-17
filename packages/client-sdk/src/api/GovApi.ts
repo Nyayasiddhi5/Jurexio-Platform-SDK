@@ -7,7 +7,7 @@
  * Reference: docs/canonical/04-sdk-and-api-canonical-2026-05-07.md § 14
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export type HitlPriority = 'urgent' | 'high' | 'medium' | 'low';
 
@@ -78,7 +78,7 @@ export interface OrgRateLimitDecision {
 }
 
 class MakerCheckerSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   queue(opts?: { priority?: HitlPriority }): Promise<{ count: number; reviews: MakerCheckerReviewSummary[] }> {
     const q = opts?.priority ? `?priority=${encodeURIComponent(opts.priority)}` : '';
     return this.http.get(`/api/nv5/gov/maker-checker/queue${q}`);
@@ -89,28 +89,28 @@ class MakerCheckerSubApi {
 }
 
 class SecurityMonitorSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   status(): Promise<SecurityMonitorStatus> {
     return this.http.get('/api/nv5/gov/security-monitor/status');
   }
 }
 
 class CostOptimizerSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   status(): Promise<CostOptimizerStatus> {
     return this.http.get('/api/nv5/gov/cost-optimizer/status');
   }
 }
 
 class ConcurrencySubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   snapshot(): Promise<ConcurrencySnapshot> {
     return this.http.get('/api/nv5/gov/concurrency/snapshot');
   }
 }
 
 class OrgRateLimitSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   check(orgId: string, userId: string): Promise<OrgRateLimitDecision> {
     return this.http.get(
       `/api/nv5/gov/org-ratelimit/check/${encodeURIComponent(orgId)}/${encodeURIComponent(userId)}`,
@@ -131,7 +131,7 @@ export class GovApi {
   public readonly concurrency: ConcurrencySubApi;
   public readonly orgRateLimit: OrgRateLimitSubApi;
 
-  constructor(http: NyvHttpClient) {
+  constructor(http: JrxHttpClient) {
     this.makerChecker = new MakerCheckerSubApi(http);
     this.securityMonitor = new SecurityMonitorSubApi(http);
     this.costOptimizer = new CostOptimizerSubApi(http);

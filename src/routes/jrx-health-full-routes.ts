@@ -16,16 +16,16 @@ import { pool } from '../db/index.js';
 import { listBreakers, getBreakerStats } from '../services/circuit-breaker.js';
 import { isQueueEnabled, isQueueLive, getQueueHealth, getQueueDisabledReason } from '../services/queue/bullmq-queue.js';
 import { realLLMService, getLlmProviderBreakerSnapshot } from '../services/real-llm-service.js';
-import { getSpanLatencies, getTaggedSpanLatencies, getTracerStatus } from '../utils/nyv-tracer.js';
+import { getSpanLatencies, getTaggedSpanLatencies, getTracerStatus } from '../utils/jrx-tracer.js';
 import { getRedisDisabledReason, resolveRedisTcpUrl } from '../utils/redis-tcp-url.js';
 import { getCircuitBreakerMetrics } from '../utils/jrx-circuit-breaker.js';
-import { getRequestMetricsSnapshot } from '../middleware/nyv-request-metrics.js';
+import { getRequestMetricsSnapshot } from '../middleware/jrx-request-metrics.js';
 import { getRagRetrievalStats } from '../services/rag-service.js';
 import { getAutoRagStats } from '../services/jrx-auto-rag-router.js';
 import { lmCacheService } from '../services/lm-cache-service.js';
 import { nvRedisCache } from '../services/jrx-redis-cache-service.js';
 import { getRegistryStats } from '../services/agent-registry-service.js';
-import { NYV_PLATFORM_VERSION } from '../config/nyv-master-config.js';
+import { JRX_PLATFORM_VERSION } from '../config/jrx-master-config.js';
 import { resolveNysPlaneHealth } from '../utils/jrx-nys-plane-health.js';
 
 const router = Router();
@@ -77,7 +77,7 @@ async function checkRedis(): Promise<ServiceCheck> {
   // REST surface is intentionally separate from TCP (Upstash REST is a
   // different protocol the resolver rejects); /admin/health/full still
   // reports it for visibility.
-  const restRaw = process.env.REDIS_URL || process.env.NYV_REDIS_URL || '';
+  const restRaw = process.env.REDIS_URL || process.env.JRX_REDIS_URL || '';
   const restUrl = restRaw.trim().replace(/^["']+|["']+$/g, '');
 
   // Strategy 1: ioredis TCP
@@ -89,7 +89,7 @@ async function checkRedis(): Promise<ServiceCheck> {
         lazyConnect: true, connectTimeout: 2000, maxRetriesPerRequest: 0,
         reconnectOnError: () => false, enableReadyCheck: false, retryStrategy: () => null,
       });
-      // NYV-OPS-HEALTH-REDIS-AUTH-001 (Task #28 round 4): attach `error`
+      // JRX-OPS-HEALTH-REDIS-AUTH-001 (Task #28 round 4): attach `error`
       // BEFORE connect(). Without this, when WRONGPASS comes back ioredis
       // emits an "error" event that has no listener and surfaces as
       // "[ioredis] Unhandled error event" — once per /admin/health/full
@@ -111,7 +111,7 @@ async function checkRedis(): Promise<ServiceCheck> {
 
   // Strategy 2: Upstash REST (https://)
   if (restUrl && restUrl.startsWith('https://')) {
-    const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.NYV_UPSTASH_REST_TOKEN || '';
+    const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.JRX_UPSTASH_REST_TOKEN || '';
     if (token) {
       try {
         const { Redis: UpstashRedis } = await import('@upstash/redis');
@@ -135,7 +135,7 @@ async function checkRedis(): Promise<ServiceCheck> {
     return {
       status: 'degraded',
       setup_required: true,
-      setup_instructions: 'Set NYV_REDIS_TCP_URL to a rediss:// Upstash TCP URL or REDIS_URL+UPSTASH_REDIS_REST_TOKEN for REST access.',
+      setup_instructions: 'Set JRX_REDIS_TCP_URL to a rediss:// Upstash TCP URL or REDIS_URL+UPSTASH_REDIS_REST_TOKEN for REST access.',
       details: 'No Redis URL configured',
     };
   }
@@ -156,13 +156,13 @@ async function checkLLM(): Promise<ServiceCheck> {
     };
   }
   const provider = hasOpenAI ? 'OpenAI' : 'OpenRouter';
-  // NYV-OPS-LLM-LOCKDOWN-001 (Task #28): surface the active provider lockdown
+  // JRX-OPS-LLM-LOCKDOWN-001 (Task #28): surface the active provider lockdown
   // so operators can confirm at a glance which providers the gateway will
   // accept (post-T8b: anthropic/openai/google/openrouter/sarvam).
   let allowedProviders: string[] = [];
   let voiceModels: string[] = [];
   try {
-    const { ALLOWED_PROVIDERS, OPENAI_VOICE_MODELS } = await import('../config/nyv-allowed-providers.js');
+    const { ALLOWED_PROVIDERS, OPENAI_VOICE_MODELS } = await import('../config/jrx-allowed-providers.js');
     allowedProviders = [...ALLOWED_PROVIDERS];
     voiceModels = [...OPENAI_VOICE_MODELS];
   } catch {
@@ -239,8 +239,8 @@ function checkJwtSecret(): ServiceCheck {
 
 /* ── Payment Gateway (Razorpay) ──────────────────────────── */
 function checkPaymentGateway(): ServiceCheck {
-  const keyId     = process.env.NYV_RAZORPAY_KEY_ID     || process.env.RAZORPAY_KEY_ID     || '';
-  const keySecret = process.env.NYV_RAZORPAY_KEY_SECRET || process.env.RAZORPAY_KEY_SECRET || '';
+  const keyId     = process.env.JRX_RAZORPAY_KEY_ID     || process.env.RAZORPAY_KEY_ID     || '';
+  const keySecret = process.env.JRX_RAZORPAY_KEY_SECRET || process.env.RAZORPAY_KEY_SECRET || '';
 
   if (!keyId || !keySecret) {
     // NV-HEALTH-002: payments are downstream-product concern (NSP-billing);
@@ -252,14 +252,14 @@ function checkPaymentGateway(): ServiceCheck {
       setup_instructions: [
         '1. Create a Razorpay account at https://razorpay.com',
         '2. Go to Settings → API Keys → Generate Test/Live Key',
-        '3. Add to environment: NYV_RAZORPAY_KEY_ID=rzp_test_... and NYV_RAZORPAY_KEY_SECRET=<secret>',
+        '3. Add to environment: JRX_RAZORPAY_KEY_ID=rzp_test_... and JRX_RAZORPAY_KEY_SECRET=<secret>',
         '4. Payments route (/api/jrx/payments/*) will become active immediately.',
       ].join('\n'),
       details: {
         provider: 'Razorpay',
         hasKeyId: !!keyId,
         hasKeySecret: !!keySecret,
-        missingEnvVars: [...(!keyId ? ['NYV_RAZORPAY_KEY_ID'] : []), ...(!keySecret ? ['NYV_RAZORPAY_KEY_SECRET'] : [])],
+        missingEnvVars: [...(!keyId ? ['JRX_RAZORPAY_KEY_ID'] : []), ...(!keySecret ? ['JRX_RAZORPAY_KEY_SECRET'] : [])],
       },
     };
   }
@@ -278,8 +278,8 @@ function checkPaymentGateway(): ServiceCheck {
 
 /* ── WhatsApp Business API ───────────────────────────────── */
 function checkWhatsApp(): ServiceCheck {
-  const token   = process.env.NYV_WHATSAPP_TOKEN    || process.env.WHATSAPP_ACCESS_TOKEN || '';
-  const phoneId = process.env.NYV_WHATSAPP_PHONE_ID || process.env.WHATSAPP_PHONE_ID     || '';
+  const token   = process.env.JRX_WHATSAPP_TOKEN    || process.env.WHATSAPP_ACCESS_TOKEN || '';
+  const phoneId = process.env.JRX_WHATSAPP_PHONE_ID || process.env.WHATSAPP_PHONE_ID     || '';
 
   if (!token || !phoneId) {
     // NV-HEALTH-002: WhatsApp is an optional notification channel; absence is
@@ -291,14 +291,14 @@ function checkWhatsApp(): ServiceCheck {
         '1. Create a Meta Developer App at https://developers.facebook.com',
         '2. Add WhatsApp Business product → Get a permanent system access token',
         '3. Add your phone number to WhatsApp Business account and get the phone ID',
-        '4. Set: NYV_WHATSAPP_TOKEN=<access_token> and NYV_WHATSAPP_PHONE_ID=<phone_number_id>',
+        '4. Set: JRX_WHATSAPP_TOKEN=<access_token> and JRX_WHATSAPP_PHONE_ID=<phone_number_id>',
         '5. WhatsApp notifications (/api/jrx/whatsapp/*) will become active immediately.',
       ].join('\n'),
       details: {
         provider: 'WhatsApp Business API (Meta)',
         hasToken: !!token,
         hasPhoneId: !!phoneId,
-        missingEnvVars: [...(!token ? ['NYV_WHATSAPP_TOKEN'] : []), ...(!phoneId ? ['NYV_WHATSAPP_PHONE_ID'] : [])],
+        missingEnvVars: [...(!token ? ['JRX_WHATSAPP_TOKEN'] : []), ...(!phoneId ? ['JRX_WHATSAPP_PHONE_ID'] : [])],
       },
     };
   }
@@ -315,7 +315,7 @@ function checkWhatsApp(): ServiceCheck {
 
 /* ── Error Tracking (Sentry) ─────────────────────────────── */
 function checkErrorTracking(): ServiceCheck {
-  const dsn = process.env.NYV_SENTRY_DSN || process.env.SENTRY_DSN || '';
+  const dsn = process.env.JRX_SENTRY_DSN || process.env.SENTRY_DSN || '';
   const env  = process.env.NODE_ENV || 'development';
 
   if (!dsn) {
@@ -327,13 +327,13 @@ function checkErrorTracking(): ServiceCheck {
       setup_instructions: [
         '1. Create a Sentry project at https://sentry.io — select Node.js + React',
         '2. Copy the DSN from Settings → Client Keys (DSN)',
-        '3. Add to environment: NYV_SENTRY_DSN=https://...@sentry.io/...',
+        '3. Add to environment: JRX_SENTRY_DSN=https://...@sentry.io/...',
         '4. Sentry will auto-capture errors, performance, and session replay.',
       ].join('\n'),
       details: {
         provider: 'Sentry',
         environment: env,
-        missingEnvVars: ['NYV_SENTRY_DSN'],
+        missingEnvVars: ['JRX_SENTRY_DSN'],
       },
     };
   }
@@ -357,7 +357,7 @@ function checkErrorTracking(): ServiceCheck {
 router.get('/', async (req: Request, res: Response) => {
   const startAll = Date.now();
   const registryStats = getRegistryStats();
-  // NYV-OBS-PUBLIC-REDACT-001 (Task #28 round 9): the same router is
+  // JRX-OBS-PUBLIC-REDACT-001 (Task #28 round 9): the same router is
   // mounted at two paths — `/api/jrx/health/full` (public, no auth, used
   // by liveness/readiness probes and the public status page) and
   // `/api/jrx/admin/health/full` (gated by authenticateToken +
@@ -388,13 +388,13 @@ router.get('/', async (req: Request, res: Response) => {
     (async () => {
       try {
         const { getNysKnowledgeClientStats, nysKnowledgeHealthz, isNysKnowledgeConfigured, nysKnowledgeRequest } = await import('../services/jrx-nys-knowledge-client.js');
-        const { isNyvFeatureOn } = await import('../config/jrx-feature-flags.js');
+        const { isJrxFeatureOn } = await import('../config/jrx-feature-flags.js');
         const stats = getNysKnowledgeClientStats();
-        if (!isNyvFeatureOn('nysKnowledgePlane')) {
-          return { status: 'not_configured', details: 'JRX_F_NYS_KNOWLEDGE_PLANE off', client: stats } as any;
+        if (!isJrxFeatureOn('nysKnowledgePlane')) {
+          return { status: 'not_configured', details: 'JRX_F_JRX_ECOSYSTEM_KNOWLEDGE_PLANE off', client: stats } as any;
         }
         if (!isNysKnowledgeConfigured()) {
-          return { status: 'not_configured', details: 'NYS_KNOWLEDGE_BASE_URL not set', client: stats } as any;
+          return { status: 'not_configured', details: 'JRX_ECOSYSTEM_KNOWLEDGE_BASE_URL not set', client: stats } as any;
         }
         const probe = await nysKnowledgeHealthz();
         let embeddingSlo: Record<string, unknown> | undefined;
@@ -542,7 +542,7 @@ router.get('/', async (req: Request, res: Response) => {
   try {
     const { nvMemoryManager } = await import('../services/jrx-memory-manager.js');
     const s = nvMemoryManager.getStats();
-    // NYV-OPS-MEMORY-SHAPE-001 (Task #28 round 5): nvMemoryManager.getStats()
+    // JRX-OPS-MEMORY-SHAPE-001 (Task #28 round 5): nvMemoryManager.getStats()
     // returns nested fields ({ session: { entries, hitRate, ... },
     // longterm: { entries, evictedTotal }, social: { entries, backend },
     // pressure: { heapPct, status, ... }, totalRetrievals, totalWrites }).
@@ -604,7 +604,7 @@ router.get('/', async (req: Request, res: Response) => {
     hitlQueue = { error: e?.message ?? 'hitl query failed' };
   }
 
-  // NYV-OBS-CACHE-HITRATE-001 (Task #28 round 11): surface
+  // JRX-OBS-CACHE-HITRATE-001 (Task #28 round 11): surface
   // prompt-cache hit rates as first-class operator KPIs (the
   // reviewer flagged these as missing). Two distinct caches exist:
   //   * lmCacheService — semantic LLM-output prompt cache (in-process)
@@ -639,7 +639,7 @@ router.get('/', async (req: Request, res: Response) => {
     promptCacheStats.kv_cache = { error: e?.message ?? 'kv cache unavailable' };
   }
 
-  // NYV-OBS-RAG-HITRATE-001 (Task #28 round 11): RAG retrieval
+  // JRX-OBS-RAG-HITRATE-001 (Task #28 round 11): RAG retrieval
   // hit-rate + average recall latency. Distinct from `rag` (which
   // is a corpus-size snapshot) and from `tracer.spanLatencies['queen.rag']`
   // (which is end-to-end span latency including post-processing).
@@ -679,7 +679,7 @@ router.get('/', async (req: Request, res: Response) => {
   res.status(overallStatus === 'unhealthy' ? 503 : 200).json({
     status:          overallStatus,
     timestamp:       new Date().toISOString(),
-    version:         NYV_PLATFORM_VERSION,
+    version:         JRX_PLATFORM_VERSION,
     registryVersion: registryStats.registryVersion,
     registryFormat:  registryStats.registryFormat,
     totalAgents:     registryStats.totalAgents,
@@ -687,7 +687,7 @@ router.get('/', async (req: Request, res: Response) => {
     uptimeHuman:     `${Math.floor(uptimeSec / 3600)}h ${Math.floor((uptimeSec % 3600) / 60)}m`,
     totalResponseMs: Date.now() - startAll,
     platform: {
-      name:          `Jurexio Legal AI OS ${NYV_PLATFORM_VERSION}`,
+      name:          `Jurexio Legal AI OS ${JRX_PLATFORM_VERSION}`,
       agents:        registryStats.totalAgents,
       practiceAreas: registryStats.practiceAreas,
       jurisdictions: Object.keys(registryStats.byJurisdiction),
@@ -696,7 +696,7 @@ router.get('/', async (req: Request, res: Response) => {
       mcpTools:      registryStats.mcpTools,
       topologyCatalog: registryStats.topologyCatalog,
     },
-    // NYV-OBS-PUBLIC-REDACT-001 (round 9): public path returns only
+    // JRX-OBS-PUBLIC-REDACT-001 (round 9): public path returns only
     // service-level UP/DOWN status (no internal `details` payloads
     // that may carry version strings, queue modes, or auth hints).
     // Admin path returns the full per-service detail.
@@ -712,7 +712,7 @@ router.get('/', async (req: Request, res: Response) => {
       ? {
           breakers,
           queues,
-          // ── NYV-OPS-HEALTH-CONTRACT-001 (Task #28 close-out) ────────────
+          // ── JRX-OPS-HEALTH-CONTRACT-001 (Task #28 close-out) ────────────
           // Five operator-contract keys exposed at the top of the admin
           // payload so dashboards / probes can read them without diving
           // into nested service blobs. All five are derived from data
@@ -759,7 +759,7 @@ router.get('/', async (req: Request, res: Response) => {
             }
             return depths;
           })(),
-          // NYV-OPS-STALLED-001 (2026-04-30): two NEW sibling keys so the
+          // JRX-OPS-STALLED-001 (2026-04-30): two NEW sibling keys so the
           // existing `queue_depth: Record<string, number|null>` contract
           // stays binary-compatible with dashboards/probes. Stalled is an
           // in-process counter incremented every time a worker fails to
@@ -812,9 +812,9 @@ router.get('/', async (req: Request, res: Response) => {
             > = {};
             if (queues && queues.enabled === false) return counts;
             const perQueue = (queues && typeof queues === 'object') ? queues : {};
-            const warnWaiting = Math.max(1, Number(process.env.NYV_QUEUE_WARN_WAITING) || 50);
-            const warnFailed = Math.max(1, Number(process.env.NYV_QUEUE_WARN_FAILED) || 20);
-            const warnActive = Math.max(1, Number(process.env.NYV_QUEUE_WARN_ACTIVE) || 40);
+            const warnWaiting = Math.max(1, Number(process.env.JRX_QUEUE_WARN_JRXTING) || 50);
+            const warnFailed = Math.max(1, Number(process.env.JRX_QUEUE_WARN_FAILED) || 20);
+            const warnActive = Math.max(1, Number(process.env.JRX_QUEUE_WARN_ACTIVE) || 40);
             for (const [qName, qData] of Object.entries(perQueue)) {
               if (qName === 'enabled' || qName === 'error') continue;
               if (!qData || typeof qData !== 'object') continue;
@@ -841,14 +841,14 @@ router.get('/', async (req: Request, res: Response) => {
             const alerts: Array<{ queue: string; level: 'warn' | 'crit'; reason: string; waiting: number; active: number; failed: number }> = [];
             if (queues && queues.enabled === false) return alerts;
             const perQueue = (queues && typeof queues === 'object') ? queues : {};
-            const warnWaiting = Math.max(1, Number(process.env.NYV_QUEUE_WARN_WAITING) || 50);
-            const critWaiting = Math.max(warnWaiting + 1, Number(process.env.NYV_QUEUE_CRIT_WAITING) || 200);
-            const warnFailed = Math.max(1, Number(process.env.NYV_QUEUE_WARN_FAILED) || 20);
+            const warnWaiting = Math.max(1, Number(process.env.JRX_QUEUE_WARN_JRXTING) || 50);
+            const critWaiting = Math.max(warnWaiting + 1, Number(process.env.JRX_QUEUE_CRIT_JRXTING) || 200);
+            const warnFailed = Math.max(1, Number(process.env.JRX_QUEUE_WARN_FAILED) || 20);
             const focus = new Set([
-              'nyv-ecosystem-doc-job',
-              'nyv-ecosystem-doc-job-dlq',
-              'nyv-doc-ai',
-              'nyv-doc-ai-dlq',
+              'jrx-ecosystem-doc-job',
+              'jrx-ecosystem-doc-job-dlq',
+              'jrx-doc-ai',
+              'jrx-doc-ai-dlq',
             ]);
             for (const [qName, qData] of Object.entries(perQueue)) {
               if (!focus.has(qName)) continue;
@@ -934,9 +934,9 @@ router.get('/', async (req: Request, res: Response) => {
           hitl_queue: hitlQueue,
           requests: requestMetrics,
           dashboards: {
-            sentry:     process.env.NYV_SENTRY_DASHBOARD_URL     || null,
-            grafana:    process.env.NYV_GRAFANA_DASHBOARD_URL    || null,
-            cloudwatch: process.env.NYV_CLOUDWATCH_DASHBOARD_URL || null,
+            sentry:     process.env.JRX_SENTRY_DASHBOARD_URL     || null,
+            grafana:    process.env.JRX_GRAFANA_DASHBOARD_URL    || null,
+            cloudwatch: process.env.JRX_CLOUDWATCH_DASHBOARD_URL || null,
           },
           system: {
             memoryMb:    Math.round(process.memoryUsage().rss        / 1024 / 1024),
@@ -990,7 +990,7 @@ router.get('/deps', async (req: Request, res: Response) => {
     !!process.env.PRIVATE_OBJECT_DIR ||
     !!process.env.PUBLIC_OBJECT_SEARCH_PATHS ||
     !!process.env.OBJECT_STORAGE_BUCKET ||
-    !!process.env.NYV_S3_BUCKET ||
+    !!process.env.JRX_S3_BUCKET ||
     !!process.env.AWS_S3_BUCKET;
 
   // In-memory tracer ring buffers — pull p50/p95 for span names that
@@ -1205,7 +1205,7 @@ router.get('/deps', async (req: Request, res: Response) => {
       details: {
         configured: objectStorageConfigured,
         bucket:
-          process.env.NYV_S3_BUCKET ??
+          process.env.JRX_S3_BUCKET ??
           process.env.AWS_S3_BUCKET ??
           process.env.OBJECT_STORAGE_BUCKET ??
           null,

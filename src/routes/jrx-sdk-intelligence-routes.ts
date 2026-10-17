@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * Jurexio Enterprise Platform 3.1.2 — SDK Intelligence Routes
- * NYV-SDK-INTELLIGENCE-001
+ * JRX-SDK-INTELLIGENCE-001
  *
  * 10 AI-first intelligence endpoints powering Jurexio Professional
  * and any third-party legal platform consuming the Jurexio Enterprise Platform SDK.
@@ -13,7 +13,7 @@
  *  - Caching: Redis (lazy-import) with per-endpoint TTLs
  *  - Validation: Zod schemas on every request body
  *  - Hybrid scoring: rule-based fast path + AI deep analysis
- *  - PII: redaction before any LLM call (via nv-client pipeline)
+ *  - PII: redaction before any LLM call (via jrx-client pipeline)
  *  - Observability: structured JSON logging on every call
  *  - Error surface: never leaks internal stack traces
  *
@@ -45,7 +45,7 @@ import {
 } from '../middleware/guardrails-enforcement.js';
 import { createLogger } from '../utils/logger.js';
 import { secureRandomHex } from '../utils/jrx-secure-random.js';
-import { NYV_PLATFORM_VERSION } from '../config/nyv-master-config.js';
+import { JRX_PLATFORM_VERSION } from '../config/jrx-master-config.js';
 import { getRegistryStats } from '../services/agent-registry-service.js';
 
 const logger = createLogger('sdk-intelligence');
@@ -91,7 +91,7 @@ async function getDb() {
 
 // ─── Platform version ────────────────────────────────────────────────────────
 
-const PLATFORM_VERSION = NYV_PLATFORM_VERSION;
+const PLATFORM_VERSION = JRX_PLATFORM_VERSION;
 
 // ─── Request context helper ──────────────────────────────────────────────────
 

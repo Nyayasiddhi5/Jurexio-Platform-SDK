@@ -2,21 +2,21 @@
  * NV-EMBEDDING-CASCADE-001 — single SSoT for platform embedding provider order.
  *
  * Default (no code change to reorder — use env):
- *   NYV_EMBEDDING_CASCADE=gemini,bedrock,openrouter,openai,local
+ *   JRX_EMBEDDING_CASCADE=gemini,bedrock,openrouter,openai,local
  *
  * Primary provider (first hop) also settable via:
- *   NYV_EMBEDDING_PROVIDER=gemini|google|bedrock|openrouter|openai|auto
+ *   JRX_EMBEDDING_PROVIDER=gemini|google|bedrock|openrouter|openai|auto
  *
  * Models:
- *   NYV_GEMINI_EMBED_MODEL=gemini-embedding-2
- *   NYV_BEDROCK_EMBED_MODEL=amazon.titan-embed-text-v2:0
- *   NYV_BEDROCK_EMBED_DIMS=1024
- *   NYV_OPENROUTER_EMBED_MODEL=openai/text-embedding-3-small
- *   NYV_OPENAI_EMBED_MODEL=text-embedding-3-small
- *   NYV_EMBEDDING_DIMS / NYV_EMBEDDING_DIMENSION=1536
+ *   JRX_GEMINI_EMBED_MODEL=gemini-embedding-2
+ *   JRX_BEDROCK_EMBED_MODEL=amazon.titan-embed-text-v2:0
+ *   JRX_BEDROCK_EMBED_DIMS=1024
+ *   JRX_OPENROUTER_EMBED_MODEL=openai/text-embedding-3-small
+ *   JRX_OPENAI_EMBED_MODEL=text-embedding-3-small
+ *   JRX_EMBEDDING_DIMS / JRX_EMBEDDING_DIMENSION=1536
  *
  * Dim safety: providers whose native dims ≠ target are skipped unless
- * NYV_EMBEDDING_ALLOW_DIM_MISMATCH=1 (Titan v2 is typically 1024 vs 1536 pgvector).
+ * JRX_EMBEDDING_ALLOW_DIM_MISMATCH=1 (Titan v2 is typically 1024 vs 1536 pgvector).
  */
 import { createLogger } from '../utils/logger.js';
 
@@ -56,8 +56,8 @@ function envOn(name: string): boolean {
 
 export function getEmbeddingTargetDims(): number {
   return (
-    Number(process.env.NYV_EMBEDDING_DIMS)
-    || Number(process.env.NYV_EMBEDDING_DIMENSION)
+    Number(process.env.JRX_EMBEDDING_DIMS)
+    || Number(process.env.JRX_EMBEDDING_DIMENSION)
     || 1536
   );
 }
@@ -69,10 +69,10 @@ export function getEmbeddingCascadeConfig(): {
   targetDims: number;
   allowDimMismatch: boolean;
 } {
-  const primaryRaw = envStr('NYV_EMBEDDING_PROVIDER', 'gemini').toLowerCase() || 'gemini';
+  const primaryRaw = envStr('JRX_EMBEDDING_PROVIDER', 'gemini').toLowerCase() || 'gemini';
   const primary = (primaryRaw === 'google' ? 'gemini' : primaryRaw) as EmbedCascadeProvider | 'auto';
 
-  const cascadeRaw = envStr('NYV_EMBEDDING_CASCADE');
+  const cascadeRaw = envStr('JRX_EMBEDDING_CASCADE');
   let cascade: EmbedCascadeProvider[] = cascadeRaw
     ? cascadeRaw.split(',').map((s) => s.trim().toLowerCase()).filter(Boolean) as EmbedCascadeProvider[]
     : [...DEFAULT_CASCADE];
@@ -93,7 +93,7 @@ export function getEmbeddingCascadeConfig(): {
     return true;
   });
 
-  if (envStr('NYV_BEDROCK_EMBEDDINGS') === '0') {
+  if (envStr('JRX_BEDROCK_EMBEDDINGS') === '0') {
     cascade = cascade.filter((p) => p !== 'bedrock');
   }
   if (primaryRaw === 'none') {
@@ -104,14 +104,14 @@ export function getEmbeddingCascadeConfig(): {
     cascade,
     primary: primaryRaw === 'none' ? 'auto' : primary,
     models: {
-      gemini: envStr('NYV_GEMINI_EMBED_MODEL', 'gemini-embedding-2'),
-      bedrock: envStr('NYV_BEDROCK_EMBED_MODEL', 'amazon.titan-embed-text-v2:0'),
-      openrouter: envStr('NYV_OPENROUTER_EMBED_MODEL', 'openai/text-embedding-3-small'),
-      openai: envStr('NYV_OPENAI_EMBED_MODEL', envStr('NYV_EMBEDDING_MODEL', 'text-embedding-3-small')),
+      gemini: envStr('JRX_GEMINI_EMBED_MODEL', 'gemini-embedding-2'),
+      bedrock: envStr('JRX_BEDROCK_EMBED_MODEL', 'amazon.titan-embed-text-v2:0'),
+      openrouter: envStr('JRX_OPENROUTER_EMBED_MODEL', 'openai/text-embedding-3-small'),
+      openai: envStr('JRX_OPENAI_EMBED_MODEL', envStr('JRX_EMBEDDING_MODEL', 'text-embedding-3-small')),
       local: 'local-hash-v1',
     },
     targetDims: getEmbeddingTargetDims(),
-    allowDimMismatch: envOn('NYV_EMBEDDING_ALLOW_DIM_MISMATCH'),
+    allowDimMismatch: envOn('JRX_EMBEDDING_ALLOW_DIM_MISMATCH'),
   };
 }
 
@@ -134,7 +134,7 @@ async function tryBedrock(text: string, model: string): Promise<number[] | null>
     const truncated = text.length > 8000 ? text.slice(0, 8000) : text;
     const body: Record<string, unknown> = { inputText: truncated };
     if (String(model).includes('titan-embed-text-v2')) {
-      body.dimensions = Number(process.env.NYV_BEDROCK_EMBED_DIMS) || 1024;
+      body.dimensions = Number(process.env.JRX_BEDROCK_EMBED_DIMS) || 1024;
       body.normalize = true;
     }
     const out = await client.send(
@@ -287,16 +287,16 @@ export function describeEmbeddingCascade(): Record<string, unknown> {
     targetDims: cfg.targetDims,
     allowDimMismatch: cfg.allowDimMismatch,
     envKeys: [
-      'NYV_EMBEDDING_PROVIDER',
-      'NYV_EMBEDDING_CASCADE',
-      'NYV_GEMINI_EMBED_MODEL',
-      'NYV_BEDROCK_EMBED_MODEL',
-      'NYV_BEDROCK_EMBED_DIMS',
-      'NYV_BEDROCK_EMBEDDINGS',
-      'NYV_OPENROUTER_EMBED_MODEL',
-      'NYV_OPENAI_EMBED_MODEL',
-      'NYV_EMBEDDING_DIMS',
-      'NYV_EMBEDDING_ALLOW_DIM_MISMATCH',
+      'JRX_EMBEDDING_PROVIDER',
+      'JRX_EMBEDDING_CASCADE',
+      'JRX_GEMINI_EMBED_MODEL',
+      'JRX_BEDROCK_EMBED_MODEL',
+      'JRX_BEDROCK_EMBED_DIMS',
+      'JRX_BEDROCK_EMBEDDINGS',
+      'JRX_OPENROUTER_EMBED_MODEL',
+      'JRX_OPENAI_EMBED_MODEL',
+      'JRX_EMBEDDING_DIMS',
+      'JRX_EMBEDDING_ALLOW_DIM_MISMATCH',
     ],
   };
 }

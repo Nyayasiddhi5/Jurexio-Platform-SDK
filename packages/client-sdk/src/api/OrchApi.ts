@@ -7,7 +7,7 @@
  * Reference: docs/canonical/04-sdk-and-api-canonical-2026-05-07.md § 11
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 /**
  * Generic per-router health envelope. Server emits `{ success, service }`
@@ -95,7 +95,7 @@ export interface AgentSelectResponse {
 }
 
 class OrchKbSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   health(): Promise<OrchHealth> { return this.http.get('/api/nv5/orch/kb/health'); }
   create(req: KbCreateRequest): Promise<KbCreateResponse> {
     return this.http.post('/api/nv5/orch/kb/create', req);
@@ -103,22 +103,22 @@ class OrchKbSubApi {
 }
 
 class OrchContextSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   health(): Promise<OrchHealth> { return this.http.get('/api/nv5/orch/context/health'); }
 }
 
 class OrchMultimodalRagSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   health(): Promise<OrchHealth> { return this.http.get('/api/nv5/orch/multimodal-rag/health'); }
 }
 
 class OrchPluginsSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   health(): Promise<OrchHealth> { return this.http.get('/api/nv5/orch/plugins/health'); }
 }
 
 class OrchRomaSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   health(): Promise<OrchHealth> { return this.http.get('/api/nv5/orch/roma/health'); }
   trackOutcome(req: RomaOutcomeTrackRequest): Promise<{ success: boolean }> {
     return this.http.post('/api/nv5/orch/roma/outcome/track', req);
@@ -132,7 +132,7 @@ class OrchRomaSubApi {
 }
 
 class OrchAgentSelectSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   health(): Promise<OrchHealth> { return this.http.get('/api/nv5/orch/agent-select/health'); }
   load(req: AgentSelectLoadRequest): Promise<AgentSelectLoadResponse> {
     return this.http.post('/api/nv5/orch/agent-select/load', req);
@@ -143,7 +143,7 @@ class OrchAgentSelectSubApi {
 }
 
 class OrchProtocolsSubApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
   health(): Promise<OrchHealth> { return this.http.get('/api/nv5/orch/protocols/health'); }
 }
 
@@ -156,7 +156,7 @@ export class OrchApi {
   public readonly agentSelect: OrchAgentSelectSubApi;
   public readonly protocols: OrchProtocolsSubApi;
 
-  constructor(http: NyvHttpClient) {
+  constructor(http: JrxHttpClient) {
     this.kb = new OrchKbSubApi(http);
     this.context = new OrchContextSubApi(http);
     this.multimodalRag = new OrchMultimodalRagSubApi(http);

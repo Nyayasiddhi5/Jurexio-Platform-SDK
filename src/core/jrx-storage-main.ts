@@ -1,6 +1,6 @@
 import { randomUUID as uuidv4 } from 'crypto';
 import { secureRandom, secureRandomInt, secureRandomBool, secureRandomChoice } from '../utils/jrx-secure-random.js';
-// NYV shared schema — only exports SDK tables; all application types are aliased as 'any' for legacy compatibility
+// JRX shared schema — only exports SDK tables; all application types are aliased as 'any' for legacy compatibility
 type User = any; type InsertUser = any;
 type Project = any; type InsertProject = any;
 type FileUpload = any; type InsertFileUpload = any;
@@ -11,7 +11,7 @@ type Metric = any;
 const users: any = null; const projects: any = null; const fileUploads: any = null;
 const agentSessions: any = null; const tasks: any = null; const deployments: any = null; const metrics: any = null;
 
-// Extended types that may not exist in the NYV schema — use `any` aliases for compatibility
+// Extended types that may not exist in the JRX schema — use `any` aliases for compatibility
 type Organization = any;
 type UserOrganization = any;
 type ProjectTemplate = any;
@@ -52,7 +52,7 @@ type InsertContentPublishingHistory = any;
 type Avatar3DAssistant = any;
 type InsertAvatar3DAssistant = any;
 
-// Table references not in NYV schema — stub as empty object
+// Table references not in JRX schema — stub as empty object
 const organizations: any = null;
 const userOrganizations: any = null;
 const projectTemplates: any = null;
@@ -362,7 +362,7 @@ export class MemStorage implements IStorage {
     this.createUser({
       username: "developer",
       password: "demo123",
-      email: "developer@nyayavigyadevstudio.com"
+      email: "developer@jurexiodevstudio.com"
     });
   }
 
@@ -1443,10 +1443,10 @@ export class MemStorage implements IStorage {
   private currentGameSessionId = 1;
 
   // Jurexio Autonomous Execution Engine storage maps
-  private nyayavigyaAgentLoadingSystem: Map<string, any> = new Map();
-  private nyayavigyaPerformanceMetrics: Map<number, any> = new Map();
-  private nyayavigyaAgentCommunications: Map<number, any> = new Map();
-  private nyayavigyaOrchestrationRequests: Map<string, any> = new Map();
+  private jurexioAgentLoadingSystem: Map<string, any> = new Map();
+  private jurexioPerformanceMetrics: Map<number, any> = new Map();
+  private jurexioAgentCommunications: Map<number, any> = new Map();
+  private jurexioOrchestrationRequests: Map<string, any> = new Map();
   private currentPerformanceMetricId = 1;
   private currentAgentCommunicationId = 1;
 
@@ -1574,20 +1574,20 @@ export class MemStorage implements IStorage {
       createdAt: new Date(),
       updatedAt: new Date()
     };
-    this.nyayavigyaAgentLoadingSystem.set(agent.agentId, agentData);
+    this.jurexioAgentLoadingSystem.set(agent.agentId, agentData);
     return agentData;
   }
 
   async getJurexioAgentLoadingSystem(agentId: string): Promise<any | undefined> {
-    return this.nyayavigyaAgentLoadingSystem.get(agentId);
+    return this.jurexioAgentLoadingSystem.get(agentId);
   }
 
   async updateJurexioAgentLoadingSystem(agentId: string, updates: any): Promise<any | undefined> {
-    const existing = this.nyayavigyaAgentLoadingSystem.get(agentId);
+    const existing = this.jurexioAgentLoadingSystem.get(agentId);
     if (!existing) return undefined;
     
     const updated = { ...existing, ...updates, updatedAt: new Date() };
-    this.nyayavigyaAgentLoadingSystem.set(agentId, updated);
+    this.jurexioAgentLoadingSystem.set(agentId, updated);
     return updated;
   }
 
@@ -1598,12 +1598,12 @@ export class MemStorage implements IStorage {
       id,
       timestamp: new Date()
     };
-    this.nyayavigyaPerformanceMetrics.set(id, metricData);
+    this.jurexioPerformanceMetrics.set(id, metricData);
     return metricData;
   }
 
   async getWaiPerformanceMetrics(filters?: any): Promise<any[]> {
-    let metrics = Array.from(this.nyayavigyaPerformanceMetrics.values());
+    let metrics = Array.from(this.jurexioPerformanceMetrics.values());
     
     if (filters) {
       if (filters.userId) {
@@ -1627,12 +1627,12 @@ export class MemStorage implements IStorage {
       id,
       sentAt: new Date()
     };
-    this.nyayavigyaAgentCommunications.set(id, commData);
+    this.jurexioAgentCommunications.set(id, commData);
     return commData;
   }
 
   async getJurexioAgentCommunications(filters?: any): Promise<any[]> {
-    let communications = Array.from(this.nyayavigyaAgentCommunications.values());
+    let communications = Array.from(this.jurexioAgentCommunications.values());
     
     if (filters) {
       if (filters.fromAgentId) {
@@ -1654,12 +1654,12 @@ export class MemStorage implements IStorage {
       ...request,
       createdAt: new Date()
     };
-    this.nyayavigyaOrchestrationRequests.set(request.id, requestData);
+    this.jurexioOrchestrationRequests.set(request.id, requestData);
     return requestData;
   }
 
   async getWaiOrchestrationRequests(status?: string): Promise<any[]> {
-    let requests = Array.from(this.nyayavigyaOrchestrationRequests.values());
+    let requests = Array.from(this.jurexioOrchestrationRequests.values());
     
     if (status) {
       requests = requests.filter(r => r.status === status);
@@ -1669,14 +1669,14 @@ export class MemStorage implements IStorage {
   }
 
   async updateWaiOrchestrationRequest(id: string, updates: any): Promise<any | undefined> {
-    const existing = this.nyayavigyaOrchestrationRequests.get(id);
+    const existing = this.jurexioOrchestrationRequests.get(id);
     if (!existing) return undefined;
     
     const updated = { ...existing, ...updates };
     if (updates.status === 'completed') {
       updated.completedAt = new Date();
     }
-    this.nyayavigyaOrchestrationRequests.set(id, updated);
+    this.jurexioOrchestrationRequests.set(id, updated);
     return updated;
   }
 

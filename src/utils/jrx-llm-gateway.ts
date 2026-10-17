@@ -17,7 +17,7 @@
  * NEW callsites should import directly from
  *   `src/services/intelligent-router/index.ts`
  *
- * @module nv-llm-gateway
+ * @module jrx-llm-gateway
  * @version 3.1.2
  */
 
@@ -220,7 +220,7 @@ export async function getEmbedding(text: string, model = 'text-embedding-3-small
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${apiKey}`,
-      ...(isOpenAI ? {} : { 'HTTP-Referer': 'https://nyayavigya.in' }),
+      ...(isOpenAI ? {} : { 'HTTP-Referer': 'https://jurexio.com' }),
     },
     body: JSON.stringify({ input: text, model }),
     signal: AbortSignal.timeout(30_000),

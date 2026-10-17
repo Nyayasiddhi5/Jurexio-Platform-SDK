@@ -15,7 +15,7 @@ describe('./jrx-trust-tier', () => {
   });
 
   it('blocks unreviewed draft output from durable memory when gate enabled', () => {
-    process.env.NYV_F_TRUST_TIER_MEMORY = '1';
+    process.env.JRX_F_TRUST_TIER_MEMORY = '1';
     const decision = decideOrchestrateMemoryWrite({
       req: fakeReq({ taskType: 'legal-draft-fast' }),
       taskType: 'legal-draft-fast',
@@ -23,11 +23,11 @@ describe('./jrx-trust-tier', () => {
     });
     expect(decision.allowed).toBe(false);
     expect(decision.tier).toBe('T3_ai_output');
-    delete process.env.NYV_F_TRUST_TIER_MEMORY;
+    delete process.env.JRX_F_TRUST_TIER_MEMORY;
   });
 
   it('allows explicit counsel acceptance', () => {
-    process.env.NYV_F_TRUST_TIER_MEMORY = '1';
+    process.env.JRX_F_TRUST_TIER_MEMORY = '1';
     const decision = decideOrchestrateMemoryWrite({
       req: fakeReq({ taskType: 'legal-draft', options: { counselAccepted: true } }),
       taskType: 'legal-draft',
@@ -35,6 +35,6 @@ describe('./jrx-trust-tier', () => {
     });
     expect(decision.allowed).toBe(true);
     expect(decision.tier).toBe('T4_accepted_counsel');
-    delete process.env.NYV_F_TRUST_TIER_MEMORY;
+    delete process.env.JRX_F_TRUST_TIER_MEMORY;
   });
 });

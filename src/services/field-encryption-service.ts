@@ -3,7 +3,7 @@
  * ─────────────────────────────────────────────────────────────────────────────
  * Wraps PostgreSQL pgcrypto for transparent encrypt-on-write / decrypt-on-read
  * of sensitive columns. The symmetric key is sourced from the
- * NYV_FIELD_ENCRYPTION_KEY env var (preferred) and falls back to
+ * JRX_FIELD_ENCRYPTION_KEY env var (preferred) and falls back to
  * ENCRYPTION_KEY for parity with the existing application-level encryption
  * service.
  *
@@ -34,7 +34,7 @@
  *   - EU AI Act Art. 10 (data governance and security)
  *
  * Key rotation:
- *   See docs/v3.1.2/completed_docs/NYV-COMPLIANCE-ATTESTATION.md → "Field Encryption Key Rotation".
+ *   See docs/v3.1.2/completed_docs/JRX-COMPLIANCE-ATTESTATION.md → "Field Encryption Key Rotation".
  */
 import crypto from 'crypto';
 import { sql, type SQL } from 'drizzle-orm';
@@ -60,14 +60,14 @@ let _keyFingerprint: string | null = null;
 function resolveKey(): string {
   if (_resolvedKey !== null) return _resolvedKey;
   const raw =
-    process.env.NYV_FIELD_ENCRYPTION_KEY ||
+    process.env.JRX_FIELD_ENCRYPTION_KEY ||
     process.env.ENCRYPTION_KEY ||
     '';
 
   if (!raw) {
     if (process.env.NODE_ENV === 'production') {
       throw new Error(
-        '[FieldEncryption] NYV_FIELD_ENCRYPTION_KEY (or ENCRYPTION_KEY) is required in production',
+        '[FieldEncryption] JRX_FIELD_ENCRYPTION_KEY (or ENCRYPTION_KEY) is required in production',
       );
     }
     // Non-prod: derive a deterministic dev key so encrypt/decrypt round-trips
@@ -173,9 +173,9 @@ export const fieldEncryption = {
   selfCheck(): { ok: boolean; reason?: string } {
     try {
       resolveKey();
-      const ct = this.encryptInProcess('NYV-FIELD-ENC-SMOKE');
+      const ct = this.encryptInProcess('JRX-FIELD-ENC-SMOKE');
       const pt = this.decryptInProcess(ct);
-      if (pt !== 'NYV-FIELD-ENC-SMOKE') return { ok: false, reason: 'roundtrip mismatch' };
+      if (pt !== 'JRX-FIELD-ENC-SMOKE') return { ok: false, reason: 'roundtrip mismatch' };
       return { ok: true };
     } catch (err: unknown) {
       return { ok: false, reason: err instanceof Error ? err.message : String(err) };

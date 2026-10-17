@@ -6,7 +6,7 @@ import { getAllAgents } from '../services/agent-registry-service.js';
 const router = Router();
 
 /* ──────────────────────────────────────────────────────────────────────────
- * NYV-ROUTING-DASHBOARD-001 (Task #69): admin-facing HTML view of the live
+ * JRX-ROUTING-DASHBOARD-001 (Task #69): admin-facing HTML view of the live
  * routing weights produced by the hierarchical task allocator.
  *
  *   GET /api/jrx/admin/routing-weights

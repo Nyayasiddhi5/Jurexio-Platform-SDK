@@ -15,7 +15,7 @@ import { nvFetchJson } from '@/lib/jrx-fetch-json';
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { NyvGovernanceBadge } from '@/components/NyvGovernanceBadge';
+import { JrxGovernanceBadge } from '@/components/JrxGovernanceBadge';
 import {
   Brain, Plus, MessageSquare, BarChart3, Play, Trash2,
   Users, Shield, Briefcase, Scale, Bot, Send, Loader2,
@@ -31,7 +31,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 
@@ -308,7 +308,7 @@ export default function DigitalTwinCreator() {
                   <p className="text-slate-600 mt-1">{twinsError}</p>
                 </div>
               ) : twins.length === 0 ? (
-                <NyvEmptyState
+                <JrxEmptyState
                   icon={Brain}
                   title="No digital twins yet"
                   description="Create your first legal professional twin to run scenario simulations, chat with the persona and benchmark its judgement."
@@ -456,7 +456,7 @@ export default function DigitalTwinCreator() {
 
                 {simResult && (
                   <div className="space-y-4">
-                    <NyvGovernanceBadge compact governance={{
+                    <JrxGovernanceBadge compact governance={{
                       risk_score: Math.round((1 - simResult.confidence) * 60),
                       risk_badge: simResult.confidence >= 0.85 ? 'GREEN' : simResult.confidence >= 0.70 ? 'YELLOW' : 'RED',
                       risk_blocked: false,

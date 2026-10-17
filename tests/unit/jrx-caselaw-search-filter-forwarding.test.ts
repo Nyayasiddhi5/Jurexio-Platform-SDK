@@ -1,12 +1,12 @@
 /**
- * NYV-2 / NYS-CASELAW-SEARCH-FILTERS-001 — every filter NYS accepts must be reachable through
+ * JRX-2 / JRX-CASELAW-SEARCH-FILTERS-001 — every filter NYS accepts must be reachable through
  * the gateway.
  *
  * The defect this file exists to prevent: NYS shipped a court-tier filter and a
  * pagination/filter/sort surface, and the gateway's `baseQuery` was
  * `{ q, jurisdiction, year, court, limit }`. Measured live at deployed sha 232a92e4:
  * `courtType=sc` through the gateway returned the identical five Bombay High Court ids as the
- * unfiltered call (total 10,000), while the same call NYS-direct returned 12 rows, all
+ * unfiltered call (total 10,000), while the same call JRX-direct returned 12 rows, all
  * "Supreme Court of India". A partner could not express a court-tier filter at all.
  *
  * There was no test on this surface — which is why a whole parameter family could be built on
@@ -41,20 +41,20 @@ vi.mock('../../src/middleware/jrx-partner-india-scope.js', () => ({
 
 vi.mock('../../src/config/jrx-feature-flags.js', async (importOriginal) => ({
   ...(await importOriginal<Record<string, unknown>>()),
-  isNyvFeatureOn: () => true,
+  isJrxFeatureOn: () => true,
 }));
 
-const NYS_ROUTE_SRC = readFileSync(
+const JRX_ECOSYSTEM_ROUTE_SRC = readFileSync(
   join(process.cwd(), 'jrx-search/artifacts/api-server/src/routes/caselaw.ts'),
   'utf8',
 );
 
 /** Every key of NYS's own `searchQuerySchema` — the authoritative accepted-parameter list. */
 function nysAcceptedSearchParams(): string[] {
-  const start = NYS_ROUTE_SRC.indexOf('const searchQuerySchema = z.object({');
+  const start = JRX_ECOSYSTEM_ROUTE_SRC.indexOf('const searchQuerySchema = z.object({');
   expect(start, 'NYS searchQuerySchema must be findable').toBeGreaterThan(-1);
-  const end = NYS_ROUTE_SRC.indexOf('\n});', start);
-  const block = NYS_ROUTE_SRC.slice(start, end);
+  const end = JRX_ECOSYSTEM_ROUTE_SRC.indexOf('\n});', start);
+  const block = JRX_ECOSYSTEM_ROUTE_SRC.slice(start, end);
   const keys = [...block.matchAll(/^\s{2}([A-Za-z][A-Za-z0-9]*):\s*z\./gm)].map((m) => m[1]);
   expect(keys.length, 'schema key extraction must not come back empty').toBeGreaterThan(10);
   return keys;

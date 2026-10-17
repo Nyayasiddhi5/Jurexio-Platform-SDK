@@ -1,5 +1,5 @@
 /**
- * useAuditLog — React hook for accessing NYV audit trail
+ * useAuditLog — React hook for accessing JRX audit trail
  * @version 3.1.2
  */
 import { useState, useCallback, useEffect } from 'react';

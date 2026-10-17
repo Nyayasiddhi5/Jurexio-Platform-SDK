@@ -76,7 +76,7 @@ function queryFromReq(req: Request) {
 function handleList(req: Request, res: Response): void {
   try {
     const envelope = nspCatalogEnvelope(queryFromReq(req));
-    res.setHeader('X-NYV-Templates-Count', String(envelope.data.total));
+    res.setHeader('X-JRX-Templates-Count', String(envelope.data.total));
     res.json(envelope);
   } catch (err) {
     logger.error('templates list failed', { error: (err as Error).message });
@@ -106,7 +106,7 @@ router.post('/sync', (req: Request, res: Response): void => {
       generatedAt: new Date().toISOString(),
       total: all.length,
       sampleIds: all.slice(0, 5).map((t) => t.id),
-      provenance: 'nyv-templates-catalog',
+      provenance: 'jrx-templates-catalog',
       empty: all.length === 0,
       message: all.length === 0 ? 'Honest empty digest — no templates loaded' : undefined,
     };
@@ -128,7 +128,7 @@ router.get('/sync', (req: Request, res: Response): void => {
         generatedAt: new Date().toISOString(),
         total: all.length,
         empty: all.length === 0,
-        provenance: 'nyv-templates-catalog',
+        provenance: 'jrx-templates-catalog',
       },
     });
   } catch (err) {
@@ -140,7 +140,7 @@ router.get('/sync', (req: Request, res: Response): void => {
 router.get('/approved', (req: Request, res: Response): void => {
   try {
     const envelope = nspCatalogEnvelope({ ...queryFromReq(req), approvedOnly: true });
-    res.setHeader('X-NYV-Templates-Count', String(envelope.data.total));
+    res.setHeader('X-JRX-Templates-Count', String(envelope.data.total));
     res.json(envelope);
   } catch (err) {
     logger.error('templates approved list failed', { error: (err as Error).message });

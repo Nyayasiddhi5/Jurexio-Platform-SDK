@@ -1,6 +1,6 @@
 /**
  * Jurexio 13-Step Safety & Quality Pipeline v3.1.2
- * NYV-SVC-SAFETY-PIPELINE-001
+ * JRX-SVC-SAFETY-PIPELINE-001
  *
  * Every single AI interaction across all 7 platforms MUST pass through
  * this pipeline — no exceptions. This is the central quality gate.
@@ -25,7 +25,7 @@
 
 import { logger } from '../utils/logger.js';
 import { JURISDICTION_PROFILES } from './jrx-jurisdiction-binding-service.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import { jrxGuardrailsService, type BarCouncilEnforcement } from './jrx/jrx-guardrails.js';
 import {
   verifyCitations as verifyCitationsForJurisdiction,
@@ -612,7 +612,7 @@ export class SafetyPipelineService {
 
     if (gate8Result.enforcement !== 'ALLOW') {
       warnings.push(...gate8Result.warnings.map(warning => `[Gate8] ${warning}`));
-      // NV-GATE8-NYS-001 — suggest modern BNS/BNSS/BSA equivalents for IPC/CrPC/IEA cites
+      // NV-GATE8-JRX-001 — suggest modern BNS/BNSS/BSA equivalents for IPC/CrPC/IEA cites
       try {
         const { suggestModernEquivalent } = await import('./jrx-gate8-nys-remediation.js');
         const citeTexts = [
@@ -693,7 +693,7 @@ export class SafetyPipelineService {
     // T-06b: Jurisdiction-scoped extension (additive, gated).  When JRX_F_PII_JCN
     // is on AND a JCN code is supplied, append per-jurisdiction patterns.  Defaults
     // OFF so prior pipeline behavior is byte-identical.
-    if (jurisdiction && isNyvFeatureOn('piiJcn')) {
+    if (jurisdiction && isJrxFeatureOn('piiJcn')) {
       const jcnKey = jurisdiction.startsWith('JCN-') ? jurisdiction : `JCN-${jurisdiction.toUpperCase()}`;
       const jcnPatterns = loadJCNPatterns(jcnKey);
       for (const { name, pattern, replacement } of jcnPatterns) {

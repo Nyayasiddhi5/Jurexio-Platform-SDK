@@ -6,12 +6,12 @@ cd "$ROOT"
 # shellcheck disable=SC1091
 source .env 2>/dev/null || true
 
-API_BASE="${NV_API_BASE:-https://api.nyayasiddhi.online}"
-SDK_KEY="${NYV_SDK_KEY_NSP:-${NV_API_KEY:-}}"
+API_BASE="${NV_API_BASE:-https://api.jurexio.com}"
+SDK_KEY="${JRX_SDK_KEY_NSP:-${NV_API_KEY:-}}"
 PROMPT="${1:-What is Section 103 of the Bharatiya Nyaya Sanhita about?}"
 
 if [[ -z "$SDK_KEY" ]]; then
-  echo "missing SDK key (NYV_SDK_KEY_NSP or NV_API_KEY)" >&2
+  echo "missing SDK key (JRX_SDK_KEY_NSP or NV_API_KEY)" >&2
   exit 1
 fi
 
@@ -24,7 +24,7 @@ PY
 curl -sS -N --max-time 360 \
   -H "Authorization: Bearer ${SDK_KEY}" \
   -H "Content-Type: application/json" \
-  -H "X-NYV-SDK-Key: ${SDK_KEY}" \
+  -H "X-JRX-SDK-Key: ${SDK_KEY}" \
   -d "{\"task\":$(python3 -c "import json,sys; print(json.dumps(sys.argv[1]))" "$PROMPT"),\"pattern\":\"P11\",\"jurisdiction\":\"IN\",\"includeThinking\":false,\"includeCitations\":true}" \
   "${API_BASE}/api/jrx/stream" > "$TMP" || true
 

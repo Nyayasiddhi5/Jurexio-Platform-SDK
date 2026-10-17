@@ -4,7 +4,7 @@
  *
  * Usage:
  *   npx tsx scripts/jrx-bedrock-e2e-smoke.ts
- *   GATEWAY=https://api.nyayasiddhi.online npx tsx scripts/jrx-bedrock-e2e-smoke.ts --remote
+ *   GATEWAY=https://api.jurexio.com npx tsx scripts/jrx-bedrock-e2e-smoke.ts --remote
  *   npx tsx scripts/jrx-bedrock-e2e-smoke.ts --local-router-only
  */
 import { MODEL_CATALOG } from '../src/services/intelligent-router/model-catalog.js';
@@ -52,7 +52,7 @@ async function smokeLocalRouter(): Promise<void> {
 async function smokeDirectInvoke(): Promise<void> {
   console.log('\n── Direct Bedrock invoke (orchestrateLLM) ──');
   if (!isBedrockRoutingEnabled()) {
-    console.warn('SKIP direct invoke — NYV_BEDROCK_ENABLED off / no AWS region');
+    console.warn('SKIP direct invoke — JRX_BEDROCK_ENABLED off / no AWS region');
     return;
   }
 
@@ -92,9 +92,9 @@ async function smokeDirectInvoke(): Promise<void> {
 
 async function smokeRemoteGateway(): Promise<void> {
   console.log(`\n── Remote gateway ${GATEWAY} ──`);
-  const key = process.env.NYV_SDK_KEY_NSP ?? process.env.NYV_SDK_KEY;
+  const key = process.env.JRX_SDK_KEY_NSP ?? process.env.JRX_SDK_KEY;
   if (!key) {
-    console.warn('SKIP remote — set NYV_SDK_KEY_NSP');
+    console.warn('SKIP remote — set JRX_SDK_KEY_NSP');
     return;
   }
 
@@ -132,7 +132,7 @@ async function smokeRemoteGateway(): Promise<void> {
       message: 'In one sentence: what is equitable remedy?',
       jurisdiction: 'IN',
       tier: 'pro',
-      agentKey: 'nyayavigya',
+      agentKey: 'jurexio',
       maxTokens: 200,
     }),
   });

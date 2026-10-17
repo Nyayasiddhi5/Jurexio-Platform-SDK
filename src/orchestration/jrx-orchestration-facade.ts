@@ -2,7 +2,7 @@
  * Stub for the legacy `OrchestrationFacade` class.
  *
  * Background: Task #104 (commit 1e9da64) archived the original
- * `nv-orchestration-facade.ts` along with the V9 dead-stubs cleanup, but
+ * `jrx-orchestration-facade.ts` along with the V9 dead-stubs cleanup, but
  * the read-only metadata router at `src/routes/nv5/internal/index.ts`
  * still imports `OrchestrationFacade` (only as a `void` reference for
  * BFS-auditor visibility + a `service: './jrx-orchestration-facade'` JSON
@@ -17,7 +17,7 @@
  *
  * NV-LLM-001: stub class never emits LLM traffic. The real
  * orchestration entry point is `JurexioOrchestrationCoreV9` in
- * `src/orchestration/nyayavigya-orchestration-core-v9.ts`.
+ * `src/orchestration/jurexio-orchestration-core-v9.ts`.
  */
 export class OrchestrationFacade {
   constructor() {

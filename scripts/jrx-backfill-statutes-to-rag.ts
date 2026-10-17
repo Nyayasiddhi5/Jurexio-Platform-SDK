@@ -17,7 +17,7 @@ async function main(): Promise<void> {
   const limit = Number(process.env.LIMIT || '5000');
   const dryRun = process.env.DRY_RUN === '1' || process.env.DRY_RUN === 'true';
 
-  console.log(`[nv-backfill-statutes-to-rag] jurisdiction=${jurisdiction || 'ALL'} limit=${limit} dryRun=${dryRun}`);
+  console.log(`[jrx-backfill-statutes-to-rag] jurisdiction=${jurisdiction || 'ALL'} limit=${limit} dryRun=${dryRun}`);
   const result = await backfillStatutesToRag({ jurisdiction, limit, skipExisting: true, dryRun });
   console.log(JSON.stringify(result, null, 2));
   if (result.errors > 0) process.exit(1);

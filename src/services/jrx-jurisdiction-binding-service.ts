@@ -1,5 +1,5 @@
 /**
- * NYV Jurisdiction Binding Service — binds currency, court structure, clause bank
+ * JRX Jurisdiction Binding Service — binds currency, court structure, clause bank
  * to every AI execution. Mandatory per §3.3.1.
  * @file src/services/jrx-jurisdiction-binding-service.ts
  */
@@ -127,7 +127,7 @@ export const JURISDICTION_PROFILES: Record<string, JurisdictionProfile> = {
   },
 };
 
-export class NyvJurisdictionBindingService {
+export class JrxJurisdictionBindingService {
   static bind(jurisdictionCode: string): JurisdictionProfile {
     const profile = JURISDICTION_PROFILES[jurisdictionCode.toUpperCase()];
     if (!profile) {

@@ -9,7 +9,7 @@
  * than presenting four routine orders as if they were the authorities — which
  * only works if the note is inside the string that becomes the prompt.
  *
- * `formatAutoRagContext` produces that string; `nv-queen-orchestrator` splices
+ * `formatAutoRagContext` produces that string; `jrx-queen-orchestrator` splices
  * it into the completion prompt. Asserting on its output is therefore asserting
  * on what the model is told.
  */

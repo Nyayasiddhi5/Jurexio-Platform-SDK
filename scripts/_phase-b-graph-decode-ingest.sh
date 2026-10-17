@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
-# Decode SSM-staged base64 graph JSONL and ingest into NYV RDS on nysdev
+# Decode SSM-staged base64 graph JSONL and ingest into JRX RDS on jrx-prod
 set -euo pipefail
-CANON="/opt/Nyayavigya/secrets/.env.production"
+CANON="/opt/Jurexio/secrets/.env.production"
 DB="$(grep -E '^DATABASE_URL=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')"
 B64_KEY="${1:-deploys/phase-b/ssm-graph-b64/latest/graph.b64}"
 JSONL="/tmp/graph-edges-pending.jsonl"
 
-echo "=== DOWNLOAD b64 from s3://nyayavigya-sdk-devapp/$B64_KEY ==="
-aws s3 cp "s3://nyayavigya-sdk-devapp/$B64_KEY" /tmp/graph.b64 --region ap-south-1
+echo "=== DOWNLOAD b64 from s3://jurexio-sdk-devapp/$B64_KEY ==="
+aws s3 cp "s3://jurexio-sdk-devapp/$B64_KEY" /tmp/graph.b64 --region ap-south-1
 base64 -d /tmp/graph.b64 > "$JSONL"
 echo "Decoded $(wc -c < "$JSONL") bytes, $(wc -l < "$JSONL") lines"
 
-echo "=== INGEST to NYV RDS ==="
-docker cp "$JSONL" nyv-gateway:/tmp/graph-edges-pending.jsonl
-docker exec -e NYV_DATABASE_URL="$DB" -w /app nyv-gateway node --input-type=module -e "
+echo "=== INGEST to JRX RDS ==="
+docker cp "$JSONL" jrx-gateway:/tmp/graph-edges-pending.jsonl
+docker exec -e JRX_DATABASE_URL="$DB" -w /app jrx-gateway node --input-type=module -e "
 import pg from 'pg';
 import fs from 'fs';
-const client = new pg.Client({ connectionString: process.env.NYV_DATABASE_URL, ssl: { rejectUnauthorized: false } });
+const client = new pg.Client({ connectionString: process.env.JRX_DATABASE_URL, ssl: { rejectUnauthorized: false } });
 await client.connect();
 const lines = fs.readFileSync('/tmp/graph-edges-pending.jsonl', 'utf8').split('\n');
 let n = 0, edgeLines = 0;

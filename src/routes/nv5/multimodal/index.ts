@@ -8,7 +8,7 @@
 // hoists imports above `dotenv.config()` in src/index.ts, so .env-loaded
 // flags would otherwise be read as undefined at boot.
 import { Router, type Request, type Response, type NextFunction } from 'express';
-import { isNyvFeatureOn, type NyvFeatureFlag } from '../../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn, type JrxFeatureFlag } from '../../../config/jrx-feature-flags.js';
 import avatarUnityRouter   from './avatar-unity-routes.js';
 import avatarChatdollRouter from './avatar-chatdoll-routes.js';
 import ragAdvRouter        from './enhanced-routes.js';
@@ -27,18 +27,18 @@ router.get('/health', (_req: Request, res: Response) => {
     version: 'v5.0.1',
     uptimeSec: Math.floor(process.uptime()),
     flags: {
-      avatarUnity:    isNyvFeatureOn('multimodalAvatarUnity'),
-      avatarChatdoll: isNyvFeatureOn('multimodalAvatarChatdoll'),
-      ragAdv:         isNyvFeatureOn('multimodalRagAdv'),
-      threeDImmersive:isNyvFeatureOn('multimodal3dImmersive'),
-      avatar3d:       isNyvFeatureOn('multimodalAvatar3d'),
+      avatarUnity:    isJrxFeatureOn('multimodalAvatarUnity'),
+      avatarChatdoll: isJrxFeatureOn('multimodalAvatarChatdoll'),
+      ragAdv:         isJrxFeatureOn('multimodalRagAdv'),
+      threeDImmersive:isJrxFeatureOn('multimodal3dImmersive'),
+      avatar3d:       isJrxFeatureOn('multimodalAvatar3d'),
     },
   });
 });
 
-const gate = (flag: NyvFeatureFlag, sub: Router) =>
+const gate = (flag: JrxFeatureFlag, sub: Router) =>
   (req: Request, res: Response, next: NextFunction) =>
-    isNyvFeatureOn(flag) ? sub(req, res, next) : next();
+    isJrxFeatureOn(flag) ? sub(req, res, next) : next();
 
 router.use('/avatar-unity',    gate('multimodalAvatarUnity',    avatarUnityRouter));
 router.use('/avatar-chatdoll', gate('multimodalAvatarChatdoll', avatarChatdollRouter));

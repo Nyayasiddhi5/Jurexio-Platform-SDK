@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # =============================================================================
 # edge-revalidate.sh — periodic spot-check for the AWS edge fronting
-# nyayasiddhi.online (the "dev-edge" Terraform env, set up by Task #11/#16
+# jurexio.com (the "dev-edge" Terraform env, set up by Task #11/#16
 # and documented in docs/v3.1.2/completed_docs/AWS-DNS-HANDOFF-2026-04-24.md).
 #
 # Verifies, in order:
-#   1. The four AWS nameservers are still authoritative for nyayasiddhi.online
+#   1. The four AWS nameservers are still authoritative for jurexio.com
 #      on public DNS (i.e. the BigRock NS delegation has not been clobbered).
 #   2. The ACM cert is still ISSUED and has more than 30 days until expiry.
 #   3. Apex + www + api + console all return HTTP 200 over a valid TLS chain.
@@ -27,7 +27,7 @@
 set -euo pipefail
 export PATH="$HOME/.local/bin:$PATH"
 
-DOMAIN=nyayasiddhi.online
+DOMAIN=jurexio.com
 EXPECTED_NS="ns-1111.awsdns-10.org ns-1846.awsdns-38.co.uk ns-457.awsdns-57.com ns-831.awsdns-39.net"
 CERT_ARN=arn:aws:acm:ap-south-1:789925699169:certificate/4fec415f-2049-49cb-b6a7-e2199aeb27e8
 

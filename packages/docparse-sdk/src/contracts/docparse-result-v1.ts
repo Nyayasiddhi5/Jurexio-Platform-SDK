@@ -1,5 +1,5 @@
 /**
- * DocparseResult v1 — stable wire format for NYV / NSP / JRX / external workers.
+ * DocparseResult v1 — stable wire format for JRX / NSP / JRX / external workers.
  */
 import type { ExtractionResult, FieldResolution, AutofillPayload } from "../types.js";
 import type { DocparseIntelligenceV1 } from "./intelligence-envelope.js";

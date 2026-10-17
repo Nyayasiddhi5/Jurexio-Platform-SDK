@@ -1,18 +1,18 @@
 /**
- * Execute curated MCP tools via NyvClient APIs or gateway MCP invoke.
+ * Execute curated MCP tools via JrxClient APIs or gateway MCP invoke.
  */
 
-import { NyvClient } from '@jurexio/client-sdk';
+import { JrxClient } from '@jurexio/client-sdk';
 import type { McpServerConfig } from './config.js';
 import type { CuratedToolDef } from './curated-tools.js';
 import { GatewayMcpClient } from './gateway-client.js';
 
 export class ToolExecutor {
-  private readonly nyv: NyvClient;
+  private readonly nyv: JrxClient;
   private readonly gateway: GatewayMcpClient;
 
   constructor(private readonly config: McpServerConfig) {
-    this.nyv = new NyvClient({
+    this.nyv = new JrxClient({
       apiKey: config.apiKey,
       baseUrl: config.baseUrl,
       platformClient: config.platformClient,
@@ -151,7 +151,7 @@ export class ToolExecutor {
         'Content-Type': 'application/json',
         'X-API-Key': this.config.apiKey,
         Authorization: `Bearer ${this.config.apiKey}`,
-        'X-NYV-SDK-Version': '5.0.0',
+        'X-JRX-SDK-Version': '5.0.0',
       },
       body: JSON.stringify(body),
     });

@@ -1,8 +1,8 @@
 /**
  * NV-COURT-FEE-CALC-001 — pure, dependency-free ad-valorem court-fee computation
  * (Court Fees Act 1870 tiered slab). Single SSoT (NV-NO-DUPLICATE-001) consumed by:
- *   - the Phase-4 sandbox `court-fee-calc` tool (`nv-phase4-services.ts`), and
- *   - the NSP `draftProfile.courtFee` assembler (`nv-draft-profile-assembler.ts`).
+ *   - the Phase-4 sandbox `court-fee-calc` tool (`jrx-phase4-services.ts`), and
+ *   - the NSP `draftProfile.courtFee` assembler (`jrx-draft-profile-assembler.ts`).
  *
  * Kept in its own module with NO heavy imports (no db / docx) so the draftProfile
  * assembler — exercised by fast unit tests — does not transitively pull the

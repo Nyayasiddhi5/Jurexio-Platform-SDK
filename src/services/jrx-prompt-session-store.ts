@@ -151,14 +151,14 @@ export async function beginPromptConstitutionTurn(opts: {
  *
  * NV-SESSION-POOLING-001 — this is safe ONLY when `userId` identifies a real end
  * user. It does not when the caller is an SDK key with no `x-customer-user-id`:
- * `userId` then falls back to `sdk:<appName>` (see `nv-orchestration-routes.ts`),
+ * `userId` then falls back to `sdk:<appName>` (see `jrx-orchestration-routes.ts`),
  * which is the SAME value for every end user of that platform. The hash would
  * then collapse to **one session per platform per day**, and because session
  * memory is written under it, one advocate's matter facts land in another
  * advocate's context.
  *
  * Measured live on jrx-staging before this guard: two NSP requests sent with no
- * `x-customer-user-id` both received `nv-sess-nsp-9ae2cc89bab6bce7`, and the model
+ * `x-customer-user-id` both received `jrx-sess-nsp-9ae2cc89bab6bce7`, and the model
  * reported back *"the retrieved memory context in this session appears to belong to
  * a different matter/client thread"* — i.e. cross-matter context did reach the
  * prompt and only the model's own refusal prevented disclosure. Model discretion is
@@ -194,17 +194,17 @@ export function mintEcosystemPromptSessionId(opts: {
   if (isAppLevelIdentity(user)) {
     const nonce = crypto.randomBytes(8).toString('hex');
     logger.warn('[PromptSession] no end-user identity — minting a per-request session (no cross-call memory)', {
-      alertCode: 'NYV-SESSION-POOLING-001',
+      alertCode: 'JRX-SESSION-POOLING-001',
       platform,
       orgId: org,
       remedy: 'partner should send x-customer-user-id, or an explicit sessionId, to get continuity',
     });
-    return `nv-sess-${platform.toLowerCase()}-req-${nonce}`;
+    return `jrx-sess-${platform.toLowerCase()}-req-${nonce}`;
   }
 
   const day = new Date().toISOString().slice(0, 10);
   const h = crypto.createHash('sha256').update(`${platform}|${org}|${user}|${day}`).digest('hex').slice(0, 16);
-  return `nv-sess-${platform.toLowerCase()}-${h}`;
+  return `jrx-sess-${platform.toLowerCase()}-${h}`;
 }
 
 /** Test helper */

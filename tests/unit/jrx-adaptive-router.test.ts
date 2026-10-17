@@ -79,7 +79,7 @@ describe('./jrx-adaptive-router', () => {
 
   /**
    * NV-QUEEN-EARNED-001 (2026-08-16): this case previously asserted `queen`.
-   * `forceLegalBestOutcome` is true for every NYV-dependent platform and every
+   * `forceLegalBestOutcome` is true for every JRX-dependent platform and every
    * authenticated SDK partner except JRX, so admitting on it alone made Queen the
    * *default* for all ecosystem legal traffic — the behaviour the optimization
    * plan §10.2 rule 2 forbids. A single-issue "what are my rights" question is
@@ -168,15 +168,15 @@ describe('./jrx-quality-envelope', () => {
     }
   });
 
-  it('fail-closed when NYV_QUALITY_ENVELOPE_FAIL_CLOSED=1 and a mandatory gate fails', () => {
+  it('fail-closed when JRX_QUALITY_ENVELOPE_FAIL_CLOSED=1 and a mandatory gate fails', () => {
     // NV-QE-RAG-SKIP-001 made an un-attempted RAG a *valid* cost path (lean /
     // enableRAG:false), so `ragAttempted:false` now marks rag_grounding
     // completed-with-note and can no longer trip fail-closed. This test asserted
     // the pre-NV-QE-RAG-SKIP-001 contract and had been passing vacuously in the
     // sense that it tested a gate that is intentionally no longer fatal. Repoint
     // it at a gate that genuinely must never be skipped: PII redaction.
-    const prev = process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED;
-    process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED = '1';
+    const prev = process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED;
+    process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED = '1';
     try {
       const env = createQualityEnvelope({
         requestId: 'r2',
@@ -198,16 +198,16 @@ describe('./jrx-quality-envelope', () => {
       markResponseAndAudit(env);
       expect(() => assertQualityEnvelope(env)).toThrow(QualityEnvelopeError);
     } finally {
-      if (prev === undefined) delete process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED;
-      else process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED = prev;
+      if (prev === undefined) delete process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED;
+      else process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED = prev;
     }
   });
 
   it('an intentionally RAG-off lean path is NOT fail-closed (NV-QE-RAG-SKIP-001)', () => {
     // The other half of the contract: skipping RAG for cost must stay a legal
     // path, or every lean partner request would 500.
-    const prev = process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED;
-    process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED = '1';
+    const prev = process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED;
+    process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED = '1';
     try {
       const env = createQualityEnvelope({
         requestId: 'r3',
@@ -228,8 +228,8 @@ describe('./jrx-quality-envelope', () => {
       markResponseAndAudit(env);
       expect(() => assertQualityEnvelope(env)).not.toThrow();
     } finally {
-      if (prev === undefined) delete process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED;
-      else process.env.NYV_QUALITY_ENVELOPE_FAIL_CLOSED = prev;
+      if (prev === undefined) delete process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED;
+      else process.env.JRX_QUALITY_ENVELOPE_FAIL_CLOSED = prev;
     }
   });
 });
@@ -279,7 +279,7 @@ describe('response contract + doc INTENT', () => {
     expect(getDeclaredCapabilitiesForIntent('ocr')?.[0]).toBe('docs.ocr');
     expect(getDeclaredCapabilitiesForIntent('parse')?.[0]).toBe('docs.parse');
     expect(getDeclaredCapabilitiesForIntent('compare')?.[0]).toBe('sdk.document-pipeline');
-    expect(getDeclaredCapabilitiesForIntent('compare')).toContain('nyaya-tools.compare');
+    expect(getDeclaredCapabilitiesForIntent('compare')).toContain('jrx-legal-tools.compare');
     expect(getDeclaredCapabilitiesForIntent('classify')?.[0]).toBe('intelligence.doc-analyze');
     expect(getDeclaredCapabilitiesForIntent('automateai')?.[0]).toBe('automateai.workflow');
     expect(getDeclaredCapabilitiesForIntent('bmad')?.[0]).toBe('agent.bmad.orchestrate');

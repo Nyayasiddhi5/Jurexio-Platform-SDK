@@ -5,7 +5,7 @@
  * Single source of truth for SDK API-key extraction across the entire
  * platform. Every middleware/route that authenticates an external SDK
  * caller MUST use `extractSdkApiKey(req)` from this file. Inventing a
- * new accepted header (`X-NV-SDK-Key`, `X-SDK-Key`, `X-NYV-Key`, etc.)
+ * new accepted header (`X-NV-SDK-Key`, `X-SDK-Key`, `X-JRX-Key`, etc.)
  * is a guardrail violation enforced by `scripts/jrx-check-auth-header-discipline.sh`.
  *
  * Canonical contract:

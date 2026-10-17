@@ -2,7 +2,7 @@
 
 **Status:** `1.0.0-alpha.1` — development line parallel to **`@jurexio/docparse@0.2.1`**.
 
-Production NYV/NSP continues to use **`@jurexio/docparse`** until integration GO (see `documents/working/DOCPARSE-SDK-INTEGRATION-PLAN-2026-10.md`).
+Production JRX/NSP continues to use **`@jurexio/docparse`** until integration GO (see `documents/working/DOCPARSE-SDK-INTEGRATION-PLAN-2026-10.md`).
 
 ## What's added vs `@jurexio/docparse`
 
@@ -37,4 +37,4 @@ const guide = client.buildLegalParseGuide(result);
 
 ## Integration (not active yet)
 
-NYV adapter switch: replace `@jurexio/docparse` import with `@jurexio/docparse-sdk` in a **new** `nv-docparse-sdk-adapter-service.ts` behind `JRX_F_DOCPARSE_SDK=0` (default OFF).
+JRX adapter switch: replace `@jurexio/docparse` import with `@jurexio/docparse-sdk` in a **new** `jrx-docparse-sdk-adapter-service.ts` behind `JRX_F_DOCPARSE_SDK=0` (default OFF).

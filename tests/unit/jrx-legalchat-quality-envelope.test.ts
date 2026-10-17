@@ -53,7 +53,7 @@ vi.mock('../../src/services/jrx-ai-credit-enforcer.js', () => ({
  * the way it runs in production. */
 vi.mock('../../src/config/jrx-feature-flags.js', async (importOriginal) => ({
   ...(await importOriginal<Record<string, unknown>>()),
-  isNyvFeatureOn: (flag: string) => (flag === 'creditRecord' ? true : false),
+  isJrxFeatureOn: (flag: string) => (flag === 'creditRecord' ? true : false),
 }));
 
 /* The Queen's own token accounting is what the route falls back to; an

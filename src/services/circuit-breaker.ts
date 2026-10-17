@@ -1,6 +1,6 @@
 /**
  * Shared Circuit-Breaker Policy Module — Task #32 round 4
- * NYV-CB-POLICY-001
+ * JRX-CB-POLICY-001
  *
  * Wraps `opossum` with a configured, named policy registry so that all
  * outbound capability/service invocations can opt into uniform timeout,
@@ -25,9 +25,9 @@ export type BreakerSurface =
   | 'outbound:db'
   | 'outbound:http'
   | 'outbound:integration'
-  // NYV-OPS-BREAKER-EXTRA-001 (Task #28 round 3): named surfaces for the
+  // JRX-OPS-BREAKER-EXTRA-001 (Task #28 round 3): named surfaces for the
   // queue and RAG retrieval paths so they can be wrapped explicitly via
-  // runWithRetryAndBreaker(...). Documented in docs/v3.1.2/completed_docs/NYV-OBSERVABILITY.md.
+  // runWithRetryAndBreaker(...). Documented in docs/v3.1.2/completed_docs/JRX-OBSERVABILITY.md.
   | 'outbound:queue'
   | 'outbound:rag';
 
@@ -39,19 +39,19 @@ export interface BreakerPolicy {
   rollingCountWindowMs: number;
 }
 
-// NYV-OPS-BREAKER-ENV-TUNE-001 (Task #28 round 10): each surface's
+// JRX-OPS-BREAKER-ENV-TUNE-001 (Task #28 round 10): each surface's
 // timeoutMs / errorThresholdPercentage / resetTimeoutMs / volumeThreshold
 // / rollingCountWindowMs is now overridable via env so SREs can tune
 // per-deployment without a code change. Convention:
 //
-//   NYV_BREAKER_<SURFACE>_TIMEOUT_MS              (timeoutMs)
-//   NYV_BREAKER_<SURFACE>_ERROR_PCT               (errorThresholdPercentage)
-//   NYV_BREAKER_<SURFACE>_RESET_MS                (resetTimeoutMs)
-//   NYV_BREAKER_<SURFACE>_VOLUME                  (volumeThreshold)
-//   NYV_BREAKER_<SURFACE>_WINDOW_MS               (rollingCountWindowMs)
+//   JRX_BREAKER_<SURFACE>_TIMEOUT_MS              (timeoutMs)
+//   JRX_BREAKER_<SURFACE>_ERROR_PCT               (errorThresholdPercentage)
+//   JRX_BREAKER_<SURFACE>_RESET_MS                (resetTimeoutMs)
+//   JRX_BREAKER_<SURFACE>_VOLUME                  (volumeThreshold)
+//   JRX_BREAKER_<SURFACE>_WINDOW_MS               (rollingCountWindowMs)
 //
 // where <SURFACE> is the upper-snake-case form of the surface tail
-// (e.g. outbound:llm → NYV_BREAKER_LLM_*). Anything not set falls
+// (e.g. outbound:llm → JRX_BREAKER_LLM_*). Anything not set falls
 // back to the in-code default below. The LLM defaults align with
 // the Task #28 target failover example (~5 failures within a 30s
 // window, open for 60s) — relax via env in dev.
@@ -62,7 +62,7 @@ const DEFAULT_POLICIES: Record<BreakerSurface, BreakerPolicy> = {
   // requests landing at ~41s on a single shot; ensemble + fallback paths for
   // legal_research / doc_draft / risk_assessment routinely cross the old 60s
   // budget and surfaced as `408 NV SDK timeout after 60000ms` to NSP.
-  // Operators can still tune via `NYV_BREAKER_LLM_TIMEOUT_MS` env override.
+  // Operators can still tune via `JRX_BREAKER_LLM_TIMEOUT_MS` env override.
   'outbound:llm':         envPolicy('LLM',         { timeoutMs: 120_000, errorThresholdPercentage: 60, resetTimeoutMs: 60_000, volumeThreshold: 5,  rollingCountWindowMs: 30_000 }),
   'outbound:db':          envPolicy('DB',          { timeoutMs:  5_000, errorThresholdPercentage: 40, resetTimeoutMs: 15_000, volumeThreshold: 20, rollingCountWindowMs: 30_000 }),
   'outbound:http':        envPolicy('HTTP',        { timeoutMs: 10_000, errorThresholdPercentage: 50, resetTimeoutMs: 30_000, volumeThreshold: 10, rollingCountWindowMs: 30_000 }),
@@ -72,13 +72,13 @@ const DEFAULT_POLICIES: Record<BreakerSurface, BreakerPolicy> = {
 };
 
 /**
- * Read NYV_BREAKER_<SURFACE>_* overrides on top of the in-code defaults.
+ * Read JRX_BREAKER_<SURFACE>_* overrides on top of the in-code defaults.
  * Invalid (non-numeric / out-of-range) overrides silently fall back to
  * the default — this is operational config, not runtime input.
  */
 function envPolicy(tag: string, defaults: BreakerPolicy): BreakerPolicy {
   const num = (key: string, def: number, lo = 0, hi = Number.MAX_SAFE_INTEGER) => {
-    const raw = process.env[`NYV_BREAKER_${tag}_${key}`];
+    const raw = process.env[`JRX_BREAKER_${tag}_${key}`];
     if (raw === undefined || raw === '') return def;
     const n = Number(raw);
     return Number.isFinite(n) && n >= lo && n <= hi ? n : def;
@@ -192,7 +192,7 @@ function sleep(ms: number): Promise<void> {
 }
 
 /**
- * NYV-CB-RETRY-001 (round 10d): bounded exponential backoff layered on
+ * JRX-CB-RETRY-001 (round 10d): bounded exponential backoff layered on
  * top of a shared, name-cached breaker. The breaker is created with a
  * generic `(args: unknown[]) => Promise<unknown>` adapter so per-call
  * arguments flow through `.fire(...args)` — never captured by the

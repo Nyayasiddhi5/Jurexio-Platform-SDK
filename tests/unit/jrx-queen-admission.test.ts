@@ -27,7 +27,7 @@ import { couldBeDeterministic } from '../../src/services/jrx-nys-deterministic-a
 const SRC = join(process.cwd(), 'src');
 
 /**
- * The ecosystem default: every NYV-dependent platform and every authenticated
+ * The ecosystem default: every JRX-dependent platform and every authenticated
  * SDK partner except JRX resolves `forceLegalBestOutcome: true` +
  * `nyvDependent: true` (`wantsNspNymBestOutcome`, default ON). This is the shape
  * that made Queen the default, so the routing table is asserted under it.
@@ -425,9 +425,9 @@ describe('tools before agents — ordering, not just availability', () => {
 });
 
 describe('escape hatch', () => {
-  it('NYV_QUEEN_EARNED=0 restores every heuristic admission', () => {
-    const prev = process.env.NYV_QUEEN_EARNED;
-    process.env.NYV_QUEEN_EARNED = '0';
+  it('JRX_QUEEN_EARNED=0 restores every heuristic admission', () => {
+    const prev = process.env.JRX_QUEEN_EARNED;
+    process.env.JRX_QUEEN_EARNED = '0';
     try {
       expect(isQueenEarnedGateEnabled()).toBe(false);
       const d = ecosystem({
@@ -440,8 +440,8 @@ describe('escape hatch', () => {
       // gate WOULD have decided while disabled.
       expect(d.queenAdmission?.admit).toBe(false);
     } finally {
-      if (prev === undefined) delete process.env.NYV_QUEEN_EARNED;
-      else process.env.NYV_QUEEN_EARNED = prev;
+      if (prev === undefined) delete process.env.JRX_QUEEN_EARNED;
+      else process.env.JRX_QUEEN_EARNED = prev;
     }
   });
 

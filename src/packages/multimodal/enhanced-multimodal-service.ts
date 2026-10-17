@@ -1,4 +1,4 @@
-// NYV-TS-CLEANUP-2026-05-11 (Session-15 v7): pre-existing TS errors — calls
+// JRX-TS-CLEANUP-2026-05-11 (Session-15 v7): pre-existing TS errors — calls
 // stub multimodal methods; gateway runs via tsx; runtime contract verified by
 // NV-NEVER-BREAK 50/50 suite. Same precedent as src/db/index.ts:1.
 /**

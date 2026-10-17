@@ -1,6 +1,6 @@
 /**
  * Jurexio RBAC Service v3.1.2
- * NYV-SVC-RBAC-001
+ * JRX-SVC-RBAC-001
  *
  * Role-Based Access Control with Attribute-Based extensions (RBAC + ABAC).
  * Enforces Zero Trust Architecture — every access decision is explicit.
@@ -10,7 +10,7 @@
  *
  *   super_admin  (tier-2) — global, Jurexio internal. Unscoped.
  *   platform_admin (tier-1) — scoped to ONE platform's orgs/users/keys/limits.
- *     The platform_id scoping itself is enforced in nv-customer-org-rbac.ts;
+ *     The platform_id scoping itself is enforced in jrx-customer-org-rbac.ts;
  *     this role's permissions below are the role-level grants.
  *
  * Permission model:

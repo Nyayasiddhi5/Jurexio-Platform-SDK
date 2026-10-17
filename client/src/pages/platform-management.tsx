@@ -6,8 +6,8 @@ import { Link } from 'wouter';
 import { JRX_REGISTRY_RUNTIME } from '@/lib/jrx-registry-stats';
 import { getAuthToken } from '@/lib/jrx-auth-token';
 import { NV_BASE, nv } from '@/lib/jrx-api-paths';
-import { NyvErrorState } from '@/components/NyvErrorState';
-import { NyvEmptyState } from '@/components/NyvEmptyState';
+import { JrxErrorState } from '@/components/JrxErrorState';
+import { JrxEmptyState } from '@/components/JrxEmptyState';
 // ──────────────────────────────────────────────────────────────────────────────
 // TYPES
 // ──────────────────────────────────────────────────────────────────────────────
@@ -33,7 +33,7 @@ interface PlatformConfig {
 }
 
 const PLATFORM_META: Record<string, { icon: string; color: string }> = {
-  nyayamitra: { icon: '🏛️', color: '#10b981' },
+  jurexio-citizen: { icon: '🏛️', color: '#10b981' },
   'nyayasiddhi-professional': { icon: '⚖️', color: '#3b82f6' },
   professional: { icon: '⚖️', color: '#3b82f6' },
   'nyayasiddhi-institution': { icon: '🏢', color: '#8b5cf6' },
@@ -202,7 +202,7 @@ export default function PlatformManagement() {
         }),
       });
       await refetch();
-    } catch (_) { /* toast in future via nv-messages */ }
+    } catch (_) { /* toast in future via jrx-messages */ }
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
   }
@@ -218,7 +218,7 @@ export default function PlatformManagement() {
   if (isError) {
     return (
       <div className="min-h-screen bg-background p-6">
-        <NyvErrorState title="Platform registry unavailable" error={error instanceof Error ? error.message : 'Failed to load platforms'} onRetry={() => refetch()} />
+        <JrxErrorState title="Platform registry unavailable" error={error instanceof Error ? error.message : 'Failed to load platforms'} onRetry={() => refetch()} />
       </div>
     );
   }
@@ -226,7 +226,7 @@ export default function PlatformManagement() {
   if (!platforms.length || !selected) {
     return (
       <div className="min-h-screen bg-background p-6">
-        <NyvEmptyState title="No platforms configured" description="Provision platforms via SDK onboarding or the super-admin registry." />
+        <JrxEmptyState title="No platforms configured" description="Provision platforms via SDK onboarding or the super-admin registry." />
         <Link href="/superadmin/platforms"><a className="text-amber-600 hover:underline">Open Platform Registry →</a></Link>
       </div>
     );

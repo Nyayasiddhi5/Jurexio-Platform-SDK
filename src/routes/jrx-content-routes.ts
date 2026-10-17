@@ -1,6 +1,6 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
- * NYV-SVC-CONTENT Routes — /api/jrx/content/*
+ * JRX-SVC-CONTENT Routes — /api/jrx/content/*
  */
 
 import { Router, Request, Response } from 'express';

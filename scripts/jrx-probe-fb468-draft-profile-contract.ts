@@ -6,7 +6,7 @@
  *   validationResults[] on partner draft task types (sync + stream terminal builder).
  *
  * Run: npx tsx scripts/jrx-probe-fb468-draft-profile-contract.ts
- * Wired: npm run guardrail:orch-stage (via nv-guardrail-orch-stage-contract.ts)
+ * Wired: npm run guardrail:orch-stage (via jrx-guardrail-orch-stage-contract.ts)
  */
 import type { AdaptiveRouterDecision } from '../src/orchestration/jrx-adaptive-router.js';
 import type { QualityEnvelopeSnapshot } from '../src/orchestration/jrx-quality-envelope.js';

@@ -8,7 +8,7 @@
  * Server: src/routes/nv5/doc-ai/convert-routes.ts
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 /** Server returns the full `{ success, ... }` envelope. We preserve that shape. */
 export interface DocAiHealthResponse {
@@ -89,7 +89,7 @@ export interface DocAiSubmitBase64Options extends DocAiSubmitOptions {
 }
 
 export class DocAiApi {
-  constructor(private http: NyvHttpClient) {}
+  constructor(private http: JrxHttpClient) {}
 
   health(): Promise<DocAiHealthResponse> {
     return this.http.get('/api/nv5/doc-ai/convert/health');
@@ -148,7 +148,7 @@ export class DocAiApi {
   /**
    * Download converted bytes. Server returns the raw file body with
    * `Content-Type` + `Content-Disposition`; this helper unwraps that into
-   * `{ data, mimeType, fileName }`. Throws `NyvError` if the job is not
+   * `{ data, mimeType, fileName }`. Throws `JrxError` if the job is not
    * done (409) or the blob is missing (410).
    */
   getResult(jobId: string): Promise<DocAiResultBytes> {

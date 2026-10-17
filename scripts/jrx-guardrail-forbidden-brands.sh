@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
-# JRX-FORBIDDEN-BRAND-001 — fail CI if Nyayavigya/Nyayasiddhi traces appear outside allowlisted paths.
+# JRX-FORBIDDEN-BRAND-002 — zero legacy fork tokens in active Jurexio tree (see PATTERN).
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
+
+ALLOWLIST="${ROOT}/scripts/jrx-guardrail-nyv-allowlist.txt"
+PATTERN="$(tr -d '\n' < "${ROOT}/scripts/lib/forbidden-brand-nyv.pattern")"
 
 ALLOW_GLOBS=(
   --glob '!node_modules/**'
@@ -12,28 +15,35 @@ ALLOW_GLOBS=(
   --glob '!archive/**'
   --glob '!patches/**'
   --glob '!documents/working/archive/**'
-  --glob '!UPSTREAM-NYV-SHA.txt'
-  --glob '!**/JUREXIO-FORK-LINEAGE.md'
-  --glob '!**/JRX-NAMING-AND-BOUNDARY-RFC.md'
-  --glob '!**/JRX-OPERATING-MODEL.md'
-  --glob '!UPSTREAM-NYV-SHA.txt'
-  --glob '!**/JRX-OPERATING-MODEL.md'
-  --glob '!**/JRX-UPSTREAM-SYNC.md'
-  --glob '!**/JRX-SEARCH-US-CORPUS-PLAN.md'
-  --glob '!**/JRX-DATA-RESIDENCY.md'
-  --glob '!**/JRX-SOC2-TENANT-BOUNDARY.md'
-  --glob '!**/JUREXIO-ENTERPRISE-SDK.md'
-  --glob '!**/JRX-SEARCH-US-CORPUS-PLAN.md'
-  --glob '!scripts/jurexio-export-bootstrap.sh'
-  --glob '!scripts/jrx-phase2-rename.py'
+  --glob '!CHANGELOG.md'
+  --glob '!Project-Tracker.md'
   --glob '!scripts/jrx-guardrail-forbidden-brands.sh'
+  --glob '!scripts/jrx-zero-nyv-scrub.py'
+  --glob '!scripts/jrx-phase2-rename.py'
+  --glob '!scripts/jrx-phase2-brand-scrub.py'
 )
 
-PATTERN='Nyayavigya|Nyayasiddhi|nyayasiddhi\.online|nysdev|/opt/Nyayavigya'
+SCAN_PATHS=(
+  src
+  client/src
+  packages
+  shared
+  documents/working
+  scripts/jrx-*
+)
 
-SCAN_PATHS=(src client/src packages shared .github documents/working)
+RG_ARGS=(-n -P "$PATTERN" "${ALLOW_GLOBS[@]}" "${SCAN_PATHS[@]}")
 
-HITS="$(rg -n "$PATTERN" "${ALLOW_GLOBS[@]}" "${SCAN_PATHS[@]}" 2>/dev/null | head -200 || true)"
+if [[ -f "$ALLOWLIST" ]] && [[ -s "$ALLOWLIST" ]]; then
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    line="${line%%#*}"
+    line="$(echo "$line" | xargs)"
+    [[ -z "$line" ]] && continue
+    RG_ARGS+=(--glob "!${line}")
+  done < "$ALLOWLIST"
+fi
+
+HITS="$(rg "${RG_ARGS[@]}" 2>/dev/null | head -200 || true)"
 if [[ -n "$HITS" ]]; then
   echo "JRX forbidden-brand guardrail FAILED (first 200 hits):"
   echo "$HITS"

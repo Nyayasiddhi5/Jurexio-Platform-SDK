@@ -2,7 +2,7 @@
  * Postgres connection-string normalizer + verify-full upgrader.
  *
  * Two complementary helpers, applied consistently to every consumer that
- * builds a pg URL from `NYV_DATABASE_URL` / `DATABASE_URL` /
+ * builds a pg URL from `JRX_DATABASE_URL` / `DATABASE_URL` /
  * `NS_DATABASE_URL` / `NM_DATABASE_URL`:
  *
  * 1. `normalizePgConnectionString()` (NV-PG-SSL-COMPAT-2026-05-11, task-135)

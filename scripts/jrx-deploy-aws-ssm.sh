@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# JRX-DEPLOY-001 — Jurexio EC2 deploy via SSM (mirrors NYV deploy-aws-ssm; separate host + paths).
+# JRX-DEPLOY-001 — Jurexio EC2 deploy via SSM (mirrors JRX deploy-aws-ssm; separate host + paths).
 set -euo pipefail
 
 nv_b64_encode() {
@@ -25,7 +25,7 @@ done
 
 : "${AWS_ACCESS_KEY_ID:?missing AWS_ACCESS_KEY_ID (use env.production.jurexio)}"
 : "${AWS_SECRET_ACCESS_KEY:?missing AWS_SECRET_ACCESS_KEY}"
-: "${JRX_EC2_INSTANCE_ID:?missing JRX_EC2_INSTANCE_ID — must NOT be nysdev i-0df71e5ea1df8f588}"
+: "${JRX_EC2_INSTANCE_ID:?missing JRX_EC2_INSTANCE_ID — must NOT be jrx-prod i-0df71e5ea1df8f588}"
 : "${JRX_AWS_REGION:=ap-south-1}"
 : "${JRX_DEPLOY_BUCKET:=jurexio-deploy-artifacts}"
 : "${JRX_DEPLOY_ROOT:=/opt/Jurexio}"
@@ -33,7 +33,7 @@ done
 : "${JRX_COMPOSE_FILE:=docker-compose.jurexio-aws.yml}"
 
 if [ "$JRX_EC2_INSTANCE_ID" = "i-0df71e5ea1df8f588" ]; then
-  echo "Refusing deploy to Nyayavigya nysdev instance." >&2
+  echo "Refusing deploy to Jurexio jrx-prod instance." >&2
   exit 3
 fi
 

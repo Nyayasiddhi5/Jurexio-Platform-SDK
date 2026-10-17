@@ -3,7 +3,7 @@
  * Document pipeline + Phase 5 governance smoke harness.
  *
  * Usage:
- *   GATEWAY=http://localhost:5000 NYV_SDK_KEY_NSP=... JWT_TOKEN=... \
+ *   GATEWAY=http://localhost:5000 JRX_SDK_KEY_NSP=... JWT_TOKEN=... \
  *     npx tsx scripts/jrx-smoke-docs-pipeline.ts
  *
  * Exercises:
@@ -14,7 +14,7 @@
  */
 
 const GATEWAY = (process.env.GATEWAY || 'http://localhost:5000').replace(/\/+$/, '');
-const SDK_KEY = process.env.NYV_SDK_KEY_NSP || process.env.NYV_SDK_KEY_JRX || '';
+const SDK_KEY = process.env.JRX_SDK_KEY_NSP || process.env.JRX_SDK_KEY_JRX || '';
 const JWT = process.env.JWT_TOKEN || process.env.SME_TOKEN || process.env.SUPERADMIN_TOKEN || '';
 
 const SAMPLE = `SERVICE AGREEMENT between Alpha Legal Tech Pvt Ltd and Beta Consulting LLP.
@@ -53,7 +53,7 @@ async function jwtGet(path: string): Promise<{ status: number; json: any }> {
 
 async function runDocPipeline() {
   console.log('\n── Docs pipeline (SDK) ──');
-  if (!SDK_KEY) { fail('sdk-key', 'NYV_SDK_KEY_NSP unset'); return; }
+  if (!SDK_KEY) { fail('sdk-key', 'JRX_SDK_KEY_NSP unset'); return; }
 
   const parse = await sdkPost('/api/jrx/sdk/docs-pipeline/documents/parse', {
     content: SAMPLE, format: 'text', jurisdiction: 'IN', language: 'en',
@@ -70,7 +70,7 @@ async function runDocPipeline() {
   const emb = await sdkPost('/api/jrx/sdk/docs-pipeline/documents/embeddings', {
     documents: [{ id: 'smoke-1', content: SAMPLE.slice(0, 500) }],
   });
-  if (emb.status === 200 && emb.json?.success && (!emb.json.data?.synthetic || process.env.NYV_EMBED_KEYWORD_FALLBACK === '1' || process.env.NV_PLATFORM_UAT_BYPASS === '1' || process.env.NODE_ENV === 'development')) {
+  if (emb.status === 200 && emb.json?.success && (!emb.json.data?.synthetic || process.env.JRX_EMBED_KEYWORD_FALLBACK === '1' || process.env.NV_PLATFORM_UAT_BYPASS === '1' || process.env.NODE_ENV === 'development')) {
     const dims = emb.json.data?.embeddings?.[0]?.dimensions ?? 0;
     const tag = emb.json.data?.synthetic ? 'keyword-fallback' : `${dims} dims`;
     pass('embed', tag);

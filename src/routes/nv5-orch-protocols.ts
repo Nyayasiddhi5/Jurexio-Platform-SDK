@@ -6,7 +6,7 @@
 // duplicating the canonical registry writer. Both are out-of-scope here;
 // the canonical bootstrap path already covers idempotent re-init.
 //
-// This router exists to keep `nv-protocol-registry-manifest.ts` reachable
+// This router exists to keep `jrx-protocol-registry-manifest.ts` reachable
 // from src/index.ts (wiring-audit + import-graph) and to expose a probe.
 import { Router, type Request, type Response } from 'express';
 import { initializeProtocolRegistryFromManifest } from '../services/jrx-protocol-registry-manifest.js';

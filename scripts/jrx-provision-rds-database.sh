@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # JRX-RDS-001 — create logical Postgres database `jurexio` on an EXISTING RDS instance.
-# Does NOT migrate data from `nyayavigya` and does NOT alter Nyayasiddhi schemas.
+# Does NOT migrate data from `jurexio` and does NOT alter Jurexio schemas.
 #
 # Required env (admin — from your secure store, never commit):
 #   JRX_RDS_ADMIN_URL=postgres://<master_user>@<host>:5432/postgres?sslmode=verify-full
@@ -23,8 +23,8 @@ if [[ -z "$ADMIN_URL" ]]; then
   exit 1
 fi
 
-if [[ "$DB_NAME" == "nyayavigya" ]]; then
-  echo "Refusing to target Nyayasiddhi database name nyayavigya." >&2
+if [[ "$DB_NAME" == "jurexio" ]]; then
+  echo "Refusing to target Jurexio database name jurexio." >&2
   exit 2
 fi
 

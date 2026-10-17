@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import type { NyvPrecedentSearchResult } from '@nyayavigya/client-sdk';
-import { useNyv } from '../providers';
+import type { JrxPrecedentSearchResult } from '@nyayavigya/client-sdk';
+import { useJrx } from '../providers';
 
 export default function IntelligencePage() {
-  const { client } = useNyv();
+  const { client } = useJrx();
   const [q, setQ] = useState('right to privacy supreme court India');
-  const [results, setResults] = useState<NyvPrecedentSearchResult | null>(null);
+  const [results, setResults] = useState<JrxPrecedentSearchResult | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 

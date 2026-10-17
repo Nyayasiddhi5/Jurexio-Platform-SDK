@@ -6,7 +6,7 @@
  * response envelope must report the true number of billed completions rather than
  * the single call the caller happened to know about.
  *
- * Context: a swarm request on nysdev billed 5 completions while the envelope
+ * Context: a swarm request on jrx-prod billed 5 completions while the envelope
  * reported 1, and the losing leg of the hedge — a full second paid call on every
  * hedged request — was recorded nowhere at all. Both were only discoverable by
  * grepping provider log lines on the host.

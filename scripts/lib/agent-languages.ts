@@ -1,5 +1,5 @@
 /**
- * Nyayavigya v5.0.1 — Per-jurisdiction supportedLanguages map.
+ * Jurexio v5.0.1 — Per-jurisdiction supportedLanguages map.
  *
  * Restores v2 41-language parity for IN; jurisdiction-appropriate subsets
  * for the others.

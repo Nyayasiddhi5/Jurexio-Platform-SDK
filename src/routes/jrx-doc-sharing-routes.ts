@@ -1,5 +1,5 @@
 /**
- * NYV Document Sharing Routes — SDK-facing grant lifecycle + admin probe.
+ * JRX Document Sharing Routes — SDK-facing grant lifecycle + admin probe.
  * ─────────────────────────────────────────────────────────────────────────────
  * SDK routes (under /api/jrx/sdk/documents/*) require the SDK gateway middleware
  * upstream (already mounted at the app level). They use req.sdkContext for
@@ -9,7 +9,7 @@
  * (the existing authenticateToken middleware).
  *
  * @see src/services/jrx-doc-sharing-service.ts
- * @module nv-doc-sharing-routes
+ * @module jrx-doc-sharing-routes
  * @version 1.0.0
  */
 
@@ -18,7 +18,7 @@ import {
   issueGrant, revokeGrant, getGrantById, listGrantsForDoc, listGrantsByOwner, checkAccess,
   autoShareIfLarge, getShareStats, type GrantReason,
 } from '../services/jrx-doc-sharing-service.js';
-import { getNyvDmsConfig, getNyvDmsConfigSource, type PlatformCode } from '../config/nyv-dms-config.js';
+import { getJrxDmsConfig, getJrxDmsConfigSource, type PlatformCode } from '../config/jrx-dms-config.js';
 import { authenticateToken, requireRole } from '../middleware/auth.js';
 import { consentGate } from '../middleware/jrx-consent-gate.js';
 import { db as _raw_db } from '../db/index.js';
@@ -69,13 +69,13 @@ export function createDocSharingRouter(): Router {
   router.post('/sdk/documents/:docId/share', consentGate({ purpose: 'third_party_sharing', triggeredBy: 'doc-sharing:/sdk/documents/:docId/share' }), async (req: Request, res: Response) => {
     const ctx = (req as any).sdkContext;
     if (!ctx?.platformCode || !ctx?.orgId) {
-      res.status(401).json({ error: 'NYV-401: SDK context missing — platform_code + org_id required' });
+      res.status(401).json({ error: 'JRX-401: SDK context missing — platform_code + org_id required' });
       return;
     }
     const { docId } = req.params;
     const { grantedToPlatformCode, grantedToOrgId, grantType, grantReason, expiresAt } = req.body ?? {};
     if (!grantedToPlatformCode) {
-      res.status(400).json({ error: 'NYV-400: grantedToPlatformCode required' });
+      res.status(400).json({ error: 'JRX-400: grantedToPlatformCode required' });
       return;
     }
     // ── Owner verification (architect-mandated 2026-05-06) ──────────────
@@ -84,7 +84,7 @@ export function createDocSharingRouter(): Router {
     // could mint grants on documents they don't own.
     const owner = await resolveDocOwner(String(docId));
     if (!owner) {
-      res.status(404).json({ error: 'NYV-404: document not found', docId });
+      res.status(404).json({ error: 'JRX-404: document not found', docId });
       return;
     }
     if (owner.ownerOrgId !== String(ctx.orgId) || owner.ownerPlatformCode !== ctx.platformCode) {
@@ -93,7 +93,7 @@ export function createDocSharingRouter(): Router {
         ownerOrg: owner.ownerOrgId, ownerPlatform: owner.ownerPlatformCode,
       });
       res.status(403).json({
-        error: 'NYV-403: only the document owner can issue grants',
+        error: 'JRX-403: only the document owner can issue grants',
         code: 'NOT_DOCUMENT_OWNER',
       });
       return;
@@ -116,7 +116,7 @@ export function createDocSharingRouter(): Router {
       res.status(201).json({ ok: true, grant });
     } catch (err: any) {
       logger.error('issueGrant failed', { err: err.message });
-      res.status(500).json({ error: 'NYV-500: grant issuance failed', detail: err.message });
+      res.status(500).json({ error: 'JRX-500: grant issuance failed', detail: err.message });
     }
   });
 
@@ -127,7 +127,7 @@ export function createDocSharingRouter(): Router {
   router.get('/sdk/documents/:docId/grants', async (req: Request, res: Response) => {
     const ctx = (req as any).sdkContext;
     if (!ctx?.platformCode || !ctx?.orgId) {
-      res.status(401).json({ error: 'NYV-401: SDK context missing' });
+      res.status(401).json({ error: 'JRX-401: SDK context missing' });
       return;
     }
     try {
@@ -140,7 +140,7 @@ export function createDocSharingRouter(): Router {
       );
       res.json({ ok: true, grants: filtered, count: filtered.length });
     } catch (err: any) {
-      res.status(500).json({ error: 'NYV-500: list grants failed', detail: err.message });
+      res.status(500).json({ error: 'JRX-500: list grants failed', detail: err.message });
     }
   });
 
@@ -151,12 +151,12 @@ export function createDocSharingRouter(): Router {
   router.delete('/sdk/grants/:grantId', async (req: Request, res: Response) => {
     const ctx = (req as any).sdkContext;
     if (!ctx?.platformCode || !ctx?.orgId) {
-      res.status(401).json({ error: 'NYV-401: SDK context missing' });
+      res.status(401).json({ error: 'JRX-401: SDK context missing' });
       return;
     }
     const grantId = Number(req.params.grantId);
     if (!Number.isFinite(grantId)) {
-      res.status(400).json({ error: 'NYV-400: invalid grant id' });
+      res.status(400).json({ error: 'JRX-400: invalid grant id' });
       return;
     }
     // ── Ownership verification (architect-mandated 2026-05-06) ──────────
@@ -165,7 +165,7 @@ export function createDocSharingRouter(): Router {
     // belonging to other tenants by guessing/scanning grant ids.
     const existing = await getGrantById(grantId);
     if (!existing) {
-      res.status(404).json({ error: 'NYV-404: grant not found', grantId });
+      res.status(404).json({ error: 'JRX-404: grant not found', grantId });
       return;
     }
     if (existing.revokedAt) {
@@ -181,7 +181,7 @@ export function createDocSharingRouter(): Router {
         ownerOrg: existing.ownerOrgId, ownerPlatform: existing.ownerPlatformCode,
       });
       res.status(403).json({
-        error: 'NYV-403: only the owner platform can revoke this grant',
+        error: 'JRX-403: only the owner platform can revoke this grant',
         code: 'NOT_GRANT_OWNER',
       });
       return;
@@ -194,7 +194,7 @@ export function createDocSharingRouter(): Router {
       );
       res.json({ ok, revoked: ok });
     } catch (err: any) {
-      res.status(500).json({ error: 'NYV-500: revoke failed', detail: err.message });
+      res.status(500).json({ error: 'JRX-500: revoke failed', detail: err.message });
     }
   });
 
@@ -205,7 +205,7 @@ export function createDocSharingRouter(): Router {
   router.get('/sdk/documents/:docId/access', async (req: Request, res: Response) => {
     const ctx = (req as any).sdkContext;
     if (!ctx?.platformCode || !ctx?.orgId) {
-      res.status(401).json({ error: 'NYV-401: SDK context missing' });
+      res.status(401).json({ error: 'JRX-401: SDK context missing' });
       return;
     }
     const result = await checkAccess(String(req.params.docId), ctx.platformCode, String(ctx.orgId));
@@ -232,8 +232,8 @@ export function createDocSharingRouter(): Router {
    * Requires dashboard JWT + admin-class role.
    */
   router.get('/admin/dms/config', ...requireAdminJwt, async (_req: Request, res: Response) => {
-    const cfg = getNyvDmsConfig();
-    const src = getNyvDmsConfigSource();
+    const cfg = getJrxDmsConfig();
+    const src = getJrxDmsConfigSource();
     res.json({
       ok: true,
       source: src.source,
@@ -258,7 +258,7 @@ export function createDocSharingRouter(): Router {
       const stats = await getShareStats();
       res.json({ ok: true, ...stats, timestamp: new Date().toISOString() });
     } catch (err: any) {
-      res.status(500).json({ error: 'NYV-500: stats query failed', detail: err.message });
+      res.status(500).json({ error: 'JRX-500: stats query failed', detail: err.message });
     }
   });
 
@@ -269,10 +269,10 @@ export function createDocSharingRouter(): Router {
    * Returns what grants WOULD be issued (does NOT persist).
    */
   router.post('/admin/dms/auto-share-test', ...requireAdminJwt, async (req: Request, res: Response) => {
-    const cfg = getNyvDmsConfig();
+    const cfg = getJrxDmsConfig();
     const { fileSizeBytes, ownerOrgId, ownerPlatformCode } = req.body ?? {};
     if (!Number.isFinite(fileSizeBytes) || !ownerOrgId || !ownerPlatformCode) {
-      res.status(400).json({ error: 'NYV-400: fileSizeBytes + ownerOrgId + ownerPlatformCode required' });
+      res.status(400).json({ error: 'JRX-400: fileSizeBytes + ownerOrgId + ownerPlatformCode required' });
       return;
     }
     const thresholdBytes = cfg.sharing.autoShareThresholdMb * 1024 * 1024;

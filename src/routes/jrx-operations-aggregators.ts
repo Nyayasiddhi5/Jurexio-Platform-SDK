@@ -1,5 +1,5 @@
 /**
- * nv-operations-aggregators.ts — Task #177 (B2)
+ * jrx-operations-aggregators.ts — Task #177 (B2)
  *
  * Four thin aggregator routes feeding the Console "Operations" pages:
  *   GET /api/jrx/cost/overview          → Cost Optimizer        (super_admin)
@@ -98,14 +98,14 @@ router.get(
       // Task #302 — jurisdiction scope (US/IN/...) optionally narrows all
       // rollups so the Cost Optimizer can match the Operations Hub filter.
       // Also exclude rows tagged metadata.internal=true (aggregator polls,
-      // health probes, auth chatter — see nv-usage-metering-middleware).
+      // health probes, auth chatter — see jrx-usage-metering-middleware).
       const j = jurisdictionFilter(req);
       const jSql = j ? sql`AND metadata->>'jurisdiction' = ${j}` : sql``;
       const jSqlU = j ? sql`AND u.metadata->>'jurisdiction' = ${j}` : sql``;
       const noInternal = sql`AND (metadata->>'internal') IS NULL`;
       const noInternalU = sql`AND (u.metadata->>'internal') IS NULL`;
       // Task #302 (2026-05-13): switched FROM clauses to public.sdk_usage_metering,
-      // which is the table actually written by nv-usage-metering-middleware
+      // which is the table actually written by jrx-usage-metering-middleware
       // (cost_usd, tokens_in, tokens_out, application_id, agent_id, metadata jsonb,
       // recorded_at). nv_sdk_usage_metrics has none of those columns and silently
       // returned zeros via the .catch fallback.

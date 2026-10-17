@@ -67,7 +67,7 @@ const PLATFORM_TIER_CONFIG: Record<string, { tier: string; defaultRateLimit: num
   'NS Professional Solo': { tier: 'standard', defaultRateLimit: 100 },
   'NS Professional Plus': { tier: 'standard', defaultRateLimit: 200 },
   'NS Professional Pro': { tier: 'premium', defaultRateLimit: 500 },
-  'NM Nyayamitra': { tier: 'standard', defaultRateLimit: 500 },
+  'NM Jurexio Citizen': { tier: 'standard', defaultRateLimit: 500 },
   'NI Institutional': { tier: 'enterprise', defaultRateLimit: 800 },
   'NMIN Ministry': { tier: 'enterprise', defaultRateLimit: 300 },
   'NACAD Academy': { tier: 'enterprise', defaultRateLimit: 300 },
@@ -119,7 +119,7 @@ function hashApiKey(key: string): string {
  * Extract API key from request headers
  */
 function extractApiKey(req: Request): string | null {
-  const key = req.headers['x-nv-api-key'];
+  const key = req.headers['x-jrx-api-key'];
   if (typeof key === 'string' && key.trim()) {
     return key.trim();
   }

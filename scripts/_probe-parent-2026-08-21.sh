@@ -8,7 +8,7 @@ date -u +%Y-%m-%dT%H:%M:%SZ
 
 if [ -f /opt/nyv/api/.env ]; then
   echo "=== NYS WORKER ==="
-  systemctl is-active nyv-api 2>/dev/null || echo "nyv-api inactive"
+  systemctl is-active jrx-api 2>/dev/null || echo "jrx-api inactive"
   curl -sf -m 10 http://127.0.0.1:8080/healthz | python3 -c "import sys,json; d=json.load(sys.stdin); print('healthz', d.get('status'), 'uptime', d.get('uptime'))" 2>/dev/null || echo "healthz FAIL"
 
   echo "--- worker jobs ---"
@@ -26,7 +26,7 @@ if [ -f /opt/nyv/api/.env ]; then
 
   echo "--- caselaw search probe ---"
   set -a && source /opt/nyv/api/.env && set +a
-  KEY="${NYS_KNOWLEDGE_API_KEY:-${NYS_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
+  KEY="${JRX_ECOSYSTEM_KNOWLEDGE_API_KEY:-${JRX_ECOSYSTEM_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
   code=$(curl -sS -m 45 -o /tmp/cs.json -w '%{http_code}' -H "x-api-key: $KEY" \
     "http://127.0.0.1:8080/api/caselaw/search?q=bail&limit=2&jurisdiction=IN&courtType=sc" || echo 000)
   python3 - <<PY
@@ -75,21 +75,21 @@ const pg=require('pg');
 })();" 2>/dev/null || echo "graph count skip"
 fi
 
-if [ -f /opt/Nyayavigya/secrets/.env.production ]; then
-  echo "=== NYV GATEWAY ==="
-  CANON=/opt/Nyayavigya/secrets/.env.production
-  API=https://api.nyayasiddhi.online
-  NSPK=$(grep -E '^NYV_SDK_KEY_NSP=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')
+if [ -f /opt/Jurexio/secrets/.env.production ]; then
+  echo "=== JRX GATEWAY ==="
+  CANON=/opt/Jurexio/secrets/.env.production
+  API=https://api.jurexio.com
+  NSPK=$(grep -E '^JRX_SDK_KEY_NSP=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')
 
-  echo "--- CNR via NYV SDK (caseCreate) ---"
-  code=$(curl -sS -o /tmp/nyv-cnr.json -w '%{http_code}' -m 60 -X POST \
+  echo "--- CNR via JRX SDK (caseCreate) ---"
+  code=$(curl -sS -o /tmp/jrx-cnr.json -w '%{http_code}' -m 60 -X POST \
     -H "X-API-Key: ${NSPK}" -H 'Content-Type: application/json' \
     -d '{"cnr":"RJHC010324382023","options":{"profile":"caseCreate","includeDocuments":false},"claimEcourts":false}' \
     "${API}/api/jrx/v1/sdk/cnr/resolve" || echo 000)
   python3 - <<PY
 import json
 try:
-  d=json.load(open("/tmp/nyv-cnr.json"))
+  d=json.load(open("/tmp/jrx-cnr.json"))
   inner=d.get("data") if isinstance(d.get("data"), dict) else d
   cc=(inner.get("caseCreate") or {})
   print("nyv_cnr http=$code found=%s status=%s source=%s caseCreate=%s claimEcourts=%s" % (
@@ -101,14 +101,14 @@ except Exception as e:
 PY
 
   echo "--- NSP Pro CNR smoke (TSWL) ---"
-  code2=$(curl -sS -o /tmp/nyv-cnr2.json -w '%{http_code}' -m 60 -X POST \
+  code2=$(curl -sS -o /tmp/jrx-cnr2.json -w '%{http_code}' -m 60 -X POST \
     -H "X-API-Key: ${NSPK}" -H 'Content-Type: application/json' \
     -d '{"cnr":"TSWL000000742024","claimEcourts":false}' \
     "${API}/api/jrx/v1/sdk/cnr/resolve" || echo 000)
   python3 - <<PY
 import json
 try:
-  d=json.load(open("/tmp/nyv-cnr2.json"))
+  d=json.load(open("/tmp/jrx-cnr2.json"))
   inner=d.get("data") if isinstance(d.get("data"), dict) else d
   print("nsp_cnr http=$code2 found=%s matched=%s court=%s src=%s" % (
     "$code2", inner.get("found"), inner.get("matched"), inner.get("courtType"), inner.get("sourceArchive") or inner.get("source")))

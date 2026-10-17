@@ -1,6 +1,6 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
- * NYV-SVC-DOCAI — Legal Document Analysis Service
+ * JRX-SVC-DOCAI — Legal Document Analysis Service
  * Ported from Legal_Document_Analyzer_AI open-source repository.
  *
  * Capabilities (replacing Superwise AI with callJurexio):
@@ -197,7 +197,7 @@ async function ensureTables(): Promise<void> {
     `);
     tablesReady = true;
   } catch (err: any) {
-    logger.error('[NYV-SVC-DOCAI] ensureTables error:', err.message);
+    logger.error('[JRX-SVC-DOCAI] ensureTables error:', err.message);
   }
 }
 
@@ -219,7 +219,7 @@ export async function extractTextFromPDF(buffer: Buffer): Promise<ExtractionResu
       await parser.destroy().catch(() => undefined);
     }
   } catch (err: any) {
-    logger.warn('[NYV-SVC-DOCAI] PDF digital-text extraction failed, attempting OCR:', err?.message);
+    logger.warn('[JRX-SVC-DOCAI] PDF digital-text extraction failed, attempting OCR:', err?.message);
   }
 
   const meaningfulChars = text.replace(/\s+/g, '').length;
@@ -592,7 +592,7 @@ export async function analyzeDocument(
   );
 
   for (const [name, settled] of settledByName) {    if (settled.status === 'rejected') {
-      logger.warn('[NYV-SVC-DOCAI] extractor rejected', {
+      logger.warn('[JRX-SVC-DOCAI] extractor rejected', {
         extractor: name,
         err: settled.reason instanceof Error ? settled.reason.message : String(settled.reason),
       });
@@ -626,7 +626,7 @@ export async function analyzeDocument(
       )
     `);
   } catch (err: any) {
-    logger.error('[NYV-SVC-DOCAI] stats insert error:', err.message);
+    logger.error('[JRX-SVC-DOCAI] stats insert error:', err.message);
   }
 
   return {
@@ -694,7 +694,7 @@ export async function getAnalysisStats(orgId: string): Promise<{
       avgProcessingMs: parseFloat(r.avg_processing_ms) || 0,
     };
   } catch (err: any) {
-    logger.error('[NYV-SVC-DOCAI] getAnalysisStats error:', err.message);
+    logger.error('[JRX-SVC-DOCAI] getAnalysisStats error:', err.message);
     return { totalAnalyzed: 0, riskDistribution: { High: 0, Medium: 0, Low: 0 }, docTypeBreakdown: {}, avgConfidence: 0, avgProcessingMs: 0 };
   }
 }

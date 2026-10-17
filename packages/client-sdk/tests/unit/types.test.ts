@@ -6,7 +6,7 @@
 import { describe, it, expect } from 'vitest';
 
 describe('SDK Type Exports', () => {
-  describe('NyvPatternSpecializedEvent event types', () => {
+  describe('JrxPatternSpecializedEvent event types', () => {
     const EXPECTED_SPECIALIZED_EVENT_TYPES = [
       'react_cycle',
       'reasoning_step',
@@ -73,7 +73,7 @@ describe('SDK Type Exports', () => {
       'chain-verification', 'grpo', 'wai',
     ];
 
-    it('covers all 22 NYV patterns', () => {
+    it('covers all 22 JRX patterns', () => {
       expect(SUPPORTED_PATTERNS).toHaveLength(22);
     });
 
@@ -100,19 +100,19 @@ describe('SDK Type Exports', () => {
     });
   });
 
-  describe('NyvPatternResponse shape contract', () => {
+  describe('JrxPatternResponse shape contract', () => {
     it('required fields are non-empty strings (structural check)', () => {
       const mockResponse = {
         success: true,
         pattern: 'react',
-        traceId: 'NYV-REACT-20260406-001',
+        traceId: 'JRX-REACT-20260406-001',
         data: { answer: 'Test answer' },
         processingTime: 1234,
       };
       expect(mockResponse.success).toBe(true);
       expect(typeof mockResponse.pattern).toBe('string');
       expect(typeof mockResponse.traceId).toBe('string');
-      expect(mockResponse.traceId.startsWith('NYV-')).toBe(true);
+      expect(mockResponse.traceId.startsWith('JRX-')).toBe(true);
       expect(typeof mockResponse.processingTime).toBe('number');
     });
   });

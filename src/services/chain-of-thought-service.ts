@@ -8,7 +8,7 @@
  * - Reasoning trace visualization
  * - Self-verification and correction
  *
- * NYV-COT-LLM-001 (Task #27): the standard / verification / self-consistency
+ * JRX-COT-LLM-001 (Task #27): the standard / verification / self-consistency
  * executors now call RealLLMService to produce actual reasoning steps
  * instead of returning hard-coded scaffolding strings. In dev/test the
  * legacy stub remains as a safety net so suites without live providers can
@@ -409,7 +409,7 @@ Rules:
 - For legal queries: cite statute sections / case names / years where they exist; never invent citations.`;
       const userPrompt = `QUERY: ${query}\n\nReturn ONLY the JSON object.`;
       // NV-LLM-001 (R3 — WHITELISTED): chain-of-thought is itself a reasoning
-      // step *inside* the safety ring (invoked from nv-client.ts:856 and from
+      // step *inside* the safety ring (invoked from jrx-client.ts:856 and from
       // executeWithFullSafetyRing → callJurexio). Wrapping it again would
       // create infinite recursion. realLLMService.executeRequest already
       // delegates to orchestrateLLM (router) per R1, so cost-optimal pick is
@@ -639,7 +639,7 @@ Rules:
     query: string,
     numPaths: number
   ): Promise<ReasoningTrace> {
-    // NYV-COT-LLM-002 (Task #27): run N independent LLM reasoning paths at
+    // JRX-COT-LLM-002 (Task #27): run N independent LLM reasoning paths at
     // higher temperature, then pick the highest-confidence path. The other
     // paths are surfaced as alternatives so the caller can audit divergence.
     const paths: ReasoningBranch[] = [];
@@ -705,7 +705,7 @@ Rules:
     query: string,
     maxSteps: number
   ): Promise<ReasoningTrace> {
-    // NYV-COT-LLM-003 (Task #27): real LLM-driven reasoning + verification.
+    // JRX-COT-LLM-003 (Task #27): real LLM-driven reasoning + verification.
     // We ask the LLM for reasoning steps in one pass (low temperature for
     // determinism) and then mark steps with confidence >= 0.7 as verified.
     const llm = await this.runLLMReasoning(query, 'chain_of_verification', maxSteps, 0.2);
@@ -921,8 +921,8 @@ Verified reasoning:`;
  * legal task.
  *
  * Eight strategies are implemented above, but every server-side call site
- * hard-coded `'zero_shot_cot'` (`nv-orchestration-routes.ts`,
- * `nv-sdk-orchestration-wrapper.ts`, `nv-client.ts`), so seven of them only ran
+ * hard-coded `'zero_shot_cot'` (`jrx-orchestration-routes.ts`,
+ * `jrx-sdk-orchestration-wrapper.ts`, `jrx-client.ts`), so seven of them only ran
  * if a partner happened to pass the field by hand. Nobody does. This selector
  * makes the choice server-side from the task itself.
  *

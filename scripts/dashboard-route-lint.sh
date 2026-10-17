@@ -4,7 +4,7 @@
 # Introduced 2026-05-06 (T002, Phase B finish).
 #
 # Verifies:
-#   1. Every NyvSidebar.tsx path has a matching App.tsx <Route path=...>
+#   1. Every JrxConsoleSidebar.tsx path has a matching App.tsx <Route path=...>
 #      (querystrings are normalized away, e.g. /chat?tab=legal -> /chat)
 #   2. Optionally (strict mode), every App.tsx Route has either a sidebar
 #      entry OR is on ALLOW_ORPHAN.
@@ -14,7 +14,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-SIDEBAR="$ROOT/client/src/components/NyvSidebar.tsx"
+SIDEBAR="$ROOT/client/src/components/JrxConsoleSidebar.tsx"
 APPTSX="$ROOT/client/src/App.tsx"
 
 # Routes we accept as orphan (no sidebar entry). Trim this list as the
@@ -152,6 +152,6 @@ if [[ $violations -eq 0 ]]; then
   echo "✓ dashboard-route-lint clean (sidebar=$(echo "$sidebar_paths" | wc -l), routes=$(echo "$route_paths" | wc -l), allow_orphan=${#ALLOW_ORPHAN[@]})"
   exit 0
 else
-  echo "✗ $violations violation(s). Either add the path to NyvSidebar.tsx, add to ALLOW_ORPHAN above with justification, or delete the route."
+  echo "✗ $violations violation(s). Either add the path to JrxConsoleSidebar.tsx, add to ALLOW_ORPHAN above with justification, or delete the route."
   exit 1
 fi

@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 
-interface AnalyticsDashboardProps {
+interface JrxAnalyticsMetricsPanelProps {
   metrics?: {
     requests?: {
       total: number;
@@ -38,7 +38,8 @@ interface AnalyticsDashboardProps {
   className?: string;
 }
 
-export function AnalyticsDashboard({ metrics, agentStats, className = "" }: AnalyticsDashboardProps) {
+/** Agent / request metrics panel for ops views. */
+export function JrxAnalyticsMetricsPanel({ metrics, agentStats, className = "" }: JrxAnalyticsMetricsPanelProps) {
   const formatCurrency = (amount: number) => `$${amount.toFixed(2)}`;
   const formatLatency = (ms: number) => `${ms.toFixed(0)}ms`;
 
@@ -281,3 +282,8 @@ export function AnalyticsDashboard({ metrics, agentStats, className = "" }: Anal
     </div>
   );
 }
+
+/** @deprecated Use JrxAnalyticsMetricsPanel */
+export type AnalyticsDashboardProps = JrxAnalyticsMetricsPanelProps;
+/** @deprecated Use JrxAnalyticsMetricsPanel */
+export const AnalyticsDashboard = JrxAnalyticsMetricsPanel;

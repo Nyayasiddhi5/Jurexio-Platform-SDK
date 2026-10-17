@@ -2,10 +2,10 @@
 /**
  * Offline document intelligence smoke — summarize ×3 depths + optional EDJ ingest.
  * Usage:
- *   NYV_BASE_URL=http://127.0.0.1:5000 NYV_API_KEY=… npx tsx scripts/jrx-offline-doc-intelligence-smoke.ts
+ *   JRX_BASE_URL=http://127.0.0.1:5000 JRX_API_KEY=… npx tsx scripts/jrx-offline-doc-intelligence-smoke.ts
  */
-const BASE = (process.env.NYV_BASE_URL ?? 'http://127.0.0.1:5000').replace(/\/$/, '');
-const KEY = process.env.NYV_API_KEY ?? process.env.NYV_SDK_API_KEY ?? '';
+const BASE = (process.env.JRX_BASE_URL ?? 'http://127.0.0.1:5000').replace(/\/$/, '');
+const KEY = process.env.JRX_API_KEY ?? process.env.JRX_SDK_API_KEY ?? '';
 
 const SAMPLE = `
 MUTUAL NON-DISCLOSURE AGREEMENT
@@ -39,7 +39,7 @@ async function post(path: string, body: unknown) {
 
 async function main() {
   if (!KEY) {
-    console.error('NYV_API_KEY required');
+    console.error('JRX_API_KEY required');
     process.exit(2);
   }
   const depths = ['concise', 'detailed', 'comprehensive'] as const;

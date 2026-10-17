@@ -21,7 +21,8 @@ interface AnalyticsMetrics {
   };
 }
 
-export function AnalyticsDashboard() {
+/** Onboarding / product analytics portal (tracking API). */
+export function JrxAnalyticsOverview() {
   const { data, isLoading } = useQuery<{ success: boolean; metrics: AnalyticsMetrics }>({
     queryKey: ['/api/tracking/metrics'],
   });
@@ -217,3 +218,6 @@ export function AnalyticsDashboard() {
     </div>
   );
 }
+
+/** @deprecated Use JrxAnalyticsOverview */
+export const AnalyticsDashboard = JrxAnalyticsOverview;

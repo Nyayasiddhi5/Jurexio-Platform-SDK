@@ -1,6 +1,6 @@
 /**
  * Jurexio E-Filing Service v3.1.2
- * NYV-SVC-EFILING-001
+ * JRX-SVC-EFILING-001
  *
  * Electronic court filing system supporting all 6 jurisdictions.
  * Integrates with:
@@ -245,7 +245,7 @@ export class EFilingService {
 
     filing.status = 'submitted';
     filing.submittedAt = new Date();
-    filing.trackingNumber = `NYV-${filing.jurisdiction}-${Date.now()}`;
+    filing.trackingNumber = `JRX-${filing.jurisdiction}-${Date.now()}`;
     filing.updatedAt = new Date();
 
     this.filings.set(filingId, filing);

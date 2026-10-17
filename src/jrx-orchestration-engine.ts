@@ -686,9 +686,9 @@ export class JurexioOrchestrationEngine extends EventEmitter {
 
     // Attempt real LLM call via core v9 orchestrator
     try {
-      const { nyayavigyaCore } = await import('./orchestration/nyayavigya-orchestration-core-v9.js');
-      await nyayavigyaCore.initialize();
-      const result = await nyayavigyaCore.orchestrate({
+      const { jurexioCore } = await import('./orchestration/jurexio-orchestration-core-v9.js');
+      await jurexioCore.initialize();
+      const result = await jurexioCore.orchestrate({
         taskId: (request as any).taskId || `task-${Date.now()}`,
         userId: (request as any).userId || 'system',
         prompt: request.task || '',
@@ -719,7 +719,7 @@ export class JurexioOrchestrationEngine extends EventEmitter {
     } catch {
       // Graceful degradation — return structured informational response
       return {
-        content: `Legal intelligence orchestration active. Query: "${(request.task || '').substring(0, 100)}". Configure NYV_OPENROUTER_API_KEY or NYV_OPENAI_API_KEY for full AI-powered responses.`,
+        content: `Legal intelligence orchestration active. Query: "${(request.task || '').substring(0, 100)}". Configure JRX_OPENROUTER_API_KEY or JRX_OPENAI_API_KEY for full AI-powered responses.`,
         provider: providerName,
         model: modelName,
         agents: agentNames,
@@ -801,4 +801,4 @@ export class JurexioOrchestrationEngine extends EventEmitter {
 }
 
 // Export singleton instance
-export const nyayavigyaOrchestrationEngine = new JurexioOrchestrationEngine();
+export const jurexioOrchestrationEngine = new JurexioOrchestrationEngine();

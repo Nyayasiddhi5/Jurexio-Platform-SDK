@@ -1,8 +1,8 @@
 {
   "version": "5.0.0",
   "auth": {
-    "jwt":   { "secretEnvVar": "NYV_JWT_SECRET",         "accessTtl": "24h",  "algo": "HS256", "rotationDays": 90 },
-    "refresh":{ "secretEnvVar": "NYV_JWT_REFRESH_SECRET", "ttl": "30d" },
+    "jwt":   { "secretEnvVar": "JRX_JWT_SECRET",         "accessTtl": "24h",  "algo": "HS256", "rotationDays": 90 },
+    "refresh":{ "secretEnvVar": "JRX_JWT_REFRESH_SECRET", "ttl": "30d" },
     "apiKey": { "format": "nyv_<env>_sk_<40>", "hash": "SHA-256", "store": "nv_sdk_keys" }
   },
   "rbac": { "levels": ["super-admin","org-admin","compliance-officer","manager","reviewer","creator","viewer","api-only"] },

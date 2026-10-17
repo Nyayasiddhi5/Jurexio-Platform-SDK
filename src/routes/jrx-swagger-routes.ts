@@ -14,7 +14,7 @@ const router = Router();
 // scripts/generate-openapi-spec.ts. We serve this as the BASE so partners see
 // the complete path set, then overlay the hand-curated rich schemas below for
 // the key endpoints. See buildPublishedSpec().
-const GENERATED_SPEC_PATH = path.resolve(process.cwd(), 'docs', 'openapi', 'nyayavigya-v5.openapi.json');
+const GENERATED_SPEC_PATH = path.resolve(process.cwd(), 'docs', 'openapi', 'jurexio-v5.openapi.json');
 
 const curatedSpec = {
   openapi: '3.0.3',
@@ -39,13 +39,13 @@ SDK API keys use prefix \`nyv_live_sk_\` (production) or \`nyv_test_sk_\` (sandb
 - Enterprise: 600 rpm / 200,000 rpd
 
 ## Platforms
-nyayamitra | nys-professional | nys-institutional | nys-academy | nys-ministry
+jurexio-citizen | nys-professional | nys-institutional | nys-academy | nys-ministry
     `,
     version: '5.1.0',
     contact: {
       name: 'Jurexio Engineering',
-      email: 'engineering@nyayavigya.com',
-      url: 'https://nyayavigya.com',
+      email: 'engineering@jurexio.com',
+      url: 'https://jurexio.com',
     },
     license: { name: 'Proprietary' },
   },
@@ -146,7 +146,7 @@ nyayamitra | nys-professional | nys-institutional | nys-academy | nys-ministry
           id: { type: 'string' },
           name: { type: 'string' },
           key: { type: 'string', description: 'Only shown once on creation' },
-          platform: { type: 'string', enum: ['nyayamitra', 'nys-professional', 'nys-institutional', 'nys-academy', 'nys-ministry'] },
+          platform: { type: 'string', enum: ['jurexio-citizen', 'nys-professional', 'nys-institutional', 'nys-academy', 'nys-ministry'] },
           tier: { type: 'string' },
           requestsThisMonth: { type: 'number' },
           lastUsedAt: { type: 'string', format: 'date-time' },
@@ -241,7 +241,7 @@ nyayamitra | nys-professional | nys-institutional | nys-academy | nys-ministry
                 required: ['name', 'platform'],
                 properties: {
                   name: { type: 'string', example: 'NSP Production Key' },
-                  platform: { type: 'string', enum: ['nyayamitra', 'nys-professional', 'nys-institutional', 'nys-academy', 'nys-ministry'] },
+                  platform: { type: 'string', enum: ['jurexio-citizen', 'nys-professional', 'nys-institutional', 'nys-academy', 'nys-ministry'] },
                   tier: { type: 'string', enum: ['free', 'solo', 'plus', 'pro', 'enterprise', 'government', 'internal'], default: 'pro' },
                   rateLimitPerMinute: { type: 'number', default: 200 },
                 },
@@ -348,7 +348,7 @@ nyayamitra | nys-professional | nys-institutional | nys-academy | nys-ministry
 // published only the 7 hand-curated paths while the platform exposes 100+.
 // Root cause: this router served the hand-rolled `curatedSpec` directly, and
 // /api/jrx/openapi.json 308-redirects here, so the comprehensive generated spec
-// (docs/openapi/nyayavigya-v5.openapi.json, ~1.3k paths) was shadowed.
+// (docs/openapi/jurexio-v5.openapi.json, ~1.3k paths) was shadowed.
 //
 // Fix: serve the generated spec as the BASE (complete coverage) and deep-merge
 // the curated paths/components ON TOP so the key endpoints keep their rich
@@ -419,14 +419,14 @@ router.get('/swagger.json', (_req: Request, res: Response) => {
   res.json(buildPublishedSpec());
 });
 
-// ─── NYV-NS-008 (2026-05-01) — canonical OpenAPI publish endpoint ───────────
+// ─── JRX-NS-008 (2026-05-01) — canonical OpenAPI publish endpoint ───────────
 //
 // Partner SDKs and external code-gen tools (openapi-typescript, prism,
 // stoplight studio, …) expect the spec at /openapi.json or /openapi.yaml.
 // This alias serves the existing hand-rolled spec at the canonical path
 // without any new dependencies.
 //
-// MIGRATION PLAN to a fully zod-derived spec (queued post-GA, NYV-NS-008):
+// MIGRATION PLAN to a fully zod-derived spec (queued post-GA, JRX-NS-008):
 //   1. Install @asteasolutions/zod-to-openapi (deferred — touches lockfile
 //      and SDK lockdown is in effect until 2026-05-15).
 //   2. Re-export each existing zod schema (src/schemas/*.ts) wrapped in

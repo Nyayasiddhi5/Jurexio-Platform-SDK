@@ -110,7 +110,7 @@ export function createLLMSpan(
     // Legacy llm.* attributes retained for back-compat with existing dashboards.
     'llm.provider': provider,
     'llm.model': model,
-    'llm.system': 'nyayavigya',
+    'llm.system': 'jurexio',
     // OTel GenAI semantic conventions (gen_ai.*) — the current standard, so
     // spans line up with collectors/observability tooling out of the box.
     'gen_ai.system': provider,
@@ -189,7 +189,7 @@ export function endLLMSpan(span: Span, result: LLMSpanResult): void {
         {
           resource: {
             attributes: {
-              'service.name': 'nyayavigya',
+              'service.name': 'jurexio',
               'service.version': process.env.SERVICE_VERSION || '1.0.0',
               'service.namespace': 'ai-platform',
             },
@@ -197,7 +197,7 @@ export function endLLMSpan(span: Span, result: LLMSpanResult): void {
           scopeSpans: [
             {
               scope: {
-                name: 'nyayavigya-llm-tracer',
+                name: 'jurexio-llm-tracer',
                 version: '1.0.0',
               },
               spans: [

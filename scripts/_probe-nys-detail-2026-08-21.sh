@@ -4,7 +4,7 @@ echo "=== NYS DETAIL $(date -u +%H:%M:%S) ==="
 curl -sS -m 10 -w "\nhealthz_http=%{http_code}\n" http://127.0.0.1:8080/healthz | head -3
 
 set -a && source /opt/nyv/api/.env && set +a
-KEY="${NYS_KNOWLEDGE_API_KEY:-${NYS_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
+KEY="${JRX_ECOSYSTEM_KNOWLEDGE_API_KEY:-${JRX_ECOSYSTEM_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
 
 echo "--- SC body FTS progress ---"
 node /opt/nyv/api/apply-sc-body-fts-ddl.mjs 2>/dev/null | tail -1

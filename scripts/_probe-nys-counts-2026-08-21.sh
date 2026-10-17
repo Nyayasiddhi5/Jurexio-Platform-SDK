@@ -48,7 +48,7 @@ const {AthenaClient,StartQueryExecutionCommand,GetQueryExecutionCommand,GetQuery
   const start=await client.send(new StartQueryExecutionCommand({
     QueryString:q,
     QueryExecutionContext:{Database:db},
-    ResultConfiguration:{OutputLocation:process.env.ATHENA_OUTPUT||'s3://nyv-athena-results/'}
+    ResultConfiguration:{OutputLocation:process.env.ATHENA_OUTPUT||'s3://jrx-athena-results/'}
   }));
   const id=start.QueryExecutionId;
   for(let i=0;i<30;i++){

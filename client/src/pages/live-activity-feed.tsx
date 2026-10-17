@@ -42,7 +42,7 @@ interface ActivityEvent {
 const MAX_EVENTS = 200;
 const POLL_FALLBACK_MS = 5000;
 
-// Mirror of EVENT_TYPE_RULES on the server (nv-activity-stream-routes.ts —
+// Mirror of EVENT_TYPE_RULES on the server (jrx-activity-stream-routes.ts —
 // `deriveEventType`). Kept in sync so client-side filtering of in-memory
 // stream events agrees with the server-side filter passed to /recent.
 const EVENT_TYPES: Array<[string, RegExp]> = [

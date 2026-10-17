@@ -1,5 +1,5 @@
 /**
- * Unit tests — NV-NYS-LLMREQUIRED-001 deterministic answer tier.
+ * Unit tests — NV-JRX-LLMREQUIRED-001 deterministic answer tier.
  *
  * The scope tests are the important half. NV-STATUTE-FAQ-SCOPE-001 shipped a
  * 732-char statute excerpt in place of a multi-issue litigation answer because a
@@ -40,8 +40,8 @@ const statutePlan = (overrides: Partial<NysDeterministicPlan> = {}): NysDetermin
 });
 
 beforeEach(() => {
-  delete process.env.NYV_NYS_DETERMINISTIC_ANSWER;
-  delete process.env.NYV_NYS_DETERMINISTIC_MAX_CHARS;
+  delete process.env.JRX_JRX_ECOSYSTEM_DETERMINISTIC_ANSWER;
+  delete process.env.JRX_JRX_ECOSYSTEM_DETERMINISTIC_MAX_CHARS;
 });
 
 describe('isDeterministicallySufficient — scope gate', () => {
@@ -179,8 +179,8 @@ describe('renderDeterministicAnswerFromPlan', () => {
     expect(renderDeterministicAnswerFromPlan(null)).toBeNull();
   });
 
-  it('honours the NYV_NYS_DETERMINISTIC_ANSWER=0 escape hatch', () => {
-    process.env.NYV_NYS_DETERMINISTIC_ANSWER = '0';
+  it('honours the JRX_JRX_ECOSYSTEM_DETERMINISTIC_ANSWER=0 escape hatch', () => {
+    process.env.JRX_JRX_ECOSYSTEM_DETERMINISTIC_ANSWER = '0';
     expect(renderDeterministicAnswerFromPlan(statutePlan())).toBeNull();
   });
 

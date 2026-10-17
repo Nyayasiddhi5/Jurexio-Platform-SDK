@@ -40,7 +40,7 @@ function dateStr(v) {
 async function buildPool() {
   const rds = new RDSClient({ region: REGION });
   const desc = await rds.send(
-    new DescribeDBInstancesCommand({ DBInstanceIdentifier: "nyv-caselaw-pg" }),
+    new DescribeDBInstancesCommand({ DBInstanceIdentifier: "jrx-caselaw-pg" }),
   );
   const inst = desc.DBInstances?.[0];
   const secretArn = inst?.MasterUserSecret?.SecretArn;

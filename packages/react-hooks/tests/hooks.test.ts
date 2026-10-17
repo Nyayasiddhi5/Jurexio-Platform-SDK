@@ -58,18 +58,18 @@ describe('useJurisdiction — jurisdiction info', () => {
   });
 });
 
-// ─── Test NyvClient config logic ──────────────────────────────────────────────
+// ─── Test JrxClient config logic ──────────────────────────────────────────────
 function buildHeaders(apiKey: string, jurisdiction?: string, orgId?: string) {
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${apiKey}`,
   };
-  if (jurisdiction) headers['X-NYV-Jurisdiction'] = jurisdiction;
+  if (jurisdiction) headers['X-JRX-Jurisdiction'] = jurisdiction;
   if (orgId) headers['X-Org-ID'] = orgId;
   return headers;
 }
 
-describe('useNyvClient — header construction', () => {
+describe('useJrxClient — header construction', () => {
   it('sets Authorization header', () => {
     const h = buildHeaders('key-abc');
     expect(h['Authorization']).toBe('Bearer key-abc');
@@ -79,10 +79,10 @@ describe('useNyvClient — header construction', () => {
   });
   it('includes jurisdiction when provided', () => {
     const h = buildHeaders('k', 'IN');
-    expect(h['X-NYV-Jurisdiction']).toBe('IN');
+    expect(h['X-JRX-Jurisdiction']).toBe('IN');
   });
   it('omits jurisdiction when not provided', () => {
-    expect(buildHeaders('k')['X-NYV-Jurisdiction']).toBeUndefined();
+    expect(buildHeaders('k')['X-JRX-Jurisdiction']).toBeUndefined();
   });
   it('includes X-Org-ID when provided', () => {
     const h = buildHeaders('k', 'IN', 'org-123');

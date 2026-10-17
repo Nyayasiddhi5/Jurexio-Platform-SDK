@@ -122,8 +122,8 @@ run_mutation "M7 enforce flag ignored" "$OBS" \
 
 # M8 — observe mode also gates the RECORDER. Observing a counter nothing writes.
 run_mutation "M8 recorder gated by observe mode" "$REC" \
-  "  if (!isNyvFeatureOn('creditRecord')) return 0;||>  if (!isNyvFeatureOn('creditRecord')) return 0;
-  if (String(process.env.NYV_CREDIT_CAP_MODE ?? '').trim().toLowerCase() !== 'enforce') return 0;"
+  "  if (!isJrxFeatureOn('creditRecord')) return 0;||>  if (!isJrxFeatureOn('creditRecord')) return 0;
+  if (String(process.env.JRX_CREDIT_CAP_MODE ?? '').trim().toLowerCase() !== 'enforce') return 0;"
 
 # M9 — the recorder drops cost-only spend again (the original defect, in money).
 run_mutation "M9 cost-only spend dropped" "$REC" \
@@ -174,7 +174,7 @@ run_mutation "M17 aux spend not counted as a call" "$CTX" \
 # M18 — observe mode is wired into the ENFORCER, silently downgrading the four
 # pre-existing enforced surfaces along with the new caps.
 run_mutation "M18 observe leaks into the enforcer" "$ENF" \
-  "// ── Main Enforcer Class ─||>// nv-credit-cap-observe leak: NYV_CREDIT_CAP_MODE
+  "// ── Main Enforcer Class ─||>// jrx-credit-cap-observe leak: JRX_CREDIT_CAP_MODE
 // ── Main Enforcer Class ─"
 
 echo

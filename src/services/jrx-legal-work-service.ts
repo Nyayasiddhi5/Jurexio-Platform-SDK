@@ -13,7 +13,7 @@
  */
 import { randomUUID } from 'node:crypto';
 import { createLogger } from '../utils/logger.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import {
   isNysKnowledgeConfigured,
   nysKnowledgeRequest,
@@ -228,7 +228,7 @@ export function listLegalWorkRuns(limit = 50): LegalWorkRun[] {
     .slice(0, limit);
 }
 
-async function generateViaNyvSafetyRing(
+async function generateViaJrxSafetyRing(
   instruction: string,
   context: string,
   jurisdiction: string,
@@ -321,11 +321,11 @@ async function processRun(runId: string): Promise<void> {
     let output: string;
     let nysRunId: string | number | undefined;
 
-    // Prefer NYV safety-ring generation (NV-LLM-001). Fallback to NYS /runs.
+    // Prefer JRX safety-ring generation (NV-LLM-001). Fallback to NYS /runs.
     try {
-      output = await generateViaNyvSafetyRing(run.instruction, contextBlock, run.jurisdiction);
+      output = await generateViaJrxSafetyRing(run.instruction, contextBlock, run.jurisdiction);
     } catch (e) {
-      logger.warn('NYV safety-ring draft failed; falling back to NYS /runs', {
+      logger.warn('JRX safety-ring draft failed; falling back to NYS /runs', {
         error: (e as Error).message,
       });
       if (!isNysKnowledgeConfigured()) throw e;
@@ -386,7 +386,7 @@ export async function createLegalWorkRun(input: {
   userId?: string;
   orgId?: string;
 }): Promise<LegalWorkRun> {
-  if (!isNyvFeatureOn('nysKnowledgePlane')) {
+  if (!isJrxFeatureOn('nysKnowledgePlane')) {
     throw new Error('NYS knowledge plane flag is off');
   }
   const runId = `lw_${randomUUID()}`;

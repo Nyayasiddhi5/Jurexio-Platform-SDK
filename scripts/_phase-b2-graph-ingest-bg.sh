@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Phase B-2 graph ingest — background on nysdev (43K lines; SSM poll limit)
+# Phase B-2 graph ingest — background on jrx-prod (43K lines; SSM poll limit)
 set -euo pipefail
 WORKER_IP="${WORKER_IP:-172.31.13.128}"
-CANON="/opt/Nyayavigya/secrets/.env.production"
+CANON="/opt/Jurexio/secrets/.env.production"
 DB="$(grep -E '^DATABASE_URL_ADMIN=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')"
 if [ -z "$DB" ]; then
   DB="$(grep -E '^DATABASE_URL=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')"
@@ -19,7 +19,7 @@ echo "downloaded bytes=$(wc -c < "$JSONL") lines=$(wc -l < "$JSONL")"
 cat > "$INGEST" << 'MJS'
 import pg from 'pg';
 import fs from 'fs';
-const client = new pg.Client({ connectionString: process.env.NYV_DATABASE_URL, ssl: { rejectUnauthorized: false } });
+const client = new pg.Client({ connectionString: process.env.JRX_DATABASE_URL, ssl: { rejectUnauthorized: false } });
 await client.connect();
 const lines = fs.readFileSync('/tmp/graph-edges-pending.jsonl', 'utf8').split('\n');
 let n = 0, edgeLines = 0;
@@ -49,9 +49,9 @@ console.log('GRAPH_INGEST_DONE', JSON.stringify({ lines: n, edgeLines, counts: c
 await client.end();
 MJS
 
-docker cp "$JSONL" nyv-gateway:/tmp/graph-edges-pending.jsonl
-docker cp "$INGEST" nyv-gateway:/app/graph-ingest-run.mjs
-nohup docker exec -e NYV_DATABASE_URL="$DB" -w /app nyv-gateway node /app/graph-ingest-run.mjs >"$LOG" 2>&1 &
+docker cp "$JSONL" jrx-gateway:/tmp/graph-edges-pending.jsonl
+docker cp "$INGEST" jrx-gateway:/app/graph-ingest-run.mjs
+nohup docker exec -e JRX_DATABASE_URL="$DB" -w /app jrx-gateway node /app/graph-ingest-run.mjs >"$LOG" 2>&1 &
 echo "INGEST_PID=$! log=$LOG"
 sleep 3
 tail -5 "$LOG" 2>/dev/null || true

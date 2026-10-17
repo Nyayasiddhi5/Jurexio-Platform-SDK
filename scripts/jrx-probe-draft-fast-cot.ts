@@ -2,7 +2,7 @@
  * NV-DRAFT-FAST-COT-001 — reproduce the reported NSP failure.
  *
  *   NSP: "Draft generation timed out. Please retry."
- *   NYV: rejects `legal-draft-fast` for missing `cot`
+ *   JRX: rejects `legal-draft-fast` for missing `cot`
  *
  * NV-EXECUTE-BEFORE-CLAIM-001: this probe must reproduce the contradiction from
  * the real exported functions before any fix is designed. Nothing here is
@@ -33,11 +33,11 @@ import {
   snapshotQualityEnvelope,
 } from '../src/orchestration/jrx-quality-envelope.js';
 
-/** Minimal NSP-shaped request: sdkContext present ⇒ NYV-dependent platform. */
+/** Minimal NSP-shaped request: sdkContext present ⇒ JRX-dependent platform. */
 function nspRequest(body: Record<string, unknown>): Request {
   return {
     body,
-    headers: { 'x-nyv-platform': 'NSP' },
+    headers: { 'x-jrx-platform': 'NSP' },
     sdkContext: { partnerCode: 'NSP', tenantId: 't-nsp' },
   } as unknown as Request;
 }
@@ -103,12 +103,12 @@ function envelopeVerdict(requireCoT: boolean, cotRan: boolean, partnerLean: bool
 function main(): void {
   // The live gateway runs with these defaults; make them explicit so the probe
   // is not silently measuring a different configuration than production.
-  process.env.NYV_NSP_COUNSEL_QUEEN = process.env.NYV_NSP_COUNSEL_QUEEN ?? '1';
+  process.env.JRX_NSP_COUNSEL_QUEEN = process.env.JRX_NSP_COUNSEL_QUEEN ?? '1';
 
   console.log('');
   console.log('NV-DRAFT-FAST-COT-001 — is the fast-draft SLA self-contradictory?');
   console.log('='.repeat(100));
-  console.log(`NYV_NSP_COUNSEL_QUEEN=${process.env.NYV_NSP_COUNSEL_QUEEN}`);
+  console.log(`JRX_NSP_COUNSEL_QUEEN=${process.env.JRX_NSP_COUNSEL_QUEEN}`);
   console.log('');
 
   console.log('taskType            bestOut counselQ counsel/draft slaFast enableCoT');

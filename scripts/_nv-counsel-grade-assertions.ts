@@ -11,15 +11,15 @@
  *
  * WHY IT EXISTS
  * -------------
- * Measured live on nysdev (2026-08-19): asked for "leading Supreme Court
+ * Measured live on jrx-prod (2026-08-19): asked for "leading Supreme Court
  * authorities on anticipatory bail for economic offences", `/api/jrx/orchestrate`
  * returned 6,925 characters of confident prose containing ZERO case citations
  * while reporting `trust: { citationsPresent: true, qualityOk: true }`. Three
  * independent faults produced it, and all three were found by hand. Nothing
  * measured it, so nothing could have caught it.
  *
- * `nv-eval-legal-accuracy.ts` already grades jurisdiction × legal-chat answers
- * for accuracy / citation-faithfulness / hallucination, and `nv-quality-trend.ts`
+ * `jrx-eval-legal-accuracy.ts` already grades jurisdiction × legal-chat answers
+ * for accuracy / citation-faithfulness / hallucination, and `jrx-quality-trend.ts`
  * already owns run-to-run regression. Neither one exercises the ORCHESTRATE task
  * families (research, chat, analysis, draft, analyzeDocument, statute transition,
  * treatment), and — critically — neither cross-checks the envelope's self-report
@@ -309,7 +309,7 @@ function isGenericParty(side: string): boolean {
  * authority. This split also keeps a draft's own cause title
  * ("[APPLICANT] versus STATE OF TELANGANA") out of the authority count.
  *
- * The `[[...]]` exclusion is not cosmetic. Measured on the live nysdev answer for
+ * The `[[...]]` exclusion is not cosmetic. Measured on the live jrx-prod answer for
  * the regression prompt: the platform correctly said "the specific Supreme Court
  * reporter citations ... are absent from the currently retrieved knowledge corpus"
  * and listed the case names as `[[P. Chidambaram v. Directorate of Enforcement]]`

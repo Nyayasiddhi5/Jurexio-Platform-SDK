@@ -2,9 +2,9 @@
  * @jurexio/client-sdk — Jurexio Enterprise Platform 312 Official TypeScript SDK
  *
  * QUICK START:
- *   import { NyvClient } from '@jurexio/client-sdk';
+ *   import { JrxClient } from '@jurexio/client-sdk';
  *
- *   const nyv = new NyvClient({
+ *   const nyv = new JrxClient({
  *     apiKey: 'nyv_live_sk_your_api_key',
  *     baseUrl: 'https://api.jurexio.example',
  *   });
@@ -34,9 +34,9 @@
  * VERSION: 5.0.0
  */
 
-export { NyvClient, NyvClient as JrxClient, NyvClient as JurexioClient } from './NyvClient.js';
-export type { NyvHttpClient, NyvHttpClient as JrxHttpClient } from './NyvClient.js';
-export { NyvStreamReader } from './NyvStreamReader.js';
+export { JrxClient, JrxClient as JrxClient, JrxClient as JurexioClient } from './JrxClient.js';
+export type { JrxHttpClient, JrxHttpClient as JrxHttpClient } from './JrxClient.js';
+export { JrxStreamReader } from './JrxStreamReader.js';
 
 export { PatternsApi } from './api/PatternsApi.js';
 export { DocumentsApi } from './api/DocumentsApi.js';
@@ -134,92 +134,92 @@ export {
   NV_AGENT_ID_ALIASES,
 } from './utils/sdkMethodSignatureGuard.js';
 
-/** NSP legacy import alias — same as NyvClient */
-export { NyvClient as NvSdkClient } from './NyvClient.js';
+/** NSP legacy import alias — same as JrxClient */
+export { JrxClient as NvSdkClient } from './JrxClient.js';
 
 export type {
-  NyvClientConfig,
-  NyvJurisdiction,
-  NyvPlatform,
-  NyvAgentPattern,
-  NyvRiskLevel,
-  NyvBasePatternRequest,
-  NyvPatternResponse,
-  NyvCitation,
-  NyvRiskAssessment,
+  JrxClientConfig,
+  JrxJurisdiction,
+  JrxPlatform,
+  JrxAgentPattern,
+  JrxRiskLevel,
+  JrxBasePatternRequest,
+  JrxPatternResponse,
+  JrxCitation,
+  JrxRiskAssessment,
   ReActRequest,
   ToTRequest,
   GRPORequest,
   DigitalTwinRequest,
-  NyvDocumentUploadResponse,
-  NyvDocumentStatus,
-  NyvDocumentSearchResult,
-  NyvDocumentChunk,
-  NyvDocumentAnalysis,
-  NyvAgent,
-  NyvAgentExecution,
-  NyvSkill,
-  NyvSkillExecution,
-  NyvDigitalTwin,
-  NyvTwinSimulationResult,
-  NyvKnowledgeSearchRequest,
-  NyvKnowledgeSearchResponse,
-  NyvVoiceSynthesisRequest,
-  NyvVoiceSynthesisResponse,
-  NyvVoiceTranscriptionResponse,
-  NyvStreamEventType,
-  NyvStreamEvent,
-  NyvStreamHandlers,
-  NyvPatternSpecializedEvent,
-  NyvApiError,
-  NyvListResponse,
-  NyvPaginationOptions,
-  NyvGraphTraversalInput,
-  NyvGraphNode,
-  NyvGraphEdge,
-  NyvGraphTraversalResult,
-  NyvCitationCheckResult,
-  NyvLegalDiffResult,
-  NyvTemplateListItem,
-  NyvTemplateGenerateResult,
-  NyvTemplateFillSession,
-  NyvLimitationResult,
-  NyvChecklistItem,
-  NyvForensicVerifyResult,
-  NyvAuditTrailEntry,
-  NyvEDiscoveryResult,
-  NyvGazetteProcessResult,
-  NyvAffectedMattersResult,
-  NyvConflictDetectResult,
-  NyvAmendmentImpactResult,
-  NyvStatuteHistoryResult,
-  NyvLitigationRiskResult,
-  NyvMatterMemory,
-  NyvClientMemory,
-  NyvSlmAvailability,
-  NyvCacheEntry,
-  NyvCacheStats,
-  NyvCreditWallet,
-  NyvCreditTransaction,
-  NyvEuComplianceReport,
-  NyvBiasAuditReport,
-  NyvWatermarkResult,
-  NyvSigningSession,
-  NyvOracleTestReport,
-  NyvAdversarialTestReport,
-  NyvLlmJudgeResult,
-  NyvAgentScorecard,
-  NyvLegalDomain,
-  NyvPrecedentSearchResult,
-  NyvRegulatoryDigest,
-  NyvComplianceCalendar,
-  NyvSecureSession,
-  NyvContractAnalysis,
-  NyvReadabilityScore,
-  NyvLegalNerResult,
+  JrxDocumentUploadResponse,
+  JrxDocumentStatus,
+  JrxDocumentSearchResult,
+  JrxDocumentChunk,
+  JrxDocumentAnalysis,
+  JrxAgent,
+  JrxAgentExecution,
+  JrxSkill,
+  JrxSkillExecution,
+  JrxDigitalTwin,
+  JrxTwinSimulationResult,
+  JrxKnowledgeSearchRequest,
+  JrxKnowledgeSearchResponse,
+  JrxVoiceSynthesisRequest,
+  JrxVoiceSynthesisResponse,
+  JrxVoiceTranscriptionResponse,
+  JrxStreamEventType,
+  JrxStreamEvent,
+  JrxStreamHandlers,
+  JrxPatternSpecializedEvent,
+  JrxApiError,
+  JrxListResponse,
+  JrxPaginationOptions,
+  JrxGraphTraversalInput,
+  JrxGraphNode,
+  JrxGraphEdge,
+  JrxGraphTraversalResult,
+  JrxCitationCheckResult,
+  JrxLegalDiffResult,
+  JrxTemplateListItem,
+  JrxTemplateGenerateResult,
+  JrxTemplateFillSession,
+  JrxLimitationResult,
+  JrxChecklistItem,
+  JrxForensicVerifyResult,
+  JrxAuditTrailEntry,
+  JrxEDiscoveryResult,
+  JrxGazetteProcessResult,
+  JrxAffectedMattersResult,
+  JrxConflictDetectResult,
+  JrxAmendmentImpactResult,
+  JrxStatuteHistoryResult,
+  JrxLitigationRiskResult,
+  JrxMatterMemory,
+  JrxClientMemory,
+  JrxSlmAvailability,
+  JrxCacheEntry,
+  JrxCacheStats,
+  JrxCreditWallet,
+  JrxCreditTransaction,
+  JrxEuComplianceReport,
+  JrxBiasAuditReport,
+  JrxWatermarkResult,
+  JrxSigningSession,
+  JrxOracleTestReport,
+  JrxAdversarialTestReport,
+  JrxLlmJudgeResult,
+  JrxAgentScorecard,
+  JrxLegalDomain,
+  JrxPrecedentSearchResult,
+  JrxRegulatoryDigest,
+  JrxComplianceCalendar,
+  JrxSecureSession,
+  JrxContractAnalysis,
+  JrxReadabilityScore,
+  JrxLegalNerResult,
 } from './types/index.js';
 
-export { NyvError } from './types/index.js';
+export { JrxError } from './types/index.js';
 
 export type {
   DocumentUploadOptions,
@@ -298,8 +298,8 @@ export type {
 } from './api/IntelligenceApi.js';
 
 export type {
-  NyvStreamOptions,
-} from './NyvStreamReader.js';
+  JrxStreamOptions,
+} from './JrxStreamReader.js';
 
 export type {
   LegalParseGuideV1,
@@ -307,5 +307,5 @@ export type {
   LegalParseGuideAutofillHint,
   DocparseIntelligenceV1,
   DocparseMetaPartner,
-} from './types/NyvLegalDocparse.js';
-export { nspAutofillAction } from './types/NyvLegalDocparse.js';
+} from './types/JrxLegalDocparse.js';
+export { nspAutofillAction } from './types/JrxLegalDocparse.js';

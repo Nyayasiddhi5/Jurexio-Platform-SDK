@@ -15,7 +15,7 @@ import {
 } from '../orchestration/capability-manifest.js';
 import { retrieveKnowledge, type KnowledgeChunk } from './rag-service.js';
 import { retrieveDocuments, type RagDocument } from './jrx-rag-live-service.js';
-import { isNyvFeatureOn } from '../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../config/jrx-feature-flags.js';
 import { correctiveRAGService } from './rag/corrective-rag-service.js';
 import type { DeterministicAnswer } from './jrx-nys-deterministic-answer.js';
 import {
@@ -154,7 +154,7 @@ export interface AutoRagResult {
   confidence: number;
   latencyMs: number;
   /**
-   * NV-NYS-LLMREQUIRED-001 — the NYS knowledge plane's own verdict plus, when it
+   * NV-JRX-LLMREQUIRED-001 — the NYS knowledge plane's own verdict plus, when it
    * and the local scope gate agree, a rendered zero-token answer.
    *
    * Auto-RAG previously read only `.chunks` from the NYS response and dropped
@@ -685,7 +685,7 @@ export function formatAutoRagContext(
     `--- Relevant Legal Knowledge (Auto-RAG: ${result.layersUsed.join('+')} | stack: ${stack}${budgetNote}) ---`;
 
   /* The numbered roll-up, in the format already proven on the SDK research path
-   * (`nv-sdk-gateway-routes.ts:1147`). The numbers match the `[n|layer|source]`
+   * (`jrx-sdk-gateway-routes.ts:1147`). The numbers match the `[n|layer|source]`
    * excerpt tags below it, so "authority 2" is unambiguous in both directions.
    *
    * Without this the only place a case name appeared was inside a debug-shaped
@@ -791,11 +791,11 @@ export async function autoRagRetrieve(req: AutoRagRequest): Promise<AutoRagResul
   // `NYS knowledge recovered after retry` arriving 1.2 s AFTER the answer was
   // composed — on a request whose total latency was 65 s. So we were discarding
   // the caselaw layer to protect 5.5 s out of 65 s, i.e. ~4% of a request, and
-  // the retrieval work completed anyway: the deadline stops us WAITING, it does
+  // the retrieval work completed anyway: the deadline stops us JRXTING, it does
   // not stop the hop.
   //
   // 8,000 ms covers the observed recovery path. With the raise, the per-hop cap
-  // becomes `min(8000, NYS_KNOWLEDGE_SYNC_TIMEOUT_MS=3000)` = 3,000 ms, so a
+  // becomes `min(8000, JRX_ECOSYSTEM_KNOWLEDGE_SYNC_TIMEOUT_MS=3000)` = 3,000 ms, so a
   // first attempt that hangs aborts at 3.0 s, backs off 250 ms, and the retry
   // lands in ~450 ms — ~3.7 s total, which is exactly the "recovered 1.2 s too
   // late" case under the old 2.5 s budget, and comfortably inside 8 s now. It is
@@ -803,14 +803,14 @@ export async function autoRagRetrieve(req: AutoRagRequest): Promise<AutoRagResul
   // binding constraint on the outer race. The env override is retained and the
   // 15 s hard ceiling is unchanged.
   const extrasDeadlineMs = (() => {
-    const n = Number(process.env.NYV_AUTO_RAG_EXTRAS_DEADLINE_MS);
+    const n = Number(process.env.JRX_AUTO_RAG_EXTRAS_DEADLINE_MS);
     return Number.isFinite(n) && n >= 500 ? Math.min(15_000, Math.floor(n)) : 8_000;
   })();
 
   type ExtraHit = { layer: string; method?: string; chunks: AutoRagChunk[] };
   const extraJobs: Array<Promise<ExtraHit | null>> = [];
 
-  // NV-NYS-LLMREQUIRED-001 — NYS's own "an LLM is unnecessary" verdict, plus the
+  // NV-JRX-LLMREQUIRED-001 — NYS's own "an LLM is unnecessary" verdict, plus the
   // rendered zero-token answer when the local scope gate agrees. Runs in the
   // same parallel race as the retrieval extras, so it adds no serial latency.
   //
@@ -833,7 +833,7 @@ export async function autoRagRetrieve(req: AutoRagRequest): Promise<AutoRagResul
   let tierRequest: AuthorityTierRequest | undefined;
   let authorityGap: AuthorityGap | null = null;
   const deterministicJob: Promise<void> = (async () => {
-    if (!isNyvFeatureOn('nysKnowledgePlane')) return;
+    if (!isJrxFeatureOn('nysKnowledgePlane')) return;
     try {
       const { couldBeDeterministic, tryNysDeterministicAnswer } = await import(
         './jrx-nys-deterministic-answer.js'
@@ -854,7 +854,7 @@ export async function autoRagRetrieve(req: AutoRagRequest): Promise<AutoRagResul
     }
   })();
 
-  if (isNyvFeatureOn('nysKnowledgePlane')) {
+  if (isJrxFeatureOn('nysKnowledgePlane')) {
     extraJobs.push((async (): Promise<ExtraHit | null> => {
       try {
         const { retrieveNysGlobalKnowledge } = await import('./jrx-nys-knowledge-retriever.js');
@@ -863,7 +863,7 @@ export async function autoRagRetrieve(req: AutoRagRequest): Promise<AutoRagResul
           jurisdiction,
           topK,
           // Prefer short sync timeout when retriever honors it
-          timeoutMs: Math.min(extrasDeadlineMs, Number(process.env.NYS_KNOWLEDGE_SYNC_TIMEOUT_MS || 3000)),
+          timeoutMs: Math.min(extrasDeadlineMs, Number(process.env.JRX_ECOSYSTEM_KNOWLEDGE_SYNC_TIMEOUT_MS || 3000)),
         });
         if (nys.llmRequired === false) {
           // Carried even when the local scope gate later declines: the verdict
@@ -995,11 +995,11 @@ export async function autoRagRetrieve(req: AutoRagRequest): Promise<AutoRagResul
   // run ONE extra unified-base retrieval, re-fuse (RRF) and recompute
   // confidence — keeping the new result only if it does not lower confidence.
   // Fully fail-safe: any error preserves the original result.
-  const RR_MIN_CONF = Number(process.env.NYV_RAG_RERETRIEVE_MIN_CONFIDENCE || '0.55');
-  // NV-NYS-LLMREQUIRED-001 — re-retrieval's query reformulation is itself an LLM
+  const RR_MIN_CONF = Number(process.env.JRX_RAG_RERETRIEVE_MIN_CONFIDENCE || '0.55');
+  // NV-JRX-LLMREQUIRED-001 — re-retrieval's query reformulation is itself an LLM
   // call (`llmReformulateQuery`). Paying for it to improve grounding we are
   // about to bypass entirely would defeat the deterministic tier.
-  if (isNyvFeatureOn('agenticReretrieval') && confidence < RR_MIN_CONF && !deterministic?.answer) {
+  if (isJrxFeatureOn('agenticReretrieval') && confidence < RR_MIN_CONF && !deterministic?.answer) {
     try {
       const weakSnippets = merged.slice(0, 3).map((c) => c.content);
       let reformulated = await correctiveRAGService.llmReformulateQuery(req.query, weakSnippets);
@@ -1021,7 +1021,7 @@ export async function autoRagRetrieve(req: AutoRagRequest): Promise<AutoRagResul
           rrExtra.push(rrChunks.map((c) => ({ key: chunkKey(c), chunk: c })));
         }
         // Also re-query NYS global plane with the reformulated query
-        if (isNyvFeatureOn('nysKnowledgePlane')) {
+        if (isJrxFeatureOn('nysKnowledgePlane')) {
           try {
             const { retrieveNysGlobalKnowledge } = await import('./jrx-nys-knowledge-retriever.js');
             const nysRr = await retrieveNysGlobalKnowledge({
@@ -1068,11 +1068,11 @@ export async function autoRagRetrieve(req: AutoRagRequest): Promise<AutoRagResul
   // (CROSS_ENCODER_URL → Cohere → Voyage) is configured; the reranker degrades
   // to a logged keyword-overlap heuristic when none is. Flag-gated and fully
   // fail-safe — any error keeps the existing RRF order untouched.
-  if (isNyvFeatureOn('ragNeuralRerank') && merged.length > 1) {
+  if (isJrxFeatureOn('ragNeuralRerank') && merged.length > 1) {
     try {
       const { nvLegalRerankerService } = await import('./rag/jrx-legal-reranker-service.js');
       // Honesty: skip hop when only keyword heuristic would run (unless explicitly allowed).
-      const allowHeuristic = process.env.NYV_RAG_RERANK_ALLOW_HEURISTIC === '1';
+      const allowHeuristic = process.env.JRX_RAG_RERANK_ALLOW_HEURISTIC === '1';
       if (!nvLegalRerankerService.hasNeuralProvider() && !allowHeuristic) {
         logger.info('auto-rag rerank skipped — no neural provider configured');
       } else {
@@ -1108,7 +1108,7 @@ export async function autoRagRetrieve(req: AutoRagRequest): Promise<AutoRagResul
         const byId = new Map(merged.map((c) => [c.id, c]));
         let ordered = ranked;
         try {
-          const lambdaRaw = Number(process.env.NYV_RAG_MMR_LAMBDA);
+          const lambdaRaw = Number(process.env.JRX_RAG_MMR_LAMBDA);
           const lambda = Number.isFinite(lambdaRaw) && lambdaRaw > 0 && lambdaRaw <= 1
             ? lambdaRaw
             : undefined;

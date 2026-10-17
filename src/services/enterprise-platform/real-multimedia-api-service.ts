@@ -3,7 +3,7 @@
  *
  * NV-REAL-DATA-001 (Session-29, 2026-06-29): previously returned synthetic
  * image URLs and canned transcription text. Audio transcription is now wired
- * to the REAL `nv-stt-service` (Deepgram / Sarvam / Whisper). Image generation
+ * to the REAL `jrx-stt-service` (Deepgram / Sarvam / Whisper). Image generation
  * has no real provider on this legal platform, so it FAILS LOUD instead of
  * returning a fabricated URL. No method ever returns synthetic data.
  */

@@ -11,12 +11,12 @@
  *                    and `stringify` is `JSON.stringify(v).slice(0, 240)`
  *                    (`:672-675`). The items come from
  *                    `NvMemoryService.retrieve()` — a `SELECT *` over
- *                    `nv_schema.memory_entries` (`nv-orchestration-services.ts:1124`)
+ *                    `nv_schema.memory_entries` (`jrx-orchestration-services.ts:1124`)
  *                    — so they carry the row's `id` (uuid), `created_at` and an
  *                    FTS `_relevance` float. `postMiddleware` step 8
  *                    (`orchestration-middleware.ts:385`) writes a NEW row every
  *                    turn, so the recalled set differs on every request.
- *   • Specialist   — `nv-client.ts:769` builds
+ *   • Specialist   — `jrx-client.ts:769` builds
  *                    `${contextParts}\n\n[User Query]\n${prompt}` and reads the
  *                    cache with it at `:822`; then
  *                    `promptEnhancementPipeline.enhance()` REPLACES the same
@@ -82,7 +82,7 @@ function buildQueenEnrichedPrompt(prompt: string, turn: number): string {
   return `${prompt}${memoryBlock}${ragBlock}`;
 }
 
-/** Mirrors `nv-client.ts:768-769` — the value the cache is READ with at `:822`. */
+/** Mirrors `jrx-client.ts:768-769` — the value the cache is READ with at `:822`. */
 function buildSpecialistReadPrompt(prompt: string, turn: number): string {
   const contextParts = [
     '--- Relevant Legal Knowledge (Auto-RAG: unified-base+nys_global | stack: hybrid) ---\n' +
@@ -93,8 +93,8 @@ function buildSpecialistReadPrompt(prompt: string, turn: number): string {
 }
 
 /**
- * Mirrors `nv-prompt-enhancement-pipeline.ts:260` + `:294` applied to the read
- * prompt — the value the cache is WRITTEN with at `nv-client.ts:1508`.
+ * Mirrors `jrx-prompt-enhancement-pipeline.ts:260` + `:294` applied to the read
+ * prompt — the value the cache is WRITTEN with at `jrx-client.ts:1508`.
  */
 function buildSpecialistWritePrompt(readPrompt: string): string {
   const contextBlock = [
@@ -114,7 +114,7 @@ describe('LM cache key poisoning — the defect', () => {
     const t2 = buildQueenEnrichedPrompt(USER_QUESTION, 2);
 
     // Same question, different assembled prompt — this is what reached
-    // `lmCacheService.get(prompt, ns)` at nv-queen-orchestrator.ts:4473.
+    // `lmCacheService.get(prompt, ns)` at jrx-queen-orchestrator.ts:4473.
     expect(t1).not.toBe(t2);
     expect(t1).toContain('[MEMORY]');
     expect(t1).toMatch(/"id":"6f1c1b2a-/);
@@ -130,7 +130,7 @@ describe('LM cache key poisoning — the defect', () => {
     const read = buildSpecialistReadPrompt(USER_QUESTION, 1);
     const write = buildSpecialistWritePrompt(read);
 
-    // nv-client.ts:822 reads with `read`; :1508 writes with `write`. Even with
+    // jrx-client.ts:822 reads with `read`; :1508 writes with `write`. Even with
     // zero nondeterminism anywhere, a hit was impossible.
     expect(read).not.toBe(write);
     expect(write.startsWith('Context:\n')).toBe(true);

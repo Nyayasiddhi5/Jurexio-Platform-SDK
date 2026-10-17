@@ -1,4 +1,4 @@
-// NYV-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing TS errors (gateway runs via tsx).
 /**
  * SOC 2 Type II Evidence Collection Service
  * Auto-collects audit evidence for SOC 2 Type II certification.
@@ -96,7 +96,7 @@ class Soc2EvidenceService {
               'HMAC-SHA256 SDK request signing enforced',
             ],
             lastTested: now.toISOString().split('T')[0],
-            tester: 'Automated — nv-rate-limit + nv-sdk-tracking-middleware',
+            tester: 'Automated — jrx-rate-limit + jrx-sdk-tracking-middleware',
           },
           {
             controlId: 'CC6.2',
@@ -133,7 +133,7 @@ class Soc2EvidenceService {
               `Audit log entries in reporting period: ${auditLogCount}`,
             ],
             lastTested: now.toISOString().split('T')[0],
-            tester: 'Automated — nyayavigya-security-monitoring-system.ts',
+            tester: 'Automated — jurexio-security-monitoring-system.ts',
           },
           {
             controlId: 'CC7.2',

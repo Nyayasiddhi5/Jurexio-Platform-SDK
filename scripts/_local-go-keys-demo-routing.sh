@@ -3,9 +3,9 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
-SECRETS="${NYV_DEMO_KEYS_FILE:-$ROOT/../.local/secrets/demo-keys-20260821.env}"
+SECRETS="${JRX_DEMO_KEYS_FILE:-$ROOT/../.local/secrets/demo-keys-20260821.env}"
 EC2_SCRIPT="$ROOT/scripts/_ec2-go-keys-demo-routing.sh"
-TMP="$(mktemp /tmp/nyv-ec2-go-XXXXXX.sh)"
+TMP="$(mktemp /tmp/jrx-ec2-go-XXXXXX.sh)"
 trap 'rm -f "$TMP"' EXIT
 
 if [[ ! -f "$SECRETS" ]]; then

@@ -20,7 +20,7 @@ import type {
   AgentDefinitionV9,
   SDKConfiguration,
   MCPServerConfig 
-} from './nyayavigya-orchestration-core-v9.js';
+} from './jurexio-orchestration-core-v9.js';
 import { createLogger } from '../utils/logger.js';
 
 const logger = createLogger('sdk-auto-initialization');
@@ -349,7 +349,7 @@ export class SDKAutoInitializationEngine extends EventEmitter {
     request: SDKInitializationRequest,
     tenant: TenantConfiguration
   ): Promise<SDKPackage> {
-    const packageId = `nyayavigya-sdk-${request.platformType.toLowerCase()}-${uuidv4().substring(0, 8)}`;
+    const packageId = `jurexio-sdk-${request.platformType.toLowerCase()}-${uuidv4().substring(0, 8)}`;
     
     const sdkPackage: SDKPackage = {
       packageId,
@@ -710,7 +710,7 @@ echo "🚀 Installing Jurexio Enterprise Platform SDK v5.0.0 for ${request.platf
 npm install @jurexio/orchestration-sdk@9.0.0
 
 # Initialize configuration
-cat > nyayavigya-config.json << 'EOF'
+cat > jurexio-config.json << 'EOF'
 ${JSON.stringify(config, null, 2)}
 EOF
 
@@ -748,7 +748,7 @@ import { createLogger } from '../utils/logger.js';
 const logger = createLogger('sdk-auto-initialization');
 
 const orchestrationCore = new JurexioOrchestrationCoreV9();
-await nyayavigya.initialize();
+await jurexio.comitialize();
 
 // SDK is ready to use with ${config.agentDefinitions?.length} agents and ${config.llmProviders?.length} LLM providers
 `,
@@ -767,7 +767,7 @@ CMD ["npm", "start"]`,
       kubernetes: `apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nyayavigya-sdk-${request.platformType.toLowerCase()}`,
+  name: jurexio-sdk-${request.platformType.toLowerCase()}`,
       serverless: `# Serverless deployment configuration`,
       cloudFormation: `# AWS CloudFormation template`,
       terraform: `# Terraform infrastructure configuration`
@@ -810,7 +810,7 @@ metadata:
   }
 
   /**
-   * NYV-ORCH-SDK-001 (Task #32) — Per-tier capability surface for the SDK.
+   * JRX-ORCH-SDK-001 (Task #32) — Per-tier capability surface for the SDK.
    *
    * Returns the ordered list of orchestration capabilities the consuming
    * tenant may invoke from their tier. The same SSoT manifest used by Queen

@@ -11,14 +11,14 @@
  * the harder case, that it still cannot see it when the SQL's own WHERE is
  * removed, i.e. the database is the backstop and not the application.
  *
- * Auto-skips without NYV_TEST_PG_URL. It does not read DATABASE_URL: pointing
+ * Auto-skips without JRX_TEST_PG_URL. It does not read DATABASE_URL: pointing
  * a test that creates tables and forces RLS at whatever a developer has in
  * DATABASE_URL is how a "test" ends up mutating a shared database.
  */
 import { describe, it, expect } from 'vitest';
 import { loadOrgFirmClauses } from '../../../src/services/jrx-firm-clause-library.js';
 
-const PG_URL = process.env.NYV_TEST_PG_URL;
+const PG_URL = process.env.JRX_TEST_PG_URL;
 const liveDescribe = PG_URL ? describe : describe.skip;
 
 const ORG_A = '4001';
@@ -40,7 +40,7 @@ liveDescribe('Live RLS — a firm clause cannot cross tenants into another firm\
         const bypasses = !!(su.rows[0]?.rolsuper || su.rows[0]?.rolbypassrls);
         expect(
           bypasses,
-          'connected as a SUPERUSER/BYPASSRLS role — RLS would be skipped and this test would be vacuous. Point NYV_TEST_PG_URL at an unprivileged role.',
+          'connected as a SUPERUSER/BYPASSRLS role — RLS would be skipped and this test would be vacuous. Point JRX_TEST_PG_URL at an unprivileged role.',
         ).toBe(false);
 
         /* Runs in a dedicated schema owned by the test role, with `search_path`

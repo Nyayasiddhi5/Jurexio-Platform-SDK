@@ -1,7 +1,7 @@
 /**
- * nv-validate-governors-v5.ts — Session-16 (2026-06-02) light dry-test for the
+ * jrx-validate-governors-v5.ts — Session-16 (2026-06-02) light dry-test for the
  * concurrency governor + cost-optimization suite enabled by the differentiated-
- * capability default-on pass (NYV_F_GOV_CONCURRENCY / NYV_F_GOV_COST_OPT).
+ * capability default-on pass (JRX_F_GOV_CONCURRENCY / JRX_F_GOV_COST_OPT).
  *
  * Pure in-memory validation — NO DB, NO Redis, NO LLM, NO network. Safe to run
  * anywhere. Exits non-zero on the first failed assertion so it can gate CI.
@@ -97,7 +97,7 @@ async function validateCostOptimizer(): Promise<void> {
 }
 
 async function main(): Promise<void> {
-  console.log('Nyayavigya governor validation (dry, in-memory) — Session-16');
+  console.log('Jurexio governor validation (dry, in-memory) — Session-16');
   await validateConcurrencyGovernor();
   await validateCostOptimizer();
 

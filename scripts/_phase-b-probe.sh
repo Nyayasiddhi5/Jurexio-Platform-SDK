@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Phase B live probe — runs ON nysdev. Never echo secret values.
+# Phase B live probe — runs ON jrx-prod. Never echo secret values.
 set -uo pipefail
-CANON="/opt/Nyayavigya/secrets/.env.production"
-NSPK="$(grep -E '^NYV_SDK_KEY_NSP=' "$CANON" | head -1 | cut -d= -f2- | tr -d '\r\n"')"
-API="https://api.nyayasiddhi.online"
+CANON="/opt/Jurexio/secrets/.env.production"
+NSPK="$(grep -E '^JRX_SDK_KEY_NSP=' "$CANON" | head -1 | cut -d= -f2- | tr -d '\r\n"')"
+API="https://api.jurexio.com"
 
 echo "=== HEALTH ==="
 curl -sS -m 15 -o /tmp/h.json -w "http=%{http_code}\n" "$API/api/jrx/health"
@@ -54,7 +54,7 @@ print('  all200=', all(c is True for c in codes))
 
 echo "=== CASELAW bail ==="
 curl -sS -m 60 -o /tmp/cl.json -w "http=%{http_code}\n" \
-  -H "X-API-Key: $NSPK" -H "X-NYV-Platform: nsp" \
+  -H "X-API-Key: $NSPK" -H "X-JRX-Platform: nsp" \
   "$API/api/jrx/knowledge/caselaw/search?q=bail&limit=3&mode=fts"
 python3 -c "
 import json
@@ -65,7 +65,7 @@ print('  success=', d.get('success'), 'degraded=', data.get('degraded'), 'result
 
 echo "=== DRAFT-FAST SMOKE ==="
 curl -sS -m 90 -o /tmp/df.json -w "http=%{http_code} time=%{time_total}s\n" \
-  -X POST -H "X-API-Key: $NSPK" -H "X-NYV-Platform: nsp" -H "Content-Type: application/json" \
+  -X POST -H "X-API-Key: $NSPK" -H "X-JRX-Platform: nsp" -H "Content-Type: application/json" \
   -d '{"prompt":"Draft one sentence bail application under BNSS.","taskType":"legal-draft-fast","jurisdiction":"IN","maxTokens":256}' \
   "$API/api/jrx/orchestrate"
 python3 -c "

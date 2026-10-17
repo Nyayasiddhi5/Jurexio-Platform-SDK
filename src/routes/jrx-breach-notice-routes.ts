@@ -4,7 +4,7 @@
  * Closes the loop on US state breach-notification: file an incident,
  * draft per-state notices (NY SHIELD §899-aa, MA c.93H §3, IL BIPA),
  * route to the Compliance owner queue, dispatch outbound, persist
- * the audit trail. Backed by `nv-breach-notice-service`.
+ * the audit trail. Backed by `jrx-breach-notice-service`.
  *
  * Routes (all dualSdkOrJwt-gated, NV-AUTH-HEADER-001 compliant):
  *   POST /api/jrx/compliance/breach            — file an incident

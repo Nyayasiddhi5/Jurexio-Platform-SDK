@@ -5,18 +5,18 @@
 import type { Request, Response, NextFunction } from 'express';
 import {
   JRX_PUBLIC_API_PREFIX,
-  NYV_INTERNAL_API_PREFIX,
+  JRX_INTERNAL_API_PREFIX,
 } from '../config/jrx-api-prefix.js';
 
 function rewriteJrxPath(path: string): string {
   if (!path.startsWith(JRX_PUBLIC_API_PREFIX)) return path;
   const suffix = path.slice(JRX_PUBLIC_API_PREFIX.length);
-  return `${NYV_INTERNAL_API_PREFIX}${suffix}`;
+  return `${JRX_INTERNAL_API_PREFIX}${suffix}`;
 }
 
-/** When `NYV_DISABLE_JRX_ALIAS=1`, alias is off (NYV-only debugging). Default: on. */
+/** When `JRX_DISABLE_JRX_ALIAS=1`, alias is off (JRX-only debugging). Default: on. */
 export function isJrxApiAliasEnabled(): boolean {
-  return (process.env.NYV_DISABLE_JRX_ALIAS ?? '').trim() !== '1';
+  return (process.env.JRX_DISABLE_JRX_ALIAS ?? '').trim() !== '1';
 }
 
 export function nvJrxApiPrefixAlias(): (

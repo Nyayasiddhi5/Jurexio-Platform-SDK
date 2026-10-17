@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -uo pipefail
-echo "systemctl nyv-api:" $(systemctl is-active nyv-api)
+echo "systemctl jrx-api:" $(systemctl is-active jrx-api)
 echo "uptime:" $(uptime | awk -F'load average:' '{print $2}')
 set -a && source /opt/nyv/api/.env && set +a
-KEY="${NYS_KNOWLEDGE_API_KEY:-${NYS_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
+KEY="${JRX_ECOSYSTEM_KNOWLEDGE_API_KEY:-${JRX_ECOSYSTEM_SDK_API_KEYS:-}}"; KEY="${KEY%%,*}"
 for mode in fts hybrid; do
   code=$(curl -sS -m 30 -o /tmp/s.json -w '%{http_code}' -H "x-api-key: $KEY" \
     "http://127.0.0.1:8080/api/caselaw/search?q=anticipatory+bail&limit=1&jurisdiction=IN&courtType=sc&mode=$mode")

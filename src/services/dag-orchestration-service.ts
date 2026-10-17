@@ -48,7 +48,7 @@ export const capabilityManifestExecutor: DAGNodeExecutor = async (node, ctx) => 
       tokensUsed: { input: node.contextBudget.inputTokens, output: node.contextBudget.outputTokens },
     };
   }
-  // NYV-DAG-FAIL-LOUD-001 (Task #32): unknown capability id is a structured
+  // JRX-DAG-FAIL-LOUD-001 (Task #32): unknown capability id is a structured
   // failure. In production, fail loud (throw) so the branch fan-in records
   // a real error rather than silently masking it with a synthetic success.
   // In non-prod, surface a structured error object (no `fallback: true`) so

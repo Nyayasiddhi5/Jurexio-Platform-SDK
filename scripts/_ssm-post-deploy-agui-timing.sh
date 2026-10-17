@@ -2,7 +2,7 @@
 set -euo pipefail
 # Post-deploy AG-UI stream timing probe (runs on EC2 with gateway env).
 source /opt/nyayavigya/repo/CURRENT_DEPLOY/.env 2>/dev/null || source /opt/nyayavigya/.env 2>/dev/null || true
-KEY="${NYV_SDK_KEY_NSP:-}"
+KEY="${JRX_SDK_KEY_NSP:-}"
 API="http://127.0.0.1:5000"
 PROMPT="What is Section 103 of the Bharatiya Nyaya Sanhita about?"
 TMP=$(mktemp)

@@ -3,7 +3,7 @@
 set -uo pipefail
 
 echo "=== EMBED UNITS ==="
-for u in nyv-caselaw-embed-loop@0 nyv-caselaw-embed-loop@1 nyv-caselaw-embed-loop@2 nyv-caselaw-embed-dc nyv-embed-statutes-loop; do
+for u in jrx-caselaw-embed-loop@0 jrx-caselaw-embed-loop@1 jrx-caselaw-embed-loop@2 jrx-caselaw-embed-dc jrx-embed-statutes-loop; do
   st=$(systemctl is-active "$u" 2>/dev/null || echo "inactive")
   en=$(systemctl is-enabled "$u" 2>/dev/null || echo "disabled")
   echo "  $u active=$st enabled=$en"
@@ -34,6 +34,6 @@ else
 fi
 
 echo "=== HEALTH ==="
-curl -sS -m 15 -o /dev/null -w "nyayasearch healthz http=%{http_code}\n" https://nyayasearch.nyayasiddhi.online/healthz
+curl -sS -m 15 -o /dev/null -w "nyayasearch healthz http=%{http_code}\n" https://nyayasearch.jurexio.com/healthz
 
 echo "=== PHASE B WORKER STATUS COMPLETE ==="

@@ -1,5 +1,5 @@
 /**
- * NYV AgentZero Streaming Adapter + Circuit Breaker v1.0.0
+ * JRX AgentZero Streaming Adapter + Circuit Breaker v1.0.0
  * ─────────────────────────────────────────────────────────────────────────────
  * AgentZero is the always-on L5 fallback in the 5-level LLM provider cascade.
  * This adapter adds:
@@ -26,7 +26,7 @@
  *   Chunk format: `data: {"delta":"...","done":false}\n\n`
  *   Final chunk:  `data: {"delta":"","done":true,"usage":{...}}\n\n`
  *
- * @module nv-agentzero-adapter
+ * @module jrx-agentzero-adapter
  * @version 1.0.0
  */
 
@@ -263,12 +263,12 @@ class CircuitBreaker {
 // AGENTZERO ADAPTER
 // ─────────────────────────────────────────────────────────────────────────────
 
-export class NyvAgentZeroAdapter extends EventEmitter {
-  private static instance: NyvAgentZeroAdapter;
+export class JrxAgentZeroAdapter extends EventEmitter {
+  private static instance: JrxAgentZeroAdapter;
   private circuitBreaker = new CircuitBreaker();
 
-  static getInstance(): NyvAgentZeroAdapter {
-    if (!this.instance) this.instance = new NyvAgentZeroAdapter();
+  static getInstance(): JrxAgentZeroAdapter {
+    if (!this.instance) this.instance = new JrxAgentZeroAdapter();
     return this.instance;
   }
 
@@ -352,8 +352,8 @@ export class NyvAgentZeroAdapter extends EventEmitter {
       res.setHeader('Cache-Control', 'no-cache, no-transform');
       res.setHeader('Connection', 'keep-alive');
       res.setHeader('X-Accel-Buffering', 'no');
-      res.setHeader('X-NYV-Provider', provider.id);
-      res.setHeader('X-NYV-Fallback-Level', String(level + 1));
+      res.setHeader('X-JRX-Provider', provider.id);
+      res.setHeader('X-JRX-Fallback-Level', String(level + 1));
     }
 
     const body = this.buildRequestBody(req, provider, true);
@@ -612,7 +612,7 @@ export class NyvAgentZeroAdapter extends EventEmitter {
     };
 
     if (provider.id === 'openrouter') {
-      headers['HTTP-Referer'] = 'https://nyayavigya.in';
+      headers['HTTP-Referer'] = 'https://jurexio.com';
       headers['X-Title'] = 'Jurexio Legal AI';
     }
     if (provider.id === 'anthropic') {
@@ -668,5 +668,5 @@ export class NyvAgentZeroAdapter extends EventEmitter {
   }
 }
 
-export const nyvAgentZero = NyvAgentZeroAdapter.getInstance();
+export const nyvAgentZero = JrxAgentZeroAdapter.getInstance();
 export default nyvAgentZero;

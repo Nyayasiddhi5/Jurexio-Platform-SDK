@@ -7,8 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { NyvEmptyState } from "@/components/NyvEmptyState";
-import { NyvErrorState } from "@/components/NyvErrorState";
+import { JrxEmptyState } from "@/components/JrxEmptyState";
+import { JrxErrorState } from "@/components/JrxErrorState";
 import { Network } from "lucide-react";
 
 import { nv } from '@/lib/jrx-api-paths';
@@ -40,7 +40,7 @@ export default function FederatedTenantsPage() {
         </CardContent></Card>
       )}
       {q.isError && (
-        <NyvErrorState
+        <JrxErrorState
           title="Could not load tenants"
           error={q.error}
           onRetry={() => q.refetch()}
@@ -64,7 +64,7 @@ export default function FederatedTenantsPage() {
             <tbody>
               {q.isLoading ? Array.from({ length: 4 }).map((_, i) => (
                   <tr key={`sk-${i}`}><td colSpan={6} className="p-2"><Skeleton className="h-6 w-full" /></td></tr>
-                )) : tenants.length === 0 ? <tr><td colSpan={6} className="p-0"><NyvEmptyState icon={Network} title="No tenants yet" description="Federated tenants will appear here once organizations are onboarded." size="sm" /></td></tr>
+                )) : tenants.length === 0 ? <tr><td colSpan={6} className="p-0"><JrxEmptyState icon={Network} title="No tenants yet" description="Federated tenants will appear here once organizations are onboarded." size="sm" /></td></tr>
                 : tenants.map(t => <tr key={t.id} className="border-b hover:bg-muted/30">
                     <td className="p-2 font-mono text-xs">{t.id}</td>
                     <td className="p-2">{t.name || "—"}</td>

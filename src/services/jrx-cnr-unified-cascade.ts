@@ -1,6 +1,6 @@
 /**
  * NV-CNR-UNIFIED-CASCADE-001 — single entry resolve for CNR and diary identifiers.
- * Tier order (NSP default): nysapi case-api (Tier 1) → legacy NYV/NYS corpus (RDS/Athena/S3, Tier 2)
+ * Tier order (NSP default): nysapi case-api (Tier 1) → legacy JRX/NYS corpus (RDS/Athena/S3, Tier 2)
  * → eCourts NIC live (Tier 3, JRX_F_ECOURTS_LIVE_FETCH, GO-gated) → portal async (Tier 4b, off by default).
  * Honesty lock: claimEcourts stays false until live eCourts fetch succeeds (not implemented).
  */

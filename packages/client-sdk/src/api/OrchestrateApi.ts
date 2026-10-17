@@ -5,15 +5,15 @@
  * Streaming: POST /api/jrx/orchestrate/stream (AG-UI SSE from live Queen lifecycle).
  */
 
-import type { NyvJurisdiction, NyvStreamHandlers, NyvPatternResponse } from '../types/index.js';
-import { NyvStreamReader, type NyvStreamOptions } from '../NyvStreamReader.js';
+import type { JrxJurisdiction, JrxStreamHandlers, JrxPatternResponse } from '../types/index.js';
+import { JrxStreamReader, type JrxStreamOptions } from '../JrxStreamReader.js';
 
 export interface OrchestrateRequest {
   prompt: string;
   agentKey?: string;
   systemPrompt?: string;
   tier?: string;
-  jurisdiction?: NyvJurisdiction;
+  jurisdiction?: JrxJurisdiction;
   taskType?: string;
   language?: string;
   sessionId?: string;
@@ -57,14 +57,14 @@ export interface OrchestrateHttp {
 }
 
 export class OrchestrateApi {
-  private readonly streamReader: NyvStreamReader;
+  private readonly streamReader: JrxStreamReader;
 
   constructor(
     private readonly http: OrchestrateHttp,
     apiKey: string,
     baseUrl: string,
   ) {
-    this.streamReader = new NyvStreamReader(apiKey, baseUrl);
+    this.streamReader = new JrxStreamReader(apiKey, baseUrl);
   }
 
   /** Queen-backed orchestration — primary NSP drafting / analysis path. */
@@ -78,9 +78,9 @@ export class OrchestrateApi {
    */
   stream(
     req: OrchestrateRequest,
-    handlers: NyvStreamHandlers = {},
-    options: NyvStreamOptions = {},
-  ): Promise<NyvPatternResponse> {
+    handlers: JrxStreamHandlers = {},
+    options: JrxStreamOptions = {},
+  ): Promise<JrxPatternResponse> {
     return this.streamReader.streamOrchestrate(req as Record<string, unknown>, handlers, options);
   }
 }

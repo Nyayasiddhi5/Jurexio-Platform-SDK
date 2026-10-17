@@ -1,5 +1,5 @@
 /**
- * NYV CORS Config — production-grade origin allowlist
+ * JRX CORS Config — production-grade origin allowlist
  * ALL allowed origins live here. NEVER use wildcard '*' in production.
  *
  * GUARDRAIL: Any new frontend domain MUST be added here AND set via env var.
@@ -23,8 +23,8 @@ const PROD_ORIGINS = [
   'https://www.nyayasiddhi.com',
   'https://app.nyayasiddhi.com',
   'https://institutional.nyayasiddhi.com',
-  'https://nyayamitra.com',
-  'https://www.nyayamitra.com',
+  'https://jurexio-citizen.com',
+  'https://www.jurexio-citizen.com',
 ];
 
 function parseEnvOrigins(): string[] {
@@ -63,7 +63,7 @@ export const CORS_OPTIONS = {
   origin: corsOriginValidator,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-NYV-Signature', 'X-Request-ID', 'X-NYV-Trace-ID'],
-  exposedHeaders: ['X-Request-ID', 'X-RateLimit-Remaining', 'X-RateLimit-Reset', 'X-NYV-Trace-ID'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-JRX-Signature', 'X-Request-ID', 'X-JRX-Trace-ID'],
+  exposedHeaders: ['X-Request-ID', 'X-RateLimit-Remaining', 'X-RateLimit-Reset', 'X-JRX-Trace-ID'],
   maxAge: 86400,
 } as const;

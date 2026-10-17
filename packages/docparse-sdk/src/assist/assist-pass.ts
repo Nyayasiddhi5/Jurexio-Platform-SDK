@@ -21,7 +21,7 @@ export interface AssistPassProvider {
   recover(input: AssistPassInput): Promise<AssistPassPatch>;
 }
 
-/** No-op provider — default for SDK embed. NYV wires Nova Micro when flag ON. */
+/** No-op provider — default for SDK embed. JRX wires Nova Micro when flag ON. */
 export const NOOP_ASSIST_PROVIDER: AssistPassProvider = {
   id: "noop",
   async recover(): Promise<AssistPassPatch> {

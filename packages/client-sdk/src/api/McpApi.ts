@@ -7,7 +7,7 @@
  * transport-agnostic MCP executor server-side. Requires a `developer`+ role.
  */
 
-import type { NyvHttpClient } from '../NyvClient.js';
+import type { JrxHttpClient } from '../JrxClient.js';
 
 export interface McpToolDescriptor {
   id: string;
@@ -38,7 +38,7 @@ export interface McpExecutionResult {
 }
 
 export class McpApi {
-  constructor(private readonly http: NyvHttpClient) {}
+  constructor(private readonly http: JrxHttpClient) {}
 
   /** List MCP tools with executable-vs-catalog annotations. `GET /api/jrx/tools/mcp/list`. */
   listTools(): Promise<McpToolListResponse> {

@@ -190,7 +190,7 @@ describe('NV-REQID-CORRELATION-001: correlation id threading', () => {
   });
 
   it('the id reaching the provider is the same field real-llm-service logs', () => {
-    // nv-client sets `id` on LLMRequest; real-llm-service logs `request.id`.
+    // jrx-client sets `id` on LLMRequest; real-llm-service logs `request.id`.
     // If either side is renamed, correlation silently breaks again.
     expect(read(CLIENT)).toMatch(/const llmRequest: LLMRequest = \{\s*\n\s*id: requestId/);
     expect(read('src/services/real-llm-service.ts')).toMatch(/requestId: request\.id/);

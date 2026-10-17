@@ -8,7 +8,7 @@
  * IRAC) and appends only missing sections. Extract / search / classify never
  * attach.
  *
- * Escape: NYV_LEGAL_STRUCTURE_ATTACH=0
+ * Escape: JRX_LEGAL_STRUCTURE_ATTACH=0
  */
 import {
   matchBnssCourtApplications,
@@ -80,7 +80,7 @@ const IRAC_SECTIONS: Array<{ key: string; match: RegExp; title: string; body: st
 ];
 
 export function isLegalStructureAttachEnabled(): boolean {
-  const v = String(process.env.NYV_LEGAL_STRUCTURE_ATTACH ?? '1').trim().toLowerCase();
+  const v = String(process.env.JRX_LEGAL_STRUCTURE_ATTACH ?? '1').trim().toLowerCase();
   return !(v === '0' || v === 'false' || v === 'off');
 }
 

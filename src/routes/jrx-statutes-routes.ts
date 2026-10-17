@@ -1,5 +1,5 @@
 /**
- * nv-statutes-routes.ts (2026-05-13)
+ * jrx-statutes-routes.ts (2026-05-13)
  *
  * Read-only statute browser feeding the Console Knowledge → Statutes & Citations page.
  *   GET /api/jrx/statutes               — paged + jurisdiction/practice_area/q filter
@@ -106,8 +106,8 @@ router.get('/search', async (req: Request, res: Response) => {
     // When Knowledge Plane is on, merge/prefer NYS statute hits (federated SoT)
     let nysMerged = false;
     try {
-      const { isNyvFeatureOn } = await import('../config/jrx-feature-flags.js');
-      if (isNyvFeatureOn('nysKnowledgePlane')) {
+      const { isJrxFeatureOn } = await import('../config/jrx-feature-flags.js');
+      if (isJrxFeatureOn('nysKnowledgePlane')) {
         const { nysKnowledgeRequest, isNysKnowledgeConfigured } = await import(
           '../services/jrx-nys-knowledge-client.js'
         );

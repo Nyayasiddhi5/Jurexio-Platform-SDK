@@ -5,7 +5,7 @@ cd /opt/nyv/api
 echo "=== install hyparquet ==="
 npm install hyparquet --no-save 2>&1 | tail -5
 echo "=== pino symlinks ==="
-DIST='/Users/vamsit/Desktop/cursor-workspace/nyayavigya-platform-5.0.0-CURSOR-CLOUD/nyayavigya-platform-5.0.0/nyayavigya-platform-312/jrx-search/artifacts/api-server/dist'
+DIST='/Users/vamsit/Desktop/cursor-workspace/jurexio-platform-5.0.0-CURSOR-CLOUD/jurexio-platform-5.0.0/Jurexio-Platform-SDK/jrx-search/artifacts/api-server/dist'
 mkdir -p "$DIST"
 for f in thread-stream-worker.mjs pino-pretty.mjs; do
   if [ -f "/opt/nyv/api/$f" ]; then

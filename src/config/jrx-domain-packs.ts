@@ -2,7 +2,7 @@
  * NV-DOMAIN-PACK-001 — multi-domain vertical substrate.
  *
  * DEFAULT PACK = legal. Runtime still loads Jurexio-Legal-registry-*.json
- * (see registry-paths.ts). Do not change NYV_DOMAIN_PACK default or rename
+ * (see registry-paths.ts). Do not change JRX_DOMAIN_PACK default or rename
  * Legal filenames in this sprint — partner APIs (orchestrate, legal-chat,
  * legal-work, RAG, CNR, EDJ, platforms) stay frozen.
  *
@@ -96,7 +96,7 @@ export function getDomainPack(id: string): DomainPack | undefined {
 }
 
 export function resolveActiveDomainPack(): DomainPack {
-  const envId = String(process.env.NYV_DOMAIN_PACK || 'legal').toLowerCase();
+  const envId = String(process.env.JRX_DOMAIN_PACK || 'legal').toLowerCase();
   return getDomainPack(envId) || PACKS[0];
 }
 

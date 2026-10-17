@@ -1,7 +1,7 @@
 /**
- * Shared schema-drift guard for nv-seed-*.ts scripts (task #347).
+ * Shared schema-drift guard for jrx-seed-*.ts scripts (task #347).
  *
- * Lifted from `nv-seed-grpo-demo.ts` (task #346). The seeders rely on
+ * Lifted from `jrx-seed-grpo-demo.ts` (task #346). The seeders rely on
  * `CREATE TABLE IF NOT EXISTS … then INSERT INTO …` against tables that are
  * actually owned by Drizzle migrations in real environments. When the live
  * column shape diverges from the script's hard-coded INSERT shape, the seeder
@@ -19,7 +19,7 @@
  *   });
  *
  * NV-DB-SCRIPT-001: relies on a `makePgSql`-style tagged-template `sql`.
- * NV-NAMING-001: leading underscore + no `nv-` prefix marks this as a
+ * NV-NAMING-001: leading underscore + no `jrx-` prefix marks this as a
  *                shared, non-runnable helper (matches `_pg-pool.ts`).
  */
 

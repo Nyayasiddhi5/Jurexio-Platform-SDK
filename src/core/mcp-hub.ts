@@ -485,17 +485,17 @@ export class MCPHub extends EventEmitter {
       {
         provider: 'google',
         scopes: ['https://www.googleapis.com/auth/cloud-platform'],
-        redirectUri: 'https://oauth.nyayavigya.dev/callback/google'
+        redirectUri: 'https://oauth.jurexio.dev/callback/google'
       },
       {
         provider: 'microsoft',
         scopes: ['https://storage.azure.com/user_impersonation'],
-        redirectUri: 'https://oauth.nyayavigya.dev/callback/microsoft'
+        redirectUri: 'https://oauth.jurexio.dev/callback/microsoft'
       },
       {
         provider: 'github',
         scopes: ['repo', 'user'],
-        redirectUri: 'https://oauth.nyayavigya.dev/callback/github'
+        redirectUri: 'https://oauth.jurexio.dev/callback/github'
       }
     ];
 
@@ -522,9 +522,9 @@ export class MCPHub extends EventEmitter {
     operation: 'upload' | 'download', 
     options: any
   ): Promise<any> {
-    // Use NYV Document Storage Service to generate real signed URLs
+    // Use JRX Document Storage Service to generate real signed URLs
     try {
-      const { nyvDocumentStorage } = await import('../services/nyv-document-storage-service.js');
+      const { nyvDocumentStorage } = await import('../services/jrx-document-storage-service.js');
       if (operation === 'upload' && options?.orgId && options?.userId) {
         const result = await nyvDocumentStorage.generateUploadUrl(
           String(options.orgId),
@@ -547,11 +547,11 @@ export class MCPHub extends EventEmitter {
 
     // Fallback: generate a HMAC-signed URL for local serving
     const crypto = await import('crypto');
-    const secret = process.env.NYV_JWT_SECRET || process.env.JWT_SECRET || '';
+    const secret = process.env.JRX_JWT_SECRET || process.env.JWT_SECRET || '';
     const expiresAt = Date.now() + (options?.expirySeconds || 3600) * 1000;
     const path = options?.storagePath || `${operation}/${Date.now()}`;
     const signature = crypto.createHmac('sha256', secret).update(`${path}:${expiresAt}`).digest('hex').slice(0, 32);
-    const host = process.env.NYV_PUBLIC_API_URL || process.env.NYV_GATEWAY_URL || process.env.BACKEND_URL || 'http://localhost:5000';
+    const host = process.env.JRX_PUBLIC_API_URL || process.env.JRX_GATEWAY_URL || process.env.BACKEND_URL || 'http://localhost:5000';
 
     return {
       signedUrl: `${host}/api/jrx/storage/signed/${encodeURIComponent(path)}?sig=${signature}&exp=${expiresAt}&op=${operation}`,

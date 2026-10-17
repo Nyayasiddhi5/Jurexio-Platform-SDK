@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# Phase B graph ingest one-shot on nysdev
+# Phase B graph ingest one-shot on jrx-prod
 set -uo pipefail
-CANON="/opt/Nyayavigya/secrets/.env.production"
+CANON="/opt/Jurexio/secrets/.env.production"
 DB="$(grep -E '^DATABASE_URL=' "$CANON" | head -1 | cut -d= -f2- | tr -d "\"'" | tr -d '\r\n')"
-REPO=/opt/Nyayavigya/repo/current
+REPO=/opt/Jurexio/repo/current
 SCRIPT="$REPO/scripts/jrx-treatment-graph-ingest.mjs"
 if [ ! -f "$SCRIPT" ]; then SCRIPT="/opt/nyv/scripts/jrx-treatment-graph-ingest.mjs"; fi
 
 echo "=== PRE GRAPH COUNTS ==="
-docker exec -e "DB=$DB" -w /app nyv-gateway node --input-type=module -e "
+docker exec -e "DB=$DB" -w /app jrx-gateway node --input-type=module -e "
 import pg from 'pg';
 const c=new pg.Client({connectionString:process.env.DB,ssl:{rejectUnauthorized:false}});
 await c.connect();
@@ -18,12 +18,12 @@ await c.end();
 "
 
 echo "=== B4 GRAPH INGEST ONE-SHOT ==="
-docker exec -e "NYV_DATABASE_URL=$DB" -e "GRAPH_INGEST_POLL_MS=1000" -w /app nyv-gateway node --input-type=module -e "
+docker exec -e "JRX_DATABASE_URL=$DB" -e "GRAPH_INGEST_POLL_MS=1000" -w /app jrx-gateway node --input-type=module -e "
 import pg from 'pg';
 import { S3Client, ListObjectsV2Command, GetObjectCommand, DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
-const REGION='ap-south-1', BUCKET='nyv-sdk-distribution', PREFIX='caselaw-worker/graph-edges/';
+const REGION='ap-south-1', BUCKET='jrx-sdk-distribution', PREFIX='caselaw-worker/graph-edges/';
 const s3=new S3Client({region:REGION});
-const client=new pg.Client({connectionString:process.env.NYV_DATABASE_URL,ssl:{rejectUnauthorized:false}});
+const client=new pg.Client({connectionString:process.env.JRX_DATABASE_URL,ssl:{rejectUnauthorized:false}});
 await client.connect();
 async function ingestLine(line){
   const row=JSON.parse(line);

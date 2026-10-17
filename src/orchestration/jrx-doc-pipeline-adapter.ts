@@ -59,8 +59,8 @@ export async function tryInvokeDocPipelineLeaves(opts: {
       // NV-OCR-ASYNC-001 — large OCR jobs should not block sync /orchestrate
       const pageCount = Number(opts.body.pageCount || opts.body.pages || 0);
       const fileBytes = Number(opts.body.fileSizeBytes || opts.body.sizeBytes || 0);
-      const asyncThresholdPages = Number(process.env.NYV_OCR_ASYNC_MIN_PAGES || '25');
-      const asyncThresholdBytes = Number(process.env.NYV_OCR_ASYNC_MIN_BYTES || String(8 * 1024 * 1024));
+      const asyncThresholdPages = Number(process.env.JRX_OCR_ASYNC_MIN_PAGES || '25');
+      const asyncThresholdBytes = Number(process.env.JRX_OCR_ASYNC_MIN_BYTES || String(8 * 1024 * 1024));
       const isOcrLeaf = id.includes('ocr') || /\bocr\b/i.test(opts.prompt);
       if (
         isOcrLeaf

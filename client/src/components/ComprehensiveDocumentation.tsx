@@ -37,9 +37,9 @@ export function APIDocumentation() {
 }`
     },
     {
-      category: 'nyayavigya-orchestration',
+      category: 'jurexio-orchestration',
       method: 'POST',
-      endpoint: '/api/nyayavigya/generate',
+      endpoint: '/api/jurexio/generate',
       description: 'Generate content using Jurexio orchestration',
       parameters: ['prompt', 'type', 'options'],
       response: 'Generated content with metadata',
@@ -98,7 +98,7 @@ export function APIDocumentation() {
   const categories = [
     { id: 'all', name: 'All Endpoints', count: apiEndpoints.length },
     { id: 'authentication', name: 'Authentication', count: 1 },
-    { id: 'nyayavigya-orchestration', name: 'Jurexio Orchestration', count: 1 },
+    { id: 'jurexio-orchestration', name: 'Jurexio Orchestration', count: 1 },
     { id: 'platforms', name: 'Platforms', count: 1 },
     { id: 'content', name: 'Content', count: 1 },
     { id: 'assistants', name: 'Assistants', count: 1 },
@@ -404,12 +404,12 @@ export function DeveloperSDK() {
       name: 'JavaScript/TypeScript',
       logo: '📜',
       description: 'Full-featured SDK for web and Node.js applications',
-      install: 'npm install @nyayavigya-devstudio/sdk',
-      quickStart: `import { JurexioClient } from '@nyayavigya-devstudio/sdk';
+      install: 'npm install @jurexio-devstudio/sdk',
+      quickStart: `import { JurexioClient } from '@jurexio-devstudio/sdk';
 
 const client = new JurexioClient({
   apiKey: 'your-api-key',
-  baseURL: 'https://api.nyayavigya-devstudio.com'
+  baseURL: 'https://api.jurexio-devstudio.com'
 });
 
 // Generate content
@@ -424,8 +424,8 @@ const content = await client.content.generate({
       name: 'Python',
       logo: '🐍',
       description: 'Pythonic SDK for data science and ML workflows',
-      install: 'pip install nyayavigya-devstudio',
-      quickStart: `from nyayavigya_devstudio import JurexioClient
+      install: 'pip install jurexio-devstudio',
+      quickStart: `from jurexio_devstudio import JurexioClient
 
 client = JurexioClient(api_key='your-api-key')
 
@@ -442,7 +442,7 @@ assistant = client.assistants.create(
       logo: '🌐',
       description: 'Direct HTTP API access for any programming language',
       install: 'curl -H "Authorization: Bearer YOUR_API_KEY"',
-      quickStart: `curl -X POST https://api.nyayavigya-devstudio.com/v1/content/generate \\
+      quickStart: `curl -X POST https://api.jurexio-devstudio.com/v1/content/generate \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{

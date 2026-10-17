@@ -1,6 +1,6 @@
 /**
  * Orchestration Execution Policy
- * NYV-ORCH-POLICY-001 (Task #32)
+ * JRX-ORCH-POLICY-001 (Task #32)
  *
  * Centralizes the parallelism, partial-failure, context-budget, and fan-in
  * synthesis rules that DAG/parallel/swarm executions must obey. Queen and the

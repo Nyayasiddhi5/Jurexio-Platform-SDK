@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 /**
- * nv-seed-demo-tenants.ts — 2026-05-09
+ * jrx-seed-demo-tenants.ts — 2026-05-09
  *
  * Per directive: "create 2 or 3 org id and use it for testing".
  * Idempotent seed of 3 demo tenants + 9 users (3 roles × 3 orgs) into
@@ -48,8 +48,8 @@ async function main() {
   // cannot INSERT users without app.current_org_id (product-readiness 10K).
   const url =
     process.env.DATABASE_URL_ADMIN ||
-    process.env.NYV_DATABASE_URL_ADMIN ||
-    process.env.NYV_DATABASE_URL ||
+    process.env.JRX_DATABASE_URL_ADMIN ||
+    process.env.JRX_DATABASE_URL ||
     process.env.DATABASE_URL;
   if (!url) { console.error('DATABASE_URL_ADMIN / DATABASE_URL not set'); process.exit(1); }
 
@@ -63,7 +63,7 @@ async function main() {
   const hash = await bcrypt.hash(PASSWORD, 10);
 
   console.log('═══════════════════════════════════════════════════════════════');
-  console.log('  NYV Demo Tenant Seed — 2026-05-09');
+  console.log('  JRX Demo Tenant Seed — 2026-05-09');
   console.log('═══════════════════════════════════════════════════════════════');
 
   const result: any = { orgs: [], users: [], skipped: { orgs: 0, users: 0 } };
@@ -81,7 +81,7 @@ async function main() {
     console.log(`  org: ${o.slug.padEnd(22)} id=${o.id} tier=${o.tier}`);
 
     for (const u of USERS_PER_ORG) {
-      const email = `${u.suffix}@${org.slug}.demo.nyayavigya.test`;
+      const email = `${u.suffix}@${org.slug}.demo.jurexio.test`;
       const ui = await pool.query(
         `INSERT INTO public.nv_users(email, password_hash, full_name, role, tier, org_id, is_active)
          VALUES ($1,$2,$3,$4,$5,$6,true)

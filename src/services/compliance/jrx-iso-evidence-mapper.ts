@@ -1,8 +1,8 @@
 /**
- * nv-iso-evidence-mapper.ts — Task #299
+ * jrx-iso-evidence-mapper.ts — Task #299
  *
  * Resolves logical evidence-source keys (declared by each control in
- * `nv-iso-control-catalogue.ts`) to concrete evidence rows surfaced in
+ * `jrx-iso-control-catalogue.ts`) to concrete evidence rows surfaced in
  * the drilldown drawer:
  *
  *   { sourceKey, summary, artefact, capturedAt, jurisdiction }
@@ -23,8 +23,8 @@
  * drilldown can paginate without re-hitting every upstream table on
  * every drilldown call. The seed runs once at boot and is idempotent.
  *
- * NV-NAMING-001: nv- prefix.  NV-WIRING-001: imported by
- * nv-iso-compliance-routes.ts and the boot seed in src/index.ts.
+ * NV-NAMING-001: jrx- prefix.  NV-WIRING-001: imported by
+ * jrx-iso-compliance-routes.ts and the boot seed in src/index.ts.
  */
 import { sql } from 'drizzle-orm';
 import { db } from '../../db/index.js';
@@ -547,14 +547,14 @@ let _refreshTimer: NodeJS.Timeout | null = null;
 
 /**
  * Task #312 — Start the periodic evidence refresher. Default cadence
- * is 15 minutes; can be overridden via `NYV_ISO_EVIDENCE_REFRESH_MS`
+ * is 15 minutes; can be overridden via `JRX_ISO_EVIDENCE_REFRESH_MS`
  * (clamped to ≥ 60s). Returns a stop function that clears the timer.
  * Calling start a second time is a no-op so wiring stays idempotent.
  */
 export function startIsoEvidenceRefresher(
   intervalMsOverride?: number,
 ): { stop: () => void; intervalMs: number } {
-  const envMs = Number(process.env.NYV_ISO_EVIDENCE_REFRESH_MS ?? '');
+  const envMs = Number(process.env.JRX_ISO_EVIDENCE_REFRESH_MS ?? '');
   const requested =
     typeof intervalMsOverride === 'number' && Number.isFinite(intervalMsOverride) && intervalMsOverride > 0
       ? intervalMsOverride

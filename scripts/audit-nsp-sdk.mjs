@@ -14,7 +14,7 @@
 import fs from 'node:fs';
 
 const BASE = process.env.BASE_URL || 'http://127.0.0.1:5000';
-const NSP_KEY = process.env.NYV_SDK_KEY_NSP;
+const NSP_KEY = process.env.JRX_SDK_KEY_NSP;
 const out = { base: BASE, startedAt: new Date().toISOString(), checks: [] };
 
 function rec(name, ok, detail) {
@@ -72,7 +72,7 @@ if (NSP_KEY) {
   const v = await jpost(`${BASE}/api/nv/sdk/provision/validate`, { api_key: NSP_KEY });
   rec('POST /api/nv/sdk/provision/validate (NSP key)', v.status === 200 && v.body?.valid !== false, `status=${v.status} valid=${v.body?.valid}`);
 } else {
-  rec('NSP key env present', false, 'NYV_SDK_KEY_NSP not set in env');
+  rec('NSP key env present', false, 'JRX_SDK_KEY_NSP not set in env');
 }
 
 // 6. SDK gateway: X-API-Key auth on a real endpoint

@@ -5,7 +5,7 @@
   "note": "Below are the canonical 'backbone' agents that ship pre-seeded. The remaining agents are loaded from src/data/jurisdiction-registries/*.json by the agent-registry-service at startup. System prompts here serve as the authoritative master copy.",
   "common": {
     "personaSchemaVersion": 22,
-    "alwaysAppend": "Cite statute/case for every legal claim. If unsure, say 'I do not know' and recommend HITL escalation. Refuse to draft anything illegal. All output is governed by Nyayavigya guardrails (PII redaction, hallucination check, bias audit).",
+    "alwaysAppend": "Cite statute/case for every legal claim. If unsure, say 'I do not know' and recommend HITL escalation. Refuse to draft anything illegal. All output is governed by Jurexio guardrails (PII redaction, hallucination check, bias audit).",
     "outputDisclaimer": false,
     "language": "auto-detect",
     "responseFormat": "markdown-or-json"
@@ -18,12 +18,12 @@
       "jurisdictions": ["*"],
       "model": { "tier": 3, "preferred": ["claude-sonnet-4-5","gpt-4o"] },
       "patterns": ["plan-execute","function-router","maker-checker","reflection","grpo"],
-      "systemPrompt": "You are NS-Queen, the Tier-0 meta-orchestrator of the Nyayavigya Legal AI Operating System. You decompose any legal task into sub-tasks, route each to the most-capable lower-tier agent (BM25 selector + jurisdiction filter), enforce ROMA L5 governance, run maker-checker over outputs, and return a single grounded answer with citations and a governance score. Always: (1) detect jurisdiction, (2) detect language, (3) plan in <=7 steps, (4) execute via the cheapest sufficient pattern, (5) reflect, (6) emit a JSON envelope {answer, citations, agentsInvoked, traceId, governance}."
+      "systemPrompt": "You are NS-Queen, the Tier-0 meta-orchestrator of the Jurexio Legal AI Operating System. You decompose any legal task into sub-tasks, route each to the most-capable lower-tier agent (BM25 selector + jurisdiction filter), enforce ROMA L5 governance, run maker-checker over outputs, and return a single grounded answer with citations and a governance score. Always: (1) detect jurisdiction, (2) detect language, (3) plan in <=7 steps, (4) execute via the cheapest sufficient pattern, (5) reflect, (6) emit a JSON envelope {answer, citations, agentsInvoked, traceId, governance}."
     },
     {
       "id": "mitra-conversational",
       "tier": 3,
-      "role": "Citizen Legal Conversational Agent (Nyayamitra)",
+      "role": "Citizen Legal Conversational Agent (Jurexio Citizen)",
       "jurisdictions": ["IN"],
       "model": { "tier": 1, "preferred": ["sarvam","gpt-4.1-mini"] },
       "patterns": ["nyayarag","cot","mem0"],

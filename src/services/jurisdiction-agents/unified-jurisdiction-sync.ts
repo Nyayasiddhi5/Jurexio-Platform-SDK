@@ -466,7 +466,7 @@ export async function syncAllJurisdictionAgents(): Promise<ExtendedUnifiedSyncRe
 
     // NOTE: India agents are seeded from config/agent-registries/Jurexio-Legal-registry-IN.json
     // via the canonical jurisdiction-overlay path (149 agents = 148 domain + 1 orchestrator).
-    // NYV-NS-025 (2026-05-05): the 148 IN::<x> duplicate rows (without `in-` inner prefix)
+    // JRX-NS-025 (2026-05-05): the 148 IN::<x> duplicate rows (without `in-` inner prefix)
     // were removed by scripts/jrx-dedupe-india-agents.ts. Do NOT add a separate syncIndia()
     // here — it would re-introduce the duplicates.
 

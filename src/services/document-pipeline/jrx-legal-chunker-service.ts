@@ -1,6 +1,6 @@
 import { createLogger } from '../../utils/logger.js';
 import { nvLegalParserService, type ParsedDocument, type LegalDocType } from './jrx-legal-parser-service.js';
-import { isNyvFeatureOn } from '../../config/jrx-feature-flags.js';
+import { isJrxFeatureOn } from '../../config/jrx-feature-flags.js';
 import crypto from 'crypto';
 
 const logger = createLogger('./jrx-legal-chunker');
@@ -104,7 +104,7 @@ export class NvLegalChunkerService {
       // NV-CTX-RETRIEVAL-001 — opt-in contextual enrichment. Only runs when the
       // caller explicitly asks (options.contextualize) AND the flag is on, so
       // the deterministic chunking contract (and the preview route) is intact.
-      if (options.contextualize && isNyvFeatureOn('contextualRetrieval')) {
+      if (options.contextualize && isJrxFeatureOn('contextualRetrieval')) {
         chunks = await this.contextualizeChunks(chunks, {
           docTitle: options.docTitle || doc.metadata?.title || 'Legal document',
           docType,
@@ -117,7 +117,7 @@ export class NvLegalChunkerService {
         method: 'chunkDocument',
         docType,
         totalChunks: chunks.length,
-        contextualized: Boolean(options.contextualize && isNyvFeatureOn('contextualRetrieval')),
+        contextualized: Boolean(options.contextualize && isJrxFeatureOn('contextualRetrieval')),
         avgTokens: Math.round(chunks.reduce((s, c) => s + c.tokens, 0) / (chunks.length || 1)),
         durationMs: Date.now() - startTime,
       });
@@ -307,7 +307,7 @@ export class NvLegalChunkerService {
     chunks: LegalChunk[],
     docCtx: { docTitle: string; docType: LegalDocType; jurisdiction: JurisdictionCode },
   ): Promise<LegalChunk[]> {
-    if (!isNyvFeatureOn('contextualRetrieval') || chunks.length === 0) return chunks;
+    if (!isJrxFeatureOn('contextualRetrieval') || chunks.length === 0) return chunks;
 
     let callSimple: ((system: string, user: string, maxTokens?: number) => Promise<string>) | null = null;
     try {

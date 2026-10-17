@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
-import { NyvEmptyState } from "@/components/NyvEmptyState";
-import { NyvErrorState } from "@/components/NyvErrorState";
+import { JrxEmptyState } from "@/components/JrxEmptyState";
+import { JrxErrorState } from "@/components/JrxErrorState";
 import {
   Download,
   Package,
@@ -74,7 +74,7 @@ export default function SDKDownloads() {
         </div>
 
         {isError ? (
-          <NyvErrorState
+          <JrxErrorState
             title="Could not load SDK build catalogue"
             error={error}
             onRetry={() => refetch()}
@@ -86,7 +86,7 @@ export default function SDKDownloads() {
             <Skeleton className="h-96 w-full" />
           </div>
         ) : builds.length === 0 ? (
-          <NyvEmptyState
+          <JrxEmptyState
             icon={PackageOpen}
             title="No SDK builds available yet"
             description="Once a build is published from the SDK pipeline it will appear here."
@@ -96,7 +96,7 @@ export default function SDKDownloads() {
           <Tabs defaultValue="all" className="w-full">
             <TabsList className="grid w-full max-w-md mx-auto grid-cols-3" aria-label="Navigation tabs">
               <TabsTrigger value="all" data-testid="tab-all" aria-label="all tab">All SDKs</TabsTrigger>
-              <TabsTrigger value="nyayavigya" data-testid="tab-nyayavigya" aria-label="nyayavigya tab">Jurexio Legal SDK</TabsTrigger>
+              <TabsTrigger value="jurexio" data-testid="tab-jurexio" aria-label="jurexio tab">Jurexio Legal SDK</TabsTrigger>
               <TabsTrigger value="legal" data-testid="tab-legal" aria-label="legal tab">Legal SDK</TabsTrigger>
             </TabsList>
 
@@ -107,7 +107,7 @@ export default function SDKDownloads() {
               </div>
             </TabsContent>
 
-            <TabsContent value="nyayavigya" className="mt-6">
+            <TabsContent value="jurexio" className="mt-6">
               <JurexioSDKCard onDownload={handleDownload} downloading={downloading} build={primary} fullWidth />
             </TabsContent>
 
@@ -158,7 +158,7 @@ function JurexioSDKCard({ onDownload, downloading, build, fullWidth = false }: S
   const isDownloading = downloading === build.id;
 
   return (
-    <Card className={`relative overflow-hidden ${fullWidth ? 'max-w-2xl mx-auto' : ''}`} data-testid="card-nyayavigya-sdk">
+    <Card className={`relative overflow-hidden ${fullWidth ? 'max-w-2xl mx-auto' : ''}`} data-testid="card-jurexio-sdk">
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-bl-full" />
       <CardHeader>
         <div className="flex items-start justify-between">
@@ -227,7 +227,7 @@ function JurexioSDKCard({ onDownload, downloading, build, fullWidth = false }: S
           className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
           onClick={() => onDownload(build.id, build.downloadUrl || `/api/sdk-builds/download/${build.id}`)}
           disabled={isDownloading}
-          data-testid="button-download-nyayavigya"
+          data-testid="button-download-jurexio"
         >
           <Download className="h-4 w-4 mr-2" />
           {isDownloading ? 'Preparing Download...' : `Download ${build.name} ${versionLabel}`}
@@ -243,7 +243,7 @@ function JurexioLegalSDKCard({ onDownload, downloading, build, fullWidth = false
   const isDownloading = downloading === build.id;
 
   return (
-    <Card className={`relative overflow-hidden ${fullWidth ? 'max-w-2xl mx-auto' : ''}`} data-testid="card-nyayavigya-legal-sdk">
+    <Card className={`relative overflow-hidden ${fullWidth ? 'max-w-2xl mx-auto' : ''}`} data-testid="card-jurexio-legal-sdk">
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-500/10 to-orange-500/10 rounded-bl-full" />
       <CardHeader>
         <div className="flex items-start justify-between">
@@ -312,7 +312,7 @@ function JurexioLegalSDKCard({ onDownload, downloading, build, fullWidth = false
           className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700"
           onClick={() => onDownload(build.id, build.downloadUrl || `/api/sdk-builds/download/${build.id}`)}
           disabled={isDownloading}
-          data-testid="button-download-nyayavigya-legal"
+          data-testid="button-download-jurexio-legal"
         >
           <Download className="h-4 w-4 mr-2" />
           {isDownloading ? 'Preparing Download...' : `Download ${build.name} ${versionLabel}`}

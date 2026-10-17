@@ -1,7 +1,7 @@
-// NYV-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
+// JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 /**
  * Jurexio Enterprise Platform 3.1.2 — SDK Key Lifecycle Routes
- * NYV-SDK-KEYLIFE-001
+ * JRX-SDK-KEYLIFE-001
  *
  * Full 4-key lifecycle management for SDK applications.
  * Every raw key is shown ONCE and stored as SHA-256 hash.
@@ -55,16 +55,16 @@ function getSql(): NvNeonSql {
 
 async function verifyAppOwnership(sql: NvNeonSql, appId: string, req: Request): Promise<{ allowed: boolean; error?: string }> {
   const user = (req as any).user;
-  if (!user) return { allowed: false, error: 'NYV-KEYLIFE-AUTH-001: Authentication required' };
+  if (!user) return { allowed: false, error: 'JRX-KEYLIFE-AUTH-001: Authentication required' };
   if (user.role === 'super_admin' || user.role === 'service') return { allowed: true };
 
   const rows = (await sql`SELECT organization_id FROM nv_sdk_applications WHERE id = ${appId}`) as Array<{ organization_id: string | number | null }>;
-  if (!rows.length) return { allowed: false, error: 'NYV-KEYLIFE-404: Application not found' };
+  if (!rows.length) return { allowed: false, error: 'JRX-KEYLIFE-404: Application not found' };
 
   const appOrgId = String(rows[0].organization_id);
   const userOrgId = String(user.organizationId ?? '');
   if (!userOrgId || appOrgId !== userOrgId) {
-    return { allowed: false, error: 'NYV-KEYLIFE-AUTHZ-001: You do not own this application' };
+    return { allowed: false, error: 'JRX-KEYLIFE-AUTHZ-001: You do not own this application' };
   }
   return { allowed: true };
 }
@@ -127,12 +127,12 @@ router.post('/:appId/generate', async (req: Request, res: Response) => {
       // Bug fix (Task #29 round-3 review) — must `return` after writing the
       // 400 or the rest of the handler runs against `parsed.data` which is
       // undefined on a failed parse, crashing into a 500.
-      return res.status(400).json({ error: 'NYV-KEYLIFE-VAL-001: Invalid payload', details: parsed.error.flatten() });
+      return res.status(400).json({ error: 'JRX-KEYLIFE-VAL-001: Invalid payload', details: parsed.error.flatten() });
     }
 
     const appRows = await sql`SELECT id, environment, is_active FROM nv_sdk_applications WHERE id = ${appId}`;
-    if (!appRows.length) { return res.status(404).json({ error: 'NYV-KEYLIFE-404: Application not found' }); }
-    if (!appRows[0].is_active) { return res.status(403).json({ error: 'NYV-KEYLIFE-403: Application is suspended' }); }
+    if (!appRows.length) { return res.status(404).json({ error: 'JRX-KEYLIFE-404: Application not found' }); }
+    if (!appRows[0].is_active) { return res.status(403).json({ error: 'JRX-KEYLIFE-403: Application is suspended' }); }
 
     const env = String(appRows[0].environment ?? 'sandbox');
     const { key_type, name, rate_limit } = parsed.data;
@@ -172,7 +172,7 @@ router.post('/:appId/generate', async (req: Request, res: Response) => {
     // Route SDK key-lifecycle audit through the chain-enforced writer
     // (Task #29 deliverable #4). A direct write to the audit-log table
     // would bypass SHA-256 chain validation and create unverified records.
-    // See docs/v3.1.2/completed_docs/NYV-COMPLIANCE-ATTESTATION.md §4 for the full rationale.
+    // See docs/v3.1.2/completed_docs/JRX-COMPLIANCE-ATTESTATION.md §4 for the full rationale.
     //
     // FAIL-CLOSED (Task #29 round-3 review): a chain-enforcement failure
     // here must NOT yield a successful 201 — that would let an unauditable
@@ -204,7 +204,7 @@ router.post('/:appId/generate', async (req: Request, res: Response) => {
         logger.error('Compensating revoke failed; key row left active for manual review', { error: compErr instanceof Error ? compErr.message : String(compErr), key_id: keyRows[0]?.id });
       }
       return res.status(500).json({
-        error: 'NYV-KEYLIFE-AUDIT-001: audit chain enforcement failed; key has been revoked. Please retry.',
+        error: 'JRX-KEYLIFE-AUDIT-001: audit chain enforcement failed; key has been revoked. Please retry.',
       });
     }
 
@@ -222,7 +222,7 @@ router.post('/:appId/generate', async (req: Request, res: Response) => {
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     logger.error('Key generation error', { error: msg });
-    return res.status(500).json({ error: 'NYV-KEYLIFE-500: Key generation failed', detail: msg });
+    return res.status(500).json({ error: 'JRX-KEYLIFE-500: Key generation failed', detail: msg });
   }
 });
 
@@ -238,10 +238,10 @@ router.post('/:appId/rotate', async (req: Request, res: Response) => {
 
     const schema = z.object({ key_type: KeyTypeEnum, revoke_old: z.boolean().optional().default(true) });
     const parsed = schema.safeParse(req.body);
-    if (!parsed.success) { res.status(400).json({ error: 'NYV-KEYLIFE-VAL-002: key_type required' }); return; }
+    if (!parsed.success) { res.status(400).json({ error: 'JRX-KEYLIFE-VAL-002: key_type required' }); return; }
 
     const appRows = await sql`SELECT id, environment FROM nv_sdk_applications WHERE id = ${appId}`;
-    if (!appRows.length) { res.status(404).json({ error: 'NYV-KEYLIFE-404: Application not found' }); return; }
+    if (!appRows.length) { res.status(404).json({ error: 'JRX-KEYLIFE-404: Application not found' }); return; }
 
     const env = String(appRows[0].environment ?? 'sandbox');
     const { key_type, revoke_old } = parsed.data;
@@ -273,7 +273,7 @@ router.post('/:appId/rotate', async (req: Request, res: Response) => {
       RETURNING id, key_prefix, expires_at, created_at
     `;
 
-    // ── NYV-NS-002 (2026-05-01) — dual-write rotated key into canonical
+    // ── JRX-NS-002 (2026-05-01) — dual-write rotated key into canonical
     // sdk_app_api_keys so the SDK gateway middleware actually finds it.
     try {
       const mapRows = await sql`
@@ -294,11 +294,11 @@ router.post('/:appId/rotate', async (req: Request, res: Response) => {
           ON CONFLICT (key_hash) DO NOTHING
         `;
       } else {
-        logger.warn('NYV-NS-002: rotated key has no canonical app mapping (run migration 0006)', { appId });
+        logger.warn('JRX-NS-002: rotated key has no canonical app mapping (run migration 0006)', { appId });
       }
     } catch (dualErr: unknown) {
       const dualMsg = dualErr instanceof Error ? dualErr.message : String(dualErr);
-      logger.error('NYV-NS-002 keylife dual-write failed', { appId, error: dualMsg });
+      logger.error('JRX-NS-002 keylife dual-write failed', { appId, error: dualMsg });
     }
 
     logger.info('SDK key rotated', { appId, key_type, new_key_id: keyRows[0]?.id });
@@ -317,7 +317,7 @@ router.post('/:appId/rotate', async (req: Request, res: Response) => {
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     logger.error('Key rotation error', { error: msg });
-    res.status(500).json({ error: 'NYV-KEYLIFE-500: Key rotation failed', detail: msg });
+    res.status(500).json({ error: 'JRX-KEYLIFE-500: Key rotation failed', detail: msg });
   }
 });
 
@@ -338,12 +338,12 @@ router.post('/:appId/revoke/:keyId', async (req: Request, res: Response) => {
       WHERE id = ${keyId} AND app_id = ${appId}
       RETURNING id, key_prefix, key_type, is_active
     `;
-    if (!rows.length) { res.status(404).json({ error: 'NYV-KEYLIFE-404: Key not found' }); return; }
+    if (!rows.length) { res.status(404).json({ error: 'JRX-KEYLIFE-404: Key not found' }); return; }
     logger.info('SDK key revoked', { appId, keyId });
     res.json({ revoked: true, key: rows[0] });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    res.status(500).json({ error: 'NYV-KEYLIFE-500: Revoke failed', detail: msg });
+    res.status(500).json({ error: 'JRX-KEYLIFE-500: Revoke failed', detail: msg });
   }
 });
 
@@ -367,7 +367,7 @@ router.post('/:appId/revoke-all', async (req: Request, res: Response) => {
     res.json({ revoked: true, keys_revoked: result.length });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    res.status(500).json({ error: 'NYV-KEYLIFE-500: Revoke-all failed', detail: msg });
+    res.status(500).json({ error: 'JRX-KEYLIFE-500: Revoke-all failed', detail: msg });
   }
 });
 
@@ -393,7 +393,7 @@ router.get('/:appId', async (req: Request, res: Response) => {
     res.json({ keys: rows, total: rows.length });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    res.status(500).json({ error: 'NYV-KEYLIFE-500: Failed to list keys', detail: msg });
+    res.status(500).json({ error: 'JRX-KEYLIFE-500: Failed to list keys', detail: msg });
   }
 });
 
@@ -446,7 +446,7 @@ router.get('/:appId/status', async (req: Request, res: Response) => {
     });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    res.status(500).json({ error: 'NYV-KEYLIFE-500: Failed to get key status', detail: msg });
+    res.status(500).json({ error: 'JRX-KEYLIFE-500: Failed to get key status', detail: msg });
   }
 });
 
@@ -457,7 +457,7 @@ router.post('/verify', async (req: Request, res: Response) => {
     const sql = getSql();
     const schema = z.object({ key: z.string().min(20), expected_type: KeyTypeEnum.optional() });
     const parsed = schema.safeParse(req.body);
-    if (!parsed.success) { res.status(400).json({ error: 'NYV-KEYLIFE-VAL-003: key required' }); return; }
+    if (!parsed.success) { res.status(400).json({ error: 'JRX-KEYLIFE-VAL-003: key required' }); return; }
 
     const keyHash = hashKey(parsed.data.key);
     const rows = await sql`
@@ -487,7 +487,7 @@ router.post('/verify', async (req: Request, res: Response) => {
     });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    res.status(500).json({ error: 'NYV-KEYLIFE-500: Verification failed', detail: msg });
+    res.status(500).json({ error: 'JRX-KEYLIFE-500: Verification failed', detail: msg });
   }
 });
 

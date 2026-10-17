@@ -79,7 +79,7 @@ export default function GlobalHeader() {
           )}
           {currentPlatform === 'incubator' && (
             <>
-              <span>{t('nyayavigyaIncubator')}</span>
+              <span>{t('jurexioIncubator')}</span>
               <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
               <span className="text-foreground font-medium">{t('dashboard')}</span>
             </>

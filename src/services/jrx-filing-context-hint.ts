@@ -4,8 +4,8 @@
  * Reconciled wire shape (see
  * `documents/working/NSP-LEGAL-INTELLIGENCE-SDK-SURFACE-2026-08.md` §D):
  * NSP sends `parameters.filingContext` as an ADVISORY hint block plus a
- * top-level `filingBookRowId` (NSP BFF). NYV parses + echoes it, and NEVER lets
- * it override NYV's own `structureMarkers` / `filingChecklist[]` — `advisoryOnly`
+ * top-level `filingBookRowId` (NSP BFF). JRX parses + echoes it, and NEVER lets
+ * it override JRX's own `structureMarkers` / `filingChecklist[]` — `advisoryOnly`
  * is honoured by treating any `mandatorySections` / `requiredAnnexures` that
  * still arrive as `expectedSections[]` / `expectedAnnexures[]` (reconciled in
  * `validationResults[]`), not as authority.
@@ -23,9 +23,9 @@ export interface FilingContextHint {
   feeScheduleKey?: string;
   noticeComplianceDays?: number;
   /**
-   * NV-DRAFT-PROFILE-LIMITATION-001 — advisory cause-of-action key so NYV can
+   * NV-DRAFT-PROFILE-LIMITATION-001 — advisory cause-of-action key so JRX can
    * resolve the applicable limitation RULE (e.g. `cheque-bounce`, `contract-breach`,
-   * `money-recovery`). Advisory: NYV maps it to the Limitation Act schedule.
+   * `money-recovery`). Advisory: JRX maps it to the Limitation Act schedule.
    */
   causeOfActionKey?: string;
   /** ISO date the cause of action accrued — enables a DATED limitation computation. */
@@ -40,11 +40,11 @@ export interface FilingContextHint {
    * when drafting a CMA / appeal against an interlocutory order (O.43).
    */
   appealableOrderKey?: string;
-  /** NSP render hint (NYV ignores). */
+  /** NSP render hint (JRX ignores). */
   exportProfile?: string;
   /**
    * Transitional: sections NSP still sends as `mandatorySections`. Treated as
-   * advisory expectations reconciled against NYV's own registry, never authority.
+   * advisory expectations reconciled against JRX's own registry, never authority.
    */
   expectedSections?: string[];
   /** Transitional: annexures NSP still sends as `requiredAnnexures` (advisory). */
@@ -122,7 +122,7 @@ export function parseFilingContextHint(
     expectedSections,
     expectedAnnexures,
     // Advisory by default; only an explicit `advisoryOnly:false` flips it, and
-    // even then NYV keeps authority (the flag is echoed, not obeyed as override).
+    // even then JRX keeps authority (the flag is echoed, not obeyed as override).
     advisoryOnly: fc.advisoryOnly !== false,
   };
 

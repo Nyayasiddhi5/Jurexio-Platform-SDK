@@ -7,11 +7,11 @@
  * Uses TF–IDF cosine (deterministic, no external keys). Real Cohere/Voyage
  * still preferred when COHERE_API_KEY / VOYAGE_API_KEY are non-empty.
  *
- *   NYV_LOCAL_CE_PORT=8791 npx tsx scripts/jrx-local-cross-encoder-server.ts
+ *   JRX_LOCAL_CE_PORT=8791 npx tsx scripts/jrx-local-cross-encoder-server.ts
  */
 import * as http from 'node:http';
 
-const PORT = Math.max(1, Number(process.env.NYV_LOCAL_CE_PORT) || 8791);
+const PORT = Math.max(1, Number(process.env.JRX_LOCAL_CE_PORT) || 8791);
 
 function tokenize(s: string): string[] {
   return String(s || '')

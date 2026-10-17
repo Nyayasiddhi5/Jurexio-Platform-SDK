@@ -18,11 +18,11 @@ function run(cmd, args) {
 
 run("npm", ["run", "docparse-sdk:build"]);
 try {
-  run("node", ["scripts/nv-docparse-corpus-expand-scans.mjs"]);
+  run("node", ["scripts/jrx-docparse-corpus-expand-scans.mjs"]);
 } catch {
   /* optional tools */
 }
-run("node", ["scripts/nv-docparse-corpus-benchmark.mjs"]);
+run("node", ["scripts/jrx-docparse-corpus-benchmark.mjs"]);
 
 const report = JSON.parse(await readFile(REPORT, "utf8"));
 const legalRows = report.rows.filter((r) => r.scenario !== "insurance-poc");
@@ -43,8 +43,8 @@ if (scanRows.length > 0 && scanOk < scanRows.length * 0.9) {
 }
 if (scanRows.length > 0 && ocrPages < 1 && scanOcr < 1) {
   console.warn("WARN scan-sim: zero OCR route counts on this host (Tesseract/poppler may be absent in Cursor); PNG ingest path still exercised.");
-  if (process.env.NYV_DOCPARSE_GATE_REQUIRE_OCR === "1") {
-    console.error("FAIL NYV_DOCPARSE_GATE_REQUIRE_OCR=1 but no OCR pages");
+  if (process.env.JRX_DOCPARSE_GATE_REQUIRE_OCR === "1") {
+    console.error("FAIL JRX_DOCPARSE_GATE_REQUIRE_OCR=1 but no OCR pages");
     process.exit(1);
   }
 }

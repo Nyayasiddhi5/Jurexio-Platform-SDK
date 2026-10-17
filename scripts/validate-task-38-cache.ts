@@ -14,7 +14,7 @@
 import { LMCacheService } from '../src/services/lm-cache-service.js';
 
 function buildNamespace(tenantId: string, jurisdiction: string, agentId: string): string {
-  return `nv-agent:tenant:${tenantId}:juris:${jurisdiction.toUpperCase()}:agent:${agentId}`;
+  return `jrx-agent:tenant:${tenantId}:juris:${jurisdiction.toUpperCase()}:agent:${agentId}`;
 }
 
 let failures = 0;

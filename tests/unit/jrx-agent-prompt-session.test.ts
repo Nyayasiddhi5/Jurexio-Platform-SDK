@@ -14,7 +14,7 @@ import {
   mintEcosystemPromptSessionId,
   __clearPromptConstitutionMemory,
 } from '../../src/services/jrx-prompt-session-store.js';
-import { NyvPromptCompiler } from '../../src/services/nyv-prompt-compiler.js';
+import { JrxPromptCompiler } from '../../src/services/jrx-prompt-compiler.js';
 
 function fakeRegistryPrompt(agentName: string, agentId: string, mandate: string): string {
   return [
@@ -125,7 +125,7 @@ describe('NV-AGENT-PROMPT-SESSION-001', () => {
     const a = mintEcosystemPromptSessionId({ platform: 'NSP', userId: 'u1', orgId: 'o1' });
     const b = mintEcosystemPromptSessionId({ platform: 'NSP', userId: 'u1', orgId: 'o1' });
     expect(a).toBe(b);
-    expect(a).toMatch(/^nv-sess-nsp-/);
+    expect(a).toMatch(/^jrx-sess-nsp-/);
     const explicit = mintEcosystemPromptSessionId({
       platform: 'NSP',
       explicitSessionId: 'partner-sess-99',
@@ -135,7 +135,7 @@ describe('NV-AGENT-PROMPT-SESSION-001', () => {
 
   it('prompt compiler XML path: turn1 full then turn2 compressed with identity', () => {
     const full = fakeRegistryPrompt('Contract Drafting Agent', 'A-001', 'Generates commercial contracts');
-    const compiler = new NyvPromptCompiler({ enableCompression: true, compressionStartTurn: 2 });
+    const compiler = new JrxPromptCompiler({ enableCompression: true, compressionStartTurn: 2 });
     const r1 = compiler.compile(full, 'sess-c1', 'A-001', 'draft SPA', 'IN');
     expect(r1.compressionApplied).toBe(false);
     expect(r1.compiledPrompt).toContain('Contract Drafting Agent');

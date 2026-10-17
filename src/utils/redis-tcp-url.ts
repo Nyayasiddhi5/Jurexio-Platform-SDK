@@ -1,5 +1,5 @@
 /**
- * NYV-OPS-REDIS-001 (Task #28) — Redis TCP URL gating
+ * JRX-OPS-REDIS-001 (Task #28) — Redis TCP URL gating
  * NV-SECRETS-001 (2026-05-07)   — Single canonical env-var name
  *
  * The platform supports two Redis surfaces:
@@ -15,11 +15,11 @@
  *
  * NV-SECRETS-001 — single canonical env var name:
  *
- *   CANONICAL: NYV_REDIS_TCP_URL    (rediss:// recommended, redis:// allowed)
+ *   CANONICAL: JRX_REDIS_TCP_URL    (rediss:// recommended, redis:// allowed)
  *   LEGACY (still accepted, but each emits a one-shot DEPRECATED warning):
- *     • NYV_REDIS_WRITE_URL  (write-replica alias from earlier seed)
+ *     • JRX_REDIS_WRITE_URL  (write-replica alias from earlier seed)
  *     • REDIS_URL            (historical Upstash + dev convention)
- *     • NYV_REDIS_URL        (older Jurexio-prefixed alias)
+ *     • JRX_REDIS_URL        (older Jurexio-prefixed alias)
  *
  * No new code may add a new alias without updating this list AND the
  * NV-SECRETS-001 guardrail in replit.md (pre-flight grep first).
@@ -40,31 +40,31 @@ const logger = createLogger('redis-tcp-url');
 const TCP_PREFIXES = ['redis://', 'rediss://'] as const;
 
 /** NV-SECRETS-001: the one true name (writes / primary). */
-export const CANONICAL_REDIS_VAR = 'NYV_REDIS_TCP_URL' as const;
+export const CANONICAL_REDIS_VAR = 'JRX_REDIS_TCP_URL' as const;
 
 /**
  * NV-SECRETS-001 (extension 2026-05-07): single canonical name for the
  * READ-REPLICA TCP URL. Distinct concept from CANONICAL_REDIS_VAR
- * (writes / primary) and from NYV_DB_READ_REPLICA_URL (Postgres, not
+ * (writes / primary) and from JRX_DB_READ_REPLICA_URL (Postgres, not
  * Redis). Pre-flight grep on 2026-05-07 confirmed no prior alias.
  *
  * Consumers that only do GET-path Redis reads (lm-cache GETs,
- * nv-redis-cache-service hot-read), feel free to opt into this URL via
+ * jrx-redis-cache-service hot-read), feel free to opt into this URL via
  * `resolveRedisReadUrl()`. Write-path consumers (BullMQ, rate limiter,
  * audit-chain-lock, PII vault, queue) MUST continue to use the primary
  * via `resolveRedisTcpUrl()`.
  *
- * When NYV_REDIS_READ_URL is absent, `resolveRedisReadUrl()` falls back
+ * When JRX_REDIS_READ_URL is absent, `resolveRedisReadUrl()` falls back
  * to the primary URL so single-endpoint envs (Replit dev / Upstash)
  * Just Work without a config change.
  */
-export const CANONICAL_REDIS_READ_VAR = 'NYV_REDIS_READ_URL' as const;
+export const CANONICAL_REDIS_READ_VAR = 'JRX_REDIS_READ_URL' as const;
 
 /** NV-SECRETS-001: legacy aliases still honoured (with one-shot deprecation warn). */
 export const LEGACY_REDIS_VARS = [
-  'NYV_REDIS_WRITE_URL',
+  'JRX_REDIS_WRITE_URL',
   'REDIS_URL',
-  'NYV_REDIS_URL',
+  'JRX_REDIS_URL',
 ] as const;
 
 export interface RedisTcpResolution {
@@ -107,8 +107,8 @@ export function resolveRedisTcpUrl(): RedisTcpResolution {
   // Priority order: canonical first, then legacy aliases. We accept the
   // first VALID redis(s):// scheme we find — defensive against malformed
   // env values (we have seen e.g. "ediss://..." caused by a chopped
-  // leading char) — a bad value in NYV_REDIS_TCP_URL must NOT block a
-  // good NYV_REDIS_WRITE_URL behind it.
+  // leading char) — a bad value in JRX_REDIS_TCP_URL must NOT block a
+  // good JRX_REDIS_WRITE_URL behind it.
   const candidates: Array<[string, string]> = [
     [CANONICAL_REDIS_VAR, clean(process.env[CANONICAL_REDIS_VAR])],
     ...LEGACY_REDIS_VARS.map((v) => [v, clean(process.env[v])] as [string, string]),
@@ -209,7 +209,7 @@ export function getResolvedRedisVarName(): string | null {
 /**
  * NV-SECRETS-001 (read-replica): resolve the read-side TCP URL. Returns
  * the same shape as `resolveRedisTcpUrl()`. Falls back to the primary
- * when NYV_REDIS_READ_URL is absent so single-endpoint envs don't need
+ * when JRX_REDIS_READ_URL is absent so single-endpoint envs don't need
  * to set both.
  *
  * Recommended for: cache GET paths only. Do NOT route writes, BullMQ

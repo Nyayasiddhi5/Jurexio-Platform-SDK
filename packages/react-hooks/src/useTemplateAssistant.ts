@@ -1,27 +1,27 @@
 import { useState, useCallback } from 'react';
-import { useNyvClient } from './useNyvClient.js';
-import type { NyvTemplateListItem, NyvTemplateGenerateResult, NyvTemplateFillSession } from '@jurexio/types';
+import { useJrxClient } from './useJrxClient.js';
+import type { JrxTemplateListItem, JrxTemplateGenerateResult, JrxTemplateFillSession } from '@jurexio/types';
 
 export interface UseTemplateAssistantReturn {
   loading: boolean;
   error: string | null;
-  templates: NyvTemplateListItem[];
-  listTemplates: (jurisdiction: string, category?: string) => Promise<NyvTemplateListItem[]>;
-  generate: (templateId: string, fields: Record<string, string>, jurisdiction: string) => Promise<NyvTemplateGenerateResult>;
-  startFillSession: (templateId: string, jurisdiction: string) => Promise<NyvTemplateFillSession>;
+  templates: JrxTemplateListItem[];
+  listTemplates: (jurisdiction: string, category?: string) => Promise<JrxTemplateListItem[]>;
+  generate: (templateId: string, fields: Record<string, string>, jurisdiction: string) => Promise<JrxTemplateGenerateResult>;
+  startFillSession: (templateId: string, jurisdiction: string) => Promise<JrxTemplateFillSession>;
 }
 
 export function useTemplateAssistant(): UseTemplateAssistantReturn {
-  const { authHeaders, baseUrl } = useNyvClient({});
+  const { authHeaders, baseUrl } = useJrxClient({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [templates, setTemplates] = useState<NyvTemplateListItem[]>([]);
+  const [templates, setTemplates] = useState<JrxTemplateListItem[]>([]);
 
   const callApi = useCallback(async (endpoint: string, body?: Record<string, unknown>, method = 'POST') => {
     setLoading(true);
     setError(null);
     try {
-      const url = `${baseUrl}/api/jrx/nyaya-tools/${endpoint}`;
+      const url = `${baseUrl}/api/jrx/jrx-legal-tools/${endpoint}`;
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json', ...authHeaders },

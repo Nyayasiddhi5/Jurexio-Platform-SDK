@@ -2,10 +2,10 @@ import { readFileSync } from "node:fs";
 import { SSMClient, SendCommandCommand, GetCommandInvocationCommand } from "@aws-sdk/client-ssm";
 
 const shPath = process.argv[2];
-const instanceId = process.env.NYV_EC2_INSTANCE_ID;
-const region = process.env.NYV_AWS_REGION || "ap-south-1";
+const instanceId = process.env.JRX_EC2_INSTANCE_ID;
+const region = process.env.JRX_AWS_REGION || "ap-south-1";
 if (!shPath || !instanceId) {
-  console.error("usage: NYV_EC2_INSTANCE_ID=... node _ssm-run-on-nysdev.mjs <script.sh>");
+  console.error("usage: JRX_EC2_INSTANCE_ID=... node _ssm-run-on-jrx-prod.mjs <script.sh>");
   process.exit(2);
 }
 const sh = readFileSync(shPath, "utf8");

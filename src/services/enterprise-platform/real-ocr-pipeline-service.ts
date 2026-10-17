@@ -1,7 +1,7 @@
 /**
  * Real OCR Pipeline Service (SDK surface)
  *
- * Job-tracked OCR over the single real OCR engine (nv-got-ocr-adapter-service).
+ * Job-tracked OCR over the single real OCR engine (jrx-got-ocr-adapter-service).
  * No canned strings: every processed document is extracted for real (PDF text
  * layer / vision OCR / local Tesseract) or the job fails with a real error.
  */

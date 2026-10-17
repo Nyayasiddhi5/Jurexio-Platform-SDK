@@ -1,28 +1,28 @@
 import { useState, useCallback } from 'react';
-import { useNyvClient } from './useNyvClient.js';
-import type { NyvLimitationResult, NyvChecklistItem } from '@jurexio/types';
+import { useJrxClient } from './useJrxClient.js';
+import type { JrxLimitationResult, JrxChecklistItem } from '@jurexio/types';
 
 export interface UseTimelineReturn {
   loading: boolean;
   error: string | null;
-  limitation: NyvLimitationResult | null;
-  checklist: NyvChecklistItem[];
-  checkLimitation: (sectionId: string, jurisdiction: string, eventDate?: string) => Promise<NyvLimitationResult>;
-  getChecklist: (matterId: string, jurisdiction: string) => Promise<NyvChecklistItem[]>;
+  limitation: JrxLimitationResult | null;
+  checklist: JrxChecklistItem[];
+  checkLimitation: (sectionId: string, jurisdiction: string, eventDate?: string) => Promise<JrxLimitationResult>;
+  getChecklist: (matterId: string, jurisdiction: string) => Promise<JrxChecklistItem[]>;
 }
 
 export function useTimeline(): UseTimelineReturn {
-  const { authHeaders, baseUrl } = useNyvClient({});
+  const { authHeaders, baseUrl } = useJrxClient({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [limitation, setLimitation] = useState<NyvLimitationResult | null>(null);
-  const [checklist, setChecklist] = useState<NyvChecklistItem[]>([]);
+  const [limitation, setLimitation] = useState<JrxLimitationResult | null>(null);
+  const [checklist, setChecklist] = useState<JrxChecklistItem[]>([]);
 
   const callApi = useCallback(async (endpoint: string, body: Record<string, unknown>) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${baseUrl}/api/jrx/nyaya-tools/timeline/${endpoint}`, {
+      const res = await fetch(`${baseUrl}/api/jrx/jrx-legal-tools/timeline/${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...authHeaders },
         body: JSON.stringify(body),
