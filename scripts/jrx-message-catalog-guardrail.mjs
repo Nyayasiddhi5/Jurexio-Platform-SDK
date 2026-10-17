@@ -35,7 +35,7 @@ const MIGRATED = new Set([
   'jrx-rls-routes.ts',
   'jrx-web-scraper-routes.ts',
   'jrx-iso-compliance-routes.ts',
-  'jrx-jrx-legal-tools-routes.ts',
+  'jrx-legal-tools-routes.ts',
   'jrx-agent-routes.ts',
 ]);
 

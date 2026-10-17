@@ -261,6 +261,8 @@
     "@types/pdfkit": "^0.17.6",
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
+    "@jurexio/docparse": "file:packages/docparse",
+    "@jurexio/docparse-sdk": "file:packages/docparse-sdk",
     "@nyv/docparse": "file:packages/docparse",
     "@nyv/docparse-sdk": "file:packages/docparse-sdk",
     "@uppy/aws-s3": "^5.1.0",

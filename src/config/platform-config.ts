@@ -202,7 +202,7 @@ export const SLM_BINDINGS = {
 } as const;
 
 export const PRODUCT_NAMES = {
-  jurexio-citizen: 'Jurexio Citizen',
+  'jurexio-citizen': 'Jurexio Citizen',
   nyayasiddhiProfessional: 'Jurexio Professional™',
   nyayasiddhiInstitutional: 'Jurexio Institutional™',
   nyayasiddhiMinistry: 'Jurexio Ministry™',
@@ -230,7 +230,7 @@ export const PRODUCT_TIERS = {
 } as const;
 
 export const PRODUCT_ROUTES = {
-  jurexio-citizen: '/api/jrx/nym',
+  'jurexio-citizen': '/api/jrx/nym',
   nyayasiddhiProfessional: '/api/jrx/pro',
   nyayasiddhiInstitutional: '/api/jrx/ins',
   nyayasiddhiMinistry: '/api/jrx/gov',
@@ -239,7 +239,7 @@ export const PRODUCT_ROUTES = {
 } as const;
 
 export const PRODUCT_DB_PREFIXES = {
-  jurexio-citizen: 'nym_',
+  'jurexio-citizen': 'nym_',
   nyayasiddhiProfessional: 'nys_pro_',
   nyayasiddhiInstitutional: 'nys_ins_',
   nyayasiddhiMinistry: 'nys_min_',
@@ -406,7 +406,7 @@ export const SDK_CONFIG = {
   seed: {
     defaultOrganizationId: NYAYASIDDHI_ORG_ID,
     metadataTier: 'internal' as const,
-    jurexio-citizen: {
+    'jurexio-citizen': {
       clientId: 'nyv_app_jurexio-citizen_consumer_intake_v1',
       appName: 'Jurexio Citizen',
       appType: 'consumer_intake' as const,

@@ -2,6 +2,14 @@
 
 ## [1.0.0] — Unreleased
 
+### Fixed — JRX-PROD-BUILD-FIX-001 (2026-10-17)
+
+- Gateway production build: `shared/jrx-*-schema` imports, `src/services/jrx-legal-tools/`, `src/services/jrx-sme/`, `jrx-legal-tools-routes.ts` (removed double `jrx` prefix).
+- Root `package.json`: `@jurexio/docparse-sdk` workspace alias for post-rebrand imports.
+- Quoted `'jurexio-citizen'` object keys and valid identifiers in `sdk-seed.ts` after zero-NYV rebrand.
+- Restored `scripts/jrx-build-production.sh`; SSM smoke uses `jq` for parameters (Mac AWS CLI).
+- Docparse-sdk onboarding mapper uses classification `conf` field.
+
 ### Removed — JRX-ZERO-NYV-REF-001 (2026-10-17)
 
 - Deleted `archive/upstream-nyv/`, `scripts/legacy-nyv/`, and bulk `docs/audit/eval/*.json` (history remains in Git).

@@ -19,7 +19,7 @@ import { nvNyayaTrailService } from '../services/jrx-legal-tools/jrx-nyayatrail-
 import { NV_MCP_TOOLS_REGISTRY, EXECUTABLE_MCP_TOOL_IDS, PARTNER_CURATED_MCP_TOOL_IDS, isMcpToolExecutable, type McpTool } from '../data/jrx-mcp-tools-registry.js';
 import { requireRole } from '../middleware/jrx-auth.js';
 
-const logger = createLogger('./jrx-jrx-legal-tools-routes');
+const logger = createLogger('./jrx-legal-tools-routes');
 const router = Router();
 
 /**

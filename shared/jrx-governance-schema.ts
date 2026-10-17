@@ -40,7 +40,7 @@ import {
   primaryKey,
 } from 'drizzle-orm/pg-core';
 import { sql, desc } from 'drizzle-orm';
-import { nvSchema } from './schema';
+import { nvSchema } from './schema.js';
 
 // ─── ENUMS ──────────────────────────────────────────────────────────────────
 export const caseUpdateType = nvSchema.enum('case_update_type', [
