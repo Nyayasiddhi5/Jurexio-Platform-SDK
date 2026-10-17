@@ -9,7 +9,7 @@
 
 | Action | Status |
 |--------|--------|
-| Author deploy + SSM bootstrap scripts in this repo | **Done** (see `scripts/jrx-*.sh`) |
+| Author deploy + SSM bootstrap + Option B apply scripts in this repo | **Done** (see `scripts/jrx-*.sh`, `jrx-infra-apply-option-b.sh`) |
 | Create RDS / EC2 / OpenSearch from Cursor cloud shell | **Blocked** — `aws sts get-caller-identity` → `NoCredentials` here |
 | You run provisioning on a machine with `aws login` or `product Documents/env.production` | **Required** for live infra |
 
@@ -86,16 +86,33 @@ bash scripts/jrx-infra-plan-ec2.sh --dry-run    # prints suggested CLI (no creat
 #   JRX_DEPLOY_BUCKET=jurexio-deploy-artifacts   # new bucket or prefix
 ```
 
-### 3. RDS (if Option B)
+### 3. Option B — full split stack (RDS + Redis + EC2 + S3)
+
+Idempotent provisioner (default **dry-run**; live create requires `--apply`):
 
 ```bash
-# New instance: see jrx-infra-plan-rds.sh --dry-run
-# OR logical DB on NEW RDS only:
+cd Jurexio-Platform-SDK
+bash scripts/jrx-infra-apply-option-b.sh              # plan only
+bash scripts/jrx-infra-apply-option-b.sh --apply        # after explicit GO
+# Optional Bedrock SSM copy ( /jurexio/prod/* only ):
+JRX_BOOTSTRAP_SSM=1 bash scripts/jrx-infra-apply-option-b.sh --apply
+```
+
+Writes resource IDs (no secrets) to **`env.production.jurexio.generated`** (gitignored).  
+Env knobs: `JRX_AWS_REGION`, `JRX_DEPLOY_BUCKET`, `JRX_VPC_ID`, `JRX_IAM_INSTANCE_PROFILE`.
+
+Post-RDS: pgvector + app role — same pattern as `jrx-provision-rds-database.sh` (script prints steps; set `JRX_RDS_ADMIN_URL` to run automatically on `--apply`).
+
+Legacy plan-only helpers: `jrx-infra-plan-rds.sh`, `jrx-infra-plan-ec2.sh`.
+
+### 4. RDS logical DB only (existing instance)
+
+```bash
 export JRX_RDS_ADMIN_URL='postgres://...'   # from SSM, do not commit
 bash scripts/jrx-provision-rds-database.sh
 ```
 
-### 4. Deploy application
+### 5. Deploy application
 
 ```bash
 source /path/to/env.production.jurexio   # AWS keys + JRX_EC2_INSTANCE_ID
@@ -103,7 +120,7 @@ bash scripts/jrx-deploy-aws-ssm.sh --note "JRX initial smoke"
 bash scripts/jrx-smoke-ec2.sh
 ```
 
-### 5. Cursor workspace
+### 6. Cursor workspace
 
 Open **`Jurexio-Platform-SDK.code-workspace`** (repo root) — not the Nyayavigya monorepo parent.
 
