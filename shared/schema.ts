@@ -3,15 +3,12 @@
  * Drizzle ORM table definitions for all SDK and platform tables
  */
 
-import { pgTable, pgSchema, serial, text, varchar, integer, boolean, timestamp, date, jsonb, real, doublePrecision, uuid, index, uniqueIndex, bigserial, bigint, primaryKey } from 'drizzle-orm/pg-core';
+import { pgTable, serial, text, varchar, integer, boolean, timestamp, date, jsonb, real, doublePrecision, uuid, index, uniqueIndex, bigserial, bigint, primaryKey } from 'drizzle-orm/pg-core';
 import { sql, InferSelectModel, InferInsertModel } from 'drizzle-orm';
 
-// ── nv_schema namespace ───────────────────────────────────────────────────────
-// The platform uses a dedicated `nv_schema` Postgres schema for governance,
-// audit, and PII-vault tables that are written to by middleware on the hot path.
-// Tables in this namespace MUST NOT collide with public-schema tables of the
-// same name (e.g. public.nv_audit_logs already exists with a different shape).
-export const nvSchema = pgSchema('nv_schema');
+// ── Governance Postgres schema (jrx_schema default; nv_schema legacy) ─────────
+import { governancePgSchema, nvSchema } from './pg-governance-namespace.js';
+export { governancePgSchema, nvSchema };
 
 // ── Core Infrastructure Tables ──────────────────────────────────────────────
 

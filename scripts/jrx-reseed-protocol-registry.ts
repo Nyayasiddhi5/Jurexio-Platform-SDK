@@ -2,7 +2,7 @@
  * Jurexio Platform 3.1.2 — Protocol Registry reseed
  * JRX-SCRIPT-RESEED-PROTOCOL-001 (T-DLR-11)
  *
- * Idempotent reseed of `nv_schema.protocol_registry` from the SSoT
+ * Idempotent reseed of governance `protocol_registry` (default `jrx_schema`) from the SSoT
  * `capabilityManifest`. Equivalent to the boot-time
  * `initializeProtocolRegistryFromManifest()` path, but runs standalone
  * against any Postgres URL (Neon / RDS / docker) without booting the
@@ -22,6 +22,8 @@
 
 import { makePgSql } from './_pg-pool.js';
 import { capabilityManifest } from '../src/orchestration/capability-manifest.js';
+import { qualifiedGovernanceTable } from '../src/db/governance-sql.js';
+import { ensureGovernanceBootstrap } from '../src/db/jrx-governance-bootstrap.js';
 
 const sql = makePgSql();
 const DRY = process.env.DRY_RUN === '1';
@@ -42,17 +44,20 @@ interface CapabilityShape {
 
 async function reseed(): Promise<void> {
   const all = (capabilityManifest as { list: () => CapabilityShape[] }).list();
-  console.log(`  Found ${all.length} capabilities in manifest`);
+  const tableRef = qualifiedGovernanceTable('protocol_registry');
+  console.log(`  Found ${all.length} capabilities in manifest (table ${tableRef})`);
 
   if (DRY) {
     console.log('  DRY_RUN=1 — printing first 3 statements only');
     for (const cap of all.slice(0, 3)) {
       console.log(
-        `    INSERT INTO nv_schema.protocol_registry(protocol_name, ...) VALUES ('CAP_${cap.id}', ...)`,
+        `    INSERT INTO ${tableRef}(protocol_name, ...) VALUES ('CAP_${cap.id}', ...)`,
       );
     }
     return;
   }
+
+  await ensureGovernanceBootstrap();
 
   let inserted = 0;
   let updated = 0;
@@ -71,41 +76,32 @@ async function reseed(): Promise<void> {
       tags: cap.tags,
     };
     const dependsOn = [`category:${cap.category ?? 'unknown'}`];
-    const result = FORCE_STATUS
-      ? await sql`
-          INSERT INTO nv_schema.protocol_registry (
+    const upsertSql = FORCE_STATUS
+      ? `INSERT INTO ${tableRef} (
             protocol_name, protocol_version, status, config_json, depends_on, activated_by, activated_at
-          ) VALUES (
-            ${protocolName}, '1.0', 'active',
-            ${JSON.stringify(config)}::jsonb,
-            ${JSON.stringify(dependsOn)}::jsonb,
-            'system:reseed', NOW()
-          )
+          ) VALUES ($1, '1.0', 'active', $2::jsonb, $3::jsonb, 'system:reseed', NOW())
           ON CONFLICT (protocol_name) DO UPDATE
-            SET status      = EXCLUDED.status,
+            SET status = EXCLUDED.status,
                 config_json = EXCLUDED.config_json,
-                depends_on  = EXCLUDED.depends_on,
+                depends_on = EXCLUDED.depends_on,
                 activated_by = EXCLUDED.activated_by,
                 activated_at = NOW()
-          RETURNING (xmax = 0) AS inserted
-        `
-      : await sql`
-          INSERT INTO nv_schema.protocol_registry (
+          RETURNING (xmax = 0) AS inserted`
+      : `INSERT INTO ${tableRef} (
             protocol_name, protocol_version, status, config_json, depends_on, activated_by, activated_at
-          ) VALUES (
-            ${protocolName}, '1.0', 'active',
-            ${JSON.stringify(config)}::jsonb,
-            ${JSON.stringify(dependsOn)}::jsonb,
-            'system:reseed', NOW()
-          )
+          ) VALUES ($1, '1.0', 'active', $2::jsonb, $3::jsonb, 'system:reseed', NOW())
           ON CONFLICT (protocol_name) DO UPDATE
             SET config_json = EXCLUDED.config_json,
-                depends_on  = EXCLUDED.depends_on,
+                depends_on = EXCLUDED.depends_on,
                 activated_by = EXCLUDED.activated_by,
                 activated_at = NOW()
-          RETURNING (xmax = 0) AS inserted
-        `;
-    if (result[0]?.inserted) inserted++; else updated++;
+          RETURNING (xmax = 0) AS inserted`;
+    const result = await sql.pool.query(upsertSql, [
+      protocolName,
+      JSON.stringify(config),
+      JSON.stringify(dependsOn),
+    ]);
+    if (result.rows[0]?.inserted) inserted++; else updated++;
   }
   console.log(`  ✓ protocol_registry reseed complete — inserted=${inserted}, updated=${updated}, total=${all.length}`);
 }

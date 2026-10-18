@@ -1460,6 +1460,27 @@ async function migrate() {
     await sql`CREATE INDEX IF NOT EXISTS idx_protocol_name    ON nv_schema.protocol_registry (protocol_name)`;
     console.log('  ✓ nv_schema.protocol_registry (capability manifest)');
 
+    // ── jrx_schema.protocol_registry — greenfield Jurexio Enterprise (JRX-BOOTSTRAP-GOV-001) ──
+    await sql`CREATE SCHEMA IF NOT EXISTS jrx_schema`;
+    await sql`
+      CREATE TABLE IF NOT EXISTS jrx_schema.protocol_registry (
+        id                  varchar(36) PRIMARY KEY DEFAULT (gen_random_uuid())::text,
+        protocol_name       varchar(255) NOT NULL,
+        protocol_version    varchar(50) NOT NULL DEFAULT '1.0',
+        status              varchar(50) NOT NULL DEFAULT 'initialized',
+        config_json         jsonb NOT NULL DEFAULT '{}',
+        activated_by        varchar(255),
+        depends_on          jsonb NOT NULL DEFAULT '[]',
+        activated_at        TIMESTAMPTZ,
+        health_status       varchar(50) DEFAULT 'unknown',
+        last_health_check   TIMESTAMPTZ,
+        created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )`;
+    await sql`CREATE UNIQUE INDEX IF NOT EXISTS protocol_registry_protocol_name_key ON jrx_schema.protocol_registry (protocol_name)`;
+    await sql`CREATE INDEX IF NOT EXISTS idx_protocol_registry_status ON jrx_schema.protocol_registry (status)`;
+    console.log('  ✓ jrx_schema.protocol_registry (capability manifest)');
+
     // ── nv_schema.agent_metrics — Per-agent telemetry roll-ups (JRX-UAT-BUG-001 fix) ──
     // Used by src/services/jrx-orchestration-services.ts (lines 300, 311, 315-316).
     // Route: GET /api/jrx/agent/metrics. INSERT writes per-period roll-ups; SELECTs aggregate.

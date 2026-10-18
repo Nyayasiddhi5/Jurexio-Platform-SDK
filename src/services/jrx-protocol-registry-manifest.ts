@@ -3,7 +3,7 @@
  * JRX-PROTOCOL-MANIFEST-001 (Task #32 round 7)
  *
  * Standalone module that binds every capability from the SSoT
- * `capabilityManifest` into `nv_schema.protocol_registry` so the protocol
+ * `capabilityManifest` into governance `protocol_registry` (`jrx_schema` default) so the protocol
  * registry surface is **manifest-initialized** at boot — the same way
  * `NvToolExecutionService.executeFromManifest` is. After this runs, every
  * catalog capability is callable via one registry contract and external
@@ -17,7 +17,7 @@
 import { db as _raw_db } from '../db/index.js';
 import { lazyRequire } from '../utils/jrx-type-helpers.js';
 const db = lazyRequire(() => _raw_db, 'db');
-import { sql } from 'drizzle-orm';
+import { governanceSelectOneIdByColumn } from '../db/governance-sql.js';
 import { capabilityManifest } from '../orchestration/capability-manifest.js';
 import { createLogger } from '../utils/logger.js';
 
@@ -52,10 +52,13 @@ export async function initializeProtocolRegistryFromManifest(
   let skipped = 0;
   for (const cap of all) {
     const protocolName = `CAP_${cap.id}`;
-    const existing = await db.execute(
-      sql`SELECT id FROM nv_schema.protocol_registry WHERE protocol_name = ${protocolName}`,
+    const existingId = await governanceSelectOneIdByColumn(
+      (query) => db.execute(query),
+      'protocol_registry',
+      'protocol_name',
+      protocolName,
     );
-    if ((existing.rows || []).length > 0) {
+    if (existingId) {
       skipped++;
       continue;
     }

@@ -1,5 +1,6 @@
 import { db as rawDb } from '../db/index.js';
 import { sql } from 'drizzle-orm';
+import { governanceProtocolRegistryRef, governanceSelectOneIdByColumn } from '../db/governance-sql.js';
 import { requireDb } from '../utils/jrx-type-helpers.js';
 import {
   getAllAgents,
@@ -1426,8 +1427,9 @@ export class NvProtocolRegistryService {
     activatedBy?: string;
     dependsOn?: string[];
   }): Promise<{ id: string }> {
+    const reg = governanceProtocolRegistryRef();
     const result = await db.execute(sql`
-      INSERT INTO nv_schema.protocol_registry (protocol_name, protocol_version, status, config_json, activated_by, depends_on, activated_at)
+      INSERT INTO ${reg} (protocol_name, protocol_version, status, config_json, activated_by, depends_on, activated_at)
       VALUES (${params.protocolName}, ${params.protocolVersion || '1.0'}, ${params.status || 'initialized'}, ${JSON.stringify(params.config || {})}, ${params.activatedBy || null}, ${JSON.stringify(params.dependsOn || [])}, ${params.status === 'active' ? new Date().toISOString() : null})
       RETURNING id
     `);
@@ -1435,15 +1437,17 @@ export class NvProtocolRegistryService {
   }
 
   async activateProtocol(protocolName: string): Promise<any> {
+    const reg = governanceProtocolRegistryRef();
     const result = await db.execute(sql`
-      UPDATE nv_schema.protocol_registry SET status = 'active', activated_at = NOW(), health_status = 'healthy', last_health_check = NOW()
+      UPDATE ${reg} SET status = 'active', activated_at = NOW(), health_status = 'healthy', last_health_check = NOW()
       WHERE protocol_name = ${protocolName} RETURNING *
     `);
     return result.rows?.[0] || null;
   }
 
   async getRegistry(): Promise<any[]> {
-    const result = await db.execute(sql`SELECT * FROM nv_schema.protocol_registry ORDER BY protocol_name`);
+    const reg = governanceProtocolRegistryRef();
+    const result = await db.execute(sql`SELECT * FROM ${reg} ORDER BY protocol_name`);
     return result.rows || [];
   }
 
@@ -1456,8 +1460,13 @@ export class NvProtocolRegistryService {
     ];
 
     for (const level of romaLevels) {
-      const existing = await db.execute(sql`SELECT id FROM nv_schema.protocol_registry WHERE protocol_name = ${level.name}`);
-      if ((existing.rows || []).length === 0) {
+      const existingId = await governanceSelectOneIdByColumn(
+        (query) => db.execute(query),
+        'protocol_registry',
+        'protocol_name',
+        level.name,
+      );
+      if (!existingId) {
         await this.registerProtocol({ protocolName: level.name, protocolVersion: level.version, status: 'active', config: level.config, dependsOn: level.dependsOn, activatedBy: 'system' });
       }
     }

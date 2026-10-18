@@ -63,9 +63,11 @@ fi
 NOTE_B64="$(nv_b64_encode "$NOTE")"
 REMOTE_SCRIPT="$(cat <<EOS
 set -euo pipefail
+DEPLOY_ID="${DEPLOY_ID}"
+SHA="${SHA}"
 DEPLOY_ROOT="${JRX_DEPLOY_ROOT}"
 SECRETS="${JRX_SECRETS_FILE}"
-LIVE_DIR="\${DEPLOY_ROOT}/repo/${DEPLOY_ID}-${SHA}"
+LIVE_DIR="\${DEPLOY_ROOT}/repo/\${DEPLOY_ID}-\${SHA}"
 COMPOSE="${JRX_COMPOSE_FILE}"
 NOTE="\$(printf '%s' '${NOTE_B64}' | base64 -d 2>/dev/null || true)"
 

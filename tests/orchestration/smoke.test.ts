@@ -848,7 +848,7 @@ describe('Orchestration smoke — Protocol registry manifest binding (round 7)',
     const dbModule = await import('../../src/db/index.js');
     const execSpy = vi.spyOn(dbModule.db, 'execute').mockImplementation(async (q: unknown) => {
       const text = JSON.stringify(q);
-      if (text.includes('SELECT id FROM nv_schema.protocol_registry WHERE protocol_name')) {
+      if (text.includes('protocol_registry') && text.includes('protocol_name')) {
         return { rows: [] } as never;
       }
       return { rows: [{ id: 'fake-' + Math.random().toString(36).slice(2, 10) }] } as never;

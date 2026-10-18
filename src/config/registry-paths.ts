@@ -13,8 +13,11 @@ export const REGISTRY_VERSION = process.env.NV_REGISTRY_VERSION || '5.1.0';
 export const ALLOWED_JURISDICTIONS = ['IN', 'UK', 'EU', 'US', 'GC', 'SG', 'Default'] as const;
 export type JurisdictionCode = typeof ALLOWED_JURISDICTIONS[number];
 
-export const REGISTRY_FILE_RE = /^Jurexio-Legal-registry-(IN|UK|EU|US|GC|SG|Default)\.json$/;
+export const REGISTRY_FILE_RE = /^Jurexio-Legal-registry-(IN|UK|EU|US|GC|SG|Default)\.json$/i;
 export const DEFAULT_REGISTRY_FILENAME = 'Jurexio-Legal-registry-Default.json';
+
+const REGISTRY_JURISDICTION_RE = /^(?:Jurexio|jurexio)-Legal-registry-(IN|UK|EU|US|GC|SG|Default)\.json$/i;
+
 export const ALIAS_MAP_FILENAME = 'agent-id-aliases-v5.1.0.json';
 
 function resolveRegistryDir(): string {
@@ -27,7 +30,7 @@ function resolveRegistryDir(): string {
 
   for (const candidate of candidates) {
     try {
-      if (fs.existsSync(candidate) && fs.readdirSync(candidate).some(f => REGISTRY_FILE_RE.test(f))) {
+      if (fs.existsSync(candidate) && fs.readdirSync(candidate).some(f => REGISTRY_JURISDICTION_RE.test(f))) {
         return candidate;
       }
     } catch {
@@ -49,11 +52,19 @@ export function getRegistryDir(): string {
 }
 
 export function getRegistryPath(jurisdiction: JurisdictionCode | string): string {
-  return path.join(getRegistryDir(), `Jurexio-Legal-registry-${jurisdiction}.json`);
+  const dir = getRegistryDir();
+  const canonical = `Jurexio-Legal-registry-${jurisdiction}.json`;
+  const exact = path.join(dir, canonical);
+  if (fs.existsSync(exact)) return exact;
+  const match = fs.readdirSync(dir).find(
+    (f) => f.toLowerCase() === canonical.toLowerCase(),
+  );
+  if (match) return path.join(dir, match);
+  return exact;
 }
 
 export function getDefaultRegistryPath(): string {
-  return path.join(getRegistryDir(), DEFAULT_REGISTRY_FILENAME);
+  return getRegistryPath('Default');
 }
 
 export function getAliasMapPath(): string {
@@ -63,10 +74,10 @@ export function getAliasMapPath(): string {
 export function listRegistryFiles(): string[] {
   return fs
     .readdirSync(getRegistryDir())
-    .filter(f => REGISTRY_FILE_RE.test(f))
+    .filter(f => REGISTRY_JURISDICTION_RE.test(f))
     .map(f => path.join(getRegistryDir(), f));
 }
 
 export function isAllowedRegistryFilename(filename: string): boolean {
-  return REGISTRY_FILE_RE.test(path.basename(filename));
+  return REGISTRY_JURISDICTION_RE.test(path.basename(filename));
 }

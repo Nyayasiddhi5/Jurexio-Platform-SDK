@@ -32,7 +32,6 @@
 // ════════════════════════════════════════════════════════════════════════════
 
 import {
-  pgSchema,
   serial,
   bigserial,
   integer,
@@ -52,11 +51,8 @@ import {
 } from 'drizzle-orm/pg-core';
 import { sql, type InferSelectModel, type InferInsertModel } from 'drizzle-orm';
 
-// Re-declare the schema namespace locally so this file can be wired into
-// drizzle.config.ts independently of shared/schema.ts. Drizzle treats two
-// `pgSchema('nv_schema')` references with the same name as the same schema —
-// no duplication is generated in the migration plan.
-export const nvSchema = pgSchema('nv_schema');
+import { nvSchema } from './pg-governance-namespace.js';
+export { nvSchema };
 
 // ── pgvector columns ────────────────────────────────────────────────────────
 // Prod has the `vector` extension installed and uses HNSW cosine indexes on
