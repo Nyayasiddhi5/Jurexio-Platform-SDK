@@ -36,7 +36,7 @@ export const JRX_SDK_PRODUCTION = {
   },
 
   platforms: {
-    jurexio-citizen: {
+    'jurexio-citizen': {
       ...JRX_ECOSYSTEM_PLATFORMS.NYM,
       defaultModules: {
         nyayarag: true, doc_intelligence: true, sdk_intelligence: true,

@@ -33,7 +33,7 @@ interface PlatformConfig {
 }
 
 const PLATFORM_META: Record<string, { icon: string; color: string }> = {
-  jurexio-citizen: { icon: '🏛️', color: '#10b981' },
+  'jurexio-citizen': { icon: '🏛️', color: '#10b981' },
   'nyayasiddhi-professional': { icon: '⚖️', color: '#3b82f6' },
   professional: { icon: '⚖️', color: '#3b82f6' },
   'nyayasiddhi-institution': { icon: '🏢', color: '#8b5cf6' },

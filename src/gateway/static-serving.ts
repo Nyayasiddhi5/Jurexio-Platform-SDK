@@ -4,7 +4,7 @@ import fs from 'fs';
 import { servePlatformHomepage } from './platform-homepage.js';
 
 const DIST_PATHS = {
-  jurexio-citizen: path.resolve(process.cwd(), 'jurexio-citizen-citizen/dist'),
+  'jurexio-citizen': path.resolve(process.cwd(), 'jurexio-citizen/dist'),
   professional: path.resolve(process.cwd(), 'nyayasiddhi-professional/dist'),
   console: path.resolve(process.cwd(), 'dist/public'),
 };

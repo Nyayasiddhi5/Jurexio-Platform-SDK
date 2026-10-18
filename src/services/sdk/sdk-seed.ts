@@ -11,8 +11,8 @@ import { createLogger } from '../../utils/logger.js';
 
 const logger = createLogger('sdk-seed');
 
-// @ts-expect-error NV-TS230 legacy typing gap (TS2339)
-const { jurexio-citizen: NYAYAMITRA_CONFIG, nyayasiddhiLite: NYAYASIDDHI_CONFIG } = SDK_CONFIG.seed;
+const NYAYAMITRA_CONFIG = SDK_CONFIG.seed['jurexio-citizen'];
+const NYAYASIDDHI_CONFIG = SDK_CONFIG.seed.nyayasiddhiProfessional;
 
 function hashSecret(secret: string): string {
   return crypto.createHash('sha256').update(secret).digest('hex');
@@ -49,15 +49,15 @@ export async function seedSdkApplications(): Promise<void> {
       return;
     }
 
-    const jurexio-citizenSecret = `${SDK_CONFIG.credentials.clientSecretPrefix}${crypto.randomBytes(24).toString('hex')}`;
-    const [jurexio-citizenApp] = await db.insert(sdkApplications).values({
+    const jurexioCitizenSecret = `${SDK_CONFIG.credentials.clientSecretPrefix}${crypto.randomBytes(24).toString('hex')}`;
+    const [jurexioCitizenApp] = await db.insert(sdkApplications).values({
       organizationId: SDK_CONFIG.seed.defaultOrganizationId,
       appName: NYAYAMITRA_CONFIG.appName,
       appType: NYAYAMITRA_CONFIG.appType,
       description: NYAYAMITRA_CONFIG.description,
       clientId: NYAYAMITRA_CONFIG.clientId,
-      clientSecretHash: hashSecret(jurexio-citizenSecret),
-      clientSecretPrefix: jurexio-citizenSecret.substring(0, 12),
+      clientSecretHash: hashSecret(jurexioCitizenSecret),
+      clientSecretPrefix: jurexioCitizenSecret.substring(0, 12),
       allowedAgents: NYAYAMITRA_AGENTS.map(a => a.agentId),
       llmConfig: { provider: SDK_CONFIG.defaults.provider, model: 'auto', maxTokens: NYAYAMITRA_CONFIG.maxTokensPerRequest, temperature: NYAYAMITRA_CONFIG.temperature },
       rateLimitPerMinute: NYAYAMITRA_CONFIG.rateLimitPerMinute,
@@ -89,11 +89,11 @@ export async function seedSdkApplications(): Promise<void> {
       status: 'active',
     }).returning();
 
-    const jurexio-citizenKey = `${SDK_CONFIG.credentials.apiKeyPrefix}${crypto.randomBytes(24).toString('hex')}`;
+    const jurexioCitizenKey = `${SDK_CONFIG.credentials.apiKeyPrefix}${crypto.randomBytes(24).toString('hex')}`;
     await db.insert(sdkAppApiKeys).values({
-      applicationId: jurexio-citizenApp.id,
-      keyHash: hashSecret(jurexio-citizenKey),
-      keyPrefix: jurexio-citizenKey.substring(0, 16),
+      applicationId: jurexioCitizenApp.id,
+      keyHash: hashSecret(jurexioCitizenKey),
+      keyPrefix: jurexioCitizenKey.substring(0, 16),
       name: `${NYAYAMITRA_CONFIG.appName} Production Key`,
       scopes: ['agents:read', 'agents:execute', 'documents:read', 'usage:read'],
       isActive: true,
@@ -111,7 +111,7 @@ export async function seedSdkApplications(): Promise<void> {
 
     for (const agent of NYAYAMITRA_AGENTS) {
       await db.insert(sdkAppAgentAllocations).values({
-        applicationId: jurexio-citizenApp.id,
+        applicationId: jurexioCitizenApp.id,
         ...agent,
         dailyTokenLimit: NYAYAMITRA_CONFIG.defaultAgentTokenLimit,
         isActive: true,
@@ -122,13 +122,13 @@ export async function seedSdkApplications(): Promise<void> {
       await db.insert(sdkAppAgentAllocations).values({
         applicationId: nyayasiddhiApp.id,
         ...agent,
-        dailyTokenLimit: NYAYASIDDHI_CONFIG.defaultAgentTokenLimit,
+        dailyTokenLimit: NYAYASIDDHI_CONFIG.defaultAgentTokenLimit ?? SDK_CONFIG.defaults.dailyTokenBudget,
         isActive: true,
       });
     }
 
-    logger.info(`  Jurexio Citizen registered (ID: ${jurexio-citizenApp.id}, agents: ${NYAYAMITRA_AGENTS.length})`);
-    logger.info(`  Jurexio Lite registered (ID: ${nyayasiddhiApp.id}, agents: ${NYAYASIDDHI_LITE_AGENTS.length})`);
+    logger.info(`  Jurexio Citizen registered (ID: ${jurexioCitizenApp.id}, agents: ${NYAYAMITRA_AGENTS.length})`);
+    logger.info(`  Jurexio Professional registered (ID: ${nyayasiddhiApp.id}, agents: ${NYAYASIDDHI_LITE_AGENTS.length})`);
     logger.info('  Note: API keys generated but not displayed (use Console API to create new keys)');
   } catch (error: any) {
     if (error?.message?.includes('duplicate key') || error?.message?.includes('already exists')) {

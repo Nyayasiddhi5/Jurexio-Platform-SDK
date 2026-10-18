@@ -86,6 +86,12 @@ bash scripts/jrx-ssm-bootstrap-bedrock-smoke.sh
 ```bash
 bash scripts/jrx-infra-plan-ec2.sh --dry-run    # prints suggested CLI (no create)
 # After GO: launch instance, attach IAM role (SSM + Bedrock), open 443/5000/22 as needed
+#
+# EC2 instance profile (inline policy name suggestion: `JrxProdEc2DeployRolePolicy`) should allow at minimum:
+#   - ssm:SendCommand, ssm:GetCommandInvocation, ssm:ListCommandInvocations (deploy + jrx-smoke-ec2.sh)
+#   - secretsmanager:GetSecretValue on the JRX RDS secret ARN (bootstrap DATABASE_URL on host)
+#   - s3:GetObject on `JRX_DEPLOY_BUCKET` artifact prefix (deploy tarball pull)
+#   - ssm:PutParameter on `/jurexio/prod/*` — optional; only if deploy script writes SSM from the host
 # Set in env.production.jurexio (local, gitignored):
 #   JRX_EC2_INSTANCE_ID=i-xxxxxxxx
 #   JRX_AWS_REGION=ap-south-1

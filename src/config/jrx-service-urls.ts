@@ -13,7 +13,7 @@ const isDev = process.env.NODE_ENV !== 'production';
 export const NV_SERVICE_URLS = {
   gateway: process.env.JRX_GATEWAY_URL || (isDev ? 'http://localhost:5000' : ''),
 
-  jurexio-citizen: process.env.JRX_NYAYAMITRA_URL || process.env.NM_API_URL || (isDev ? 'http://localhost:3001' : ''),
+  'jurexio-citizen': process.env.JRX_NYAYAMITRA_URL || process.env.NM_API_URL || (isDev ? 'http://localhost:3001' : ''),
 
   nyayasiddhiProfessional: process.env.JRX_NSP_URL || process.env.NSP_API_URL || (isDev ? 'http://localhost:4000' : ''),
 

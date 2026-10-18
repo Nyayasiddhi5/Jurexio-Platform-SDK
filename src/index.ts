@@ -254,7 +254,7 @@ import nvContentRouter from './routes/jrx-content-routes.js';
 import nvNewServicesRouter from './routes/jrx-new-services-routes.js';
 import nvCompletionsRouter from './routes/jrx-completions-routes.js';
 import nvPatternsRouter from './routes/jrx-patterns-routes.js';
-import nvNyayaToolsRouter from './routes/jrx-jrx-legal-tools-routes.js';
+import nvNyayaToolsRouter from './routes/jrx-legal-tools-routes.js';
 import nvMcpConnectorRouter from './routes/jrx-mcp-connector-routes.js';
 import nvIntelligenceRouter from './routes/jrx-intelligence-routes.js';
 import nvTestingRouter from './routes/jrx-testing-routes.js';

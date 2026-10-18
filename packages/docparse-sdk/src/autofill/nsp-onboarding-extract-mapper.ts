@@ -110,7 +110,7 @@ export function mapExtractionToNspOnboardingForm(
     classify: {
       docTypeCode: primary?.code ?? null,
       docTypeLabel: primary?.label ?? null,
-      confidence: primary?.confidence ?? null,
+      confidence: primary?.conf ?? null,
       detectedFieldCount: resolvedCount,
       parseDetails: {
         completenessRatio: result.autofill.completeness.ratio,

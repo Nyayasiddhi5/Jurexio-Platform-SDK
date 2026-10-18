@@ -106,7 +106,7 @@ const PLATFORMS = [
 
 /** Maps command-centre platform ids → nv_sdk_applications.platform_type */
 const PLATFORM_REGISTRY_ALIAS: Record<string, string> = {
-  jurexio-citizen: 'jurexio-citizen',
+  'jurexio-citizen': 'jurexio-citizen',
   nsp: 'nyayasiddhi-professional',
   nsi: 'nyayasiddhi-institution',
   nsg: 'nyayasiddhi-ministry',
