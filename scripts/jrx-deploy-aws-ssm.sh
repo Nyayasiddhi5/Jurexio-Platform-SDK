@@ -85,14 +85,27 @@ else
 fi
 
 docker compose -f "\${COMPOSE}" build --pull gateway
-docker compose -f "\${COMPOSE}" up -d --no-deps gateway
+
+if docker ps -a --format '{{.Names}}' | grep -qx 'jrx-gateway'; then
+  echo "[jrx-ec2] removing stale container jrx-gateway (pre compose up)"
+  docker rm -f jrx-gateway 2>/dev/null || true
+fi
+
+docker compose -f "\${COMPOSE}" up -d --no-deps --force-recreate --remove-orphans gateway
+
+HEALTH_OK=0
 for i in \$(seq 1 30); do
   if wget -qO- http://127.0.0.1:5000/api/jrx/health >/dev/null 2>&1; then
     echo "[jrx-ec2] health OK"
+    HEALTH_OK=1
     break
   fi
   sleep 3
 done
+if [ "\${HEALTH_OK}" != "1" ]; then
+  echo "[jrx-ec2] health FAILED after 90s" >&2
+  exit 1
+fi
 
 echo "\${DEPLOY_ID} \${SHA} \$(date -u +%Y-%m-%dT%H:%M:%SZ) \${NOTE}" >> "\${DEPLOY_ROOT}/deploys.log"
 ln -sfn "\${LIVE_DIR}" "\${DEPLOY_ROOT}/current"
@@ -108,12 +121,34 @@ CMD_ID="$(aws ssm send-command \
   --query Command.CommandId --output text)"
 
 echo "==> [3/4] SSM command_id=${CMD_ID}"
-echo "==> [4/4] Waiting for output..."
-aws ssm wait command-executed --region "$JRX_AWS_REGION" \
-  --command-id "$CMD_ID" --instance-id "$JRX_EC2_INSTANCE_ID" || true
+echo "==> [4/4] Waiting for SSM completion (max 15min)"
+SSM_STATUS="Pending"
+for _i in $(seq 1 180); do
+  SSM_STATUS="$(aws ssm get-command-invocation \
+    --region "$JRX_AWS_REGION" \
+    --command-id "$CMD_ID" \
+    --instance-id "$JRX_EC2_INSTANCE_ID" \
+    --query 'Status' --output text 2>/dev/null || echo Pending)"
+  case "$SSM_STATUS" in
+    Success) echo "    SSM Success"; break ;;
+    Failed|Cancelled|TimedOut) echo "    SSM ${SSM_STATUS}"; break ;;
+    *) sleep 5 ;;
+  esac
+done
+
+echo "==> Stdout:"
 aws ssm get-command-invocation --region "$JRX_AWS_REGION" \
   --command-id "$CMD_ID" --instance-id "$JRX_EC2_INSTANCE_ID" \
-  --query '[Status, StandardOutputContent, StandardErrorContent]' --output text
+  --query 'StandardOutputContent' --output text || true
+
+if [ "$SSM_STATUS" != "Success" ]; then
+  echo "==> Stderr:"
+  aws ssm get-command-invocation --region "$JRX_AWS_REGION" \
+    --command-id "$CMD_ID" --instance-id "$JRX_EC2_INSTANCE_ID" \
+    --query 'StandardErrorContent' --output text || true
+  echo "==> JRX deploy FAILED deploy_id=${DEPLOY_ID} ssm_status=${SSM_STATUS}" >&2
+  exit 1
+fi
 
 mkdir -p "$ROOT/.local"
 echo "${DEPLOY_ID} ${SHA} instance=${JRX_EC2_INSTANCE_ID}" >> "$ROOT/.local/jrx-deploys.log"
