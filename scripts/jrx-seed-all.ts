@@ -12,6 +12,7 @@ async function seedAll() {
   console.log('══════════════════════════════════════════════════════\n');
 
   const seeds = [
+    { name: 'Protocol registry (manifest CAP_*)', script: 'scripts/jrx-seed-protocol-registry-bootstrap.ts' },
     { name: 'Feature Flags',       script: 'scripts/jrx-seed-feature-flags.ts' },
     { name: 'Jurisdiction Configs', script: 'scripts/jrx-seed-jurisdictions.ts' },
     { name: 'LLM Providers',       script: 'scripts/jrx-seed-llm-providers.ts' },

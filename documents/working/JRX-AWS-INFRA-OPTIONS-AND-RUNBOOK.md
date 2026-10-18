@@ -132,6 +132,8 @@ bash scripts/jrx-deploy-aws-ssm.sh --note "JRX initial smoke"
 bash scripts/jrx-smoke-ec2.sh
 ```
 
+**RDS TLS:** Gateway images ship `certs/rds-global-bundle.pem` (refresh via `bash scripts/jrx-download-rds-ca-bundle.sh`); override path with `JRX_RDS_CA_BUNDLE_PATH` if needed.
+
 ### 6. Cursor workspace
 
 Open **`Jurexio-Platform-SDK.code-workspace`** (repo root) — not the Jurexio monorepo parent.

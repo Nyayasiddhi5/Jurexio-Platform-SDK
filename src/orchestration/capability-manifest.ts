@@ -15,7 +15,7 @@
  *    partner SDK tier surfaces. The generated
  *    `capability-manifest.snapshot.json` is a read-only export of this file
  *    (see `npm run manifest:snapshot`); it must never be edited by hand.
- *  - **DB seed (derived, not authoritative):** `nv_schema.protocol_registry`
+ *  - **DB seed (derived, not authoritative):** `jrx_schema.protocol_registry`
  *    rows (`CAP_<id>`) are populated FROM this manifest via
  *    `scripts/jrx-reseed-protocol-registry.ts` / boot-time init. Stale DB rows
  *    do not define runtime behaviour — reseed after manifest changes.

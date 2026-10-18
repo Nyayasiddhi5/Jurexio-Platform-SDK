@@ -2,6 +2,14 @@
 
 ## [1.0.0] — Unreleased
 
+### Fixed — JRX-BOOTSTRAP-DEPLOY-PR6-001 (2026-10-18)
+
+- Governance Postgres namespace defaults to `jrx_schema` (`JRX_PG_SCHEMA` override; legacy `nv_schema` dual-read on protocol registry).
+- Boot-time `ensureGovernanceBootstrap()` creates `protocol_registry` on empty RDS before manifest init; `scripts/jrx-seed-protocol-registry-bootstrap.ts` + migrate DDL parity.
+- `scripts/jrx-deploy-aws-ssm.sh`: export `DEPLOY_ID`/`SHA` into remote script (`set -u` fix).
+- Ship `certs/rds-global-bundle.pem` and `scripts/jrx-download-rds-ca-bundle.sh`; runbook RDS TLS note.
+- Rename agent registries to canonical `config/agent-registries/Jurexio-Legal-registry-*.json` (Linux case).
+
 ### Fixed — JRX-GATEWAY-TSC-ROUND2-001 (2026-10-18)
 
 - Gateway Docker build: `tsconfig.server.json` `noEmitOnError: true`; `scripts/jrx-build-production.sh` uses authoritative `build:server` (removed fallback root `tsc`).

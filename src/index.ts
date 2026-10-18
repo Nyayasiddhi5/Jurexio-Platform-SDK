@@ -1571,6 +1571,16 @@ async function start() {
       logger.warn('  ⚠ DB pool warmup partial', { error: e.message })
     );
 
+    // Step 12.5: Governance DDL on empty RDS (protocol_registry for manifest boot).
+    try {
+      const { ensureGovernanceBootstrap } = await import('./db/jrx-governance-bootstrap.js');
+      await ensureGovernanceBootstrap();
+      logger.info('  ✓ Governance schema bootstrap (protocol_registry)');
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : String(e);
+      logger.warn('  ⚠ Governance schema bootstrap failed (manifest init may retry DDL)', { error: msg });
+    }
+
     // Step 12.6: Manifest-driven catalog bootstrap (Task #32).
     // Initialize the protocol registry from the SSoT capability manifest so
     // every catalogued capability is uniformly callable via the registry
