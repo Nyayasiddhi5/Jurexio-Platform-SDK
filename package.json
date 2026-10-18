@@ -117,6 +117,8 @@
     "bench:cost": "node scripts/jrx-benchmark-cost.mjs",
     "bench:cost:report": "node scripts/jrx-benchmark-cost.mjs --offline",
     "seed:rag-starter": "npx tsx scripts/jrx-seed-rag-starter.ts",
+    "seed:rag-and-audit": "npx tsx scripts/jrx-seed-rag-and-audit.ts",
+    "seed:audit-greenfield": "bash scripts/jrx-seed-audit-greenfield.sh",
     "migrate:catchup": "npx tsx scripts/jrx-apply-catchup-migrations.ts",
     "bootstrap:sme": "tsx scripts/jrx-sme-bootstrap.ts",
     "guardrail:auth-header": "bash scripts/jrx-check-auth-header-discipline.sh",
