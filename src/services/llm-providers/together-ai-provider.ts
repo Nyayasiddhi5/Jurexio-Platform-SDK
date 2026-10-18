@@ -179,7 +179,7 @@ export class TogetherAIProvider extends UnifiedLLMAdapter {
         signal: timeoutController.signal
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         const errorText = await response.text();
         throw new ProviderError(`Together AI API error: ${response.status} - ${errorText}`);
       }
@@ -344,7 +344,7 @@ export class TogetherAIProvider extends UnifiedLLMAdapter {
         body: JSON.stringify(apiRequest)
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         const errorText = await response.text();
         throw new ProviderError(`Together AI streaming API error: ${response.status} - ${errorText}`);
       }
@@ -422,7 +422,7 @@ export class TogetherAIProvider extends UnifiedLLMAdapter {
         })
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         const errorText = await response.text();
         throw new ProviderError(`Together AI image generation error: ${response.status} - ${errorText}`);
       }
@@ -462,7 +462,7 @@ export class TogetherAIProvider extends UnifiedLLMAdapter {
         })
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         const errorText = await response.text();
         throw new ProviderError(`Together AI embedding error: ${response.status} - ${errorText}`);
       }

@@ -247,7 +247,7 @@ export class JrxVoiceServiceEnhanced {
       signal: AbortSignal.timeout(30_000),
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       const errText = await response.text().catch(() => 'Unknown error');
       throw new Error(`ElevenLabs TTS failed: ${response.status} ${errText}`);
     }
@@ -294,7 +294,7 @@ export class JrxVoiceServiceEnhanced {
       signal: AbortSignal.timeout(30_000),
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       throw new Error(`OpenAI TTS failed: ${response.status}`);
     }
 
@@ -394,7 +394,7 @@ export class JrxVoiceServiceEnhanced {
           body: form as any,
           signal: AbortSignal.timeout(20_000),
         });
-        if (!r.ok) {
+        if (r.ok === false) {
           const e: any = new Error(`sarvam_stt_http_${r.status}`);
           e.status = r.status;
           throw e;
@@ -444,7 +444,7 @@ export class JrxVoiceServiceEnhanced {
       signal: AbortSignal.timeout(60_000),
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       throw new Error(`Whisper STT failed: ${response.status}`);
     }
 

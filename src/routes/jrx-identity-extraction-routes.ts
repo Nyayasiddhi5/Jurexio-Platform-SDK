@@ -28,7 +28,6 @@ router.post('/extract', authenticateToken, async (req: Request, res: Response) =
 
     const result = await identityExtractionService.extractIdentityFields(
       documentId,
-      // @ts-expect-error NV-TS230 legacy typing gap (TS18048,TS2345)
       user.id || user.userId,
       documentType,
       // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
@@ -45,7 +44,6 @@ router.post('/extract', authenticateToken, async (req: Request, res: Response) =
 router.get('/extractions', authenticateToken, async (req: Request, res: Response) => {
   try {
     const user = req.user;
-    // @ts-expect-error NV-TS230 legacy typing gap (TS18048,TS2345)
     const extractions = await identityExtractionService.getUserExtractions(user.id || user.userId);
     res.json({ success: true, data: extractions });
   } catch (error: any) {
@@ -74,7 +72,6 @@ router.post('/extractions/:id/review', authenticateToken, async (req: Request, r
     const { correctedFields } = req.body;
     const result = await identityExtractionService.reviewExtraction(
       parseInt(String(req.params.id)),
-      // @ts-expect-error NV-TS230 legacy typing gap (TS18048,TS2345)
       user.id || user.userId,
       correctedFields
     );

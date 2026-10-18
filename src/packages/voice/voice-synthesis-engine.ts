@@ -207,7 +207,7 @@ export class VoiceSynthesisEngine {
       })
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       const errorText = await response.text();
       throw new Error(`ElevenLabs API error ${response.status}: ${errorText}`);
     }
@@ -367,7 +367,7 @@ export class VoiceSynthesisEngine {
       body: formData
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       throw new Error(`Voice cloning failed: ${response.status}`);
     }
 

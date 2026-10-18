@@ -193,7 +193,9 @@ const HANDLERS: Record<string, McpDelegateHandler> = {
         limit: Number(inp.limit ?? 10),
       },
     });
-    return r.ok ? { ...((r.data as object) || {}), source: 'nys' } : { status: 'degraded', error: r.error, source: 'nys' };
+    return r.ok === true
+      ? { ...((r.data as object) || {}), source: 'nys' }
+      : { status: 'degraded', error: r.error, source: 'nys' };
   },
   nys_search_statutes: async (inp) => {
     const { nysKnowledgeRequest } = await import('../jrx-nys-knowledge-client.js');
@@ -207,7 +209,9 @@ const HANDLERS: Record<string, McpDelegateHandler> = {
         limit: Number(inp.limit ?? 10),
       },
     });
-    return r.ok ? { ...((r.data as object) || {}), source: 'nys' } : { status: 'degraded', error: r.error, source: 'nys' };
+    return r.ok === true
+      ? { ...((r.data as object) || {}), source: 'nys' }
+      : { status: 'degraded', error: r.error, source: 'nys' };
   },
   nys_get_statute: async (inp) => {
     const { nysKnowledgeRequest } = await import('../jrx-nys-knowledge-client.js');
@@ -226,7 +230,9 @@ const HANDLERS: Record<string, McpDelegateHandler> = {
         limit: Number(inp.limit ?? 5),
       },
     });
-    return r.ok ? { ...((r.data as object) || {}), source: 'nys' } : { status: 'degraded', error: r.error, source: 'nys' };
+    return r.ok === true
+      ? { ...((r.data as object) || {}), source: 'nys' }
+      : { status: 'degraded', error: r.error, source: 'nys' };
   },
   nys_compare_ipc_bns: async (inp) => {
     const { nysCompareOldNew } = await import('../jrx-nys-knowledge-retriever.js');
@@ -300,7 +306,9 @@ const HANDLERS: Record<string, McpDelegateHandler> = {
         court: inp.court,
       }),
     });
-    return r.ok ? { ...((r.data as object) || {}), source: 'nys-athena' } : { status: 'degraded', error: r.error, source: 'nys-athena' };
+    return r.ok === true
+      ? { ...((r.data as object) || {}), source: 'nys-athena' }
+      : { status: 'degraded', error: r.error, source: 'nys-athena' };
   },
 
   /**
@@ -326,7 +334,7 @@ const HANDLERS: Record<string, McpDelegateHandler> = {
       court: typeof inp.court === 'string' ? inp.court : undefined,
       title: typeof inp.title === 'string' ? inp.title : undefined,
     });
-    if (!result.ok) {
+    if (result.ok === false) {
       return {
         status: 'degraded',
         code: result.code,

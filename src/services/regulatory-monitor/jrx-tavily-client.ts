@@ -183,7 +183,7 @@ export async function tavilySearchNews(
     return [];
   }
 
-  if (!response.ok) {
+  if (response.ok === false) {
     logger.warn('[tavily] non-200 response', {
       jurisdiction,
       topic,

@@ -206,7 +206,7 @@ async function fetchRssCandidates(jurisdiction: string): Promise<CandidateRow[]>
         headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Jurexio-LegalIntel/5.0)' },
         signal: AbortSignal.timeout(15000),
       });
-      if (!res.ok) {
+      if (res.ok === false) {
         logger.warn('[LegalIntel] RSS non-OK', { url: feed.url, status: res.status });
         continue;
       }
@@ -424,7 +424,7 @@ Exactly ${opts.topN} items, ranks 1..${opts.topN}. Use idx from the catalog. Pre
   const resp = await callJurexio('legal-research', systemPrompt, userPrompt, {
     maxTokens: 4096,
     source: 'nyayasiddhi',
-    tier: 'enterprise',
+    tier: 'elite',
     jurisdiction: opts.jurisdiction,
     taskType: 'legal-intelligence-feed',
     domainContext: `Daily legal intelligence digest for ${opts.jurisdiction}`,

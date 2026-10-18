@@ -187,7 +187,6 @@ export const pivotTableExecutor: ToolExecutor = async (params) => {
 
     // Collect all column values
     for (const row of data) {
-      // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
       const colKey = columns.map((c) => row[c]).join('|');
       columnValues.add(colKey);
     }
@@ -195,7 +194,6 @@ export const pivotTableExecutor: ToolExecutor = async (params) => {
     // Build pivot structure
     for (const row of data) {
       const rowKey = rows.map((r) => row[r]).join('|');
-      // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
       const colKey = columns.map((c) => row[c]).join('|');
 
       if (!pivot[rowKey]) {

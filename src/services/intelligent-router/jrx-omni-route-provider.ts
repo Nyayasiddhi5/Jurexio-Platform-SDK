@@ -165,7 +165,7 @@ export async function callOmniRoute(
   });
 
   const text = await res.text();
-  if (!res.ok) {
+  if (res.ok === false) {
     throw new Error(`OmniRoute ${res.status}: ${text.slice(0, 200)}`);
   }
 

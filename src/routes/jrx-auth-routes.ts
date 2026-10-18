@@ -34,7 +34,7 @@ router.post('/register', async (req: Request, res: Response) => {
     }
 
     const existingUser = await db.execute(sql`SELECT id FROM nv_users WHERE email = ${email}`);
-    if ((existingUser.rows || existingUser).length > 0) {
+    if ((existingUser.rows ?? []).length > 0) {
       safeError(res, 'User already exists', 409);
       return;
     }
@@ -48,11 +48,14 @@ router.post('/register', async (req: Request, res: Response) => {
       RETURNING id, email, role, full_name, tier
     `);
 
-    const newUser = (result.rows || result)[0];
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
+    const newUser = (result.rows ?? [])[0] as {
+      id: string;
+      email: string;
+      role: string;
+      full_name?: string | null;
+    };
     const token = generateToken({ id: newUser.id, email: newUser.email, role: newUser.role, organizationId: null });
     const refreshToken = generateRefreshToken();
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     await storeRefreshToken(newUser.id, refreshToken, req.headers['user-agent'], req.ip || undefined);
 
     res.status(201).json({
@@ -83,7 +86,7 @@ router.post('/signup', async (req: Request, res: Response) => {
     }
 
     const existingUser = await db.execute(sql`SELECT id FROM nv_users WHERE email = ${email}`);
-    if ((existingUser.rows || existingUser).length > 0) {
+    if ((existingUser.rows ?? []).length > 0) {
       safeError(res, 'User already exists with this email', 409);
       return;
     }
@@ -96,8 +99,13 @@ router.post('/signup', async (req: Request, res: Response) => {
       RETURNING id, email, role, full_name, tier
     `);
 
-    const newUser = (result.rows || result)[0];
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
+    const newUser = (result.rows ?? [])[0] as {
+      id: string;
+      email: string;
+      role: string;
+      full_name?: string | null;
+      tier?: string | null;
+    };
     const token = generateToken({ id: newUser.id, email: newUser.email, role: newUser.role, organizationId: null });
 
     res.status(201).json({
@@ -143,7 +151,6 @@ router.post('/login', async (req: Request, res: Response) => {
       return;
     }
 
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     const validPassword = await bcrypt.compare(password, user.password_hash);
     if (!validPassword) {
       sendApiError(res, 'UNAUTHORIZED');

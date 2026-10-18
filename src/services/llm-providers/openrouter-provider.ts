@@ -273,7 +273,7 @@ export class OpenRouterProvider extends UnifiedLLMAdapter {
         signal: timeoutController.signal
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         const errorText = await response.text();
         throw new ProviderError(`OpenRouter API error: ${response.status} - ${errorText}`);
       }
@@ -526,7 +526,7 @@ export class OpenRouterProvider extends UnifiedLLMAdapter {
         body: JSON.stringify(apiRequest)
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         const errorText = await response.text();
         throw new ProviderError(`OpenRouter streaming API error: ${response.status} - ${errorText}`);
       }

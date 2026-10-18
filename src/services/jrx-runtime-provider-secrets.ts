@@ -93,7 +93,11 @@ async function getRedis(): Promise<any | null> {
   try {
     const { resolveRedisTcpUrl } = await import('../utils/redis-tcp-url.js');
     const { Redis } = await import('ioredis');
-    const url = resolveRedisTcpUrl() || process.env.REDIS_URL || 'redis://jrx-redis:6379';
+    const tcp = resolveRedisTcpUrl();
+    const url =
+      (tcp.enabled && tcp.url ? tcp.url : null)
+      || process.env.REDIS_URL
+      || 'redis://jrx-redis:6379';
     redisClient = new Redis(url, {
       maxRetriesPerRequest: 2,
       connectTimeout: 5000,

@@ -227,7 +227,7 @@ export function caselawHybridEmptyFtsFallbackReason(result: {
   ok: boolean;
   data?: unknown;
 }): string | null {
-  if (!result.ok) return null;
+  if (result.ok === false) return null;
   if (!result.data || typeof result.data !== 'object') return 'empty_hybrid';
   const payload = result.data as Record<string, unknown>;
   const total = Number(payload.total ?? 0);

@@ -1730,14 +1730,18 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
         matterId: effectiveMatterId,
         sessionId,
         ragDocumentIds,
-        documentType: (req.body as Record<string, unknown>)?.documentType
-          ?? ((req.body as Record<string, unknown>)?.parameters as Record<string, unknown> | undefined)?.documentType,
+        documentType: String(
+          (req.body as Record<string, unknown>)?.documentType
+          ?? ((req.body as Record<string, unknown>)?.parameters as Record<string, unknown> | undefined)?.documentType
+          ?? '',
+        ) || undefined,
         parameters: ((req.body as Record<string, unknown>)?.parameters as Record<string, unknown> | undefined)
           || ((req.body as Record<string, unknown>)?._nspDraftRequirements as Record<string, unknown> | undefined),
       },
     );
 
-    if (effectiveEnableRAG && (llmWrapped.metadata?.contextUsed || (llmWrapped as any).ragContext)) {
+    const orchMeta = llmWrapped.metadata as { contextUsed?: boolean } | undefined;
+    if (effectiveEnableRAG && (orchMeta?.contextUsed || (llmWrapped as any).ragContext)) {
       const rc = (llmWrapped as any).ragContext || {};
       ragMeta = {
         ...ragMeta,
@@ -4599,7 +4603,6 @@ router.post('/bmad/workflow', authenticateToken, async (req: Request, res: Respo
     if (!templateId) { sendApiError(res, 'BAD_REQUEST', { overrideMessage: 'templateId is required' }); return; }
     if (!requirements) { sendApiError(res, 'BAD_REQUEST', { overrideMessage: 'requirements is required' }); return; }
     const userId = req.user?.userId || req.user?.id;
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
     const result = await nvBMAD.runBMADWorkflow({ templateId, requirements, userId });
     res.json({ success: true, data: result });
   } catch (err: any) { safeError(res, err, 500); }
@@ -4611,7 +4614,6 @@ router.post('/parlant/sessions', authenticateToken, async (req: Request, res: Re
     const { agentKey, context } = req.body;
     if (!agentKey) { sendApiError(res, 'BAD_REQUEST', { overrideMessage: 'agentKey is required' }); return; }
     const userId = req.user?.userId || req.user?.id;
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
     const result = await nvParlant.createSession({ userId, agentKey, context });
     res.json({ success: true, data: result });
   } catch (err: any) { safeError(res, err, 500); }
@@ -4641,7 +4643,6 @@ router.get('/parlant/sessions/:id', authenticateToken, async (req: Request, res:
 router.get('/parlant/sessions', authenticateToken, async (req: Request, res: Response) => {
   try {
     const userId = req.user?.userId || req.user?.id;
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     const result = await nvParlant.listSessions(userId);
     res.json({ success: true, data: result });
   } catch (err: any) { safeError(res, err, 500); }
@@ -4993,7 +4994,6 @@ router.post('/avatar/session', authenticateToken, async (req: Request, res: Resp
     };
     const profile = avatarProfiles[avatarType] || avatarProfiles.professional;
 
-    // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
     const sessionId = `avatar-${Date.now()}-${user.userId || user.id}`;
 
     /* Initialise an AI response for the avatar opening statement */
@@ -5001,7 +5001,6 @@ router.post('/avatar/session', authenticateToken, async (req: Request, res: Resp
       'jurexio-citizen-chatdoll-agent',
       `You are ${profile.name}, a ${profile.persona} AI avatar for Jurexio legal platform. Greet the client warmly in ${language === 'hi' ? 'Hindi' : 'English'}, introduce yourself, and ask how you can help today. Be professional and reassuring. Keep response under 60 words.`,
       `New avatar session started. Jurisdiction: ${jurisdiction}. Context: ${JSON.stringify(sessionContext || {})}`,
-      // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
       { tier: tier as any, jurisdiction, userId: String(user.userId || user.id), source: 'ns-avatar-session' }
     );
 

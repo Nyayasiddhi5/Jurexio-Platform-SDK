@@ -245,6 +245,9 @@ export interface NspParseContractEntry {
 
 export interface CnrResolveData {
   cnr: string;
+  /** Diary vs CNR lookup path (unified cascade). */
+  lookupType?: 'cnr' | 'diary' | string;
+  diaryNumber?: string;
   status: 'found' | 'suggested' | 'not_found' | 'invalid';
   matchType: string;
   source: string | null;

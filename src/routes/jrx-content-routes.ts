@@ -118,7 +118,6 @@ router.post('/bulk-generate', async (req: Request, res: Response): Promise<void>
     const user = req.user;
     const orgId = user?.orgId || user?.organizationId || 'default';
 
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     if (!['admin', 'super_admin', 'manager'].includes(user?.role)) {
       res.status(403).json({ success: false, message: 'Only admins can trigger bulk generation.' });
       return;

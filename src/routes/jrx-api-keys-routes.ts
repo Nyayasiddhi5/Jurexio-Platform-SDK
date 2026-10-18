@@ -113,7 +113,6 @@ router.post('/', authenticateToken as any, requireRole('developer', 'org_admin')
     );
 
     // ── Audit log: API key creation (tamper-evident hash chain) ──────────────
-    // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
     const newKey = result.rows[0];
     try {
       await writeAuditLog({
@@ -156,9 +155,7 @@ router.patch('/:id', authenticateToken as any, requireRole('developer', 'org_adm
       `UPDATE nv_org_api_keys SET ${updates.join(', ')} WHERE id = $${vals.length - 1} AND org_id = $${vals.length} RETURNING id, name, rate_limit_per_minute`,
       vals
     );
-    // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
     if (!r.rows.length) { sendApiError(res, 'NOT_FOUND'); return; }
-    // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
     res.json({ success: true, data: r.rows[0] });
   } catch (err: any) {
     safeError(res, err, 500);
@@ -220,7 +217,6 @@ router.delete('/:id', authenticateToken as any, requireRole('org_admin') as any,
       `UPDATE nv_org_api_keys SET is_active = false WHERE id = $1 AND org_id = $2 RETURNING id`,
       [Number(req.params.id), orgId]
     );
-    // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
     if (!r.rows.length) { sendApiError(res, 'NOT_FOUND'); return; }
     res.json({ success: true, message: 'API key revoked' });
   } catch (err: any) {
@@ -245,7 +241,6 @@ router.get('/usage/summary', authenticateToken as any, async (req: Request, res:
        ORDER BY k.requests_this_month DESC`,
       [orgId]
     );
-    // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
     const totals = rows.rows.reduce((a: any, r: any) => ({
       requests: a.requests + (r.requests_this_month || 0),
       tokens: a.tokens + parseInt(r.tokens_this_month || 0),

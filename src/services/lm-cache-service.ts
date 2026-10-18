@@ -895,7 +895,7 @@ export class LMCacheService extends EventEmitter {
      * that reports as a *hit* rather than as an error — so it is both wrong and
      * invisible. Refusals are metered, not swallowed. */
     const verdict = classifyCompletionForCache(response);
-    if (!verdict.cacheable) {
+    if (verdict.cacheable === false) {
       this.stats.rejectedWrites++;
       this.stats.rejectedWritesByReason[verdict.reason] =
         (this.stats.rejectedWritesByReason[verdict.reason] ?? 0) + 1;

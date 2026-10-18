@@ -385,7 +385,7 @@ export class SarvamAIService extends EventEmitter {
         generationConfig: { temperature: 0.1, maxOutputTokens: 4096 },
       }),
     });
-    if (!r.ok) {
+    if (r.ok === false) {
       const errTxt = (await r.text().catch(() => '')).slice(0, 180);
       logger.warn('[GeminiLanguage] generateContent failed', { status: r.status, model, err: errTxt });
       return '';

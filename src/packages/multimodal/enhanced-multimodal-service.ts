@@ -240,14 +240,12 @@ export class EnhancedMultimodalService extends EventEmitter {
         analysisType: request.analysisType,
         result: {
           description: cvResult.analysis.scene?.description,
-          // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
           objects: cvResult.analysis.objects?.map(obj => ({
             name: obj.label,
             confidence: obj.confidence,
             location: obj.boundingBox ? `${obj.boundingBox.x},${obj.boundingBox.y}` : undefined,
           })),
           text: cvResult.analysis.text?.fullText,
-          // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
           faces: cvResult.analysis.faces?.map(face => ({
             description: `Face detected with ${Math.round(face.confidence * 100)}% confidence`,
             emotion: face.attributes?.emotions 
@@ -295,7 +293,7 @@ export class EnhancedMultimodalService extends EventEmitter {
         audioBuffer = await fs.readFile(request.audioPath);
       } else if (request.audioUrl) {
         const response = await fetch(request.audioUrl);
-        if (!response.ok) {
+        if (response.ok === false) {
           throw new Error(`Failed to fetch audio from URL: ${response.status} ${response.statusText}`);
         }
         audioBuffer = Buffer.from(await response.arrayBuffer());

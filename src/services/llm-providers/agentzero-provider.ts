@@ -229,7 +229,6 @@ export class AgentZeroProvider extends UnifiedLLMAdapter {
     const startTime = Date.now();
 
     try {
-      // @ts-expect-error NV-TS230 legacy typing gap (TS7053)
       const modelConfig = this.models[request.model || 'agentzero-small'];
       if (!modelConfig) {
         throw new ProviderError(`Model ${request.model} not supported by AgentZero provider`);
@@ -498,7 +497,6 @@ core assistance remains available even when all other systems fail.
   }
 
   getModelInfo(model: string) {
-    // @ts-expect-error NV-TS230 legacy typing gap (TS7053)
     const config = this.models[model];
     if (!config) {
       throw new ProviderError(`Model ${model} not found in AgentZero provider`);

@@ -253,7 +253,6 @@ export async function embedAndStore(
        RETURNING id::text`,
       [content, embeddingStr, JSON.stringify(metadata), namespace, jurisdiction]
     );
-    // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
     const id = result.rows[0]?.id;
     logger.info('[RAG] Document embedded and stored', { id, namespace, jurisdiction });
     // @ts-expect-error NV-TS230 legacy typing gap (TS2322)

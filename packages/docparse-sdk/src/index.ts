@@ -140,6 +140,7 @@ export {
   mergePartialRecovery,
   fieldPathsNeedingRecovery,
   type PartialFieldRecoveryProvider,
+  type PartialFieldRecoveryInput,
   type PartialFieldRecoveryPatch,
 } from "./recovery/partial-field-recovery.js";
 export { extractSnippetsForFieldPaths } from "./recovery/snippet-extract.js";

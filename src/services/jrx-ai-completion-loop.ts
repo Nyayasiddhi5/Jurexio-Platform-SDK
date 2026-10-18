@@ -295,7 +295,7 @@ export async function runOrchestrateCompletionLoop(input: {
         taskKind: input.taskType || 'legal-draft',
         jurisdiction: 'IN',
         requirements: {
-          complexity: 'moderate',
+          complexity: 'medium',
           domain: 'analytical',
           priority: 'high',
           costBudget: 'unlimited',
@@ -304,7 +304,7 @@ export async function runOrchestrateCompletionLoop(input: {
         },
         fallbackLevels: 2,
         timestamp: new Date(),
-      } as Parameters<typeof realLLMService.executeRequest>[0]);
+      } as unknown as Parameters<typeof realLLMService.executeRequest>[0]);
 
       const segment = String(resp?.content || '').trim();
       if (segment.length < 40) {

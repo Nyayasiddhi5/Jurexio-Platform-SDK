@@ -466,6 +466,7 @@ export function resolveDraftDocumentType(input: {
   template?: unknown;
   taskType?: unknown;
   prompt?: unknown;
+  instruction?: unknown;
   parameters?: Record<string, unknown>;
 }): DraftDocumentType {
   return resolveDraftDocumentTypeWithMeta(input).documentType;
@@ -475,6 +476,7 @@ export function resolveDraftLengthTier(input: {
   draftLength?: unknown;
   options?: Record<string, unknown>;
   body?: Record<string, unknown>;
+  parameters?: Record<string, unknown>;
 }): DraftLengthTier {
   const opts = input.options && typeof input.options === 'object' ? input.options : {};
   const body = input.body && typeof input.body === 'object' ? input.body : {};

@@ -110,7 +110,7 @@ class RealOCRPipelineService {
 
     if (input.type === 'url') {
       const response = await fetch(raw, { signal: AbortSignal.timeout(60_000) });
-      if (!response.ok) throw new Error(`Failed to fetch document URL: HTTP ${response.status} ${response.statusText}`);
+      if (response.ok === false) throw new Error(`Failed to fetch document URL: HTTP ${response.status} ${response.statusText}`);
       const buffer = Buffer.from(await response.arrayBuffer());
       const headerMime = response.headers.get('content-type')?.split(';')[0]?.trim();
       return { buffer, mimeType: headerMime || this.mimeFromName(input.fileName) };

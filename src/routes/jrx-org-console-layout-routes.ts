@@ -238,7 +238,7 @@ router.put('/:orgId', authenticateToken, requireRole('org_admin', 'super_admin')
       return;
     }
     const validation = validatePayload(req.body);
-    if (!validation.ok) { res.status(400).json({ success: false, error: validation.error }); return; }
+    if (validation.ok === false) { res.status(400).json({ success: false, error: validation.error }); return; }
     const p = validation.payload;
     const u: any = (req as any).user || {};
     const actor = String(u.id ?? u.userId ?? u.email ?? 'unknown');

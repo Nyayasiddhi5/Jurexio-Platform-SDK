@@ -171,7 +171,6 @@ class MCPToolRegistry {
     const handler = toolHandlers[tool.category as keyof typeof toolHandlers];
     
     if (handler) {
-      // @ts-expect-error NV-TS230 legacy typing gap (TS2684)
       return await handler.call(this, tool.name, input);
     }
 

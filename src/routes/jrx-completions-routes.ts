@@ -817,9 +817,7 @@ export async function executeMcpTool(
           let redacted = inp?.text ?? '';
           const style = inp?.redactionStyle ?? 'mask';
           const mask = (v: string, n: number) => style === 'hash' ? '[REDACTED]' : v.slice(0, n) + '*'.repeat(Math.max(0, v.length - n));
-          // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
           redacted = redacted.replace(/\b\d{4}\s?\d{4}\s?\d{4}\b/g, (v) => mask(v, 4));
-          // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
           redacted = redacted.replace(/\b[A-Z]{5}[0-9]{4}[A-Z]\b/g, (v) => mask(v, 5));
           redacted = redacted.replace(/\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}\b/g, '[EMAIL_REDACTED]');
           redacted = redacted.replace(/\b[6-9]\d{9}\b/g, '[PHONE_REDACTED]');
@@ -945,7 +943,6 @@ export async function executeMcpTool(
             const match = doc.match(new RegExp(`.{0,200}${regex.source}.{0,200}`, 'i'));
             if (match) found[type] = match[0].trim();
           }
-          // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
           result = { clausesFound: Object.keys(found).length, total: clauseTypes.length, clauses: found, missing: clauseTypes.filter(t => !found[t]), recommendation: Object.keys(found).length < clauseTypes.length ? 'Some standard clauses are missing — review contract completeness' : 'All standard clauses present' };
           break;
         }
@@ -969,11 +966,8 @@ export async function executeMcpTool(
         // ── TABLE EXTRACTOR ───────────────────────────────────────────────────
         case 'table_extractor': {
           const text = inp?.text ?? '';
-          // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
           const rows = text.split('\n').filter(l => l.includes('\t') || l.match(/\s{4,}/));
-          // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
           const tables = rows.map(r => r.split(/\t|\s{4,}/).filter(c => c.trim()));
-          // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
           result = { tablesFound: tables.length > 0 ? 1 : 0, rows: tables, totalCells: tables.reduce((s, r) => s + r.length, 0), note: tables.length > 0 ? 'Table structure detected. For PDF tables use /api/jrx/phase5/ocr endpoint with extractTables=true' : 'No table structure detected in plain text' };
           break;
         }
@@ -998,7 +992,6 @@ export async function executeMcpTool(
             rank: i + 1,
             bindingNature: i === 0 ? 'Binding (Supreme Court)' : i === 1 ? 'Persuasive (High Court)' : 'Instructive',
             applicability: 'High — Facts and legal proposition closely align',
-          // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
           })).sort((a, b) => b.relevanceScore - a.relevanceScore);
           result = { question, totalPrecedents: precedents.length, rankedResults: scored, topPrecedent: scored[0], jurisdiction: inp?.jurisdiction ?? 'IN' };
           break;

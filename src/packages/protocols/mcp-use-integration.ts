@@ -497,7 +497,7 @@ export class MCPUseIntegrationService extends EventEmitter {
       body: JSON.stringify({ arguments })
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       throw new Error(`HTTP error: ${response.status}`);
     }
 

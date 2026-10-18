@@ -82,7 +82,7 @@ async function callGeminiVision(req: VisionJsonLlmRequest): Promise<VisionJsonLl
         }),
         signal: AbortSignal.timeout(timeoutMs),
       });
-      if (!res.ok) {
+      if (res.ok === false) {
         const detail = await res.text().catch(() => '');
         throw new Error(`Gemini vision HTTP ${res.status}: ${detail.slice(0, 180)}`);
       }
@@ -134,7 +134,7 @@ async function callOpenAiVision(req: VisionJsonLlmRequest): Promise<VisionJsonLl
     }),
     signal: AbortSignal.timeout(timeoutMs),
   });
-  if (!res.ok) {
+  if (res.ok === false) {
     const detail = await res.text().catch(() => '');
     throw new Error(`OpenAI vision HTTP ${res.status}: ${detail.slice(0, 180)}`);
   }

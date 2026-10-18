@@ -376,7 +376,7 @@ export async function initializeServices(): Promise<ServiceRegistry> {
 }
 
 export function getService<K extends keyof ServiceRegistry>(name: K): ServiceRegistry[K] | undefined {
-  return services[name];
+  return services[name] as ServiceRegistry[K] | undefined;
 }
 
 export function getServiceStats(): { total: number; initialized: number; subsystems: SubsystemStatus[]; categories: Record<string, number> } {

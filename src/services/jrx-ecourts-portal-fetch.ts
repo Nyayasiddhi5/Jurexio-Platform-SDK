@@ -238,7 +238,7 @@ export async function attemptEcourtsPortalFetch(input: {
     const text = await res.text();
     const latencyMs = Date.now() - t0;
 
-    if (!res.ok) {
+    if (res.ok === false) {
       logger.warn('[CNR] portal upstream HTTP error', { status: res.status, cnrLen: cnr.length });
       return {
         kind: 'attempted',

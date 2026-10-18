@@ -102,7 +102,7 @@ async function proxy(
     });
     return;
   }
-  if (!result.ok) {
+  if (result.ok === false) {
     const safeMsg = sanitizeErrorForClient(result.error ?? 'NYS upstream unavailable');
     const isTimeout = /abort|timeout|timed out/i.test(String(result.error ?? ''));
     const isBusy =
@@ -642,7 +642,7 @@ router.post('/resolve', async (req, res) => {
         .json(inference ? attachInferenceMeta(out, inference) : out);
       return;
     }
-    if (!result.ok) {
+    if (result.ok === false) {
       const safeMsg = sanitizeErrorForClient(result.error ?? 'NYS upstream unavailable');
       const isTimeout = /abort|timeout|timed out/i.test(String(result.error ?? ''));
       const isBusy =
@@ -730,7 +730,7 @@ router.get('/search', async (req, res) => {
   }
 
   const result = await fetchCasesSearch(forward);
-  if (!result.ok) {
+  if (result.ok === false) {
     sendCaseApiUpstreamError(res, result.status);
     return;
   }

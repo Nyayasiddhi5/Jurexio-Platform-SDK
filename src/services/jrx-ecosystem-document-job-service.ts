@@ -170,7 +170,7 @@ async function fetchStorageBuffer(ref: StorageRef): Promise<Buffer> {
   if (ref.type === 'presigned_get' || ref.type === 'http_url') {
     if (!ref.url) throw new EdjProcessingError('STORAGE_NOT_FOUND', 'url required for presigned_get/http_url', true, 'fetching');
     const res = await fetch(ref.url);
-    if (!res.ok) throw new EdjProcessingError('STORAGE_NOT_FOUND', `presigned fetch HTTP ${res.status}`, true, 'fetching');
+    if (res.ok === false) throw new EdjProcessingError('STORAGE_NOT_FOUND', `presigned fetch HTTP ${res.status}`, true, 'fetching');
     return Buffer.from(await res.arrayBuffer());
   }
   if (ref.type === 'nyv_doc_id') {

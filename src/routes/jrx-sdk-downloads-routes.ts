@@ -327,7 +327,7 @@ sdkDownloadsRouter.get('/:package/:versionFile', async (req: Request, res: Respo
   }
 
   const auth = await authorizeDownload(req, pkg, version);
-  if (!auth.ok) {
+  if (auth.ok === false) {
     res.status(auth.status).json({ error: auth.reason });
     return;
   }

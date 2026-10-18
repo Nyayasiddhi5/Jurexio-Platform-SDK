@@ -361,7 +361,7 @@ Respond ONLY with valid JSON: { "jurisdiction": "<code>", "model": "azentzero-le
       clearTimeout(timeout);
     }
 
-    if (!res.ok) {
+    if (res.ok === false) {
       const errText = await res.text().catch(() => res.statusText);
       throw new Error(`Azentzero API error: HTTP ${res.status} — ${errText}`);
     }

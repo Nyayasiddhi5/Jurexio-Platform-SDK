@@ -88,7 +88,7 @@ describe('sdkMethodSignatureGuard', () => {
   it('returns clear 400 body for empty / document-pending text', () => {
     const empty = guardDocumentTextForReview({ text: '  ' });
     expect(empty.ok).toBe(false);
-    if (!empty.ok) {
+    if (empty.ok === false) {
       expect(empty.status).toBe(400);
       expect(empty.body.code).toBe('DOCUMENT_TEXT_PENDING_OR_EMPTY');
     }

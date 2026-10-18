@@ -435,13 +435,11 @@ export class TokenCostPredictionService extends EventEmitter {
 
       if (recentJobs.length === 0) return null;
 
-      // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
       const avgTokens = recentJobs.reduce((sum, job) => {
         const tokens = (job.inputTokens || 0) + (job.outputTokens || 0);
         return sum + tokens;
       }, 0) / recentJobs.length;
 
-      // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
       const avgCost = recentJobs.reduce((sum, job) => sum + (job.cost || 0), 0) / recentJobs.length;
 
       return { avgTokens: Math.ceil(avgTokens), avgCost };

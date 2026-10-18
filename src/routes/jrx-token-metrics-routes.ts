@@ -33,7 +33,6 @@ router.get('/', authenticateToken, requireRole('analyst'), async (_req: Request,
         FROM nv_token_metrics
         WHERE recorded_at > NOW() - INTERVAL '30 days'
       `);
-      // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
       stats = statsRes.rows[0] || {};
 
       const agentRes = await client.query(`
@@ -46,7 +45,6 @@ router.get('/', authenticateToken, requireRole('analyst'), async (_req: Request,
         ORDER BY requests DESC
         LIMIT 10
       `);
-      // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
       byAgent = agentRes.rows;
 
       const dayRes = await client.query(`
@@ -58,7 +56,6 @@ router.get('/', authenticateToken, requireRole('analyst'), async (_req: Request,
         GROUP BY DATE(recorded_at)
         ORDER BY day ASC
       `);
-      // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
       byDay = dayRes.rows;
 
       const modelRes = await client.query(`
@@ -70,7 +67,6 @@ router.get('/', authenticateToken, requireRole('analyst'), async (_req: Request,
         ORDER BY requests DESC
         LIMIT 8
       `);
-      // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
       byModel = modelRes.rows;
     } finally {
       client.release();

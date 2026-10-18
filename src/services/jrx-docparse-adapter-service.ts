@@ -380,7 +380,16 @@ async function runDocparseEngine(
   actor: string,
   onProgress?: DocparseAdapterInput['onProgress'],
   runOpts: Pick<DocparseAdapterInput, 'domainPackId' | 'forceOcr' | 'preferOcr' | 'maxPagesPerDoc'> = {},
-): Promise<ExtractionResult & { _sdkMeta?: { engine: 'docparse-sdk'; legalParseGuide: Record<string, unknown> } }> {
+): Promise<
+  ExtractionResult & {
+    _sdkMeta?: {
+      engine: 'docparse-sdk';
+      legalParseGuide: Record<string, unknown>;
+      docparseResultV1?: Record<string, unknown>;
+      intelligence?: Record<string, unknown>;
+    };
+  }
+> {
   const totalBytes = files.reduce((n, f) => n + f.bytes.length, 0);
   const { shouldUseAsyncDocparseJob, runDocparseSdkViaQueue } = await import('./jrx-docparse-async-bridge.js');
   const domainPackId = runOpts.domainPackId ?? 'legal-in';
@@ -403,9 +412,9 @@ async function runDocparseEngine(
           ...queued,
           _sdkMeta: {
             engine: 'docparse-sdk',
-            legalParseGuide: bundle.legalParseGuide as Record<string, unknown>,
-            docparseResultV1: bundle.resultV1 as Record<string, unknown>,
-            intelligence: bundle.intelligence as Record<string, unknown>,
+            legalParseGuide: bundle.legalParseGuide as unknown as Record<string, unknown>,
+            docparseResultV1: bundle.resultV1 as unknown as Record<string, unknown>,
+            intelligence: bundle.intelligence as unknown as Record<string, unknown>,
           },
         };
       } catch {
@@ -446,9 +455,9 @@ async function runDocparseEngine(
         ...result,
         _sdkMeta: {
           engine: 'docparse-sdk',
-          legalParseGuide: bundle.legalParseGuide as Record<string, unknown>,
-          docparseResultV1: bundle.resultV1 as Record<string, unknown>,
-          intelligence: bundle.intelligence as Record<string, unknown>,
+          legalParseGuide: bundle.legalParseGuide as unknown as Record<string, unknown>,
+          docparseResultV1: bundle.resultV1 as unknown as Record<string, unknown>,
+          intelligence: bundle.intelligence as unknown as Record<string, unknown>,
         },
       };
     } catch (err) {

@@ -1520,7 +1520,10 @@ router.post('/mem0', dualSdkOrJwt, async (req: Request, res: Response) => {
     // Semantic legal knowledge is stored as 'semantic' or 'factual' memories.
     const semantic = [...byType('semantic'), ...byType('factual')].slice(0, 8);
     const procedural = byType('procedural');
-    const approxTokens = Math.ceil((input.task.length + recalled.reduce((s, r) => s + (r.memory?.content?.length || 0), 0)) / 4);
+    const recallRows = recalled as Array<{ memory?: { content?: string } }>;
+    const approxTokens = Math.ceil(
+      (input.task.length + recallRows.reduce((s, r) => s + (r.memory?.content?.length || 0), 0)) / 4,
+    );
 
     res.json({
       pattern: 'P13 — NyayaMem0 (4-Tier Agentic Memory)',
@@ -1966,7 +1969,6 @@ router.post('/adapt', dualSdkOrJwt, async (req: Request, res: Response) => {
 // ══════════════════════════════════════════════════════════════════
 // PATTERN 20 — Legal Portal Computer Use
 // ══════════════════════════════════════════════════════════════════
-// @ts-expect-error NV-TS230 legacy typing gap (TS7030)
 router.post('/computer-use', dualSdkOrJwt, async (req: Request, res: Response) => {
   try {
     const schema = BasePatternSchema.extend({ portal: z.string().optional().default('ecourts'), targetAction: z.string().optional(), toolInput: z.record(z.any()).optional() });

@@ -263,7 +263,7 @@ export async function nysKnowledgeRequest<T = unknown>(
         }
       }
 
-      if (!res.ok) {
+      if (res.ok === false) {
         const msg =
           typeof (data as any)?.error === 'string'
             ? (data as any).error
@@ -333,7 +333,7 @@ export async function nysKnowledgeHealthz(): Promise<{
   const start = Date.now();
   const result = await nysKnowledgeRequest({ path: '/healthz', method: 'GET', timeoutMs: 5000 });
   const latencyMs = Date.now() - start;
-  if (!result.ok) {
+  if (result.ok === false) {
     return { ok: false, status: result.status, latencyMs, error: result.error };
   }
   return { ok: true, status: result.status, latencyMs, body: result.data };

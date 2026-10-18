@@ -103,7 +103,7 @@ export async function findUserByEmailForLogin(email: string): Promise<AuthUserRo
           FROM nv_users
           WHERE email = ${email}
         `);
-      const row = ((result as { rows?: AuthUserRow[] }).rows || (result as unknown as AuthUserRow[]))[0];
+      const row = (result as unknown as { rows?: AuthUserRow[] }).rows?.[0];
       return row ?? null;
     } catch (err) {
       if (isPgAuthFailed(err)) {
@@ -160,7 +160,7 @@ export async function findUserByIdForSession(
           FROM nv_users
           WHERE id = ${userId}
         `);
-      const row = ((result as { rows?: AuthUserRow[] }).rows || (result as unknown as AuthUserRow[]))[0];
+      const row = (result as unknown as { rows?: AuthUserRow[] }).rows?.[0];
       return row ?? null;
     } catch (err) {
       if (isPgAuthFailed(err)) disableAuthDb('28P01');

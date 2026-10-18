@@ -1218,13 +1218,10 @@ export class JrxDynamicModelRegistry extends EventEmitter {
       m.capabilities.supportedJurisdictions.includes(jurisdiction) ||
       m.capabilities.supportedJurisdictions.includes('GLOBAL')
     ).sort((a, b) => {
-      // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
       const aRequired = m => m.routing.requiredForJurisdictions.includes(jurisdiction);
-      // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
       const bRequired = m => m.routing.requiredForJurisdictions.includes(jurisdiction);
       if (aRequired(a) && !aRequired(b)) return -1;
       if (!aRequired(a) && aRequired(b)) return 1;
-      // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
       const aPreferred = m => m.routing.preferredForJurisdictions.includes(jurisdiction);
       if (aPreferred(a) && !aPreferred(b)) return -1;
       if (!aPreferred(a) && aPreferred(b)) return 1;

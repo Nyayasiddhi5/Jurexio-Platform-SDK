@@ -1827,7 +1827,6 @@ export async function callJurexio(
         }
 
         const confResult = confidenceScorer.evaluate({
-          // @ts-expect-error NV-TS230 legacy typing gap (TS2339)
           agentScores: [hallucinationResult ? (1 - hallucinationResult.score) * 100 : 80],
           taskComplexity: complexityMap[tier || 'default'] || 'moderate',
           romaLevel: effectiveRomaLevel as 'L1' | 'L2' | 'L3' | 'L4',

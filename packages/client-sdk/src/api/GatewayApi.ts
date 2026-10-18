@@ -64,7 +64,7 @@ export class GatewayApi {
         text,
         status: body.status ?? (typeof body.context?.status === 'string' ? body.context.status : null),
       });
-      if (!guard.ok) {
+      if (guard.ok === false) {
         throw new JrxError({
           code: String(guard.body.code || 'DOCUMENT_TEXT_PENDING_OR_EMPTY'),
           message: String(guard.body.error || 'Document text pending or empty'),
@@ -124,7 +124,7 @@ export class GatewayApi {
       status: typeof body.status === 'string' ? body.status : null,
       fieldName: 'content',
     });
-    if (!guard.ok) {
+    if (guard.ok === false) {
       throw new JrxError({
         code: String(guard.body.code || 'DOCUMENT_TEXT_PENDING_OR_EMPTY'),
         message: String(guard.body.error || 'Document text pending or empty'),

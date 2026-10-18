@@ -133,13 +133,9 @@ export interface AvatarInteraction {
 }
 
 export class UnityAvatarService extends EventEmitter {
-  // @ts-expect-error NV-TS230 legacy typing gap (TS2564)
   private avatarModel: UnityAvatarModel;
-  // @ts-expect-error NV-TS230 legacy typing gap (TS2564)
   private animationSystem: HumanAnimationSystem;
-  // @ts-expect-error NV-TS230 legacy typing gap (TS2564)
   private personality: AvatarPersonality;
-  // @ts-expect-error NV-TS230 legacy typing gap (TS2564)
   private currentState: AvatarRealTimeState;
   private interactions: Map<string, AvatarInteraction> = new Map();
   private activeConnections: Map<string, any> = new Map();
@@ -460,37 +456,27 @@ export class UnityAvatarService extends EventEmitter {
     // Analyze interaction type and generate appropriate response
     switch (interactionData.type) {
       case 'text':
-        // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
         response.animation_sequence = ['listening_attentive', 'processing_thoughtful', 'speaking_professional'];
-        // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
         response.emotion_changes = this.mapTextToEmotions(interactionData.user_input);
-        // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
         response.gesture_sequence = this.selectAppropriateGestures(interactionData.user_input);
         break;
         
       case 'voice':
-        // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
         response.animation_sequence = ['listening_active', 'processing_voice', 'speaking_animated'];
-        // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
         response.emotion_changes = ['attentive', 'understanding'];
-        // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
         response.gesture_sequence = ['nodding_understanding', 'hand_gesture_explaining'];
         break;
         
       case '3d':
       case 'ar':
       case 'vr':
-        // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
         response.animation_sequence = ['immersive_greeting', 'spatial_interaction', 'immersive_response'];
-        // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
         response.emotion_changes = ['engaged', 'enthusiastic'];
-        // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
         response.gesture_sequence = ['welcoming_gesture', 'spatial_pointing', 'interactive_gesture'];
         break;
     }
     
     // Generate facial expression sequence
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
     response.facial_expression_sequence = this.generateFacialExpressionSequence(response.emotion_changes);
     
     return response;

@@ -2,6 +2,14 @@
 
 ## [1.0.0] — Unreleased
 
+### Fixed — JRX-GATEWAY-TSC-ROUND2-001 (2026-10-18)
+
+- Gateway Docker build: `tsconfig.server.json` `noEmitOnError: true`; `scripts/jrx-build-production.sh` uses authoritative `build:server` (removed fallback root `tsc`).
+- Export `PartialFieldRecoveryInput` from `@jurexio/docparse-sdk`; fix partial-LLM provider typing.
+- `jrx-memory-injection-budget`: correct `reduce` accumulator typing; `legal-doc-analyze-service` `taskType` on fast-path opts.
+- Broad TS compile fixes (union narrowing, removed stale `@ts-expect-error`, shared `sql-result-rows` helper).
+- Restored `scripts/jrx-server-type-check.sh` / `jrx-client-type-check.sh`; refreshed `.tsc-server-baseline.txt` (0 signatures).
+
 ### Fixed — JRX-PROD-BUILD-FIX-001 (2026-10-17)
 
 - Gateway production build: `shared/jrx-*-schema` imports, `src/services/jrx-legal-tools/`, `src/services/jrx-sme/`, `jrx-legal-tools-routes.ts` (removed double `jrx` prefix).

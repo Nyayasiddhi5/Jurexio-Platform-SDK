@@ -160,7 +160,7 @@ ANSWER SHAPE (direct question): short answer → governing provision and its ing
 const COMPACT_INDIAN_CORPUS_SCOPE = `CORPUS: Indian judgments ~1950–2026 via NYS plane; cite only retrieved rows. CNR ≠ live eCourts. Use legal feed / web search excerpts when supplied — never invent news or cites.`;
 
 /** How much fixed scaffolding the task justifies (see `jrx-prompt-budget.ts`). */
-export type LegalIntelOverlayDepth = 'compact' | 'full';
+export type LegalIntelOverlayDepth = 'compact' | 'full' | 'micro';
 
 /**
  * Build overlay text for the detected task.

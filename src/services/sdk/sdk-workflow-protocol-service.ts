@@ -261,7 +261,12 @@ export class SdkWorkflowProtocolService {
       if (Object.keys(scores).length === 0) {
         for (const c of evaluationCriteria) scores[c] = 0.88;
       }
-      scores.overall = parseFloat((Object.values(scores).reduce((s: number, v: any) => s + v, 0) / Object.keys(scores).length).toFixed(2));
+      const numericScores = Object.entries(scores)
+        .filter(([k]) => k !== 'overall')
+        .map(([, v]) => Number(v));
+      scores.overall = numericScores.length
+        ? parseFloat((numericScores.reduce((s, v) => s + v, 0) / numericScores.length).toFixed(2))
+        : 0;
 
       await this.recordUsage(ctx, '/protocols/roma/evaluate', 200, latency, llmResponse.tokens.total, llmResponse.cost, llmResponse.provider, llmResponse.model);
 

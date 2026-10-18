@@ -440,7 +440,6 @@ class HitlWorkflowService extends EventEmitter {
         humanFeedback: decision.feedback,
         modifiedAction: decision.modifiedAction,
         status: newStatus,
-        // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
         completedAt: ['approved', 'rejected'].includes(newStatus) ? new Date() : null,
         timeToDecision: Date.now() - currentExecution.startedAt!.getTime(),
         updatedAt: new Date(),

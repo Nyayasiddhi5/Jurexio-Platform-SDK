@@ -312,7 +312,6 @@ export class MCPProtocolService extends EventEmitter {
       'perplexity': 'wss://api.perplexity.ai/v1/mcp'
     };
     
-    // @ts-expect-error NV-TS230 legacy typing gap (TS7053)
     return endpoints[provider] || `wss://${provider}.ai/v1/mcp`;
   }
 

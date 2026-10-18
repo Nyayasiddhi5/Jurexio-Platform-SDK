@@ -374,7 +374,7 @@ export class JrxAgentZeroAdapter extends EventEmitter {
 
       clearTimeout(timeout);
 
-      if (!fetchRes.ok) {
+      if (fetchRes.ok === false) {
         const errText = await fetchRes.text();
         throw new Error(`Provider HTTP ${fetchRes.status}: ${errText.slice(0, 200)}`);
       }
@@ -487,7 +487,7 @@ export class JrxAgentZeroAdapter extends EventEmitter {
 
       clearTimeout(timeout);
 
-      if (!fetchRes.ok) {
+      if (fetchRes.ok === false) {
         const errText = await fetchRes.text();
         throw new Error(`Provider HTTP ${fetchRes.status}: ${errText.slice(0, 200)}`);
       }

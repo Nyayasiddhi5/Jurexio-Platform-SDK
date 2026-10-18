@@ -194,7 +194,7 @@ export class MistralProvider extends UnifiedLLMAdapter {
         signal: timeoutController.signal
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         throw new ProviderError(
           `Mistral API error: ${response.status} ${response.statusText}`,
           'mistral',
@@ -301,7 +301,7 @@ export class MistralProvider extends UnifiedLLMAdapter {
         body: JSON.stringify(requestBody)
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         throw new ProviderError(`Mistral streaming failed: ${response.status}`, 'mistral', { correlationId });
       }
 
@@ -393,7 +393,7 @@ export class MistralProvider extends UnifiedLLMAdapter {
         })
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         throw new ProviderError(`Mistral embeddings failed: ${response.status}`, 'mistral', { correlationId });
       }
 

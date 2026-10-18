@@ -89,7 +89,7 @@ describe('./jrx-nys-knowledge-client circuit', () => {
     const mod = await import('../jrx-nys-knowledge-client.js');
     const r = await mod.nysKnowledgeRequest({ path: '/healthz' });
     expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.status).toBe(503);
+    if (r.ok === false) expect(r.status).toBe(503);
   });
 });
 

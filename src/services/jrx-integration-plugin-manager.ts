@@ -751,7 +751,7 @@ export class SarvamAiPlugin extends JrxPlugin {
             enable_preprocessing: true,
           }),
         });
-        if (!res.ok) throw new Error(`Sarvam translate error: ${res.status}`);
+        if (res.ok === false) throw new Error(`Sarvam translate error: ${res.status}`);
         const data = await res.json() as any;
         return { translatedText: data.translated_text, sourceLang, targetLang };
       }
@@ -763,7 +763,7 @@ export class SarvamAiPlugin extends JrxPlugin {
           headers: { 'api-subscription-key': this.apiKey, 'Content-Type': 'application/json' },
           body: JSON.stringify({ input: text, source_language_code: sourceLang, target_language_code: targetLang }),
         });
-        if (!res.ok) throw new Error(`Sarvam transliterate error: ${res.status}`);
+        if (res.ok === false) throw new Error(`Sarvam transliterate error: ${res.status}`);
         const data = await res.json() as any;
         return { result: data.transliterated_text };
       }
@@ -782,7 +782,7 @@ export class SarvamAiPlugin extends JrxPlugin {
           headers: { 'api-subscription-key': this.apiKey, 'Content-Type': 'application/json' },
           body: JSON.stringify({ inputs: [text], target_language_code: language, speaker, pitch: 0, pace: 1.0, loudness: 1.5, speech_sample_rate: 8000, enable_preprocessing: true, model: 'bulbul:v1' }),
         });
-        if (!res.ok) throw new Error(`Sarvam TTS error: ${res.status}`);
+        if (res.ok === false) throw new Error(`Sarvam TTS error: ${res.status}`);
         const data = await res.json() as any;
         return { audioBase64: data.audios?.[0], format: 'wav' };
       }
@@ -860,7 +860,7 @@ export class RazorpayPlugin extends JrxPlugin {
           method: 'POST', headers,
           body: JSON.stringify({ amount: amountPaise, currency, receipt, notes }),
         });
-        if (!res.ok) throw new Error(`Razorpay order creation failed: ${res.status}`);
+        if (res.ok === false) throw new Error(`Razorpay order creation failed: ${res.status}`);
         return res.json();
       }
 
@@ -876,7 +876,7 @@ export class RazorpayPlugin extends JrxPlugin {
 
       case 'fetch-payment': {
         const res = await fetch(`${this.baseUrl}/payments/${params.paymentId}`, { headers });
-        if (!res.ok) throw new Error(`Failed to fetch payment: ${res.status}`);
+        if (res.ok === false) throw new Error(`Failed to fetch payment: ${res.status}`);
         return res.json();
       }
 

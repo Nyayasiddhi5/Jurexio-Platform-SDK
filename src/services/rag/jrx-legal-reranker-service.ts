@@ -268,7 +268,7 @@ export class NvLegalRerankerService {
         body: JSON.stringify({ model, query, documents, top_n: documents.length }),
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         throw new Error(`Cohere rerank API error: ${response.status} ${response.statusText}`);
       }
 
@@ -308,7 +308,7 @@ export class NvLegalRerankerService {
         body: JSON.stringify({ query, documents, model, top_k: documents.length }),
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         throw new Error(`Voyage rerank API error: ${response.status} ${response.statusText}`);
       }
 
@@ -368,7 +368,7 @@ export class NvLegalRerankerService {
           body: JSON.stringify({ pairs: batch }),
         });
 
-        if (!response.ok) throw new Error(`Cross-encoder API error: ${response.status}`);
+        if (response.ok === false) throw new Error(`Cross-encoder API error: ${response.status}`);
         const data = await response.json() as any;
         scores.push(...(data.scores || []));
       }

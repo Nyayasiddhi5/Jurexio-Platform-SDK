@@ -35,7 +35,6 @@ router.post('/run-all', async (req: Request, res: Response): Promise<void> => {
     const user = req.user;
     const orgId = user?.orgId || user?.organizationId || 'default';
 
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     if (!['admin', 'super_admin', 'manager'].includes(user?.role)) {
       res.status(403).json({ success: false, message: 'Only admins can trigger module runs.' });
       return;
@@ -62,7 +61,6 @@ router.post('/:moduleId/run', async (req: Request, res: Response): Promise<void>
     const orgId = user?.orgId || user?.organizationId || 'default';
     const { moduleId } = req.params;
 
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     if (!['admin', 'super_admin', 'manager'].includes(user?.role)) {
       res.status(403).json({ success: false, message: 'Only admins can trigger module runs.' });
       return;
@@ -113,7 +111,6 @@ router.delete('/content/:id', async (req: Request, res: Response): Promise<void>
     const orgId = user?.orgId || user?.organizationId || 'default';
     const { id } = req.params;
 
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     if (!['admin', 'super_admin', 'manager'].includes(user?.role)) {
       res.status(403).json({ success: false, message: 'Only admins can delete content items.' });
       return;
@@ -134,7 +131,6 @@ router.put('/:moduleId/settings', async (req: Request, res: Response): Promise<v
     const orgId = user?.orgId || user?.organizationId || 'default';
     const { moduleId } = req.params;
 
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     if (!['admin', 'super_admin', 'manager'].includes(user?.role)) {
       res.status(403).json({ success: false, message: 'Only admins can update module settings.' });
       return;

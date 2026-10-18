@@ -69,7 +69,7 @@ class NvSlmRouterService {
         signal: AbortSignal.timeout(10000),
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         logger.warn({ method: 'callSlm', jurisdiction, status: response.status });
         return { available: false };
       }

@@ -81,7 +81,8 @@ export type ExecutionPattern =
   | 'hierarchical'
   | 'simple'
   | 'cot-with-tools'
-  | 'collective-debate';
+  | 'collective-debate'
+  | 'qa';
 
 /**
  * Side-effect classification — surfaces in the manifest so middleware,
@@ -2226,8 +2227,11 @@ const CAPABILITIES: CapabilityDescriptor[] = [
       () => import('../services/social-memory-service.js'),
       (mod: LoadedModule) => async (input: CapabilityInvocationInput) => {
         const svc = pickModuleService(mod, ['socialMemoryService', 'default']);
-        if (typeof svc.getSocialContext === 'function') {
-          return svc.getSocialContext(input) as Promise<CapabilityInvocationOutput>;
+        const socialSvc = svc as {
+          getSocialContext?: (input: CapabilityInvocationInput) => Promise<CapabilityInvocationOutput>;
+        };
+        if (typeof socialSvc.getSocialContext === 'function') {
+          return socialSvc.getSocialContext(input);
         }
         const helper = mod.getSocialContext;
         if (typeof helper !== 'function') {
@@ -4135,7 +4139,14 @@ function buildProtocolA2aCapabilities(): CapabilityDescriptor[] {
               broadcast: false,
               multicast: false,
               failover: true,
-              retryPolicy: { maxRetries: 2, baseDelay: 1000, maxDelay: 5000, backoffStrategy: 'exponential' },
+              retryPolicy: {
+                maxRetries: 2,
+                baseDelay: 1000,
+                maxDelay: 5000,
+                backoffStrategy: 'exponential',
+                jitter: true,
+                circuitBreaker: false,
+              },
             },
             security: {
               authenticated: true,

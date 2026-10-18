@@ -27,7 +27,7 @@ async function generateEmbedding(text: string): Promise<number[] | null> {
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
       body: JSON.stringify({ model: 'text-embedding-3-small', input: text.substring(0, 8000) }),
     });
-    if (!response.ok) return null;
+    if (response.ok === false) return null;
     const data = await response.json() as any;
     return data?.data?.[0]?.embedding || null;
   } catch { return null; }

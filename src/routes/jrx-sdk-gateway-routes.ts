@@ -499,7 +499,7 @@ router.get('/agents', async (req: Request, res: Response): Promise<void> => {
   try {
     const { cacheGet, cacheSet } = await import('../services/redis-cache.js').catch(() => ({ cacheGet: null, cacheSet: null }));
     if (cacheGet) {
-      filteredAgents = await cacheGet<unknown[]>(cacheKey);
+      filteredAgents = (await cacheGet(cacheKey)) as unknown[] | null;
     }
     if (!filteredAgents) {
       const allAgents = getAllRegistryAgents();
@@ -1256,7 +1256,7 @@ router.post('/research/query', gatewayResearchCap, async (req: Request, res: Res
         tokens: { prompt: 0, completion: 0, total: 0 },
         cost: 0,
         orchestration: { degraded: true, reason: llmErr?.message || 'research_llm_budget' },
-      } as typeof llmResponse;
+      } as unknown as typeof llmResponse;
     }
 
     // If RAG returned nothing, still surface a single ranked narrative hit so

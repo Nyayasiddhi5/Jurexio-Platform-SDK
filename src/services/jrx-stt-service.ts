@@ -268,7 +268,7 @@ export class NvSttService {
               generationConfig: { temperature: 0.1, maxOutputTokens: 4096 },
             }),
           });
-          if (!r.ok) {
+          if (r.ok === false) {
             const body = await r.text().catch(() => '');
             const e: any = new Error(`gemini_stt_http_${r.status}:${body.slice(0, 180)}`);
             e.status = r.status;
@@ -351,7 +351,7 @@ export class NvSttService {
         signal: AbortSignal.timeout(60_000),
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         const errText = await response.text();
         logger.error('openrouter_whisper_api_error', { status: response.status, body: errText.slice(0, 180) });
         return this.getSimulationResult(audioBuffer, language, 'openrouter-whisper');
@@ -422,7 +422,7 @@ export class NvSttService {
         }
       );
 
-      if (!response.ok) {
+      if (response.ok === false) {
         const errText = await response.text();
         logger.error('deepgram_api_error', { status: response.status, body: errText });
         return this.getSimulationResult(audioBuffer, language, 'deepgram');
@@ -510,7 +510,7 @@ export class NvSttService {
               },
             }),
           });
-          if (!r.ok) {
+          if (r.ok === false) {
             const errText = await r.text().catch(() => '');
             const e: any = new Error(`sarvam_stt_http_${r.status}`);
             e.status = r.status;
@@ -567,7 +567,7 @@ export class NvSttService {
         body: formData,
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         const errText = await response.text();
         logger.error('whisper_api_error', { status: response.status, body: errText });
         if (response.status === 429 || /insufficient_quota|credit_balance_exhausted/i.test(errText)) {

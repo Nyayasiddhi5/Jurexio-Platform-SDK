@@ -271,16 +271,19 @@ const DOC_AI_OPTS = {
   enableRAG: true,
 };
 
-function docAiOpts(extra: Record<string, unknown> = {}, fastMode = false) {
+function docAiOpts(
+  extra: { maxTokens?: number; taskType?: string } = {},
+  fastMode = false,
+) {
   if (fastMode) {
     return {
       jurisdiction: 'india',
-      maxTokens: typeof extra.maxTokens === 'number' ? extra.maxTokens : 1200,
+      maxTokens: extra.maxTokens ?? 1200,
       tier: 'pro' as const,
       enableRAG: false,
       enableOrchestration: false,
       enableCoT: false,
-      taskType: extra.taskType,
+      taskType: extra.taskType ?? 'document-analysis',
     };
   }
   return { ...DOC_AI_OPTS, ...extra };

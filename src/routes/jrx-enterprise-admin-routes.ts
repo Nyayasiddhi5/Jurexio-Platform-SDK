@@ -115,7 +115,7 @@ router.post('/organizations', authenticateToken, requireRole('super_admin'), asy
       VALUES (${name}, ${slug}, ${tier || 'pro'}, true, ${JSON.stringify(settings || {})}::jsonb, NOW(), NOW())
       RETURNING *
     `);
-    res.status(201).json({ success: true, data: (result.rows || result)[0] });
+    res.status(201).json({ success: true, data: (result.rows ?? [])[0] });
   } catch (error: any) {
     res.status(500).json({ success: false, error: sanitizeErrorForClient(error) });
   }
@@ -136,10 +136,10 @@ router.patch('/organizations/:id', authenticateToken, requireRole('org_admin', '
       WHERE id = ${parseInt(String(id))}
       RETURNING *
     `);
-    if ((result.rows || result).length === 0) {
+    if ((result.rows ?? []).length === 0) {
       res.status(404).json({ success: false, error: 'Organization not found' }); return;
     }
-    res.json({ success: true, data: (result.rows || result)[0] });
+    res.json({ success: true, data: (result.rows ?? [])[0] });
   } catch (error: any) {
     res.status(500).json({ success: false, error: sanitizeErrorForClient(error) });
   }
@@ -199,7 +199,7 @@ router.post('/users', authenticateToken, requireRole('org_admin', 'super_admin')
     const { email, password, fullName, role, organizationId, tier } = req.body;
     if (!email || !password) { res.status(400).json({ success: false, error: 'Email and password required' }); return; }
     const existing = await db.execute(sql`SELECT id FROM nv_users WHERE email = ${email}`);
-    if ((existing.rows || existing).length > 0) {
+    if ((existing.rows ?? []).length > 0) {
       res.status(409).json({ success: false, error: 'User already exists' }); return;
     }
     const callerRole = req.user?.role || 'user';
@@ -213,7 +213,7 @@ router.post('/users', authenticateToken, requireRole('org_admin', 'super_admin')
       VALUES (${email}, ${hashedPassword}, ${fullName || null}, ${targetRole}, ${tier || 'pro'}, ${organizationId ? parseInt(String(organizationId)) : null}, true, NOW(), NOW())
       RETURNING id, email, full_name, role, tier, org_id, is_active, created_at
     `);
-    res.status(201).json({ success: true, data: (result.rows || result)[0] });
+    res.status(201).json({ success: true, data: (result.rows ?? [])[0] });
   } catch (error: any) {
     res.status(500).json({ success: false, error: sanitizeErrorForClient(error) });
   }
@@ -239,10 +239,10 @@ router.patch('/users/:id', authenticateToken, requireRole('org_admin', 'super_ad
       WHERE id = ${parseInt(String(id))}
       RETURNING id, email, full_name, role, is_active, tier, org_id, created_at, updated_at
     `);
-    if ((result.rows || result).length === 0) {
+    if ((result.rows ?? []).length === 0) {
       res.status(404).json({ success: false, error: 'User not found' }); return;
     }
-    res.json({ success: true, data: (result.rows || result)[0] });
+    res.json({ success: true, data: (result.rows ?? [])[0] });
   } catch (error: any) {
     res.status(500).json({ success: false, error: sanitizeErrorForClient(error) });
   }
@@ -275,10 +275,10 @@ router.patch('/users/:id/role', authenticateToken, requireRole('org_admin', 'sup
       UPDATE nv_users SET role = ${role}, updated_at = NOW() WHERE id = ${parseInt(String(id))}
       RETURNING id, email, full_name, role, is_active
     `);
-    if ((result.rows || result).length === 0) {
+    if ((result.rows ?? []).length === 0) {
       res.status(404).json({ success: false, error: 'User not found' }); return;
     }
-    res.json({ success: true, data: (result.rows || result)[0] });
+    res.json({ success: true, data: (result.rows ?? [])[0] });
   } catch (error: any) {
     res.status(500).json({ success: false, error: sanitizeErrorForClient(error) });
   }
@@ -289,7 +289,7 @@ router.get('/platform-settings', authenticateToken, requireRole('manager', 'org_
     if (!db) { res.status(500).json({ success: false, error: 'Database not available' }); return; }
     const result = await db.execute(sql`SELECT * FROM jurexio_platform_settings ORDER BY created_at DESC LIMIT 50`);
     const settings: Record<string, any> = {};
-    for (const row of (result.rows || result) as any[]) {
+    for (const row of (result.rows ?? []) as any[]) {
       const k = row.setting_key || row.key;
       const v = row.setting_value !== undefined ? (typeof row.setting_value === 'object' ? JSON.stringify(row.setting_value) : String(row.setting_value)) : (row.value || '');
       settings[k] = {
@@ -501,10 +501,10 @@ router.post('/webhooks', authenticateToken, requireRole('manager', 'org_admin', 
       UPDATE nv_sdk_applications SET webhook_url = ${webhookUrl}, webhook_secret = ${webhookSecret || null}, updated_at = NOW()
       WHERE id = ${parseInt(applicationId)} RETURNING id, app_name, webhook_url, organization_id, updated_at
     `);
-    if ((result.rows || result).length === 0) {
+    if ((result.rows ?? []).length === 0) {
       res.status(404).json({ success: false, error: 'Application not found' }); return;
     }
-    res.json({ success: true, data: (result.rows || result)[0] });
+    res.json({ success: true, data: (result.rows ?? [])[0] });
   } catch (error: any) {
     res.status(500).json({ success: false, error: sanitizeErrorForClient(error) });
   }
@@ -516,7 +516,7 @@ router.post('/webhooks/test', authenticateToken, requireRole('developer'), async
     const { applicationId } = req.body;
     if (!applicationId) { res.status(400).json({ success: false, error: 'applicationId is required' }); return; }
     const result = await db.execute(sql`SELECT id, app_name, webhook_url FROM nv_sdk_applications WHERE id = ${parseInt(applicationId)}`);
-    const app = (result.rows || result)[0] as any;
+    const app = (result.rows ?? [])[0] as any;
     if (!app || !app.webhook_url) { res.status(404).json({ success: false, error: 'Application not found or no webhook URL configured' }); return; }
     try {
       /* ── SSRF Protection (T001/SECURITY-P1-3) ──────────────
@@ -566,10 +566,10 @@ router.delete('/webhooks/:id', authenticateToken, requireRole('manager'), async 
       UPDATE nv_sdk_applications SET webhook_url = NULL, webhook_secret = NULL, updated_at = NOW()
       WHERE id = ${parseInt(String(id))} RETURNING id, app_name
     `);
-    if ((result.rows || result).length === 0) {
+    if ((result.rows ?? []).length === 0) {
       res.status(404).json({ success: false, error: 'Application not found' }); return;
     }
-    res.json({ success: true, data: { message: 'Webhook removed', application: (result.rows || result)[0] } });
+    res.json({ success: true, data: { message: 'Webhook removed', application: (result.rows ?? [])[0] } });
   } catch (error: any) {
     res.status(500).json({ success: false, error: sanitizeErrorForClient(error) });
   }
@@ -676,7 +676,7 @@ router.post('/invitations', authenticateToken, requireRole('org_admin'), async (
       VALUES (${email}, ${targetRole}, ${parseInt(orgId)}, ${token}, 'pending', ${caller?.id || null}, NOW(), NOW() + INTERVAL '7 days')
       RETURNING *
     `);
-    res.status(201).json({ success: true, data: (result.rows || result)[0] });
+    res.status(201).json({ success: true, data: (result.rows ?? [])[0] });
   } catch (error: any) {
     if (error.message?.includes('relation') && error.message?.includes('does not exist')) {
       const fallbackCaller = req.user;
@@ -729,10 +729,10 @@ router.delete('/invitations/:id', authenticateToken, requireRole('org_admin'), a
     const result = await db.execute(sql`
       UPDATE user_invitations SET status = 'cancelled', updated_at = NOW() WHERE id = ${parseInt(String(id))} RETURNING *
     `);
-    if ((result.rows || result).length === 0) {
+    if ((result.rows ?? []).length === 0) {
       res.status(404).json({ success: false, error: 'Invitation not found' }); return;
     }
-    res.json({ success: true, data: (result.rows || result)[0] });
+    res.json({ success: true, data: (result.rows ?? [])[0] });
   } catch (error: any) {
     if (error.message?.includes('relation') && error.message?.includes('does not exist')) {
       res.json({ success: true, data: { id: req.params.id, status: 'cancelled', note: 'Invitations table not yet created' } });
@@ -788,7 +788,7 @@ router.post('/api-keys', authenticateToken, requireRole('org_admin', 'super_admi
       VALUES (1, ${name || 'API Key'}, ${keyHash}, ${keyPrefix}, ${JSON.stringify(scopes)}, true, NOW())
       RETURNING id, name, key_prefix, scopes, is_active, created_at
     `).catch(() => ({ rows: [] }));
-    const created = ((result.rows || result)[0] as any) || {};
+    const created = ((result.rows ?? [])[0] as any) || {};
     res.json({ success: true, data: { ...created, key: rawKey, keyPrefix, message: 'Store this key securely — it will not be shown again.' } });
   } catch (error: any) {
     res.status(500).json({ success: false, error: sanitizeErrorForClient(error) });
@@ -898,10 +898,10 @@ router.post('/api-keys/:keyId/rotate', authenticateToken, requireRole('developer
       WHERE id = ${parseInt(String(keyId))} AND is_active = true
       RETURNING id, application_id, key_prefix, name, scopes, is_active, created_at, last_rotated_at
     `);
-    if ((result.rows || result).length === 0) {
+    if ((result.rows ?? []).length === 0) {
       res.status(404).json({ success: false, error: 'API key not found or inactive' }); return;
     }
-    res.json({ success: true, data: { ...(result.rows || result)[0], newApiKey: newRawKey, message: 'Key rotated. Store the new key securely - it will not be shown again.' } });
+    res.json({ success: true, data: { ...(result.rows ?? [])[0], newApiKey: newRawKey, message: 'Key rotated. Store the new key securely - it will not be shown again.' } });
   } catch (error: any) {
     res.status(500).json({ success: false, error: sanitizeErrorForClient(error) });
   }
@@ -915,10 +915,10 @@ router.get('/api-keys/:keyId/history', authenticateToken, requireRole('developer
       SELECT id, application_id, key_prefix, name, is_active, usage_count, last_used_at, created_at, revoked_at, updated_at
       FROM sdk_app_api_keys WHERE id = ${parseInt(String(keyId))}
     `);
-    if ((result.rows || result).length === 0) {
+    if ((result.rows ?? []).length === 0) {
       res.status(404).json({ success: false, error: 'API key not found' }); return;
     }
-    const key = (result.rows || result)[0] as any;
+    const key = (result.rows ?? [])[0] as any;
     res.json({
       success: true,
       data: {
@@ -993,7 +993,7 @@ router.get('/document-intelligence/recent', authenticateToken, requireRole('anal
         FROM sdk_api_request_logs WHERE endpoint ILIKE '%document%'
         ORDER BY created_at DESC LIMIT ${parseInt(limit as string)}
       `);
-      recentDocs = (result.rows || result) as any[];
+      recentDocs = (result.rows ?? []) as any[];
     } catch (_e: any) {
       recentDocs = [
         { id: 1, type: 'contract_review', status: 'completed', pages: 24, processingTime: 3200, createdAt: new Date().toISOString() },
@@ -1073,7 +1073,7 @@ router.get('/analytics/top-agents', authenticateToken, requireRole('analyst'), a
         WHERE agent_id IS NOT NULL
         GROUP BY agent_id ORDER BY usage_count DESC LIMIT ${parseInt(limit as string)}
       `);
-      topAgents = (result.rows || result) as any[];
+      topAgents = (result.rows ?? []) as any[];
     } catch (_e: any) {
       topAgents = [
         { agent_id: 'contract-review-agent', usage_count: 1523, total_tokens: 2450000, avg_latency: 1200 },
@@ -1145,7 +1145,7 @@ router.post('/e-filing/submit', authenticateToken, requireRole('developer'), asy
         VALUES (${filingId}, ${jurisdictionCode}, ${courtId}, ${caseTitle}, ${caseType || 'general'}, ${filingType || 'initial'}, ${JSON.stringify(documentIds || [])}::jsonb, ${priority || 'normal'}, 'submitted', ${caller?.id || null}, ${JSON.stringify(metadata || {})}::jsonb, NOW(), NOW())
         RETURNING *
       `);
-      res.status(201).json({ success: true, data: (result.rows || result)[0] });
+      res.status(201).json({ success: true, data: (result.rows ?? [])[0] });
     } catch (_dbErr: any) {
       res.status(201).json({
         success: true,

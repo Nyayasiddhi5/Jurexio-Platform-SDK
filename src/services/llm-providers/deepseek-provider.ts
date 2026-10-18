@@ -134,7 +134,6 @@ export class DeepSeekProvider extends UnifiedLLMAdapter {
 
     try {
       // Validate model
-      // @ts-expect-error NV-TS230 legacy typing gap (TS7053)
       const modelConfig = this.models[request.model || 'deepseek-v3'];
       if (!modelConfig) {
         throw new ProviderError(`Model ${request.model} not supported by DeepSeek provider`);
@@ -161,7 +160,7 @@ export class DeepSeekProvider extends UnifiedLLMAdapter {
         signal: timeoutController.signal
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         const errorText = await response.text();
         throw new ProviderError(`DeepSeek API error: ${response.status} - ${errorText}`);
       }
@@ -290,7 +289,6 @@ export class DeepSeekProvider extends UnifiedLLMAdapter {
     const correlationId = request.correlationId || generateCorrelationId();
     
     try {
-      // @ts-expect-error NV-TS230 legacy typing gap (TS7053)
       const modelConfig = this.models[request.model || 'deepseek-v3'];
       if (!modelConfig) {
         throw new ProviderError(`Model ${request.model} not supported by DeepSeek provider`);
@@ -313,7 +311,7 @@ export class DeepSeekProvider extends UnifiedLLMAdapter {
         body: JSON.stringify(apiRequest)
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         const errorText = await response.text();
         throw new ProviderError(`DeepSeek streaming API error: ${response.status} - ${errorText}`);
       }
@@ -388,7 +386,6 @@ export class DeepSeekProvider extends UnifiedLLMAdapter {
   }
 
   getModelInfo(model: string) {
-    // @ts-expect-error NV-TS230 legacy typing gap (TS7053)
     const config = this.models[model];
     if (!config) {
       throw new ProviderError(`Model ${model} not found in DeepSeek provider`);

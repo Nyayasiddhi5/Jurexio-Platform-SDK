@@ -80,7 +80,7 @@ export async function getCaseStatus(cnrNumber: string): Promise<CaseStatus | { e
       body: JSON.stringify({ cnr_number: cnrNumber }),
     });
 
-    if (!res.ok) {
+    if (res.ok === false) {
       const text = await res.text();
       logger.warn('[eCourts] getCaseStatus failed', { status: res.status, cnrNumber });
       return { error: `eCourts API error: ${res.status} — ${text}` };
@@ -106,7 +106,7 @@ export async function getCaseOrders(cnrNumber: string): Promise<CaseOrder[] | { 
       body: JSON.stringify({ cnr_number: cnrNumber }),
     });
 
-    if (!res.ok) return { error: `HTTP ${res.status}` };
+    if (res.ok === false) return { error: `HTTP ${res.status}` };
     const data: any = await res.json();
     return (data.orders || []).map((o: any) => ({
       orderDate: o.order_date || '',
@@ -134,7 +134,7 @@ export async function getCauseList(
       body: JSON.stringify({ court_code: courtCode, date }),
     });
 
-    if (!res.ok) return { error: `HTTP ${res.status}` };
+    if (res.ok === false) return { error: `HTTP ${res.status}` };
     const data: any = await res.json();
     return (data.cause_list || []).map((e: any, i: number) => ({
       serialNo: i + 1,

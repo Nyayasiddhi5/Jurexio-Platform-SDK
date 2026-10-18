@@ -74,7 +74,14 @@ router.post('/twins', async (req: Request, res: Response) => {
       configuration: z.record(z.unknown()).optional(),
     });
     const input = schema.parse(req.body);
-    const twin = twinDeskService.createTwin({ ...input, orgId: getOrgId(req) });
+    const twin = twinDeskService.createTwin({
+      ...input,
+      name: input.name ?? 'Twin',
+      persona: input.persona ?? 'custom',
+      expertise: input.expertise ?? 'general',
+      jurisdiction: input.jurisdiction ?? 'IN',
+      orgId: getOrgId(req),
+    });
     res.status(201).json({ success: true, twin });
   } catch (err: any) {
     if (err instanceof ZodError) { res.status(400).json({ error: err.errors }); return; }
@@ -163,7 +170,6 @@ router.post('/twins/:twinId/chat', async (req: Request, res: Response) => {
 });
 
 // ── BENCHMARK ─────────────────────────────────────────────────────────────────
-// @ts-expect-error NV-TS230 legacy typing gap (TS7030)
 router.post('/twins/:twinId/benchmark', (req: Request, res: Response) => {
   try {
     if (!loadOwnedTwin(req, res, 'write')) return;

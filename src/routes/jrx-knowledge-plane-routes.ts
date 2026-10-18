@@ -83,7 +83,7 @@ async function proxy(
     timeoutMs: opts.timeoutMs,
     forwardApiKey: forwardKeyFromReq(req),
   });
-  if (!result.ok) {
+  if (result.ok === false) {
     const safeMsg = sanitizeErrorForClient(result.error ?? 'NYS upstream unavailable');
     const upstreamStatus = result.status >= 400 && result.status < 600 ? result.status : 502;
     // Never echo raw Postgres/AWS credential failures to Console clients.
@@ -125,7 +125,7 @@ router.post('/retrieve', async (req, res) => {
     body: req.body,
     forwardApiKey: forwardKeyFromReq(req),
   });
-  if (!result.ok) {
+  if (result.ok === false) {
     const safeMsg = sanitizeErrorForClient(result.error ?? 'NYS upstream unavailable');
     const upstreamStatus = result.status >= 400 && result.status < 600 ? result.status : 502;
     const clientStatus =
@@ -289,8 +289,8 @@ router.get('/caselaw/search', async (req, res) => {
         q: q.slice(0, 80),
         hybridMs,
         reason: ftsReason,
-        status: result.ok ? undefined : result.status,
-        error: result.ok ? undefined : result.error,
+        status: result.ok === false ? result.status : undefined,
+        error: result.ok === false ? result.error : undefined,
       });
       result = await nysKnowledgeRequest({
         method: 'GET',
@@ -311,7 +311,7 @@ router.get('/caselaw/search', async (req, res) => {
 
   const fallback = fallbackMeta?.fallbackMode;
 
-  if (!result.ok) {
+  if (result.ok === false) {
     const safeMsg = sanitizeErrorForClient(result.error ?? 'NYS upstream unavailable');
     logger.warn('caselaw search upstream failed — returning degraded empty envelope', {
       q: q.slice(0, 80),
@@ -859,7 +859,7 @@ router.post('/judgments/full-text', async (req, res) => {
     structure: body.structure === true || body.structure === 'true',
   });
 
-  if (!result.ok) {
+  if (result.ok === false) {
     res.status(result.status).json({
       success: false,
       error: {
@@ -912,7 +912,7 @@ router.get('/templates', async (req, res) => {
       },
       forwardApiKey: forwardKeyFromReq(req),
     });
-    if (result.ok) {
+    if (result.ok === true) {
       res.status(result.status === 204 ? 200 : result.status).json({
         success: true,
         source: 'nys-knowledge-plane',
@@ -921,8 +921,8 @@ router.get('/templates', async (req, res) => {
       return;
     }
     logger.warn('knowledge/templates NYS failed; falling back to JRX catalog', {
-      error: result.error,
-      status: result.status,
+      error: result.ok === false ? result.error : undefined,
+      status: result.ok === false ? result.status : undefined,
     });
   }
   try {

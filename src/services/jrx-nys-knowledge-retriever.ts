@@ -681,7 +681,7 @@ export async function nysVerifyCitation(citation: string, jurisdiction = 'IN'): 
     path: '/caselaw/verify-citation',
     body: { citation, jurisdiction },
   });
-  if (!res.ok) return null;
+  if (res.ok === false) return null;
   const data = res.data as Record<string, unknown>;
   const rawStatus = String(data?.status ?? '').toLowerCase();
   let status: NysCitationStatus = 'uncertain';

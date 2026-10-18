@@ -169,7 +169,7 @@ export class NvLegalEmbeddingService {
       body: JSON.stringify({ model, input: text.substring(0, 8000) }),
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       throw new Error(`Embedding API error: ${response.status} ${response.statusText}`);
     }
 
@@ -188,7 +188,7 @@ export class NvLegalEmbeddingService {
       body: JSON.stringify({ text: text.substring(0, 8000) }),
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       throw new Error(`Self-hosted embedding error: ${response.status}`);
     }
 

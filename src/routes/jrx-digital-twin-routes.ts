@@ -106,7 +106,13 @@ router.post('/', authenticateToken, async (req: Request, res: Response) => {
       ...result.data,
       organizationId: result.data.organizationId || orgId(req),
     };
-    const twin = await digitalTwinService.createTwin(input);
+    const twin = await digitalTwinService.createTwin({
+      ...input,
+      name: input.name ?? 'Twin',
+      type: input.type ?? 'entity',
+      entityId: input.entityId ?? input.organizationId,
+      jurisdiction: input.jurisdiction ?? 'IN',
+    });
     logger.info('[DigitalTwin] Twin created via API', {
       twinId: twin.id, type: twin.type, entity: twin.entityId, user: userId(req),
     });

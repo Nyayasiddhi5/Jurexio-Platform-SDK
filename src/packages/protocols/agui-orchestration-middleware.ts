@@ -121,7 +121,6 @@ export function aguiOrchestrationMiddleware(
     sessionIdGenerator,
   } = config;
 
-  // @ts-expect-error NV-TS230 legacy typing gap (TS7030)
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const authReq = req as AuthRequest;

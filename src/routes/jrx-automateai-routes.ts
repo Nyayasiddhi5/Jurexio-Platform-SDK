@@ -78,7 +78,16 @@ router.post('/workflows', async (req: Request, res: Response) => {
     });
     const input = schema.parse(req.body);
     const orgId = getOrgId(req);
-    const workflow = automateAIService.createWorkflow({ ...input, orgId, nodes: input.nodes as any, edges: input.edges as any });
+    const workflow = automateAIService.createWorkflow({
+      ...input,
+      name: input.name ?? 'Workflow',
+      orgId,
+      trigger: input.trigger?.type
+        ? { type: input.trigger.type, config: input.trigger.config }
+        : { type: 'manual' as const },
+      nodes: input.nodes as any,
+      edges: input.edges as any,
+    });
     res.status(201).json({ success: true, workflow });
   } catch (err: any) {
     if (err instanceof ZodError) { res.status(400).json({ error: err.errors }); return; }
@@ -134,7 +143,6 @@ router.post('/workflows/:workflowId/pause', (req: Request, res: Response) => {
 });
 
 // ── EXECUTION ─────────────────────────────────────────────────────────────────
-// @ts-expect-error NV-TS230 legacy typing gap (TS7030)
 router.post('/workflows/:workflowId/execute', async (req: Request, res: Response) => {
   try {
     if (!loadOwnedWorkflow(req, res, 'write')) return;

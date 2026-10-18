@@ -255,7 +255,6 @@ export class ChatDollKitAvatarService extends EventEmitter {
     logger.info('🧠 Connecting to KIMI K2 AI Brain...');
     
     // Listen to KIMI K2 events
-    // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
     kimiK2AIService.on('interaction_complete', (interaction) => {
       logger.info('🤖 Received KIMI K2 interaction:', interaction.id);
       this.emit('ai_response_ready', interaction);

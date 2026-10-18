@@ -407,7 +407,6 @@ export class DependencyScanner {
     };
 
     for (const vuln of vulns) {
-      // @ts-expect-error NV-TS230 legacy typing gap (TS7053)
       summary[vuln.severity]++;
       
       if (vuln.remediation.automatable) {

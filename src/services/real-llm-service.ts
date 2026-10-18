@@ -1277,7 +1277,7 @@ export class RealLLMService extends EventEmitter {
       body: JSON.stringify(requestBody)
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       const errorText = await response.text();
       throw new Error(`OpenRouter API call failed: ${response.status} ${response.statusText} - ${errorText}`);
     }
@@ -1755,7 +1755,7 @@ export class RealLLMService extends EventEmitter {
       })
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       throw new Error(`ElevenLabs API call failed: ${response.status} ${response.statusText}`);
     }
 
@@ -1977,7 +1977,7 @@ export class RealLLMService extends EventEmitter {
       clearTimeout(timeoutHandle);
     }
 
-    if (!rawResponse.ok) {
+    if (rawResponse.ok === false) {
       const errText = await rawResponse.text().catch(() => rawResponse.statusText);
       throw new Error(`[Azentzero] API error: HTTP ${rawResponse.status} — ${errText}`);
     }
@@ -2029,7 +2029,7 @@ export class RealLLMService extends EventEmitter {
       body: JSON.stringify(body)
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       const errorText = await response.text();
       throw new Error(`API call failed: ${response.status} ${response.statusText} - ${errorText}`);
     }

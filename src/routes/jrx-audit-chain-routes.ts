@@ -28,7 +28,7 @@ router.get('/chain', authenticateToken, async (req: Request, res: Response) => {
   const jurisdiction = rawJur && rawJur !== 'ALL' && ALLOWED_JUR.has(rawJur) ? rawJur : null;
 
   const scope = resolveAuditReadScope((req as any).user, (req.query.orgId as string | undefined) ?? null);
-  if (!scope.ok) {
+  if (scope.ok === false) {
     res.status(scope.status).json({ success: false, error: scope.error });
     return;
   }
@@ -81,7 +81,7 @@ router.get('/chain/:id', authenticateToken, async (req: Request, res: Response) 
     // non-super-admin is hard-scoped to its own org; if the row belongs to a
     // different org the read is denied (cross-tenant leak prevention).
     const detailScope = resolveAuditReadScope((req as any).user, null);
-    if (!detailScope.ok) {
+    if (detailScope.ok === false) {
       res.status(detailScope.status).json({ success: false, error: detailScope.error });
       return;
     }

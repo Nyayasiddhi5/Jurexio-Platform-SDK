@@ -50,7 +50,7 @@ async function fetchFullDocument(url: string): Promise<{ body: Buffer; contentTy
       redirect: 'follow',
     });
     clearTimeout(t);
-    if (!res.ok) return null;
+    if (res.ok === false) return null;
     const ab = await res.arrayBuffer();
     if (ab.byteLength > MAX_BYTES) {
       logger.warn('own_feed_doc_too_large', { url: url.slice(0, 120), bytes: ab.byteLength });
