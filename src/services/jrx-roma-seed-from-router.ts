@@ -14,12 +14,7 @@ export async function seedRomaStoreFromRouterDecisions(): Promise<number> {
   try {
     const existing = Object.keys(romaL5Engine.getPerformanceStore()).length;
     if (existing > 0) return 0;
-    const result = await pool.query<{
-      agent_id: string;
-      total: number;
-      ok_count: number;
-      avg_latency: number;
-    }>(`
+    const result = await pool.query(`
       SELECT agent_id,
              COUNT(*)::int AS total,
              SUM(CASE WHEN ok THEN 1 ELSE 0 END)::int AS ok_count,

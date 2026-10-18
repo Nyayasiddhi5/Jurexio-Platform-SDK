@@ -225,7 +225,7 @@ export async function getEmbedding(text: string, model = 'text-embedding-3-small
     body: JSON.stringify({ input: text, model }),
     signal: AbortSignal.timeout(30_000),
   });
-  if (!res.ok) throw new Error(`Embedding API ${res.status}`);
+  if (res.ok === false) throw new Error(`Embedding API ${res.status}`);
   const json = (await res.json()) as { data: Array<{ embedding: number[] }> };
   return json.data[0]?.embedding ?? new Array(1536).fill(0);
 }

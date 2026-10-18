@@ -6,8 +6,8 @@ cd "$ROOT"
 
 npm run docparse:build
 npm run docparse-sdk:build
-# Match Dockerfile builder: strict server compile first, then root tsc fallback.
-npm run build:server || npx tsc --project tsconfig.json --outDir dist --skipLibCheck
+# Authoritative server compile (tsconfig.server.json noEmitOnError).
+npm run build:server
 npx vite build
 
 echo "jrx-build-production: dist/server + dist/public ready"

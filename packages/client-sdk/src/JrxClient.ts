@@ -130,7 +130,7 @@ class FetchHttpClient implements JrxHttpClient {
     const timer = setTimeout(() => controller.abort(), this.timeout);
     try {
       const res = await fetch(url, { method: 'GET', headers: this.headers, signal: controller.signal });
-      if (!res.ok) {
+      if (res.ok === false) {
         let errBody: Partial<JrxApiError> & { error?: string } = {};
         try { errBody = await res.json() as Partial<JrxApiError> & { error?: string }; } catch { /* ignore */ }
         throw new JrxError({
@@ -173,7 +173,7 @@ class FetchHttpClient implements JrxHttpClient {
         signal: controller.signal,
       });
 
-      if (!res.ok) {
+      if (res.ok === false) {
         let errBody: Partial<JrxApiError> & { error?: string } = {};
         try { errBody = await res.json() as Partial<JrxApiError> & { error?: string }; } catch { /* ignore */ }
         throw new JrxError({

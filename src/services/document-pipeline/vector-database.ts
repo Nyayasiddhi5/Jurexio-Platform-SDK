@@ -306,7 +306,7 @@ export class NyayavignyaVectorDatabase extends EventEmitter {
       })
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       throw new Error(`OpenAI embedding API error: ${response.status} ${response.statusText}`);
     }
 

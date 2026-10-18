@@ -95,10 +95,8 @@ export async function rotateRefreshToken(oldToken: string, userId: string, userA
     [oldHash]
   );
   
-  // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
   if (result.rows.length === 0) return null;
   
-  // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
   const stored = result.rows[0];
   // @ts-expect-error NV-TS230 legacy typing gap (TS2769)
   if (stored.is_revoked || new Date(stored.expires_at) < new Date()) {
@@ -118,10 +116,8 @@ export async function rotateRefreshToken(oldToken: string, userId: string, userA
   // The org-FK column is `org_id` in nv_users (verified via information_schema 2026-05-10),
   // not `organization_id` — alias to keep the downstream payload key stable.
   const userResult = await db.query(`SELECT id, email, role, org_id AS organization_id FROM nv_users WHERE id = $1`, [userId]);
-  // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
   if (userResult.rows.length === 0) return null;
   
-  // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
   const user = userResult.rows[0];
 
   // task-367 (2026-05-13): stamp the partner-platform applicationId onto

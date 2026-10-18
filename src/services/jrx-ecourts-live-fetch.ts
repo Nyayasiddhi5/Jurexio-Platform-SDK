@@ -118,7 +118,7 @@ export async function attemptEcourtsLiveFetch(input: {
     if (india.kind === 'attempted') {
       return {
         kind: 'attempted',
-        tag: ECOURTSINDIA_LIVE_ATTEMPTED,
+        tag: ECOURTS_LIVE_ATTEMPTED,
         reason: india.reason,
       };
     }

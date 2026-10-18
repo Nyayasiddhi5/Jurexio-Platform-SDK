@@ -179,7 +179,7 @@ class RealWebSearchService {
       }),
       signal: AbortSignal.timeout(15_000),
     });
-    if (!response.ok) throw new Error(`tavily HTTP ${response.status}`);
+    if (response.ok === false) throw new Error(`tavily HTTP ${response.status}`);
     const payload = (await response.json()) as {
       results?: Array<{ title?: string; url?: string; content?: string; score?: number; published_date?: string }>;
     };
@@ -205,7 +205,7 @@ class RealWebSearchService {
       body: JSON.stringify({ q: query, num: limit }),
       signal: AbortSignal.timeout(15_000),
     });
-    if (!response.ok) throw new Error(`serper HTTP ${response.status}`);
+    if (response.ok === false) throw new Error(`serper HTTP ${response.status}`);
     const payload = (await response.json()) as {
       organic?: Array<{ title?: string; link?: string; snippet?: string; date?: string }>;
     };
@@ -257,7 +257,7 @@ class RealWebSearchService {
       }),
       signal: AbortSignal.timeout(45_000),
     });
-    if (!response.ok) {
+    if (response.ok === false) {
       const err = await response.text();
       throw new Error(`${viaOpenRouter ? 'openrouter' : 'perplexity'} HTTP ${response.status}: ${err.slice(0, 120)}`);
     }
@@ -342,7 +342,7 @@ class RealWebSearchService {
           }),
           signal: AbortSignal.timeout(60_000),
         });
-        if (!res.ok) {
+        if (res.ok === false) {
           lastErr = `gemini HTTP ${res.status}: ${(await res.text()).slice(0, 160)}`;
           if (i < keys.length - 1 && /429|403|quota|resource/i.test(lastErr)) continue;
           throw new Error(lastErr);

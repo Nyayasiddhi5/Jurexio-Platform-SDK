@@ -387,7 +387,7 @@ class NvOcrAdapterService {
       signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       throw new Error(`self-hosted OCR (${endpoint}) returned HTTP ${response.status} ${response.statusText}`);
     }
 
@@ -433,7 +433,7 @@ class NvOcrAdapterService {
       signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       const detail = await response.text().catch(() => '');
       throw new Error(`Mistral OCR API HTTP ${response.status} ${response.statusText} ${detail.slice(0, 200)}`);
     }
@@ -490,7 +490,7 @@ class NvOcrAdapterService {
       signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       const detail = await response.text().catch(() => '');
       throw new Error(`Gemini vision HTTP ${response.status} ${response.statusText} ${detail.slice(0, 200)}`);
     }
@@ -547,7 +547,7 @@ class NvOcrAdapterService {
       signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       const detail = await response.text().catch(() => '');
       throw new Error(`OpenAI vision HTTP ${response.status} ${response.statusText} ${detail.slice(0, 200)}`);
     }

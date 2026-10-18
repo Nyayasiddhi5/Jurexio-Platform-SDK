@@ -8,6 +8,10 @@ import { nvNyayaAmendService } from '../jrx-legal-tools/jrx-nyayaamend-service.j
 const logger = createLogger('./jrx-amendment-impact-service');
 
 type JurisdictionCode = 'IN' | 'UK' | 'EU' | 'US' | 'GCC' | 'SG';
+
+function toNyayaAmendJurisdiction(j: JurisdictionCode): 'IN' | 'UK' | 'EU' | 'US' | 'GC' | 'SG' {
+  return j === 'GCC' ? 'GC' : j;
+}
 type AmendmentSeverity = 'minor' | 'significant' | 'major' | 'critical';
 
 interface AmendmentImpactAnalysis {
@@ -135,7 +139,7 @@ class NvAmendmentImpactService {
     }
 
     // Section-number path: recent amendments + timeline
-    const recent = await nvNyayaAmendService.getRecentAmendments(jurisdiction, 365);
+    const recent = await nvNyayaAmendService.getRecentAmendments(toNyayaAmendJurisdiction(jurisdiction), 365);
     const match = (recent || []).find((e: any) => {
       const statutes = (e.affectedStatutes as string[]) || [];
       return statutes.some((s) => String(s).toLowerCase().includes(String(changedSection).toLowerCase()))
@@ -149,7 +153,7 @@ class NvAmendmentImpactService {
     const timeline = await nvNyayaAmendService.getTemporalTimeline(
       String(changedSection),
       String(changedSection),
-      jurisdiction,
+      toNyayaAmendJurisdiction(jurisdiction),
     );
 
     return {
@@ -188,7 +192,11 @@ class NvAmendmentImpactService {
 
   async getStatuteHistory(sectionRef: string, jurisdiction: JurisdictionCode): Promise<StatuteHistory> {
     logger.info({ method: 'getStatuteHistory', sectionRef, jurisdiction });
-    const timeline = await nvNyayaAmendService.getTemporalTimeline(sectionRef, sectionRef, jurisdiction);
+    const timeline = await nvNyayaAmendService.getTemporalTimeline(
+      sectionRef,
+      sectionRef,
+      toNyayaAmendJurisdiction(jurisdiction),
+    );
     const versions: StatuteVersion[] = (timeline.versions || []).map((v: any, i: number) => ({
       version: String(v.version ?? i + 1),
       effectiveFrom: v.validFrom ? new Date(v.validFrom) : new Date(0),

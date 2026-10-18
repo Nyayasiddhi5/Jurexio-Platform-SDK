@@ -425,7 +425,7 @@ async function callAnthropicDirect(
     }),
     signal: attemptSignal(LLM_PROVIDER_TIMEOUT_MS, callerSignal),
   });
-  if (!res.ok) {
+  if (res.ok === false) {
     const txt = await res.text();
     throw new Error(`Anthropic ${res.status}: ${txt.slice(0, 200)}`);
   }
@@ -478,7 +478,7 @@ async function callOpenAIDirect(
     body: JSON.stringify(body),
     signal: attemptSignal(LLM_PROVIDER_TIMEOUT_MS, callerSignal),
   });
-  if (!res.ok) {
+  if (res.ok === false) {
     const txt = await res.text();
     throw new Error(`OpenAI ${res.status}: ${txt.slice(0, 200)}`);
   }
@@ -528,7 +528,7 @@ async function callGoogle(
         body: JSON.stringify(body),
         signal: attemptSignal(LLM_PROVIDER_TIMEOUT_MS, callerSignal),
       });
-      if (!res.ok) {
+      if (res.ok === false) {
         const txt = await res.text();
         const err = new Error(`Google ${res.status}: ${txt.slice(0, 200)}`);
         lastErr = err;
@@ -642,7 +642,7 @@ async function callOpenRouter(
     body: JSON.stringify(body),
     signal: attemptSignal(LLM_PROVIDER_TIMEOUT_MS),
   });
-  if (!res.ok) {
+  if (res.ok === false) {
     const txt = await res.text();
     throw new Error(`OpenRouter ${res.status}: ${txt.slice(0, 200)}`);
   }
@@ -687,7 +687,7 @@ async function callSarvam(
     body: JSON.stringify(body),
     signal: attemptSignal(LLM_PROVIDER_TIMEOUT_MS),
   });
-  if (!res.ok) {
+  if (res.ok === false) {
     const txt = await res.text();
     throw new Error(`Sarvam ${res.status}: ${txt.slice(0, 200)}`);
   }
@@ -866,7 +866,7 @@ async function callVertex(
     body: JSON.stringify(body),
     signal: attemptSignal(LLM_PROVIDER_TIMEOUT_MS),
   });
-  if (!res.ok) {
+  if (res.ok === false) {
     const txt = await res.text();
     throw new Error(`Vertex ${res.status}: ${txt.slice(0, 200)}`);
   }
@@ -926,7 +926,7 @@ async function callPerplexityDirect(
       }),
       signal: controller.signal,
     });
-    if (!response.ok) {
+    if (response.ok === false) {
       const body = await response.text().catch(() => '');
       throw new Error(`Perplexity ${response.status}: ${body.slice(0, 300)}`);
     }
@@ -1325,7 +1325,7 @@ export async function orchestrateLLM(input: OrchestrationInput): Promise<Orchest
           const loserModel = winner.model.id === primary.id ? secondary : primary;
           void loserP
             .then((loser) => {
-              if (!loser.ok) return; // aborted before any usage was reported
+              if (loser.ok === false) return; // aborted before any usage was reported
               const wastedCost =
                 loser.result.costUsd ??
                 estimateCostUsd(

@@ -130,7 +130,7 @@ export async function executeChunkedDraftGeneration(
     totalCompletion += tok?.completion ?? tok?.output ?? 0;
     lastModel = wrapped.model;
     lastProvider = wrapped.provider;
-    lastOrchestration = wrapped.orchestration as Record<string, unknown> | undefined;
+    lastOrchestration = wrapped.orchestration as unknown as Record<string, unknown> | undefined;
   }
 
   const stitched = stitchDraftChunks(chunkResults, input.documentType, definitionsRegistry);

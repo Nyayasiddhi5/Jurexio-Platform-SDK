@@ -213,7 +213,7 @@ export class JrxStreamReader {
       signal: options.signal,
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       throw new Error(`Stream request failed: ${response.status} ${response.statusText}`);
     }
 

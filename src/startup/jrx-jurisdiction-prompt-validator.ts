@@ -100,7 +100,7 @@ export async function validateJurisdictionPrompts(
  */
 export async function enforceJurisdictionPromptInvariants(): Promise<void> {
   const result = await validateJurisdictionPrompts();
-  if (!result.ok) {
+  if (result.ok === false) {
     if (process.env.NODE_ENV === 'production') {
       logger.error({
         msg: 'REFUSING TO START: jurisdiction prompt invariants failed in production',

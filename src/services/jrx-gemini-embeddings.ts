@@ -68,7 +68,7 @@ export async function generateGeminiEmbedding(
         }),
         signal: AbortSignal.timeout(20_000),
       });
-      if (!res.ok) {
+      if (res.ok === false) {
         lastErr = `Gemini embed ${res.status}: ${(await res.text()).slice(0, 160)}`;
         if (i < keys.length - 1 && /429|403|quota|resource/i.test(lastErr)) continue;
         logger.warn('[GEMINI-EMBED] failed', { status: res.status, err: lastErr.slice(0, 120) });

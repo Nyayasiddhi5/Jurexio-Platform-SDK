@@ -481,7 +481,7 @@ export async function tryNysDeterministicAnswer(opts: {
       // A deterministic fast path must not out-cost the model call it replaces.
       retries: 0,
     });
-    if (!res.ok) return null;
+    if (res.ok === false) return null;
     return renderDeterministicAnswerFromPlan(res.data, { query, jurisdiction });
   } catch (e) {
     logger.warn('nys deterministic answer probe failed (non-fatal)', {

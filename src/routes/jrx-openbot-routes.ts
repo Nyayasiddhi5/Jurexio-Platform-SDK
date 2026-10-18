@@ -68,7 +68,13 @@ router.post('/channels', async (req: Request, res: Response) => {
       botIds: z.array(z.string()).optional(),
     });
     const input = schema.parse(req.body);
-    const channel = openBotService.addChannel({ ...input, orgId: getOrgId(req) });
+    const channel = openBotService.addChannel({
+      channel: input.channel,
+      name: input.name,
+      orgId: getOrgId(req),
+      credentials: input.credentials,
+      botIds: input.botIds,
+    });
     res.status(201).json({ success: true, channel });
   } catch (err: any) {
     if (err instanceof ZodError) { res.status(400).json({ error: err.errors }); return; }

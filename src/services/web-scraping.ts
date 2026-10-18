@@ -210,7 +210,7 @@ export class WebScrapingService {
         },
       });
       clearTimeout(timeout);
-      if (!resp.ok) {
+      if (resp.ok === false) {
         return { success: false, url, source, fetchedAt, error: `HTTP ${resp.status} from ${source.host}` };
       }
       html = await resp.text();

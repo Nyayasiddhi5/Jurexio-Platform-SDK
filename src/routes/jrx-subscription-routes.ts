@@ -148,7 +148,6 @@ router.get('/me', authenticateToken, async (req: Request, res: Response): Promis
       subscription = (subRows as any[])[0] || null;
     } catch { subscription = null; }
 
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     wallet = await creditService.getWallet(userId);
 
     const plan = JRX_PLANS.find(p => p.id === (subscription?.plan_id || 'alpha')) || JRX_PLANS[0];
@@ -217,7 +216,6 @@ router.post('/create', authenticateToken, requireRole('org_admin'), async (req: 
 
     // Grant monthly credits
     if (plan.credits_monthly > 0) {
-      // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
       await creditService.addCredits(userId, plan.credits_monthly, 'SYSTEM', `${plan_id} plan monthly credits`);
     }
 
@@ -272,7 +270,6 @@ router.post('/cancel', authenticateToken, requireRole('org_admin'), async (req: 
 router.get('/credits/wallet', authenticateToken, async (req: Request, res: Response): Promise<void> => {
   try {
     const userId = req.user?.id || req.user?.userId;
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     const wallet = await creditService.getWallet(userId);
     res.json({ success: true, data: wallet });
   } catch (err: any) {
@@ -285,7 +282,6 @@ router.get('/credits/transactions', authenticateToken, async (req: Request, res:
   try {
     const userId = req.user?.id || req.user?.userId;
     const limit = Math.min(100, parseInt((req.query.limit as string) || '50', 10));
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     const txns = await creditService.getTransactions(userId, limit);
     res.json({ success: true, data: { transactions: txns, count: txns.length } });
   } catch (err: any) {

@@ -70,7 +70,7 @@ async function partnerGet(path: string): Promise<EcourtsIndiaPartnerHttpResult> 
     } catch {
       json = undefined;
     }
-    if (!res.ok) {
+    if (res.ok === false) {
       logger.warn('[eCourtsIndia] partner GET failed', { status: res.status, pathLen: path.length });
     }
     return { ok: res.ok, status: res.status, json, text: text.slice(0, 200) };
@@ -109,7 +109,7 @@ async function partnerPost(
     } catch {
       json = undefined;
     }
-    if (!res.ok) {
+    if (res.ok === false) {
       logger.warn('[eCourtsIndia] partner POST failed', { status: res.status, pathLen: path.length });
     }
     return { ok: res.ok, status: res.status, json, text: text.slice(0, 200) };
@@ -142,7 +142,7 @@ export async function getPartnerCaseByCnr(
     return { ok: false, status: 400, reason: 'CNR must be 16 characters' };
   }
   const r = await partnerGet(`/api/partner/case/${encodeURIComponent(normalized)}`);
-  if (!r.ok) {
+  if (r.ok === false) {
     return {
       ok: false,
       status: r.status || 502,

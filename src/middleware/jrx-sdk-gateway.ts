@@ -38,6 +38,7 @@ interface SdkContext {
   allowedAgents: string[];
   llmConfig: Record<string, any>;
   jurisdiction: string;
+  tier?: string;
   rateLimitPerMinute: number;
   dailyTokenBudget: number;
   scopes: string[];
@@ -578,7 +579,7 @@ export async function sdkGatewayAuth(req: Request, res: Response, next: NextFunc
     if (v === '0' || v === 'false' || v === 'off') return false;
     return isPlatformUatKey(apiKey);
   })();
-  const appTypeUpper = String(appRecord.appType || appRecord.name || '').toUpperCase();
+  const appTypeUpper = String(appRecord.appType || appRecord.appName || '').toUpperCase();
   const fromAppType = platformFromAppType(String(appRecord.appType || ''));
   const __nspApp =
     __uatLabel === 'NSP'

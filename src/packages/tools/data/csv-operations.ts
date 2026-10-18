@@ -224,9 +224,7 @@ export const csvOperationsExecutor: ToolExecutor = async (params) => {
         const stats: Record<string, any> = {};
 
         for (const field of fields) {
-          // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
           const values = rows.map((row: any) => row[field]).filter(v => v !== undefined && v !== '');
-          // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
           const numericValues = values.map(Number).filter(n => !isNaN(n));
           
           stats[field] = {
@@ -239,7 +237,6 @@ export const csvOperationsExecutor: ToolExecutor = async (params) => {
           if (stats[field].isNumeric) {
             stats[field].min = Math.min(...numericValues);
             stats[field].max = Math.max(...numericValues);
-            // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
             stats[field].avg = numericValues.reduce((a, b) => a + b, 0) / numericValues.length;
           }
         }

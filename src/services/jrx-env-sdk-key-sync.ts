@@ -152,7 +152,7 @@ export async function syncEnvSdkKeysToDb(): Promise<{ synced: number; skipped: n
         ],
       );
 
-      const appLookup = await pool.query<{ id: number }>(
+      const appLookup = await pool.query(
         `SELECT id FROM public.sdk_applications WHERE client_id = $1 LIMIT 1`,
         [p.clientId],
       );

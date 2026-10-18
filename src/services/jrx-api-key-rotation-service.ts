@@ -115,7 +115,7 @@ export async function rotateApiKey(input: RotateApiKeyInput): Promise<RotatedKey
         FOR UPDATE`,
       [input.keyId, input.orgId],
     );
-    const oldKey = oldRows.rows?.[0] as OldKeyRow | undefined;
+    const oldKey = oldRows.rows?.[0] as unknown as OldKeyRow | undefined;
     if (!oldKey) {
       throw new ApiKeyRotationError('API key not found for this organisation', 404);
     }
@@ -142,7 +142,7 @@ export async function rotateApiKey(input: RotateApiKeyInput): Promise<RotatedKey
         oldKey.rate_limit_per_minute,
       ],
     );
-    const newRow = newRows.rows?.[0] as NewKeyRow | undefined;
+    const newRow = newRows.rows?.[0] as unknown as NewKeyRow | undefined;
     if (!newRow) throw new ApiKeyRotationError('Failed to insert replacement key', 500);
 
     // 3. Stamp grace expiry on the old key

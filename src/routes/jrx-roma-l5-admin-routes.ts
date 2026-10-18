@@ -76,7 +76,8 @@ function mapDbMetricsRow(row: Record<string, unknown>, index: number): AgentDash
   const fallbackRate = Math.round(((failures / Math.max(requests, 1)) * 12) * 10) / 10;
   const statuses = ['active', 'active', 'active', 'active', 'degraded', 'training'] as const;
   const status = (agent as { status?: string } | undefined)?.status ?? statuses[index % statuses.length];
-  const jurisdictionRaw = agent?.jurisdictionScope?.primary ?? agent?.jurisdiction;
+  const jurisdictionRaw =
+    (agent?.jurisdictionScope as { primary?: string } | undefined)?.primary ?? agent?.jurisdiction;
   const jurisdiction = Array.isArray(jurisdictionRaw)
     ? jurisdictionRaw
     : typeof jurisdictionRaw === 'string' && jurisdictionRaw !== 'ALL'

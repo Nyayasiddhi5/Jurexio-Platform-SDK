@@ -44,7 +44,7 @@ router.get('/tasks', async (req, res) => {
     category: req.query.category ? String(req.query.category) : undefined,
     workType: req.query.workType ? String(req.query.workType) : undefined,
   });
-  if (!result.ok) {
+  if (result.ok === false) {
     res.status(result.status).json({ success: false, error: { code: 'JRX_ECOSYSTEM_UPSTREAM', message: result.error } });
     return;
   }
@@ -54,7 +54,7 @@ router.get('/tasks', async (req, res) => {
 router.get('/tasks/:id', async (req, res) => {
   if (!requirePlane(res)) return;
   const result = await getLegalWorkTask(req.params.id);
-  if (!result.ok) {
+  if (result.ok === false) {
     res.status(result.status).json({ success: false, error: { code: 'JRX_ECOSYSTEM_UPSTREAM', message: result.error } });
     return;
   }
@@ -170,7 +170,7 @@ router.post('/chat', async (req, res) => {
     body: req.body || {},
     forwardApiKey: forwardKeyFromReq(req),
   });
-  if (!result.ok) {
+  if (result.ok === false) {
     res.status(result.status).json({ success: false, error: { code: 'JRX_ECOSYSTEM_UPSTREAM', message: result.error } });
     return;
   }
@@ -190,7 +190,7 @@ router.post('/chat/conversations', async (req, res) => {
     body: req.body,
     forwardApiKey: forwardKeyFromReq(req),
   });
-  if (!result.ok) {
+  if (result.ok === false) {
     res.status(result.status).json({ success: false, error: { code: 'JRX_ECOSYSTEM_UPSTREAM', message: result.error } });
     return;
   }
@@ -206,7 +206,7 @@ router.post('/chat/conversations/:id/messages', async (req, res) => {
     timeoutMs: 120_000,
     forwardApiKey: forwardKeyFromReq(req),
   });
-  if (!result.ok) {
+  if (result.ok === false) {
     res.status(result.status).json({ success: false, error: { code: 'JRX_ECOSYSTEM_UPSTREAM', message: result.error } });
     return;
   }

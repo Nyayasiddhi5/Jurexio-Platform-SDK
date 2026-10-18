@@ -211,9 +211,7 @@ export async function executeWithFullSafetyRing(
   // routes:400) and new callers that destructure LLMResponse.tokens.input/output
   // both work without breakage.
   const t = nvResp.tokens || ({} as any);
-  // @ts-expect-error NV-TS230 legacy typing gap (TS2339)
   const inputTok = (t.input ?? t.prompt ?? 0) as number;
-  // @ts-expect-error NV-TS230 legacy typing gap (TS2339)
   const outputTok = (t.output ?? t.completion ?? 0) as number;
   const totalTok = (t.total ?? inputTok + outputTok) as number;
   const tokensNormalized: any = {

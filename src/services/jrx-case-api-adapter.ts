@@ -1705,7 +1705,7 @@ export async function fetchLegacyCnrResolve(input: {
     retries: 0,
   });
 
-  if (!result.ok) {
+  if (result.ok === false) {
     logger.info('[CNR] legacy enrich skipped', {
       cnr: input.cnr ?? null,
       diaryNumber: input.diaryNumber ?? null,
@@ -1767,7 +1767,7 @@ export async function fetchCaseTimeline(
       };
     }
 
-    if (!res.ok) {
+    if (res.ok === false) {
       return {
         ok: false,
         status: res.status,
@@ -2880,7 +2880,7 @@ export async function lookupCnrViaCaseApi(input: {
     return { kind: 'resolved', data: caseApiData };
   }
 
-  if (!caseApiResult.ok && shouldFallbackToLegacyCnr(caseApiResult.status)) {
+  if (caseApiResult.ok === false && shouldFallbackToLegacyCnr(caseApiResult.status)) {
     return {
       kind: 'fallback',
       status: caseApiResult.status,
@@ -2888,7 +2888,7 @@ export async function lookupCnrViaCaseApi(input: {
     };
   }
 
-  if (!caseApiResult.ok) {
+  if (caseApiResult.ok === false) {
     return {
       kind: 'upstream_error',
       status: caseApiResult.status >= 400 ? caseApiResult.status : 502,
@@ -2924,7 +2924,7 @@ export async function lookupDiaryViaCaseApi(input: {
     want_total: 'false',
   });
 
-  if (!search.ok) {
+  if (search.ok === false) {
     if (shouldFallbackToLegacyDiary(search.status)) {
       return { kind: 'fallback', status: search.status, error: search.error };
     }
@@ -3027,7 +3027,7 @@ export async function fetchCaseByCnr(
     if (res.status === 404 || body.error === 'not_found') {
       return { ok: false, status: 404, error: 'not_found', latencyMs };
     }
-    if (!res.ok) {
+    if (res.ok === false) {
       return {
         ok: false,
         status: res.status,
@@ -3100,7 +3100,7 @@ export async function fetchCasesSearch(
       };
     }
 
-    if (!res.ok) {
+    if (res.ok === false) {
       return {
         ok: false,
         status: res.status,

@@ -89,7 +89,9 @@ router.post('/remember', authenticateToken, async (req, res, next) => {
     const body = RememberBodySchema.parse(req.body);
 
     const entry = await nvMemoryManager.remember({
-      userId:  user.id ?? user.userId,
+      userId: user.id ?? user.userId,
+      content: body.content ?? '',
+      type: body.type ?? 'fact',
       ...body,
     });
 
@@ -240,15 +242,18 @@ router.post('/agent/publish', authenticateToken, async (req, res, next) => {
 
     const publishEntries = body.entries.map(e => ({
       ...e,
-      tier:          (e.tier ?? 'session') as 'session' | 'longterm' | 'social',
-      orgId:         undefined as string | undefined,
-      sessionId:     undefined as string | undefined,
-      agentId:       undefined as string | undefined,
-      jurisdiction:  e.jurisdiction,
-      tags:          e.tags ?? [],
+      userId: e.userId ?? body.agentId,
+      content: e.content ?? '',
+      type: e.type ?? 'fact',
+      tier: (e.tier ?? 'session') as 'session' | 'longterm' | 'social',
+      orgId: undefined as string | undefined,
+      sessionId: undefined as string | undefined,
+      agentId: undefined as string | undefined,
+      jurisdiction: e.jurisdiction,
+      tags: e.tags ?? [],
       relevanceScore: e.relevanceScore ?? 1.0,
-      accessCount:   e.accessCount ?? 0,
-      metadata:      e.metadata ?? {},
+      accessCount: e.accessCount ?? 0,
+      metadata: e.metadata ?? {},
     }));
 
     await nvMemoryManager.agentPublish(body.agentId, body.sessionId, publishEntries);

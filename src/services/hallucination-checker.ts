@@ -134,7 +134,7 @@ async function lookupIndiaCodeAPI(actTitle: string, year?: number): Promise<bool
     });
     clearTimeout(timer);
 
-    if (!res.ok) return false;
+    if (res.ok === false) return false;
     const data: any = await res.json();
     return Array.isArray(data?.results) && data.results.length > 0;
   } catch {

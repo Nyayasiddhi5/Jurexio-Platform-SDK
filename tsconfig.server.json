@@ -4,7 +4,7 @@
     "outDir": "./dist/server",
     "rootDir": ".",
     "noEmit": false,
-    "noEmitOnError": false,
+    "noEmitOnError": true,
     "declaration": false,
     "declarationMap": false,
     "sourceMap": true,

@@ -84,7 +84,7 @@ function mapIndiaCaseToResolve(
       tier: 'ecourtsindia_live',
       extra: {
         provider: 'ecourtsindia.com',
-        disposalType: courtCaseData.disposalType ?? null,
+        disposalType: (courtCaseData.disposalType ?? null) as string | number | boolean | null,
       },
     },
   };
@@ -103,7 +103,7 @@ export async function attemptEcourtsIndiaLiveFetch(input: {
 
   const t0 = Date.now();
   const result = await getPartnerCaseByCnr(cnr);
-  if (!result.ok) {
+  if (result.ok === false) {
     logger.info('[CNR] eCourtsIndia partner miss', { cnrLen: cnr.length, status: result.status });
     return {
       kind: 'attempted',

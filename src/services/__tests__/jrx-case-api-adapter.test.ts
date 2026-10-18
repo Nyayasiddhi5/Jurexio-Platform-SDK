@@ -266,7 +266,7 @@ describe('./jrx-case-api-adapter mapper', () => {
     delete process.env.JRX_ECOSYSTEM_CASE_API_KEY;
     const res = await fetchCaseByCnr('GJHC240256342024');
     expect(res.ok).toBe(false);
-    if (!res.ok) expect(res.status).toBe(503);
+    if (res.ok === false) expect(res.status).toBe(503);
     if (prevKey === undefined) delete process.env.JRX_ECOSYSTEM_CASE_API_KEY;
     else process.env.JRX_ECOSYSTEM_CASE_API_KEY = prevKey;
   });

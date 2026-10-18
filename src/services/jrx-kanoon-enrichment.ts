@@ -57,7 +57,7 @@ async function searchKanoonByQuery(query: string): Promise<KanoonDoc[]> {
       },
       signal: controller.signal,
     });
-    if (!res.ok) {
+    if (res.ok === false) {
       logger.warn('[Kanoon] search upstream non-OK', { status: res.status, queryLen: query.length });
       return [];
     }

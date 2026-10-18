@@ -92,7 +92,7 @@ export function buildMemoryInjectionBlock(
     ? `[L3 matter_id=${scope.matterId}${scope.orgId ? ` org_id=${scope.orgId}` : ''} ${type}] `
     : `[L3 Platform Memory (${type})] `;
   const charsBeforeCap = nodes.reduce(
-    (sum, n) => sum + itemLabel(n.type) + n.content.length + 1,
+    (sum: number, n) => sum + itemLabel(n.type).length + n.content.length + 1,
     0,
   );
   const { perItem, maxItems, block } = resolveCaps(budget);

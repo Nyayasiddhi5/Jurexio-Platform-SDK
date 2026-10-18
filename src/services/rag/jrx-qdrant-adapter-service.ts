@@ -243,7 +243,7 @@ export class NvQdrantAdapterService {
       body: body ? JSON.stringify(body) : undefined,
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       throw new Error(`Qdrant API error: ${response.status} ${response.statusText}`);
     }
 

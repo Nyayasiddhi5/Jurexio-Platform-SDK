@@ -171,7 +171,7 @@ async function tryOpenAICompatible(
       },
       body: JSON.stringify({ model, input: text.slice(0, 8000) }),
     });
-    if (!res.ok) {
+    if (res.ok === false) {
       const errText = await res.text();
       logger.warn(`[EMBED-CASCADE] ${label} HTTP ${res.status}`, { error: errText.slice(0, 160) });
       return null;
@@ -253,18 +253,19 @@ export async function embedWithConfiguredCascade(
       }
 
       if (!dimsOk(emb, cfg.targetDims, cfg.allowDimMismatch || provider === 'local')) {
-        if (emb?.length) {
+        const gotLen = Array.isArray(emb) ? (emb as number[]).length : 0;
+        if (gotLen > 0) {
           logger.warn('[EMBED-CASCADE] skipping dim mismatch', {
             provider,
-            got: emb.length,
+            got: gotLen,
             want: cfg.targetDims,
           });
         }
         continue;
       }
 
-      logger.info('[EMBED-CASCADE] ok', { provider, model, dims: emb.length });
-      return { embedding: emb, provider, model, dims: emb.length };
+      logger.info('[EMBED-CASCADE] ok', { provider, model, dims: emb!.length });
+      return { embedding: emb!, provider, model, dims: emb!.length };
     } catch (e: any) {
       logger.warn('[EMBED-CASCADE] provider error', {
         provider,

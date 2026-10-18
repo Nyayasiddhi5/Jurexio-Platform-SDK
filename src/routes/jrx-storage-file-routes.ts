@@ -56,7 +56,7 @@ router.get('/files/*', async (req: Request, res: Response): Promise<void> => {
   }
 
   const verdict = verifyLocalSignedUrlToken(storagePath, exp, token);
-  if (!verdict.ok) {
+  if (verdict.ok === false) {
     /* 410 for an expired-but-genuine link is materially more useful than 403: the caller
      * should request a fresh URL, not re-check credentials. */
     const status = verdict.reason === 'expired' ? 410 : 403;

@@ -170,7 +170,7 @@ class NvLegalNerV2Service {
       signal: AbortSignal.timeout(15000),
     });
 
-    if (!response.ok) throw new Error(`InLegalBERT returned ${response.status}`);
+    if (response.ok === false) throw new Error(`InLegalBERT returned ${response.status}`);
 
     const data = await response.json() as { entities: RawEntity[] };
     const normalized = await this.normalizeEntities(data.entities);

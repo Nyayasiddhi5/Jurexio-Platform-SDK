@@ -891,7 +891,6 @@ export async function retryFailedJob(jobId: string): Promise<boolean> {
      RETURNING id`,
     [jobId]
   );
-  // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
   return result.rows.length > 0;
 }
 
@@ -936,7 +935,6 @@ export async function loadParsedDocumentForAutofill(orgId: number, documentId: s
     `SELECT ${PARSED_DOC_AUTOFILL_COLUMNS} FROM ns_parsed_documents WHERE organization_id = $1 AND document_id = $2 AND deleted_at IS NULL ORDER BY created_at DESC LIMIT 1`,
     [orgId, documentId]
   );
-  // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
   return result.rows[0] || null;
 }
 
@@ -947,7 +945,6 @@ export async function loadParsedDocumentFull(orgId: number, documentId: string):
     `SELECT ${PARSED_DOC_AUTOFILL_COLUMNS}, raw_content FROM ns_parsed_documents WHERE organization_id = $1 AND document_id = $2 AND deleted_at IS NULL ORDER BY created_at DESC LIMIT 1`,
     [orgId, documentId]
   );
-  // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
   return result.rows[0] || null;
 }
 
@@ -985,7 +982,6 @@ export async function searchRAGChunks(
      LIMIT $3`,
     [orgId, tsQuery, limit]
   );
-  // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
   return result.rows;
 }
 
@@ -997,7 +993,6 @@ export async function getDocumentGraph(orgId: number, documentId: string): Promi
      ORDER BY confidence DESC`,
     [orgId, documentId]
   );
-  // @ts-expect-error NV-TS230 legacy typing gap (TS2322)
   return result.rows;
 }
 
@@ -1047,7 +1042,6 @@ async function checkPollerDependenciesOrSkip(): Promise<boolean> {
        WHERE table_schema = 'public' AND table_name = ANY($1::text[])`,
       [required as unknown as string[]]
     );
-    // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
     const present = new Set<string>(r.rows.map((row: any) => row.table_name));
     const missing = required.filter(t => !present.has(t));
     if (missing.length > 0) {

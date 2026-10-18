@@ -290,7 +290,7 @@ export async function fetchJudgmentFullText(
     });
     resolveMs = Date.now() - resolveStart;
 
-    if (!search.ok) {
+    if (search.ok === false) {
       return {
         ok: false,
         status: search.status || 502,
@@ -324,7 +324,7 @@ export async function fetchJudgmentFullText(
     return { ok: false, status: 404, code: 'NOT_FOUND', error: 'Could not resolve an archive path.' };
   }
   const shape = classifyS3Path(s3Path);
-  if (!shape.ok) {
+  if (shape.ok === false) {
     return { ok: false, status: 400, code: 'BAD_REQUEST', error: shape.error };
   }
 
@@ -353,7 +353,7 @@ export async function fetchJudgmentFullText(
   });
   const extractMs = Date.now() - extractStart;
 
-  if (!extract.ok) {
+  if (extract.ok === false) {
     // NYS maps its own failure modes onto status codes; preserve them so a
     // caller can tell "too big to extract" from "not in the archive".
     const code: JudgmentFullTextFailure['code'] =

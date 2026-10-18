@@ -49,7 +49,6 @@ import {
   buildAgenticDraftPlan,
   summarizeAgenticDraftRun,
 } from './jrx-legal-draft-agentic.js';
-import type { DraftValidationResult } from './jrx-draft-profile-assembler.js';
 import { createLogger } from '../utils/logger.js';
 
 const partnerAiLogger = createLogger('./jrx-partner-ai-log');

@@ -84,7 +84,7 @@ router.post('/bots', async (req: Request, res: Response) => {
     });
     const input = schema.parse(req.body);
     const orgId = getOrgId(req);
-    const bot = claWdBotService.createBot({ ...input, orgId });
+    const bot = claWdBotService.createBot({ ...input, name: input.name ?? 'Bot', orgId });
     res.status(201).json({ success: true, bot });
   } catch (err: any) {
     if (err instanceof ZodError) { res.status(400).json({ error: err.errors }); return; }

@@ -176,7 +176,7 @@ export class XAIProvider extends UnifiedLLMAdapter {
         signal: timeoutController.signal
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         throw new ProviderError(
           `XAI API error: ${response.status} ${response.statusText}`,
           'xai',
@@ -282,7 +282,7 @@ export class XAIProvider extends UnifiedLLMAdapter {
         body: JSON.stringify(requestBody)
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         throw new ProviderError(`XAI streaming failed: ${response.status}`, 'xai', { correlationId });
       }
 

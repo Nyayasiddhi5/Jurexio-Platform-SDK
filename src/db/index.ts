@@ -92,14 +92,12 @@ function makeDb(
   if (driver === 'neon') {
     logger.info(`[db:${product}] driver=neon-serverless`);
     const neonPool = new NeonPool(cfg);
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     attachTenantContextDefault(neonPool, product);
     const drz = drizzleNeon(neonPool, { schema: schemas });
     return { pool: neonPool satisfies AnyPool, drizzle: drz };
   }
   logger.info(`[db:${product}] driver=pg (node-postgres)`);
   const pgPool = new PgPool(cfg);
-  // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
   attachTenantContextDefault(pgPool, product);
   const drz = drizzlePg(pgPool, { schema: schemas });
   return { pool: pgPool satisfies AnyPool, drizzle: drz };

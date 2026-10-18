@@ -131,7 +131,6 @@ const _badSynthComplete: QueenSynthesisCompleteEvent = {
 // (Single-line forms so each `@ts-expect-error` marker attaches to the
 // correct following line.)
 // prettier-ignore
-// @ts-expect-error - orchestrationId is required string, not undefined
 const _undefinedId: QueenAgentStartedEvent = { orchestrationId: undefined, subtaskId: 's1', subtaskType: 'analysis', agentId: 'a1', agentName: 'Alpha', description: 'd' };
 // prettier-ignore
 // @ts-expect-error - orchestrationId must be string, not number
@@ -146,6 +145,8 @@ type _ExpectedKeys =
   | 'agent_completed'
   | 'agent_failed'
   | 'synthesis_started'
+  | 'synthesis_token'
+  | 'synthesis_final'
   | 'synthesis_complete';
 
 // Bidirectional assignability proves the key sets match exactly.

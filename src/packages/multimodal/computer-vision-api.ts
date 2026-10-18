@@ -634,7 +634,6 @@ export class ComputerVisionAPI {
     if (this.cache.size >= this.maxCacheSize) {
       // Remove oldest entry
       const firstKey = this.cache.keys().next().value;
-      // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
       this.cache.delete(firstKey);
     }
     

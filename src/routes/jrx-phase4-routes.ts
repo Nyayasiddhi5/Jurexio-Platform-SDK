@@ -346,7 +346,6 @@ router.get('/experiments/:id', authenticateToken, async (req: Request, res: Resp
   }
 });
 
-// @ts-expect-error NV-TS230 legacy typing gap (TS7030)
 router.post('/experiments/:id/start', authenticateToken, async (req: Request, res: Response) => {
   try {
     // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
@@ -359,7 +358,6 @@ router.post('/experiments/:id/start', authenticateToken, async (req: Request, re
   }
 });
 
-// @ts-expect-error NV-TS230 legacy typing gap (TS7030)
 router.post('/experiments/:id/stop', authenticateToken, async (req: Request, res: Response) => {
   try {
     // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
@@ -372,7 +370,6 @@ router.post('/experiments/:id/stop', authenticateToken, async (req: Request, res
   }
 });
 
-// @ts-expect-error NV-TS230 legacy typing gap (TS7030)
 router.get('/experiments/:id/results', authenticateToken, async (req: Request, res: Response) => {
   try {
     // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
@@ -436,7 +433,6 @@ router.get('/drift/report', authenticateToken, async (_req: Request, res: Respon
   }
 });
 
-// @ts-expect-error NV-TS230 legacy typing gap (TS7030)
 router.post('/drift/alerts/:id/acknowledge', authenticateToken, async (req: Request, res: Response) => {
   try {
     // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
@@ -449,7 +445,6 @@ router.post('/drift/alerts/:id/acknowledge', authenticateToken, async (req: Requ
   }
 });
 
-// @ts-expect-error NV-TS230 legacy typing gap (TS7030)
 router.post('/experiments/:id/outcome', authenticateToken, async (req: Request, res: Response) => {
   try {
     // @ts-expect-error NV-TS230 legacy typing gap (TS2345)

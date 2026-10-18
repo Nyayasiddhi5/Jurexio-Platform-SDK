@@ -128,7 +128,6 @@ class PgJobQueue {
        RETURNING id`,
       values
     );
-    // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
     return result.rows.map((r: any) => r.id);
   }
 
@@ -183,7 +182,6 @@ class PgJobQueue {
         [WORKER_ID, queue, MAX_BATCH_SIZE]
       );
 
-      // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
       for (const row of result.rows) {
         const job = this.rowToJob(row);
         await this.executeJob(job);
@@ -286,7 +284,6 @@ class PgJobQueue {
   async getJobStatus(jobId: string): Promise<Job | null> {
     const db = getPool();
     const result = await db.query(`SELECT * FROM pg_jobs WHERE id = $1`, [jobId]);
-    // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
     return result.rows.length > 0 ? this.rowToJob(result.rows[0]) : null;
   }
 
@@ -303,7 +300,6 @@ class PgJobQueue {
       `SELECT status, COUNT(*) as count FROM pg_jobs ${whereClause} GROUP BY status`
     );
     const stats = { pending: 0, processing: 0, completed: 0, failed: 0, deadLetter: 0 };
-    // @ts-expect-error NV-TS230 legacy typing gap (TS18048)
     for (const row of result.rows) {
       // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
       if (row.status === 'pending') stats.pending = parseInt(row.count);

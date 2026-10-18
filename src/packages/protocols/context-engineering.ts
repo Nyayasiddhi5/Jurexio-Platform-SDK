@@ -604,7 +604,6 @@ export class ContextMerger extends EventEmitter {
       
       // Check content keywords
       const contentStr = JSON.stringify(layer.content).toLowerCase();
-      // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
       return sectionKeywords.some(keyword => contentStr.includes(keyword));
     });
   }

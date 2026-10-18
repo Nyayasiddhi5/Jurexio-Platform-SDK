@@ -9,7 +9,7 @@ import type {
   PartialFieldRecoveryInput,
   PartialFieldRecoveryPatch,
   PartialFieldRecoveryProvider,
-} from '@jurexio/docparse-sdk';
+} from '../../packages/docparse-sdk/src/recovery/partial-field-recovery.js';
 import {
   partialKeyToFieldPath,
   type PartialRecoverySchemaId,

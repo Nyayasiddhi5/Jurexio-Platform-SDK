@@ -150,7 +150,7 @@ export async function defaultCaselawSearch(query: string, timeoutMs: number): Pr
       query: { q: query, mode: 'fts', limit: 3 },
       timeoutMs,
     });
-    if (!resp.ok) return [];
+    if (resp.ok === false) return [];
     const payload = resp.data as Record<string, unknown>;
     const rows = payload?.results
       ?? payload?.matches

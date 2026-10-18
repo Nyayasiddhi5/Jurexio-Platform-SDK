@@ -306,7 +306,8 @@ router.post('/jobs/batch', async (req: Request, res: Response): Promise<void> =>
 
 router.get('/jobs/:jobId', async (req: Request, res: Response): Promise<void> => {
   if (sdkDisabled(req, res)) return;
-  const rec = await getDocparseSdkJob(req.params.jobId);
+  const jobId = Array.isArray(req.params.jobId) ? req.params.jobId[0] : req.params.jobId;
+  const rec = await getDocparseSdkJob(jobId);
   if (!rec) {
     res.status(404).json({ success: false, error: 'Job not found' });
     return;

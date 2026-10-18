@@ -37,7 +37,7 @@ async function generateOpenAIEmbedding(text: string): Promise<number[] | null> {
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
       body: JSON.stringify({ model: 'text-embedding-3-small', input: text.substring(0, 8000) }),
     });
-    if (!response.ok) return null;
+    if (response.ok === false) return null;
     const data = await response.json() as any;
     return data?.data?.[0]?.embedding || null;
   } catch {
@@ -662,9 +662,7 @@ export class NvToolSandboxService {
         if (missingSections.length > 0) formatIssues.push({ type: 'missing_section', description: `Missing required sections: ${missingSections.join(', ')}`, location: 'Document structure' });
         const numberedItems = content.match(/^\s*\d+\./mg) || [];
         if (numberedItems.length > 0) {
-          // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
           const nums = numberedItems.map(n => parseInt(n.trim())).filter(n => !isNaN(n));
-          // @ts-expect-error NV-TS230 legacy typing gap (TS7006)
           const isSequential = nums.every((n, i) => i === 0 || n > nums[i - 1]);
           if (!isSequential) formatIssues.push({ type: 'numbering', description: 'Clause numbering is not sequential', location: 'Clause list' });
         }
@@ -786,7 +784,7 @@ export class NvMultimodalVisionService {
           }),
         });
 
-        if (!response.ok) {
+        if (response.ok === false) {
           analysis = this.getMockAnalysis(analysisType, params.image);
           tokensUsed = 150;
         } else {
@@ -1049,7 +1047,7 @@ export class NvVoiceService {
               headers: { 'Content-Type': 'application/json', 'API-Subscription-Key': sarvamKey },
               body: JSON.stringify({ input: params.text, source_language_code: 'en', target_language_code: params.targetLanguage }),
             });
-            if (!r.ok) {
+            if (r.ok === false) {
               const e: any = new Error(`sarvam_translate_http_${r.status}`);
               e.status = r.status;
               throw e;

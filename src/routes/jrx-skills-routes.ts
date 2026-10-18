@@ -215,7 +215,15 @@ router.post('/activate', authenticateToken, requireRole('developer', 'org_admin'
       res.status(400).json({ success: false, error: 'Validation failed', details: result.error.errors });
       return;
     }
-    const context = { ...result.data, userId: result.data.userId || userId(req) };
+    const context = {
+      ...result.data,
+      userId: result.data.userId || userId(req),
+      agentId: result.data.agentId ?? 'default-agent',
+      jurisdiction: result.data.jurisdiction ?? 'IN',
+      practiceArea: result.data.practiceArea ?? 'general',
+      tier: result.data.tier ?? 'pro',
+      taskType: result.data.taskType ?? 'general',
+    };
     const activation = skillsSystem.activateSkillsForContext(context);
     logger.info('[Skills] Skills activated', {
       agentId: context.agentId,

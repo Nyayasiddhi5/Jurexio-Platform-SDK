@@ -345,7 +345,7 @@ async function processRun(runId: string): Promise<void> {
         },
         timeoutMs: 120_000,
       });
-      if (!nysRun.ok) throw new Error(nysRun.error);
+      if (nysRun.ok === false) throw new Error(nysRun.error);
       const data = nysRun.data as any;
       nysRunId = data?.id ?? data?.runId;
       output = String(data?.output ?? data?.workProduct ?? '');

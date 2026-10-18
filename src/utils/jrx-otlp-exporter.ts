@@ -236,7 +236,7 @@ export async function flush(): Promise<void> {
       signal: ctrl.signal,
     });
     clearTimeout(t);
-    if (!res.ok) {
+    if (res.ok === false) {
       logger.debug('[OTLP] collector returned non-2xx', { status: res.status });
     }
   } catch (err) {

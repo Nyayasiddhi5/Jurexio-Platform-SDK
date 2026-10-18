@@ -179,7 +179,7 @@ export class PerplexityProvider extends UnifiedLLMAdapter {
         signal: timeoutController.signal
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         throw new ProviderError(
           `Perplexity API error: ${response.status} ${response.statusText}`,
           'perplexity',
@@ -283,7 +283,7 @@ export class PerplexityProvider extends UnifiedLLMAdapter {
         body: JSON.stringify(requestBody)
       });
 
-      if (!response.ok) {
+      if (response.ok === false) {
         throw new ProviderError(`Perplexity streaming failed: ${response.status}`, 'perplexity', { correlationId });
       }
 

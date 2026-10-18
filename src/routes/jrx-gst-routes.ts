@@ -86,7 +86,17 @@ router.post('/compute', authenticateToken, (req: Request, res: Response): void =
 router.post('/invoice', authenticateToken, (req: Request, res: Response): void => {
   try {
     const parsed = invoiceSchema.parse(req.body);
-    const invoice = gstEngine.buildInvoice(parsed);
+    const invoice = gstEngine.buildInvoice({
+      customer_name: String(parsed.customer_name),
+      customer_gstin: parsed.customer_gstin,
+      customer_state_code: parsed.customer_state_code,
+      customer_address: parsed.customer_address,
+      plan_name: String(parsed.plan_name),
+      period: String(parsed.period),
+      base_amount: Number(parsed.base_amount),
+      is_b2b: parsed.is_b2b,
+      notes: parsed.notes,
+    });
     res.json({ success: true, data: invoice });
   } catch (err: any) {
     if (err instanceof ZodError) {
@@ -118,7 +128,17 @@ router.post('/validate-gstin', (req: Request, res: Response): void => {
 router.post('/invoice/pdf', authenticateToken, async (req: Request, res: Response): Promise<void> => {
   try {
     const parsed = invoiceSchema.parse(req.body);
-    const invoice = gstEngine.buildInvoice(parsed);
+    const invoice = gstEngine.buildInvoice({
+      customer_name: String(parsed.customer_name),
+      customer_gstin: parsed.customer_gstin,
+      customer_state_code: parsed.customer_state_code,
+      customer_address: parsed.customer_address,
+      plan_name: String(parsed.plan_name),
+      period: String(parsed.period),
+      base_amount: Number(parsed.base_amount),
+      is_b2b: parsed.is_b2b,
+      notes: parsed.notes,
+    });
 
     const pdfResult = await gstInvoicePdfService.generatePDF({
       invoiceNumber: invoice.invoice_number,

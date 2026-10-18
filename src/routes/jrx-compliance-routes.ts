@@ -106,7 +106,7 @@ async function handleEvidencePack(req: Request, res: Response): Promise<void> {
       ? (raw.split(',').map((s: string) => s.trim().toUpperCase()) as EvidenceFramework[])
       : undefined;
     const pack = await buildComplianceEvidencePack(frameworks);
-    const packAny = pack as Record<string, unknown>;
+    const packAny = pack as unknown as Record<string, unknown>;
     res.json({
       success: true,
       evidenceClass: 'platform_evidence',

@@ -134,7 +134,7 @@ async function fetchRSSFeed(url: string): Promise<FeedItem[]> {
       headers: { 'User-Agent': 'Jurexio-LegalKM/5.0 (+https://jurexio.com)' },
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return [];
+    if (res.ok === false) return [];
     const xml = await res.text();
 
     const items: FeedItem[] = [];
