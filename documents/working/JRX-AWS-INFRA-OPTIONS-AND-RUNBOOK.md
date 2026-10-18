@@ -124,6 +124,28 @@ export JRX_RDS_ADMIN_URL='postgres://...'   # from SSM, do not commit
 bash scripts/jrx-provision-rds-database.sh
 ```
 
+On the gateway host (or any machine with `DATABASE_URL` for the new DB), run greenfield schema push as documented by the provision script:
+
+```bash
+DATABASE_URL=<from-ssm> npm run db:push -- --force   # eyeball diff first
+```
+
+#### Post–greenfield `db:push` — sequence grants for `jurexio_app`
+
+`db:push` creates serial/identity columns backed by sequences in `public`, `jrx_schema`, and `nv_schema`. The app role needs **USAGE** and **SELECT** on those sequences (inserts otherwise fail with permission errors). Connect as the **RDS master/admin** (not `jurexio_app`) and run once after the first successful push:
+
+```sql
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public, jrx_schema, nv_schema TO jurexio_app;
+```
+
+**Future sequences:** Re-run the same `GRANT ... ON ALL SEQUENCES` after major schema pushes that add new tables. To cover sequences created later by the same admin role, you can also set default privileges (run as the role that executes `db:push`):
+
+```sql
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE, SELECT ON SEQUENCES TO jurexio_app;
+ALTER DEFAULT PRIVILEGES IN SCHEMA jrx_schema GRANT USAGE, SELECT ON SEQUENCES TO jurexio_app;
+ALTER DEFAULT PRIVILEGES IN SCHEMA nv_schema GRANT USAGE, SELECT ON SEQUENCES TO jurexio_app;
+```
+
 ### 5. Deploy application
 
 ```bash

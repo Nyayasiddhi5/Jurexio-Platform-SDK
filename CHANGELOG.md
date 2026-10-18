@@ -2,6 +2,11 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-RDS-SEQUENCE-GRANTS-001 (2026-10-18)
+
+- `documents/working/JRX-AWS-INFRA-OPTIONS-AND-RUNBOOK.md`: post–greenfield `db:push` sequence grants for `jurexio_app` (`public`, `jrx_schema`, `nv_schema`) plus default-privileges note for future sequences.
+- `scripts/jrx-provision-rds-database.sh`: echo one-line admin `GRANT` reminder after `db:push`.
+
 ### Changed — JRX-DEPLOY-FOLLOWUPS-001 (2026-10-18)
 
 - `scripts/jrx-deploy-aws-ssm.sh`: split remote work into SSM phases **build** and **compose+health**; `--timeout-seconds` default 7200 (`JRX_SSM_TIMEOUT_SECONDS`); poll window follows timeout.
