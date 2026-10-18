@@ -2,6 +2,11 @@
 
 ## [1.0.0] — Unreleased
 
+### Fixed — JRX-DEPLOY-COMPOSE-RECREATE-001 (2026-10-18)
+
+- `scripts/jrx-deploy-aws-ssm.sh`: remove stale `jrx-gateway` before compose up; `up -d --no-deps --force-recreate --remove-orphans`; remote exits 1 if health never passes; local deploy fails unless SSM status is Success.
+- Added `scripts/jrx-ssm-run-db-push-admin.sh` — documents/operators SSM `npm run db:push -- --force` with `DATABASE_URL` from local `JRX_RDS_ADMIN_URL` (no secrets in repo).
+
 ### Fixed — JRX-BOOTSTRAP-DEPLOY-PR6-001 (2026-10-18)
 
 - Governance Postgres namespace defaults to `jrx_schema` (`JRX_PG_SCHEMA` override; legacy `nv_schema` dual-read on protocol registry).
