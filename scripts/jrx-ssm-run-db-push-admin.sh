@@ -35,6 +35,8 @@ done
 
 JRX_AWS_REGION="${JRX_AWS_REGION:-ap-south-1}"
 JRX_DEPLOY_ROOT="${JRX_DEPLOY_ROOT:-/opt/Jurexio}"
+JRX_SSM_TIMEOUT_SECONDS="${JRX_SSM_TIMEOUT_SECONDS:-3600}"
+JRX_COMPOSE_FILE="${JRX_COMPOSE_FILE:-docker-compose.jurexio-aws.yml}"
 
 if [ "$JRX_EC2_INSTANCE_ID" = "i-0df71e5ea1df8f588" ]; then
   echo "Refusing SSM db:push on Jurexio jrx-prod instance id." >&2
@@ -55,11 +57,32 @@ fi
 cd "\${LIVE}"
 export DATABASE_URL="\$(printf '%s' '${ADMIN_B64}' | base64 -d)"
 echo "[jrx-ec2] DATABASE_URL length \$(printf '%s' "\${DATABASE_URL}" | wc -c)"
-if ! command -v npm >/dev/null 2>&1; then
-  echo "[jrx-ec2] npm not on PATH — install Node or run from a host with repo tooling" >&2
+COMPOSE="${JRX_COMPOSE_FILE}"
+GATEWAY_IMAGE="jurexio-enterprise-gateway"
+run_db_push() {
+  if command -v npm >/dev/null 2>&1; then
+    npm run db:push -- --force
+    return
+  fi
+  if docker ps --format '{{.Names}}' | grep -qx 'jrx-gateway'; then
+    echo "[jrx-ec2] npm missing — db:push via docker exec jrx-gateway"
+    docker exec -e DATABASE_URL="\${DATABASE_URL}" -w /app jrx-gateway npm run db:push -- --force
+    return
+  fi
+  if [ -f "\${COMPOSE}" ]; then
+    echo "[jrx-ec2] npm missing — db:push via compose run --rm gateway"
+    docker compose -f "\${COMPOSE}" run --rm --no-deps -e DATABASE_URL="\${DATABASE_URL}" gateway npm run db:push -- --force
+    return
+  fi
+  if docker image inspect "\${GATEWAY_IMAGE}" >/dev/null 2>&1; then
+    echo "[jrx-ec2] npm missing — db:push via docker run one-off \${GATEWAY_IMAGE}"
+    docker run --rm -e DATABASE_URL="\${DATABASE_URL}" -w /app "\${GATEWAY_IMAGE}" npm run db:push -- --force
+    return
+  fi
+  echo "[jrx-ec2] npm not on PATH and no jrx-gateway / compose / gateway image" >&2
   exit 1
-fi
-npm run db:push -- --force
+}
+run_db_push
 echo "[jrx-ec2] db:push finished"
 EOS
 )"
@@ -75,6 +98,7 @@ CMD_ID="$(aws ssm send-command \
   --region "$JRX_AWS_REGION" \
   --instance-ids "$JRX_EC2_INSTANCE_ID" \
   --document-name AWS-RunShellScript \
+  --timeout-seconds "$JRX_SSM_TIMEOUT_SECONDS" \
   --comment "jrx-ssm-run-db-push-admin" \
   --parameters "commands=[\"echo ${ENCODED} | base64 -d | bash\"]" \
   --query Command.CommandId --output text)"

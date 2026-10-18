@@ -2,6 +2,12 @@
 
 ## [1.0.0] — Unreleased
 
+### Changed — JRX-DEPLOY-FOLLOWUPS-001 (2026-10-18)
+
+- `scripts/jrx-deploy-aws-ssm.sh`: split remote work into SSM phases **build** and **compose+health**; `--timeout-seconds` default 7200 (`JRX_SSM_TIMEOUT_SECONDS`); poll window follows timeout.
+- `scripts/jrx-ssm-run-db-push-admin.sh`: when `npm` is missing on EC2, run `db:push` via `docker exec jrx-gateway`, `compose run`, or gateway image one-off.
+- Added `scripts/jrx-seed-audit-greenfield.sh`; npm `seed:audit-greenfield` and `seed:rag-and-audit`; runbook notes removing `JRX_AUDIT_CHAIN_TOLERATE=1` after genesis seed.
+
 ### Fixed — JRX-DEPLOY-COMPOSE-RECREATE-001 (2026-10-18)
 
 - `scripts/jrx-deploy-aws-ssm.sh`: remove stale `jrx-gateway` before compose up; `up -d --no-deps --force-recreate --remove-orphans`; remote exits 1 if health never passes; local deploy fails unless SSM status is Success.

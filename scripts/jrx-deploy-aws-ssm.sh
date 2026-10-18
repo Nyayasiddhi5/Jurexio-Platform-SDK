@@ -31,6 +31,9 @@ done
 : "${JRX_DEPLOY_ROOT:=/opt/Jurexio}"
 : "${JRX_SECRETS_FILE:=/opt/Jurexio/secrets/.env.production}"
 : "${JRX_COMPOSE_FILE:=docker-compose.jurexio-aws.yml}"
+: "${JRX_SSM_TIMEOUT_SECONDS:=7200}"
+: "${JRX_SSM_POLL_INTERVAL_SEC:=5}"
+JRX_SSM_POLL_MAX_ITER="$(( (JRX_SSM_TIMEOUT_SECONDS + JRX_SSM_POLL_INTERVAL_SEC - 1) / JRX_SSM_POLL_INTERVAL_SEC + 12 ))"
 
 if [ "$JRX_EC2_INSTANCE_ID" = "i-0df71e5ea1df8f588" ]; then
   echo "Refusing deploy to Jurexio jrx-prod instance." >&2
@@ -38,6 +41,49 @@ if [ "$JRX_EC2_INSTANCE_ID" = "i-0df71e5ea1df8f588" ]; then
 fi
 
 command -v aws >/dev/null 2>&1 || { echo "aws cli not installed" >&2; exit 1; }
+
+jrx_ssm_run() {
+  local phase_label="$1"
+  local remote_script="$2"
+  local encoded
+  encoded="$(nv_b64_encode "$remote_script")"
+  local cmd_id
+  cmd_id="$(aws ssm send-command \
+    --region "$JRX_AWS_REGION" \
+    --instance-ids "$JRX_EC2_INSTANCE_ID" \
+    --document-name AWS-RunShellScript \
+    --timeout-seconds "$JRX_SSM_TIMEOUT_SECONDS" \
+    --comment "jrx-deploy-aws-ssm ${DEPLOY_ID} ${phase_label}" \
+    --parameters "commands=[\"echo ${encoded} | base64 -d | bash\"]" \
+    --query Command.CommandId --output text)"
+  echo "==> SSM phase=${phase_label} command_id=${cmd_id} (timeout=${JRX_SSM_TIMEOUT_SECONDS}s)"
+  local status="Pending"
+  local _i
+  for _i in $(seq 1 "$JRX_SSM_POLL_MAX_ITER"); do
+    status="$(aws ssm get-command-invocation \
+      --region "$JRX_AWS_REGION" \
+      --command-id "$cmd_id" \
+      --instance-id "$JRX_EC2_INSTANCE_ID" \
+      --query 'Status' --output text 2>/dev/null || echo Pending)"
+    case "$status" in
+      Success) echo "    SSM ${phase_label} Success"; break ;;
+      Failed|Cancelled|TimedOut) echo "    SSM ${phase_label} ${status}"; break ;;
+      *) sleep "$JRX_SSM_POLL_INTERVAL_SEC" ;;
+    esac
+  done
+  echo "==> Stdout (${phase_label}):"
+  aws ssm get-command-invocation --region "$JRX_AWS_REGION" \
+    --command-id "$cmd_id" --instance-id "$JRX_EC2_INSTANCE_ID" \
+    --query 'StandardOutputContent' --output text || true
+  if [ "$status" != "Success" ]; then
+    echo "==> Stderr (${phase_label}):"
+    aws ssm get-command-invocation --region "$JRX_AWS_REGION" \
+      --command-id "$cmd_id" --instance-id "$JRX_EC2_INSTANCE_ID" \
+      --query 'StandardErrorContent' --output text || true
+    return 1
+  fi
+  return 0
+}
 
 DEPLOY_ID="$(date -u +%Y-%m-%dT%H%MZ)-jrx-aws-ssm"
 SHA="$(git --no-optional-locks rev-parse --short=8 HEAD 2>/dev/null || echo nogit)"
@@ -61,7 +107,7 @@ if [ "$DRY_RUN" = "1" ]; then
 fi
 
 NOTE_B64="$(nv_b64_encode "$NOTE")"
-REMOTE_SCRIPT="$(cat <<EOS
+REMOTE_PHASE_BUILD="$(cat <<EOS
 set -euo pipefail
 DEPLOY_ID="${DEPLOY_ID}"
 SHA="${SHA}"
@@ -69,7 +115,7 @@ DEPLOY_ROOT="${JRX_DEPLOY_ROOT}"
 SECRETS="${JRX_SECRETS_FILE}"
 LIVE_DIR="\${DEPLOY_ROOT}/repo/\${DEPLOY_ID}-\${SHA}"
 COMPOSE="${JRX_COMPOSE_FILE}"
-NOTE="\$(printf '%s' '${NOTE_B64}' | base64 -d 2>/dev/null || true)"
+STATE="\${DEPLOY_ROOT}/.deploy-state-\${DEPLOY_ID}-\${SHA}"
 
 mkdir -p "\${DEPLOY_ROOT}/repo" "\$(dirname "\${SECRETS}")"
 aws s3 cp "s3://${JRX_DEPLOY_BUCKET}/${S3_KEY}" /tmp/jrx-deploy.tgz --region ${JRX_AWS_REGION}
@@ -79,74 +125,71 @@ cd "\${LIVE_DIR}"
 
 if [ -f "\${SECRETS}" ]; then
   cp "\${SECRETS}" .env
-  echo "[jrx-ec2] overlaid secrets from \${SECRETS} (length \$(wc -c < .env) bytes)"
+  echo "[jrx-ec2] phase=build overlaid secrets from \${SECRETS} (length \$(wc -c < .env) bytes)"
 else
-  echo "[jrx-ec2] WARN missing \${SECRETS} — gateway may fail until SSM bootstrap"
+  echo "[jrx-ec2] phase=build WARN missing \${SECRETS} — gateway may fail until SSM bootstrap"
 fi
 
+echo "[jrx-ec2] phase=build docker compose build --pull gateway"
 docker compose -f "\${COMPOSE}" build --pull gateway
+printf '%s\n' "\${LIVE_DIR}" > "\${STATE}"
+echo "[jrx-ec2] phase=build complete live_dir=\${LIVE_DIR}"
+EOS
+)"
+
+REMOTE_PHASE_UP="$(cat <<EOS
+set -euo pipefail
+DEPLOY_ID="${DEPLOY_ID}"
+SHA="${SHA}"
+DEPLOY_ROOT="${JRX_DEPLOY_ROOT}"
+LIVE_DIR="\${DEPLOY_ROOT}/repo/\${DEPLOY_ID}-\${SHA}"
+COMPOSE="${JRX_COMPOSE_FILE}"
+NOTE="\$(printf '%s' '${NOTE_B64}' | base64 -d 2>/dev/null || true)"
+STATE="\${DEPLOY_ROOT}/.deploy-state-\${DEPLOY_ID}-\${SHA}"
+
+if [ -f "\${STATE}" ]; then
+  LIVE_DIR="\$(cat "\${STATE}")"
+fi
+cd "\${LIVE_DIR}"
 
 if docker ps -a --format '{{.Names}}' | grep -qx 'jrx-gateway'; then
-  echo "[jrx-ec2] removing stale container jrx-gateway (pre compose up)"
+  echo "[jrx-ec2] phase=up removing stale container jrx-gateway"
   docker rm -f jrx-gateway 2>/dev/null || true
 fi
 
+echo "[jrx-ec2] phase=up docker compose up gateway"
 docker compose -f "\${COMPOSE}" up -d --no-deps --force-recreate --remove-orphans gateway
 
 HEALTH_OK=0
 for i in \$(seq 1 30); do
   if wget -qO- http://127.0.0.1:5000/api/jrx/health >/dev/null 2>&1; then
-    echo "[jrx-ec2] health OK"
+    echo "[jrx-ec2] phase=up health OK"
     HEALTH_OK=1
     break
   fi
   sleep 3
 done
 if [ "\${HEALTH_OK}" != "1" ]; then
-  echo "[jrx-ec2] health FAILED after 90s" >&2
+  echo "[jrx-ec2] phase=up health FAILED after 90s" >&2
   exit 1
 fi
 
 echo "\${DEPLOY_ID} \${SHA} \$(date -u +%Y-%m-%dT%H:%M:%SZ) \${NOTE}" >> "\${DEPLOY_ROOT}/deploys.log"
 ln -sfn "\${LIVE_DIR}" "\${DEPLOY_ROOT}/current"
+rm -f "\${STATE}"
+echo "[jrx-ec2] phase=up complete"
 EOS
 )"
 
-ENCODED="$(nv_b64_encode "$REMOTE_SCRIPT")"
-CMD_ID="$(aws ssm send-command \
-  --region "$JRX_AWS_REGION" \
-  --instance-ids "$JRX_EC2_INSTANCE_ID" \
-  --document-name AWS-RunShellScript \
-  --parameters "commands=[\"echo ${ENCODED} | base64 -d | bash\"]" \
-  --query Command.CommandId --output text)"
+echo "==> [3/4] SSM phase build (timeout=${JRX_SSM_TIMEOUT_SECONDS}s)"
+if ! jrx_ssm_run build "$REMOTE_PHASE_BUILD"; then
+  echo "==> JRX deploy FAILED deploy_id=${DEPLOY_ID} phase=build" >&2
+  exit 1
+fi
 
-echo "==> [3/4] SSM command_id=${CMD_ID}"
-echo "==> [4/4] Waiting for SSM completion (max 15min)"
-SSM_STATUS="Pending"
-for _i in $(seq 1 180); do
-  SSM_STATUS="$(aws ssm get-command-invocation \
-    --region "$JRX_AWS_REGION" \
-    --command-id "$CMD_ID" \
-    --instance-id "$JRX_EC2_INSTANCE_ID" \
-    --query 'Status' --output text 2>/dev/null || echo Pending)"
-  case "$SSM_STATUS" in
-    Success) echo "    SSM Success"; break ;;
-    Failed|Cancelled|TimedOut) echo "    SSM ${SSM_STATUS}"; break ;;
-    *) sleep 5 ;;
-  esac
-done
-
-echo "==> Stdout:"
-aws ssm get-command-invocation --region "$JRX_AWS_REGION" \
-  --command-id "$CMD_ID" --instance-id "$JRX_EC2_INSTANCE_ID" \
-  --query 'StandardOutputContent' --output text || true
-
-if [ "$SSM_STATUS" != "Success" ]; then
-  echo "==> Stderr:"
-  aws ssm get-command-invocation --region "$JRX_AWS_REGION" \
-    --command-id "$CMD_ID" --instance-id "$JRX_EC2_INSTANCE_ID" \
-    --query 'StandardErrorContent' --output text || true
-  echo "==> JRX deploy FAILED deploy_id=${DEPLOY_ID} ssm_status=${SSM_STATUS}" >&2
+echo "==> [4/4] SSM phase compose+health"
+if ! jrx_ssm_run up "$REMOTE_PHASE_UP"; then
+  echo "==> JRX deploy FAILED deploy_id=${DEPLOY_ID} phase=up" >&2
   exit 1
 fi
 

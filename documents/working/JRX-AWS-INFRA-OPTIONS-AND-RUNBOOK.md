@@ -113,7 +113,7 @@ JRX_BOOTSTRAP_SSM=1 bash scripts/jrx-infra-apply-option-b.sh --apply
 Writes resource IDs (no secrets) to **`env.production.jurexio.generated`** (gitignored).  
 Env knobs: `JRX_AWS_REGION`, `JRX_DEPLOY_BUCKET`, `JRX_VPC_ID`, `JRX_IAM_INSTANCE_PROFILE`.
 
-Post-RDS: pgvector + app role — same pattern as `jrx-provision-rds-database.sh` (script prints steps; set `JRX_RDS_ADMIN_URL` to run automatically on `--apply`).
+Post-RDS: pgvector + app role — same pattern as `jrx-provision-rds-database.sh` (script prints steps; set `JRX_RDS_ADMIN_URL` to run automatically on `--apply`). After first boot with `JRX_AUDIT_CHAIN_TOLERATE=1`, run `npm run seed:audit-greenfield` (or `bash scripts/jrx-seed-audit-greenfield.sh`) then remove `JRX_AUDIT_CHAIN_TOLERATE=1` from host secrets and recreate gateway.
 
 Legacy plan-only helpers: `jrx-infra-plan-rds.sh`, `jrx-infra-plan-ec2.sh`.
 
@@ -131,6 +131,8 @@ source /path/to/env.production.jurexio   # AWS keys + JRX_EC2_INSTANCE_ID
 bash scripts/jrx-deploy-aws-ssm.sh --note "JRX initial smoke"
 bash scripts/jrx-smoke-ec2.sh
 ```
+
+**Deploy SSM timing:** `jrx-deploy-aws-ssm.sh` runs two SSM phases (build, then compose+health) with default `JRX_SSM_TIMEOUT_SECONDS=7200` so slow `docker compose build` does not false-fail before `/api/jrx/health` is 200.
 
 **RDS TLS:** Gateway images ship `certs/rds-global-bundle.pem` (refresh via `bash scripts/jrx-download-rds-ca-bundle.sh`); override path with `JRX_RDS_CA_BUNDLE_PATH` if needed.
 
