@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { JrxDocumentAnalysis, JrxDocumentStatus } from '@nyayavigya/client-sdk';
+import type { JrxDocumentAnalysis, JrxDocumentStatus } from '@jurexio/client-sdk';
 
 interface UploadResult {
   docId: string;
@@ -27,14 +27,14 @@ export default function DocumentPage() {
       fd.append('file', file);
       fd.append('fileName', file.name);
       const { docId } = await jsonFetch<UploadResult>(
-        '/api/jrx-proxy/api/nv/documents/upload',
+        '/api/jrx-proxy/api/jrx/documents/upload',
         { method: 'POST', body: fd },
       );
 
       setStatus(`indexing (docId=${docId}) …`);
       let lastStatus: JrxDocumentStatus['status'] | undefined;
       for (let i = 0; i < 60; i++) {
-        const s = await jsonFetch<JrxDocumentStatus>(`/api/jrx-proxy/api/nv/documents/${docId}/status`);
+        const s = await jsonFetch<JrxDocumentStatus>(`/api/jrx-proxy/api/jrx/documents/${docId}/status`);
         lastStatus = s.status;
         if (s.status === 'COMPLETED') break;
         if (s.status === 'FAILED') throw new Error('indexing failed');
@@ -47,10 +47,10 @@ export default function DocumentPage() {
       // extracted text first, then run analysis. (Alternatively, call
       // client.documents.extractAndAnalyze() in a Node-side route.)
       const { text } = await jsonFetch<{ text: string }>(
-        `/api/jrx-proxy/api/nv/documents/${docId}/text`,
+        `/api/jrx-proxy/api/jrx/documents/${docId}/text`,
       );
       const aRes = await jsonFetch<JrxDocumentAnalysis>(
-        '/api/jrx-proxy/api/nv/doc-analyze/analyze',
+        '/api/jrx-proxy/api/jrx/doc-analyze/analyze',
         {
           method: 'POST',
           headers: { 'content-type': 'application/json' },

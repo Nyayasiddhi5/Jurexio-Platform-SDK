@@ -13,7 +13,7 @@ export default function HomePage() {
     <div>
       <h1 style={{ marginBottom: 8 }}>NSP Web Quickstart</h1>
       <p style={{ color: '#555' }}>
-        This sample demonstrates the five most common <code>@nyayavigya/client-sdk</code> v6 flows.
+        This sample demonstrates the five most common <code>@jurexio/client-sdk</code> 5.x flows.
         All API traffic is proxied through the Next.js route handlers under{' '}
         <code>/api/jrx-proxy/*</code> so your live API key never reaches the browser.
       </p>

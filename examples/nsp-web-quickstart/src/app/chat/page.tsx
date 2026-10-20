@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { JrxPatternResponse } from '@nyayavigya/client-sdk';
+import type { JrxPatternResponse } from '@jurexio/client-sdk';
 import { useJrx } from '../providers';
 
 interface ChatAnswer {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import type { JrxApiError, JrxPatternResponse } from '@nyayavigya/client-sdk';
+import type { JrxApiError, JrxPatternResponse } from '@jurexio/client-sdk';
 import { useJrx } from '../providers';
 
 export default function StreamPage() {

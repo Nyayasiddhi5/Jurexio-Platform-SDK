@@ -2,7 +2,7 @@
   "name": "nsp-web-quickstart",
   "version": "1.0.0",
   "private": true,
-  "description": "Next.js 14 quickstart for the Jurexio client SDK v6 — chat, document analyze, voice, intelligence, and streaming.",
+  "description": "Next.js 14 quickstart for @jurexio/client-sdk 5.x — chat, document analyze, voice, intelligence, and streaming.",
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
@@ -10,9 +10,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@nyayavigya/client-sdk": "file:../../packages/client-sdk",
-    "@nyayavigya/react-hooks": "file:../../packages/react-hooks",
-    "@nyayavigya/types": "file:../../packages/types",
+    "@jurexio/client-sdk": "file:../../packages/client-sdk",
+    "@jurexio/react-hooks": "file:../../packages/react-hooks",
+    "@jurexio/types": "file:../../packages/types",
     "next": "^14.2.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
