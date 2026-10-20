@@ -2,6 +2,10 @@
 
 ## [1.0.0] — Unreleased
 
+### Fixed — JRX-PARTNER-SMOKE-SCRIPTS-001 (2026-10-20)
+
+- Added `scripts/jrx-partner-smoke.sh`, `scripts/jrx-demo-probe-ec2.sh`, `scripts/jrx-live-sdk-matrix.sh` for `partner:smoke:*`, `demo:probe:ec2`, and `sdk:matrix:ec2` npm targets (JRX EC2 only; no secret logging).
+
 ### Changed — JRX-P0-SDK-READY-001 (2026-10-20)
 
 - `@jurexio/client-sdk` **5.0.0** semver alignment (`package.json`, `JrxClient.VERSION`) with `@jurexio/types`, `@jurexio/enterprise-sdk`, `@jurexio/mcp-server`.

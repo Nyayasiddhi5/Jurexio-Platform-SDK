@@ -113,3 +113,24 @@ If the browser receives `CORS_BLOCKED`, the origin is not on the gateway allowli
 | `@jurexio/mcp-server` | 5.0.0 | MCP wrapper over `JrxClient` |
 
 `@jurexio/docparse-sdk` remains **private**; call gateway docparse routes instead.
+
+---
+
+## Ops smoke (partner matrix)
+
+Requires `env.production.jurexio` (deploy IAM) for EC2 SSM targets. Logs **HTTP codes and latency only** — never secret values.
+
+| Command | Purpose |
+|---------|---------|
+| `npm run partner:smoke:local` | Probes `JRX_SMOKE_BASE_URL` (default `http://127.0.0.1:5000`); set `JRX_SDK_KEY_NSP` for keyed probes |
+| `npm run partner:smoke:ec2` | SSM on `JRX_EC2_INSTANCE_ID` (`i-0fb470b236c14405b`); reads keys on-host under `/opt/Jurexio/secrets/.env.production` |
+| `npm run demo:probe:ec2` | SSM crosscheck: health, key lens, docparse/LLM/orchestrate HTTP codes |
+| `npm run sdk:matrix:ec2` | Alias for partner smoke with `NV_TARGET=ec2` |
+
+Public URL smoke without keys:
+
+```bash
+JRX_SMOKE_BASE_URL=https://jurexio.nyayasiddhi.online NV_TARGET=local npm run partner:smoke:local
+```
+
+Expect `health http=200`; keyed probes `SKIP no_key` until `JRX_SDK_KEY_NSP` is set locally or on EC2.
