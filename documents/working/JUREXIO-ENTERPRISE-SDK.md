@@ -1,16 +1,19 @@
 # Jurexio Enterprise SDK — integration guide
 
 **Product:** Jurexio Enterprise Platform (global).  
-**Do not use:** Nyayasiddhi URLs, `JRX_SDK_KEY_*`, or legacy JRX partner JRX keys for Enterprise.
+**Production API:** `https://jurexio.nyayasiddhi.online`  
+**Do not use:** non-Jurexio legacy gateway hosts or pre-rebrand API prefixes for new frontends.
+
+**Frontend CORS, SDK key vs JWT, and route/auth matrix:** [JRX-FRONTEND-INTEGRATION.md](./JRX-FRONTEND-INTEGRATION.md)
 
 ## Base URL
 
 | Environment | URL |
 |-------------|-----|
-| Local | `http://127.0.0.1:5010` |
-| Staging | `https://api.staging.jurexio.example` (set at deploy) |
+| Production | `https://jurexio.nyayasiddhi.online` |
+| Local gateway | `http://127.0.0.1:5010` (or your compose port) |
 
-All routes: **`/api/jrx/v1/...`**
+Partner REST surface: **`/api/jrx/...`** (OpenAPI at `/api/jrx/openapi.json`).
 
 ## TypeScript SDK
 
@@ -19,23 +22,26 @@ import { JrxClient } from '@jurexio/client-sdk';
 
 const jrx = new JrxClient({
   apiKey: process.env.JRX_SDK_KEY!,
-  baseUrl: process.env.JRX_PUBLIC_API_URL!,
+  baseUrl: process.env.JRX_PUBLIC_API_URL ?? 'https://jurexio.nyayasiddhi.online',
   apiPathPrefix: '/api/jrx',
-  jurisdiction: 'US',
+  defaultJurisdiction: 'IN',
 });
 
 const health = await jrx.http.get('/api/jrx/health');
 ```
 
+Published semver line: **`@jurexio/client-sdk@5.0.0`**.
+
 ## Packages
 
 | Package | Purpose |
 |---------|---------|
-| `@jurexio/client-sdk` | Gateway REST |
+| `@jurexio/client-sdk` | Gateway REST (`JrxClient`) |
+| `@jurexio/types` | Shared TypeScript types |
 | `@jurexio/enterprise-sdk` | Enterprise orchestration helpers |
-| `@jurexio/docparse-sdk` | Document understanding (US/global packs) |
-| `@jurexio/mcp-server` | MCP tools |
+| `@jurexio/mcp-server` | MCP tools over `JrxClient` |
+| `@jurexio/docparse-sdk` | Internal/private — use gateway docparse routes from SPAs |
 
-## Legacy JRX partner JRX
+## Quickstart example
 
-Integrators on **Jurexio** gateway remain on `/api/nv/` — see upstream JRX docs in `archive/upstream-nyv/` (reference only).
+`examples/nsp-web-quickstart` — Next.js BFF proxy at `/api/jrx-proxy/*` → gateway `/api/jrx/*` (API key server-side only).

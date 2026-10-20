@@ -6,6 +6,20 @@ All notable changes to this package are documented here. The format follows
 
 ---
 
+## [5.0.0] — 2026-10-20T16:35:00Z
+
+### Changed
+
+- **`package.json` version** aligned to **5.0.0** (matches `@jurexio/types`, `@jurexio/enterprise-sdk` peer `^5.0.0`, and public API docs).
+- **`JrxClient.VERSION`** set to **5.0.0**.
+
+### Added
+
+- **`UniversalChatApi`** (`JrxClient.universalChat`) — `/api/chat/*` session + message helpers (SDK key or JWT).
+- **`LegalChatApi`** (`JrxClient.legalChat`) — console Legal Chat REST surface (`/api/jrx/legal-chat/*`, JWT + RBAC).
+- **`JrxClient.http`** — public low-level REST accessor; paths remain absolute under `/api/jrx/`.
+- **`JrxClientConfig.apiPathPrefix`** — documented integrator convention (paths are not auto-prefixed).
+
 ## [5.2.4] — 2026-10-15T10:20:00Z
 
 ### Added

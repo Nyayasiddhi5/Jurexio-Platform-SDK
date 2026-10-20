@@ -6,7 +6,7 @@
 
 | Area | Status |
 |------|--------|
-| Gateway + SDK | Phase 2 rename applied; `@jurexio/client-sdk@1.0.0` |
+| Gateway + SDK | Phase 2 rename applied; `@jurexio/client-sdk@5.0.0` |
 | DB | Local `jurexio` @5433; production RDS via `jrx-provision-rds-database.sh` |
 | Console | Rebrand in progress — Jurexio Enterprise Console |
 | CI | `jrx-guardrail-forbidden-brands.sh` |

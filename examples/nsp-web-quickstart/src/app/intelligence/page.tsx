@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { JrxPrecedentSearchResult } from '@nyayavigya/client-sdk';
+import type { JrxPrecedentSearchResult } from '@jurexio/client-sdk';
 import { useJrx } from '../providers';
 
 export default function IntelligencePage() {

@@ -9,7 +9,13 @@
 
 export interface JrxClientConfig {
   apiKey: string;
+  /** Gateway origin only (no path). SDK methods use absolute paths under `/api/jrx/`. */
   baseUrl?: string;
+  /**
+   * Documented convention for integrators (`/api/jrx`). Not prepended automatically —
+   * every SDK method already encodes the full path prefix.
+   */
+  apiPathPrefix?: '/api/jrx';
   timeout?: number;
   /** Queen /api/jrx/orchestrate timeout (default 600_000 ms). */
   orchestrateTimeoutMs?: number;

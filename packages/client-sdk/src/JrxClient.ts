@@ -49,6 +49,8 @@ import { LlmRouterApi } from './api/LlmRouterApi.js';
 import { CamApi } from './api/CamApi.js';
 import { SwarmApi } from './api/SwarmApi.js';
 import { LegalSdkApi } from './api/LegalSdkApi.js';
+import { UniversalChatApi } from './api/UniversalChatApi.js';
+import { LegalChatApi } from './api/LegalChatApi.js';
 import { UsageApi } from './api/UsageApi.js';
 import { JrxStreamReader, type JrxStreamOptions } from './JrxStreamReader.js';
 import type { JrxClientConfig, JrxApiError, JrxJurisdiction, JrxLegalDomain, JrxStreamHandlers, JrxPatternResponse } from './types/index.js';
@@ -87,6 +89,7 @@ class FetchHttpClient implements JrxHttpClient {
 
   constructor(config: JrxClientConfig, timeoutOverride?: number) {
     this.baseUrl = (config.baseUrl ?? 'https://api.jurexio.example').replace(/\/$/, '');
+    // Gateway accepts SDK keys as `Authorization: Bearer <key>` or `X-API-Key: <key>` (same value).
     this.headers = {
       'Content-Type': 'application/json',
       'X-API-Key': config.apiKey,
@@ -198,7 +201,7 @@ class FetchHttpClient implements JrxHttpClient {
 }
 
 export class JrxClient {
-  public static readonly VERSION = '5.1.0';
+  public static readonly VERSION = '5.0.0';
 
   public readonly patterns: PatternsApi;
   public readonly documents: DocumentsApi;
@@ -257,9 +260,18 @@ export class JrxClient {
   public readonly cam: CamApi;
   public readonly swarm: SwarmApi;
   public readonly legalSdk: LegalSdkApi;
+  /** Universal Chat testbed (`/api/chat/*`) — SDK key or JWT. */
+  public readonly universalChat: UniversalChatApi;
+  /** Console Legal Chat (`/api/jrx/legal-chat/*`) — JWT + RBAC only. */
+  public readonly legalChat: LegalChatApi;
   public readonly stream: JrxStreamReader;
 
-  private readonly http: JrxHttpClient;
+  /** Low-level JSON REST; paths are absolute e.g. `/api/jrx/health` (baseUrl is origin only). */
+  public get http(): JrxHttpClient {
+    return this._http;
+  }
+
+  private readonly _http: JrxHttpClient;
   private readonly config: JrxClientConfig;
 
   constructor(config: JrxClientConfig) {
@@ -272,47 +284,47 @@ export class JrxClient {
       ...config,
     };
 
-    this.http = new FetchHttpClient(this.config);
+    this._http = new FetchHttpClient(this.config);
     const orchestrateHttp = new FetchHttpClient(
       this.config,
       this.config.orchestrateTimeoutMs ?? 600_000,
     );
     const baseUrl = (config.baseUrl ?? 'https://api.jurexio.example').replace(/\/$/, '');
 
-    this.patterns = new PatternsApi(this.http);
-    this.documents = new DocumentsApi(this.http);
-    this.agents = new AgentsApi(this.http);
-    this.skills = new SkillsApi(this.http);
-    this.twins = new TwinApi(this.http);
-    this.knowledge = new KnowledgeApi(this.http);
-    this.instantSearch = new InstantSearchApi(this.http);
-    this.templates = new TemplatesApi(this.http);
-    this.legalWork = new LegalWorkApi(this.http);
-    this.matterVault = new MatterVaultApi(this.http);
-    this.voice = new VoiceApi(this.http);
-    this.intelligence = new IntelligenceApi(this.http);
-    this.testing = new TestingApi(this.http);
-    this.compliance = new ComplianceApi(this.http);
-    this.nyayaTools = new NyayaToolsApi(this.http);
-    this.memory = new MemoryApi(this.http);
-    this.cache = new CacheApi(this.http);
-    this.credits = new CreditsApi(this.http);
-    this.orch = new OrchApi(this.http);
-    this.workflows = new WorkflowsApi(this.http);
-    this.docAi = new DocAiApi(this.http);
-    this.gov = new GovApi(this.http);
-    this.legalPipeline = new LegalPipelineApi(this.http);
-    this.complianceNv5 = new ComplianceNv5Api(this.http);
-    this.internal = new InternalApi(this.http);
-    this.rag = new RagApi(this.http);
-    this.models = new ModelsApi(this.http);
-    this.mcp = new McpApi(this.http);
-    this.cot = new CotApi(this.http);
-    this.connectors = new ConnectorsApi(this.http);
-    this.ecosystemDocuments = new EcosystemDocumentsApi(this.http);
-    this.cnr = new CnrApi(this.http);
-    this.patraMitra = new PatraMitraApi(this.http);
-    this.usage = new UsageApi(this.http);
+    this.patterns = new PatternsApi(this._http);
+    this.documents = new DocumentsApi(this._http);
+    this.agents = new AgentsApi(this._http);
+    this.skills = new SkillsApi(this._http);
+    this.twins = new TwinApi(this._http);
+    this.knowledge = new KnowledgeApi(this._http);
+    this.instantSearch = new InstantSearchApi(this._http);
+    this.templates = new TemplatesApi(this._http);
+    this.legalWork = new LegalWorkApi(this._http);
+    this.matterVault = new MatterVaultApi(this._http);
+    this.voice = new VoiceApi(this._http);
+    this.intelligence = new IntelligenceApi(this._http);
+    this.testing = new TestingApi(this._http);
+    this.compliance = new ComplianceApi(this._http);
+    this.nyayaTools = new NyayaToolsApi(this._http);
+    this.memory = new MemoryApi(this._http);
+    this.cache = new CacheApi(this._http);
+    this.credits = new CreditsApi(this._http);
+    this.orch = new OrchApi(this._http);
+    this.workflows = new WorkflowsApi(this._http);
+    this.docAi = new DocAiApi(this._http);
+    this.gov = new GovApi(this._http);
+    this.legalPipeline = new LegalPipelineApi(this._http);
+    this.complianceNv5 = new ComplianceNv5Api(this._http);
+    this.internal = new InternalApi(this._http);
+    this.rag = new RagApi(this._http);
+    this.models = new ModelsApi(this._http);
+    this.mcp = new McpApi(this._http);
+    this.cot = new CotApi(this._http);
+    this.connectors = new ConnectorsApi(this._http);
+    this.ecosystemDocuments = new EcosystemDocumentsApi(this._http);
+    this.cnr = new CnrApi(this._http);
+    this.patraMitra = new PatraMitraApi(this._http);
+    this.usage = new UsageApi(this._http);
     this.orchestrateApi = new OrchestrateApi(orchestrateHttp, config.apiKey, baseUrl);
     this.queen = this.orchestrateApi;
     const defaultJurisdiction = () => this.config.defaultJurisdiction ?? 'IN';
@@ -331,14 +343,16 @@ export class JrxClient {
           options,
         ),
     }) as OrchestrateFacade;
-    this.gateway = new GatewayApi(this.http);
-    this.partnerIntelligence = new PartnerIntelligenceApi(this.http);
-    this.docsPipeline = new DocsPipelineApi(this.http);
-    this.docparse = new DocparseApi(this.http);
-    this.llmRouter = new LlmRouterApi(this.http);
-    this.cam = new CamApi(this.http);
-    this.swarm = new SwarmApi(this.http);
-    this.legalSdk = new LegalSdkApi(this.http);
+    this.gateway = new GatewayApi(this._http);
+    this.partnerIntelligence = new PartnerIntelligenceApi(this._http);
+    this.docsPipeline = new DocsPipelineApi(this._http);
+    this.docparse = new DocparseApi(this._http);
+    this.llmRouter = new LlmRouterApi(this._http);
+    this.cam = new CamApi(this._http);
+    this.swarm = new SwarmApi(this._http);
+    this.legalSdk = new LegalSdkApi(this._http);
+    this.universalChat = new UniversalChatApi(this._http);
+    this.legalChat = new LegalChatApi(this._http);
     this.stream = new JrxStreamReader(config.apiKey, baseUrl);
 
     if (this.config.debug) {
@@ -353,7 +367,7 @@ export class JrxClient {
     latencyMs: number;
   }> {
     const start = Date.now();
-    const result = await this.http.get<{ status: 'ok' | 'degraded' | 'down'; version: string }>('/api/jrx/health');
+    const result = await this._http.get<{ status: 'ok' | 'degraded' | 'down'; version: string }>('/api/jrx/health');
     return {
       status: result.status,
       version: result.version,

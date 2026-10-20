@@ -1,6 +1,6 @@
 {
   "name": "@jurexio/client-sdk",
-  "version": "1.0.0",
+  "version": "5.0.0",
   "description": "Jurexio Platform — Official TypeScript Client SDK (Legal AI gateway `/api/jrx/`).",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

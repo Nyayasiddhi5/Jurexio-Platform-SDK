@@ -2,6 +2,12 @@
 
 ## [1.0.0] — Unreleased
 
+### Changed — JRX-P0-SDK-READY-001 (2026-10-20)
+
+- `@jurexio/client-sdk` **5.0.0** semver alignment (`package.json`, `JrxClient.VERSION`) with `@jurexio/types`, `@jurexio/enterprise-sdk`, `@jurexio/mcp-server`.
+- `UniversalChatApi`, `LegalChatApi`, public `JrxClient.http`; frontend integration docs (`JRX-FRONTEND-INTEGRATION.md`, `JUREXIO-ENTERPRISE-SDK.md`).
+- `examples/nsp-web-quickstart`: `/api/jrx-proxy` → gateway `/api/jrx/*`; `@jurexio/*` workspace deps.
+
 ### Added — JRX-RDS-SEQUENCE-GRANTS-001 (2026-10-18)
 
 - `documents/working/JRX-AWS-INFRA-OPTIONS-AND-RUNBOOK.md`: post–greenfield `db:push` sequence grants for `jurexio_app` (`public`, `jrx_schema`, `nv_schema`) plus default-privileges note for future sequences.

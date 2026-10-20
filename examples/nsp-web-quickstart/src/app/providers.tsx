@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useMemo, type ReactNode } from 'react';
-import { JrxClient } from '@nyayavigya/client-sdk';
+import { JrxClient } from '@jurexio/client-sdk';
 
 /**
  * Single shared JrxClient instance.
@@ -28,7 +28,7 @@ export function JrxProvider({ children }: { children: ReactNode }) {
     const baseUrl = process.env.NEXT_PUBLIC_JRX_BASE_URL ?? 'https://api.jurexio.com';
     // Browser-side client uses a stub key; real key stays on the server.
     const client = new JrxClient({
-      apiKey: 'nyv_live_sk_browser_proxied',
+      apiKey: 'jrx_live_sk_browser_proxied',
       baseUrl: '/api/jrx-proxy', // intercepted by route handlers in src/app/api/jrx-proxy/[...path]/route.ts
     });
     return { baseUrl, client };
