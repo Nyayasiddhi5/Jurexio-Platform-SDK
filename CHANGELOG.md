@@ -2,6 +2,11 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-E2-OFFICIAL-CORPUS-001 (2026-10-21)
+
+- E2 official corpus scaffold: Singapore SOLID (`SG_SOLID_EXPORT` / API env) + GC Saudi BOE (HF datasets server sample).
+- npm `e2:corpus:ingest` / `:ec2`; runbook `JRX-E2-OFFICIAL-CORPUS-INGEST.md`.
+
 ### Added — JRX-E1-COVER-LETTER-001 (2026-10-21)
 
 - Auditor cover letter: `JRX-SOC2-AUDITOR-COVER-LETTER.md` (linked from auditor pack).
