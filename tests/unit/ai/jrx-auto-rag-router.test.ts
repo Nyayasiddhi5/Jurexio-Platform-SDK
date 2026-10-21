@@ -4,6 +4,8 @@ import {
   reciprocalRankFusion,
   formatAutoRagContext,
   scoreConfidence,
+  normalizeRagJurisdiction,
+  JRX_SIX_JURISDICTIONS,
   type AutoRagChunk,
 } from '../../../src/services/jrx-auto-rag-router.js';
 
@@ -39,6 +41,15 @@ describe('./jrx-auto-rag-router', () => {
 
   it('classifies comparative analysis intent', () => {
     expect(classifyRagIntent('Compare GDPR vs DPDPA data retention')).toBe('comparative_analysis');
+  });
+
+  it('normalizes GCC alias to GC for RAG jurisdiction', () => {
+    expect(normalizeRagJurisdiction('gcc')).toBe('GC');
+    expect(normalizeRagJurisdiction('US')).toBe('US');
+  });
+
+  it('defines six canonical jurisdictions for cross-jx retrieval', () => {
+    expect(JRX_SIX_JURISDICTIONS).toEqual(['IN', 'UK', 'US', 'EU', 'SG', 'GC']);
   });
 
   it('merges ranked lists with RRF boosting shared documents', () => {

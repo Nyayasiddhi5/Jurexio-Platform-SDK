@@ -161,6 +161,8 @@
     "demo:probe:ec2": "bash scripts/jrx-demo-probe-ec2.sh",
     "us:corpus:ingest": "bash scripts/jrx-us-corpus-ingest.sh",
     "us:corpus:ingest:ec2": "NV_TARGET=ec2 bash scripts/jrx-us-corpus-ingest.sh",
+    "global:corpus:ingest": "bash scripts/jrx-global-corpus-ingest.sh",
+    "global:corpus:ingest:ec2": "NV_TARGET=ec2 bash scripts/jrx-global-corpus-ingest.sh",
     "probe:continue:bail": "bash scripts/jrx-probe-continue-bail-sample.sh",
     "nsp:probe:dlct-court-fetch:ec2": "bash scripts/jrx-nsp-dlct-court-fetch-spot-ec2.sh",
     "nsp:ai:matrix:ec2": "bash scripts/jrx-nsp-ai-matrix-probe-ec2.sh",

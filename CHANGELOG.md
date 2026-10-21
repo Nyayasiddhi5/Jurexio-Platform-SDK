@@ -2,6 +2,12 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-GLOBAL-LEGAL-INTELLIGENCE-001 (2026-10-21)
+
+- Global legal intelligence roadmap + Bedrock/Gemini routing guide (`JRX-GLOBAL-LEGAL-INTELLIGENCE-ROADMAP.md`, `JRX-LLM-ROUTING-GLOBAL.md`).
+- `scripts/jrx-global-corpus-ingest.ts` + SSM wrapper; npm `global:corpus:ingest` / `:ec2` for all six jurisdictions.
+- Auto-RAG **cross-jurisdiction** retrieval (`crossJurisdiction` on orchestrate, multi-jx legal chat, comparative intent).
+
 ### Added — JRX-US-CORPUS-COMPLIANCE-GO-001 (2026-10-21)
 
 - US corpus ingest: `scripts/jrx-us-corpus-ingest.ts` + SSM wrapper; `seedStatutesForJurisdictions(['US'])`; npm `us:corpus:ingest` / `:ec2`.

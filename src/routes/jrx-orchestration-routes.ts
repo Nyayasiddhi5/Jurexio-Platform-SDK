@@ -412,6 +412,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
       enableCoT, cotStrategy,
       previousMessages, ragDocumentIds,
       orchestrationMode, agents: multiAgents, priority, preferences,
+      crossJurisdiction,
     } = req.body;
 
     if (!prompt) return void sendApiError(res, 'BAD_REQUEST', { overrideMessage: 'prompt is required' });
@@ -970,6 +971,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
           },
           ...(tenantId               ? { tenantId }                         : {}),
           ...(effectiveJurisdiction  ? { jurisdiction: effectiveJurisdiction } : {}),
+          ...(crossJurisdiction === true ? { crossJurisdiction: true } : {}),
           tier: effectiveTier,
           metadata: {
             queenDepth: adaptiveDecision.requireQueenDepth || (nyvDependent && !partnerLean) || nspNymBest,

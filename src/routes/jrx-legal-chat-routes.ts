@@ -671,6 +671,11 @@ router.post('/send', async (req: Request, res: Response) => {
         smePreferenceContext: typeof smeContext;
       };
     }
+    const sessionJurisdictions = Array.isArray(body.jurisdictions)
+      ? body.jurisdictions.map((j: unknown) => String(j).toUpperCase())
+      : body.jurisdictions
+        ? [String(body.jurisdictions).toUpperCase()]
+        : [];
     const queenRequest: LegalChatQueenRequest = {
       orchestrationId,
       requestId: orchestrationId,
@@ -680,7 +685,11 @@ router.post('/send', async (req: Request, res: Response) => {
       organizationId: authReq.user!.organizationId
         ? String(authReq.user!.organizationId)
         : undefined,
-      jurisdiction: Array.isArray(body.jurisdictions) ? body.jurisdictions[0] : body.jurisdictions,
+      jurisdiction: sessionJurisdictions[0] || 'IN',
+      crossJurisdiction:
+        body.crossJurisdiction === true ||
+        sessionJurisdictions.length > 1 ||
+        sessionJurisdictions.some((j) => j === 'GLOBAL'),
       tier: body.tier ?? 'pro',
       agentId: body.agentId,
       lifecycleEvents: queenEmitter,

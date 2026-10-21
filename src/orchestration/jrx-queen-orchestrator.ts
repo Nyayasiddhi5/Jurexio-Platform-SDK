@@ -1221,6 +1221,8 @@ export interface OrchestrationRequest {
   userId?: string;
   sessionId?: string;
   jurisdiction?: string;
+  /** JRX-GLOBAL-LEGAL-001 — merge Auto-RAG across all six jurisdictions when true. */
+  crossJurisdiction?: boolean;
   taskType?: string;
   priority?: 'low' | 'medium' | 'high' | 'critical';
   enableCoT?: boolean;
@@ -1797,6 +1799,7 @@ export class QueenOrchestrator extends EventEmitter {
             const autoRag = await autoRagRetrieve({
               query: request.prompt,
               jurisdiction: request.jurisdiction || 'IN',
+              crossJurisdiction: request.crossJurisdiction === true,
               tier: reqExtRag.tier ?? capTier,
               taskType: request.type,
               userId: memUserId,

@@ -124,9 +124,19 @@ export interface AutoRagChunk {
   hasReporterCitation?: boolean;
 }
 
+/** JRX global legal intelligence — canonical six-jurisdiction set for cross-jx retrieval. */
+export const JRX_SIX_JURISDICTIONS = ['IN', 'UK', 'US', 'EU', 'SG', 'GC'] as const;
+
+export function normalizeRagJurisdiction(jurisdiction?: string): string {
+  const u = (jurisdiction || 'IN').toUpperCase();
+  return u === 'GCC' ? 'GC' : u;
+}
+
 export interface AutoRagRequest {
   query: string;
   jurisdiction?: string;
+  /** When true (or comparative intent), retrieve top-k per jurisdiction and merge (tagged chunks). */
+  crossJurisdiction?: boolean;
   /** Billing tier (pro, plus, government, …) or capability tier (lite, mitra, enterprise, sovereign). */
   tier?: string;
   taskType?: string;
@@ -759,7 +769,7 @@ export async function autoRagRetrieve(req: AutoRagRequest): Promise<AutoRagResul
   const start = Date.now();
   stats.attempts += 1;
 
-  const jurisdiction = (req.jurisdiction || 'IN').toUpperCase();
+  const jurisdiction = normalizeRagJurisdiction(req.jurisdiction);
   const domain = req.domain || 'ALL';
   const topK = req.topK ?? 8;
   const capabilityTier = resolveCapabilityTier(req.tier);
@@ -768,12 +778,26 @@ export async function autoRagRetrieve(req: AutoRagRequest): Promise<AutoRagResul
   const layersUsed: string[] = ['unified-base'];
   const retrievalMethods: string[] = [];
 
-  const { chunks: baseChunks, methods: baseMethods } = await fetchUnifiedBase(
-    req.query,
-    jurisdiction,
-    domain,
-    topK,
-  );
+  const useCrossJurisdiction =
+    req.crossJurisdiction === true || intent === 'comparative_analysis';
+
+  let baseChunks: AutoRagChunk[];
+  let baseMethods: string[];
+  if (useCrossJurisdiction) {
+    const perJxTopK = Math.max(2, Math.ceil(topK / JRX_SIX_JURISDICTIONS.length));
+    const packs = await Promise.all(
+      JRX_SIX_JURISDICTIONS.map((jx) =>
+        fetchUnifiedBase(req.query, jx, domain, perJxTopK),
+      ),
+    );
+    baseChunks = packs.flatMap((p) => p.chunks);
+    baseMethods = [...new Set(packs.flatMap((p) => p.methods))];
+    layersUsed.push('cross-jurisdiction');
+  } else {
+    const single = await fetchUnifiedBase(req.query, jurisdiction, domain, topK);
+    baseChunks = single.chunks;
+    baseMethods = single.methods;
+  }
   retrievalMethods.push(...baseMethods);
 
   const extraLists: Array<Array<{ key: string; chunk: AutoRagChunk }>> = [
