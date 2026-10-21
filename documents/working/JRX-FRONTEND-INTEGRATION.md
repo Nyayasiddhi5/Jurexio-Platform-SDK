@@ -39,7 +39,11 @@ Used for almost all AI and document routes exposed to integrators.
 | `Authorization` | `Bearer <JRX_SDK_KEY_*>` |
 | `X-API-Key` | Same key (either header is accepted by `sdkGatewayAuth`) |
 
-Optional partner headers (when documented for your app): `X-JRX-Platform`, `X-JRX-SDK-Version`, `X-Customer-Org-Id`.
+Optional partner headers (when documented for your app): `X-JRX-Platform`, `X-JRX-SDK-Version`, `X-Customer-Org-Id`, `x-jrx-jurisdiction` (ISO jurisdiction code: IN, US, UK, EU, SG, GC).
+
+**GRPO feedback (SDK key):** `POST /api/jrx/v1/sdk/optimization/grpo/preferences` with `{ prompt, chosen, rejected }`.
+
+**A2A production:** set `A2A_HMAC_SECRET` on gateway (see `env.production.jurexio.example`).
 
 **Browser rule:** do not embed long-lived `sk_live` keys in client bundles. Use a **backend-for-frontend** proxy (see `examples/nsp-web-quickstart`) or mint short-lived tokens from your server.
 

@@ -298,7 +298,7 @@ All listed below are **WIRED** (consumed by route handlers or wire-chain) unless
 | EU overlay | `…-registry-EU.json` | 164 | WIRED — optional overlay |
 | SG overlay | `…-registry-SG.json` | 164 | WIRED — optional overlay |
 | **Archived v5.0.0 backup** | `config/agent-registries/archive/v5.0.0/` | 1,042 flat (historical) | ARCHIVED — forensic mode only (`NV_REGISTRY_FORENSIC_MODE=1`) |
-| Legacy flat merged file | `src/data/nv-agents-registry.json` | retired | ARCHIVED |
+| Legacy flat merged file | ~~`src/data/nv-agents-registry.json`~~ | removed | Use `src/data/jrx-agents-registry.json` only |
 
 ## 11. Database (199 tables)
 

@@ -2,8 +2,7 @@
 
 > Official TypeScript SDK for the **Jurexio Legal AI Platform** — v5.0.0.
 
-Powers all Jurexio platforms (NSP web/mobile, Jurexio Citizen, Institutional,
-Academy, Ministry) and external developer integrations.
+Powers Jurexio Enterprise console, partner frontends, and external developer integrations across **six jurisdictions** (IN, US, UK, EU, SG, GC) via `jurisdiction` on orchestrate/legal-chat calls.
 
 | | |
 |---|---|
@@ -26,13 +25,14 @@ npm install @jurexio/client-sdk @jurexio/types
 ```ts
 import { JrxClient } from '@jurexio/client-sdk';
 
-const nyv = new JrxClient({
-  apiKey:  process.env.JRX_API_KEY!,        // nyv_live_sk_...
-  baseUrl: 'https://app.jurexio.com',
+const jrx = new JrxClient({
+  apiKey: process.env.JRX_API_KEY!,
+  baseUrl: 'https://jurexio.nyayasiddhi.online',
+  apiPathPrefix: '/api/jrx',
 });
 
-// 1) Ask a legal question (P11 NyayaRAG)
-const ans = await nyv.ask(
+// 1) Ask a legal question (RAG + orchestration)
+const ans = await jrx.ask(
   'Explain BNS 2023 Section 103 (murder) with relevant case law',
 );
 console.log(ans.content);

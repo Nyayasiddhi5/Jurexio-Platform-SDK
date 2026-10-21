@@ -1,0 +1,8 @@
+{
+  "id": "jrx-uk-claim-form-v1",
+  "jurisdiction": "UK",
+  "name": "Part 7 claim form (CPR)",
+  "category": "civil",
+  "language": "en-GB",
+  "placeholders": ["claimant", "defendant", "brief_details", "value", "remedy_sought"]
+}

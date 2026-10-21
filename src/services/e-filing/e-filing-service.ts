@@ -21,6 +21,7 @@
  */
 
 import { logger } from '../../utils/logger.js';
+import { submitViaCourtAdapter } from './adapters/index.js';
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Types
@@ -243,15 +244,24 @@ export class EFilingService {
       throw new Error('Filing fee must be paid before submission');
     }
 
+    if (process.env.JRX_EFILING_USE_ADAPTERS === '1') {
+      const adapterResult = await submitViaCourtAdapter(filing);
+      if (adapterResult && !adapterResult.ok) {
+        throw new Error(`E_FILING_ADAPTER: ${adapterResult.code} — ${adapterResult.message}`);
+      }
+      if (adapterResult?.ok) {
+        filing.trackingNumber = adapterResult.trackingNumber;
+      }
+    }
+
     filing.status = 'submitted';
     filing.submittedAt = new Date();
-    filing.trackingNumber = `JRX-${filing.jurisdiction}-${Date.now()}`;
+    filing.trackingNumber = filing.trackingNumber ?? `JRX-${filing.jurisdiction}-${Date.now()}`;
     filing.updatedAt = new Date();
 
     this.filings.set(filingId, filing);
     logger.info('[EFiling] Filing submitted', { id: filingId, tracking: filing.trackingNumber });
 
-    // In production: integrate with court portal API
     return filing;
   }
 

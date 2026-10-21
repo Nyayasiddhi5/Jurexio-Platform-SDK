@@ -2,6 +2,14 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-ROADMAP-A-E-001 (2026-10-21)
+
+- Phase A: **GC** canonical jurisdiction code (GCC alias), removed duplicate `src/data/nv-agents-registry.json`, Jurexio partner UI labels.
+- Phase B: `shared/jurisdiction-templates/` packs for IN/US/UK/EU/SG/GC; `JRX-JURISDICTION-TEMPLATE-PACKS.md`; `jrx-us-corpus-ingest-stub.sh`.
+- Phase C: US docparse domain pack stubs; e-filing **IN/US court adapters** + `JRX_EFILING_USE_ADAPTERS`.
+- Phase D: GRPO/A2A documented in `JRX-FRONTEND-INTEGRATION.md`; `A2A_HMAC_SECRET` in env example.
+- Phase E: `JRX-SOC2-ISO42001-EVIDENCE-PROGRAM.md` (evidence map, not certification).
+
 ### Fixed — JRX-PARTNER-SMOKE-SCRIPTS-001 (2026-10-20)
 
 - Added `scripts/jrx-partner-smoke.sh`, `scripts/jrx-demo-probe-ec2.sh`, `scripts/jrx-live-sdk-matrix.sh` for `partner:smoke:*`, `demo:probe:ec2`, and `sdk:matrix:ec2` npm targets (JRX EC2 only; no secret logging).

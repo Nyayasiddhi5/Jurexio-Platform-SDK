@@ -4,6 +4,7 @@
 >
 > | Ref | Title | Status | Owner | Tracked at |
 > |---|---|---|---|---|
+> | **JRX-A-E-2026-10** | JRX roadmap A–E (naming, templates, e-filing adapters, MCP/A2A/GRPO docs, SOC2/ISO evidence) | **CODE DONE 2026-10-21** — US corpus + live PACER/eCourts + auditor cert **OPS** | Platform | `documents/working/JRX-JURISDICTION-TEMPLATE-PACKS.md`, `JRX-SOC2-ISO42001-EVIDENCE-PROGRAM.md` |
 > | **R-GBEST-LEGAL** | Global-best Legal AI OS engineering (W0–W4 + residuals) | **DONE 2026-07-31** | Platform | `documents/working/NYV-GLOBAL-BEST-LEGAL-AI-OS-GAPS-PLAN-2026-07.md`; deploy `2026-07-31T0424Z` |
 > | **R-MULTI-DOMAIN** | Multi-domain substrate (non-legal verticals) | **DONE 2026-07-31** (legal GA; others scaffold) | Platform | `/api/nv/domains`; GAPS plan § Multi-domain |
 > | **R-NEURAL-NDCG** | Neural rerank continuous quality gate | **DONE 2026-07-31** (local CE in CI; live Cohere/Voyage optional) | Platform | CI `rag-ndcg`; `nv-local-cross-encoder-server.ts` |

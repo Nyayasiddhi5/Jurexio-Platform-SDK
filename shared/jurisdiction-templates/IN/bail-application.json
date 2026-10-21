@@ -1,0 +1,8 @@
+{
+  "id": "jrx-in-bail-application-v1",
+  "jurisdiction": "IN",
+  "name": "Anticipatory bail application (BNSS)",
+  "category": "criminal",
+  "language": "en-IN",
+  "placeholders": ["applicant_name", "fir_number", "police_station", "grounds", "prayer"]
+}

@@ -1,0 +1,8 @@
+{
+  "id": "jrx-gc-commercial-claim-v1",
+  "jurisdiction": "GC",
+  "name": "Commercial claim (DIFC/ADGM style)",
+  "category": "commercial",
+  "language": "en",
+  "placeholders": ["claimant", "respondent", "contract_ref", "breach_summary", "damages"]
+}

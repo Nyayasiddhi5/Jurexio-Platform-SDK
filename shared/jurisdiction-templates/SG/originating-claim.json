@@ -1,0 +1,8 @@
+{
+  "id": "jrx-sg-originating-claim-v1",
+  "jurisdiction": "SG",
+  "name": "Originating claim (State Courts)",
+  "category": "civil",
+  "language": "en-SG",
+  "placeholders": ["plaintiff", "defendant", "facts", "relief"]
+}

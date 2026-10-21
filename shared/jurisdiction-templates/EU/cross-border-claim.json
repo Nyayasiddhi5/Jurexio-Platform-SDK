@@ -1,0 +1,8 @@
+{
+  "id": "jrx-eu-cross-border-v1",
+  "jurisdiction": "EU",
+  "name": "Cross-border civil claim (Brussels I recast)",
+  "category": "civil",
+  "language": "en",
+  "placeholders": ["member_state", "court", "parties", "claim_summary", "amount"]
+}

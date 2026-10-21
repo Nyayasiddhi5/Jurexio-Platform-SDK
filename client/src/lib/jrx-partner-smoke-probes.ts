@@ -33,8 +33,8 @@ export const NV_PARTNER_SMOKE_PROBES: PartnerSmokeProbe[] = [
 
 export const PLATFORM_LABELS: Record<PartnerSmokeProbe['platform'], string> = {
   core: 'JRX Core',
-  nsp: 'NSP',
-  nym: 'NYM',
+  nsp: 'Jurexio Partner',
+  nym: 'NYM Partner',
   jrx: 'JRX',
   cnr: 'Case search',
   docparse: 'Docparse',

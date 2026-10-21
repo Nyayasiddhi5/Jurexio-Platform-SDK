@@ -150,8 +150,8 @@ const JURISDICTION_PROFILES: Record<string, JurisdictionProfile> = {
     legalSystem: 'civil_law',
     aiDisclosureRequired: true,
   },
-  GCC: {
-    code: 'GCC',
+  GC: {
+    code: 'GC',
     name: 'Gulf Cooperation Council',
     currency: 'AED',
     currencySymbol: 'د.إ',
@@ -232,7 +232,8 @@ export function jurisdictionBindingMiddleware(
  * Get a jurisdiction profile by code. Safe fallback to India.
  */
 export function getJurisdictionProfile(code: string): JurisdictionProfile {
-  return JURISDICTION_PROFILES[code?.toUpperCase()] || JURISDICTION_PROFILES['IN'];
+  const normalized = code?.toUpperCase() === 'GCC' ? 'GC' : code?.toUpperCase();
+  return JURISDICTION_PROFILES[normalized] || JURISDICTION_PROFILES['IN'];
 }
 
 /**

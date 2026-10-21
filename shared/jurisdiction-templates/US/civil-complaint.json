@@ -1,0 +1,8 @@
+{
+  "id": "jrx-us-civil-complaint-v1",
+  "jurisdiction": "US",
+  "name": "Federal civil complaint (FRCP)",
+  "category": "civil",
+  "language": "en-US",
+  "placeholders": ["caption", "jurisdiction_venue", "parties", "facts", "causes_of_action", "prayer"]
+}

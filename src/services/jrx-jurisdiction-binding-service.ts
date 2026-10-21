@@ -99,8 +99,8 @@ export const JURISDICTION_PROFILES: Record<string, JurisdictionProfile> = {
     complianceFlags: ['GDPR', 'EU_AI_ACT'],
     language: { primary: 'en', supported: ['de', 'fr', 'es', 'it', 'nl'] },
   },
-  GCC: {
-    code: 'GCC', name: 'Gulf Cooperation Council',
+  GC: {
+    code: 'GC', name: 'Gulf Cooperation Council',
     currency: { code: 'AED', symbol: 'د.إ', name: 'UAE Dirham' },
     courtStructure: ['Federal Court', 'DIFC Courts', 'ADGM Courts', 'DIAC Arbitration'],
     statutes: { primary: ['UAE Civil Code', 'DIFC Law', 'UAE Cybercrime Law'], replaced: {} },
@@ -129,7 +129,8 @@ export const JURISDICTION_PROFILES: Record<string, JurisdictionProfile> = {
 
 export class JrxJurisdictionBindingService {
   static bind(jurisdictionCode: string): JurisdictionProfile {
-    const profile = JURISDICTION_PROFILES[jurisdictionCode.toUpperCase()];
+    const code = jurisdictionCode.toUpperCase() === 'GCC' ? 'GC' : jurisdictionCode.toUpperCase();
+    const profile = JURISDICTION_PROFILES[code];
     if (!profile) {
       throw new Error(`JURISDICTION_NOT_FOUND: ${jurisdictionCode}. Valid: ${Object.keys(JURISDICTION_PROFILES).join(', ')}`);
     }
