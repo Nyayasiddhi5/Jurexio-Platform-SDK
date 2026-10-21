@@ -20,8 +20,13 @@ const jrx = new JrxClient({
 });
 
 await jrx.healthCheck();
-await jrx.orchestrate({ prompt: 'Summarize force majeure under Indian contract law.' });
-await jrx.orchestrate.stream({ prompt: '…' }, { onTextDelta: (d) => process.stdout.write(d) });
+await jrx.orchestrate({ prompt: 'Summarize force majeure under Indian contract law.', jurisdiction: 'IN' });
+await jrx.orchestrate({
+  prompt: 'Compare GDPR and DPDPA data retention.',
+  jurisdiction: 'EU',
+  crossJurisdiction: true,
+});
+await jrx.orchestrate.stream({ prompt: '…', jurisdiction: 'US' }, { onTextDelta: (d) => process.stdout.write(d) });
 ```
 
 Package line: **`@jurexio/client-sdk@5.0.0`** with **`@jurexio/types@5.0.0`** and **`@jurexio/enterprise-sdk@5.0.0`** (`peerDependencies`).
