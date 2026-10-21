@@ -47,7 +47,7 @@ export function getAllSeedStatutes(): StatuteSection[] {
   ];
 }
 
-interface StatuteSection {
+export interface StatuteSection {
   actTitle: string;
   actShortTitle: string;
   jurisdiction: string;
@@ -613,6 +613,13 @@ async function shouldSeed(): Promise<boolean> {
   } catch {
     return true;
   }
+}
+
+/** Upsert externally fetched statute rows (E1 official corpus ingest). */
+export async function upsertStatuteSections(sections: StatuteSection[]): Promise<number> {
+  if (sections.length === 0) return 0;
+  await ensureStatuteTable();
+  return batchUpsertStatutes(sections);
 }
 
 /** Force upsert statutes for selected jurisdictions (e.g. US GO corpus ingest). */

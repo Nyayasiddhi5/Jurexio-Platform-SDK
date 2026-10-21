@@ -61,7 +61,7 @@ Finetune only where license permits; prefer **RAG ingest** for production ground
 | Phase | Scope |
 |-------|--------|
 | **E0** | Push `main`, `global:corpus:ingest:ec2`, smoke, auditor pack |
-| **E1** | Official API ingest IN/US/UK/EU (section-level RDS + RAG backfill) |
+| **E1** | Official API ingest IN/US/UK/EU — `npm run e1:corpus:ingest` (see `JRX-E1-OFFICIAL-CORPUS-INGEST.md`) |
 | **E2** | SG + GC country corpora |
 | **E3** | Docparse domain packs + template library expansion |
 | **E4** | `jrx-search` US licensed bucket; PACER/eCourts credentials + adapters |

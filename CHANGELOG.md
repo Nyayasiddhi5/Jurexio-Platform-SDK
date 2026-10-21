@@ -2,6 +2,12 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-E1-COVER-LETTER-001 (2026-10-21)
+
+- Auditor cover letter: `JRX-SOC2-AUDITOR-COVER-LETTER.md` (linked from auditor pack).
+- E1 official corpus scaffold: `jrx-official-corpus-e1-service.ts`, `jrx-e1-official-corpus-ingest.ts`, `JRX-E1-OFFICIAL-CORPUS-INGEST.md`; npm `e1:corpus:ingest` / `:ec2`.
+- Exported `upsertStatuteSections` for external corpus rows.
+
 ### Added — JRX-GLOBAL-LEGAL-INTELLIGENCE-001 (2026-10-21)
 
 - Global legal intelligence roadmap + Bedrock/Gemini routing guide (`JRX-GLOBAL-LEGAL-INTELLIGENCE-ROADMAP.md`, `JRX-LLM-ROUTING-GLOBAL.md`).

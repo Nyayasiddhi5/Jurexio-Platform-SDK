@@ -1,6 +1,7 @@
 # JRX SOC 2 Type II & ISO/IEC 42001 — auditor engagement pack
 
 **Compliance GO:** 2026-10-21  
+**Cover letter (PDF-ready):** [JRX-SOC2-AUDITOR-COVER-LETTER.md](./JRX-SOC2-AUDITOR-COVER-LETTER.md)  
 **System:** Jurexio Enterprise Platform — `https://jurexio.nyayasiddhi.online`  
 **Infrastructure (existing — no new infra):** EC2 `i-0fb470b236c14405b`, RDS `jrx-enterprise-pg`, SSM `/jurexio/prod/*`, ALB TLS  
 **Parent evidence map:** [JRX-SOC2-ISO42001-EVIDENCE-PROGRAM.md](./JRX-SOC2-ISO42001-EVIDENCE-PROGRAM.md)

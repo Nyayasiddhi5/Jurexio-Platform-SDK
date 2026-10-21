@@ -6,6 +6,7 @@
 
 | Timestamp | Status | Owner | Area | Summary | Evidence |
 |-----------|--------|-------|------|---------|----------|
+| 2026-10-21T10:35:00Z | DONE | Cursor Agent | JRX-E1-COVER-LETTER-001 | SOC2 auditor cover letter; E1 official corpus ingest scaffold (UK/US live fetch, IN/EU paths); `e1:corpus:ingest` npm scripts. | `JRX-SOC2-AUDITOR-COVER-LETTER.md`; `jrx-official-corpus-e1-service.ts` |
 | 2026-10-21T10:15:00Z | DONE | Cursor Agent | JRX-GLOBAL-LEGAL-INTELLIGENCE-001 | Global legal roadmap docs; `global:corpus:ingest` (6 jx); Auto-RAG `crossJurisdiction` + Queen/orchestrate/legal-chat wiring; LLM routing doc. | `JRX-GLOBAL-LEGAL-INTELLIGENCE-ROADMAP.md`; `jrx-global-corpus-ingest.ts`; `jrx-auto-rag-router.ts` |
 | 2026-10-21T05:05:00Z | DONE | Cursor Agent | JRX-US-CORPUS-COMPLIANCE-GO-001 | US GO: real `jrx-us-corpus-ingest` (RDS statutes/courts/RAG); Compliance GO auditor pack; existing SSM/infra only. | `scripts/jrx-us-corpus-ingest.ts`; `JRX-SOC2-ISO42001-AUDITOR-PACK.md` |
 | 2026-10-21T04:55:00Z | DONE | Cursor Agent | JRX-ROADMAP-A-E-001 | Roadmap A–E code/docs: GC/GCC harmonize, remove duplicate nv-agents-registry, jurisdiction template packs (6), US docparse domain stubs, IN/US e-filing adapters, SOC2/ISO evidence program, GRPO/A2A integration docs. | branch `cursor/jrx-roadmap-a-e-closeout`; `guardrail:jrx-brands` PASS |
