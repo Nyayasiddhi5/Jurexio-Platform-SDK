@@ -615,6 +615,20 @@ async function shouldSeed(): Promise<boolean> {
   }
 }
 
+/** Force upsert statutes for selected jurisdictions (e.g. US GO corpus ingest). */
+export async function seedStatutesForJurisdictions(
+  jurisdictions: string[],
+): Promise<{ seeded: number; jurisdictions: string[]; status: string }> {
+  const codes = new Set(jurisdictions.map((j) => j.toUpperCase()));
+  await ensureStatuteTable();
+  const subset = getAllSeedStatutes().filter((s) => codes.has(s.jurisdiction.toUpperCase()));
+  if (subset.length === 0) {
+    return { seeded: 0, jurisdictions: [...codes], status: 'no_statutes_for_jurisdiction' };
+  }
+  const seeded = await batchUpsertStatutes(subset);
+  return { seeded, jurisdictions: [...codes], status: 'seeded' };
+}
+
 export async function seedStatuteDatabase(): Promise<{ seeded: number; jurisdictions: string[]; status: string }> {
   try {
     await ensureStatuteTable();

@@ -2,6 +2,12 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-US-CORPUS-COMPLIANCE-GO-001 (2026-10-21)
+
+- US corpus ingest: `scripts/jrx-us-corpus-ingest.ts` + SSM wrapper; `seedStatutesForJurisdictions(['US'])`; npm `us:corpus:ingest` / `:ec2`.
+- Compliance GO: `JRX-SOC2-ISO42001-AUDITOR-PACK.md` (auditor engagement exhibits + test procedures).
+- Removed dry-run stub `jrx-us-corpus-ingest-stub.sh`.
+
 ### Added — JRX-ROADMAP-A-E-001 (2026-10-21)
 
 - Phase A: **GC** canonical jurisdiction code (GCC alias), removed duplicate `src/data/nv-agents-registry.json`, Jurexio partner UI labels.

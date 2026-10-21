@@ -6,6 +6,7 @@
 
 | Timestamp | Status | Owner | Area | Summary | Evidence |
 |-----------|--------|-------|------|---------|----------|
+| 2026-10-21T05:05:00Z | DONE | Cursor Agent | JRX-US-CORPUS-COMPLIANCE-GO-001 | US GO: real `jrx-us-corpus-ingest` (RDS statutes/courts/RAG); Compliance GO auditor pack; existing SSM/infra only. | `scripts/jrx-us-corpus-ingest.ts`; `JRX-SOC2-ISO42001-AUDITOR-PACK.md` |
 | 2026-10-21T04:55:00Z | DONE | Cursor Agent | JRX-ROADMAP-A-E-001 | Roadmap A–E code/docs: GC/GCC harmonize, remove duplicate nv-agents-registry, jurisdiction template packs (6), US docparse domain stubs, IN/US e-filing adapters, SOC2/ISO evidence program, GRPO/A2A integration docs. | branch `cursor/jrx-roadmap-a-e-closeout`; `guardrail:jrx-brands` PASS |
 | 2026-10-20T17:05:00Z | DONE | Cursor Agent | JRX-PARTNER-SMOKE-SCRIPTS-001 | Restore partner smoke shell scripts referenced by `package.json` (SSM EC2 + local HTTPS); ops doc in `JRX-FRONTEND-INTEGRATION.md`. | `scripts/jrx-partner-smoke.sh`; public health probe 200 |
 | 2026-10-20T16:35:00Z | DONE | Cursor Agent | JRX-P0-SDK-READY-001 | P0 audit closeout: `@jurexio/client-sdk@5.0.0`, universal/legal chat SDK APIs, CORS+auth docs, JRX web quickstart proxy paths; guardrail + client-sdk build. | PR `feat/jrx-p0-sdk-ready`; `npm run guardrail:jrx-brands`; `packages/client-sdk` tsc |

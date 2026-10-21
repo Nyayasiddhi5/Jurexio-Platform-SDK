@@ -26,3 +26,5 @@
 1. Export last 90d `Project-Tracker.md` + deploy SSM command IDs.  
 2. Provide access review for super_admin accounts.  
 3. Engage SOC 2 auditor when production steady on `main`.
+
+**Compliance GO (2026-10-21):** Full auditor engagement pack → [JRX-SOC2-ISO42001-AUDITOR-PACK.md](./JRX-SOC2-ISO42001-AUDITOR-PACK.md).

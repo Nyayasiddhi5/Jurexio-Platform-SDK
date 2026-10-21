@@ -20,6 +20,16 @@
 
 Court credentials are operator-supplied (never in git).
 
-## Phase B — US corpus
+## Phase B — US corpus (GO 2026-10-21)
 
-Run `bash scripts/jrx-us-corpus-ingest-stub.sh` until full ingest pipeline is scheduled.
+**Existing JRX RDS only** (no new S3/infra until confirmed):
+
+```bash
+# Local (DATABASE_URL from SSM mirror):
+npm run us:corpus:ingest
+
+# Production EC2 via SSM:
+npm run us:corpus:ingest:ec2
+```
+
+Script: `scripts/jrx-us-corpus-ingest.ts` — US statutes upsert, US courts seed, optional `RAG_BACKFILL=1`.
