@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { p } from '@/lib/jrx-api-paths';
+import { compareJurisdictionCodes, JRX_JURISDICTION_ORDER_LABEL } from '@shared/jrx-jurisdiction-catalog';
 import { getAuthToken } from '@/lib/jrx-auth-token';
 
 type RegistryStats = {
@@ -56,7 +57,7 @@ export default function JurisdictionMapping() {
   const byJur = useMemo(() => {
     const m = new Map<string, number>();
     for (const a of agents) m.set(a.jurisdiction, (m.get(a.jurisdiction) ?? 0) + 1);
-    return Array.from(m.entries()).sort((a, b) => b[1] - a[1]);
+    return Array.from(m.entries()).sort((a, b) => compareJurisdictionCodes(a[0], b[0]));
   }, [agents]);
 
   return (
@@ -67,7 +68,7 @@ export default function JurisdictionMapping() {
             <Map className="w-6 h-6" /> Jurisdiction Mapping
           </h1>
           <p className="text-sm text-slate-600 mt-1">
-            {stats?.totalAgents ?? agents.length} agents across {byJur.length} jurisdiction registries.
+            {stats?.totalAgents ?? agents.length} agents · {JRX_JURISDICTION_ORDER_LABEL} workflow order (USA & India first).
           </p>
         </div>
         <Button variant="outline" size="sm" onClick={() => { statsQ.refetch(); agentsQ.refetch(); }} disabled={statsQ.isFetching || agentsQ.isFetching}>

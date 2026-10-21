@@ -42,6 +42,7 @@ import PartnerSmokePanel from '@/components/admin/PartnerSmokePanel';
 import { hasAccess, type RoleLevel } from '@/lib/rbac-registry';
 import { NV_REGISTRY_DEFAULTS } from '@/hooks/useNvRegistryMeta';
 import { JrxPageShell } from '@/components/JrxPageShell';
+import { JRX_JURISDICTION_CATALOG, JRX_JURISDICTION_ORDER_LABEL } from '@/constants/jrx-jurisdictions';
 import { extractModelCatalogRows } from '@/hooks/useNvModelCatalog';
 // ── tiny fetch helper that swallows errors so one 404 doesn't break the page ─
 async function safeGet<T = any>(url: string): Promise<T | null> {
@@ -335,7 +336,7 @@ export default function ConsoleDashboard() {
     <JrxPageShell
       className="./jrx-light-scope mx-auto max-w-7xl"
       title={`Welcome back, ${displayName}`}
-      description="Live snapshot of platform health, Instant Search, Legal Feed, and approvals. SDK 5.0.7 · NSP/NYM best-outcome on orchestrate."
+      description={`Six-jurisdiction legal AI (${JRX_JURISDICTION_ORDER_LABEL}) — USA & India lead workflows, corpus, drafting, and case intelligence. Live health, agents, and approvals.`}
       actions={
         <Badge variant="outline" className="gap-1 border-border bg-card text-muted-foreground">
           <Clock className="h-3 w-3" aria-hidden="true" />
@@ -381,6 +382,15 @@ export default function ConsoleDashboard() {
             tone={healingOk ? 'ok' : (healing.data ? 'warn' : 'neutral')}
             loading={healing.isLoading}
           />
+        </section>
+
+        <section aria-label="Jurisdiction coverage" className="flex flex-wrap gap-2">
+          {JRX_JURISDICTION_CATALOG.map((j) => (
+            <Badge key={j.code} variant="outline" className="border-[#C7B15B]/40 bg-white text-slate-800 gap-1">
+              <span aria-hidden="true">{j.flag}</span>
+              {j.code} · {j.name}
+            </Badge>
+          ))}
         </section>
 
         <section aria-label="Governance posture" className="flex flex-wrap gap-2">

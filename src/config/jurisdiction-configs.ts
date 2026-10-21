@@ -1,4 +1,5 @@
 import { createLogger } from '../utils/logger.js';
+import { sortJurisdictionCatalog } from '../../shared/jrx-jurisdiction-catalog.js';
 import {
   getRegistryFile,
   resolveAgentId,
@@ -194,16 +195,18 @@ export function getJurisdictionStats(): {
   ensureLoaded();
   return {
     totalAgents: allJurisdictionAgents.length,
-    jurisdictions: Array.from(jurisdictionRegistries.entries())
-      .filter(([code]) => code !== 'DEFAULT')
-      .map(([code, registry]) => ({
-        code,
-        name: registry.jurisdictionName,
-        agentCount: registry.totalAgents,
-        courts: 0,
-        statutes: 0,
-        practiceAreas: registry.practiceAreas.length,
-      })),
+    jurisdictions: sortJurisdictionCatalog(
+      Array.from(jurisdictionRegistries.entries())
+        .filter(([code]) => code !== 'DEFAULT')
+        .map(([code, registry]) => ({
+          code,
+          name: registry.jurisdictionName,
+          agentCount: registry.totalAgents,
+          courts: 0,
+          statutes: 0,
+          practiceAreas: registry.practiceAreas.length,
+        })),
+    ),
   };
 }
 

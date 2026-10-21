@@ -7,15 +7,9 @@ import {
   Coins, Brain, Code2, Eye,
 } from 'lucide-react';
 import { BRAND } from './brand';
+import { JRX_JURISDICTION_CATALOG } from '@shared/jrx-jurisdiction-catalog';
 
-const JURISDICTIONS: Array<{ code: string; label: string }> = [
-  { code: 'IN', label: 'India' },
-  { code: 'UK', label: 'United Kingdom' },
-  { code: 'US', label: 'United States' },
-  { code: 'EU', label: 'European Union' },
-  { code: 'SG', label: 'Singapore' },
-  { code: 'GC', label: 'GCC' },
-];
+const JURISDICTIONS = JRX_JURISDICTION_CATALOG.map((j) => ({ code: j.code, label: j.name }));
 const TIERS: Array<{ value: string; label: string; hint: string }> = [
   { value: 'solo', label: 'Solo', hint: 'Individual practitioner' },
   { value: 'pro', label: 'Pro', hint: 'Law firm — recommended' },
@@ -132,7 +126,7 @@ export function Sidebar({ state, onChange }: SidebarProps) {
   const [filterModel, setFilterModel] = useState('');
   const [uploading, setUploading] = useState(false);
 
-  const primaryJ = state.jurisdictions[0] || 'IN';
+  const primaryJ = state.jurisdictions[0] || 'US';
   useEffect(() => {
     legalChatApi
       .listAgents(primaryJ)

@@ -22,7 +22,7 @@ export default function LegalChatPage() {
   const [tab, setTab] = useState<'chat' | 'allocations'>('chat');
 
   const [sidebar, setSidebar] = useState<SidebarState>({
-    jurisdictions: ['IN'],
+    jurisdictions: ['US', 'IN'],
     tier: 'pro',
     mode: 'chat',
     preferCheaper: false,

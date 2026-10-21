@@ -22,6 +22,7 @@ import {
   getAllJurisdictionAgents,
   resolveJurisdictionAgent,
 } from '../config/jurisdiction-configs.js';
+import { sortJurisdictionCatalog } from '../../shared/jrx-jurisdiction-catalog.js';
 
 const logger = createLogger('jurisdiction-routes');
 
@@ -229,13 +230,15 @@ router.get('/registries/stats', async (_req: Request, res: Response) => {
 
     let totalStatutes = 0;
     let totalCourts = 0;
-    const jurisdictions = stats.jurisdictions.map((j) => {
-      const statutes = statuteByJur.get(String(j.code).toUpperCase()) ?? 0;
-      const courts = courtByJur.get(String(j.code).toUpperCase()) ?? 0;
-      totalStatutes += statutes;
-      totalCourts += courts;
-      return { ...j, statutes, courts };
-    });
+    const jurisdictions = sortJurisdictionCatalog(
+      stats.jurisdictions.map((j) => {
+        const statutes = statuteByJur.get(String(j.code).toUpperCase()) ?? 0;
+        const courts = courtByJur.get(String(j.code).toUpperCase()) ?? 0;
+        totalStatutes += statutes;
+        totalCourts += courts;
+        return { ...j, statutes, courts };
+      }),
+    );
 
     res.json({ success: true, data: { ...stats, jurisdictions, totalStatutes, totalCourts } });
   } catch (error: any) {

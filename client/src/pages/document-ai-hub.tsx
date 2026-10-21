@@ -41,7 +41,7 @@ const QUICK_LINKS = [
 
 export default function DocumentAiHub() {
   const [, navigate] = useLocation();
-  const [jurisdiction, setJurisdiction] = useState('IN');
+  const [jurisdiction, setJurisdiction] = useState('US');
 
   const { data: healthRaw } = useQuery({
     queryKey: [nv('health')],
@@ -113,7 +113,7 @@ export default function DocumentAiHub() {
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         {[
           { label: 'Statute Sections', value: statuteTotal.toLocaleString(), sub: statuteEmbedPct != null ? `NYS Knowledge Plane · embed ${statuteEmbedPct}%` : 'Knowledge Plane + local overlay' },
-          { label: 'Jurisdictions', value: jurisdictions.filter(j => j.statutes > 0).length || 6, sub: 'IN·UK·EU·US·SG·GCC' },
+          { label: 'Jurisdictions', value: jurisdictions.filter(j => j.statutes > 0).length || 6, sub: 'US·IN·UK·EU·SG·GC' },
           { label: 'RAG Namespaces', value: ragCollections || '—', sub: 'Tenant vector collections' },
           { label: 'Platform', value: health.registryVersion ?? JRX_REGISTRY_RUNTIME.registryVersion, sub: `${health.totalAgents ?? JRX_REGISTRY_RUNTIME.totalAgents} agents` },
         ].map(k => (

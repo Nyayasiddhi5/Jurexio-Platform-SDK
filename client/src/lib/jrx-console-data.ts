@@ -3,6 +3,7 @@
  * apiRequest wraps bare arrays as `{ data: T[] }` via makeResult().
  */
 import { JRX_REGISTRY_RUNTIME } from '@/lib/jrx-registry-stats';
+import { JRX_JURISDICTION_CATALOG, compareJurisdictionCodes } from '@shared/jrx-jurisdiction-catalog';
 
 export function nvAsArray(payload: unknown): any[] {
   if (Array.isArray(payload)) return payload;
@@ -50,14 +51,11 @@ export function nvAgentCount(agentPayload: unknown, healthPayload?: unknown): nu
   return JRX_REGISTRY_RUNTIME.totalAgents;
 }
 
-export const NV_JURISDICTION_META = [
-  { code: 'IN', name: 'India', flag: '🇮🇳' },
-  { code: 'UK', name: 'United Kingdom', flag: '🇬🇧' },
-  { code: 'EU', name: 'European Union', flag: '🇪🇺' },
-  { code: 'US', name: 'United States', flag: '🇺🇸' },
-  { code: 'SG', name: 'Singapore', flag: '🇸🇬' },
-  { code: 'GC', name: 'GCC', flag: '🕌' },
-] as const;
+export const NV_JURISDICTION_META = JRX_JURISDICTION_CATALOG.map((j) => ({
+  code: j.code,
+  name: j.name,
+  flag: j.flag,
+}));
 
 export function nvJurisdictionsFromStatutesSummary(summary: unknown): Array<{
   code: string; name: string; flag: string; statutes: number; active: boolean;
@@ -77,6 +75,6 @@ export function nvJurisdictionsFromStatutesSummary(summary: unknown): Array<{
   return NV_JURISDICTION_META.map(j => ({
     ...j,
     statutes: countMap[j.code] ?? 0,
-    active: (countMap[j.code] ?? 0) > 0 || j.code === 'IN',
+    active: (countMap[j.code] ?? 0) > 0 || j.code === 'US' || j.code === 'IN',
   }));
 }
