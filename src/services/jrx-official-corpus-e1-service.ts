@@ -41,12 +41,17 @@ export async function fetchUkOfficialSample(limit: number): Promise<StatuteSecti
   const actTitle = 'Equality Act 2010';
   const actShort = 'UK-EQA-2010';
   const sections: StatuteSection[] = [];
-  const re = /<Section[^>]*>\s*<Number>([^<]+)<\/Number>\s*<Title>([^<]*)<\/Title>[\s\S]*?<Content>([\s\S]*?)<\/Content>/gi;
+  const re =
+    /<P1[^>]*\bid="section-(\d+)"[^>]*>([\s\S]*?)<\/P1>/gi;
   let m: RegExpExecArray | null;
   while ((m = re.exec(xml)) && sections.length < limit) {
     const sectionNumber = m[1].trim();
-    const sectionTitle = m[2].trim() || `Section ${sectionNumber}`;
-    const sectionText = m[3].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 8000);
+    const block = m[2];
+    const titleMatch = block.match(/<P1para[^>]*>([\s\S]*?)<\/P1para>/i);
+    const sectionTitle = titleMatch
+      ? titleMatch[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 500)
+      : `Section ${sectionNumber}`;
+    const sectionText = block.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 8000);
     if (!sectionText) continue;
     sections.push({
       actTitle,
