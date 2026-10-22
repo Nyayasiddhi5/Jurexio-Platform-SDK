@@ -219,6 +219,7 @@ import nvPlatformsRouter from './routes/jrx-platforms-routes.js';
 import nvSdkProvisionRouter from './routes/jrx-sdk-provision-routes.js';
 import nvCustomerOrgsRouter from './routes/jrx-customer-orgs-routes.js';
 import nvPlatformLimitsRouter from './routes/jrx-platform-limits-routes.js';
+import nvPlatformAccessRouter from './routes/jrx-platform-access-routes.js';
 import nvSuperOrgsRouter from './routes/jrx-super-orgs-routes.js';
 import nvSdkKeylifeRouter from './routes/jrx-sdk-keylife-routes.js';
 import nvUserProfileRouter from './routes/jrx-user-profile-routes.js';
@@ -978,6 +979,7 @@ app.use('/api/jrx/sdk', nvSdkProvisionRouter);
 // authenticateToken() doesn't 401 our SDK-key callers.
 app.use('/api/jrx/sdk/customer-orgs', nvCustomerOrgsRouter);
 app.use('/api/jrx/sdk/platform', nvPlatformLimitsRouter);
+app.use('/api/jrx/platform/access', nvPlatformAccessRouter);
 // Task #384: super-org admin endpoints (X-API-Key auth, admin-scope gated).
 // Lets ONE enterprise customer use multiple Jurexio products under one
 // account (NSP + NSI + NSM ⇒ ONE login / ONE bill). Grouping/UI/billing

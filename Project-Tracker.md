@@ -6,6 +6,7 @@
 
 | Timestamp | Status | Owner | Area | Summary | Evidence |
 |-----------|--------|-------|------|---------|----------|
+| 2026-10-22T14:30:00Z | DONE | Cursor Agent | JRX-REGISTRY-V1-ADOPTION-001 | Chairman 25 Oct: adopt events/permissions/gates v1 (758 critical flags, 144 permission renames), role templates + SoD + L1–L9 map, CTO gate memo, working RFCs, access evaluate stub; `registry:validate` OK. | `jurexio-specs/registry/`; `JRX-REGISTRY-V1-ADOPTION-2026-10-25.md`; `npm run registry:validate` |
 | 2026-10-22T08:15:00Z | DONE | Cursor Agent | JRX-SPEC-PACK-IMPORT-001 | Chairman GO: import `jurexio-specs/` (14 specs + registries); CI `validate.py`; `npm run registry:validate`. | `jurexio-specs/`; `.github/workflows/jrx-ci.yml`; `JRX-SPEC-PACK-REPO-IMPORT.md` |
 | 2026-10-22T11:45:00Z | DONE | Cursor Agent | JRX-P1-GLOBAL-STANDARDS-001 | P1 closeout: CI guardrail+build+focused tests+audit; Dependabot; restored guardrail scripts; MCP stub honesty; A2A HMAC boot gate; OpenAPI baseline regen. | `.github/workflows/jrx-ci.yml`; local guardrail PASS; `/cursor/stores/self/internal/jrx-p1-ci-proof-2026-10-22.txt` |
 | 2026-10-22T06:00:00Z | DONE | Cursor Agent | JRX-QUALITY-SECURITY-AUDIT-001 | Platform quality/security audit docs; safe calculator (no Function); microservices standard. | `JRX-PLATFORM-QUALITY-SECURITY-AUDIT-2026-10-22.md`; `jrx-safe-calculator.ts` |

@@ -61,16 +61,17 @@
             ]
           },
           "critical": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           },
           "maps_to": {
             "type": [
               "string",
               "null"
             ]
+          },
+          "alias_sunset": {
+            "type": "string",
+            "format": "date"
           }
         },
         "additionalProperties": false

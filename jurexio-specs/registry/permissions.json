@@ -1,12 +1,87 @@
 {
   "_meta": {
-    "version": "0.1.0-proposed",
+    "version": "1.0.0-adopted",
     "generated": "2026-10-21",
     "naming": "module.object.action; gate-derived permissions use module.g_nn_nn.decide until the CTO names them",
     "protected": "Protected permissions need dual approval to add to a role (M11 D2) and step-up to use (M11 D4)",
-    "authority": "Proposed seed; Permission catalogue v1 (CTO) is authoritative"
+    "authority": "Proposed seed; Permission catalogue v1 (CTO) is authoritative",
+    "adopted_on": "2026-10-22",
+    "adopted_by": "CTO Permission catalogue v1",
+    "permission_renames_from_gate_placeholders": 144
   },
   "permissions": [
+    {
+      "id": "access.activate_just_in_time_elevation.decide",
+      "module": "M11",
+      "description": "Activate just-in-time elevation",
+      "gates": [
+        "G-11-06"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "access.add_a_protected_permission_to_a_role.decide",
+      "module": "M11",
+      "description": "Add a protected permission to a role",
+      "gates": [
+        "G-11-03"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "access.approve_an_external_user.decide",
+      "module": "M11",
+      "description": "Approve an external user",
+      "gates": [
+        "G-11-13"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "access.assign_or_change_a_person_s_role_and_scopes.decide",
+      "module": "M11",
+      "description": "Assign or change a person's role and scopes",
+      "gates": [
+        "G-11-04"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "access.create_or_change_a_unit_that_sets_a_jurisdiction_or_data.decide",
+      "module": "M11",
+      "description": "Create or change a unit that sets a jurisdiction or data region",
+      "gates": [
+        "G-11-01"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "access.platform_break_glass_access_to_a_tenant.decide",
+      "module": "M11",
+      "description": "Platform break-glass access to a tenant",
+      "gates": [
+        "G-11-11"
+      ],
+      "scope": "platform",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
     {
       "id": "access.policy.change",
       "module": "M11",
@@ -17,7 +92,43 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
+    },
+    {
+      "id": "access.publish_a_permission_catalogue_template_or_separation_of.decide",
+      "module": "M11",
+      "description": "Publish a permission catalogue, template or separation-of-duties version",
+      "gates": [
+        "G-11-12"
+      ],
+      "scope": "platform",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "access.recertify_access.decide",
+      "module": "M11",
+      "description": "Recertify access",
+      "gates": [
+        "G-11-08"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "access.relocate_a_person_s_identity_record_to_another_region.decide",
+      "module": "M11",
+      "description": "Relocate a person's identity record to another region",
+      "gates": [
+        "G-11-14"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
     },
     {
       "id": "access.revoke.emergency",
@@ -29,7 +140,7 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
       "id": "access.role.manage",
@@ -41,7 +152,7 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
       "id": "access.support.grant",
@@ -53,586 +164,10 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "billguard.g_06_01.decide",
-      "module": "M06",
-      "description": "Confirm a time entry (including from an AI suggestion)",
-      "gates": [
-        "G-06-01"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_02.decide",
-      "module": "M06",
-      "description": "Approve a pre-bill and issue the invoice",
-      "gates": [
-        "G-06-02"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_03.decide",
-      "module": "M06",
-      "description": "Approve a write-down",
-      "gates": [
-        "G-06-03"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_04.decide",
-      "module": "M06",
-      "description": "Approve a write-up under the engagement",
-      "gates": [
-        "G-06-04"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_05.decide",
-      "module": "M06",
-      "description": "Issue a credit note or discount",
-      "gates": [
-        "G-06-05"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_06.decide",
-      "module": "M06",
-      "description": "Write off a receivable",
-      "gates": [
-        "G-06-06"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_07.decide",
-      "module": "M06",
-      "description": "Reverse a write-off",
-      "gates": [
-        "G-06-07"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_08.decide",
-      "module": "M06",
-      "description": "Publish a firm-wide rate card version",
-      "gates": [
-        "G-06-08"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_09.decide",
-      "module": "M06",
-      "description": "Set a matter-specific rate",
-      "gates": [
-        "G-06-09"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_10.decide",
-      "module": "M06",
-      "description": "Confirm structured billing-guideline rules",
-      "gates": [
-        "G-06-10"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_11.decide",
-      "module": "M06",
-      "description": "Set or revise a budget; decide an overrun",
-      "gates": [
-        "G-06-11"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_12.decide",
-      "module": "M06",
-      "description": "Decide an outside-counsel invoice line",
-      "gates": [
-        "G-06-12"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_13.decide",
-      "module": "M06",
-      "description": "Approve an outside-counsel invoice for payment",
-      "gates": [
-        "G-06-13"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_14.decide",
-      "module": "M06",
-      "description": "Record and classify a receipt (office or client money)",
-      "gates": [
-        "G-06-14"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_15.decide",
-      "module": "M06",
-      "description": "Apply client money to a fee invoice",
-      "gates": [
-        "G-06-15"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_16.decide",
-      "module": "M06",
-      "description": "Request a disbursement from client money",
-      "gates": [
-        "G-06-16"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_17.decide",
-      "module": "M06",
-      "description": "Sign off the monthly three-way reconciliation",
-      "gates": [
-        "G-06-17"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_18.decide",
-      "module": "M06",
-      "description": "Send an escalated reminder or demand",
-      "gates": [
-        "G-06-18"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_19.decide",
-      "module": "M06",
-      "description": "Record a refund",
-      "gates": [
-        "G-06-19"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_20.decide",
-      "module": "M06",
-      "description": "Close a financial period",
-      "gates": [
-        "G-06-20"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "billguard.g_06_21.decide",
-      "module": "M06",
-      "description": "Move full invoice detail across jurisdictions",
-      "gates": [
-        "G-06-21"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_01.decide",
-      "module": "M08",
-      "description": "Enable a matter for a client contact",
-      "gates": [
-        "G-08-01"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_02.decide",
-      "module": "M08",
-      "description": "Publish a status, date or update item, or set a standing publication rule",
-      "gates": [
-        "G-08-02"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_03.decide",
-      "module": "M08",
-      "description": "Approve a plain-language summary for a client",
-      "gates": [
-        "G-08-03"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_04.decide",
-      "module": "M08",
-      "description": "Approve a colleague requested by a client admin",
-      "gates": [
-        "G-08-04"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_05.decide",
-      "module": "M08",
-      "description": "Issue a structured request to a client or location owner",
-      "gates": [
-        "G-08-05"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_06.decide",
-      "module": "M08",
-      "description": "Respond to a request (instruct, approve, consent, attest)",
-      "gates": [
-        "G-08-06"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_07.decide",
-      "module": "M08",
-      "description": "Revoke an instruction or consent",
-      "gates": [
-        "G-08-07"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_08.decide",
-      "module": "M08",
-      "description": "Decide an attested location obligation (Met or not)",
-      "gates": [
-        "G-08-08"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_09.decide",
-      "module": "M08",
-      "description": "Approve reuse of location evidence for another location",
-      "gates": [
-        "G-08-09"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_10.decide",
-      "module": "M08",
-      "description": "Convert a client message into a formal instruction record",
-      "gates": [
-        "G-08-10"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_11.decide",
-      "module": "M08",
-      "description": "Send an AI-drafted reply",
-      "gates": [
-        "G-08-11"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_12.decide",
-      "module": "M08",
-      "description": "Approve client-facing content in another language",
-      "gates": [
-        "G-08-12"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_13.decide",
-      "module": "M08",
-      "description": "Change the firm's verified payment details",
-      "gates": [
-        "G-08-13"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_14.decide",
-      "module": "M08",
-      "description": "Unpublish an item",
-      "gates": [
-        "G-08-14"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "clientbridge.g_08_15.decide",
-      "module": "M08",
-      "description": "Suspend a client account on a security concern",
-      "gates": [
-        "G-08-15"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "cloudvault.g_13_01.decide",
-      "module": "M13",
-      "description": "Approve or change a pack's primary or recovery location",
-      "gates": [
-        "G-13-01"
-      ],
-      "scope": "platform",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "cloudvault.g_13_02.decide",
-      "module": "M13",
-      "description": "Connect bring-your-own-storage",
-      "gates": [
-        "G-13-02"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "cloudvault.g_13_03.decide",
-      "module": "M13",
-      "description": "Enable a customer-managed key, acknowledging that revocation stops service",
-      "gates": [
-        "G-13-03"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "cloudvault.g_13_04.decide",
-      "module": "M13",
-      "description": "Confirm receipt of the exit export",
-      "gates": [
-        "G-13-04"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "cloudvault.g_13_05.decide",
-      "module": "M13",
-      "description": "Destroy a tenant key at exit",
-      "gates": [
-        "G-13-05"
-      ],
-      "scope": "platform",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "cloudvault.g_13_06.decide",
-      "module": "M13",
-      "description": "Approve a bulk disposal batch",
-      "gates": [
-        "G-13-06"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "cloudvault.g_13_07.decide",
-      "module": "M13",
-      "description": "Invoke region failover",
-      "gates": [
-        "G-13-07"
-      ],
-      "scope": "platform",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "cloudvault.g_13_08.decide",
-      "module": "M13",
-      "description": "Request a single-tenant restore",
-      "gates": [
-        "G-13-08"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "cloudvault.g_13_09.decide",
-      "module": "M13",
-      "description": "Release the Dedicated or Sovereign edition for a client",
-      "gates": [
-        "G-13-09"
-      ],
-      "scope": "platform",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "commandcentre.g_11_01.decide",
-      "module": "M11",
-      "description": "Create or change a unit that sets a jurisdiction or data region",
-      "gates": [
-        "G-11-01"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "commandcentre.g_11_03.decide",
-      "module": "M11",
-      "description": "Add a protected permission to a role",
-      "gates": [
-        "G-11-03"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "commandcentre.g_11_04.decide",
-      "module": "M11",
-      "description": "Assign or change a person's role and scopes",
-      "gates": [
-        "G-11-04"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "commandcentre.g_11_05.decide",
+      "id": "access.verify_a_professional_credential_or_a_competence_e_g_hin.decide",
       "module": "M11",
       "description": "Verify a professional credential or a competence (e.g. Hindi)",
       "gates": [
@@ -641,286 +176,502 @@
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "commandcentre.g_11_06.decide",
-      "module": "M11",
-      "description": "Activate just-in-time elevation",
+      "id": "billguard.apply_client_money_to_a_fee_invoice.decide",
+      "module": "M06",
+      "description": "Apply client money to a fee invoice",
       "gates": [
-        "G-11-06"
+        "G-06-15"
       ],
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "commandcentre.g_11_08.decide",
-      "module": "M11",
-      "description": "Recertify access",
+      "id": "billguard.approve_a_pre_bill_and_issue_the_invoice.decide",
+      "module": "M06",
+      "description": "Approve a pre-bill and issue the invoice",
       "gates": [
-        "G-11-08"
+        "G-06-02"
       ],
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "commandcentre.g_11_11.decide",
-      "module": "M11",
-      "description": "Platform break-glass access to a tenant",
+      "id": "billguard.approve_a_write_down.decide",
+      "module": "M06",
+      "description": "Approve a write-down",
       "gates": [
-        "G-11-11"
+        "G-06-03"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.approve_a_write_up_under_the_engagement.decide",
+      "module": "M06",
+      "description": "Approve a write-up under the engagement",
+      "gates": [
+        "G-06-04"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.approve_an_outside_counsel_invoice_for_payment.decide",
+      "module": "M06",
+      "description": "Approve an outside-counsel invoice for payment",
+      "gates": [
+        "G-06-13"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.close_a_financial_period.decide",
+      "module": "M06",
+      "description": "Close a financial period",
+      "gates": [
+        "G-06-20"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.confirm_a_time_entry_including_from_an_ai_suggestion.decide",
+      "module": "M06",
+      "description": "Confirm a time entry (including from an AI suggestion)",
+      "gates": [
+        "G-06-01"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.confirm_structured_billing_guideline_rules.decide",
+      "module": "M06",
+      "description": "Confirm structured billing-guideline rules",
+      "gates": [
+        "G-06-10"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.decide_an_outside_counsel_invoice_line.decide",
+      "module": "M06",
+      "description": "Decide an outside-counsel invoice line",
+      "gates": [
+        "G-06-12"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.issue_a_credit_note_or_discount.decide",
+      "module": "M06",
+      "description": "Issue a credit note or discount",
+      "gates": [
+        "G-06-05"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.move_full_invoice_detail_across_jurisdictions.decide",
+      "module": "M06",
+      "description": "Move full invoice detail across jurisdictions",
+      "gates": [
+        "G-06-21"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.publish_a_firm_wide_rate_card_version.decide",
+      "module": "M06",
+      "description": "Publish a firm-wide rate card version",
+      "gates": [
+        "G-06-08"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.record_a_refund.decide",
+      "module": "M06",
+      "description": "Record a refund",
+      "gates": [
+        "G-06-19"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.record_and_classify_a_receipt_office_or_client_money.decide",
+      "module": "M06",
+      "description": "Record and classify a receipt (office or client money)",
+      "gates": [
+        "G-06-14"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.request_a_disbursement_from_client_money.decide",
+      "module": "M06",
+      "description": "Request a disbursement from client money",
+      "gates": [
+        "G-06-16"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.reverse_a_write_off.decide",
+      "module": "M06",
+      "description": "Reverse a write-off",
+      "gates": [
+        "G-06-07"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.send_an_escalated_reminder_or_demand.decide",
+      "module": "M06",
+      "description": "Send an escalated reminder or demand",
+      "gates": [
+        "G-06-18"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.set_a_matter_specific_rate.decide",
+      "module": "M06",
+      "description": "Set a matter-specific rate",
+      "gates": [
+        "G-06-09"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.set_or_revise_a_budget_decide_an_overrun.decide",
+      "module": "M06",
+      "description": "Set or revise a budget; decide an overrun",
+      "gates": [
+        "G-06-11"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.sign_off_the_monthly_three_way_reconciliation.decide",
+      "module": "M06",
+      "description": "Sign off the monthly three-way reconciliation",
+      "gates": [
+        "G-06-17"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "billguard.write_off_a_receivable.decide",
+      "module": "M06",
+      "description": "Write off a receivable",
+      "gates": [
+        "G-06-06"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.approve_a_colleague_requested_by_a_client_admin.decide",
+      "module": "M08",
+      "description": "Approve a colleague requested by a client admin",
+      "gates": [
+        "G-08-04"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.approve_a_plain_language_summary_for_a_client.decide",
+      "module": "M08",
+      "description": "Approve a plain-language summary for a client",
+      "gates": [
+        "G-08-03"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.approve_client_facing_content_in_another_language.decide",
+      "module": "M08",
+      "description": "Approve client-facing content in another language",
+      "gates": [
+        "G-08-12"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.approve_reuse_of_location_evidence_for_another_location.decide",
+      "module": "M08",
+      "description": "Approve reuse of location evidence for another location",
+      "gates": [
+        "G-08-09"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.change_the_firm_s_verified_payment_details.decide",
+      "module": "M08",
+      "description": "Change the firm's verified payment details",
+      "gates": [
+        "G-08-13"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.convert_a_client_message_into_a_formal_instruction_recor.decide",
+      "module": "M08",
+      "description": "Convert a client message into a formal instruction record",
+      "gates": [
+        "G-08-10"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.decide_an_attested_location_obligation_met_or_not.decide",
+      "module": "M08",
+      "description": "Decide an attested location obligation (Met or not)",
+      "gates": [
+        "G-08-08"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.enable_a_matter_for_a_client_contact.decide",
+      "module": "M08",
+      "description": "Enable a matter for a client contact",
+      "gates": [
+        "G-08-01"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.issue_a_structured_request_to_a_client_or_location_owner.decide",
+      "module": "M08",
+      "description": "Issue a structured request to a client or location owner",
+      "gates": [
+        "G-08-05"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.publish_a_status_date_or_update_item_or_set_a_standing_p.decide",
+      "module": "M08",
+      "description": "Publish a status, date or update item, or set a standing publication rule",
+      "gates": [
+        "G-08-02"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.respond_to_a_request_instruct_approve_consent_attest.decide",
+      "module": "M08",
+      "description": "Respond to a request (instruct, approve, consent, attest)",
+      "gates": [
+        "G-08-06"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.revoke_an_instruction_or_consent.decide",
+      "module": "M08",
+      "description": "Revoke an instruction or consent",
+      "gates": [
+        "G-08-07"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.send_an_ai_drafted_reply.decide",
+      "module": "M08",
+      "description": "Send an AI-drafted reply",
+      "gates": [
+        "G-08-11"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.suspend_a_client_account_on_a_security_concern.decide",
+      "module": "M08",
+      "description": "Suspend a client account on a security concern",
+      "gates": [
+        "G-08-15"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "clientbridge.unpublish_an_item.decide",
+      "module": "M08",
+      "description": "Unpublish an item",
+      "gates": [
+        "G-08-14"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "comms.adapt_a_template_s_wording_for_a_tenant_within_allowed_f.decide",
+      "module": "M12",
+      "description": "Adapt a template's wording for a tenant, within allowed fields",
+      "gates": [
+        "G-12-02"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "comms.publish_a_platform_system_notice_template_version_for_a_.decide",
+      "module": "M12",
+      "description": "Publish a platform system-notice template version for a jurisdiction and language",
+      "gates": [
+        "G-12-01"
       ],
       "scope": "platform",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "commandcentre.g_11_12.decide",
-      "module": "M11",
-      "description": "Publish a permission catalogue, template or separation-of-duties version",
+      "id": "comms.record_a_client_s_channel_consent_with_evidence.decide",
+      "module": "M12",
+      "description": "Record a client's channel consent, with evidence",
       "gates": [
-        "G-11-12"
-      ],
-      "scope": "platform",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "commandcentre.g_11_13.decide",
-      "module": "M11",
-      "description": "Approve an external user",
-      "gates": [
-        "G-11-13"
+        "G-12-03"
       ],
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "commandcentre.g_11_14.decide",
-      "module": "M11",
-      "description": "Relocate a person's identity record to another region",
+      "id": "comms.register_a_personal_number_for_sms_or_voice_escalation.decide",
+      "module": "M12",
+      "description": "Register a personal number for SMS or voice escalation",
       "gates": [
-        "G-11-14"
+        "G-12-04"
       ],
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "datamigrate.g_14_01.decide",
-      "module": "M14",
-      "description": "Grant operator access; approve each content request",
+      "id": "comms.resolve_a_routing_failure.decide",
+      "module": "M12",
+      "description": "Resolve a routing failure",
       "gates": [
-        "G-14-01"
+        "G-12-05"
       ],
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "datamigrate.g_14_02.decide",
-      "module": "M14",
-      "description": "Approve mapping template; approve tag samples",
-      "gates": [
-        "G-14-02"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "datamigrate.g_14_03.decide",
-      "module": "M14",
-      "description": "Exclude a batch of records",
-      "gates": [
-        "G-14-03"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "datamigrate.g_14_04.decide",
-      "module": "M14",
-      "description": "Clear a document from privileged pending review",
-      "gates": [
-        "G-14-04"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "datamigrate.g_14_05.decide",
-      "module": "M14",
-      "description": "Approve or reverse a client merge; resolve a conflict hit",
-      "gates": [
-        "G-14-05"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "datamigrate.g_14_06.decide",
-      "module": "M14",
-      "description": "Sign off client-money reconciliation",
-      "gates": [
-        "G-14-06"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "datamigrate.g_14_07.decide",
-      "module": "M14",
-      "description": "Classify a quarantined record's jurisdiction",
-      "gates": [
-        "G-14-07"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "datamigrate.g_14_10.decide",
-      "module": "M14",
-      "description": "Decide fix-forward or rollback for a LIVE defect",
-      "gates": [
-        "G-14-10"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "datamigrate.g_14_11.decide",
-      "module": "M14",
-      "description": "Destroy migration staging",
-      "gates": [
-        "G-14-11"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "deadlineguard.g_05_01.decide",
-      "module": "M05",
-      "description": "Confirm a proposed deadline (trigger and computation)",
-      "gates": [
-        "G-05-01"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "deadlineguard.g_05_02.decide",
-      "module": "M05",
-      "description": "Resolve a source conflict",
-      "gates": [
-        "G-05-02"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "deadlineguard.g_05_03.decide",
-      "module": "M05",
-      "description": "Move later, mark not applicable, or close as created in error",
-      "gates": [
-        "G-05-03"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "deadlineguard.g_05_04.decide",
-      "module": "M05",
-      "description": "Record an extension",
-      "gates": [
-        "G-05-04"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "deadlineguard.g_05_05.decide",
-      "module": "M05",
-      "description": "Close as filed",
-      "gates": [
-        "G-05-05"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "deadlineguard.g_05_06.decide",
-      "module": "M05",
-      "description": "Re-confirm after a rule change",
-      "gates": [
-        "G-05-06"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "deadlineguard.g_05_07.decide",
-      "module": "M05",
-      "description": "Resolve a missed-deadline incident",
-      "gates": [
-        "G-05-07"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "deadlineguard.g_05_08.decide",
-      "module": "M05",
-      "description": "Decide whether to notify the professional-liability insurer",
-      "gates": [
-        "G-05-08"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "deadlineguard.g_05_09.decide",
+      "id": "deadline.accept_an_ai_suggested_checklist_item.decide",
       "module": "M05",
       "description": "Accept an AI-suggested checklist item",
       "gates": [
@@ -929,34 +680,34 @@
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "deadlineguard.g_05_10.decide",
+      "id": "deadline.close_as_filed.decide",
       "module": "M05",
-      "description": "Enable client names in calendar events for a matter",
+      "description": "Close as filed",
       "gates": [
-        "G-05-10"
+        "G-05-05"
       ],
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "deadlineguard.g_05_11.decide",
+      "id": "deadline.confirm_a_proposed_deadline_trigger_and_computation.decide",
       "module": "M05",
-      "description": "Publish a new version of a forum rule set",
+      "description": "Confirm a proposed deadline (trigger and computation)",
       "gates": [
-        "G-05-11"
+        "G-05-01"
       ],
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "deadlineguard.g_05_12.decide",
+      "id": "deadline.decide_whether_to_notify_the_client_after_a_missed_deadl.decide",
       "module": "M05",
       "description": "Decide whether to notify the client after a missed deadline, including a decision not to notify",
       "gates": [
@@ -965,7 +716,151 @@
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
+    },
+    {
+      "id": "deadline.decide_whether_to_notify_the_professional_liability_insu.decide",
+      "module": "M05",
+      "description": "Decide whether to notify the professional-liability insurer",
+      "gates": [
+        "G-05-08"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "deadline.enable_client_names_in_calendar_events_for_a_matter.decide",
+      "module": "M05",
+      "description": "Enable client names in calendar events for a matter",
+      "gates": [
+        "G-05-10"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "deadline.move_later_mark_not_applicable_or_close_as_created_in_er.decide",
+      "module": "M05",
+      "description": "Move later, mark not applicable, or close as created in error",
+      "gates": [
+        "G-05-03"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "deadline.publish_a_new_version_of_a_forum_rule_set.decide",
+      "module": "M05",
+      "description": "Publish a new version of a forum rule set",
+      "gates": [
+        "G-05-11"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "deadline.re_confirm_after_a_rule_change.decide",
+      "module": "M05",
+      "description": "Re-confirm after a rule change",
+      "gates": [
+        "G-05-06"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "deadline.record_an_extension.decide",
+      "module": "M05",
+      "description": "Record an extension",
+      "gates": [
+        "G-05-04"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "deadline.resolve_a_missed_deadline_incident.decide",
+      "module": "M05",
+      "description": "Resolve a missed-deadline incident",
+      "gates": [
+        "G-05-07"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "deadline.resolve_a_source_conflict.decide",
+      "module": "M05",
+      "description": "Resolve a source conflict",
+      "gates": [
+        "G-05-02"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "document.approve_a_production_set.decide",
+      "module": "M02",
+      "description": "Approve a production set",
+      "gates": [
+        "G-02-04"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "document.approve_a_redacted_copy.decide",
+      "module": "M02",
+      "description": "Approve a redacted copy",
+      "gates": [
+        "G-02-05"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "document.approve_a_sampled_tag_batch.decide",
+      "module": "M02",
+      "description": "Approve a sampled tag batch",
+      "gates": [
+        "G-02-10"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "document.approve_a_signing_provider_for_a_jurisdiction.decide",
+      "module": "M02",
+      "description": "Approve a signing provider for a jurisdiction",
+      "gates": [
+        "G-02-12"
+      ],
+      "scope": "platform",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
     },
     {
       "id": "document.classification.lower",
@@ -977,7 +872,19 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
+    },
+    {
+      "id": "document.confirm_the_matter_for_an_intake_item.decide",
+      "module": "M02",
+      "description": "Confirm the matter for an intake item",
+      "gates": [
+        "G-02-09"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
     },
     {
       "id": "document.filing.approve",
@@ -989,7 +896,19 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
+    },
+    {
+      "id": "document.mark_final_or_reopen_final_to_draft.decide",
+      "module": "M02",
+      "description": "Mark Final, or reopen Final to Draft",
+      "gates": [
+        "G-02-02"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
     },
     {
       "id": "document.privileged.release",
@@ -1001,58 +920,10 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "docvault.g_02_02.decide",
-      "module": "M02",
-      "description": "Mark Final, or reopen Final to Draft",
-      "gates": [
-        "G-02-02"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "docvault.g_02_04.decide",
-      "module": "M02",
-      "description": "Approve a production set",
-      "gates": [
-        "G-02-04"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "docvault.g_02_05.decide",
-      "module": "M02",
-      "description": "Approve a redacted copy",
-      "gates": [
-        "G-02-05"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "docvault.g_02_06.decide",
-      "module": "M02",
-      "description": "Send a document for e-signature",
-      "gates": [
-        "G-02-06"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "docvault.g_02_07.decide",
+      "id": "document.record_stamp_duty_handling.decide",
       "module": "M02",
       "description": "Record stamp-duty handling",
       "gates": [
@@ -1061,34 +932,22 @@
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "docvault.g_02_09.decide",
+      "id": "document.send_a_document_for_e_signature.decide",
       "module": "M02",
-      "description": "Confirm the matter for an intake item",
+      "description": "Send a document for e-signature",
       "gates": [
-        "G-02-09"
+        "G-02-06"
       ],
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "docvault.g_02_10.decide",
-      "module": "M02",
-      "description": "Approve a sampled tag batch",
-      "gates": [
-        "G-02-10"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "docvault.g_02_11.decide",
+      "id": "document.share_a_document_with_the_client_through_clientbridge.decide",
       "module": "M02",
       "description": "Share a document with the client through ClientBridge",
       "gates": [
@@ -1097,94 +956,10 @@
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "docvault.g_02_12.decide",
-      "module": "M02",
-      "description": "Approve a signing provider for a jurisdiction",
-      "gates": [
-        "G-02-12"
-      ],
-      "scope": "platform",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "engine.g_03_02.decide",
-      "module": "M03",
-      "description": "Cross-jurisdiction co-approval",
-      "gates": [
-        "G-03-02"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "engine.g_03_03.decide",
-      "module": "M03",
-      "description": "HR Tier 1 approval",
-      "gates": [
-        "G-03-03"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "engine.g_03_04.decide",
-      "module": "M03",
-      "description": "HR Tier 2 approval",
-      "gates": [
-        "G-03-04"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "engine.g_03_05.decide",
-      "module": "M03",
-      "description": "HR Tier 3 approval",
-      "gates": [
-        "G-03-05"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "engine.g_03_06.decide",
-      "module": "M03",
-      "description": "Extend a review SLA within the deadline cap",
-      "gates": [
-        "G-03-06"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "engine.g_03_08.decide",
-      "module": "M03",
-      "description": "Suspend (quality) or reinstate an agent",
-      "gates": [
-        "G-03-08"
-      ],
-      "scope": "platform",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "engine.g_03_09.decide",
+      "id": "engine.add_or_retire_a_model_in_a_jurisdiction_s_registry.decide",
       "module": "M03",
       "description": "Add or retire a model in a jurisdiction's registry",
       "gates": [
@@ -1193,7 +968,67 @@
       "scope": "platform",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
+    },
+    {
+      "id": "engine.cross_jurisdiction_co_approval.decide",
+      "module": "M03",
+      "description": "Cross-jurisdiction co-approval",
+      "gates": [
+        "G-03-02"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "engine.extend_a_review_sla_within_the_deadline_cap.decide",
+      "module": "M03",
+      "description": "Extend a review SLA within the deadline cap",
+      "gates": [
+        "G-03-06"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "engine.hr_tier_1_approval.decide",
+      "module": "M03",
+      "description": "HR Tier 1 approval",
+      "gates": [
+        "G-03-03"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "engine.hr_tier_2_approval.decide",
+      "module": "M03",
+      "description": "HR Tier 2 approval",
+      "gates": [
+        "G-03-04"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "engine.hr_tier_3_approval.decide",
+      "module": "M03",
+      "description": "HR Tier 3 approval",
+      "gates": [
+        "G-03-05"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
     },
     {
       "id": "engine.killswitch.activate",
@@ -1203,7 +1038,7 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
       "id": "engine.killswitch.reinstate",
@@ -1215,7 +1050,7 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
       "id": "engine.review.approve",
@@ -1227,7 +1062,19 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
+    },
+    {
+      "id": "engine.suspend_quality_or_reinstate_an_agent.decide",
+      "module": "M03",
+      "description": "Suspend (quality) or reinstate an agent",
+      "gates": [
+        "G-03-08"
+      ],
+      "scope": "platform",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
     },
     {
       "id": "identity.name.view",
@@ -1237,7 +1084,79 @@
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
+    },
+    {
+      "id": "ledger.accept_an_imported_history_segment.decide",
+      "module": "M09",
+      "description": "Accept an imported-history segment",
+      "gates": [
+        "G-09-06"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "ledger.add_change_or_deprecate_an_event_type_in_the_registry.decide",
+      "module": "M09",
+      "description": "Add, change or deprecate an event type in the registry",
+      "gates": [
+        "G-09-10"
+      ],
+      "scope": "platform",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "ledger.disclosure_review_of_an_evidence_package.decide",
+      "module": "M09",
+      "description": "Disclosure review of an evidence package",
+      "gates": [
+        "G-09-02"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "ledger.dispose_of_payloads_at_retention_expiry.decide",
+      "module": "M09",
+      "description": "Dispose of payloads at retention expiry",
+      "gates": [
+        "G-09-05"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "ledger.disposition_of_a_chain_break_incident.decide",
+      "module": "M09",
+      "description": "Disposition of a chain-break incident",
+      "gates": [
+        "G-09-07"
+      ],
+      "scope": "platform",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "ledger.enable_or_disable_a_client_s_audit_trail.decide",
+      "module": "M09",
+      "description": "Enable or disable a client's audit trail",
+      "gates": [
+        "G-09-08"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
     },
     {
       "id": "ledger.erasure.approve",
@@ -1249,7 +1168,7 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
       "id": "ledger.export.certify",
@@ -1261,70 +1180,10 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "ledger.g_09_02.decide",
-      "module": "M09",
-      "description": "Disclosure review of an evidence package",
-      "gates": [
-        "G-09-02"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "ledger.g_09_05.decide",
-      "module": "M09",
-      "description": "Dispose of payloads at retention expiry",
-      "gates": [
-        "G-09-05"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "ledger.g_09_06.decide",
-      "module": "M09",
-      "description": "Accept an imported-history segment",
-      "gates": [
-        "G-09-06"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "ledger.g_09_07.decide",
-      "module": "M09",
-      "description": "Disposition of a chain-break incident",
-      "gates": [
-        "G-09-07"
-      ],
-      "scope": "platform",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "ledger.g_09_08.decide",
-      "module": "M09",
-      "description": "Enable or disable a client's audit trail",
-      "gates": [
-        "G-09-08"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "ledger.g_09_09.decide",
+      "id": "ledger.grant_external_auditor_access.decide",
       "module": "M09",
       "description": "Grant external auditor access",
       "gates": [
@@ -1333,19 +1192,7 @@
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "ledger.g_09_10.decide",
-      "module": "M09",
-      "description": "Add, change or deprecate an event type in the registry",
-      "gates": [
-        "G-09-10"
-      ],
-      "scope": "platform",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
       "id": "ledger.hold.apply",
@@ -1357,22 +1204,10 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "lexgraph.g_04_01.decide",
-      "module": "M04",
-      "description": "Publish or change a country's declared coverage",
-      "gates": [
-        "G-04-01"
-      ],
-      "scope": "platform",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "lexgraph.g_04_02.decide",
+      "id": "lexgraph.add_or_remove_a_corpus_source_recording_its_ai_use_and_t.decide",
       "module": "M04",
       "description": "Add or remove a corpus source, recording its AI-use and training rights",
       "gates": [
@@ -1381,34 +1216,10 @@
       "scope": "platform",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "lexgraph.g_04_03.decide",
-      "module": "M04",
-      "description": "Verify or reject an AI-proposed treatment link",
-      "gates": [
-        "G-04-03"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "lexgraph.g_04_04.decide",
-      "module": "M04",
-      "description": "Publish a provision version or commencement status",
-      "gates": [
-        "G-04-04"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "lexgraph.g_04_05.decide",
+      "id": "lexgraph.approve_a_training_dataset_version.decide",
       "module": "M04",
       "description": "Approve a training dataset version",
       "gates": [
@@ -1417,22 +1228,10 @@
       "scope": "platform",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "lexgraph.g_04_06.decide",
-      "module": "M04",
-      "description": "Confirm anonymisation of a promoted item",
-      "gates": [
-        "G-04-06"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "lexgraph.g_04_07.decide",
+      "id": "lexgraph.approve_promotion_of_an_item.decide",
       "module": "M04",
       "description": "Approve promotion of an item",
       "gates": [
@@ -1441,34 +1240,10 @@
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "lexgraph.g_04_08.decide",
-      "module": "M04",
-      "description": "Withdraw or re-certify an item",
-      "gates": [
-        "G-04-08"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "lexgraph.g_04_09.decide",
-      "module": "M04",
-      "description": "Correct enrichment after an error report",
-      "gates": [
-        "G-04-09"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "lexgraph.g_04_10.decide",
+      "id": "lexgraph.approve_replication_of_a_corpus_or_public_law_model_to_a.decide",
       "module": "M04",
       "description": "Approve replication of a corpus or public-law model to another region",
       "gates": [
@@ -1477,7 +1252,199 @@
       "scope": "platform",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
+    },
+    {
+      "id": "lexgraph.confirm_anonymisation_of_a_promoted_item.decide",
+      "module": "M04",
+      "description": "Confirm anonymisation of a promoted item",
+      "gates": [
+        "G-04-06"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "lexgraph.correct_enrichment_after_an_error_report.decide",
+      "module": "M04",
+      "description": "Correct enrichment after an error report",
+      "gates": [
+        "G-04-09"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "lexgraph.publish_a_provision_version_or_commencement_status.decide",
+      "module": "M04",
+      "description": "Publish a provision version or commencement status",
+      "gates": [
+        "G-04-04"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "lexgraph.publish_or_change_a_country_s_declared_coverage.decide",
+      "module": "M04",
+      "description": "Publish or change a country's declared coverage",
+      "gates": [
+        "G-04-01"
+      ],
+      "scope": "platform",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "lexgraph.verify_or_reject_an_ai_proposed_treatment_link.decide",
+      "module": "M04",
+      "description": "Verify or reject an AI-proposed treatment link",
+      "gates": [
+        "G-04-03"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "lexgraph.withdraw_or_re_certify_an_item.decide",
+      "module": "M04",
+      "description": "Withdraw or re-certify an item",
+      "gates": [
+        "G-04-08"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "matter.accept_an_ai_suggested_related_entity_link.decide",
+      "module": "M01",
+      "description": "Accept an AI-suggested related-entity link",
+      "gates": [
+        "G-01-12"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "matter.approve_a_notice_to_a_former_client_about_a_wall.decide",
+      "module": "M01",
+      "description": "Approve a notice to a former client about a wall",
+      "gates": [
+        "G-01-09"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "matter.approve_closing.decide",
+      "module": "M01",
+      "description": "Approve closing",
+      "gates": [
+        "G-01-13"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "matter.approve_reopening.decide",
+      "module": "M01",
+      "description": "Approve reopening",
+      "gates": [
+        "G-01-14"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "matter.approve_the_closing_letter.decide",
+      "module": "M01",
+      "description": "Approve the closing letter",
+      "gates": [
+        "G-01-15"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "matter.classify_a_conflict_hit.decide",
+      "module": "M01",
+      "description": "Classify a conflict hit",
+      "gates": [
+        "G-01-03"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "matter.confirm_the_home_jurisdiction.decide",
+      "module": "M01",
+      "description": "Confirm the home jurisdiction",
+      "gates": [
+        "G-01-05"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "matter.create_or_extend_an_ethical_wall.decide",
+      "module": "M01",
+      "description": "Create or extend an ethical wall",
+      "gates": [
+        "G-01-07"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "matter.decline_an_intake.decide",
+      "module": "M01",
+      "description": "Decline an intake",
+      "gates": [
+        "G-01-02"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "matter.merge_or_un_merge_party_records.decide",
+      "module": "M01",
+      "description": "Merge or un-merge party records",
+      "gates": [
+        "G-01-11"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
     },
     {
       "id": "matter.open.approve",
@@ -1489,7 +1456,19 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
+    },
+    {
+      "id": "matter.record_protected_characteristic_data.decide",
+      "module": "M01",
+      "description": "Record protected-characteristic data",
+      "gates": [
+        "G-01-10"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
     },
     {
       "id": "matter.transfer.approve",
@@ -1501,7 +1480,7 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
       "id": "matter.waiver.approve",
@@ -1513,7 +1492,7 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
       "id": "matter.wall.lift",
@@ -1525,139 +1504,55 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "mattercore.g_01_02.decide",
-      "module": "M01",
-      "description": "Decline an intake",
+      "id": "migrate.approve_mapping_template_approve_tag_samples.decide",
+      "module": "M14",
+      "description": "Approve mapping template; approve tag samples",
       "gates": [
-        "G-01-02"
+        "G-14-02"
       ],
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "mattercore.g_01_03.decide",
-      "module": "M01",
-      "description": "Classify a conflict hit",
+      "id": "migrate.approve_or_reverse_a_client_merge_resolve_a_conflict_hit.decide",
+      "module": "M14",
+      "description": "Approve or reverse a client merge; resolve a conflict hit",
       "gates": [
-        "G-01-03"
+        "G-14-05"
       ],
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "mattercore.g_01_05.decide",
-      "module": "M01",
-      "description": "Confirm the home jurisdiction",
+      "id": "migrate.classify_a_quarantined_record_s_jurisdiction.decide",
+      "module": "M14",
+      "description": "Classify a quarantined record's jurisdiction",
       "gates": [
-        "G-01-05"
+        "G-14-07"
       ],
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "mattercore.g_01_07.decide",
-      "module": "M01",
-      "description": "Create or extend an ethical wall",
+      "id": "migrate.clear_a_document_from_privileged_pending_review.decide",
+      "module": "M14",
+      "description": "Clear a document from privileged pending review",
       "gates": [
-        "G-01-07"
+        "G-14-04"
       ],
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "mattercore.g_01_09.decide",
-      "module": "M01",
-      "description": "Approve a notice to a former client about a wall",
-      "gates": [
-        "G-01-09"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "mattercore.g_01_10.decide",
-      "module": "M01",
-      "description": "Record protected-characteristic data",
-      "gates": [
-        "G-01-10"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "mattercore.g_01_11.decide",
-      "module": "M01",
-      "description": "Merge or un-merge party records",
-      "gates": [
-        "G-01-11"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "mattercore.g_01_12.decide",
-      "module": "M01",
-      "description": "Accept an AI-suggested related-entity link",
-      "gates": [
-        "G-01-12"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "mattercore.g_01_13.decide",
-      "module": "M01",
-      "description": "Approve closing",
-      "gates": [
-        "G-01-13"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "mattercore.g_01_14.decide",
-      "module": "M01",
-      "description": "Approve reopening",
-      "gates": [
-        "G-01-14"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "mattercore.g_01_15.decide",
-      "module": "M01",
-      "description": "Approve the closing letter",
-      "gates": [
-        "G-01-15"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
       "id": "migrate.cutover.approve",
@@ -1669,7 +1564,55 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
+    },
+    {
+      "id": "migrate.decide_fix_forward_or_rollback_for_a_live_defect.decide",
+      "module": "M14",
+      "description": "Decide fix-forward or rollback for a LIVE defect",
+      "gates": [
+        "G-14-10"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "migrate.destroy_migration_staging.decide",
+      "module": "M14",
+      "description": "Destroy migration staging",
+      "gates": [
+        "G-14-11"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "migrate.exclude_a_batch_of_records.decide",
+      "module": "M14",
+      "description": "Exclude a batch of records",
+      "gates": [
+        "G-14-03"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "migrate.grant_operator_access_approve_each_content_request.decide",
+      "module": "M14",
+      "description": "Grant operator access; approve each content request",
+      "gates": [
+        "G-14-01"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
     },
     {
       "id": "migrate.rollback.approve",
@@ -1681,10 +1624,22 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "nexusconnect.g_10_01.decide",
+      "id": "migrate.sign_off_client_money_reconciliation.decide",
+      "module": "M14",
+      "description": "Sign off client-money reconciliation",
+      "gates": [
+        "G-14-06"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "nexus.approve_a_connector_for_a_jurisdiction_including_its_dat.decide",
       "module": "M10",
       "description": "Approve a connector for a jurisdiction, including its data-flow declaration and event subscriptions",
       "gates": [
@@ -1693,94 +1648,10 @@
       "scope": "platform",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "nexusconnect.g_10_02.decide",
-      "module": "M10",
-      "description": "Re-approve or suspend after a vendor change",
-      "gates": [
-        "G-10-02"
-      ],
-      "scope": "platform",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "nexusconnect.g_10_03.decide",
-      "module": "M10",
-      "description": "Enable a connector for tenant units",
-      "gates": [
-        "G-10-03"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "nexusconnect.g_10_04.decide",
-      "module": "M10",
-      "description": "Change a connection's scopes",
-      "gates": [
-        "G-10-04"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "nexusconnect.g_10_05.decide",
-      "module": "M10",
-      "description": "Register an inbound source or endpoint",
-      "gates": [
-        "G-10-05"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "nexusconnect.g_10_06.decide",
-      "module": "M10",
-      "description": "Release or discard a quarantined item (never malware)",
-      "gates": [
-        "G-10-06"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "nexusconnect.g_10_07.decide",
-      "module": "M10",
-      "description": "Resolve a dead-letter item",
-      "gates": [
-        "G-10-07"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "nexusconnect.g_10_08.decide",
-      "module": "M10",
-      "description": "Archive a connection",
-      "gates": [
-        "G-10-08"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "nexusconnect.g_10_09.decide",
+      "id": "nexus.approve_a_fallback_provider_pairing_for_a_jurisdiction_a.decide",
       "module": "M10",
       "description": "Approve a fallback provider pairing for a jurisdiction and purpose",
       "gates": [
@@ -1789,7 +1660,91 @@
       "scope": "platform",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
+    },
+    {
+      "id": "nexus.archive_a_connection.decide",
+      "module": "M10",
+      "description": "Archive a connection",
+      "gates": [
+        "G-10-08"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "nexus.change_a_connection_s_scopes.decide",
+      "module": "M10",
+      "description": "Change a connection's scopes",
+      "gates": [
+        "G-10-04"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "nexus.enable_a_connector_for_tenant_units.decide",
+      "module": "M10",
+      "description": "Enable a connector for tenant units",
+      "gates": [
+        "G-10-03"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "nexus.re_approve_or_suspend_after_a_vendor_change.decide",
+      "module": "M10",
+      "description": "Re-approve or suspend after a vendor change",
+      "gates": [
+        "G-10-02"
+      ],
+      "scope": "platform",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "nexus.register_an_inbound_source_or_endpoint.decide",
+      "module": "M10",
+      "description": "Register an inbound source or endpoint",
+      "gates": [
+        "G-10-05"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "nexus.release_or_discard_a_quarantined_item_never_malware.decide",
+      "module": "M10",
+      "description": "Release or discard a quarantined item (never malware)",
+      "gates": [
+        "G-10-06"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "nexus.resolve_a_dead_letter_item.decide",
+      "module": "M10",
+      "description": "Resolve a dead-letter item",
+      "gates": [
+        "G-10-07"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
     },
     {
       "id": "platform.jurisdiction.activate",
@@ -1801,166 +1756,10 @@
       "scope": "tenant",
       "protected": true,
       "step_up_required": true,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "pulsecomms.g_12_01.decide",
-      "module": "M12",
-      "description": "Publish a platform system-notice template version for a jurisdiction and language",
-      "gates": [
-        "G-12-01"
-      ],
-      "scope": "platform",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "pulsecomms.g_12_02.decide",
-      "module": "M12",
-      "description": "Adapt a template's wording for a tenant, within allowed fields",
-      "gates": [
-        "G-12-02"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "pulsecomms.g_12_03.decide",
-      "module": "M12",
-      "description": "Record a client's channel consent, with evidence",
-      "gates": [
-        "G-12-03"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "pulsecomms.g_12_04.decide",
-      "module": "M12",
-      "description": "Register a personal number for SMS or voice escalation",
-      "gates": [
-        "G-12-04"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "pulsecomms.g_12_05.decide",
-      "module": "M12",
-      "description": "Resolve a routing failure",
-      "gates": [
-        "G-12-05"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "regradar.g_07_01.decide",
-      "module": "M07",
-      "description": "Confirm, edit or reject an impact proposal",
-      "gates": [
-        "G-07-01"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "regradar.g_07_02.decide",
-      "module": "M07",
-      "description": "Assign or reassign an obligation owner and backup",
-      "gates": [
-        "G-07-02"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "regradar.g_07_03.decide",
-      "module": "M07",
-      "description": "Close an obligation or alert with its outcome",
-      "gates": [
-        "G-07-03"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "regradar.g_07_04.decide",
-      "module": "M07",
-      "description": "Attest a Lane A item",
-      "gates": [
-        "G-07-04"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "regradar.g_07_05.decide",
-      "module": "M07",
-      "description": "Decide a screening match",
-      "gates": [
-        "G-07-05"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "regradar.g_07_06.decide",
-      "module": "M07",
-      "description": "Release a blocked or frozen matter, or decline the engagement",
-      "gates": [
-        "G-07-06"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "regradar.g_07_07.decide",
-      "module": "M07",
-      "description": "Approve a client alert",
-      "gates": [
-        "G-07-07"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "regradar.g_07_08.decide",
-      "module": "M07",
-      "description": "Confirm an AI-proposed risk rating",
-      "gates": [
-        "G-07-08"
-      ],
-      "scope": "tenant",
-      "protected": false,
-      "step_up_required": false,
-      "status": "proposed-v0"
-    },
-    {
-      "id": "regradar.g_07_09.decide",
+      "id": "regradar.add_or_remove_a_monitored_source_or_sanctions_list.decide",
       "module": "M07",
       "description": "Add or remove a monitored source or sanctions list",
       "gates": [
@@ -1969,10 +1768,58 @@
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
     },
     {
-      "id": "regradar.g_07_10.decide",
+      "id": "regradar.approve_a_client_alert.decide",
+      "module": "M07",
+      "description": "Approve a client alert",
+      "gates": [
+        "G-07-07"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "regradar.assign_or_reassign_an_obligation_owner_and_backup.decide",
+      "module": "M07",
+      "description": "Assign or reassign an obligation owner and backup",
+      "gates": [
+        "G-07-02"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "regradar.attest_a_lane_a_item.decide",
+      "module": "M07",
+      "description": "Attest a Lane A item",
+      "gates": [
+        "G-07-04"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "regradar.close_an_obligation_or_alert_with_its_outcome.decide",
+      "module": "M07",
+      "description": "Close an obligation or alert with its outcome",
+      "gates": [
+        "G-07-03"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "regradar.confirm_a_change_against_its_official_publication_where_.decide",
       "module": "M07",
       "description": "Confirm a change against its official publication where this cannot be done automatically",
       "gates": [
@@ -1981,7 +1828,163 @@
       "scope": "tenant",
       "protected": false,
       "step_up_required": false,
-      "status": "proposed-v0"
+      "status": "adopted"
+    },
+    {
+      "id": "regradar.confirm_an_ai_proposed_risk_rating.decide",
+      "module": "M07",
+      "description": "Confirm an AI-proposed risk rating",
+      "gates": [
+        "G-07-08"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "regradar.confirm_edit_or_reject_an_impact_proposal.decide",
+      "module": "M07",
+      "description": "Confirm, edit or reject an impact proposal",
+      "gates": [
+        "G-07-01"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "regradar.decide_a_screening_match.decide",
+      "module": "M07",
+      "description": "Decide a screening match",
+      "gates": [
+        "G-07-05"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "regradar.release_a_blocked_or_frozen_matter_or_decline_the_engage.decide",
+      "module": "M07",
+      "description": "Release a blocked or frozen matter, or decline the engagement",
+      "gates": [
+        "G-07-06"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "storage.approve_a_bulk_disposal_batch.decide",
+      "module": "M13",
+      "description": "Approve a bulk disposal batch",
+      "gates": [
+        "G-13-06"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "storage.approve_or_change_a_pack_s_primary_or_recovery_location.decide",
+      "module": "M13",
+      "description": "Approve or change a pack's primary or recovery location",
+      "gates": [
+        "G-13-01"
+      ],
+      "scope": "platform",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "storage.confirm_receipt_of_the_exit_export.decide",
+      "module": "M13",
+      "description": "Confirm receipt of the exit export",
+      "gates": [
+        "G-13-04"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "storage.connect_bring_your_own_storage.decide",
+      "module": "M13",
+      "description": "Connect bring-your-own-storage",
+      "gates": [
+        "G-13-02"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "storage.destroy_a_tenant_key_at_exit.decide",
+      "module": "M13",
+      "description": "Destroy a tenant key at exit",
+      "gates": [
+        "G-13-05"
+      ],
+      "scope": "platform",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "storage.enable_a_customer_managed_key_acknowledging_that_revocat.decide",
+      "module": "M13",
+      "description": "Enable a customer-managed key, acknowledging that revocation stops service",
+      "gates": [
+        "G-13-03"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "storage.invoke_region_failover.decide",
+      "module": "M13",
+      "description": "Invoke region failover",
+      "gates": [
+        "G-13-07"
+      ],
+      "scope": "platform",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "storage.release_the_dedicated_or_sovereign_edition_for_a_client.decide",
+      "module": "M13",
+      "description": "Release the Dedicated or Sovereign edition for a client",
+      "gates": [
+        "G-13-09"
+      ],
+      "scope": "platform",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
+    },
+    {
+      "id": "storage.request_a_single_tenant_restore.decide",
+      "module": "M13",
+      "description": "Request a single-tenant restore",
+      "gates": [
+        "G-13-08"
+      ],
+      "scope": "tenant",
+      "protected": false,
+      "step_up_required": false,
+      "status": "adopted"
     }
   ]
 }

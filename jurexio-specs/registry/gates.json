@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.1.0-proposed",
+    "version": "1.0.0-adopted",
     "generated": "2026-10-21",
     "source": "Jurexio module specifications (Claude Docs), v1.1 platform rules",
     "authority": "Proposed seed for CTO Event registry v1 and Permission catalogue v1; not authoritative until adopted",
@@ -9,7 +9,8 @@
       "DUAL": "two distinct people",
       "SELF_ATTESTED": "an act on one's own record, with reason and evidence, logged and sampled",
       "RETIRED": "no longer used; see replaced_by"
-    }
+    },
+    "adopted_on": "2026-10-22"
   },
   "gates": [
     {
@@ -33,7 +34,7 @@
         "rejected": "MATTER.G_01_01_REJECTED",
         "withdrawn": "MATTER.G_01_01_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -50,7 +51,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "mattercore.g_01_02.decide",
+      "permission": "matter.decline_an_intake.decide",
       "outcome_events": {
         "approved": [
           "MATTER.INTAKE_DECLINED"
@@ -58,7 +59,7 @@
         "rejected": "MATTER.G_01_02_REJECTED",
         "withdrawn": "MATTER.G_01_02_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -75,7 +76,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "mattercore.g_01_03.decide",
+      "permission": "matter.classify_a_conflict_hit.decide",
       "outcome_events": {
         "approved": [
           "MATTER.CONFLICT_HIT_DECIDED"
@@ -83,7 +84,7 @@
         "rejected": "MATTER.G_01_03_REJECTED",
         "withdrawn": "MATTER.G_01_03_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -108,7 +109,7 @@
         "rejected": "MATTER.G_01_04_REJECTED",
         "withdrawn": "MATTER.G_01_04_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -125,7 +126,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "mattercore.g_01_05.decide",
+      "permission": "matter.confirm_the_home_jurisdiction.decide",
       "outcome_events": {
         "approved": [
           "MATTER.HOME_JURISDICTION_CONFIRMED"
@@ -133,7 +134,7 @@
         "rejected": "MATTER.G_01_05_REJECTED",
         "withdrawn": "MATTER.G_01_05_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -160,7 +161,7 @@
         "rejected": "MATTER.G_01_06_REJECTED",
         "withdrawn": "MATTER.G_01_06_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -178,7 +179,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "mattercore.g_01_07.decide",
+      "permission": "matter.create_or_extend_an_ethical_wall.decide",
       "outcome_events": {
         "approved": [
           "MATTER.WALL_CREATED",
@@ -187,7 +188,7 @@
         "rejected": "MATTER.G_01_07_REJECTED",
         "withdrawn": "MATTER.G_01_07_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -214,7 +215,7 @@
         "rejected": "MATTER.G_01_08_REJECTED",
         "withdrawn": "MATTER.G_01_08_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -231,7 +232,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "mattercore.g_01_09.decide",
+      "permission": "matter.approve_a_notice_to_a_former_client_about_a_wall.decide",
       "outcome_events": {
         "approved": [
           "MATTER.WALL_NOTICE_APPROVED"
@@ -239,7 +240,7 @@
         "rejected": "MATTER.G_01_09_REJECTED",
         "withdrawn": "MATTER.G_01_09_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -256,7 +257,7 @@
       "class": "GUARDED",
       "class_note": "recorded entry confirmed by the Responsible Partner",
       "approver_scope": "tenant",
-      "permission": "mattercore.g_01_10.decide",
+      "permission": "matter.record_protected_characteristic_data.decide",
       "outcome_events": {
         "approved": [
           "MATTER.SPECIAL_DATA_RECORDED"
@@ -264,7 +265,7 @@
         "rejected": "MATTER.G_01_10_REJECTED",
         "withdrawn": "MATTER.G_01_10_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -282,7 +283,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "mattercore.g_01_11.decide",
+      "permission": "matter.merge_or_un_merge_party_records.decide",
       "outcome_events": {
         "approved": [
           "MATTER.PARTY_MERGED",
@@ -291,7 +292,7 @@
         "rejected": "MATTER.G_01_11_REJECTED",
         "withdrawn": "MATTER.G_01_11_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -308,7 +309,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "mattercore.g_01_12.decide",
+      "permission": "matter.accept_an_ai_suggested_related_entity_link.decide",
       "outcome_events": {
         "approved": [
           "MATTER.ENTITY_LINK_CONFIRMED"
@@ -316,7 +317,7 @@
         "rejected": "MATTER.G_01_12_REJECTED",
         "withdrawn": "MATTER.G_01_12_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -333,7 +334,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "mattercore.g_01_13.decide",
+      "permission": "matter.approve_closing.decide",
       "outcome_events": {
         "approved": [
           "MATTER.CLOSED"
@@ -341,7 +342,7 @@
         "rejected": "MATTER.G_01_13_REJECTED",
         "withdrawn": "MATTER.G_01_13_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -358,7 +359,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "mattercore.g_01_14.decide",
+      "permission": "matter.approve_reopening.decide",
       "outcome_events": {
         "approved": [
           "MATTER.REOPENED"
@@ -366,7 +367,7 @@
         "rejected": "MATTER.G_01_14_REJECTED",
         "withdrawn": "MATTER.G_01_14_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -383,7 +384,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "mattercore.g_01_15.decide",
+      "permission": "matter.approve_the_closing_letter.decide",
       "outcome_events": {
         "approved": [
           "MATTER.CLOSING_LETTER_APPROVED"
@@ -391,7 +392,7 @@
         "rejected": "MATTER.G_01_15_REJECTED",
         "withdrawn": "MATTER.G_01_15_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -416,7 +417,7 @@
         "rejected": "DOCUMENT.G_02_01_REJECTED",
         "withdrawn": "DOCUMENT.G_02_01_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -434,7 +435,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "docvault.g_02_02.decide",
+      "permission": "document.mark_final_or_reopen_final_to_draft.decide",
       "outcome_events": {
         "approved": [
           "DOCUMENT.MARKED_FINAL",
@@ -443,7 +444,7 @@
         "rejected": "DOCUMENT.G_02_02_REJECTED",
         "withdrawn": "DOCUMENT.G_02_02_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -468,7 +469,7 @@
         "rejected": "DOCUMENT.G_02_03_REJECTED",
         "withdrawn": "DOCUMENT.G_02_03_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -485,7 +486,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "docvault.g_02_04.decide",
+      "permission": "document.approve_a_production_set.decide",
       "outcome_events": {
         "approved": [
           "DOCUMENT.PRODUCTION_APPROVED"
@@ -493,7 +494,7 @@
         "rejected": "DOCUMENT.G_02_04_REJECTED",
         "withdrawn": "DOCUMENT.G_02_04_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -510,7 +511,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "docvault.g_02_05.decide",
+      "permission": "document.approve_a_redacted_copy.decide",
       "outcome_events": {
         "approved": [
           "DOCUMENT.REDACTION_APPROVED"
@@ -518,7 +519,7 @@
         "rejected": "DOCUMENT.G_02_05_REJECTED",
         "withdrawn": "DOCUMENT.G_02_05_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -535,7 +536,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "docvault.g_02_06.decide",
+      "permission": "document.send_a_document_for_e_signature.decide",
       "outcome_events": {
         "approved": [
           "DOCUMENT.SIGNATURE_SENT"
@@ -543,7 +544,7 @@
         "rejected": "DOCUMENT.G_02_06_REJECTED",
         "withdrawn": "DOCUMENT.G_02_06_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -560,7 +561,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "docvault.g_02_07.decide",
+      "permission": "document.record_stamp_duty_handling.decide",
       "outcome_events": {
         "approved": [
           "DOCUMENT.STAMP_DUTY_RECORDED"
@@ -568,7 +569,7 @@
         "rejected": "DOCUMENT.G_02_07_REJECTED",
         "withdrawn": "DOCUMENT.G_02_07_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -593,7 +594,7 @@
         "rejected": "DOCUMENT.G_02_08_REJECTED",
         "withdrawn": "DOCUMENT.G_02_08_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -610,7 +611,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "docvault.g_02_09.decide",
+      "permission": "document.confirm_the_matter_for_an_intake_item.decide",
       "outcome_events": {
         "approved": [
           "DOCUMENT.MATTER_CONFIRMED"
@@ -618,7 +619,7 @@
         "rejected": "DOCUMENT.G_02_09_REJECTED",
         "withdrawn": "DOCUMENT.G_02_09_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -635,7 +636,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "docvault.g_02_10.decide",
+      "permission": "document.approve_a_sampled_tag_batch.decide",
       "outcome_events": {
         "approved": [
           "DOCUMENT.TAG_SAMPLE_APPROVED"
@@ -643,7 +644,7 @@
         "rejected": "DOCUMENT.G_02_10_REJECTED",
         "withdrawn": "DOCUMENT.G_02_10_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -660,7 +661,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "docvault.g_02_11.decide",
+      "permission": "document.share_a_document_with_the_client_through_clientbridge.decide",
       "outcome_events": {
         "approved": [
           "DOCUMENT.CLIENT_SHARED"
@@ -668,7 +669,7 @@
         "rejected": "DOCUMENT.G_02_11_REJECTED",
         "withdrawn": "DOCUMENT.G_02_11_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -685,7 +686,7 @@
       "class": "DUAL",
       "class_note": "Jurexio CTO and Jurexio Compliance",
       "approver_scope": "platform",
-      "permission": "docvault.g_02_12.decide",
+      "permission": "document.approve_a_signing_provider_for_a_jurisdiction.decide",
       "outcome_events": {
         "approved": [
           "DOCUMENT.SIGNING_PROVIDER_APPROVED"
@@ -693,7 +694,7 @@
         "rejected": "DOCUMENT.G_02_12_REJECTED",
         "withdrawn": "DOCUMENT.G_02_12_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -724,7 +725,7 @@
         "rejected": "ENGINE.G_03_01_REJECTED",
         "withdrawn": "ENGINE.G_03_01_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -741,7 +742,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "engine.g_03_02.decide",
+      "permission": "engine.cross_jurisdiction_co_approval.decide",
       "outcome_events": {
         "approved": [
           "ENGINE.CO_APPROVAL_RECORDED"
@@ -749,7 +750,7 @@
         "rejected": "ENGINE.G_03_02_REJECTED",
         "withdrawn": "ENGINE.G_03_02_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -766,7 +767,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "engine.g_03_03.decide",
+      "permission": "engine.hr_tier_1_approval.decide",
       "outcome_events": {
         "approved": [
           "ENGINE.HR_TIER1_APPROVED"
@@ -774,7 +775,7 @@
         "rejected": "ENGINE.G_03_03_REJECTED",
         "withdrawn": "ENGINE.G_03_03_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -791,7 +792,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "engine.g_03_04.decide",
+      "permission": "engine.hr_tier_2_approval.decide",
       "outcome_events": {
         "approved": [
           "ENGINE.HR_TIER2_APPROVED"
@@ -799,7 +800,7 @@
         "rejected": "ENGINE.G_03_04_REJECTED",
         "withdrawn": "ENGINE.G_03_04_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -817,7 +818,7 @@
       "class": "DUAL",
       "class_note": "sequential, separate sessions",
       "approver_scope": "tenant",
-      "permission": "engine.g_03_05.decide",
+      "permission": "engine.hr_tier_3_approval.decide",
       "outcome_events": {
         "approved": [
           "ENGINE.HR_TIER3_COUNSEL_APPROVED",
@@ -826,7 +827,7 @@
         "rejected": "ENGINE.G_03_05_REJECTED",
         "withdrawn": "ENGINE.G_03_05_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -843,7 +844,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "engine.g_03_06.decide",
+      "permission": "engine.extend_a_review_sla_within_the_deadline_cap.decide",
       "outcome_events": {
         "approved": [
           "ENGINE.SLA_EXTENDED"
@@ -851,7 +852,7 @@
         "rejected": "ENGINE.G_03_06_REJECTED",
         "withdrawn": "ENGINE.G_03_06_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -876,7 +877,7 @@
         "rejected": "ENGINE.G_03_07_REJECTED",
         "withdrawn": "ENGINE.G_03_07_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -894,7 +895,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "engine.g_03_08.decide",
+      "permission": "engine.suspend_quality_or_reinstate_an_agent.decide",
       "outcome_events": {
         "approved": [
           "ENGINE.AGENT_SUSPENDED",
@@ -903,7 +904,7 @@
         "rejected": "ENGINE.G_03_08_REJECTED",
         "withdrawn": "ENGINE.G_03_08_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -921,7 +922,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "engine.g_03_09.decide",
+      "permission": "engine.add_or_retire_a_model_in_a_jurisdiction_s_registry.decide",
       "outcome_events": {
         "approved": [
           "ENGINE.MODEL_REGISTERED",
@@ -930,7 +931,7 @@
         "rejected": "ENGINE.G_03_09_REJECTED",
         "withdrawn": "ENGINE.G_03_09_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -955,7 +956,7 @@
         "rejected": "ENGINE.G_03_10_REJECTED",
         "withdrawn": "ENGINE.G_03_10_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -972,7 +973,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "lexgraph.g_04_01.decide",
+      "permission": "lexgraph.publish_or_change_a_country_s_declared_coverage.decide",
       "outcome_events": {
         "approved": [
           "PLATFORM.COVERAGE_PUBLISHED"
@@ -980,7 +981,7 @@
         "rejected": "LEXGRAPH.G_04_01_REJECTED",
         "withdrawn": "LEXGRAPH.G_04_01_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -998,7 +999,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "lexgraph.g_04_02.decide",
+      "permission": "lexgraph.add_or_remove_a_corpus_source_recording_its_ai_use_and_t.decide",
       "outcome_events": {
         "approved": [
           "PLATFORM.CORPUS_SOURCE_APPROVED",
@@ -1007,7 +1008,7 @@
         "rejected": "LEXGRAPH.G_04_02_REJECTED",
         "withdrawn": "LEXGRAPH.G_04_02_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1025,7 +1026,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "lexgraph.g_04_03.decide",
+      "permission": "lexgraph.verify_or_reject_an_ai_proposed_treatment_link.decide",
       "outcome_events": {
         "approved": [
           "LEXGRAPH.TREATMENT_VERIFIED",
@@ -1034,7 +1035,7 @@
         "rejected": "LEXGRAPH.G_04_03_REJECTED",
         "withdrawn": "LEXGRAPH.G_04_03_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1051,7 +1052,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "lexgraph.g_04_04.decide",
+      "permission": "lexgraph.publish_a_provision_version_or_commencement_status.decide",
       "outcome_events": {
         "approved": [
           "LEXGRAPH.PROVISION_VERSIONED"
@@ -1059,7 +1060,7 @@
         "rejected": "LEXGRAPH.G_04_04_REJECTED",
         "withdrawn": "LEXGRAPH.G_04_04_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1076,7 +1077,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "lexgraph.g_04_05.decide",
+      "permission": "lexgraph.approve_a_training_dataset_version.decide",
       "outcome_events": {
         "approved": [
           "PLATFORM.DATASET_APPROVED"
@@ -1084,7 +1085,7 @@
         "rejected": "LEXGRAPH.G_04_05_REJECTED",
         "withdrawn": "LEXGRAPH.G_04_05_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1101,7 +1102,7 @@
       "class": "GUARDED",
       "class_note": "proposer confirms; knowledge owner re-checks every redaction at G-04-07",
       "approver_scope": "tenant",
-      "permission": "lexgraph.g_04_06.decide",
+      "permission": "lexgraph.confirm_anonymisation_of_a_promoted_item.decide",
       "outcome_events": {
         "approved": [
           "LEXGRAPH.ANONYMISATION_CONFIRMED"
@@ -1109,7 +1110,7 @@
         "rejected": "LEXGRAPH.G_04_06_REJECTED",
         "withdrawn": "LEXGRAPH.G_04_06_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1126,7 +1127,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "lexgraph.g_04_07.decide",
+      "permission": "lexgraph.approve_promotion_of_an_item.decide",
       "outcome_events": {
         "approved": [
           "LEXGRAPH.KNOWLEDGE_PROMOTED"
@@ -1134,7 +1135,7 @@
         "rejected": "LEXGRAPH.G_04_07_REJECTED",
         "withdrawn": "LEXGRAPH.G_04_07_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1152,7 +1153,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "lexgraph.g_04_08.decide",
+      "permission": "lexgraph.withdraw_or_re_certify_an_item.decide",
       "outcome_events": {
         "approved": [
           "LEXGRAPH.KNOWLEDGE_WITHDRAWN",
@@ -1161,7 +1162,7 @@
         "rejected": "LEXGRAPH.G_04_08_REJECTED",
         "withdrawn": "LEXGRAPH.G_04_08_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1178,7 +1179,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "lexgraph.g_04_09.decide",
+      "permission": "lexgraph.correct_enrichment_after_an_error_report.decide",
       "outcome_events": {
         "approved": [
           "LEXGRAPH.ENRICHMENT_CORRECTED"
@@ -1186,7 +1187,7 @@
         "rejected": "LEXGRAPH.G_04_09_REJECTED",
         "withdrawn": "LEXGRAPH.G_04_09_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1203,7 +1204,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "lexgraph.g_04_10.decide",
+      "permission": "lexgraph.approve_replication_of_a_corpus_or_public_law_model_to_a.decide",
       "outcome_events": {
         "approved": [
           "PLATFORM.CORPUS_REPLICATED"
@@ -1211,7 +1212,7 @@
         "rejected": "LEXGRAPH.G_04_10_REJECTED",
         "withdrawn": "LEXGRAPH.G_04_10_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1229,7 +1230,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadlineguard.g_05_01.decide",
+      "permission": "deadline.confirm_a_proposed_deadline_trigger_and_computation.decide",
       "outcome_events": {
         "approved": [
           "DEADLINE.CONFIRMED",
@@ -1238,7 +1239,7 @@
         "rejected": "DEADLINE.G_05_01_REJECTED",
         "withdrawn": "DEADLINE.G_05_01_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1255,7 +1256,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadlineguard.g_05_02.decide",
+      "permission": "deadline.resolve_a_source_conflict.decide",
       "outcome_events": {
         "approved": [
           "DEADLINE.CONFLICT_RESOLVED"
@@ -1263,7 +1264,7 @@
         "rejected": "DEADLINE.G_05_02_REJECTED",
         "withdrawn": "DEADLINE.G_05_02_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1282,7 +1283,7 @@
       "class": "DUAL",
       "class_note": "the owner may be the requester; the Partner is the second person",
       "approver_scope": "tenant",
-      "permission": "deadlineguard.g_05_03.decide",
+      "permission": "deadline.move_later_mark_not_applicable_or_close_as_created_in_er.decide",
       "outcome_events": {
         "approved": [
           "DEADLINE.MOVED_LATER",
@@ -1292,7 +1293,7 @@
         "rejected": "DEADLINE.G_05_03_REJECTED",
         "withdrawn": "DEADLINE.G_05_03_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1309,7 +1310,7 @@
       "class": "DUAL",
       "class_note": "the owner may be the requester; the Partner is the second person",
       "approver_scope": "tenant",
-      "permission": "deadlineguard.g_05_04.decide",
+      "permission": "deadline.record_an_extension.decide",
       "outcome_events": {
         "approved": [
           "DEADLINE.EXTENSION_RECORDED"
@@ -1317,7 +1318,7 @@
         "rejected": "DEADLINE.G_05_04_REJECTED",
         "withdrawn": "DEADLINE.G_05_04_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1334,7 +1335,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "close as filed, with evidence",
       "approver_scope": "tenant",
-      "permission": "deadlineguard.g_05_05.decide",
+      "permission": "deadline.close_as_filed.decide",
       "outcome_events": {
         "approved": [
           "DEADLINE.CLOSED_FILED"
@@ -1342,7 +1343,7 @@
         "rejected": "DEADLINE.G_05_05_REJECTED",
         "withdrawn": "DEADLINE.G_05_05_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1359,7 +1360,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadlineguard.g_05_06.decide",
+      "permission": "deadline.re_confirm_after_a_rule_change.decide",
       "outcome_events": {
         "approved": [
           "DEADLINE.RECONFIRMED"
@@ -1367,7 +1368,7 @@
         "rejected": "DEADLINE.G_05_06_REJECTED",
         "withdrawn": "DEADLINE.G_05_06_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1384,7 +1385,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadlineguard.g_05_07.decide",
+      "permission": "deadline.resolve_a_missed_deadline_incident.decide",
       "outcome_events": {
         "approved": [
           "DEADLINE.INCIDENT_RESOLVED"
@@ -1392,7 +1393,7 @@
         "rejected": "DEADLINE.G_05_07_REJECTED",
         "withdrawn": "DEADLINE.G_05_07_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1409,7 +1410,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadlineguard.g_05_08.decide",
+      "permission": "deadline.decide_whether_to_notify_the_professional_liability_insu.decide",
       "outcome_events": {
         "approved": [
           "DEADLINE.INSURER_DECISION_RECORDED"
@@ -1417,7 +1418,7 @@
         "rejected": "DEADLINE.G_05_08_REJECTED",
         "withdrawn": "DEADLINE.G_05_08_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1434,7 +1435,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "accept a suggestion on one's own task",
       "approver_scope": "tenant",
-      "permission": "deadlineguard.g_05_09.decide",
+      "permission": "deadline.accept_an_ai_suggested_checklist_item.decide",
       "outcome_events": {
         "approved": [
           "DEADLINE.TASK_SUGGESTION_ACCEPTED"
@@ -1442,7 +1443,7 @@
         "rejected": "DEADLINE.G_05_09_REJECTED",
         "withdrawn": "DEADLINE.G_05_09_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1459,7 +1460,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadlineguard.g_05_10.decide",
+      "permission": "deadline.enable_client_names_in_calendar_events_for_a_matter.decide",
       "outcome_events": {
         "approved": [
           "DEADLINE.CALENDAR_DETAIL_ENABLED"
@@ -1467,7 +1468,7 @@
         "rejected": "DEADLINE.G_05_10_REJECTED",
         "withdrawn": "DEADLINE.G_05_10_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1484,7 +1485,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadlineguard.g_05_11.decide",
+      "permission": "deadline.publish_a_new_version_of_a_forum_rule_set.decide",
       "outcome_events": {
         "approved": [
           "DEADLINE.RULESET_PUBLISHED"
@@ -1492,7 +1493,7 @@
         "rejected": "DEADLINE.G_05_11_REJECTED",
         "withdrawn": "DEADLINE.G_05_11_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1509,7 +1510,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadlineguard.g_05_12.decide",
+      "permission": "deadline.decide_whether_to_notify_the_client_after_a_missed_deadl.decide",
       "outcome_events": {
         "approved": [
           "DEADLINE.CLIENT_NOTIFICATION_DECIDED"
@@ -1517,7 +1518,7 @@
         "rejected": "DEADLINE.G_05_12_REJECTED",
         "withdrawn": "DEADLINE.G_05_12_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1534,7 +1535,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_01.decide",
+      "permission": "billguard.confirm_a_time_entry_including_from_an_ai_suggestion.decide",
       "outcome_events": {
         "approved": [
           "BILL.TIME_ENTRY_CONFIRMED"
@@ -1542,7 +1543,7 @@
         "rejected": "BILL.G_06_01_REJECTED",
         "withdrawn": "BILL.G_06_01_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1559,7 +1560,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_02.decide",
+      "permission": "billguard.approve_a_pre_bill_and_issue_the_invoice.decide",
       "outcome_events": {
         "approved": [
           "BILL.INVOICE_ISSUED"
@@ -1567,7 +1568,7 @@
         "rejected": "BILL.G_06_02_REJECTED",
         "withdrawn": "BILL.G_06_02_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1584,7 +1585,7 @@
       "class": "GUARDED",
       "class_note": "GUARDED; DUAL above threshold",
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_03.decide",
+      "permission": "billguard.approve_a_write_down.decide",
       "outcome_events": {
         "approved": [
           "BILL.WRITE_DOWN_APPROVED"
@@ -1592,7 +1593,7 @@
         "rejected": "BILL.G_06_03_REJECTED",
         "withdrawn": "BILL.G_06_03_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1609,7 +1610,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_04.decide",
+      "permission": "billguard.approve_a_write_up_under_the_engagement.decide",
       "outcome_events": {
         "approved": [
           "BILL.WRITE_UP_APPROVED"
@@ -1617,7 +1618,7 @@
         "rejected": "BILL.G_06_04_REJECTED",
         "withdrawn": "BILL.G_06_04_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1634,7 +1635,7 @@
       "class": "GUARDED",
       "class_note": "GUARDED; DUAL above threshold",
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_05.decide",
+      "permission": "billguard.issue_a_credit_note_or_discount.decide",
       "outcome_events": {
         "approved": [
           "BILL.CREDIT_NOTE_ISSUED"
@@ -1642,7 +1643,7 @@
         "rejected": "BILL.G_06_05_REJECTED",
         "withdrawn": "BILL.G_06_05_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1659,7 +1660,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_06.decide",
+      "permission": "billguard.write_off_a_receivable.decide",
       "outcome_events": {
         "approved": [
           "BILL.WRITE_OFF_APPROVED"
@@ -1667,7 +1668,7 @@
         "rejected": "BILL.G_06_06_REJECTED",
         "withdrawn": "BILL.G_06_06_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1684,7 +1685,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_07.decide",
+      "permission": "billguard.reverse_a_write_off.decide",
       "outcome_events": {
         "approved": [
           "BILL.WRITE_OFF_REVERSED"
@@ -1692,7 +1693,7 @@
         "rejected": "BILL.G_06_07_REJECTED",
         "withdrawn": "BILL.G_06_07_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1709,7 +1710,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_08.decide",
+      "permission": "billguard.publish_a_firm_wide_rate_card_version.decide",
       "outcome_events": {
         "approved": [
           "BILL.RATE_CARD_PUBLISHED"
@@ -1717,7 +1718,7 @@
         "rejected": "BILL.G_06_08_REJECTED",
         "withdrawn": "BILL.G_06_08_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1734,7 +1735,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_09.decide",
+      "permission": "billguard.set_a_matter_specific_rate.decide",
       "outcome_events": {
         "approved": [
           "BILL.MATTER_RATE_SET"
@@ -1742,7 +1743,7 @@
         "rejected": "BILL.G_06_09_REJECTED",
         "withdrawn": "BILL.G_06_09_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1759,7 +1760,7 @@
       "class": "GUARDED",
       "class_note": "GUARDED (uploader excluded)",
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_10.decide",
+      "permission": "billguard.confirm_structured_billing_guideline_rules.decide",
       "outcome_events": {
         "approved": [
           "BILL.GUIDELINE_CONFIRMED"
@@ -1767,7 +1768,7 @@
         "rejected": "BILL.G_06_10_REJECTED",
         "withdrawn": "BILL.G_06_10_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1785,7 +1786,7 @@
       "class": "GUARDED",
       "class_note": "GUARDED; DUAL for public-sector re-sanction",
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_11.decide",
+      "permission": "billguard.set_or_revise_a_budget_decide_an_overrun.decide",
       "outcome_events": {
         "approved": [
           "BILL.BUDGET_APPROVED",
@@ -1794,7 +1795,7 @@
         "rejected": "BILL.G_06_11_REJECTED",
         "withdrawn": "BILL.G_06_11_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1811,7 +1812,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_12.decide",
+      "permission": "billguard.decide_an_outside_counsel_invoice_line.decide",
       "outcome_events": {
         "approved": [
           "BILL.OC_LINE_DECIDED"
@@ -1819,7 +1820,7 @@
         "rejected": "BILL.G_06_12_REJECTED",
         "withdrawn": "BILL.G_06_12_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1836,7 +1837,7 @@
       "class": "GUARDED",
       "class_note": "GUARDED; DUAL above threshold",
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_13.decide",
+      "permission": "billguard.approve_an_outside_counsel_invoice_for_payment.decide",
       "outcome_events": {
         "approved": [
           "BILL.OC_INVOICE_APPROVED"
@@ -1844,7 +1845,7 @@
         "rejected": "BILL.G_06_13_REJECTED",
         "withdrawn": "BILL.G_06_13_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1861,7 +1862,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_14.decide",
+      "permission": "billguard.record_and_classify_a_receipt_office_or_client_money.decide",
       "outcome_events": {
         "approved": [
           "BILL.RECEIPT_RECORDED"
@@ -1869,7 +1870,7 @@
         "rejected": "BILL.G_06_14_REJECTED",
         "withdrawn": "BILL.G_06_14_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1886,7 +1887,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_15.decide",
+      "permission": "billguard.apply_client_money_to_a_fee_invoice.decide",
       "outcome_events": {
         "approved": [
           "BILL.CLIENT_MONEY_APPLIED"
@@ -1894,7 +1895,7 @@
         "rejected": "BILL.G_06_15_REJECTED",
         "withdrawn": "BILL.G_06_15_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1911,7 +1912,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_16.decide",
+      "permission": "billguard.request_a_disbursement_from_client_money.decide",
       "outcome_events": {
         "approved": [
           "BILL.DISBURSEMENT_REQUESTED"
@@ -1919,7 +1920,7 @@
         "rejected": "BILL.G_06_16_REJECTED",
         "withdrawn": "BILL.G_06_16_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1936,7 +1937,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_17.decide",
+      "permission": "billguard.sign_off_the_monthly_three_way_reconciliation.decide",
       "outcome_events": {
         "approved": [
           "BILL.RECONCILIATION_SIGNED"
@@ -1944,7 +1945,7 @@
         "rejected": "BILL.G_06_17_REJECTED",
         "withdrawn": "BILL.G_06_17_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1961,7 +1962,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_18.decide",
+      "permission": "billguard.send_an_escalated_reminder_or_demand.decide",
       "outcome_events": {
         "approved": [
           "BILL.REMINDER_ESCALATED"
@@ -1969,7 +1970,7 @@
         "rejected": "BILL.G_06_18_REJECTED",
         "withdrawn": "BILL.G_06_18_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -1986,7 +1987,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_19.decide",
+      "permission": "billguard.record_a_refund.decide",
       "outcome_events": {
         "approved": [
           "BILL.REFUND_RECORDED"
@@ -1994,7 +1995,7 @@
         "rejected": "BILL.G_06_19_REJECTED",
         "withdrawn": "BILL.G_06_19_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2011,7 +2012,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_20.decide",
+      "permission": "billguard.close_a_financial_period.decide",
       "outcome_events": {
         "approved": [
           "BILL.PERIOD_CLOSED"
@@ -2019,7 +2020,7 @@
         "rejected": "BILL.G_06_20_REJECTED",
         "withdrawn": "BILL.G_06_20_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2036,7 +2037,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.g_06_21.decide",
+      "permission": "billguard.move_full_invoice_detail_across_jurisdictions.decide",
       "outcome_events": {
         "approved": [
           "BILL.INVOICE_DETAIL_TRANSFERRED"
@@ -2044,7 +2045,7 @@
         "rejected": "BILL.G_06_21_REJECTED",
         "withdrawn": "BILL.G_06_21_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2063,7 +2064,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.g_07_01.decide",
+      "permission": "regradar.confirm_edit_or_reject_an_impact_proposal.decide",
       "outcome_events": {
         "approved": [
           "REGRADAR.IMPACT_CONFIRMED",
@@ -2073,7 +2074,7 @@
         "rejected": "REGRADAR.G_07_01_REJECTED",
         "withdrawn": "REGRADAR.G_07_01_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2090,7 +2091,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.g_07_02.decide",
+      "permission": "regradar.assign_or_reassign_an_obligation_owner_and_backup.decide",
       "outcome_events": {
         "approved": [
           "REGRADAR.OWNER_ASSIGNED"
@@ -2098,7 +2099,7 @@
         "rejected": "REGRADAR.G_07_02_REJECTED",
         "withdrawn": "REGRADAR.G_07_02_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2115,7 +2116,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "closure with outcome and evidence",
       "approver_scope": "tenant",
-      "permission": "regradar.g_07_03.decide",
+      "permission": "regradar.close_an_obligation_or_alert_with_its_outcome.decide",
       "outcome_events": {
         "approved": [
           "REGRADAR.OBLIGATION_CLOSED"
@@ -2123,7 +2124,7 @@
         "rejected": "REGRADAR.G_07_03_REJECTED",
         "withdrawn": "REGRADAR.G_07_03_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2140,7 +2141,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "labelled \"Attested\", sampled by Compliance",
       "approver_scope": "tenant",
-      "permission": "regradar.g_07_04.decide",
+      "permission": "regradar.attest_a_lane_a_item.decide",
       "outcome_events": {
         "approved": [
           "REGRADAR.ITEM_ATTESTED"
@@ -2148,7 +2149,7 @@
         "rejected": "REGRADAR.G_07_04_REJECTED",
         "withdrawn": "REGRADAR.G_07_04_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2167,7 +2168,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.g_07_05.decide",
+      "permission": "regradar.decide_a_screening_match.decide",
       "outcome_events": {
         "approved": [
           "REGRADAR.MATCH_CONFIRMED",
@@ -2177,7 +2178,7 @@
         "rejected": "REGRADAR.G_07_05_REJECTED",
         "withdrawn": "REGRADAR.G_07_05_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2195,7 +2196,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.g_07_06.decide",
+      "permission": "regradar.release_a_blocked_or_frozen_matter_or_decline_the_engage.decide",
       "outcome_events": {
         "approved": [
           "REGRADAR.FREEZE_RELEASED",
@@ -2204,7 +2205,7 @@
         "rejected": "REGRADAR.G_07_06_REJECTED",
         "withdrawn": "REGRADAR.G_07_06_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2221,7 +2222,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.g_07_07.decide",
+      "permission": "regradar.approve_a_client_alert.decide",
       "outcome_events": {
         "approved": [
           "REGRADAR.CLIENT_ALERT_APPROVED"
@@ -2229,7 +2230,7 @@
         "rejected": "REGRADAR.G_07_07_REJECTED",
         "withdrawn": "REGRADAR.G_07_07_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2246,7 +2247,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.g_07_08.decide",
+      "permission": "regradar.confirm_an_ai_proposed_risk_rating.decide",
       "outcome_events": {
         "approved": [
           "REGRADAR.RATING_CONFIRMED"
@@ -2254,7 +2255,7 @@
         "rejected": "REGRADAR.G_07_08_REJECTED",
         "withdrawn": "REGRADAR.G_07_08_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2272,7 +2273,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.g_07_09.decide",
+      "permission": "regradar.add_or_remove_a_monitored_source_or_sanctions_list.decide",
       "outcome_events": {
         "approved": [
           "REGRADAR.SOURCE_ADDED",
@@ -2281,7 +2282,7 @@
         "rejected": "REGRADAR.G_07_09_REJECTED",
         "withdrawn": "REGRADAR.G_07_09_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2298,7 +2299,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.g_07_10.decide",
+      "permission": "regradar.confirm_a_change_against_its_official_publication_where_.decide",
       "outcome_events": {
         "approved": [
           "REGRADAR.CHANGE_CONFIRMED"
@@ -2306,7 +2307,7 @@
         "rejected": "REGRADAR.G_07_10_REJECTED",
         "withdrawn": "REGRADAR.G_07_10_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2323,7 +2324,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_01.decide",
+      "permission": "clientbridge.enable_a_matter_for_a_client_contact.decide",
       "outcome_events": {
         "approved": [
           "CLIENT.MATTER_ENABLED"
@@ -2331,7 +2332,7 @@
         "rejected": "CLIENT.G_08_01_REJECTED",
         "withdrawn": "CLIENT.G_08_01_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2348,7 +2349,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_02.decide",
+      "permission": "clientbridge.publish_a_status_date_or_update_item_or_set_a_standing_p.decide",
       "outcome_events": {
         "approved": [
           "CLIENT.ITEM_PUBLISHED"
@@ -2356,7 +2357,7 @@
         "rejected": "CLIENT.G_08_02_REJECTED",
         "withdrawn": "CLIENT.G_08_02_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2373,7 +2374,7 @@
       "class": "GUARDED",
       "class_note": "GUARDED (requester excluded)",
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_03.decide",
+      "permission": "clientbridge.approve_a_plain_language_summary_for_a_client.decide",
       "outcome_events": {
         "approved": [
           "CLIENT.SUMMARY_PUBLISHED"
@@ -2381,7 +2382,7 @@
         "rejected": "CLIENT.G_08_03_REJECTED",
         "withdrawn": "CLIENT.G_08_03_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2398,7 +2399,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_04.decide",
+      "permission": "clientbridge.approve_a_colleague_requested_by_a_client_admin.decide",
       "outcome_events": {
         "approved": [
           "CLIENT.COLLEAGUE_APPROVED"
@@ -2406,7 +2407,7 @@
         "rejected": "CLIENT.G_08_04_REJECTED",
         "withdrawn": "CLIENT.G_08_04_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2423,7 +2424,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_05.decide",
+      "permission": "clientbridge.issue_a_structured_request_to_a_client_or_location_owner.decide",
       "outcome_events": {
         "approved": [
           "CLIENT.REQUEST_ISSUED"
@@ -2431,7 +2432,7 @@
         "rejected": "CLIENT.G_08_05_REJECTED",
         "withdrawn": "CLIENT.G_08_05_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2450,7 +2451,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_06.decide",
+      "permission": "clientbridge.respond_to_a_request_instruct_approve_consent_attest.decide",
       "outcome_events": {
         "approved": [
           "CLIENT.INSTRUCTION_GIVEN",
@@ -2460,7 +2461,7 @@
         "rejected": "CLIENT.G_08_06_REJECTED",
         "withdrawn": "CLIENT.G_08_06_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2477,7 +2478,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_07.decide",
+      "permission": "clientbridge.revoke_an_instruction_or_consent.decide",
       "outcome_events": {
         "approved": [
           "CLIENT.REVOCATION_RECORDED"
@@ -2485,7 +2486,7 @@
         "rejected": "CLIENT.G_08_07_REJECTED",
         "withdrawn": "CLIENT.G_08_07_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2502,7 +2503,7 @@
       "class": "GUARDED",
       "class_note": "GUARDED (attester excluded)",
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_08.decide",
+      "permission": "clientbridge.decide_an_attested_location_obligation_met_or_not.decide",
       "outcome_events": {
         "approved": [
           "REGRADAR.OBLIGATION_STATUS_DECIDED"
@@ -2510,7 +2511,7 @@
         "rejected": "CLIENT.G_08_08_REJECTED",
         "withdrawn": "CLIENT.G_08_08_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2527,7 +2528,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_09.decide",
+      "permission": "clientbridge.approve_reuse_of_location_evidence_for_another_location.decide",
       "outcome_events": {
         "approved": [
           "CLIENT.EVIDENCE_REUSE_APPROVED"
@@ -2535,7 +2536,7 @@
         "rejected": "CLIENT.G_08_09_REJECTED",
         "withdrawn": "CLIENT.G_08_09_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2552,7 +2553,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_10.decide",
+      "permission": "clientbridge.convert_a_client_message_into_a_formal_instruction_recor.decide",
       "outcome_events": {
         "approved": [
           "CLIENT.INSTRUCTION_RECORDED"
@@ -2560,7 +2561,7 @@
         "rejected": "CLIENT.G_08_10_REJECTED",
         "withdrawn": "CLIENT.G_08_10_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2577,7 +2578,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_11.decide",
+      "permission": "clientbridge.send_an_ai_drafted_reply.decide",
       "outcome_events": {
         "approved": [
           "CLIENT.MESSAGE_SENT"
@@ -2585,7 +2586,7 @@
         "rejected": "CLIENT.G_08_11_REJECTED",
         "withdrawn": "CLIENT.G_08_11_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2602,7 +2603,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_12.decide",
+      "permission": "clientbridge.approve_client_facing_content_in_another_language.decide",
       "outcome_events": {
         "approved": [
           "CLIENT.TRANSLATION_APPROVED"
@@ -2610,7 +2611,7 @@
         "rejected": "CLIENT.G_08_12_REJECTED",
         "withdrawn": "CLIENT.G_08_12_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2627,7 +2628,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_13.decide",
+      "permission": "clientbridge.change_the_firm_s_verified_payment_details.decide",
       "outcome_events": {
         "approved": [
           "CLIENT.PAYMENT_DETAILS_CHANGED"
@@ -2635,7 +2636,7 @@
         "rejected": "CLIENT.G_08_13_REJECTED",
         "withdrawn": "CLIENT.G_08_13_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2652,7 +2653,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_14.decide",
+      "permission": "clientbridge.unpublish_an_item.decide",
       "outcome_events": {
         "approved": [
           "CLIENT.ITEM_UNPUBLISHED"
@@ -2660,7 +2661,7 @@
         "rejected": "CLIENT.G_08_14_REJECTED",
         "withdrawn": "CLIENT.G_08_14_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2677,7 +2678,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.g_08_15.decide",
+      "permission": "clientbridge.suspend_a_client_account_on_a_security_concern.decide",
       "outcome_events": {
         "approved": [
           "CLIENT.ACCOUNT_SUSPENDED"
@@ -2685,7 +2686,7 @@
         "rejected": "CLIENT.G_08_15_REJECTED",
         "withdrawn": "CLIENT.G_08_15_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2712,7 +2713,7 @@
         "rejected": "LEDGER.G_09_01_REJECTED",
         "withdrawn": "LEDGER.G_09_01_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -2730,7 +2731,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "ledger.g_09_02.decide",
+      "permission": "ledger.disclosure_review_of_an_evidence_package.decide",
       "outcome_events": {
         "approved": [
           "LEDGER.EXPORT_DISCLOSURE_APPROVED",
@@ -2739,7 +2740,7 @@
         "rejected": "LEDGER.G_09_02_REJECTED",
         "withdrawn": "LEDGER.G_09_02_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2766,7 +2767,7 @@
         "rejected": "LEDGER.G_09_03_REJECTED",
         "withdrawn": "LEDGER.G_09_03_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -2793,7 +2794,7 @@
         "rejected": "LEDGER.G_09_04_REJECTED",
         "withdrawn": "LEDGER.G_09_04_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -2811,7 +2812,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "ledger.g_09_05.decide",
+      "permission": "ledger.dispose_of_payloads_at_retention_expiry.decide",
       "outcome_events": {
         "approved": [
           "LEDGER.RETENTION_DISPOSAL_APPROVED",
@@ -2820,7 +2821,7 @@
         "rejected": "LEDGER.G_09_05_REJECTED",
         "withdrawn": "LEDGER.G_09_05_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2837,7 +2838,7 @@
       "class": "DUAL",
       "class_note": "sequential",
       "approver_scope": "tenant",
-      "permission": "ledger.g_09_06.decide",
+      "permission": "ledger.accept_an_imported_history_segment.decide",
       "outcome_events": {
         "approved": [
           "LEDGER.IMPORT_SEGMENT_SIGNED_OFF"
@@ -2845,7 +2846,7 @@
         "rejected": "LEDGER.G_09_06_REJECTED",
         "withdrawn": "LEDGER.G_09_06_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2863,7 +2864,7 @@
       "class": "DUAL",
       "class_note": "tenant Compliance Officer and tenant IT Director",
       "approver_scope": "platform",
-      "permission": "ledger.g_09_07.decide",
+      "permission": "ledger.disposition_of_a_chain_break_incident.decide",
       "outcome_events": {
         "approved": [
           "LEDGER.CHAIN_BREAK_ACKNOWLEDGED",
@@ -2872,7 +2873,7 @@
         "rejected": "LEDGER.G_09_07_REJECTED",
         "withdrawn": "LEDGER.G_09_07_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2890,7 +2891,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "ledger.g_09_08.decide",
+      "permission": "ledger.enable_or_disable_a_client_s_audit_trail.decide",
       "outcome_events": {
         "approved": [
           "LEDGER.CLIENT_TRAIL_ENABLED",
@@ -2899,7 +2900,7 @@
         "rejected": "LEDGER.G_09_08_REJECTED",
         "withdrawn": "LEDGER.G_09_08_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2916,7 +2917,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "ledger.g_09_09.decide",
+      "permission": "ledger.grant_external_auditor_access.decide",
       "outcome_events": {
         "approved": [
           "LEDGER.AUDITOR_ACCESS_GRANTED"
@@ -2924,7 +2925,7 @@
         "rejected": "LEDGER.G_09_09_REJECTED",
         "withdrawn": "LEDGER.G_09_09_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2943,7 +2944,7 @@
       "class": "DUAL",
       "class_note": "Jurexio CTO and Jurexio Compliance",
       "approver_scope": "platform",
-      "permission": "ledger.g_09_10.decide",
+      "permission": "ledger.add_change_or_deprecate_an_event_type_in_the_registry.decide",
       "outcome_events": {
         "approved": [
           "LEDGER.REGISTRY_CHANGE_APPROVED",
@@ -2953,7 +2954,7 @@
         "rejected": "LEDGER.G_09_10_REJECTED",
         "withdrawn": "LEDGER.G_09_10_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -2988,7 +2989,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "nexusconnect.g_10_01.decide",
+      "permission": "nexus.approve_a_connector_for_a_jurisdiction_including_its_dat.decide",
       "outcome_events": {
         "approved": [
           "PLATFORM.CONNECTOR_APPROVED"
@@ -2996,7 +2997,7 @@
         "rejected": "NEXUS.G_10_01_REJECTED",
         "withdrawn": "NEXUS.G_10_01_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3014,7 +3015,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "nexusconnect.g_10_02.decide",
+      "permission": "nexus.re_approve_or_suspend_after_a_vendor_change.decide",
       "outcome_events": {
         "approved": [
           "PLATFORM.CONNECTOR_REAPPROVED",
@@ -3023,7 +3024,7 @@
         "rejected": "NEXUS.G_10_02_REJECTED",
         "withdrawn": "NEXUS.G_10_02_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3040,7 +3041,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "nexusconnect.g_10_03.decide",
+      "permission": "nexus.enable_a_connector_for_tenant_units.decide",
       "outcome_events": {
         "approved": [
           "NEXUS.CONNECTOR_ENABLED"
@@ -3048,7 +3049,7 @@
         "rejected": "NEXUS.G_10_03_REJECTED",
         "withdrawn": "NEXUS.G_10_03_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3065,7 +3066,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "nexusconnect.g_10_04.decide",
+      "permission": "nexus.change_a_connection_s_scopes.decide",
       "outcome_events": {
         "approved": [
           "NEXUS.SCOPE_CHANGED"
@@ -3073,7 +3074,7 @@
         "rejected": "NEXUS.G_10_04_REJECTED",
         "withdrawn": "NEXUS.G_10_04_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3090,7 +3091,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "nexusconnect.g_10_05.decide",
+      "permission": "nexus.register_an_inbound_source_or_endpoint.decide",
       "outcome_events": {
         "approved": [
           "NEXUS.INBOUND_SOURCE_REGISTERED"
@@ -3098,7 +3099,7 @@
         "rejected": "NEXUS.G_10_05_REJECTED",
         "withdrawn": "NEXUS.G_10_05_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3116,7 +3117,7 @@
       "class": "GUARDED",
       "class_note": "quarantine release; malware never released",
       "approver_scope": "tenant",
-      "permission": "nexusconnect.g_10_06.decide",
+      "permission": "nexus.release_or_discard_a_quarantined_item_never_malware.decide",
       "outcome_events": {
         "approved": [
           "NEXUS.QUARANTINE_RELEASED",
@@ -3125,7 +3126,7 @@
         "rejected": "NEXUS.G_10_06_REJECTED",
         "withdrawn": "NEXUS.G_10_06_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3142,7 +3143,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "nexusconnect.g_10_07.decide",
+      "permission": "nexus.resolve_a_dead_letter_item.decide",
       "outcome_events": {
         "approved": [
           "NEXUS.DEAD_LETTER_RESOLVED"
@@ -3150,7 +3151,7 @@
         "rejected": "NEXUS.G_10_07_REJECTED",
         "withdrawn": "NEXUS.G_10_07_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3168,7 +3169,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "nexusconnect.g_10_08.decide",
+      "permission": "nexus.archive_a_connection.decide",
       "outcome_events": {
         "approved": [
           "NEXUS.CONNECTOR_ARCHIVED",
@@ -3177,7 +3178,7 @@
         "rejected": "NEXUS.G_10_08_REJECTED",
         "withdrawn": "NEXUS.G_10_08_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3194,7 +3195,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "nexusconnect.g_10_09.decide",
+      "permission": "nexus.approve_a_fallback_provider_pairing_for_a_jurisdiction_a.decide",
       "outcome_events": {
         "approved": [
           "PLATFORM.FALLBACK_APPROVED"
@@ -3202,7 +3203,7 @@
         "rejected": "NEXUS.G_10_09_REJECTED",
         "withdrawn": "NEXUS.G_10_09_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3220,7 +3221,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "commandcentre.g_11_01.decide",
+      "permission": "access.create_or_change_a_unit_that_sets_a_jurisdiction_or_data.decide",
       "outcome_events": {
         "approved": [
           "ADMIN.UNIT_CREATED",
@@ -3229,7 +3230,7 @@
         "rejected": "ADMIN.G_11_01_REJECTED",
         "withdrawn": "ADMIN.G_11_01_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3254,7 +3255,7 @@
         "rejected": "ADMIN.G_11_02_REJECTED",
         "withdrawn": "ADMIN.G_11_02_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -3271,7 +3272,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "commandcentre.g_11_03.decide",
+      "permission": "access.add_a_protected_permission_to_a_role.decide",
       "outcome_events": {
         "approved": [
           "ADMIN.PROTECTED_PERMISSION_APPROVED"
@@ -3279,7 +3280,7 @@
         "rejected": "ADMIN.G_11_03_REJECTED",
         "withdrawn": "ADMIN.G_11_03_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3297,7 +3298,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "commandcentre.g_11_04.decide",
+      "permission": "access.assign_or_change_a_person_s_role_and_scopes.decide",
       "outcome_events": {
         "approved": [
           "ADMIN.ROLE_ASSIGNED",
@@ -3306,7 +3307,7 @@
         "rejected": "ADMIN.G_11_04_REJECTED",
         "withdrawn": "ADMIN.G_11_04_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3324,7 +3325,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "commandcentre.g_11_05.decide",
+      "permission": "access.verify_a_professional_credential_or_a_competence_e_g_hin.decide",
       "outcome_events": {
         "approved": [
           "ADMIN.CREDENTIAL_VERIFIED",
@@ -3333,7 +3334,7 @@
         "rejected": "ADMIN.G_11_05_REJECTED",
         "withdrawn": "ADMIN.G_11_05_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3351,7 +3352,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "with reason and step-up",
       "approver_scope": "tenant",
-      "permission": "commandcentre.g_11_06.decide",
+      "permission": "access.activate_just_in_time_elevation.decide",
       "outcome_events": {
         "approved": [
           "ADMIN.ELEVATION_ACTIVATED",
@@ -3360,7 +3361,7 @@
         "rejected": "ADMIN.G_11_06_REJECTED",
         "withdrawn": "ADMIN.G_11_06_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3385,7 +3386,7 @@
         "rejected": "ADMIN.G_11_07_REJECTED",
         "withdrawn": "ADMIN.G_11_07_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -3403,7 +3404,7 @@
       "class": "GUARDED",
       "class_note": "no one recertifies their own access",
       "approver_scope": "tenant",
-      "permission": "commandcentre.g_11_08.decide",
+      "permission": "access.recertify_access.decide",
       "outcome_events": {
         "approved": [
           "ADMIN.ACCESS_RECERTIFIED",
@@ -3412,7 +3413,7 @@
         "rejected": "ADMIN.G_11_08_REJECTED",
         "withdrawn": "ADMIN.G_11_08_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3439,7 +3440,7 @@
         "rejected": "ADMIN.G_11_09_REJECTED",
         "withdrawn": "ADMIN.G_11_09_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -3464,7 +3465,7 @@
         "rejected": "ADMIN.G_11_10_REJECTED",
         "withdrawn": "ADMIN.G_11_10_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -3482,7 +3483,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "commandcentre.g_11_11.decide",
+      "permission": "access.platform_break_glass_access_to_a_tenant.decide",
       "outcome_events": {
         "approved": [
           "PLATFORM.BREAK_GLASS_APPROVED",
@@ -3491,7 +3492,7 @@
         "rejected": "ADMIN.G_11_11_REJECTED",
         "withdrawn": "ADMIN.G_11_11_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3508,7 +3509,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "commandcentre.g_11_12.decide",
+      "permission": "access.publish_a_permission_catalogue_template_or_separation_of.decide",
       "outcome_events": {
         "approved": [
           "PLATFORM.CATALOGUE_PUBLISHED"
@@ -3516,7 +3517,7 @@
         "rejected": "ADMIN.G_11_12_REJECTED",
         "withdrawn": "ADMIN.G_11_12_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3533,7 +3534,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "commandcentre.g_11_13.decide",
+      "permission": "access.approve_an_external_user.decide",
       "outcome_events": {
         "approved": [
           "ADMIN.EXTERNAL_USER_APPROVED"
@@ -3541,7 +3542,7 @@
         "rejected": "ADMIN.G_11_13_REJECTED",
         "withdrawn": "ADMIN.G_11_13_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3558,7 +3559,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "commandcentre.g_11_14.decide",
+      "permission": "access.relocate_a_person_s_identity_record_to_another_region.decide",
       "outcome_events": {
         "approved": [
           "ADMIN.USER_RELOCATED"
@@ -3566,7 +3567,7 @@
         "rejected": "ADMIN.G_11_14_REJECTED",
         "withdrawn": "ADMIN.G_11_14_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3583,7 +3584,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "pulsecomms.g_12_01.decide",
+      "permission": "comms.publish_a_platform_system_notice_template_version_for_a_.decide",
       "outcome_events": {
         "approved": [
           "PLATFORM.TEMPLATE_PUBLISHED"
@@ -3591,7 +3592,7 @@
         "rejected": "COMMS.G_12_01_REJECTED",
         "withdrawn": "COMMS.G_12_01_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3608,7 +3609,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "pulsecomms.g_12_02.decide",
+      "permission": "comms.adapt_a_template_s_wording_for_a_tenant_within_allowed_f.decide",
       "outcome_events": {
         "approved": [
           "COMMS.TEMPLATE_ADAPTED"
@@ -3616,7 +3617,7 @@
         "rejected": "COMMS.G_12_02_REJECTED",
         "withdrawn": "COMMS.G_12_02_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3633,7 +3634,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "consent recorded with evidence",
       "approver_scope": "tenant",
-      "permission": "pulsecomms.g_12_03.decide",
+      "permission": "comms.record_a_client_s_channel_consent_with_evidence.decide",
       "outcome_events": {
         "approved": [
           "COMMS.CONSENT_RECORDED"
@@ -3641,7 +3642,7 @@
         "rejected": "COMMS.G_12_03_REJECTED",
         "withdrawn": "COMMS.G_12_03_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3659,7 +3660,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "own number, with step-up",
       "approver_scope": "tenant",
-      "permission": "pulsecomms.g_12_04.decide",
+      "permission": "comms.register_a_personal_number_for_sms_or_voice_escalation.decide",
       "outcome_events": {
         "approved": [
           "COMMS.CONTACT_REGISTERED",
@@ -3668,7 +3669,7 @@
         "rejected": "COMMS.G_12_04_REJECTED",
         "withdrawn": "COMMS.G_12_04_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3685,7 +3686,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "pulsecomms.g_12_05.decide",
+      "permission": "comms.resolve_a_routing_failure.decide",
       "outcome_events": {
         "approved": [
           "COMMS.ROUTING_FAILURE_RESOLVED"
@@ -3693,7 +3694,7 @@
         "rejected": "COMMS.G_12_05_REJECTED",
         "withdrawn": "COMMS.G_12_05_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3710,7 +3711,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "cloudvault.g_13_01.decide",
+      "permission": "storage.approve_or_change_a_pack_s_primary_or_recovery_location.decide",
       "outcome_events": {
         "approved": [
           "PLATFORM.LOCATION_APPROVED"
@@ -3718,7 +3719,7 @@
         "rejected": "STORAGE.G_13_01_REJECTED",
         "withdrawn": "STORAGE.G_13_01_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3735,7 +3736,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "cloudvault.g_13_02.decide",
+      "permission": "storage.connect_bring_your_own_storage.decide",
       "outcome_events": {
         "approved": [
           "STORAGE.BYOS_CONNECTED"
@@ -3743,7 +3744,7 @@
         "rejected": "STORAGE.G_13_02_REJECTED",
         "withdrawn": "STORAGE.G_13_02_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3760,7 +3761,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "cloudvault.g_13_03.decide",
+      "permission": "storage.enable_a_customer_managed_key_acknowledging_that_revocat.decide",
       "outcome_events": {
         "approved": [
           "STORAGE.CMK_ENABLED"
@@ -3768,7 +3769,7 @@
         "rejected": "STORAGE.G_13_03_REJECTED",
         "withdrawn": "STORAGE.G_13_03_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3785,7 +3786,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "confirmation of receipt by the tenant's signatory",
       "approver_scope": "tenant",
-      "permission": "cloudvault.g_13_04.decide",
+      "permission": "storage.confirm_receipt_of_the_exit_export.decide",
       "outcome_events": {
         "approved": [
           "STORAGE.EXIT_EXPORT_CONFIRMED"
@@ -3793,7 +3794,7 @@
         "rejected": "STORAGE.G_13_04_REJECTED",
         "withdrawn": "STORAGE.G_13_04_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3810,7 +3811,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "cloudvault.g_13_05.decide",
+      "permission": "storage.destroy_a_tenant_key_at_exit.decide",
       "outcome_events": {
         "approved": [
           "STORAGE.TENANT_KEY_DESTROYED"
@@ -3818,7 +3819,7 @@
         "rejected": "STORAGE.G_13_05_REJECTED",
         "withdrawn": "STORAGE.G_13_05_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3835,7 +3836,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "cloudvault.g_13_06.decide",
+      "permission": "storage.approve_a_bulk_disposal_batch.decide",
       "outcome_events": {
         "approved": [
           "STORAGE.BULK_DISPOSAL_APPROVED"
@@ -3843,7 +3844,7 @@
         "rejected": "STORAGE.G_13_06_REJECTED",
         "withdrawn": "STORAGE.G_13_06_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3861,7 +3862,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "cloudvault.g_13_07.decide",
+      "permission": "storage.invoke_region_failover.decide",
       "outcome_events": {
         "approved": [
           "PLATFORM.FAILOVER_INVOKED",
@@ -3870,7 +3871,7 @@
         "rejected": "STORAGE.G_13_07_REJECTED",
         "withdrawn": "STORAGE.G_13_07_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3887,7 +3888,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "request; executed only under client-granted support access",
       "approver_scope": "tenant",
-      "permission": "cloudvault.g_13_08.decide",
+      "permission": "storage.request_a_single_tenant_restore.decide",
       "outcome_events": {
         "approved": [
           "STORAGE.TENANT_RESTORE_APPROVED"
@@ -3895,7 +3896,7 @@
         "rejected": "STORAGE.G_13_08_REJECTED",
         "withdrawn": "STORAGE.G_13_08_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3912,7 +3913,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "cloudvault.g_13_09.decide",
+      "permission": "storage.release_the_dedicated_or_sovereign_edition_for_a_client.decide",
       "outcome_events": {
         "approved": [
           "PLATFORM.EDITION_RELEASED"
@@ -3920,7 +3921,7 @@
         "rejected": "STORAGE.G_13_09_REJECTED",
         "withdrawn": "STORAGE.G_13_09_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3939,7 +3940,7 @@
       "class": "DUAL",
       "class_note": "content requests via G-11-09",
       "approver_scope": "tenant",
-      "permission": "datamigrate.g_14_01.decide",
+      "permission": "migrate.grant_operator_access_approve_each_content_request.decide",
       "outcome_events": {
         "approved": [
           "MIGRATE.OPERATOR_ACCESS_GRANTED",
@@ -3949,7 +3950,7 @@
         "rejected": "MIGRATE.G_14_01_REJECTED",
         "withdrawn": "MIGRATE.G_14_01_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3967,7 +3968,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "datamigrate.g_14_02.decide",
+      "permission": "migrate.approve_mapping_template_approve_tag_samples.decide",
       "outcome_events": {
         "approved": [
           "MIGRATE.MAPPING_APPROVED",
@@ -3976,7 +3977,7 @@
         "rejected": "MIGRATE.G_14_02_REJECTED",
         "withdrawn": "MIGRATE.G_14_02_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -3993,7 +3994,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "datamigrate.g_14_03.decide",
+      "permission": "migrate.exclude_a_batch_of_records.decide",
       "outcome_events": {
         "approved": [
           "MIGRATE.EXCLUSION_APPROVED"
@@ -4001,7 +4002,7 @@
         "rejected": "MIGRATE.G_14_03_REJECTED",
         "withdrawn": "MIGRATE.G_14_03_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -4016,13 +4017,13 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "datamigrate.g_14_04.decide",
+      "permission": "migrate.clear_a_document_from_privileged_pending_review.decide",
       "outcome_events": {
         "approved": [],
         "rejected": "MIGRATE.G_14_04_REJECTED",
         "withdrawn": "MIGRATE.G_14_04_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -4041,7 +4042,7 @@
       "class": "GUARDED",
       "class_note": "decided by the conflicts reviewer, never the requesting or responsible partner",
       "approver_scope": "tenant",
-      "permission": "datamigrate.g_14_05.decide",
+      "permission": "migrate.approve_or_reverse_a_client_merge_resolve_a_conflict_hit.decide",
       "outcome_events": {
         "approved": [
           "MIGRATE.CLIENT_MERGE_APPROVED",
@@ -4051,7 +4052,7 @@
         "rejected": "MIGRATE.G_14_05_REJECTED",
         "withdrawn": "MIGRATE.G_14_05_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -4068,7 +4069,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "datamigrate.g_14_06.decide",
+      "permission": "migrate.sign_off_client_money_reconciliation.decide",
       "outcome_events": {
         "approved": [
           "MIGRATE.MONEY_RECONCILIATION_SIGNED"
@@ -4076,7 +4077,7 @@
         "rejected": "MIGRATE.G_14_06_REJECTED",
         "withdrawn": "MIGRATE.G_14_06_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -4093,7 +4094,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "datamigrate.g_14_07.decide",
+      "permission": "migrate.classify_a_quarantined_record_s_jurisdiction.decide",
       "outcome_events": {
         "approved": [
           "MIGRATE.QUARANTINE_RESOLVED"
@@ -4101,7 +4102,7 @@
         "rejected": "MIGRATE.G_14_07_REJECTED",
         "withdrawn": "MIGRATE.G_14_07_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -4132,7 +4133,7 @@
         "rejected": "MIGRATE.G_14_08_REJECTED",
         "withdrawn": "MIGRATE.G_14_08_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -4159,7 +4160,7 @@
         "rejected": "MIGRATE.G_14_09_REJECTED",
         "withdrawn": "MIGRATE.G_14_09_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": true,
       "step_up_required": true
     },
@@ -4177,7 +4178,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "datamigrate.g_14_10.decide",
+      "permission": "migrate.decide_fix_forward_or_rollback_for_a_live_defect.decide",
       "outcome_events": {
         "approved": [
           "MIGRATE.DEFECT_ESCALATED",
@@ -4186,7 +4187,7 @@
         "rejected": "MIGRATE.G_14_10_REJECTED",
         "withdrawn": "MIGRATE.G_14_10_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     },
@@ -4204,7 +4205,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "datamigrate.g_14_11.decide",
+      "permission": "migrate.destroy_migration_staging.decide",
       "outcome_events": {
         "approved": [
           "MIGRATE.STAGING_DESTROYED",
@@ -4213,7 +4214,7 @@
         "rejected": "MIGRATE.G_14_11_REJECTED",
         "withdrawn": "MIGRATE.G_14_11_WITHDRAWN"
       },
-      "status": "proposed-v0",
+      "status": "adopted",
       "protected": false,
       "step_up_required": false
     }

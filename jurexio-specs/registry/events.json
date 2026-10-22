@@ -1,10 +1,39 @@
 {
   "_meta": {
-    "version": "0.1.0-proposed",
+    "version": "1.0.0-adopted",
     "generated": "2026-10-21",
     "naming": "DOMAIN.EVENT_NAME; generated gate outcomes follow DOMAIN.G_NN_NN_REJECTED / _WITHDRAWN (proposed convention)",
     "critical": "null = to be set by the CTO in Event registry v1 using each spec's 'Critical-class events' list",
-    "authority": "Proposed seed; Event registry v1 (CTO) is authoritative"
+    "authority": "Proposed seed; Event registry v1 (CTO) is authoritative",
+    "adopted_on": "2026-10-22",
+    "adopted_by": "CTO Event registry v1",
+    "gate_outcome_naming": "DOMAIN.G_NN_NN_REJECTED / DOMAIN.G_NN_NN_WITHDRAWN (adopted)",
+    "alias_policy": {
+      "legacy_alias_accept_until": "2027-10-26",
+      "reject_non_canonical_after": "2027-10-26",
+      "notes": "12 legacy-alias rows map to canonical names via maps_to"
+    },
+    "flag_012_core_events": [
+      "MIGRATE.DRY_RUN_PASSED",
+      "MIGRATE.DRY_RUN_FAILED",
+      "MIGRATE.IT_DIRECTOR_APPROVED",
+      "MIGRATE.IT_DIRECTOR_REJECTED",
+      "MIGRATE.BOARD_APPROVED",
+      "MIGRATE.CEO_CONFIRMED",
+      "MIGRATE.LEGACY_FROZEN",
+      "MIGRATE.CUTOVER_EXECUTED",
+      "MIGRATE.ROLLBACK_APPROVED",
+      "MIGRATE.ROLLBACK_EXECUTED",
+      "MIGRATE.STAGING_DESTROYED",
+      "MIGRATE.SYNC_COMPLETED",
+      "MIGRATE.STREAM_CREATED",
+      "MIGRATE.TAG_SAMPLE_APPROVED",
+      "MIGRATE.PROJECT_CREATED",
+      "MIGRATE.STATE_CHANGED",
+      "MIGRATE.SOURCE_EXPORT_SEALED",
+      "MIGRATE.DECOMMISSION_CERTIFIED"
+    ],
+    "canonical_event_rule": "One human act \u2192 one canonical event; owning module owns the record."
   },
   "events": [
     {
@@ -15,7 +44,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -26,7 +55,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -37,7 +66,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -48,7 +77,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -59,7 +88,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -70,7 +99,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -81,7 +110,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -92,7 +121,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -103,7 +132,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -114,7 +143,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -125,7 +154,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -136,7 +165,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -147,7 +176,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -158,7 +187,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -169,7 +198,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -180,7 +209,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -191,7 +220,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -202,7 +231,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -213,7 +242,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -224,7 +253,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -235,7 +264,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -246,7 +275,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -257,7 +286,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -268,7 +297,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -279,7 +308,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -290,7 +319,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -301,7 +330,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -312,7 +341,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -323,7 +352,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -334,7 +363,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -345,7 +374,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -356,7 +385,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -367,7 +396,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -378,7 +407,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -389,7 +418,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -400,7 +429,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -411,7 +440,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -422,7 +451,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -433,7 +462,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -444,7 +473,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -455,7 +484,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -466,7 +495,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -477,7 +506,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -488,7 +517,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -499,7 +528,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -510,7 +539,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -521,7 +550,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -532,7 +561,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -543,7 +572,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -554,7 +583,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -565,7 +594,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -576,7 +605,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -587,7 +616,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -598,7 +627,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -609,7 +638,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -620,7 +649,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -631,7 +660,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -642,7 +671,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -653,7 +682,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -664,7 +693,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -675,7 +704,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -686,7 +715,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -697,7 +726,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -708,7 +737,7 @@
         "M06"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -719,7 +748,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -730,7 +759,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -741,7 +770,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -752,7 +781,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -763,7 +792,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -774,7 +803,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -785,7 +814,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -796,7 +825,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -807,7 +836,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -818,7 +847,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -829,7 +858,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -840,7 +869,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -851,7 +880,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -862,7 +891,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -873,7 +902,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -884,7 +913,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -895,7 +924,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -906,7 +935,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -917,7 +946,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -928,7 +957,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -939,7 +968,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -950,7 +979,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -961,7 +990,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -972,7 +1001,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -983,7 +1012,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -994,7 +1023,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1005,7 +1034,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1016,7 +1045,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1027,7 +1056,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1038,8 +1067,9 @@
         "M12"
       ],
       "source": "legacy-alias",
-      "critical": null,
-      "maps_to": "COMMS.CLIENT_MESSAGE_SENT"
+      "critical": false,
+      "maps_to": "COMMS.CLIENT_MESSAGE_SENT",
+      "alias_sunset": "2027-10-26"
     },
     {
       "name": "COMMS.CLIENT_MESSAGE_SENT",
@@ -1049,7 +1079,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1060,7 +1090,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1071,7 +1101,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1082,7 +1112,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1093,7 +1123,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1104,7 +1134,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1115,8 +1145,9 @@
         "M12"
       ],
       "source": "legacy-alias",
-      "critical": null,
-      "maps_to": "COMMS.CHANNEL_FAILED"
+      "critical": false,
+      "maps_to": "COMMS.CHANNEL_FAILED",
+      "alias_sunset": "2027-10-26"
     },
     {
       "name": "COMMS.ESCALATED",
@@ -1126,7 +1157,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1137,7 +1168,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1148,8 +1179,9 @@
         "M12"
       ],
       "source": "legacy-alias",
-      "critical": null,
-      "maps_to": "COMMS.SENT"
+      "critical": false,
+      "maps_to": "COMMS.SENT",
+      "alias_sunset": "2027-10-26"
     },
     {
       "name": "COMMS.READ",
@@ -1159,7 +1191,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1170,7 +1202,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1181,7 +1213,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1192,7 +1224,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1203,7 +1235,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1214,7 +1246,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1225,7 +1257,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1236,7 +1268,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1247,7 +1279,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1258,7 +1290,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1269,7 +1301,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1280,7 +1312,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1291,7 +1323,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1302,7 +1334,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1313,7 +1345,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1324,7 +1356,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1335,7 +1367,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1346,7 +1378,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1357,8 +1389,9 @@
         "M05"
       ],
       "source": "legacy-alias",
-      "critical": null,
-      "maps_to": "DEADLINE.PROPOSED"
+      "critical": false,
+      "maps_to": "DEADLINE.PROPOSED",
+      "alias_sunset": "2027-10-26"
     },
     {
       "name": "DEADLINE.ESCALATED",
@@ -1368,7 +1401,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1379,8 +1412,9 @@
         "M05"
       ],
       "source": "legacy-alias",
-      "critical": null,
-      "maps_to": "DEADLINE.EXTENSION_RECORDED"
+      "critical": false,
+      "maps_to": "DEADLINE.EXTENSION_RECORDED",
+      "alias_sunset": "2027-10-26"
     },
     {
       "name": "DEADLINE.EXTENSION_RECORDED",
@@ -1390,7 +1424,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1401,7 +1435,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1412,7 +1446,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1423,7 +1457,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1434,7 +1468,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1445,7 +1479,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1456,7 +1490,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1467,7 +1501,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1478,7 +1512,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1489,7 +1523,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1500,7 +1534,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1511,7 +1545,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1522,8 +1556,9 @@
         "M05"
       ],
       "source": "legacy-alias",
-      "critical": null,
-      "maps_to": "DEADLINE.ALERT_SENT"
+      "critical": false,
+      "maps_to": "DEADLINE.ALERT_SENT",
+      "alias_sunset": "2027-10-26"
     },
     {
       "name": "DEADLINE.TASK_CLOSED",
@@ -1533,7 +1568,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1544,7 +1579,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1555,7 +1590,7 @@
         "M05"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1566,7 +1601,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1578,7 +1613,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1589,7 +1624,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1600,7 +1635,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1611,7 +1646,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1622,7 +1657,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1633,7 +1668,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1644,7 +1679,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1655,7 +1690,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1666,7 +1701,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1677,7 +1712,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1688,7 +1723,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1699,7 +1734,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1710,7 +1745,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1721,7 +1756,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1732,7 +1767,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1743,8 +1778,9 @@
         "M02"
       ],
       "source": "legacy-alias",
-      "critical": null,
-      "maps_to": "DOCUMENT.CLASSIFIED"
+      "critical": false,
+      "maps_to": "DOCUMENT.CLASSIFIED",
+      "alias_sunset": "2027-10-26"
     },
     {
       "name": "DOCUMENT.PRODUCTION_APPROVED",
@@ -1754,7 +1790,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1765,7 +1801,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1776,7 +1812,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1787,7 +1823,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1798,7 +1834,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1809,7 +1845,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1820,7 +1856,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1831,7 +1867,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1842,7 +1878,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1853,7 +1889,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1864,8 +1900,9 @@
         "M02"
       ],
       "source": "legacy-alias",
-      "critical": null,
-      "maps_to": "DOCUMENT.SIGNATURE_COMPLETED"
+      "critical": false,
+      "maps_to": "DOCUMENT.SIGNATURE_COMPLETED",
+      "alias_sunset": "2027-10-26"
     },
     {
       "name": "DOCUMENT.SIGNING_PROVIDER_APPROVED",
@@ -1875,7 +1912,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1886,7 +1923,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1897,7 +1934,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1908,8 +1945,9 @@
         "M02"
       ],
       "source": "legacy-alias",
-      "critical": null,
-      "maps_to": "DOCUMENT.UPLOADED"
+      "critical": false,
+      "maps_to": "DOCUMENT.UPLOADED",
+      "alias_sunset": "2027-10-26"
     },
     {
       "name": "DOCUMENT.UPLOADED",
@@ -1919,7 +1957,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1930,7 +1968,7 @@
         "M02"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1941,7 +1979,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1952,7 +1990,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1963,7 +2001,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -1974,7 +2012,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1985,7 +2023,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -1996,7 +2034,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2007,7 +2045,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2018,7 +2056,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2029,7 +2067,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2040,7 +2078,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2051,7 +2089,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2062,7 +2100,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2073,7 +2111,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2084,7 +2122,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2095,7 +2133,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2106,7 +2144,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2117,7 +2155,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2128,7 +2166,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2139,7 +2177,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2150,7 +2188,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2161,7 +2199,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2172,7 +2210,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2183,7 +2221,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2194,7 +2232,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2205,7 +2243,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2216,7 +2254,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2227,7 +2265,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2238,7 +2276,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2249,7 +2287,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2260,7 +2298,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2271,7 +2309,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2282,7 +2320,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2293,7 +2331,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2304,7 +2342,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2315,7 +2353,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2326,7 +2364,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2337,7 +2375,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2348,7 +2386,7 @@
         "M03"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2359,7 +2397,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2370,7 +2408,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2381,7 +2419,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2392,7 +2430,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2403,7 +2441,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2414,7 +2452,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2425,7 +2463,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2436,7 +2474,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2447,7 +2485,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2458,7 +2496,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2469,7 +2507,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2480,7 +2518,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2491,7 +2529,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2502,7 +2540,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2513,7 +2551,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2524,7 +2562,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2535,7 +2573,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2546,7 +2584,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2557,7 +2595,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2568,7 +2606,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2579,7 +2617,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2590,7 +2628,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2601,7 +2639,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2612,7 +2650,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2623,7 +2661,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2634,7 +2672,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2645,7 +2683,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2656,7 +2694,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2667,7 +2705,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2678,7 +2716,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2689,7 +2727,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2700,7 +2738,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2711,7 +2749,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2722,7 +2760,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2733,7 +2771,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2744,7 +2782,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2755,7 +2793,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2766,7 +2804,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2777,7 +2815,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2788,7 +2826,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2799,7 +2837,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2810,7 +2848,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2821,7 +2859,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2832,7 +2870,7 @@
         "M09"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2843,7 +2881,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2854,7 +2892,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2865,7 +2903,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2876,7 +2914,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2887,7 +2925,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2898,7 +2936,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2909,7 +2947,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2920,7 +2958,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2931,7 +2969,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2942,7 +2980,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2953,7 +2991,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2964,7 +3002,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2975,7 +3013,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -2986,7 +3024,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -2997,7 +3035,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3008,7 +3046,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3019,7 +3057,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3030,7 +3068,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3041,7 +3079,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3052,7 +3090,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3063,7 +3101,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3074,7 +3112,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3085,7 +3123,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3096,7 +3134,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3107,7 +3145,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3118,7 +3156,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3129,7 +3167,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3140,7 +3178,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3151,7 +3189,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3162,7 +3200,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3173,7 +3211,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3185,7 +3223,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3196,7 +3234,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3207,7 +3245,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3218,7 +3256,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3229,7 +3267,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3240,7 +3278,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3251,7 +3289,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3262,7 +3300,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3273,7 +3311,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3284,7 +3322,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3295,7 +3333,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3306,7 +3344,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3317,7 +3355,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3328,7 +3366,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3339,7 +3377,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3350,7 +3388,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3361,7 +3399,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3372,7 +3410,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3383,7 +3421,7 @@
         "M01"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3394,7 +3432,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3405,7 +3443,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3416,7 +3454,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3427,7 +3465,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3438,7 +3476,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3449,7 +3487,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3460,7 +3498,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3471,7 +3509,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3482,7 +3520,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3493,7 +3531,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3504,7 +3542,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3515,7 +3553,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3526,7 +3564,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3537,7 +3575,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3548,7 +3586,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3559,7 +3597,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3570,7 +3608,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3581,7 +3619,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3592,7 +3630,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3603,7 +3641,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3614,7 +3652,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3625,7 +3663,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3636,7 +3674,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3647,7 +3685,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3658,7 +3696,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3669,7 +3707,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3681,8 +3719,9 @@
         "M14"
       ],
       "source": "legacy-alias",
-      "critical": null,
-      "maps_to": "DOCUMENT.CLASSIFICATION_LOWERED"
+      "critical": false,
+      "maps_to": "DOCUMENT.CLASSIFICATION_LOWERED",
+      "alias_sunset": "2027-10-26"
     },
     {
       "name": "MIGRATE.PROJECT_CANCELLED",
@@ -3692,7 +3731,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3703,7 +3742,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3714,7 +3753,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3725,7 +3764,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3736,7 +3775,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3747,7 +3786,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3758,7 +3797,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3769,7 +3808,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3780,7 +3819,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3791,7 +3830,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3802,7 +3841,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3813,7 +3852,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3824,7 +3863,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3835,7 +3874,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3846,7 +3885,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3857,7 +3896,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3868,7 +3907,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3879,7 +3918,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3890,7 +3929,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3901,7 +3940,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3912,8 +3951,9 @@
         "M10"
       ],
       "source": "legacy-alias",
-      "critical": null,
-      "maps_to": "NEXUS.HANDED_OFF"
+      "critical": false,
+      "maps_to": "NEXUS.HANDED_OFF",
+      "alias_sunset": "2027-10-26"
     },
     {
       "name": "NEXUS.CREDENTIALS_DESTROYED",
@@ -3923,7 +3963,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3934,7 +3974,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3945,7 +3985,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3956,7 +3996,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3967,7 +4007,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -3978,7 +4018,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3989,7 +4029,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4000,7 +4040,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4011,7 +4051,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4022,7 +4062,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4033,7 +4073,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4044,7 +4084,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4055,7 +4095,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4066,7 +4106,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4077,8 +4117,9 @@
         "M10"
       ],
       "source": "legacy-alias",
-      "critical": null,
-      "maps_to": "NEXUS.INBOUND_RECEIVED"
+      "critical": false,
+      "maps_to": "NEXUS.INBOUND_RECEIVED",
+      "alias_sunset": "2027-10-26"
     },
     {
       "name": "PLATFORM.BREAK_GLASS_APPROVED",
@@ -4088,7 +4129,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4099,7 +4140,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4110,7 +4151,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4121,7 +4162,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4132,7 +4173,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4143,7 +4184,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4154,7 +4195,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -4165,7 +4206,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -4176,7 +4217,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -4187,7 +4228,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -4198,7 +4239,7 @@
         "M04"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -4209,7 +4250,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4220,7 +4261,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4231,7 +4272,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4242,7 +4283,7 @@
         "M10"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4253,7 +4294,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4264,7 +4305,7 @@
         "M11"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4275,7 +4316,7 @@
         "M12"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4286,7 +4327,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4297,7 +4338,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4308,7 +4349,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4319,7 +4360,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4330,7 +4371,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4341,7 +4382,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4352,7 +4393,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4363,7 +4404,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -4374,7 +4415,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -4385,7 +4426,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4396,7 +4437,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4407,7 +4448,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4418,7 +4459,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4429,7 +4470,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4440,7 +4481,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4451,7 +4492,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4462,7 +4503,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4473,7 +4514,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4484,7 +4525,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4495,7 +4536,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4506,7 +4547,7 @@
         "M08"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4517,7 +4558,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4528,7 +4569,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4539,7 +4580,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4550,7 +4591,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4561,7 +4602,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4572,7 +4613,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4583,7 +4624,7 @@
         "M07"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4594,7 +4635,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4605,7 +4646,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4616,7 +4657,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4627,7 +4668,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4638,7 +4679,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4650,7 +4691,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -4661,7 +4702,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4672,7 +4713,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4683,7 +4724,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": true,
       "maps_to": null
     },
     {
@@ -4694,7 +4735,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4705,7 +4746,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4716,7 +4757,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4727,7 +4768,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4738,7 +4779,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4749,7 +4790,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4760,7 +4801,7 @@
         "M13"
       ],
       "source": "spec",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4769,7 +4810,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4778,7 +4819,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4787,7 +4828,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4796,7 +4837,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4805,7 +4846,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4814,7 +4855,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4823,7 +4864,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4832,7 +4873,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4841,7 +4882,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4850,7 +4891,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4859,7 +4900,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4868,7 +4909,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4877,7 +4918,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4886,7 +4927,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4895,7 +4936,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4904,7 +4945,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4913,7 +4954,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4922,7 +4963,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4931,7 +4972,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4940,7 +4981,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4949,7 +4990,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4958,7 +4999,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4967,7 +5008,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4976,7 +5017,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4985,7 +5026,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -4994,7 +5035,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5003,7 +5044,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5012,7 +5053,7 @@
       "owner_module": "M11",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5021,7 +5062,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5030,7 +5071,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5039,7 +5080,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5048,7 +5089,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5057,7 +5098,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5066,7 +5107,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5075,7 +5116,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5084,7 +5125,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5093,7 +5134,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5102,7 +5143,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5111,7 +5152,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5120,7 +5161,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5129,7 +5170,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5138,7 +5179,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5147,7 +5188,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5156,7 +5197,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5165,7 +5206,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5174,7 +5215,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5183,7 +5224,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5192,7 +5233,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5201,7 +5242,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5210,7 +5251,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5219,7 +5260,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5228,7 +5269,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5237,7 +5278,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5246,7 +5287,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5255,7 +5296,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5264,7 +5305,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5273,7 +5314,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5282,7 +5323,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5291,7 +5332,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5300,7 +5341,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5309,7 +5350,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5318,7 +5359,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5327,7 +5368,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5336,7 +5377,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5345,7 +5386,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5354,7 +5395,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5363,7 +5404,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5372,7 +5413,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5381,7 +5422,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5390,7 +5431,7 @@
       "owner_module": "M06",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5399,7 +5440,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5408,7 +5449,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5417,7 +5458,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5426,7 +5467,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5435,7 +5476,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5444,7 +5485,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5453,7 +5494,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5462,7 +5503,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5471,7 +5512,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5480,7 +5521,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5489,7 +5530,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5498,7 +5539,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5507,7 +5548,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5516,7 +5557,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5525,7 +5566,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5534,7 +5575,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5543,7 +5584,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5552,7 +5593,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5561,7 +5602,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5570,7 +5611,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5579,7 +5620,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5588,7 +5629,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5597,7 +5638,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5606,7 +5647,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5615,7 +5656,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5624,7 +5665,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5633,7 +5674,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5642,7 +5683,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5651,7 +5692,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5660,7 +5701,7 @@
       "owner_module": "M08",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5669,7 +5710,7 @@
       "owner_module": "M12",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5678,7 +5719,7 @@
       "owner_module": "M12",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5687,7 +5728,7 @@
       "owner_module": "M12",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5696,7 +5737,7 @@
       "owner_module": "M12",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5705,7 +5746,7 @@
       "owner_module": "M12",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5714,7 +5755,7 @@
       "owner_module": "M12",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5723,7 +5764,7 @@
       "owner_module": "M12",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5732,7 +5773,7 @@
       "owner_module": "M12",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5741,7 +5782,7 @@
       "owner_module": "M12",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5750,7 +5791,7 @@
       "owner_module": "M12",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5759,7 +5800,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5768,7 +5809,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5777,7 +5818,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5786,7 +5827,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5795,7 +5836,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5804,7 +5845,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5813,7 +5854,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5822,7 +5863,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5831,7 +5872,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5840,7 +5881,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5849,7 +5890,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5858,7 +5899,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5867,7 +5908,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5876,7 +5917,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5885,7 +5926,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5894,7 +5935,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5903,7 +5944,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5912,7 +5953,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5921,7 +5962,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5930,7 +5971,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5939,7 +5980,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5948,7 +5989,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5957,7 +5998,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5966,7 +6007,7 @@
       "owner_module": "M05",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5975,7 +6016,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5984,7 +6025,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -5993,7 +6034,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6002,7 +6043,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6011,7 +6052,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6020,7 +6061,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6029,7 +6070,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6038,7 +6079,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6047,7 +6088,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6056,7 +6097,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6065,7 +6106,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6074,7 +6115,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6083,7 +6124,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6092,7 +6133,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6101,7 +6142,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6110,7 +6151,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6119,7 +6160,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6128,7 +6169,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6137,7 +6178,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6146,7 +6187,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6155,7 +6196,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6164,7 +6205,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6173,7 +6214,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6182,7 +6223,7 @@
       "owner_module": "M02",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6191,7 +6232,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6200,7 +6241,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6209,7 +6250,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6218,7 +6259,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6227,7 +6268,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6236,7 +6277,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6245,7 +6286,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6254,7 +6295,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6263,7 +6304,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6272,7 +6313,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6281,7 +6322,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6290,7 +6331,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6299,7 +6340,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6308,7 +6349,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6317,7 +6358,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6326,7 +6367,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6335,7 +6376,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6344,7 +6385,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6353,7 +6394,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6362,7 +6403,7 @@
       "owner_module": "M03",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6371,7 +6412,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6380,7 +6421,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6389,7 +6430,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6398,7 +6439,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6407,7 +6448,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6416,7 +6457,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6425,7 +6466,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6434,7 +6475,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6443,7 +6484,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6452,7 +6493,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6461,7 +6502,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6470,7 +6511,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6479,7 +6520,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6488,7 +6529,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6497,7 +6538,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6506,7 +6547,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6515,7 +6556,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6524,7 +6565,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6533,7 +6574,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6542,7 +6583,7 @@
       "owner_module": "M09",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6551,7 +6592,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6560,7 +6601,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6569,7 +6610,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6578,7 +6619,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6587,7 +6628,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6596,7 +6637,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6605,7 +6646,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6614,7 +6655,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6623,7 +6664,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6632,7 +6673,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6641,7 +6682,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6650,7 +6691,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6659,7 +6700,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6668,7 +6709,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6677,7 +6718,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6686,7 +6727,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6695,7 +6736,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6704,7 +6745,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6713,7 +6754,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6722,7 +6763,7 @@
       "owner_module": "M04",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6731,7 +6772,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6740,7 +6781,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6749,7 +6790,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6758,7 +6799,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6767,7 +6808,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6776,7 +6817,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6785,7 +6826,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6794,7 +6835,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6803,7 +6844,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6812,7 +6853,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6821,7 +6862,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6830,7 +6871,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6839,7 +6880,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6848,7 +6889,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6857,7 +6898,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6866,7 +6907,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6875,7 +6916,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6884,7 +6925,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6893,7 +6934,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6902,7 +6943,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6911,7 +6952,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6920,7 +6961,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6929,7 +6970,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6938,7 +6979,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6947,7 +6988,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6956,7 +6997,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6965,7 +7006,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6974,7 +7015,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6983,7 +7024,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -6992,7 +7033,7 @@
       "owner_module": "M01",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7001,7 +7042,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7010,7 +7051,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7019,7 +7060,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7028,7 +7069,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7037,7 +7078,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7046,7 +7087,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7055,7 +7096,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7064,7 +7105,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7073,7 +7114,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7082,7 +7123,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7091,7 +7132,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7100,7 +7141,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7109,7 +7150,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7118,7 +7159,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7127,7 +7168,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7136,7 +7177,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7145,7 +7186,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7154,7 +7195,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7163,7 +7204,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7172,7 +7213,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7181,7 +7222,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7190,7 +7231,7 @@
       "owner_module": "M14",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7199,7 +7240,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7208,7 +7249,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7217,7 +7258,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7226,7 +7267,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7235,7 +7276,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7244,7 +7285,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7253,7 +7294,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7262,7 +7303,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7271,7 +7312,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7280,7 +7321,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7289,7 +7330,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7298,7 +7339,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7307,7 +7348,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7316,7 +7357,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7325,7 +7366,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7334,7 +7375,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7343,7 +7384,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7352,7 +7393,7 @@
       "owner_module": "M10",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7361,7 +7402,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7370,7 +7411,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7379,7 +7420,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7388,7 +7429,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7397,7 +7438,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7406,7 +7447,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7415,7 +7456,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7424,7 +7465,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7433,7 +7474,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7442,7 +7483,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7451,7 +7492,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7460,7 +7501,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7469,7 +7510,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7478,7 +7519,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7487,7 +7528,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7496,7 +7537,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7505,7 +7546,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7514,7 +7555,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7523,7 +7564,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7532,7 +7573,7 @@
       "owner_module": "M07",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7541,7 +7582,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7550,7 +7591,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7559,7 +7600,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7568,7 +7609,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7577,7 +7618,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7586,7 +7627,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7595,7 +7636,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7604,7 +7645,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7613,7 +7654,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7622,7 +7663,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7631,7 +7672,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7640,7 +7681,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7649,7 +7690,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7658,7 +7699,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7667,7 +7708,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7676,7 +7717,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7685,7 +7726,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -7694,7 +7735,7 @@
       "owner_module": "M13",
       "referenced_in": [],
       "source": "generated-gate-outcome",
-      "critical": null,
+      "critical": false,
       "maps_to": null
     }
   ]

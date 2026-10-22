@@ -1,0 +1,70 @@
+{
+  "_meta": {
+    "version": "1.0.0-adopted",
+    "adopted_on": "2026-10-22",
+    "notes": "Role templates v1; L1–L9 retired (see l1-l9-retirement-map.json). ClientBridge R1 obligation fields marked pending-R1 in M07/M11."
+  },
+  "role_templates": [
+    {
+      "id": "tenant.responsible_partner",
+      "label": "Responsible Partner",
+      "scope": "tenant",
+      "permissions": [
+        "matter.open.approve",
+        "matter.approve_closing.decide",
+        "matter.approve_reopening.decide",
+        "engine.review.approve"
+      ]
+    },
+    {
+      "id": "tenant.legal_department_reviewer",
+      "label": "Legal Department Reviewer",
+      "scope": "tenant",
+      "permissions": [
+        "engine.review.approve",
+        "document.approve_a_production_set.decide"
+      ]
+    },
+    {
+      "id": "tenant.location_compliance_owner",
+      "label": "Location Compliance Owner",
+      "scope": "location",
+      "pending_r1": ["clientbridge layered obligation packs per M08 R1"],
+      "permissions": [
+        "clientbridge.decide_an_attested_location_obligation_met_or_not.decide",
+        "clientbridge.issue_a_structured_request_to_a_client_or_location_owner.decide",
+        "clientbridge.approve_reuse_of_location_evidence_for_another_location.decide",
+        "regradar.assign_or_reassign_an_obligation_owner_and_backup.decide"
+      ]
+    },
+    {
+      "id": "tenant.compliance_officer",
+      "label": "Compliance Officer",
+      "scope": "tenant",
+      "permissions": [
+        "regradar.decide_a_screening_match.decide",
+        "regradar.release_a_blocked_or_frozen_matter_or_decline_the_engage.decide",
+        "ledger.grant_external_auditor_access.decide"
+      ]
+    },
+    {
+      "id": "tenant.finance_controller",
+      "label": "Finance Controller",
+      "scope": "tenant",
+      "permissions": [
+        "billguard.approve_a_pre_bill_and_issue_the_invoice.decide",
+        "billguard.sign_off_the_monthly_three_way_reconciliation.decide",
+        "billguard.close_a_financial_period.decide"
+      ]
+    },
+    {
+      "id": "jurexio.platform_registry_admin",
+      "label": "Jurexio Platform Registry Admin",
+      "scope": "platform",
+      "permissions": [
+        "ledger.add_change_or_deprecate_an_event_type_in_the_registry.decide",
+        "access.publish_a_permission_catalogue_template_or_separation_of.decide"
+      ]
+    }
+  ]
+}

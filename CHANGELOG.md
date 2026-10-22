@@ -2,6 +2,13 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-REGISTRY-V1-ADOPTION-001 (2026-10-22)
+
+- Adopted Event registry v1 and Permission catalogue v1 (`1.0.0-adopted`): all events `critical` boolean, 144 gate permission renames, alias policy to 2027-10-26, FLAG-012 eighteen events in `_meta`.
+- Registry artefacts: `role-templates.json`, `separation-of-duties.json`, `l1-l9-retirement-map.json`, `CTO-GATE-CLASS-CONFIRMATION.md`, `adopt_registry_v1.py`, stricter `validate.py`.
+- Chairman P0 docs: model provider terms, Ledger event bus annex, access-decision interface, code rename Sprint 1 plan, adoption signoff checklist.
+- M11 stub: `POST /api/jrx/platform/access/evaluate` (deny by default).
+
 ### Added — JRX-SPEC-PACK-IMPORT-001 (2026-10-22)
 
 - Imported Jurexio module spec pack at `jurexio-specs/` (14 specs, gates/events/permissions registries, validate.py).

@@ -1,0 +1,54 @@
+{
+  "_meta": {
+    "version": "1.0.0-adopted",
+    "adopted_on": "2026-10-22",
+    "policy": "L1–L9 numeric RBAC is retired (M11 R1). Trust levels may appear only as human-readable template labels, not as authorization IDs."
+  },
+  "mappings": [
+    {
+      "legacy": "L1",
+      "label": "Read-only / observer",
+      "replacement": "Scoped read permissions on matter, document, deadline modules (no .decide gate permissions)"
+    },
+    {
+      "legacy": "L2",
+      "label": "Contributor",
+      "replacement": "matter.work.update, document.upload, deadline.propose (non-gate writes)"
+    },
+    {
+      "legacy": "L3",
+      "label": "Senior associate",
+      "replacement": "engine.review.submit, document.draft.finalize (pre-gate)"
+    },
+    {
+      "legacy": "L4",
+      "label": "Partner delegate",
+      "replacement": "Subset of tenant.responsible_partner gate permissions with branch scope"
+    },
+    {
+      "legacy": "L5",
+      "label": "Practice lead",
+      "replacement": "Named permissions in billguard + deadline gate catalogue for practice group scope"
+    },
+    {
+      "legacy": "L6",
+      "label": "Compliance / risk (FLAG-004 L6+ wording retired)",
+      "replacement": "tenant.compliance_officer + tenant.legal_department_reviewer templates"
+    },
+    {
+      "legacy": "L7",
+      "label": "Kill-switch / platform ops (legacy wording)",
+      "replacement": "engine.killswitch.* and ledger.break_glass.* named permissions with step_up_required"
+    },
+    {
+      "legacy": "L8",
+      "label": "Key / registry admin (legacy wording)",
+      "replacement": "jurexio.platform_registry_admin + storage customer-managed key gates"
+    },
+    {
+      "legacy": "L9",
+      "label": "Super admin (retired — prohibited in demos)",
+      "replacement": "Decomposed into scoped platform roles; no single super-admin permission"
+    }
+  ]
+}
