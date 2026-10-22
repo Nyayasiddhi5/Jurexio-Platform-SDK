@@ -22,13 +22,35 @@ export interface ConnectorSession {
 }
 
 export interface ConnectorInvokeResult {
-  status: 'ok' | 'oauth_required' | 'api_key_missing' | 'platform_unconfigured' | 'unsupported_action' | 'error';
+  status:
+    | 'ok'
+    | 'oauth_required'
+    | 'api_key_missing'
+    | 'platform_unconfigured'
+    | 'unsupported_action'
+    | 'stub_not_implemented'
+    | 'error';
   connectorId: string;
   action: string;
   data?: unknown;
   connectPath?: string;
   note?: string;
   error?: string;
+}
+
+function mcpStubsDisabledInRuntime(): boolean {
+  return process.env.JRX_MCP_STUBS_DISABLED === '1' || process.env.NODE_ENV === 'production';
+}
+
+function isConnectorLive(def: LegaltechConnectorDef): boolean {
+  return def.implementationStatus === 'platform' || def.implementationStatus === 'live';
+}
+
+function stubBlockedNote(def: LegaltechConnectorDef): string {
+  return (
+    `${def.name} is catalogued as implementationStatus=${def.implementationStatus}. ` +
+    'No live provider REST/OAuth handler is shipped yet — do not market as connected integration.'
+  );
 }
 
 const sessions = new Map<string, ConnectorSession>();
@@ -49,8 +71,11 @@ export const nvMcpConnectorService = {
       const sk = sessionKey(orgId, def.id);
       const session = sessions.get(sk);
       const credsReady = envConfigured(def);
-      let status: 'connected' | 'configured' | 'oauth_required' | 'api_key_missing' = 'oauth_required';
-      if (def.authType === 'platform') {
+      let status: 'connected' | 'configured' | 'oauth_required' | 'api_key_missing' | 'not_implemented' =
+        'oauth_required';
+      if (!isConnectorLive(def)) {
+        status = 'not_implemented';
+      } else if (def.authType === 'platform') {
         status = credsReady ? (session?.connected ? 'connected' : 'configured') : 'api_key_missing';
       } else if (def.authType === 'api_key') {
         status = credsReady ? (session?.connected ? 'connected' : 'configured') : 'api_key_missing';
@@ -77,6 +102,15 @@ export const nvMcpConnectorService = {
   async connect(connectorId: string, orgId: string, credentials?: Record<string, unknown>) {
     const def = CONNECTOR_BY_ID[connectorId];
     if (!def) throw new Error(`Unknown connector: ${connectorId}`);
+
+    if (!isConnectorLive(def)) {
+      return {
+        success: false,
+        status: 'stub_not_implemented',
+        connectorId,
+        note: stubBlockedNote(def),
+      };
+    }
 
     if (def.authType === 'api_key' && !envConfigured(def)) {
       return {
@@ -120,12 +154,14 @@ export const nvMcpConnectorService = {
     if (!def) return { healthy: false, error: 'unknown_connector' };
     const session = sessions.get(sessionKey(orgId, connectorId));
     const configured = envConfigured(def);
+    const live = isConnectorLive(def);
     return {
       connectorId,
-      healthy: def.authType === 'platform' ? configured : !!(session?.connected || configured),
-      connected: !!session?.connected,
+      healthy: live && (def.authType === 'platform' ? configured : !!(session?.connected || configured)),
+      connected: live && !!session?.connected,
       envConfigured: configured,
       authType: def.authType,
+      implementationStatus: def.implementationStatus,
       checkedAt: new Date().toISOString(),
     };
   },
@@ -145,6 +181,16 @@ export const nvMcpConnectorService = {
     const def = CONNECTOR_BY_ID[connectorId];
     if (!def) {
       return { status: 'error', connectorId, action, error: 'unknown_connector' };
+    }
+
+    if (!isConnectorLive(def) || (def.implementationStatus === 'stub' && mcpStubsDisabledInRuntime())) {
+      return {
+        status: 'stub_not_implemented',
+        connectorId,
+        action,
+        note: stubBlockedNote(def),
+        connectPath: `/api/jrx/mcp/connectors/${connectorId}/connect`,
+      };
     }
 
     // Platform S3 — live list/download when storage backend configured
@@ -202,35 +248,16 @@ export const nvMcpConnectorService = {
       };
     }
 
-    // API-key connectors — structured honest payloads (live HTTP deferred per provider onboarding)
-    if (connectorId === 'razorpay' && action.includes('payment')) {
+    if (def.implementationStatus === 'stub') {
       return {
-        status: 'ok',
+        status: 'stub_not_implemented',
         connectorId,
         action,
-        data: {
-          paymentId: input.paymentId,
-          status: 'lookup_ready',
-          source: 'razorpay',
-          note: 'Razorpay REST /payments/:id — credentials configured.',
-        },
-      };
-    }
-    if (connectorId === 'stripe' && action.includes('invoice')) {
-      return {
-        status: 'ok',
-        connectorId,
-        action,
-        data: {
-          invoiceId: input.invoiceId,
-          status: 'lookup_ready',
-          source: 'stripe',
-          note: 'Stripe REST /v1/invoices/:id — credentials configured.',
-        },
+        note: stubBlockedNote(def),
       };
     }
 
-    // OAuth-connected — acknowledge action with routing metadata (extensible to live REST)
+    // Live connectors only beyond this point — provider REST handlers must be implemented per connector.
     return {
       status: session?.connected || def.authType === 'api_key' ? 'ok' : 'oauth_required',
       connectorId,
@@ -239,9 +266,6 @@ export const nvMcpConnectorService = {
         input,
         routed: true,
         provider: def.name,
-        message: session?.connected
-          ? `${def.name} action '${action}' accepted — extend jrx-mcp-connector-service for provider-specific REST.`
-          : undefined,
       },
       connectPath: session?.connected ? undefined : `/api/jrx/mcp/connectors/${connectorId}/connect`,
     };

@@ -29,6 +29,19 @@ function copyIfMissing(jrxKey: string, legacyKey: string): void {
   }
 }
 
+function assertProductionA2aHmac(): void {
+  if (process.env.NODE_ENV !== 'production') return;
+  const requireHmac =
+    process.env.JRX_A2A_HMAC_REQUIRED === '1' || process.env.JRX_A2A_REQUIRE_HMAC === '1';
+  if (!requireHmac) return;
+  const secret = process.env.A2A_HMAC_SECRET;
+  if (secret && secret.length >= 32) return;
+  throw new Error(
+    'JRX_A2A_HMAC_REQUIRED=1 in production but A2A_HMAC_SECRET is missing or shorter than 32 chars. ' +
+      'Set A2A_HMAC_SECRET via SSM (/jurexio/prod/*) before enabling Queen multi-agent A2A.',
+  );
+}
+
 export function bootstrapJurexioEnv(): void {
   if (process.env.JUREXIO_PLATFORM !== '1') {
     process.env.JUREXIO_PLATFORM = '1';
@@ -39,6 +52,7 @@ export function bootstrapJurexioEnv(): void {
   if (!process.env.JRX_API_PREFIX && !process.env.JRX_API_PREFIX) {
     process.env.JRX_API_PREFIX = '/api/jrx';
   }
+  assertProductionA2aHmac();
 }
 
 bootstrapJurexioEnv();

@@ -118,7 +118,7 @@ function hashApiKey(key: string): string {
 /**
  * Extract API key from request headers
  */
-function extractApiKey(req: Request): string | null {
+function extractInterServiceApiKey(req: Request): string | null {
   const key = req.headers['x-jrx-api-key'];
   if (typeof key === 'string' && key.trim()) {
     return key.trim();
@@ -156,7 +156,7 @@ function checkRateLimit(
 export async function validateServiceApiKey(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     // Extract API key from headers
-    const apiKey = extractApiKey(req);
+    const apiKey = extractInterServiceApiKey(req);
     if (!apiKey) {
       res.status(401).json({
         success: false,

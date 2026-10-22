@@ -112,7 +112,7 @@ function verifyHmacToken(pkg: string, version: string, expiresAt: number, sig: s
 // pattern to other routes.
 import { extractSdkApiKey } from '../middleware/jrx-sdk-auth-header.js';
 
-function extractApiKey(req: Request): string | null {
+function extractDownloadApiKey(req: Request): string | null {
   const fromHeader = extractSdkApiKey(req);
   if (fromHeader) return fromHeader;
   const q = req.query.api_key;
@@ -157,7 +157,7 @@ async function verifySdkApiKey(rawKey: string): Promise<boolean> {
 async function authorizeDownload(req: Request, pkg: string, version: string): Promise<{ ok: true; via: string } | { ok: false; reason: string; status: number }> {
   if (PUBLIC_DOWNLOADS) return { ok: true, via: 'public' };
 
-  const apiKey = extractApiKey(req);
+  const apiKey = extractDownloadApiKey(req);
   if (apiKey) {
     const valid = await verifySdkApiKey(apiKey);
     if (valid) {

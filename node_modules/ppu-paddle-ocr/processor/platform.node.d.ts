@@ -1,0 +1,13 @@
+import * as ort from "onnxruntime-node";
+import type { CanvasOps, CoreCanvas, ImageProcessorProvider, PlatformProvider } from "../core/platform.js";
+export declare class NodePlatformProvider implements PlatformProvider<CoreCanvas> {
+    readonly pathSeparator: string;
+    readonly ort: typeof ort;
+    createCanvas(width: number, height: number): CoreCanvas;
+    isCanvas(image: unknown): image is CoreCanvas;
+    loadResource(source: string | ArrayBuffer | undefined, defaultUrl: string): Promise<ArrayBuffer>;
+    saveDebugImage(canvas: CoreCanvas, filename: string, outputDir: string): Promise<void>;
+    saveImage(canvas: CoreCanvas, filePath: string): Promise<void>;
+    readonly canvas: CanvasOps<CoreCanvas>;
+    readonly imageProcessor: ImageProcessorProvider<CoreCanvas>;
+}

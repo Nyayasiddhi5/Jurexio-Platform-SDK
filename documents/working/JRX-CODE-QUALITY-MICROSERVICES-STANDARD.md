@@ -38,9 +38,18 @@
 
 ## 4. Testing & CI
 
-- Run `npm run guardrail:jrx-brands` minimum on every PR.
-- Full `npm run guardrail` + `npm run build` before production deploy.
-- Unit tests for retrieval, jurisdiction, and auth-critical paths when touching those areas.
+- **GitHub Actions** (`.github/workflows/jrx-ci.yml`): `npm ci` → full `npm run guardrail` → `npm run build` → `npm test run` → `npm audit --audit-level=high` on every PR and `main` push.
+- **Dependabot** (`.github/dependabot.yml`): weekly npm + GitHub Actions update PRs.
+- Full `npm run guardrail` + `npm run build` before production deploy (same as CI).
+- Unit tests for retrieval, jurisdiction, auth, and MCP stub honesty when touching those areas.
+
+### Release checklist (production)
+
+1. `git push origin main` (CI green)
+2. `npm ci && npm run guardrail && npm run build`
+3. `bash scripts/jrx-deploy-aws-ssm.sh`
+4. `bash scripts/jrx-smoke-ec2.sh`
+5. Project-Tracker row with SSM command id + smoke HTTP codes (no secrets)
 
 ---
 

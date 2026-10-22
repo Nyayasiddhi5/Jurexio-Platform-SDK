@@ -1,0 +1,69 @@
+{
+  "name": "ppu-ocv",
+  "version": "4.0.0",
+  "description": "A type-safe, modular, chainable image processing library built on top of OpenCV.js with a fluent API leveraging pipeline processing.",
+  "keywords": [
+    "open-cv",
+    "image-processor",
+    "canvas",
+    "threshold",
+    "computer-vision",
+    "opencv-js",
+    "perspective-transformation",
+    "edge-detection",
+    "contours",
+    "pipeline",
+    "type-safe",
+    "modular",
+    "chainable",
+    "bun",
+    "browser",
+    "web"
+  ],
+  "author": "snowfluke",
+  "license": "MIT",
+  "type": "module",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./web": {
+      "types": "./index.web.d.ts",
+      "default": "./index.web.js"
+    },
+    "./canvas": {
+      "types": "./index.canvas.d.ts",
+      "default": "./index.canvas.js"
+    },
+    "./canvas-web": {
+      "types": "./index.canvas-web.d.ts",
+      "default": "./index.canvas-web.js"
+    },
+    "./canvas-mobile": {
+      "types": "./index.canvas-mobile.d.ts",
+      "default": "./index.canvas-mobile.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PT-Perkasa-Pilar-Utama/ppu-ocv.git"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^1.0.0",
+    "@techstark/opencv-js": "^5.0.0-release.1"
+  },
+  "peerDependencies": {
+    "@shopify/react-native-skia": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@shopify/react-native-skia": {
+      "optional": true
+    }
+  },
+  "trustedDependencies": [
+    "@shopify/react-native-skia"
+  ]
+}

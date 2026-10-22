@@ -1,1 +1,2 @@
 # One path per line (glob relative to repo root). Empty = strict zero-ref policy.
+scripts/jrx-check-auth-header-discipline.sh

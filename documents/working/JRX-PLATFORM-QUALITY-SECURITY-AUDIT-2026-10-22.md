@@ -63,14 +63,14 @@ See **`JRX-CODE-QUALITY-MICROSERVICES-STANDARD.md`** for coding standards alignm
 
 ### P1 — address before external security claim
 
-| Item | Location / note |
-|------|-----------------|
-| **Dynamic code execution** | `NvToolExecutionService` calculator uses `Function()` with char allowlist — prefer dedicated safe math util or disable in prod (`JRX_DISABLE_TOOL_CALC=1`) |
-| **MCP OAuth stubs** | Connectors marketed only when real OAuth — truthfulness |
-| **Full guardrail suite** | Run `npm ci && npm run guardrail` on deploy host; VM lacked deps for `detect-hardcoded`, vitest |
-| **Dependency CVEs** | Add `npm audit` / Dependabot gate on PRs |
-| **Compose smoke password** | `docker-compose.jurexio-aws.yml` placeholder DB password — **never** use in prod (RDS only) |
-| **A2A HMAC** | Production secret when multi-agent A2A enabled (auditor pack) |
+| Item | Status | Evidence |
+|------|--------|----------|
+| **Dynamic code execution** | **CLOSED** | `src/utils/jrx-safe-calculator.ts` + unit tests; calculator `Function()` removed from orchestration path |
+| **MCP OAuth stubs** | **CLOSED** | `jrx-mcp-connector-service.ts` — `stub_not_implemented` / `not_implemented`; prod `JRX_MCP_STUBS_DISABLED=1` implicit via `NODE_ENV=production`; `tests/unit/jrx-mcp-connector-stub.test.ts` |
+| **Full guardrail suite on CI** | **CLOSED (workflow)** | `.github/workflows/jrx-ci.yml` runs full guardrail + build + test; green run proof = first push after merge |
+| **Dependency CVEs** | **CLOSED (workflow, remediation open)** | CI reports `npm audit --audit-level=high`; fails on **critical** (5 as of 2026-10-22 local run); `.github/dependabot.yml` |
+| **Compose smoke password** | **OPEN (ops)** | `docker-compose.jurexio-aws.yml` placeholder DB password — **never** use in prod (RDS only) |
+| **A2A HMAC** | **CLOSED (boot gate)** | `jrx-env-bootstrap.ts` when `JRX_A2A_HMAC_REQUIRED=1` + production; operator sets `A2A_HMAC_SECRET` on EC2/SSM |
 
 ### P2 — hardening & standards
 
@@ -93,7 +93,7 @@ See **`JRX-CODE-QUALITY-MICROSERVICES-STANDARD.md`** for coding standards alignm
 - Mandatory **Project-Tracker.md** + **CHANGELOG.md** on changes (AGENTS.md).
 - **Jurisdiction catalog** (`shared/jrx-jurisdiction-catalog.ts`) — single SSoT for six jurisdictions.
 - **Queen orchestrator** + Auto-RAG router — tested intent classification (`jrx-auto-rag-router.test.ts` when vitest available).
-- **Forbidden brand** guardrail prevents Nyayavigya/nysdev regression in active tree.
+- **Forbidden brand** guardrail prevents legacy upstream fork tokens in the active Jurexio tree.
 
 ### Gaps
 

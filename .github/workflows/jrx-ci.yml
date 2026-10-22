@@ -1,17 +1,49 @@
 name: Jurexio CI
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
+concurrency:
+  group: jrx-ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  guardrails:
+  quality-gate:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
-      - name: Forbidden brand gate
-        run: bash scripts/jrx-guardrail-forbidden-brands.sh
-      - name: API alias unit tests
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build workspace packages (type-check deps)
+        run: npm run docparse:build && npm run docparse-sdk:build
+
+      - name: Guardrails (full)
+        run: npm run guardrail
+
+      - name: Production build
+        run: npm run build
+
+      - name: Unit tests (security + SDK smoke)
         run: |
-          npm ci --ignore-scripts 2>/dev/null || npm install --ignore-scripts
-          npx vitest run tests/unit/jrx-public-api-alias.test.ts tests/unit/jrx-jrx-api-prefix-alias.test.ts packages/client-sdk/tests/unit/api-path-prefix.test.ts 2>/dev/null || npx vitest run tests/unit/*jrx* packages/client-sdk/tests/unit/api-path-prefix.test.ts || true
+          npm run test -- run \
+            tests/unit/jrx-safe-calculator.test.ts \
+            tests/unit/jrx-mcp-connector-stub.test.ts \
+            tests/unit/jrx-public-api-alias.test.ts \
+            tests/unit/jrx-jrx-api-prefix-alias.test.ts \
+            packages/client-sdk/tests/unit/api-path-prefix.test.ts
+
+      - name: Dependency audit (report high+, fail critical)
+        run: |
+          npm audit --audit-level=high || true
+          npm audit --audit-level=critical

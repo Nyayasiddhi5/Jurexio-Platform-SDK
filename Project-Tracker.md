@@ -6,6 +6,8 @@
 
 | Timestamp | Status | Owner | Area | Summary | Evidence |
 |-----------|--------|-------|------|---------|----------|
+| 2026-10-22T11:45:00Z | DONE | Cursor Agent | JRX-P1-GLOBAL-STANDARDS-001 | P1 closeout: CI guardrail+build+focused tests+audit; Dependabot; restored guardrail scripts; MCP stub honesty; A2A HMAC boot gate; OpenAPI baseline regen. | `.github/workflows/jrx-ci.yml`; local guardrail PASS; `/cursor/stores/self/internal/jrx-p1-ci-proof-2026-10-22.txt` |
+| 2026-10-22T06:00:00Z | DONE | Cursor Agent | JRX-QUALITY-SECURITY-AUDIT-001 | Platform quality/security audit docs; safe calculator (no Function); microservices standard. | `JRX-PLATFORM-QUALITY-SECURITY-AUDIT-2026-10-22.md`; `jrx-safe-calculator.ts` |
 | 2026-10-21T12:05:00Z | DONE | Cursor Agent | JRX-DASHBOARD-JX-PRIORITY-001 | Six-jx catalog (US/IN first); console, legal chat, doc hub, jurisdiction API sort; dashboard doc. Push/redeploy blocked on agent creds. | `shared/jrx-jurisdiction-catalog.ts`; `JRX-DASHBOARD-JURISDICTION-PRIORITY.md` |
 | 2026-10-21T11:15:00Z | DONE | Cursor Agent | JRX-E2-OFFICIAL-CORPUS-001 | E2 scaffold: SG (SOLID export/API env) + GC Saudi BOE via HF rows; `e2:corpus:ingest` / `:ec2`. | `jrx-official-corpus-e2-service.ts`; `JRX-E2-OFFICIAL-CORPUS-INGEST.md` |
 | 2026-10-21T10:35:00Z | DONE | Cursor Agent | JRX-E1-COVER-LETTER-001 | SOC2 auditor cover letter; E1 official corpus ingest scaffold (UK/US live fetch, IN/EU paths); `e1:corpus:ingest` npm scripts. | `JRX-SOC2-AUDITOR-COVER-LETTER.md`; `jrx-official-corpus-e1-service.ts` |

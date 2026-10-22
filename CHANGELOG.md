@@ -2,6 +2,18 @@
 
 ## [1.0.0] — Unreleased
 
+### Security — JRX-P1-GLOBAL-STANDARDS-001 (2026-10-22)
+
+- CI: full `npm run guardrail`, build, vitest, and `npm audit --audit-level=high` on PR/main (`.github/workflows/jrx-ci.yml`).
+- Dependabot weekly for npm and GitHub Actions.
+- MCP connectors: stub catalog entries return `stub_not_implemented` / `not_implemented` (no fake `ok` in production).
+- Production boot gate: `JRX_A2A_HMAC_REQUIRED=1` requires `A2A_HMAC_SECRET` (≥32 chars) via `jrx-env-bootstrap.ts`.
+
+### Security — JRX-QUALITY-SECURITY-AUDIT-001 (2026-10-22)
+
+- Replaced calculator `Function()` execution with `evaluateSafeCalculatorExpression` (allowlisted parser).
+- Added platform quality/security audit and code-quality/microservices standard docs.
+
 ### Added — JRX-DASHBOARD-JX-PRIORITY-001 (2026-10-21)
 
 - Shared `jrx-jurisdiction-catalog.ts` — display order US, IN, UK, EU, SG, GC.

@@ -1,0 +1,1 @@
+import{BaseRecognitionService}from"../core/base-recognition.service.js";import{MobilePlatformProvider}from"./platform.mobile.js";export class RecognitionService extends BaseRecognitionService{constructor(session,options={},debugging={}){super(new MobilePlatformProvider,session,options,debugging,"canvas-native")}}

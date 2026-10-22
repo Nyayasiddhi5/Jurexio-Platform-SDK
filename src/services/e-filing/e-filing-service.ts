@@ -246,7 +246,7 @@ export class EFilingService {
 
     if (process.env.JRX_EFILING_USE_ADAPTERS === '1') {
       const adapterResult = await submitViaCourtAdapter(filing);
-      if (adapterResult && !adapterResult.ok) {
+      if (adapterResult?.ok === false) {
         throw new Error(`E_FILING_ADAPTER: ${adapterResult.code} — ${adapterResult.message}`);
       }
       if (adapterResult?.ok) {

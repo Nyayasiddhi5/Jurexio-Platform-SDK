@@ -924,7 +924,7 @@ export const JRX_SECURITY = {
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'] as const,
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-ID', 'X-Organization-ID', 'X-Jurisdiction', 'X-JRX-SDK-Key'] as const,
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key', 'X-Request-ID', 'X-Organization-ID', 'X-Jurisdiction'] as const,
     maxAgeSeconds: envInt('JRX_CORS_MAX_AGE', 86400),
   },
 
@@ -1045,7 +1045,7 @@ export const JRX_OBSERVABILITY = {
     enabled: envBool('JRX_AUDIT_ENABLED', true),
     retentionDays: envInt('JRX_AUDIT_RETENTION_DAYS', 2555), // 7 years
     includeRequestBody: envBool('JRX_AUDIT_INCLUDE_BODY', false),
-    sensitiveHeaders: ['Authorization', 'X-JRX-SDK-Key', 'Cookie'],
+    sensitiveHeaders: ['Authorization', 'X-API-Key', 'Cookie'],
   },
 } as const;
 
