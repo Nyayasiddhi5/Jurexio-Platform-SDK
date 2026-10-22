@@ -2,6 +2,12 @@
 
 ## [1.0.0] — Unreleased
 
+### Changed — JRX-SPEC-PACK-1C7C-IMPORT-001 (2026-10-22)
+
+- Imported `Jurexio_SDK_Spec_Pack_1c7c.zip` (consolidation pass 2): 759 seed events + specs; pipeline adopt + Chairman rulings → **760** events (`REGRADAR.OBLIGATION_MAPPED_TO_LOCATION`, `MIGRATE.PRECONDITIONS_MET`).
+- Added `scripts/jrx-import-spec-pack.sh` and `npm run registry:import-spec-pack`.
+- C-02 partial: Jurexio Ledger naming in `src/` TS; `jrx_pii_vault` feature flag; ISO evidence id `jurexio_ledger_hash_chain`.
+
 ### Changed — JRX-CHAIRMAN-RULINGS-REGISTRY-001 (2026-10-22)
 
 - Chairman Q1–Q6 + C-01–C-12: FLAG-012 eighteen with `PRECONDITIONS_MET`, partial critical flags, 90-day alias window, G-07-02 GUARDED, 759 events, rulings in `_meta.chairman`.
