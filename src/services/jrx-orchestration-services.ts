@@ -1511,16 +1511,13 @@ export class NvToolExecutionService {
         case 'web-search':
           output = { message: 'Web search tool executed', query: params.inputParams?.query, results: [] };
           break;
-        case 'calculator':
-          try {
-            const expr = params.inputParams?.expression;
-            if (expr && /^[\d\s+\-*/().]+$/.test(expr)) {
-              output = { result: Function(`"use strict"; return (${expr})`)() };
-            } else {
-              output = { error: 'Invalid expression' };
-            }
-          } catch { output = { error: 'Calculation failed' }; }
+        case 'calculator': {
+          const { evaluateSafeCalculatorExpression } = await import('../utils/jrx-safe-calculator.js');
+          const expr = params.inputParams?.expression;
+          const value = evaluateSafeCalculatorExpression(String(expr ?? ''));
+          output = value === null ? { error: 'Invalid expression' } : { result: value };
           break;
+        }
         case 'text-processing':
           output = { wordCount: (params.inputParams?.text || '').split(/\s+/).length, charCount: (params.inputParams?.text || '').length };
           break;

@@ -50,6 +50,7 @@
  *     carries data-testid.
  */
 
+import { JRX_JURISDICTION_PICKER_CODES } from '@/constants/jrx-jurisdictions';
 import React, { useMemo, useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
@@ -189,7 +190,6 @@ function computeRewardPreview(s: AdvocateScores): number {
   return (s.legalAccuracy * 0.4 + s.citationQuality * 0.3 + s.practicalUsability * 0.2 + s.jurisdictionPrecision * 0.1) / 10;
 }
 
-import { JRX_JURISDICTION_PICKER_CODES } from '@/constants/jrx-jurisdictions';
 const JURISDICTIONS = [...JRX_JURISDICTION_PICKER_CODES, 'Default'] as const;
 
 function fmtPct(n: number | undefined, digits = 1): string {

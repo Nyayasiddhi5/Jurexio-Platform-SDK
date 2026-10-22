@@ -2,6 +2,12 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-DASHBOARD-JX-PRIORITY-001 (2026-10-21)
+
+- Shared `jrx-jurisdiction-catalog.ts` — display order US, IN, UK, EU, SG, GC.
+- Console dashboard jurisdiction strip; legal chat defaults US+IN; registry stats API sort.
+- `JRX-DASHBOARD-JURISDICTION-PRIORITY.md`.
+
 ### Added — JRX-E2-OFFICIAL-CORPUS-001 (2026-10-21)
 
 - E2 official corpus scaffold: Singapore SOLID (`SG_SOLID_EXPORT` / API env) + GC Saudi BOE (HF datasets server sample).

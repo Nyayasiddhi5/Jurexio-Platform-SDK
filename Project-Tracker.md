@@ -6,6 +6,7 @@
 
 | Timestamp | Status | Owner | Area | Summary | Evidence |
 |-----------|--------|-------|------|---------|----------|
+| 2026-10-21T12:05:00Z | DONE | Cursor Agent | JRX-DASHBOARD-JX-PRIORITY-001 | Six-jx catalog (US/IN first); console, legal chat, doc hub, jurisdiction API sort; dashboard doc. Push/redeploy blocked on agent creds. | `shared/jrx-jurisdiction-catalog.ts`; `JRX-DASHBOARD-JURISDICTION-PRIORITY.md` |
 | 2026-10-21T11:15:00Z | DONE | Cursor Agent | JRX-E2-OFFICIAL-CORPUS-001 | E2 scaffold: SG (SOLID export/API env) + GC Saudi BOE via HF rows; `e2:corpus:ingest` / `:ec2`. | `jrx-official-corpus-e2-service.ts`; `JRX-E2-OFFICIAL-CORPUS-INGEST.md` |
 | 2026-10-21T10:35:00Z | DONE | Cursor Agent | JRX-E1-COVER-LETTER-001 | SOC2 auditor cover letter; E1 official corpus ingest scaffold (UK/US live fetch, IN/EU paths); `e1:corpus:ingest` npm scripts. | `JRX-SOC2-AUDITOR-COVER-LETTER.md`; `jrx-official-corpus-e1-service.ts` |
 | 2026-10-21T10:15:00Z | DONE | Cursor Agent | JRX-GLOBAL-LEGAL-INTELLIGENCE-001 | Global legal roadmap docs; `global:corpus:ingest` (6 jx); Auto-RAG `crossJurisdiction` + Queen/orchestrate/legal-chat wiring; LLM routing doc. | `JRX-GLOBAL-LEGAL-INTELLIGENCE-ROADMAP.md`; `jrx-global-corpus-ingest.ts`; `jrx-auto-rag-router.ts` |
