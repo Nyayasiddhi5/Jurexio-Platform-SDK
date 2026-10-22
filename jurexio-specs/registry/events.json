@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "1.0.0-adopted",
+    "version": "1.0.1-chairman-rulings",
     "generated": "2026-10-21",
     "naming": "DOMAIN.EVENT_NAME; generated gate outcomes follow DOMAIN.G_NN_NN_REJECTED / _WITHDRAWN (proposed convention)",
     "critical": "Set on every event (boolean); see critical_events_v1.json seed.",
@@ -9,15 +9,16 @@
     "adopted_by": "CTO Event registry v1",
     "gate_outcome_naming": "DOMAIN.G_NN_NN_REJECTED / DOMAIN.G_NN_NN_WITHDRAWN (adopted)",
     "alias_policy": {
-      "legacy_alias_accept_until": "2027-10-26",
-      "reject_non_canonical_after": "2027-10-26",
-      "notes": "12 legacy-alias rows map to canonical names via maps_to"
+      "legacy_alias_window_days": 90,
+      "anchor": "sprint_1_go_live",
+      "reject_non_canonical_after": "sprint_1_go_live + 90 days (set at go-live)",
+      "notes": "Chairman Q2 \u2014 90 days from Sprint 1 go-live, not 12 months"
     },
     "flag_012_core_events": [
       "MIGRATE.DRY_RUN_PASSED",
       "MIGRATE.DRY_RUN_FAILED",
       "MIGRATE.IT_DIRECTOR_APPROVED",
-      "MIGRATE.IT_DIRECTOR_REJECTED",
+      "MIGRATE.PRECONDITIONS_MET",
       "MIGRATE.BOARD_APPROVED",
       "MIGRATE.CEO_CONFIRMED",
       "MIGRATE.LEGACY_FROZEN",
@@ -33,7 +34,18 @@
       "MIGRATE.SOURCE_EXPORT_SEALED",
       "MIGRATE.DECOMMISSION_CERTIFIED"
     ],
-    "canonical_event_rule": "One human act \u2192 one canonical event; owning module owns the record."
+    "canonical_event_rule": "One human act \u2192 one canonical event; owning module owns the record.",
+    "chairman": {
+      "chairman_rulings_applied": "2026-10-22",
+      "mail_subject": "Rulings on your questions and conflicts: Event registry v1 and Permission catalogue v1",
+      "event_count_authoritative": 759,
+      "consolidation_pass_2": "ClientBridge R1 \u2014 repo pending full rebuilt zip; PRECONDITIONS_MET added per Q1",
+      "q1_flag_012": "18 canonical lifecycle events; IT_DIRECTOR_REJECTED dropped; PRECONDITIONS_MET added",
+      "q2_alias_window_days": 90,
+      "q2_alias_anchor": "sprint_1_go_live",
+      "c05_g_07_02": "GUARDED \u2014 Compliance Officer confirmation",
+      "c08_one_act_one_event": "One canonical event per record change per transaction"
+    }
   },
   "events": [
     {
@@ -1069,7 +1081,7 @@
       "source": "legacy-alias",
       "critical": false,
       "maps_to": "COMMS.CLIENT_MESSAGE_SENT",
-      "alias_sunset": "2027-10-26"
+      "alias_window_days": 90
     },
     {
       "name": "COMMS.CLIENT_MESSAGE_SENT",
@@ -1147,7 +1159,7 @@
       "source": "legacy-alias",
       "critical": false,
       "maps_to": "COMMS.CHANNEL_FAILED",
-      "alias_sunset": "2027-10-26"
+      "alias_window_days": 90
     },
     {
       "name": "COMMS.ESCALATED",
@@ -1181,7 +1193,7 @@
       "source": "legacy-alias",
       "critical": false,
       "maps_to": "COMMS.SENT",
-      "alias_sunset": "2027-10-26"
+      "alias_window_days": 90
     },
     {
       "name": "COMMS.READ",
@@ -1391,7 +1403,7 @@
       "source": "legacy-alias",
       "critical": false,
       "maps_to": "DEADLINE.PROPOSED",
-      "alias_sunset": "2027-10-26"
+      "alias_window_days": 90
     },
     {
       "name": "DEADLINE.ESCALATED",
@@ -1414,7 +1426,7 @@
       "source": "legacy-alias",
       "critical": false,
       "maps_to": "DEADLINE.EXTENSION_RECORDED",
-      "alias_sunset": "2027-10-26"
+      "alias_window_days": 90
     },
     {
       "name": "DEADLINE.EXTENSION_RECORDED",
@@ -1558,7 +1570,7 @@
       "source": "legacy-alias",
       "critical": false,
       "maps_to": "DEADLINE.ALERT_SENT",
-      "alias_sunset": "2027-10-26"
+      "alias_window_days": 90
     },
     {
       "name": "DEADLINE.TASK_CLOSED",
@@ -1780,7 +1792,7 @@
       "source": "legacy-alias",
       "critical": false,
       "maps_to": "DOCUMENT.CLASSIFIED",
-      "alias_sunset": "2027-10-26"
+      "alias_window_days": 90
     },
     {
       "name": "DOCUMENT.PRODUCTION_APPROVED",
@@ -1902,7 +1914,7 @@
       "source": "legacy-alias",
       "critical": false,
       "maps_to": "DOCUMENT.SIGNATURE_COMPLETED",
-      "alias_sunset": "2027-10-26"
+      "alias_window_days": 90
     },
     {
       "name": "DOCUMENT.SIGNING_PROVIDER_APPROVED",
@@ -1947,7 +1959,7 @@
       "source": "legacy-alias",
       "critical": false,
       "maps_to": "DOCUMENT.UPLOADED",
-      "alias_sunset": "2027-10-26"
+      "alias_window_days": 90
     },
     {
       "name": "DOCUMENT.UPLOADED",
@@ -3597,7 +3609,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": true,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3608,7 +3620,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": true,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3652,7 +3664,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": true,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3663,7 +3675,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": true,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3721,7 +3733,7 @@
       "source": "legacy-alias",
       "critical": false,
       "maps_to": "DOCUMENT.CLASSIFICATION_LOWERED",
-      "alias_sunset": "2027-10-26"
+      "alias_window_days": 90
     },
     {
       "name": "MIGRATE.PROJECT_CANCELLED",
@@ -3753,7 +3765,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": true,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3841,7 +3853,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": true,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3863,7 +3875,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": true,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3874,7 +3886,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": true,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3885,7 +3897,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": true,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3896,7 +3908,7 @@
         "M14"
       ],
       "source": "spec",
-      "critical": true,
+      "critical": false,
       "maps_to": null
     },
     {
@@ -3953,7 +3965,7 @@
       "source": "legacy-alias",
       "critical": false,
       "maps_to": "NEXUS.HANDED_OFF",
-      "alias_sunset": "2027-10-26"
+      "alias_window_days": 90
     },
     {
       "name": "NEXUS.CREDENTIALS_DESTROYED",
@@ -4119,7 +4131,7 @@
       "source": "legacy-alias",
       "critical": false,
       "maps_to": "NEXUS.INBOUND_RECEIVED",
-      "alias_sunset": "2027-10-26"
+      "alias_window_days": 90
     },
     {
       "name": "PLATFORM.BREAK_GLASS_APPROVED",
@@ -7737,6 +7749,17 @@
       "source": "generated-gate-outcome",
       "critical": false,
       "maps_to": null
+    },
+    {
+      "name": "MIGRATE.PRECONDITIONS_MET",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14-DataMigrate",
+        "Chairman Q1 FLAG-012"
+      ],
+      "source": "spec",
+      "critical": false
     }
   ]
 }

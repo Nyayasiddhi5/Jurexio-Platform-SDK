@@ -21,7 +21,8 @@ Module service → validate(event name in registry) → Ledger ingest API
 1. **Canonical names only** after alias sunset (`events._meta.alias_policy`).
 2. **Critical events** (`critical: true`) require synchronous ack from Ledger before module commits local state (when wired in Sprint 1+).
 3. **Gate outcomes** use `DOMAIN.G_NN_NN_REJECTED` / `_WITHDRAWN` with mandatory `rejection_reason` in payload schema (Ledger envelope).
-4. **FLAG-012** migration lifecycle events listed in `events._meta.flag_012_core_events` are always critical.
+4. **FLAG-012** migration lifecycle: eighteen events in `events._meta.flag_012_core_events`; **critical subset** in `critical_events_v1.json` → `flag_012_critical` (Chairman Q1).
+5. **C-08:** One human act → one canonical event **per record changed**, single transaction; multiple records ⇒ multiple events (e.g. G-09-07 chain + incident).
 
 ## Ingest rules
 

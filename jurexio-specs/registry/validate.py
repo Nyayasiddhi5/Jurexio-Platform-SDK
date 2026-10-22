@@ -58,6 +58,8 @@ for g in data["gates"]["gates"]:
         fail(f"[xref] {g['id']} references unknown permission {pid}")
     if g.get("status") != "adopted":
         fail(f"[adoption] gate {g['id']} status is not adopted")
+    if g["id"] == "G-07-02" and g.get("class") != "GUARDED":
+        fail("[chairman] G-07-02 must be GUARDED (C-05)")
 
 # Permission catalogue
 for p in data["permissions"]["permissions"]:
@@ -85,19 +87,35 @@ for e in event_rows:
             fail(f"[alias] {e['name']} maps_to unknown {e.get('maps_to')}")
 
 flag_012 = data["events"].get("_meta", {}).get("flag_012_core_events") or []
+if len(flag_012) != 18:
+    fail(f"[flag-012] expected 18 core events, got {len(flag_012)}")
+if "MIGRATE.IT_DIRECTOR_REJECTED" in flag_012:
+    fail("[flag-012] IT_DIRECTOR_REJECTED must not be in FLAG-012 list (Chairman Q1)")
+crit_path = here / "critical_events_v1.json"
+flag_crit = set()
+if crit_path.is_file():
+    flag_crit = set(json.loads(crit_path.read_text()).get("flag_012_critical") or [])
 for name in flag_012:
     ev = events_by_name.get(name)
     if not ev:
         fail(f"[flag-012] missing event {name}")
-    elif not ev.get("critical"):
+    elif name in flag_crit and not ev.get("critical"):
         fail(f"[flag-012] {name} must be critical=true")
+    elif name not in flag_crit and ev.get("critical") and name.startswith("MIGRATE."):
+        # FLAG-012 non-critical lifecycle rows must not be critical
+        fail(f"[flag-012] {name} must be critical=false per Chairman Q1")
 
 # _meta adoption markers
-for key in ("events", "permissions", "gates"):
+for key in ("permissions", "gates"):
     doc = data[key]
     ver = str(doc.get("_meta", {}).get("version", ""))
     if "adopted" not in ver:
         fail(f"[adoption] {key}._meta.version must contain 'adopted' (got {ver!r})")
+ev_ver = str(data["events"].get("_meta", {}).get("version", ""))
+if "adopted" not in ev_ver and "chairman" not in ev_ver:
+    fail(f"[adoption] events._meta.version must reflect adoption/chairman (got {ev_ver!r})")
+if not data["events"].get("_meta", {}).get("chairman"):
+    fail("[adoption] events._meta.chairman block missing (Chairman rulings metadata)")
 
 # v1 artefacts
 for fname in [

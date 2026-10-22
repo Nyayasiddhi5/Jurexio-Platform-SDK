@@ -20,9 +20,15 @@ describe('Jurexio module registry v1 compliance', () => {
   it('events.json is adopted with 758 rows and no null critical', () => {
     const doc = JSON.parse(
       fs.readFileSync(path.join(registryDir, 'events.json'), 'utf8'),
-    ) as { _meta: { version: string }; events: { critical: boolean | null }[] };
-    expect(doc._meta.version).toContain('adopted');
-    expect(doc.events).toHaveLength(758);
+    ) as {
+      _meta: { version: string; chairman?: { event_count_authoritative?: number } };
+      events: { critical: boolean | null }[];
+    };
+    expect(doc._meta.version.includes('adopted') || doc._meta.version.includes('chairman')).toBe(
+      true,
+    );
+    expect(doc.events).toHaveLength(759);
+    expect(doc._meta.chairman?.event_count_authoritative).toBe(759);
     expect(doc.events.every((e) => typeof e.critical === 'boolean')).toBe(true);
   });
 

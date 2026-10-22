@@ -13,7 +13,7 @@ Chairman requested confirmation of six gates whose class was inferred from descr
 | G-09-09 | M09 Ledger | Registry change | **GUARDED** | Platform registry edits require independent approver |
 | G-14-06 | M14 DataMigrate | Board / CEO cutover | **DUAL** | Board approval and CEO confirmation are distinct actors |
 | G-14-07 | M14 DataMigrate | IT director sign-off | **GUARDED** | Migration director cannot approve own cutover request |
-| G-07-02 | M07 RegRadar | Regulatory attestation | **SELF_ATTESTED** | Professional attestation on own record with evidence + audit sampling |
+| G-07-02 | M07 RegRadar | Obligation owner assign/reassign | **GUARDED** | **Chairman C-05** — Compliance Officer confirmation; was SELF_ATTESTED in seed |
 
 **Gate-outcome naming (E1):** Adopted — `DOMAIN.G_NN_NN_REJECTED` / `DOMAIN.G_NN_NN_WITHDRAWN` with mandatory rejection reason in Ledger payload.
 

@@ -2084,12 +2084,12 @@
       "module_name": "RegRadar",
       "decision": "Assign or reassign an obligation owner and backup",
       "gate_type_text": "Single approver",
-      "approver_text": "Confirming lawyer; Compliance Officer for reassignment",
+      "approver_text": "Compliance Officer confirmation (Chairman C-05)",
       "events": [
         "REGRADAR.OWNER_ASSIGNED"
       ],
-      "class": "SELF_ATTESTED",
-      "class_note": null,
+      "class": "GUARDED",
+      "class_note": "Was SELF_ATTESTED in seed; Chairman ruling 2026-10-22",
       "approver_scope": "tenant",
       "permission": "regradar.assign_or_reassign_an_obligation_owner_and_backup.decide",
       "outcome_events": {
@@ -4115,9 +4115,9 @@
       "approver_text": "Named approvers per the migration plan",
       "events": [
         "MIGRATE.IT_DIRECTOR_APPROVED",
-        "MIGRATE.IT_DIRECTOR_REJECTED",
         "MIGRATE.BOARD_APPROVED",
-        "MIGRATE.CEO_CONFIRMED"
+        "MIGRATE.CEO_CONFIRMED",
+        "MIGRATE.PRECONDITIONS_MET"
       ],
       "class": "DUAL",
       "class_note": "sequential",
@@ -4126,7 +4126,6 @@
       "outcome_events": {
         "approved": [
           "MIGRATE.IT_DIRECTOR_APPROVED",
-          "MIGRATE.IT_DIRECTOR_REJECTED",
           "MIGRATE.BOARD_APPROVED",
           "MIGRATE.CEO_CONFIRMED"
         ],

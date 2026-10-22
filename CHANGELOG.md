@@ -2,6 +2,12 @@
 
 ## [1.0.0] — Unreleased
 
+### Changed — JRX-CHAIRMAN-RULINGS-REGISTRY-001 (2026-10-22)
+
+- Chairman Q1–Q6 + C-01–C-12: FLAG-012 eighteen with `PRECONDITIONS_MET`, partial critical flags, 90-day alias window, G-07-02 GUARDED, 759 events, rulings in `_meta.chairman`.
+- Docs: conflict register, sprint sequence, model provider + DPA status; permission rename proposals for CH-3 manual review.
+- Access evaluate: deny with `MATTER_POLICY_REQUIRED` when resource without matter policy (C-10); guardrail `guardrail:central-access`.
+
 ### Added — JRX-REGISTRY-COMPLIANCE-CLOSEOUT-001 (2026-10-22)
 
 - Expanded `jurexio-specs/registry/validate.py` (gate outcomes, FLAG-012, aliases, role templates, no placeholders).

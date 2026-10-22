@@ -72,6 +72,10 @@
           "alias_sunset": {
             "type": "string",
             "format": "date"
+          },
+          "alias_window_days": {
+            "type": "integer",
+            "minimum": 1
           }
         },
         "additionalProperties": false

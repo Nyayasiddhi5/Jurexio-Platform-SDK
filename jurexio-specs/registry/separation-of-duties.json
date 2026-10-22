@@ -1,13 +1,13 @@
 {
   "_meta": {
-    "version": "1.0.0-adopted",
+    "version": "1.0.1-chairman-rulings",
     "adopted_on": "2026-10-22",
-    "enforcement": "CommandCentre access decision (deny by default); evaluated at POST /api/jrx/platform/access/evaluate"
+    "enforcement": "CommandCentre evaluateAccess(); see separation-of-duties rules below"
   },
   "rules": [
     {
       "id": "SOD-001",
-      "description": "Requester cannot approve own gate action (GUARDED gates)",
+      "description": "Requester cannot approve own gate action (GUARDED gates incl. G-07-02 post C-05)",
       "type": "self_approval_forbidden",
       "applies_to_gate_classes": ["GUARDED"]
     },
@@ -20,7 +20,7 @@
     },
     {
       "id": "SOD-003",
-      "description": "Engine output release cannot be approved by the same subject who held the draft",
+      "description": "Engine review release vs HR tier approval — distinct subjects",
       "type": "permission_pair_forbidden",
       "permissions_a": ["engine.hr_tier_1_approval.decide"],
       "permissions_b": ["engine.review.approve"],
@@ -28,23 +28,29 @@
     },
     {
       "id": "SOD-004",
-      "description": "Ledger export certification requires certifier distinct from export requester",
+      "description": "Ledger export certification — certifier distinct from requester (G-09-06)",
       "type": "gate_pair",
-      "gate_ids": ["G-09-06"],
-      "notes": "Maps to ledger.export.certify family in catalogue"
+      "gate_ids": ["G-09-06"]
     },
     {
       "id": "SOD-005",
-      "description": "Migration cutover board and CEO confirmations must be distinct actors",
+      "description": "Migration cutover sequential approvers must be distinct people (G-14-08)",
       "type": "gate_pair",
-      "gate_ids": ["G-14-06"]
+      "gate_ids": ["G-14-08"]
     },
     {
       "id": "SOD-006",
-      "description": "Protected permission assignment requires step-up and independent admin",
+      "description": "Protected permission assignment requires admin gate",
       "type": "protected_permission_assignment",
       "permission_prefixes": ["access.", "ledger."],
       "requires_permission": "access.add_a_protected_permission_to_a_role.decide"
+    },
+    {
+      "id": "SOD-007",
+      "description": "Compliance Officer cannot be sole approver on own obligation owner reassignment (G-07-02 GUARDED)",
+      "type": "gate_specific",
+      "gate_ids": ["G-07-02"],
+      "notes": "Chairman C-05 — Compliance Officer confirmation required"
     }
   ]
 }

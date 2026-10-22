@@ -1,0 +1,1313 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "count": 163,
+    "chairman": "CH-3 manual review all rows"
+  },
+  "proposals": [
+    {
+      "gate_id": "G-01-01",
+      "module": "M01",
+      "current_id": "matter.open.approve",
+      "decision": "Open a matter",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-01-02",
+      "module": "M01",
+      "current_id": "matter.decline_an_intake.decide",
+      "decision": "Decline an intake",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-01-03",
+      "module": "M01",
+      "current_id": "matter.classify_a_conflict_hit.decide",
+      "decision": "Classify a conflict hit",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-01-04",
+      "module": "M01",
+      "current_id": "matter.waiver.approve",
+      "decision": "Approve a conflict waiver",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-01-05",
+      "module": "M01",
+      "current_id": "matter.confirm_the_home_jurisdiction.decide",
+      "decision": "Confirm the home jurisdiction",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-01-06",
+      "module": "M01",
+      "current_id": "matter.transfer.approve",
+      "decision": "Approve a home-jurisdiction transfer or linked split",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-01-07",
+      "module": "M01",
+      "current_id": "matter.create_or_extend_an_ethical_wall.decide",
+      "decision": "Create or extend an ethical wall",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-01-08",
+      "module": "M01",
+      "current_id": "matter.wall.lift",
+      "decision": "Lift or narrow an ethical wall",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-01-09",
+      "module": "M01",
+      "current_id": "matter.approve_a_notice_to_a_former_client_about_a_wall.decide",
+      "decision": "Approve a notice to a former client about a wall",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-01-10",
+      "module": "M01",
+      "current_id": "matter.record_protected_characteristic_data.decide",
+      "decision": "Record protected-characteristic data",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-01-11",
+      "module": "M01",
+      "current_id": "matter.merge_or_un_merge_party_records.decide",
+      "decision": "Merge or un-merge party records",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-01-12",
+      "module": "M01",
+      "current_id": "matter.accept_an_ai_suggested_related_entity_link.decide",
+      "decision": "Accept an AI-suggested related-entity link",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-01-13",
+      "module": "M01",
+      "current_id": "matter.approve_closing.decide",
+      "decision": "Approve closing",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-01-14",
+      "module": "M01",
+      "current_id": "matter.approve_reopening.decide",
+      "decision": "Approve reopening",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-01-15",
+      "module": "M01",
+      "current_id": "matter.approve_the_closing_letter.decide",
+      "decision": "Approve the closing letter",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-02-01",
+      "module": "M02",
+      "current_id": "document.classification.lower",
+      "decision": "Lower a classification, including clearing privileged pending review",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-02-02",
+      "module": "M02",
+      "current_id": "document.mark_final_or_reopen_final_to_draft.decide",
+      "decision": "Mark Final, or reopen Final to Draft",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-02-03",
+      "module": "M02",
+      "current_id": "document.privileged.release",
+      "decision": "Release a privileged document",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-02-04",
+      "module": "M02",
+      "current_id": "document.approve_a_production_set.decide",
+      "decision": "Approve a production set",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-02-05",
+      "module": "M02",
+      "current_id": "document.approve_a_redacted_copy.decide",
+      "decision": "Approve a redacted copy",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-02-06",
+      "module": "M02",
+      "current_id": "document.send_a_document_for_e_signature.decide",
+      "decision": "Send a document for e-signature",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-02-07",
+      "module": "M02",
+      "current_id": "document.record_stamp_duty_handling.decide",
+      "decision": "Record stamp-duty handling",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-02-08",
+      "module": "M02",
+      "current_id": "document.filing.approve",
+      "decision": "Sign off a filing package",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-02-09",
+      "module": "M02",
+      "current_id": "document.confirm_the_matter_for_an_intake_item.decide",
+      "decision": "Confirm the matter for an intake item",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-02-10",
+      "module": "M02",
+      "current_id": "document.approve_a_sampled_tag_batch.decide",
+      "decision": "Approve a sampled tag batch",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-02-11",
+      "module": "M02",
+      "current_id": "document.share_a_document_with_the_client_through_clientbridge.decide",
+      "decision": "Share a document with the client through ClientBridge",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-02-12",
+      "module": "M02",
+      "current_id": "document.approve_a_signing_provider_for_a_jurisdiction.decide",
+      "decision": "Approve a signing provider for a jurisdiction",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-03-01",
+      "module": "M03",
+      "current_id": "engine.review.approve",
+      "decision": "Approve, edit, reject or escalate a legal output",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-03-02",
+      "module": "M03",
+      "current_id": "engine.cross_jurisdiction_co_approval.decide",
+      "decision": "Cross-jurisdiction co-approval",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-03-03",
+      "module": "M03",
+      "current_id": "engine.hr_tier_1_approval.decide",
+      "decision": "HR Tier 1 approval",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-03-04",
+      "module": "M03",
+      "current_id": "engine.hr_tier_2_approval.decide",
+      "decision": "HR Tier 2 approval",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-03-05",
+      "module": "M03",
+      "current_id": "engine.hr_tier_3_approval.decide",
+      "decision": "HR Tier 3 approval",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-03-06",
+      "module": "M03",
+      "current_id": "engine.extend_a_review_sla_within_the_deadline_cap.decide",
+      "decision": "Extend a review SLA within the deadline cap",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-03-07",
+      "module": "M03",
+      "current_id": "engine.killswitch.reinstate",
+      "decision": "Reinstate AI after a kill-switch",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-03-08",
+      "module": "M03",
+      "current_id": "engine.suspend_quality_or_reinstate_an_agent.decide",
+      "decision": "Suspend (quality) or reinstate an agent",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-03-09",
+      "module": "M03",
+      "current_id": "engine.add_or_retire_a_model_in_a_jurisdiction_s_registry.decide",
+      "decision": "Add or retire a model in a jurisdiction's registry",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-03-10",
+      "module": "M03",
+      "current_id": "platform.jurisdiction.activate",
+      "decision": "Activate a jurisdiction",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-04-01",
+      "module": "M04",
+      "current_id": "lexgraph.publish_or_change_a_country_s_declared_coverage.decide",
+      "decision": "Publish or change a country's declared coverage",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-04-02",
+      "module": "M04",
+      "current_id": "lexgraph.add_or_remove_a_corpus_source_recording_its_ai_use_and_t.decide",
+      "decision": "Add or remove a corpus source, recording its AI-use and training rights",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-04-03",
+      "module": "M04",
+      "current_id": "lexgraph.verify_or_reject_an_ai_proposed_treatment_link.decide",
+      "decision": "Verify or reject an AI-proposed treatment link",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-04-04",
+      "module": "M04",
+      "current_id": "lexgraph.publish_a_provision_version_or_commencement_status.decide",
+      "decision": "Publish a provision version or commencement status",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-04-05",
+      "module": "M04",
+      "current_id": "lexgraph.approve_a_training_dataset_version.decide",
+      "decision": "Approve a training dataset version",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-04-06",
+      "module": "M04",
+      "current_id": "lexgraph.confirm_anonymisation_of_a_promoted_item.decide",
+      "decision": "Confirm anonymisation of a promoted item",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-04-07",
+      "module": "M04",
+      "current_id": "lexgraph.approve_promotion_of_an_item.decide",
+      "decision": "Approve promotion of an item",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-04-08",
+      "module": "M04",
+      "current_id": "lexgraph.withdraw_or_re_certify_an_item.decide",
+      "decision": "Withdraw or re-certify an item",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-04-09",
+      "module": "M04",
+      "current_id": "lexgraph.correct_enrichment_after_an_error_report.decide",
+      "decision": "Correct enrichment after an error report",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-04-10",
+      "module": "M04",
+      "current_id": "lexgraph.approve_replication_of_a_corpus_or_public_law_model_to_a.decide",
+      "decision": "Approve replication of a corpus or public-law model to another region",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-05-01",
+      "module": "M05",
+      "current_id": "deadline.confirm_a_proposed_deadline_trigger_and_computation.decide",
+      "decision": "Confirm a proposed deadline (trigger and computation)",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-05-02",
+      "module": "M05",
+      "current_id": "deadline.resolve_a_source_conflict.decide",
+      "decision": "Resolve a source conflict",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-05-03",
+      "module": "M05",
+      "current_id": "deadline.move_later_mark_not_applicable_or_close_as_created_in_er.decide",
+      "decision": "Move later, mark not applicable, or close as created in error",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-05-04",
+      "module": "M05",
+      "current_id": "deadline.record_an_extension.decide",
+      "decision": "Record an extension",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-05-05",
+      "module": "M05",
+      "current_id": "deadline.close_as_filed.decide",
+      "decision": "Close as filed",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-05-06",
+      "module": "M05",
+      "current_id": "deadline.re_confirm_after_a_rule_change.decide",
+      "decision": "Re-confirm after a rule change",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-05-07",
+      "module": "M05",
+      "current_id": "deadline.resolve_a_missed_deadline_incident.decide",
+      "decision": "Resolve a missed-deadline incident",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-05-08",
+      "module": "M05",
+      "current_id": "deadline.decide_whether_to_notify_the_professional_liability_insu.decide",
+      "decision": "Decide whether to notify the professional-liability insurer",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-05-09",
+      "module": "M05",
+      "current_id": "deadline.accept_an_ai_suggested_checklist_item.decide",
+      "decision": "Accept an AI-suggested checklist item",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-05-10",
+      "module": "M05",
+      "current_id": "deadline.enable_client_names_in_calendar_events_for_a_matter.decide",
+      "decision": "Enable client names in calendar events for a matter",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-05-11",
+      "module": "M05",
+      "current_id": "deadline.publish_a_new_version_of_a_forum_rule_set.decide",
+      "decision": "Publish a new version of a forum rule set",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-05-12",
+      "module": "M05",
+      "current_id": "deadline.decide_whether_to_notify_the_client_after_a_missed_deadl.decide",
+      "decision": "Decide whether to notify the client after a missed deadline, including a decision not to notify",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-01",
+      "module": "M06",
+      "current_id": "billguard.confirm_a_time_entry_including_from_an_ai_suggestion.decide",
+      "decision": "Confirm a time entry (including from an AI suggestion)",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-02",
+      "module": "M06",
+      "current_id": "billguard.approve_a_pre_bill_and_issue_the_invoice.decide",
+      "decision": "Approve a pre-bill and issue the invoice",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-03",
+      "module": "M06",
+      "current_id": "billguard.approve_a_write_down.decide",
+      "decision": "Approve a write-down",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-04",
+      "module": "M06",
+      "current_id": "billguard.approve_a_write_up_under_the_engagement.decide",
+      "decision": "Approve a write-up under the engagement",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-05",
+      "module": "M06",
+      "current_id": "billguard.issue_a_credit_note_or_discount.decide",
+      "decision": "Issue a credit note or discount",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-06",
+      "module": "M06",
+      "current_id": "billguard.write_off_a_receivable.decide",
+      "decision": "Write off a receivable",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-07",
+      "module": "M06",
+      "current_id": "billguard.reverse_a_write_off.decide",
+      "decision": "Reverse a write-off",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-08",
+      "module": "M06",
+      "current_id": "billguard.publish_a_firm_wide_rate_card_version.decide",
+      "decision": "Publish a firm-wide rate card version",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-09",
+      "module": "M06",
+      "current_id": "billguard.set_a_matter_specific_rate.decide",
+      "decision": "Set a matter-specific rate",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-10",
+      "module": "M06",
+      "current_id": "billguard.confirm_structured_billing_guideline_rules.decide",
+      "decision": "Confirm structured billing-guideline rules",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-11",
+      "module": "M06",
+      "current_id": "billguard.set_or_revise_a_budget_decide_an_overrun.decide",
+      "decision": "Set or revise a budget; decide an overrun",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-12",
+      "module": "M06",
+      "current_id": "billguard.decide_an_outside_counsel_invoice_line.decide",
+      "decision": "Decide an outside-counsel invoice line",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-13",
+      "module": "M06",
+      "current_id": "billguard.approve_an_outside_counsel_invoice_for_payment.decide",
+      "decision": "Approve an outside-counsel invoice for payment",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-14",
+      "module": "M06",
+      "current_id": "billguard.record_and_classify_a_receipt_office_or_client_money.decide",
+      "decision": "Record and classify a receipt (office or client money)",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-15",
+      "module": "M06",
+      "current_id": "billguard.apply_client_money_to_a_fee_invoice.decide",
+      "decision": "Apply client money to a fee invoice",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-16",
+      "module": "M06",
+      "current_id": "billguard.request_a_disbursement_from_client_money.decide",
+      "decision": "Request a disbursement from client money",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-17",
+      "module": "M06",
+      "current_id": "billguard.sign_off_the_monthly_three_way_reconciliation.decide",
+      "decision": "Sign off the monthly three-way reconciliation",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-18",
+      "module": "M06",
+      "current_id": "billguard.send_an_escalated_reminder_or_demand.decide",
+      "decision": "Send an escalated reminder or demand",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-19",
+      "module": "M06",
+      "current_id": "billguard.record_a_refund.decide",
+      "decision": "Record a refund",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-20",
+      "module": "M06",
+      "current_id": "billguard.close_a_financial_period.decide",
+      "decision": "Close a financial period",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-06-21",
+      "module": "M06",
+      "current_id": "billguard.move_full_invoice_detail_across_jurisdictions.decide",
+      "decision": "Move full invoice detail across jurisdictions",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-07-01",
+      "module": "M07",
+      "current_id": "regradar.confirm_edit_or_reject_an_impact_proposal.decide",
+      "decision": "Confirm, edit or reject an impact proposal",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-07-02",
+      "module": "M07",
+      "current_id": "regradar.assign_or_reassign_an_obligation_owner_and_backup.decide",
+      "decision": "Assign or reassign an obligation owner and backup",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-07-03",
+      "module": "M07",
+      "current_id": "regradar.close_an_obligation_or_alert_with_its_outcome.decide",
+      "decision": "Close an obligation or alert with its outcome",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-07-04",
+      "module": "M07",
+      "current_id": "regradar.attest_a_lane_a_item.decide",
+      "decision": "Attest a Lane A item",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-07-05",
+      "module": "M07",
+      "current_id": "regradar.decide_a_screening_match.decide",
+      "decision": "Decide a screening match",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-07-06",
+      "module": "M07",
+      "current_id": "regradar.release_a_blocked_or_frozen_matter_or_decline_the_engage.decide",
+      "decision": "Release a blocked or frozen matter, or decline the engagement",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-07-07",
+      "module": "M07",
+      "current_id": "regradar.approve_a_client_alert.decide",
+      "decision": "Approve a client alert",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-07-08",
+      "module": "M07",
+      "current_id": "regradar.confirm_an_ai_proposed_risk_rating.decide",
+      "decision": "Confirm an AI-proposed risk rating",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-07-09",
+      "module": "M07",
+      "current_id": "regradar.add_or_remove_a_monitored_source_or_sanctions_list.decide",
+      "decision": "Add or remove a monitored source or sanctions list",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-07-10",
+      "module": "M07",
+      "current_id": "regradar.confirm_a_change_against_its_official_publication_where_.decide",
+      "decision": "Confirm a change against its official publication where this cannot be done automatically",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-01",
+      "module": "M08",
+      "current_id": "clientbridge.enable_a_matter_for_a_client_contact.decide",
+      "decision": "Enable a matter for a client contact",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-02",
+      "module": "M08",
+      "current_id": "clientbridge.publish_a_status_date_or_update_item_or_set_a_standing_p.decide",
+      "decision": "Publish a status, date or update item, or set a standing publication rule",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-03",
+      "module": "M08",
+      "current_id": "clientbridge.approve_a_plain_language_summary_for_a_client.decide",
+      "decision": "Approve a plain-language summary for a client",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-04",
+      "module": "M08",
+      "current_id": "clientbridge.approve_a_colleague_requested_by_a_client_admin.decide",
+      "decision": "Approve a colleague requested by a client admin",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-05",
+      "module": "M08",
+      "current_id": "clientbridge.issue_a_structured_request_to_a_client_or_location_owner.decide",
+      "decision": "Issue a structured request to a client or location owner",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-06",
+      "module": "M08",
+      "current_id": "clientbridge.respond_to_a_request_instruct_approve_consent_attest.decide",
+      "decision": "Respond to a request (instruct, approve, consent, attest)",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-07",
+      "module": "M08",
+      "current_id": "clientbridge.revoke_an_instruction_or_consent.decide",
+      "decision": "Revoke an instruction or consent",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-08",
+      "module": "M08",
+      "current_id": "clientbridge.decide_an_attested_location_obligation_met_or_not.decide",
+      "decision": "Decide an attested location obligation (Met or not)",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-09",
+      "module": "M08",
+      "current_id": "clientbridge.approve_reuse_of_location_evidence_for_another_location.decide",
+      "decision": "Approve reuse of location evidence for another location",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-10",
+      "module": "M08",
+      "current_id": "clientbridge.convert_a_client_message_into_a_formal_instruction_recor.decide",
+      "decision": "Convert a client message into a formal instruction record",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-11",
+      "module": "M08",
+      "current_id": "clientbridge.send_an_ai_drafted_reply.decide",
+      "decision": "Send an AI-drafted reply",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-12",
+      "module": "M08",
+      "current_id": "clientbridge.approve_client_facing_content_in_another_language.decide",
+      "decision": "Approve client-facing content in another language",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-13",
+      "module": "M08",
+      "current_id": "clientbridge.change_the_firm_s_verified_payment_details.decide",
+      "decision": "Change the firm's verified payment details",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-14",
+      "module": "M08",
+      "current_id": "clientbridge.unpublish_an_item.decide",
+      "decision": "Unpublish an item",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-08-15",
+      "module": "M08",
+      "current_id": "clientbridge.suspend_a_client_account_on_a_security_concern.decide",
+      "decision": "Suspend a client account on a security concern",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-09-01",
+      "module": "M09",
+      "current_id": "ledger.hold.apply",
+      "decision": "Apply or release a litigation / regulatory hold",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-09-02",
+      "module": "M09",
+      "current_id": "ledger.disclosure_review_of_an_evidence_package.decide",
+      "decision": "Disclosure review of an evidence package",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-09-03",
+      "module": "M09",
+      "current_id": "ledger.export.certify",
+      "decision": "Certification of an evidence package",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-09-04",
+      "module": "M09",
+      "current_id": "ledger.erasure.approve",
+      "decision": "Execute erasure by crypto-shredding",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-09-05",
+      "module": "M09",
+      "current_id": "ledger.dispose_of_payloads_at_retention_expiry.decide",
+      "decision": "Dispose of payloads at retention expiry",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-09-06",
+      "module": "M09",
+      "current_id": "ledger.accept_an_imported_history_segment.decide",
+      "decision": "Accept an imported-history segment",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-09-07",
+      "module": "M09",
+      "current_id": "ledger.disposition_of_a_chain_break_incident.decide",
+      "decision": "Disposition of a chain-break incident",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-09-08",
+      "module": "M09",
+      "current_id": "ledger.enable_or_disable_a_client_s_audit_trail.decide",
+      "decision": "Enable or disable a client's audit trail",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-09-09",
+      "module": "M09",
+      "current_id": "ledger.grant_external_auditor_access.decide",
+      "decision": "Grant external auditor access",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-09-10",
+      "module": "M09",
+      "current_id": "ledger.add_change_or_deprecate_an_event_type_in_the_registry.decide",
+      "decision": "Add, change or deprecate an event type in the registry",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-10-01",
+      "module": "M10",
+      "current_id": "nexus.approve_a_connector_for_a_jurisdiction_including_its_dat.decide",
+      "decision": "Approve a connector for a jurisdiction, including its data-flow declaration and event subscriptions",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-10-02",
+      "module": "M10",
+      "current_id": "nexus.re_approve_or_suspend_after_a_vendor_change.decide",
+      "decision": "Re-approve or suspend after a vendor change",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-10-03",
+      "module": "M10",
+      "current_id": "nexus.enable_a_connector_for_tenant_units.decide",
+      "decision": "Enable a connector for tenant units",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-10-04",
+      "module": "M10",
+      "current_id": "nexus.change_a_connection_s_scopes.decide",
+      "decision": "Change a connection's scopes",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-10-05",
+      "module": "M10",
+      "current_id": "nexus.register_an_inbound_source_or_endpoint.decide",
+      "decision": "Register an inbound source or endpoint",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-10-06",
+      "module": "M10",
+      "current_id": "nexus.release_or_discard_a_quarantined_item_never_malware.decide",
+      "decision": "Release or discard a quarantined item (never malware)",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-10-07",
+      "module": "M10",
+      "current_id": "nexus.resolve_a_dead_letter_item.decide",
+      "decision": "Resolve a dead-letter item",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-10-08",
+      "module": "M10",
+      "current_id": "nexus.archive_a_connection.decide",
+      "decision": "Archive a connection",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-10-09",
+      "module": "M10",
+      "current_id": "nexus.approve_a_fallback_provider_pairing_for_a_jurisdiction_a.decide",
+      "decision": "Approve a fallback provider pairing for a jurisdiction and purpose",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-11-01",
+      "module": "M11",
+      "current_id": "access.create_or_change_a_unit_that_sets_a_jurisdiction_or_data.decide",
+      "decision": "Create or change a unit that sets a jurisdiction or data region",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-11-02",
+      "module": "M11",
+      "current_id": "access.role.manage",
+      "decision": "Create or change a custom role (no protected permissions)",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-11-03",
+      "module": "M11",
+      "current_id": "access.add_a_protected_permission_to_a_role.decide",
+      "decision": "Add a protected permission to a role",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-11-04",
+      "module": "M11",
+      "current_id": "access.assign_or_change_a_person_s_role_and_scopes.decide",
+      "decision": "Assign or change a person's role and scopes",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-11-05",
+      "module": "M11",
+      "current_id": "access.verify_a_professional_credential_or_a_competence_e_g_hin.decide",
+      "decision": "Verify a professional credential or a competence (e.g. Hindi)",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-11-06",
+      "module": "M11",
+      "current_id": "access.activate_just_in_time_elevation.decide",
+      "decision": "Activate just-in-time elevation",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-11-07",
+      "module": "M11",
+      "current_id": "access.revoke.emergency",
+      "decision": "Revoke a person's access in an emergency",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-11-08",
+      "module": "M11",
+      "current_id": "access.recertify_access.decide",
+      "decision": "Recertify access",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-11-09",
+      "module": "M11",
+      "current_id": "access.support.grant",
+      "decision": "Grant Jurexio support access (content access needs a second approver)",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-11-10",
+      "module": "M11",
+      "current_id": "access.policy.change",
+      "decision": "Change a security-relevant setting (identity provider, session policy, device or network rule, pack use for a unit)",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-11-11",
+      "module": "M11",
+      "current_id": "access.platform_break_glass_access_to_a_tenant.decide",
+      "decision": "Platform break-glass access to a tenant",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-11-12",
+      "module": "M11",
+      "current_id": "access.publish_a_permission_catalogue_template_or_separation_of.decide",
+      "decision": "Publish a permission catalogue, template or separation-of-duties version",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-11-13",
+      "module": "M11",
+      "current_id": "access.approve_an_external_user.decide",
+      "decision": "Approve an external user",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-11-14",
+      "module": "M11",
+      "current_id": "access.relocate_a_person_s_identity_record_to_another_region.decide",
+      "decision": "Relocate a person's identity record to another region",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-12-01",
+      "module": "M12",
+      "current_id": "comms.publish_a_platform_system_notice_template_version_for_a_.decide",
+      "decision": "Publish a platform system-notice template version for a jurisdiction and language",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-12-02",
+      "module": "M12",
+      "current_id": "comms.adapt_a_template_s_wording_for_a_tenant_within_allowed_f.decide",
+      "decision": "Adapt a template's wording for a tenant, within allowed fields",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-12-03",
+      "module": "M12",
+      "current_id": "comms.record_a_client_s_channel_consent_with_evidence.decide",
+      "decision": "Record a client's channel consent, with evidence",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-12-04",
+      "module": "M12",
+      "current_id": "comms.register_a_personal_number_for_sms_or_voice_escalation.decide",
+      "decision": "Register a personal number for SMS or voice escalation",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-12-05",
+      "module": "M12",
+      "current_id": "comms.resolve_a_routing_failure.decide",
+      "decision": "Resolve a routing failure",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-13-01",
+      "module": "M13",
+      "current_id": "storage.approve_or_change_a_pack_s_primary_or_recovery_location.decide",
+      "decision": "Approve or change a pack's primary or recovery location",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-13-02",
+      "module": "M13",
+      "current_id": "storage.connect_bring_your_own_storage.decide",
+      "decision": "Connect bring-your-own-storage",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-13-03",
+      "module": "M13",
+      "current_id": "storage.enable_a_customer_managed_key_acknowledging_that_revocat.decide",
+      "decision": "Enable a customer-managed key, acknowledging that revocation stops service",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-13-04",
+      "module": "M13",
+      "current_id": "storage.confirm_receipt_of_the_exit_export.decide",
+      "decision": "Confirm receipt of the exit export",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-13-05",
+      "module": "M13",
+      "current_id": "storage.destroy_a_tenant_key_at_exit.decide",
+      "decision": "Destroy a tenant key at exit",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-13-06",
+      "module": "M13",
+      "current_id": "storage.approve_a_bulk_disposal_batch.decide",
+      "decision": "Approve a bulk disposal batch",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-13-07",
+      "module": "M13",
+      "current_id": "storage.invoke_region_failover.decide",
+      "decision": "Invoke region failover",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-13-08",
+      "module": "M13",
+      "current_id": "storage.request_a_single_tenant_restore.decide",
+      "decision": "Request a single-tenant restore",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-13-09",
+      "module": "M13",
+      "current_id": "storage.release_the_dedicated_or_sovereign_edition_for_a_client.decide",
+      "decision": "Release the Dedicated or Sovereign edition for a client",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-14-01",
+      "module": "M14",
+      "current_id": "migrate.grant_operator_access_approve_each_content_request.decide",
+      "decision": "Grant operator access; approve each content request",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-14-02",
+      "module": "M14",
+      "current_id": "migrate.approve_mapping_template_approve_tag_samples.decide",
+      "decision": "Approve mapping template; approve tag samples",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-14-03",
+      "module": "M14",
+      "current_id": "migrate.exclude_a_batch_of_records.decide",
+      "decision": "Exclude a batch of records",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-14-04",
+      "module": "M14",
+      "current_id": "migrate.clear_a_document_from_privileged_pending_review.decide",
+      "decision": "Clear a document from privileged pending review",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-14-05",
+      "module": "M14",
+      "current_id": "migrate.approve_or_reverse_a_client_merge_resolve_a_conflict_hit.decide",
+      "decision": "Approve or reverse a client merge; resolve a conflict hit",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-14-06",
+      "module": "M14",
+      "current_id": "migrate.sign_off_client_money_reconciliation.decide",
+      "decision": "Sign off client-money reconciliation",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-14-07",
+      "module": "M14",
+      "current_id": "migrate.classify_a_quarantined_record_s_jurisdiction.decide",
+      "decision": "Classify a quarantined record's jurisdiction",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-14-08",
+      "module": "M14",
+      "current_id": "migrate.cutover.approve",
+      "decision": "Approve cutover",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-14-09",
+      "module": "M14",
+      "current_id": "migrate.rollback.approve",
+      "decision": "Roll back after cutover",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-14-10",
+      "module": "M14",
+      "current_id": "migrate.decide_fix_forward_or_rollback_for_a_live_defect.decide",
+      "decision": "Decide fix-forward or rollback for a LIVE defect",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    },
+    {
+      "gate_id": "G-14-11",
+      "module": "M14",
+      "current_id": "migrate.destroy_migration_staging.decide",
+      "decision": "Destroy migration staging",
+      "review_status": "pending_manual_ch3",
+      "pattern": "module.object.action (Chairman CH-3)"
+    }
+  ]
+}

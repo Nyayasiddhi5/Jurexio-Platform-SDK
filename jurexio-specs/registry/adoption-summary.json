@@ -1,5 +1,5 @@
 {
-  "events_total": 758,
+  "events_total": 759,
   "critical_true": 116,
   "critical_false": 642,
   "permissions_total": 165,
@@ -149,5 +149,8 @@
     "datamigrate.g_14_10.decide": "migrate.decide_fix_forward_or_rollback_for_a_live_defect.decide",
     "datamigrate.g_14_11.decide": "migrate.destroy_migration_staging.decide"
   },
-  "gates_adopted": 163
+  "gates_adopted": 163,
+  "chairman_rulings_applied": "2026-10-22",
+  "flag_012_count": 18,
+  "flag_012_critical_count": 8
 }

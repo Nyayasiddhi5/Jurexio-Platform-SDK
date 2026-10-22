@@ -32,8 +32,8 @@
     },
     {
       "legacy": "L6",
-      "label": "Compliance / risk (FLAG-004 L6+ wording retired)",
-      "replacement": "tenant.compliance_officer + tenant.legal_department_reviewer templates"
+      "label": "Compliance / risk (FLAG-004 \"L6+\" wording retired per Chairman still owed list)",
+      "replacement": "tenant.compliance_officer + tenant.legal_department_reviewer; map each legacy L6+ gate mention to named permission in catalogue"
     },
     {
       "legacy": "L7",

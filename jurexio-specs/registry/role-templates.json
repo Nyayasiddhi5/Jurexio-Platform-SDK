@@ -1,8 +1,9 @@
 {
   "_meta": {
-    "version": "1.0.0-adopted",
+    "version": "1.0.1-chairman-rulings",
     "adopted_on": "2026-10-22",
-    "notes": "Role templates v1; L1–L9 retired (see l1-l9-retirement-map.json). ClientBridge R1 obligation fields marked pending-R1 in M07/M11."
+    "chairman_q3": "Location Compliance Owner + Legal Department Reviewer published; ClientBridge R1 applied in specs — layered Jurisdiction Pack fields pending Raja Sekhar T",
+    "pending_jurisdiction_pack": "Layered country/state/municipal/industry pack content — does not block 25 Oct templates"
   },
   "role_templates": [
     {
@@ -22,14 +23,18 @@
       "scope": "tenant",
       "permissions": [
         "engine.review.approve",
-        "document.approve_a_production_set.decide"
+        "document.approve_a_production_set.decide",
+        "engine.hr_tier_3_approval.decide"
       ]
     },
     {
       "id": "tenant.location_compliance_owner",
       "label": "Location Compliance Owner",
       "scope": "location",
-      "pending_r1": ["clientbridge layered obligation packs per M08 R1"],
+      "pending_fields": [
+        "jurisdiction_pack.layered_obligations",
+        "clientbridge.per_location_obligation_matrix"
+      ],
       "permissions": [
         "clientbridge.decide_an_attested_location_obligation_met_or_not.decide",
         "clientbridge.issue_a_structured_request_to_a_client_or_location_owner.decide",
@@ -44,6 +49,7 @@
       "permissions": [
         "regradar.decide_a_screening_match.decide",
         "regradar.release_a_blocked_or_frozen_matter_or_decline_the_engage.decide",
+        "regradar.assign_or_reassign_an_obligation_owner_and_backup.decide",
         "ledger.grant_external_auditor_access.decide"
       ]
     },

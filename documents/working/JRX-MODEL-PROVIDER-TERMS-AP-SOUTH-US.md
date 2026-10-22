@@ -1,31 +1,39 @@
-# Model provider terms — India (ap-south-1) and US (us-east-1)
+# Model provider terms — Chairman Q4 (22 Oct 2026)
 
-**Status:** CTO memo v1 for Chairman sign-off (25 Oct 2026)  
-**Blocks:** India AI launch (M03 Engine), Hindi-capable inference
+**Status:** Engineering posture **approved by Chairman** — subject to **DPA execution**  
+**Registry metadata:** `events.json` → `_meta.chairman` (Q4 summary)  
+**Allow-list owner:** Engine platform model registry (G-03-09) — tenants may **tighten only** (CH-5)
 
-## Posture (v1)
+## Approved v1 posture
 
-| Region | Primary inference | Data residency | Retention / training |
+| Rule | Detail |
+| --- | --- |
+| **AWS Bedrock in-region** | **Approved** for production client data in **ap-south-1** (IN) and **us-east-1** (US) |
+| **On-demand model IDs** | Use only model IDs **hosted in** the tenant’s region |
+| **Cross-region inference profiles** | **Disabled** — they can route Indian prompts outside India |
+| **OpenRouter** | **Not approved** for any client data in either jurisdiction in v1.0 — **synthetic/dev only** |
+| **Credential vaults** | **Two key sets** — one per region, stored in that region’s vault (M10 D1), registered per jurisdiction in Engine model registry |
+
+## Hindi quality bar (Engine D8)
+
+Before production Hindi routing:
+
+- Hindi legal evaluation set scored by **two verified Hindi-competent lawyers**
+- **Faithfulness ≥ 90%**, **zero invented citations**, **average reviewer rating ≥ 4/5**
+- Every Hindi output remains **human-reviewed** (Engine R2 / G-03 gates)
+
+## DPA status (25 Oct deliverable — legal)
+
+| Provider | Region | DPA status (22 Oct) | Owner |
 | --- | --- | --- | --- |
-| **ap-south-1** | AWS Bedrock models deployed in **ap-south-1** | IN tenant prompts and outputs processed **in-region** | Contractual **zero retention** for customer content; **no model training** on customer data |
-| **us-east-1** | AWS Bedrock in **us-east-1** for US tenants | US tenant data **in-region** | Same zero-retention / no-training terms |
+| **AWS Bedrock** | ap-south-1 | **In review** — standard AWS DPA + Bedrock service terms; zero retention/no training clauses under legal review | NYAYASIDDHI legal + CTO |
+| **AWS Bedrock** | us-east-1 | **In review** — same as IN | NYAYASIDDHI legal + CTO |
+| **OpenRouter** | n/a | **Not in scope** for client data v1; no DPA path for production | — |
 
-## Hindi capability
+CTO to confirm final executed DPA dates in Project-Tracker when legal closes.
 
-- At least **one Hindi-capable model** must be available in **ap-south-1** for production tenant routing (Engine HR tiers and client-facing summaries where configured).
-- Minimum quality bar: **human-review gate (G-03-*)** remains mandatory for released outputs; Hindi models are not auto-release without review permissions.
+## Engineering enforcement
 
-## Fallback and cross-border
-
-- **IN tenant data must not** be routed to us-east-1 or third-party aggregators (e.g. OpenRouter) without explicit Chairman-approved DPA and tenant opt-in.
-- US tenants may use us-east-1 only; no silent cross-region failover for IN.
-
-## Commercial / legal
-
-- DPA and Bedrock service terms to be executed by NYAYASIDDHI / Jurexio legal before production India AI launch.
-- Chairman to confirm acceptable provider list (Q4 in conflict register).
-
-## Engineering hooks
-
-- `JRX_BEDROCK_REGION` / tenant region binding in gateway LLM catalog (existing SDK paths).
-- Audit: log model ID, region, and latency only — no prompt content in logs (NV-SECRETS-001).
+- Provider allow-list in **Engine model registry** (not tenant CommandCentre setting).
+- Gateway rejects IN-tenant calls to non-allow-listed or cross-region model IDs.
+- Log model ID + region + latency only (NV-SECRETS-001).

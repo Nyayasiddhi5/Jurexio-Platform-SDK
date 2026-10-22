@@ -6,6 +6,7 @@
 
 | Timestamp | Status | Owner | Area | Summary | Evidence |
 |-----------|--------|-------|------|---------|----------|
+| 2026-10-22T13:45:00Z | DONE | Cursor Agent | JRX-CHAIRMAN-RULINGS-REGISTRY-001 | Chairman mail applied: 759 events, FLAG-012 Q1, 90d aliases, G-07-02 GUARDED, metadata + conflict register + model DPA table; CH-4 guardrail. | `apply_chairman_rulings_2026-10-22.py`; `JRX-REGISTRY-CHAIRMAN-RULINGS-2026-10-22.md`; `npm run registry:validate` OK |
 | 2026-10-22T13:30:00Z | DONE | Cursor Agent | JRX-REGISTRY-COMPLIANCE-CLOSEOUT-001 | Registry/platform closeout: expanded validate.py (E1–P5 invariants), platform registry API + service, vitest in CI, adopted _meta/README/rules; signoff doc closed. | `validate.py` OK; `jrx-module-registry-compliance.test.ts`; `JRX-PLATFORM-REGISTRY-API.md` |
 | 2026-10-22T14:30:00Z | DONE | Cursor Agent | JRX-REGISTRY-V1-ADOPTION-001 | Chairman 25 Oct: adopt events/permissions/gates v1 (758 critical flags, 144 permission renames), role templates + SoD + L1–L9 map, CTO gate memo, working RFCs, access evaluate stub; `registry:validate` OK. | `jurexio-specs/registry/`; `JRX-REGISTRY-V1-ADOPTION-2026-10-25.md`; `npm run registry:validate` |
 | 2026-10-22T08:15:00Z | DONE | Cursor Agent | JRX-SPEC-PACK-IMPORT-001 | Chairman GO: import `jurexio-specs/` (14 specs + registries); CI `validate.py`; `npm run registry:validate`. | `jurexio-specs/`; `.github/workflows/jrx-ci.yml`; `JRX-SPEC-PACK-REPO-IMPORT.md` |

@@ -17,6 +17,7 @@ router.post('/evaluate', (req: Request, res: Response): void => {
   const permission = String(body?.permission ?? '').trim();
   const subjectId = String(body?.subjectId ?? body?.subject_id ?? '').trim();
   const resourceId = String(body?.resourceId ?? body?.resource_id ?? '').trim();
+  const matterPolicy = body?.matterPolicy ?? body?.matter_policy;
 
   if (!permission || !subjectId) {
     res.status(400).json({
@@ -32,6 +33,21 @@ router.post('/evaluate', (req: Request, res: Response): void => {
     subject_len: subjectId.length,
     resource_len: resourceId.length,
   });
+
+  if (resourceId && (matterPolicy === undefined || matterPolicy === null)) {
+    res.status(200).json({
+      success: true,
+      decision: 'deny',
+      code: 'MATTER_POLICY_REQUIRED',
+      message:
+        'Chairman C-10: deny when no MatterCore policy exists for the resource (interim until M01 feeds policy).',
+      evaluated_at: new Date().toISOString(),
+      permission,
+      subjectId,
+      resourceId,
+    });
+    return;
+  }
 
   res.status(200).json({
     success: true,
