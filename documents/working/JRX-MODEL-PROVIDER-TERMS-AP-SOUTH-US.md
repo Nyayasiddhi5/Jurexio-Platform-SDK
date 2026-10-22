@@ -1,6 +1,6 @@
 # Model provider terms — Chairman Q4 (22 Oct 2026)
 
-**Status:** Engineering posture **approved by Chairman** — subject to **DPA execution**  
+**Status:** Engineering posture **approved by Chairman** — **CTO engineering sign-off 2026-10-22 (IST)** — subject to **legal DPA execution**  
 **Registry metadata:** `events.json` → `_meta.chairman` (Q4 summary)  
 **Allow-list owner:** Engine platform model registry (G-03-09) — tenants may **tighten only** (CH-5)
 
@@ -24,13 +24,13 @@ Before production Hindi routing:
 
 ## DPA status (25 Oct deliverable — legal)
 
-| Provider | Region | DPA status (22 Oct) | Owner |
+| Provider | Region | Engineering (CTO) | Legal / commercial |
 | --- | --- | --- | --- |
-| **AWS Bedrock** | ap-south-1 | **In review** — standard AWS DPA + Bedrock service terms; zero retention/no training clauses under legal review | NYAYASIDDHI legal + CTO |
-| **AWS Bedrock** | us-east-1 | **In review** — same as IN | NYAYASIDDHI legal + CTO |
-| **OpenRouter** | n/a | **Not in scope** for client data v1; no DPA path for production | — |
+| **AWS Bedrock** | ap-south-1 | **Signed off 2026-10-22** — in-region only, zero-retention posture per Chairman Q4 | **Execution pending** — standard AWS DPA + Bedrock terms under legal review |
+| **AWS Bedrock** | us-east-1 | **Signed off 2026-10-22** — same as IN | **Execution pending** |
+| **OpenRouter** | n/a | **Signed off 2026-10-22** — not approved for client data v1 | **Not in scope** for production DPA |
 
-CTO to confirm final executed DPA dates in Project-Tracker when legal closes.
+Legal to record executed DPA dates in Project-Tracker when AWS closes; engineering enforcement does not wait on legal for **dev/synthetic** environments.
 
 ## Engineering enforcement
 

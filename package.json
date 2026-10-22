@@ -79,6 +79,7 @@
     "registry:validate": "python3 jurexio-specs/registry/validate.py",
     "registry:adopt-v1": "python3 jurexio-specs/registry/adopt_registry_v1.py",
     "registry:chairman-rulings": "python3 jurexio-specs/registry/apply_chairman_rulings_2026-10-22.py",
+    "registry:ch3-catalogue": "python3 jurexio-specs/registry/apply_ch3_permission_catalogue.py",
     "registry:import-spec-pack": "bash scripts/jrx-import-spec-pack.sh",
     "guardrail:central-access": "bash scripts/jrx-check-central-access-only.sh",
     "build:postman": "tsx scripts/jrx-build-postman-collection.ts",

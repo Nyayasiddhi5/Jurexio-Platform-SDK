@@ -1,17 +1,20 @@
 {
   "_meta": {
-    "version": "1.0.0-adopted",
+    "version": "1.0.1-adopted-ch3-catalogue",
     "generated": "2026-10-21",
     "naming": "module.object.action; gate-derived permissions use module.g_nn_nn.decide until the CTO names them",
     "protected": "Protected permissions need dual approval to add to a role (M11 D2) and step-up to use (M11 D4)",
     "authority": "Proposed seed; Permission catalogue v1 (CTO) is authoritative",
     "adopted_on": "2026-10-22",
     "adopted_by": "CTO Permission catalogue v1",
-    "permission_renames_from_gate_placeholders": 144
+    "permission_renames_from_gate_placeholders": 144,
+    "ch3_closed_on": "2026-10-22T13:26:38Z",
+    "ch3_auto_approved_by": "CTO engineering (Chairman manual review waived)",
+    "permission_renames_applied": 144
   },
   "permissions": [
     {
-      "id": "access.activate_just_in_time_elevation.decide",
+      "id": "access.just_in_time_elevation.activate",
       "module": "M11",
       "description": "Activate just-in-time elevation",
       "gates": [
@@ -23,7 +26,7 @@
       "status": "adopted"
     },
     {
-      "id": "access.add_a_protected_permission_to_a_role.decide",
+      "id": "access.add_protected_permission_role.approve",
       "module": "M11",
       "description": "Add a protected permission to a role",
       "gates": [
@@ -35,7 +38,7 @@
       "status": "adopted"
     },
     {
-      "id": "access.approve_an_external_user.decide",
+      "id": "access.external_user.approve",
       "module": "M11",
       "description": "Approve an external user",
       "gates": [
@@ -47,7 +50,7 @@
       "status": "adopted"
     },
     {
-      "id": "access.assign_or_change_a_person_s_role_and_scopes.decide",
+      "id": "access.change_person_role_scopes.assign",
       "module": "M11",
       "description": "Assign or change a person's role and scopes",
       "gates": [
@@ -59,7 +62,7 @@
       "status": "adopted"
     },
     {
-      "id": "access.create_or_change_a_unit_that_sets_a_jurisdiction_or_data.decide",
+      "id": "access.change_unit_that_sets.create",
       "module": "M11",
       "description": "Create or change a unit that sets a jurisdiction or data region",
       "gates": [
@@ -71,7 +74,7 @@
       "status": "adopted"
     },
     {
-      "id": "access.platform_break_glass_access_to_a_tenant.decide",
+      "id": "access.platform_break_glas_acces_tenant.approve",
       "module": "M11",
       "description": "Platform break-glass access to a tenant",
       "gates": [
@@ -95,7 +98,7 @@
       "status": "adopted"
     },
     {
-      "id": "access.publish_a_permission_catalogue_template_or_separation_of.decide",
+      "id": "access.publish_permission_catalogue_template.approve",
       "module": "M11",
       "description": "Publish a permission catalogue, template or separation-of-duties version",
       "gates": [
@@ -107,7 +110,7 @@
       "status": "adopted"
     },
     {
-      "id": "access.recertify_access.decide",
+      "id": "access.recertify_access.certify",
       "module": "M11",
       "description": "Recertify access",
       "gates": [
@@ -119,7 +122,7 @@
       "status": "adopted"
     },
     {
-      "id": "access.relocate_a_person_s_identity_record_to_another_region.decide",
+      "id": "access.relocate_person_identity_another.record",
       "module": "M11",
       "description": "Relocate a person's identity record to another region",
       "gates": [
@@ -167,7 +170,7 @@
       "status": "adopted"
     },
     {
-      "id": "access.verify_a_professional_credential_or_a_competence_e_g_hin.decide",
+      "id": "access.verify_professional_credential_compete.approve",
       "module": "M11",
       "description": "Verify a professional credential or a competence (e.g. Hindi)",
       "gates": [
@@ -179,7 +182,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.apply_client_money_to_a_fee_invoice.decide",
+      "id": "billguard.apply_client_money_fee.approve",
       "module": "M06",
       "description": "Apply client money to a fee invoice",
       "gates": [
@@ -191,7 +194,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.approve_a_pre_bill_and_issue_the_invoice.decide",
+      "id": "billguard.pre_bill_issue_invoice.approve",
       "module": "M06",
       "description": "Approve a pre-bill and issue the invoice",
       "gates": [
@@ -203,7 +206,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.approve_a_write_down.decide",
+      "id": "billguard.write_down.approve",
       "module": "M06",
       "description": "Approve a write-down",
       "gates": [
@@ -215,7 +218,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.approve_a_write_up_under_the_engagement.decide",
+      "id": "billguard.write_up_under_engagement.approve",
       "module": "M06",
       "description": "Approve a write-up under the engagement",
       "gates": [
@@ -227,7 +230,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.approve_an_outside_counsel_invoice_for_payment.decide",
+      "id": "billguard.outside_counsel_invoice_payment.approve",
       "module": "M06",
       "description": "Approve an outside-counsel invoice for payment",
       "gates": [
@@ -239,7 +242,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.close_a_financial_period.decide",
+      "id": "billguard.financial_period.close",
       "module": "M06",
       "description": "Close a financial period",
       "gates": [
@@ -251,7 +254,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.confirm_a_time_entry_including_from_an_ai_suggestion.decide",
+      "id": "billguard.time_entry_from_ai.confirm",
       "module": "M06",
       "description": "Confirm a time entry (including from an AI suggestion)",
       "gates": [
@@ -263,7 +266,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.confirm_structured_billing_guideline_rules.decide",
+      "id": "billguard.structured_billing_guideline_rules.confirm",
       "module": "M06",
       "description": "Confirm structured billing-guideline rules",
       "gates": [
@@ -275,7 +278,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.decide_an_outside_counsel_invoice_line.decide",
+      "id": "billguard.decide_outside_counsel_invoice_line.approve",
       "module": "M06",
       "description": "Decide an outside-counsel invoice line",
       "gates": [
@@ -287,7 +290,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.issue_a_credit_note_or_discount.decide",
+      "id": "billguard.issue_credit_note_discount.edit",
       "module": "M06",
       "description": "Issue a credit note or discount",
       "gates": [
@@ -299,7 +302,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.move_full_invoice_detail_across_jurisdictions.decide",
+      "id": "billguard.move_full_invoice_detail.approve",
       "module": "M06",
       "description": "Move full invoice detail across jurisdictions",
       "gates": [
@@ -311,7 +314,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.publish_a_firm_wide_rate_card_version.decide",
+      "id": "billguard.publish_firm_wide_rate_card.approve",
       "module": "M06",
       "description": "Publish a firm-wide rate card version",
       "gates": [
@@ -323,7 +326,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.record_a_refund.decide",
+      "id": "billguard.refund.record",
       "module": "M06",
       "description": "Record a refund",
       "gates": [
@@ -335,7 +338,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.record_and_classify_a_receipt_office_or_client_money.decide",
+      "id": "billguard.receipt_office_client_money.record",
       "module": "M06",
       "description": "Record and classify a receipt (office or client money)",
       "gates": [
@@ -347,7 +350,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.request_a_disbursement_from_client_money.decide",
+      "id": "billguard.request_disbursement_from_client.approve",
       "module": "M06",
       "description": "Request a disbursement from client money",
       "gates": [
@@ -359,7 +362,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.reverse_a_write_off.decide",
+      "id": "billguard.reverse_write_off.approve",
       "module": "M06",
       "description": "Reverse a write-off",
       "gates": [
@@ -371,7 +374,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.send_an_escalated_reminder_or_demand.decide",
+      "id": "billguard.escalated_reminder_demand.send",
       "module": "M06",
       "description": "Send an escalated reminder or demand",
       "gates": [
@@ -383,7 +386,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.set_a_matter_specific_rate.decide",
+      "id": "billguard.set_matter_specific_rate.approve",
       "module": "M06",
       "description": "Set a matter-specific rate",
       "gates": [
@@ -395,7 +398,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.set_or_revise_a_budget_decide_an_overrun.decide",
+      "id": "billguard.set_revise_budget_decide.approve",
       "module": "M06",
       "description": "Set or revise a budget; decide an overrun",
       "gates": [
@@ -407,7 +410,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.sign_off_the_monthly_three_way_reconciliation.decide",
+      "id": "billguard.off_monthly_three_way_reconciliation.sign",
       "module": "M06",
       "description": "Sign off the monthly three-way reconciliation",
       "gates": [
@@ -419,7 +422,7 @@
       "status": "adopted"
     },
     {
-      "id": "billguard.write_off_a_receivable.decide",
+      "id": "billguard.write_off_receivable.approve",
       "module": "M06",
       "description": "Write off a receivable",
       "gates": [
@@ -431,7 +434,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.approve_a_colleague_requested_by_a_client_admin.decide",
+      "id": "clientbridge.colleague_requested_by_client.approve",
       "module": "M08",
       "description": "Approve a colleague requested by a client admin",
       "gates": [
@@ -443,7 +446,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.approve_a_plain_language_summary_for_a_client.decide",
+      "id": "clientbridge.plain_language_summary_client.approve",
       "module": "M08",
       "description": "Approve a plain-language summary for a client",
       "gates": [
@@ -455,7 +458,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.approve_client_facing_content_in_another_language.decide",
+      "id": "clientbridge.client_facing_content_another_language.approve",
       "module": "M08",
       "description": "Approve client-facing content in another language",
       "gates": [
@@ -467,7 +470,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.approve_reuse_of_location_evidence_for_another_location.decide",
+      "id": "clientbridge.reuse_location_evidence_another.approve",
       "module": "M08",
       "description": "Approve reuse of location evidence for another location",
       "gates": [
@@ -479,7 +482,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.change_the_firm_s_verified_payment_details.decide",
+      "id": "clientbridge.change_firm_verified_payment.approve",
       "module": "M08",
       "description": "Change the firm's verified payment details",
       "gates": [
@@ -491,7 +494,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.convert_a_client_message_into_a_formal_instruction_recor.decide",
+      "id": "clientbridge.convert_client_message_into.record",
       "module": "M08",
       "description": "Convert a client message into a formal instruction record",
       "gates": [
@@ -503,7 +506,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.decide_an_attested_location_obligation_met_or_not.decide",
+      "id": "clientbridge.decide_attested_location_obligation.attest",
       "module": "M08",
       "description": "Decide an attested location obligation (Met or not)",
       "gates": [
@@ -515,7 +518,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.enable_a_matter_for_a_client_contact.decide",
+      "id": "clientbridge.enable_matter_client_contact.approve",
       "module": "M08",
       "description": "Enable a matter for a client contact",
       "gates": [
@@ -527,7 +530,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.issue_a_structured_request_to_a_client_or_location_owner.decide",
+      "id": "clientbridge.issue_structured_request_client.approve",
       "module": "M08",
       "description": "Issue a structured request to a client or location owner",
       "gates": [
@@ -539,7 +542,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.publish_a_status_date_or_update_item_or_set_a_standing_p.decide",
+      "id": "clientbridge.publish_statu_date_update.approve",
       "module": "M08",
       "description": "Publish a status, date or update item, or set a standing publication rule",
       "gates": [
@@ -551,7 +554,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.respond_to_a_request_instruct_approve_consent_attest.decide",
+      "id": "clientbridge.respond_request_instruct_consent.attest",
       "module": "M08",
       "description": "Respond to a request (instruct, approve, consent, attest)",
       "gates": [
@@ -563,7 +566,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.revoke_an_instruction_or_consent.decide",
+      "id": "clientbridge.instruction_consent.revoke",
       "module": "M08",
       "description": "Revoke an instruction or consent",
       "gates": [
@@ -575,7 +578,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.send_an_ai_drafted_reply.decide",
+      "id": "clientbridge.ai_drafted_reply.send",
       "module": "M08",
       "description": "Send an AI-drafted reply",
       "gates": [
@@ -587,7 +590,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.suspend_a_client_account_on_a_security_concern.decide",
+      "id": "clientbridge.suspend_client_account_security.approve",
       "module": "M08",
       "description": "Suspend a client account on a security concern",
       "gates": [
@@ -599,7 +602,7 @@
       "status": "adopted"
     },
     {
-      "id": "clientbridge.unpublish_an_item.decide",
+      "id": "clientbridge.unpublish_item.approve",
       "module": "M08",
       "description": "Unpublish an item",
       "gates": [
@@ -611,7 +614,7 @@
       "status": "adopted"
     },
     {
-      "id": "comms.adapt_a_template_s_wording_for_a_tenant_within_allowed_f.decide",
+      "id": "comms.adapt_template_wording_tenant.approve",
       "module": "M12",
       "description": "Adapt a template's wording for a tenant, within allowed fields",
       "gates": [
@@ -623,7 +626,7 @@
       "status": "adopted"
     },
     {
-      "id": "comms.publish_a_platform_system_notice_template_version_for_a_.decide",
+      "id": "comms.publish_platform_system_notice_templat.approve",
       "module": "M12",
       "description": "Publish a platform system-notice template version for a jurisdiction and language",
       "gates": [
@@ -635,7 +638,7 @@
       "status": "adopted"
     },
     {
-      "id": "comms.record_a_client_s_channel_consent_with_evidence.decide",
+      "id": "comms.client_channel_consent_evidence.record",
       "module": "M12",
       "description": "Record a client's channel consent, with evidence",
       "gates": [
@@ -647,7 +650,7 @@
       "status": "adopted"
     },
     {
-      "id": "comms.register_a_personal_number_for_sms_or_voice_escalation.decide",
+      "id": "comms.register_personal_number_sms.approve",
       "module": "M12",
       "description": "Register a personal number for SMS or voice escalation",
       "gates": [
@@ -659,7 +662,7 @@
       "status": "adopted"
     },
     {
-      "id": "comms.resolve_a_routing_failure.decide",
+      "id": "comms.resolve_routing_failure.approve",
       "module": "M12",
       "description": "Resolve a routing failure",
       "gates": [
@@ -671,7 +674,7 @@
       "status": "adopted"
     },
     {
-      "id": "deadline.accept_an_ai_suggested_checklist_item.decide",
+      "id": "deadline.ai_suggested_checklist_item.accept",
       "module": "M05",
       "description": "Accept an AI-suggested checklist item",
       "gates": [
@@ -683,7 +686,7 @@
       "status": "adopted"
     },
     {
-      "id": "deadline.close_as_filed.decide",
+      "id": "deadline.a_filed.close",
       "module": "M05",
       "description": "Close as filed",
       "gates": [
@@ -695,7 +698,7 @@
       "status": "adopted"
     },
     {
-      "id": "deadline.confirm_a_proposed_deadline_trigger_and_computation.decide",
+      "id": "deadline.proposed_deadline_trigger_computation.confirm",
       "module": "M05",
       "description": "Confirm a proposed deadline (trigger and computation)",
       "gates": [
@@ -707,7 +710,7 @@
       "status": "adopted"
     },
     {
-      "id": "deadline.decide_whether_to_notify_the_client_after_a_missed_deadl.decide",
+      "id": "deadline.decide_whether_notify_client.approve",
       "module": "M05",
       "description": "Decide whether to notify the client after a missed deadline, including a decision not to notify",
       "gates": [
@@ -719,7 +722,7 @@
       "status": "adopted"
     },
     {
-      "id": "deadline.decide_whether_to_notify_the_professional_liability_insu.decide",
+      "id": "deadline.decide_whether_notify_professional_lia.approve",
       "module": "M05",
       "description": "Decide whether to notify the professional-liability insurer",
       "gates": [
@@ -731,7 +734,7 @@
       "status": "adopted"
     },
     {
-      "id": "deadline.enable_client_names_in_calendar_events_for_a_matter.decide",
+      "id": "deadline.enable_client_name_calendar.approve",
       "module": "M05",
       "description": "Enable client names in calendar events for a matter",
       "gates": [
@@ -743,7 +746,7 @@
       "status": "adopted"
     },
     {
-      "id": "deadline.move_later_mark_not_applicable_or_close_as_created_in_er.decide",
+      "id": "deadline.move_later_not_applicable.mark",
       "module": "M05",
       "description": "Move later, mark not applicable, or close as created in error",
       "gates": [
@@ -755,7 +758,7 @@
       "status": "adopted"
     },
     {
-      "id": "deadline.publish_a_new_version_of_a_forum_rule_set.decide",
+      "id": "deadline.publish_new_version_forum.approve",
       "module": "M05",
       "description": "Publish a new version of a forum rule set",
       "gates": [
@@ -767,7 +770,7 @@
       "status": "adopted"
     },
     {
-      "id": "deadline.re_confirm_after_a_rule_change.decide",
+      "id": "deadline.re_confirm_after_rule_change.confirm",
       "module": "M05",
       "description": "Re-confirm after a rule change",
       "gates": [
@@ -779,7 +782,7 @@
       "status": "adopted"
     },
     {
-      "id": "deadline.record_an_extension.decide",
+      "id": "deadline.extension.record",
       "module": "M05",
       "description": "Record an extension",
       "gates": [
@@ -791,7 +794,7 @@
       "status": "adopted"
     },
     {
-      "id": "deadline.resolve_a_missed_deadline_incident.decide",
+      "id": "deadline.resolve_missed_deadline_incident.approve",
       "module": "M05",
       "description": "Resolve a missed-deadline incident",
       "gates": [
@@ -803,7 +806,7 @@
       "status": "adopted"
     },
     {
-      "id": "deadline.resolve_a_source_conflict.decide",
+      "id": "deadline.resolve_source_conflict.approve",
       "module": "M05",
       "description": "Resolve a source conflict",
       "gates": [
@@ -815,7 +818,7 @@
       "status": "adopted"
     },
     {
-      "id": "document.approve_a_production_set.decide",
+      "id": "document.production_set.approve",
       "module": "M02",
       "description": "Approve a production set",
       "gates": [
@@ -827,7 +830,7 @@
       "status": "adopted"
     },
     {
-      "id": "document.approve_a_redacted_copy.decide",
+      "id": "document.redacted_copy.approve",
       "module": "M02",
       "description": "Approve a redacted copy",
       "gates": [
@@ -839,7 +842,7 @@
       "status": "adopted"
     },
     {
-      "id": "document.approve_a_sampled_tag_batch.decide",
+      "id": "document.sampled_batch.tag",
       "module": "M02",
       "description": "Approve a sampled tag batch",
       "gates": [
@@ -851,7 +854,7 @@
       "status": "adopted"
     },
     {
-      "id": "document.approve_a_signing_provider_for_a_jurisdiction.decide",
+      "id": "document.signing_provider_jurisdiction.sign",
       "module": "M02",
       "description": "Approve a signing provider for a jurisdiction",
       "gates": [
@@ -875,7 +878,7 @@
       "status": "adopted"
     },
     {
-      "id": "document.confirm_the_matter_for_an_intake_item.decide",
+      "id": "document.matter_intake_item.confirm",
       "module": "M02",
       "description": "Confirm the matter for an intake item",
       "gates": [
@@ -899,7 +902,7 @@
       "status": "adopted"
     },
     {
-      "id": "document.mark_final_or_reopen_final_to_draft.decide",
+      "id": "document.final_final_draft.mark",
       "module": "M02",
       "description": "Mark Final, or reopen Final to Draft",
       "gates": [
@@ -923,7 +926,7 @@
       "status": "adopted"
     },
     {
-      "id": "document.record_stamp_duty_handling.decide",
+      "id": "document.stamp_duty_handling.record",
       "module": "M02",
       "description": "Record stamp-duty handling",
       "gates": [
@@ -935,7 +938,7 @@
       "status": "adopted"
     },
     {
-      "id": "document.send_a_document_for_e_signature.decide",
+      "id": "document.document_e_signature.send",
       "module": "M02",
       "description": "Send a document for e-signature",
       "gates": [
@@ -947,7 +950,7 @@
       "status": "adopted"
     },
     {
-      "id": "document.share_a_document_with_the_client_through_clientbridge.decide",
+      "id": "document.document_client_clientbridge.share",
       "module": "M02",
       "description": "Share a document with the client through ClientBridge",
       "gates": [
@@ -959,7 +962,7 @@
       "status": "adopted"
     },
     {
-      "id": "engine.add_or_retire_a_model_in_a_jurisdiction_s_registry.decide",
+      "id": "engine.add_retire_model_jurisdiction.approve",
       "module": "M03",
       "description": "Add or retire a model in a jurisdiction's registry",
       "gates": [
@@ -971,7 +974,7 @@
       "status": "adopted"
     },
     {
-      "id": "engine.cross_jurisdiction_co_approval.decide",
+      "id": "engine.cross_jurisdiction_co_approval.approve",
       "module": "M03",
       "description": "Cross-jurisdiction co-approval",
       "gates": [
@@ -983,7 +986,7 @@
       "status": "adopted"
     },
     {
-      "id": "engine.extend_a_review_sla_within_the_deadline_cap.decide",
+      "id": "engine.review_sla_within_deadline.extend",
       "module": "M03",
       "description": "Extend a review SLA within the deadline cap",
       "gates": [
@@ -995,7 +998,7 @@
       "status": "adopted"
     },
     {
-      "id": "engine.hr_tier_1_approval.decide",
+      "id": "engine.gate_03_03.approve",
       "module": "M03",
       "description": "HR Tier 1 approval",
       "gates": [
@@ -1007,7 +1010,7 @@
       "status": "adopted"
     },
     {
-      "id": "engine.hr_tier_2_approval.decide",
+      "id": "engine.gate_03_04.approve",
       "module": "M03",
       "description": "HR Tier 2 approval",
       "gates": [
@@ -1019,7 +1022,7 @@
       "status": "adopted"
     },
     {
-      "id": "engine.hr_tier_3_approval.decide",
+      "id": "engine.gate_03_05.approve",
       "module": "M03",
       "description": "HR Tier 3 approval",
       "gates": [
@@ -1065,7 +1068,7 @@
       "status": "adopted"
     },
     {
-      "id": "engine.suspend_quality_or_reinstate_an_agent.decide",
+      "id": "engine.suspend_quality_agent.reinstate",
       "module": "M03",
       "description": "Suspend (quality) or reinstate an agent",
       "gates": [
@@ -1087,7 +1090,7 @@
       "status": "adopted"
     },
     {
-      "id": "ledger.accept_an_imported_history_segment.decide",
+      "id": "ledger.imported_history_segment.accept",
       "module": "M09",
       "description": "Accept an imported-history segment",
       "gates": [
@@ -1099,7 +1102,7 @@
       "status": "adopted"
     },
     {
-      "id": "ledger.add_change_or_deprecate_an_event_type_in_the_registry.decide",
+      "id": "ledger.add_change_deprecate_event.approve",
       "module": "M09",
       "description": "Add, change or deprecate an event type in the registry",
       "gates": [
@@ -1111,7 +1114,7 @@
       "status": "adopted"
     },
     {
-      "id": "ledger.disclosure_review_of_an_evidence_package.decide",
+      "id": "ledger.disclosure_review_evidence_package.approve",
       "module": "M09",
       "description": "Disclosure review of an evidence package",
       "gates": [
@@ -1123,7 +1126,7 @@
       "status": "adopted"
     },
     {
-      "id": "ledger.dispose_of_payloads_at_retention_expiry.decide",
+      "id": "ledger.dispose_payload_at_retention.approve",
       "module": "M09",
       "description": "Dispose of payloads at retention expiry",
       "gates": [
@@ -1135,7 +1138,7 @@
       "status": "adopted"
     },
     {
-      "id": "ledger.disposition_of_a_chain_break_incident.decide",
+      "id": "ledger.disposition_chain_break_incident.approve",
       "module": "M09",
       "description": "Disposition of a chain-break incident",
       "gates": [
@@ -1147,7 +1150,7 @@
       "status": "adopted"
     },
     {
-      "id": "ledger.enable_or_disable_a_client_s_audit_trail.decide",
+      "id": "ledger.enable_disable_client_audit.approve",
       "module": "M09",
       "description": "Enable or disable a client's audit trail",
       "gates": [
@@ -1183,7 +1186,7 @@
       "status": "adopted"
     },
     {
-      "id": "ledger.grant_external_auditor_access.decide",
+      "id": "ledger.external_auditor_access.grant",
       "module": "M09",
       "description": "Grant external auditor access",
       "gates": [
@@ -1207,7 +1210,7 @@
       "status": "adopted"
     },
     {
-      "id": "lexgraph.add_or_remove_a_corpus_source_recording_its_ai_use_and_t.decide",
+      "id": "lexgraph.add_remove_corpu_source.record",
       "module": "M04",
       "description": "Add or remove a corpus source, recording its AI-use and training rights",
       "gates": [
@@ -1219,7 +1222,7 @@
       "status": "adopted"
     },
     {
-      "id": "lexgraph.approve_a_training_dataset_version.decide",
+      "id": "lexgraph.training_dataset_version.approve",
       "module": "M04",
       "description": "Approve a training dataset version",
       "gates": [
@@ -1231,7 +1234,7 @@
       "status": "adopted"
     },
     {
-      "id": "lexgraph.approve_promotion_of_an_item.decide",
+      "id": "lexgraph.promotion_item.approve",
       "module": "M04",
       "description": "Approve promotion of an item",
       "gates": [
@@ -1243,7 +1246,7 @@
       "status": "adopted"
     },
     {
-      "id": "lexgraph.approve_replication_of_a_corpus_or_public_law_model_to_a.decide",
+      "id": "lexgraph.replication_corpu_public_law_model.approve",
       "module": "M04",
       "description": "Approve replication of a corpus or public-law model to another region",
       "gates": [
@@ -1255,7 +1258,7 @@
       "status": "adopted"
     },
     {
-      "id": "lexgraph.confirm_anonymisation_of_a_promoted_item.decide",
+      "id": "lexgraph.anonymisation_promoted_item.confirm",
       "module": "M04",
       "description": "Confirm anonymisation of a promoted item",
       "gates": [
@@ -1267,7 +1270,7 @@
       "status": "adopted"
     },
     {
-      "id": "lexgraph.correct_enrichment_after_an_error_report.decide",
+      "id": "lexgraph.correct_enrichment_after_error.approve",
       "module": "M04",
       "description": "Correct enrichment after an error report",
       "gates": [
@@ -1279,7 +1282,7 @@
       "status": "adopted"
     },
     {
-      "id": "lexgraph.publish_a_provision_version_or_commencement_status.decide",
+      "id": "lexgraph.publish_provision_version_commencement.approve",
       "module": "M04",
       "description": "Publish a provision version or commencement status",
       "gates": [
@@ -1291,7 +1294,7 @@
       "status": "adopted"
     },
     {
-      "id": "lexgraph.publish_or_change_a_country_s_declared_coverage.decide",
+      "id": "lexgraph.publish_change_country_declared.approve",
       "module": "M04",
       "description": "Publish or change a country's declared coverage",
       "gates": [
@@ -1303,7 +1306,7 @@
       "status": "adopted"
     },
     {
-      "id": "lexgraph.verify_or_reject_an_ai_proposed_treatment_link.decide",
+      "id": "lexgraph.verify_ai_proposed_treatment.reject",
       "module": "M04",
       "description": "Verify or reject an AI-proposed treatment link",
       "gates": [
@@ -1315,7 +1318,7 @@
       "status": "adopted"
     },
     {
-      "id": "lexgraph.withdraw_or_re_certify_an_item.decide",
+      "id": "lexgraph.re_certify_item.certify",
       "module": "M04",
       "description": "Withdraw or re-certify an item",
       "gates": [
@@ -1327,7 +1330,7 @@
       "status": "adopted"
     },
     {
-      "id": "matter.accept_an_ai_suggested_related_entity_link.decide",
+      "id": "matter.ai_suggested_related_entity.accept",
       "module": "M01",
       "description": "Accept an AI-suggested related-entity link",
       "gates": [
@@ -1339,7 +1342,7 @@
       "status": "adopted"
     },
     {
-      "id": "matter.approve_a_notice_to_a_former_client_about_a_wall.decide",
+      "id": "matter.notice_former_client_about.approve",
       "module": "M01",
       "description": "Approve a notice to a former client about a wall",
       "gates": [
@@ -1351,7 +1354,7 @@
       "status": "adopted"
     },
     {
-      "id": "matter.approve_closing.decide",
+      "id": "matter.closing.approve",
       "module": "M01",
       "description": "Approve closing",
       "gates": [
@@ -1363,7 +1366,7 @@
       "status": "adopted"
     },
     {
-      "id": "matter.approve_reopening.decide",
+      "id": "matter.reopening.open",
       "module": "M01",
       "description": "Approve reopening",
       "gates": [
@@ -1375,7 +1378,7 @@
       "status": "adopted"
     },
     {
-      "id": "matter.approve_the_closing_letter.decide",
+      "id": "matter.closing_letter.approve",
       "module": "M01",
       "description": "Approve the closing letter",
       "gates": [
@@ -1387,7 +1390,7 @@
       "status": "adopted"
     },
     {
-      "id": "matter.classify_a_conflict_hit.decide",
+      "id": "matter.conflict_hit.classify",
       "module": "M01",
       "description": "Classify a conflict hit",
       "gates": [
@@ -1399,7 +1402,7 @@
       "status": "adopted"
     },
     {
-      "id": "matter.confirm_the_home_jurisdiction.decide",
+      "id": "matter.home_jurisdiction.confirm",
       "module": "M01",
       "description": "Confirm the home jurisdiction",
       "gates": [
@@ -1411,7 +1414,7 @@
       "status": "adopted"
     },
     {
-      "id": "matter.create_or_extend_an_ethical_wall.decide",
+      "id": "matter.ethical_wall.create",
       "module": "M01",
       "description": "Create or extend an ethical wall",
       "gates": [
@@ -1423,7 +1426,7 @@
       "status": "adopted"
     },
     {
-      "id": "matter.decline_an_intake.decide",
+      "id": "matter.intake.decline",
       "module": "M01",
       "description": "Decline an intake",
       "gates": [
@@ -1435,7 +1438,7 @@
       "status": "adopted"
     },
     {
-      "id": "matter.merge_or_un_merge_party_records.decide",
+      "id": "matter.un_merge_party_records.record",
       "module": "M01",
       "description": "Merge or un-merge party records",
       "gates": [
@@ -1459,7 +1462,7 @@
       "status": "adopted"
     },
     {
-      "id": "matter.record_protected_characteristic_data.decide",
+      "id": "matter.protected_characteristic_data.record",
       "module": "M01",
       "description": "Record protected-characteristic data",
       "gates": [
@@ -1507,7 +1510,7 @@
       "status": "adopted"
     },
     {
-      "id": "migrate.approve_mapping_template_approve_tag_samples.decide",
+      "id": "migrate.mapping_template_samples.tag",
       "module": "M14",
       "description": "Approve mapping template; approve tag samples",
       "gates": [
@@ -1519,7 +1522,7 @@
       "status": "adopted"
     },
     {
-      "id": "migrate.approve_or_reverse_a_client_merge_resolve_a_conflict_hit.decide",
+      "id": "migrate.reverse_client_resolve_conflict.merge",
       "module": "M14",
       "description": "Approve or reverse a client merge; resolve a conflict hit",
       "gates": [
@@ -1531,7 +1534,7 @@
       "status": "adopted"
     },
     {
-      "id": "migrate.classify_a_quarantined_record_s_jurisdiction.decide",
+      "id": "migrate.quarantined_jurisdiction.record",
       "module": "M14",
       "description": "Classify a quarantined record's jurisdiction",
       "gates": [
@@ -1543,7 +1546,7 @@
       "status": "adopted"
     },
     {
-      "id": "migrate.clear_a_document_from_privileged_pending_review.decide",
+      "id": "migrate.clear_document_from_privileged.approve",
       "module": "M14",
       "description": "Clear a document from privileged pending review",
       "gates": [
@@ -1567,7 +1570,7 @@
       "status": "adopted"
     },
     {
-      "id": "migrate.decide_fix_forward_or_rollback_for_a_live_defect.decide",
+      "id": "migrate.decide_fix_forward_live_defect.rollback",
       "module": "M14",
       "description": "Decide fix-forward or rollback for a LIVE defect",
       "gates": [
@@ -1579,7 +1582,7 @@
       "status": "adopted"
     },
     {
-      "id": "migrate.destroy_migration_staging.decide",
+      "id": "migrate.migration_staging.destroy",
       "module": "M14",
       "description": "Destroy migration staging",
       "gates": [
@@ -1591,7 +1594,7 @@
       "status": "adopted"
     },
     {
-      "id": "migrate.exclude_a_batch_of_records.decide",
+      "id": "migrate.exclude_batch_records.record",
       "module": "M14",
       "description": "Exclude a batch of records",
       "gates": [
@@ -1603,7 +1606,7 @@
       "status": "adopted"
     },
     {
-      "id": "migrate.grant_operator_access_approve_each_content_request.decide",
+      "id": "migrate.operator_acces_each_content.grant",
       "module": "M14",
       "description": "Grant operator access; approve each content request",
       "gates": [
@@ -1627,7 +1630,7 @@
       "status": "adopted"
     },
     {
-      "id": "migrate.sign_off_client_money_reconciliation.decide",
+      "id": "migrate.off_client_money_reconciliation.sign",
       "module": "M14",
       "description": "Sign off client-money reconciliation",
       "gates": [
@@ -1639,7 +1642,7 @@
       "status": "adopted"
     },
     {
-      "id": "nexus.approve_a_connector_for_a_jurisdiction_including_its_dat.decide",
+      "id": "nexus.connector_jurisdiction_it_data_flow.approve",
       "module": "M10",
       "description": "Approve a connector for a jurisdiction, including its data-flow declaration and event subscriptions",
       "gates": [
@@ -1651,7 +1654,7 @@
       "status": "adopted"
     },
     {
-      "id": "nexus.approve_a_fallback_provider_pairing_for_a_jurisdiction_a.decide",
+      "id": "nexus.fallback_provider_pairing_jurisdiction.approve",
       "module": "M10",
       "description": "Approve a fallback provider pairing for a jurisdiction and purpose",
       "gates": [
@@ -1663,7 +1666,7 @@
       "status": "adopted"
     },
     {
-      "id": "nexus.archive_a_connection.decide",
+      "id": "nexus.archive_connection.approve",
       "module": "M10",
       "description": "Archive a connection",
       "gates": [
@@ -1675,7 +1678,7 @@
       "status": "adopted"
     },
     {
-      "id": "nexus.change_a_connection_s_scopes.decide",
+      "id": "nexus.change_connection_scopes.approve",
       "module": "M10",
       "description": "Change a connection's scopes",
       "gates": [
@@ -1687,7 +1690,7 @@
       "status": "adopted"
     },
     {
-      "id": "nexus.enable_a_connector_for_tenant_units.decide",
+      "id": "nexus.enable_connector_tenant_units.approve",
       "module": "M10",
       "description": "Enable a connector for tenant units",
       "gates": [
@@ -1699,7 +1702,7 @@
       "status": "adopted"
     },
     {
-      "id": "nexus.re_approve_or_suspend_after_a_vendor_change.decide",
+      "id": "nexus.re_approve_suspend_after_vendor.approve",
       "module": "M10",
       "description": "Re-approve or suspend after a vendor change",
       "gates": [
@@ -1711,7 +1714,7 @@
       "status": "adopted"
     },
     {
-      "id": "nexus.register_an_inbound_source_or_endpoint.decide",
+      "id": "nexus.register_inbound_source_endpoint.approve",
       "module": "M10",
       "description": "Register an inbound source or endpoint",
       "gates": [
@@ -1723,7 +1726,7 @@
       "status": "adopted"
     },
     {
-      "id": "nexus.release_or_discard_a_quarantined_item_never_malware.decide",
+      "id": "nexus.discard_quarantined_item_malware.release",
       "module": "M10",
       "description": "Release or discard a quarantined item (never malware)",
       "gates": [
@@ -1735,7 +1738,7 @@
       "status": "adopted"
     },
     {
-      "id": "nexus.resolve_a_dead_letter_item.decide",
+      "id": "nexus.resolve_dead_letter_item.approve",
       "module": "M10",
       "description": "Resolve a dead-letter item",
       "gates": [
@@ -1759,7 +1762,7 @@
       "status": "adopted"
     },
     {
-      "id": "regradar.add_or_remove_a_monitored_source_or_sanctions_list.decide",
+      "id": "regradar.add_remove_monitored_source.approve",
       "module": "M07",
       "description": "Add or remove a monitored source or sanctions list",
       "gates": [
@@ -1771,7 +1774,7 @@
       "status": "adopted"
     },
     {
-      "id": "regradar.approve_a_client_alert.decide",
+      "id": "regradar.client_alert.approve",
       "module": "M07",
       "description": "Approve a client alert",
       "gates": [
@@ -1783,7 +1786,7 @@
       "status": "adopted"
     },
     {
-      "id": "regradar.assign_or_reassign_an_obligation_owner_and_backup.decide",
+      "id": "regradar.reassign_obligation_owner_backup.assign",
       "module": "M07",
       "description": "Assign or reassign an obligation owner and backup",
       "gates": [
@@ -1795,7 +1798,7 @@
       "status": "adopted"
     },
     {
-      "id": "regradar.attest_a_lane_a_item.decide",
+      "id": "regradar.lane_item.attest",
       "module": "M07",
       "description": "Attest a Lane A item",
       "gates": [
@@ -1807,7 +1810,7 @@
       "status": "adopted"
     },
     {
-      "id": "regradar.close_an_obligation_or_alert_with_its_outcome.decide",
+      "id": "regradar.obligation_alert_it_outcome.close",
       "module": "M07",
       "description": "Close an obligation or alert with its outcome",
       "gates": [
@@ -1819,7 +1822,7 @@
       "status": "adopted"
     },
     {
-      "id": "regradar.confirm_a_change_against_its_official_publication_where_.decide",
+      "id": "regradar.change_against_it_official.confirm",
       "module": "M07",
       "description": "Confirm a change against its official publication where this cannot be done automatically",
       "gates": [
@@ -1831,7 +1834,7 @@
       "status": "adopted"
     },
     {
-      "id": "regradar.confirm_an_ai_proposed_risk_rating.decide",
+      "id": "regradar.ai_proposed_risk_rating.confirm",
       "module": "M07",
       "description": "Confirm an AI-proposed risk rating",
       "gates": [
@@ -1843,7 +1846,7 @@
       "status": "adopted"
     },
     {
-      "id": "regradar.confirm_edit_or_reject_an_impact_proposal.decide",
+      "id": "regradar.impact_proposal.reject",
       "module": "M07",
       "description": "Confirm, edit or reject an impact proposal",
       "gates": [
@@ -1855,7 +1858,7 @@
       "status": "adopted"
     },
     {
-      "id": "regradar.decide_a_screening_match.decide",
+      "id": "regradar.decide_screening_match.approve",
       "module": "M07",
       "description": "Decide a screening match",
       "gates": [
@@ -1867,7 +1870,7 @@
       "status": "adopted"
     },
     {
-      "id": "regradar.release_a_blocked_or_frozen_matter_or_decline_the_engage.decide",
+      "id": "regradar.blocked_frozen_matter_engagement.decline",
       "module": "M07",
       "description": "Release a blocked or frozen matter, or decline the engagement",
       "gates": [
@@ -1879,7 +1882,7 @@
       "status": "adopted"
     },
     {
-      "id": "storage.approve_a_bulk_disposal_batch.decide",
+      "id": "storage.bulk_disposal_batch.approve",
       "module": "M13",
       "description": "Approve a bulk disposal batch",
       "gates": [
@@ -1891,7 +1894,7 @@
       "status": "adopted"
     },
     {
-      "id": "storage.approve_or_change_a_pack_s_primary_or_recovery_location.decide",
+      "id": "storage.change_pack_primary_recovery.approve",
       "module": "M13",
       "description": "Approve or change a pack's primary or recovery location",
       "gates": [
@@ -1903,7 +1906,7 @@
       "status": "adopted"
     },
     {
-      "id": "storage.confirm_receipt_of_the_exit_export.decide",
+      "id": "storage.receipt_exit.confirm",
       "module": "M13",
       "description": "Confirm receipt of the exit export",
       "gates": [
@@ -1915,7 +1918,7 @@
       "status": "adopted"
     },
     {
-      "id": "storage.connect_bring_your_own_storage.decide",
+      "id": "storage.connect_bring_your_own_storage.approve",
       "module": "M13",
       "description": "Connect bring-your-own-storage",
       "gates": [
@@ -1927,7 +1930,7 @@
       "status": "adopted"
     },
     {
-      "id": "storage.destroy_a_tenant_key_at_exit.decide",
+      "id": "storage.tenant_key_at_exit.destroy",
       "module": "M13",
       "description": "Destroy a tenant key at exit",
       "gates": [
@@ -1939,7 +1942,7 @@
       "status": "adopted"
     },
     {
-      "id": "storage.enable_a_customer_managed_key_acknowledging_that_revocat.decide",
+      "id": "storage.enable_customer_managed_key_acknowledg.approve",
       "module": "M13",
       "description": "Enable a customer-managed key, acknowledging that revocation stops service",
       "gates": [
@@ -1951,7 +1954,7 @@
       "status": "adopted"
     },
     {
-      "id": "storage.invoke_region_failover.decide",
+      "id": "storage.invoke_region_failover.approve",
       "module": "M13",
       "description": "Invoke region failover",
       "gates": [
@@ -1963,7 +1966,7 @@
       "status": "adopted"
     },
     {
-      "id": "storage.release_the_dedicated_or_sovereign_edition_for_a_client.decide",
+      "id": "storage.dedicated_sovereign_edition_client.release",
       "module": "M13",
       "description": "Release the Dedicated or Sovereign edition for a client",
       "gates": [
@@ -1975,7 +1978,7 @@
       "status": "adopted"
     },
     {
-      "id": "storage.request_a_single_tenant_restore.decide",
+      "id": "storage.request_single_tenant_restore.approve",
       "module": "M13",
       "description": "Request a single-tenant restore",
       "gates": [

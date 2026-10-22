@@ -2,6 +2,12 @@
 
 ## [1.0.0] — Unreleased
 
+### Changed — JRX-CH3-CHAIRMAN-FINAL-CLOSE-001 (2026-10-22)
+
+- CH-3 permission catalogue auto-approved (manual review waived): `apply_ch3_permission_catalogue.py` renames 144 gate permissions to `module.object.action`; updates gates, role templates, SoD; `npm run registry:ch3-catalogue`.
+- Chairman final closure status: `documents/working/JRX-CHAIRMAN-FINAL-CLOSURE-STATUS-2026-10-22.md`.
+- Q4 model provider doc: CTO engineering sign-off; legal AWS DPA execution remains external.
+
 ### Changed — JRX-SPEC-PACK-1C7C-IMPORT-001 (2026-10-22)
 
 - Imported `Jurexio_SDK_Spec_Pack_1c7c.zip` (consolidation pass 2): 759 seed events + specs; pipeline adopt + Chairman rulings → **760** events (`REGRADAR.OBLIGATION_MAPPED_TO_LOCATION`, `MIGRATE.PRECONDITIONS_MET`).

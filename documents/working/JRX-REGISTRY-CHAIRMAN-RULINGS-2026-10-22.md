@@ -21,6 +21,7 @@
 | **C-08** One act / record | Documented in event bus annex + `_meta.canonical_event_rule` |
 | **C-10** Access | `POST /api/jrx/platform/access/evaluate` — deny without matter policy when `resourceId` present |
 | **CH-4** Central access | `scripts/jrx-check-central-access-only.sh` in guardrail |
+| **CH-3** Permission catalogue | **Auto-approved** — `apply_ch3_permission_catalogue.py` (144 renames); proposals closed |
 
 ## Conflict register status
 
@@ -30,5 +31,7 @@ Full text with **RESOLVED** markers: [JRX-REGISTRY-CONFLICTS-2026-10-22.md](./JR
 
 - **C-02** IronLedger / `nv_pii_vault` identifier renames in `src/` (pre-production refactor — in progress via [JRX-CODE-RENAME-SPRINT1-PLAN.md](./JRX-CODE-RENAME-SPRINT1-PLAN.md))
 - **C-07** Dual regional Ledger stacks (IaC Sprint 1; synthetic-only until both regions live)
-- **CH-3** Permission id manual review — proposals in `jurexio-specs/registry/permission-rename-proposals-chairman.json`
-- **Q4** DPA execution with AWS (legal)
+- **Q4** DPA **legal execution** with AWS (engineering sign-off complete — see model terms doc)
+- **Git push** from Mac (~21 commits) before remote CI / Sprint 1 module PRs
+
+Final point-by-point status: [JRX-CHAIRMAN-FINAL-CLOSURE-STATUS-2026-10-22.md](./JRX-CHAIRMAN-FINAL-CLOSURE-STATUS-2026-10-22.md)

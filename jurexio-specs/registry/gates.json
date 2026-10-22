@@ -51,7 +51,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "matter.decline_an_intake.decide",
+      "permission": "matter.intake.decline",
       "outcome_events": {
         "approved": [
           "MATTER.INTAKE_DECLINED"
@@ -76,7 +76,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "matter.classify_a_conflict_hit.decide",
+      "permission": "matter.conflict_hit.classify",
       "outcome_events": {
         "approved": [
           "MATTER.CONFLICT_HIT_DECIDED"
@@ -126,7 +126,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "matter.confirm_the_home_jurisdiction.decide",
+      "permission": "matter.home_jurisdiction.confirm",
       "outcome_events": {
         "approved": [
           "MATTER.HOME_JURISDICTION_CONFIRMED"
@@ -179,7 +179,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "matter.create_or_extend_an_ethical_wall.decide",
+      "permission": "matter.ethical_wall.create",
       "outcome_events": {
         "approved": [
           "MATTER.WALL_CREATED",
@@ -232,7 +232,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "matter.approve_a_notice_to_a_former_client_about_a_wall.decide",
+      "permission": "matter.notice_former_client_about.approve",
       "outcome_events": {
         "approved": [
           "MATTER.WALL_NOTICE_APPROVED"
@@ -257,7 +257,7 @@
       "class": "GUARDED",
       "class_note": "recorded entry confirmed by the Responsible Partner",
       "approver_scope": "tenant",
-      "permission": "matter.record_protected_characteristic_data.decide",
+      "permission": "matter.protected_characteristic_data.record",
       "outcome_events": {
         "approved": [
           "MATTER.SPECIAL_DATA_RECORDED"
@@ -283,7 +283,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "matter.merge_or_un_merge_party_records.decide",
+      "permission": "matter.un_merge_party_records.record",
       "outcome_events": {
         "approved": [
           "MATTER.PARTY_MERGED",
@@ -309,7 +309,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "matter.accept_an_ai_suggested_related_entity_link.decide",
+      "permission": "matter.ai_suggested_related_entity.accept",
       "outcome_events": {
         "approved": [
           "MATTER.ENTITY_LINK_CONFIRMED"
@@ -334,7 +334,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "matter.approve_closing.decide",
+      "permission": "matter.closing.approve",
       "outcome_events": {
         "approved": [
           "MATTER.CLOSED"
@@ -359,7 +359,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "matter.approve_reopening.decide",
+      "permission": "matter.reopening.open",
       "outcome_events": {
         "approved": [
           "MATTER.REOPENED"
@@ -384,7 +384,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "matter.approve_the_closing_letter.decide",
+      "permission": "matter.closing_letter.approve",
       "outcome_events": {
         "approved": [
           "MATTER.CLOSING_LETTER_APPROVED"
@@ -435,7 +435,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "document.mark_final_or_reopen_final_to_draft.decide",
+      "permission": "document.final_final_draft.mark",
       "outcome_events": {
         "approved": [
           "DOCUMENT.MARKED_FINAL",
@@ -486,7 +486,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "document.approve_a_production_set.decide",
+      "permission": "document.production_set.approve",
       "outcome_events": {
         "approved": [
           "DOCUMENT.PRODUCTION_APPROVED"
@@ -511,7 +511,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "document.approve_a_redacted_copy.decide",
+      "permission": "document.redacted_copy.approve",
       "outcome_events": {
         "approved": [
           "DOCUMENT.REDACTION_APPROVED"
@@ -536,7 +536,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "document.send_a_document_for_e_signature.decide",
+      "permission": "document.document_e_signature.send",
       "outcome_events": {
         "approved": [
           "DOCUMENT.SIGNATURE_SENT"
@@ -561,7 +561,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "document.record_stamp_duty_handling.decide",
+      "permission": "document.stamp_duty_handling.record",
       "outcome_events": {
         "approved": [
           "DOCUMENT.STAMP_DUTY_RECORDED"
@@ -611,7 +611,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "document.confirm_the_matter_for_an_intake_item.decide",
+      "permission": "document.matter_intake_item.confirm",
       "outcome_events": {
         "approved": [
           "DOCUMENT.MATTER_CONFIRMED"
@@ -636,7 +636,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "document.approve_a_sampled_tag_batch.decide",
+      "permission": "document.sampled_batch.tag",
       "outcome_events": {
         "approved": [
           "DOCUMENT.TAG_SAMPLE_APPROVED"
@@ -661,7 +661,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "document.share_a_document_with_the_client_through_clientbridge.decide",
+      "permission": "document.document_client_clientbridge.share",
       "outcome_events": {
         "approved": [
           "DOCUMENT.CLIENT_SHARED"
@@ -686,7 +686,7 @@
       "class": "DUAL",
       "class_note": "Jurexio CTO and Jurexio Compliance",
       "approver_scope": "platform",
-      "permission": "document.approve_a_signing_provider_for_a_jurisdiction.decide",
+      "permission": "document.signing_provider_jurisdiction.sign",
       "outcome_events": {
         "approved": [
           "DOCUMENT.SIGNING_PROVIDER_APPROVED"
@@ -742,7 +742,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "engine.cross_jurisdiction_co_approval.decide",
+      "permission": "engine.cross_jurisdiction_co_approval.approve",
       "outcome_events": {
         "approved": [
           "ENGINE.CO_APPROVAL_RECORDED"
@@ -767,7 +767,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "engine.hr_tier_1_approval.decide",
+      "permission": "engine.gate_03_03.approve",
       "outcome_events": {
         "approved": [
           "ENGINE.HR_TIER1_APPROVED"
@@ -792,7 +792,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "engine.hr_tier_2_approval.decide",
+      "permission": "engine.gate_03_04.approve",
       "outcome_events": {
         "approved": [
           "ENGINE.HR_TIER2_APPROVED"
@@ -818,7 +818,7 @@
       "class": "DUAL",
       "class_note": "sequential, separate sessions",
       "approver_scope": "tenant",
-      "permission": "engine.hr_tier_3_approval.decide",
+      "permission": "engine.gate_03_05.approve",
       "outcome_events": {
         "approved": [
           "ENGINE.HR_TIER3_COUNSEL_APPROVED",
@@ -844,7 +844,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "engine.extend_a_review_sla_within_the_deadline_cap.decide",
+      "permission": "engine.review_sla_within_deadline.extend",
       "outcome_events": {
         "approved": [
           "ENGINE.SLA_EXTENDED"
@@ -895,7 +895,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "engine.suspend_quality_or_reinstate_an_agent.decide",
+      "permission": "engine.suspend_quality_agent.reinstate",
       "outcome_events": {
         "approved": [
           "ENGINE.AGENT_SUSPENDED",
@@ -922,7 +922,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "engine.add_or_retire_a_model_in_a_jurisdiction_s_registry.decide",
+      "permission": "engine.add_retire_model_jurisdiction.approve",
       "outcome_events": {
         "approved": [
           "ENGINE.MODEL_REGISTERED",
@@ -973,7 +973,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "lexgraph.publish_or_change_a_country_s_declared_coverage.decide",
+      "permission": "lexgraph.publish_change_country_declared.approve",
       "outcome_events": {
         "approved": [
           "PLATFORM.COVERAGE_PUBLISHED"
@@ -999,7 +999,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "lexgraph.add_or_remove_a_corpus_source_recording_its_ai_use_and_t.decide",
+      "permission": "lexgraph.add_remove_corpu_source.record",
       "outcome_events": {
         "approved": [
           "PLATFORM.CORPUS_SOURCE_APPROVED",
@@ -1026,7 +1026,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "lexgraph.verify_or_reject_an_ai_proposed_treatment_link.decide",
+      "permission": "lexgraph.verify_ai_proposed_treatment.reject",
       "outcome_events": {
         "approved": [
           "LEXGRAPH.TREATMENT_VERIFIED",
@@ -1052,7 +1052,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "lexgraph.publish_a_provision_version_or_commencement_status.decide",
+      "permission": "lexgraph.publish_provision_version_commencement.approve",
       "outcome_events": {
         "approved": [
           "LEXGRAPH.PROVISION_VERSIONED"
@@ -1077,7 +1077,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "lexgraph.approve_a_training_dataset_version.decide",
+      "permission": "lexgraph.training_dataset_version.approve",
       "outcome_events": {
         "approved": [
           "PLATFORM.DATASET_APPROVED"
@@ -1102,7 +1102,7 @@
       "class": "GUARDED",
       "class_note": "proposer confirms; knowledge owner re-checks every redaction at G-04-07",
       "approver_scope": "tenant",
-      "permission": "lexgraph.confirm_anonymisation_of_a_promoted_item.decide",
+      "permission": "lexgraph.anonymisation_promoted_item.confirm",
       "outcome_events": {
         "approved": [
           "LEXGRAPH.ANONYMISATION_CONFIRMED"
@@ -1127,7 +1127,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "lexgraph.approve_promotion_of_an_item.decide",
+      "permission": "lexgraph.promotion_item.approve",
       "outcome_events": {
         "approved": [
           "LEXGRAPH.KNOWLEDGE_PROMOTED"
@@ -1153,7 +1153,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "lexgraph.withdraw_or_re_certify_an_item.decide",
+      "permission": "lexgraph.re_certify_item.certify",
       "outcome_events": {
         "approved": [
           "LEXGRAPH.KNOWLEDGE_WITHDRAWN",
@@ -1179,7 +1179,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "lexgraph.correct_enrichment_after_an_error_report.decide",
+      "permission": "lexgraph.correct_enrichment_after_error.approve",
       "outcome_events": {
         "approved": [
           "LEXGRAPH.ENRICHMENT_CORRECTED"
@@ -1204,7 +1204,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "lexgraph.approve_replication_of_a_corpus_or_public_law_model_to_a.decide",
+      "permission": "lexgraph.replication_corpu_public_law_model.approve",
       "outcome_events": {
         "approved": [
           "PLATFORM.CORPUS_REPLICATED"
@@ -1230,7 +1230,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadline.confirm_a_proposed_deadline_trigger_and_computation.decide",
+      "permission": "deadline.proposed_deadline_trigger_computation.confirm",
       "outcome_events": {
         "approved": [
           "DEADLINE.CONFIRMED",
@@ -1256,7 +1256,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadline.resolve_a_source_conflict.decide",
+      "permission": "deadline.resolve_source_conflict.approve",
       "outcome_events": {
         "approved": [
           "DEADLINE.CONFLICT_RESOLVED"
@@ -1283,7 +1283,7 @@
       "class": "DUAL",
       "class_note": "the owner may be the requester; the Partner is the second person",
       "approver_scope": "tenant",
-      "permission": "deadline.move_later_mark_not_applicable_or_close_as_created_in_er.decide",
+      "permission": "deadline.move_later_not_applicable.mark",
       "outcome_events": {
         "approved": [
           "DEADLINE.MOVED_LATER",
@@ -1310,7 +1310,7 @@
       "class": "DUAL",
       "class_note": "the owner may be the requester; the Partner is the second person",
       "approver_scope": "tenant",
-      "permission": "deadline.record_an_extension.decide",
+      "permission": "deadline.extension.record",
       "outcome_events": {
         "approved": [
           "DEADLINE.EXTENSION_RECORDED"
@@ -1335,7 +1335,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "close as filed, with evidence",
       "approver_scope": "tenant",
-      "permission": "deadline.close_as_filed.decide",
+      "permission": "deadline.a_filed.close",
       "outcome_events": {
         "approved": [
           "DEADLINE.CLOSED_FILED"
@@ -1360,7 +1360,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadline.re_confirm_after_a_rule_change.decide",
+      "permission": "deadline.re_confirm_after_rule_change.confirm",
       "outcome_events": {
         "approved": [
           "DEADLINE.RECONFIRMED"
@@ -1385,7 +1385,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadline.resolve_a_missed_deadline_incident.decide",
+      "permission": "deadline.resolve_missed_deadline_incident.approve",
       "outcome_events": {
         "approved": [
           "DEADLINE.INCIDENT_RESOLVED"
@@ -1410,7 +1410,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadline.decide_whether_to_notify_the_professional_liability_insu.decide",
+      "permission": "deadline.decide_whether_notify_professional_lia.approve",
       "outcome_events": {
         "approved": [
           "DEADLINE.INSURER_DECISION_RECORDED"
@@ -1435,7 +1435,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "accept a suggestion on one's own task",
       "approver_scope": "tenant",
-      "permission": "deadline.accept_an_ai_suggested_checklist_item.decide",
+      "permission": "deadline.ai_suggested_checklist_item.accept",
       "outcome_events": {
         "approved": [
           "DEADLINE.TASK_SUGGESTION_ACCEPTED"
@@ -1460,7 +1460,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadline.enable_client_names_in_calendar_events_for_a_matter.decide",
+      "permission": "deadline.enable_client_name_calendar.approve",
       "outcome_events": {
         "approved": [
           "DEADLINE.CALENDAR_DETAIL_ENABLED"
@@ -1485,7 +1485,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadline.publish_a_new_version_of_a_forum_rule_set.decide",
+      "permission": "deadline.publish_new_version_forum.approve",
       "outcome_events": {
         "approved": [
           "DEADLINE.RULESET_PUBLISHED"
@@ -1510,7 +1510,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "deadline.decide_whether_to_notify_the_client_after_a_missed_deadl.decide",
+      "permission": "deadline.decide_whether_notify_client.approve",
       "outcome_events": {
         "approved": [
           "DEADLINE.CLIENT_NOTIFICATION_DECIDED"
@@ -1535,7 +1535,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.confirm_a_time_entry_including_from_an_ai_suggestion.decide",
+      "permission": "billguard.time_entry_from_ai.confirm",
       "outcome_events": {
         "approved": [
           "BILL.TIME_ENTRY_CONFIRMED"
@@ -1560,7 +1560,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.approve_a_pre_bill_and_issue_the_invoice.decide",
+      "permission": "billguard.pre_bill_issue_invoice.approve",
       "outcome_events": {
         "approved": [
           "BILL.INVOICE_ISSUED"
@@ -1585,7 +1585,7 @@
       "class": "GUARDED",
       "class_note": "GUARDED; DUAL above threshold",
       "approver_scope": "tenant",
-      "permission": "billguard.approve_a_write_down.decide",
+      "permission": "billguard.write_down.approve",
       "outcome_events": {
         "approved": [
           "BILL.WRITE_DOWN_APPROVED"
@@ -1610,7 +1610,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.approve_a_write_up_under_the_engagement.decide",
+      "permission": "billguard.write_up_under_engagement.approve",
       "outcome_events": {
         "approved": [
           "BILL.WRITE_UP_APPROVED"
@@ -1635,7 +1635,7 @@
       "class": "GUARDED",
       "class_note": "GUARDED; DUAL above threshold",
       "approver_scope": "tenant",
-      "permission": "billguard.issue_a_credit_note_or_discount.decide",
+      "permission": "billguard.issue_credit_note_discount.edit",
       "outcome_events": {
         "approved": [
           "BILL.CREDIT_NOTE_ISSUED"
@@ -1660,7 +1660,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.write_off_a_receivable.decide",
+      "permission": "billguard.write_off_receivable.approve",
       "outcome_events": {
         "approved": [
           "BILL.WRITE_OFF_APPROVED"
@@ -1685,7 +1685,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.reverse_a_write_off.decide",
+      "permission": "billguard.reverse_write_off.approve",
       "outcome_events": {
         "approved": [
           "BILL.WRITE_OFF_REVERSED"
@@ -1710,7 +1710,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.publish_a_firm_wide_rate_card_version.decide",
+      "permission": "billguard.publish_firm_wide_rate_card.approve",
       "outcome_events": {
         "approved": [
           "BILL.RATE_CARD_PUBLISHED"
@@ -1735,7 +1735,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.set_a_matter_specific_rate.decide",
+      "permission": "billguard.set_matter_specific_rate.approve",
       "outcome_events": {
         "approved": [
           "BILL.MATTER_RATE_SET"
@@ -1760,7 +1760,7 @@
       "class": "GUARDED",
       "class_note": "GUARDED (uploader excluded)",
       "approver_scope": "tenant",
-      "permission": "billguard.confirm_structured_billing_guideline_rules.decide",
+      "permission": "billguard.structured_billing_guideline_rules.confirm",
       "outcome_events": {
         "approved": [
           "BILL.GUIDELINE_CONFIRMED"
@@ -1786,7 +1786,7 @@
       "class": "GUARDED",
       "class_note": "GUARDED; DUAL for public-sector re-sanction",
       "approver_scope": "tenant",
-      "permission": "billguard.set_or_revise_a_budget_decide_an_overrun.decide",
+      "permission": "billguard.set_revise_budget_decide.approve",
       "outcome_events": {
         "approved": [
           "BILL.BUDGET_APPROVED",
@@ -1812,7 +1812,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.decide_an_outside_counsel_invoice_line.decide",
+      "permission": "billguard.decide_outside_counsel_invoice_line.approve",
       "outcome_events": {
         "approved": [
           "BILL.OC_LINE_DECIDED"
@@ -1837,7 +1837,7 @@
       "class": "GUARDED",
       "class_note": "GUARDED; DUAL above threshold",
       "approver_scope": "tenant",
-      "permission": "billguard.approve_an_outside_counsel_invoice_for_payment.decide",
+      "permission": "billguard.outside_counsel_invoice_payment.approve",
       "outcome_events": {
         "approved": [
           "BILL.OC_INVOICE_APPROVED"
@@ -1862,7 +1862,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.record_and_classify_a_receipt_office_or_client_money.decide",
+      "permission": "billguard.receipt_office_client_money.record",
       "outcome_events": {
         "approved": [
           "BILL.RECEIPT_RECORDED"
@@ -1887,7 +1887,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.apply_client_money_to_a_fee_invoice.decide",
+      "permission": "billguard.apply_client_money_fee.approve",
       "outcome_events": {
         "approved": [
           "BILL.CLIENT_MONEY_APPLIED"
@@ -1912,7 +1912,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.request_a_disbursement_from_client_money.decide",
+      "permission": "billguard.request_disbursement_from_client.approve",
       "outcome_events": {
         "approved": [
           "BILL.DISBURSEMENT_REQUESTED"
@@ -1937,7 +1937,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.sign_off_the_monthly_three_way_reconciliation.decide",
+      "permission": "billguard.off_monthly_three_way_reconciliation.sign",
       "outcome_events": {
         "approved": [
           "BILL.RECONCILIATION_SIGNED"
@@ -1962,7 +1962,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.send_an_escalated_reminder_or_demand.decide",
+      "permission": "billguard.escalated_reminder_demand.send",
       "outcome_events": {
         "approved": [
           "BILL.REMINDER_ESCALATED"
@@ -1987,7 +1987,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.record_a_refund.decide",
+      "permission": "billguard.refund.record",
       "outcome_events": {
         "approved": [
           "BILL.REFUND_RECORDED"
@@ -2012,7 +2012,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.close_a_financial_period.decide",
+      "permission": "billguard.financial_period.close",
       "outcome_events": {
         "approved": [
           "BILL.PERIOD_CLOSED"
@@ -2037,7 +2037,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "billguard.move_full_invoice_detail_across_jurisdictions.decide",
+      "permission": "billguard.move_full_invoice_detail.approve",
       "outcome_events": {
         "approved": [
           "BILL.INVOICE_DETAIL_TRANSFERRED"
@@ -2064,7 +2064,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.confirm_edit_or_reject_an_impact_proposal.decide",
+      "permission": "regradar.impact_proposal.reject",
       "outcome_events": {
         "approved": [
           "REGRADAR.IMPACT_CONFIRMED",
@@ -2091,7 +2091,7 @@
       "class": "GUARDED",
       "class_note": "Was SELF_ATTESTED in seed; Chairman ruling 2026-10-22",
       "approver_scope": "tenant",
-      "permission": "regradar.assign_or_reassign_an_obligation_owner_and_backup.decide",
+      "permission": "regradar.reassign_obligation_owner_backup.assign",
       "outcome_events": {
         "approved": [
           "REGRADAR.OWNER_ASSIGNED"
@@ -2116,7 +2116,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "closure with outcome and evidence",
       "approver_scope": "tenant",
-      "permission": "regradar.close_an_obligation_or_alert_with_its_outcome.decide",
+      "permission": "regradar.obligation_alert_it_outcome.close",
       "outcome_events": {
         "approved": [
           "REGRADAR.OBLIGATION_CLOSED"
@@ -2141,7 +2141,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "labelled \"Attested\", sampled by Compliance",
       "approver_scope": "tenant",
-      "permission": "regradar.attest_a_lane_a_item.decide",
+      "permission": "regradar.lane_item.attest",
       "outcome_events": {
         "approved": [
           "REGRADAR.ITEM_ATTESTED"
@@ -2168,7 +2168,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.decide_a_screening_match.decide",
+      "permission": "regradar.decide_screening_match.approve",
       "outcome_events": {
         "approved": [
           "REGRADAR.MATCH_CONFIRMED",
@@ -2196,7 +2196,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.release_a_blocked_or_frozen_matter_or_decline_the_engage.decide",
+      "permission": "regradar.blocked_frozen_matter_engagement.decline",
       "outcome_events": {
         "approved": [
           "REGRADAR.FREEZE_RELEASED",
@@ -2222,7 +2222,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.approve_a_client_alert.decide",
+      "permission": "regradar.client_alert.approve",
       "outcome_events": {
         "approved": [
           "REGRADAR.CLIENT_ALERT_APPROVED"
@@ -2247,7 +2247,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.confirm_an_ai_proposed_risk_rating.decide",
+      "permission": "regradar.ai_proposed_risk_rating.confirm",
       "outcome_events": {
         "approved": [
           "REGRADAR.RATING_CONFIRMED"
@@ -2273,7 +2273,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.add_or_remove_a_monitored_source_or_sanctions_list.decide",
+      "permission": "regradar.add_remove_monitored_source.approve",
       "outcome_events": {
         "approved": [
           "REGRADAR.SOURCE_ADDED",
@@ -2299,7 +2299,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "regradar.confirm_a_change_against_its_official_publication_where_.decide",
+      "permission": "regradar.change_against_it_official.confirm",
       "outcome_events": {
         "approved": [
           "REGRADAR.CHANGE_CONFIRMED"
@@ -2324,7 +2324,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.enable_a_matter_for_a_client_contact.decide",
+      "permission": "clientbridge.enable_matter_client_contact.approve",
       "outcome_events": {
         "approved": [
           "CLIENT.MATTER_ENABLED"
@@ -2349,7 +2349,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.publish_a_status_date_or_update_item_or_set_a_standing_p.decide",
+      "permission": "clientbridge.publish_statu_date_update.approve",
       "outcome_events": {
         "approved": [
           "CLIENT.ITEM_PUBLISHED"
@@ -2374,7 +2374,7 @@
       "class": "GUARDED",
       "class_note": "GUARDED (requester excluded)",
       "approver_scope": "tenant",
-      "permission": "clientbridge.approve_a_plain_language_summary_for_a_client.decide",
+      "permission": "clientbridge.plain_language_summary_client.approve",
       "outcome_events": {
         "approved": [
           "CLIENT.SUMMARY_PUBLISHED"
@@ -2399,7 +2399,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.approve_a_colleague_requested_by_a_client_admin.decide",
+      "permission": "clientbridge.colleague_requested_by_client.approve",
       "outcome_events": {
         "approved": [
           "CLIENT.COLLEAGUE_APPROVED"
@@ -2424,7 +2424,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.issue_a_structured_request_to_a_client_or_location_owner.decide",
+      "permission": "clientbridge.issue_structured_request_client.approve",
       "outcome_events": {
         "approved": [
           "CLIENT.REQUEST_ISSUED"
@@ -2451,7 +2451,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.respond_to_a_request_instruct_approve_consent_attest.decide",
+      "permission": "clientbridge.respond_request_instruct_consent.attest",
       "outcome_events": {
         "approved": [
           "CLIENT.INSTRUCTION_GIVEN",
@@ -2478,7 +2478,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.revoke_an_instruction_or_consent.decide",
+      "permission": "clientbridge.instruction_consent.revoke",
       "outcome_events": {
         "approved": [
           "CLIENT.REVOCATION_RECORDED"
@@ -2503,7 +2503,7 @@
       "class": "GUARDED",
       "class_note": "GUARDED (attester excluded)",
       "approver_scope": "tenant",
-      "permission": "clientbridge.decide_an_attested_location_obligation_met_or_not.decide",
+      "permission": "clientbridge.decide_attested_location_obligation.attest",
       "outcome_events": {
         "approved": [
           "REGRADAR.OBLIGATION_STATUS_DECIDED"
@@ -2528,7 +2528,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.approve_reuse_of_location_evidence_for_another_location.decide",
+      "permission": "clientbridge.reuse_location_evidence_another.approve",
       "outcome_events": {
         "approved": [
           "CLIENT.EVIDENCE_REUSE_APPROVED"
@@ -2553,7 +2553,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.convert_a_client_message_into_a_formal_instruction_recor.decide",
+      "permission": "clientbridge.convert_client_message_into.record",
       "outcome_events": {
         "approved": [
           "CLIENT.INSTRUCTION_RECORDED"
@@ -2578,7 +2578,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.send_an_ai_drafted_reply.decide",
+      "permission": "clientbridge.ai_drafted_reply.send",
       "outcome_events": {
         "approved": [
           "CLIENT.MESSAGE_SENT"
@@ -2603,7 +2603,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.approve_client_facing_content_in_another_language.decide",
+      "permission": "clientbridge.client_facing_content_another_language.approve",
       "outcome_events": {
         "approved": [
           "CLIENT.TRANSLATION_APPROVED"
@@ -2628,7 +2628,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.change_the_firm_s_verified_payment_details.decide",
+      "permission": "clientbridge.change_firm_verified_payment.approve",
       "outcome_events": {
         "approved": [
           "CLIENT.PAYMENT_DETAILS_CHANGED"
@@ -2653,7 +2653,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.unpublish_an_item.decide",
+      "permission": "clientbridge.unpublish_item.approve",
       "outcome_events": {
         "approved": [
           "CLIENT.ITEM_UNPUBLISHED"
@@ -2678,7 +2678,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "clientbridge.suspend_a_client_account_on_a_security_concern.decide",
+      "permission": "clientbridge.suspend_client_account_security.approve",
       "outcome_events": {
         "approved": [
           "CLIENT.ACCOUNT_SUSPENDED"
@@ -2731,7 +2731,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "ledger.disclosure_review_of_an_evidence_package.decide",
+      "permission": "ledger.disclosure_review_evidence_package.approve",
       "outcome_events": {
         "approved": [
           "LEDGER.EXPORT_DISCLOSURE_APPROVED",
@@ -2812,7 +2812,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "ledger.dispose_of_payloads_at_retention_expiry.decide",
+      "permission": "ledger.dispose_payload_at_retention.approve",
       "outcome_events": {
         "approved": [
           "LEDGER.RETENTION_DISPOSAL_APPROVED",
@@ -2838,7 +2838,7 @@
       "class": "DUAL",
       "class_note": "sequential",
       "approver_scope": "tenant",
-      "permission": "ledger.accept_an_imported_history_segment.decide",
+      "permission": "ledger.imported_history_segment.accept",
       "outcome_events": {
         "approved": [
           "LEDGER.IMPORT_SEGMENT_SIGNED_OFF"
@@ -2864,7 +2864,7 @@
       "class": "DUAL",
       "class_note": "tenant Compliance Officer and tenant IT Director",
       "approver_scope": "platform",
-      "permission": "ledger.disposition_of_a_chain_break_incident.decide",
+      "permission": "ledger.disposition_chain_break_incident.approve",
       "outcome_events": {
         "approved": [
           "LEDGER.CHAIN_BREAK_ACKNOWLEDGED",
@@ -2891,7 +2891,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "ledger.enable_or_disable_a_client_s_audit_trail.decide",
+      "permission": "ledger.enable_disable_client_audit.approve",
       "outcome_events": {
         "approved": [
           "LEDGER.CLIENT_TRAIL_ENABLED",
@@ -2917,7 +2917,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "ledger.grant_external_auditor_access.decide",
+      "permission": "ledger.external_auditor_access.grant",
       "outcome_events": {
         "approved": [
           "LEDGER.AUDITOR_ACCESS_GRANTED"
@@ -2944,7 +2944,7 @@
       "class": "DUAL",
       "class_note": "Jurexio CTO and Jurexio Compliance",
       "approver_scope": "platform",
-      "permission": "ledger.add_change_or_deprecate_an_event_type_in_the_registry.decide",
+      "permission": "ledger.add_change_deprecate_event.approve",
       "outcome_events": {
         "approved": [
           "LEDGER.REGISTRY_CHANGE_APPROVED",
@@ -2989,7 +2989,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "nexus.approve_a_connector_for_a_jurisdiction_including_its_dat.decide",
+      "permission": "nexus.connector_jurisdiction_it_data_flow.approve",
       "outcome_events": {
         "approved": [
           "PLATFORM.CONNECTOR_APPROVED"
@@ -3015,7 +3015,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "nexus.re_approve_or_suspend_after_a_vendor_change.decide",
+      "permission": "nexus.re_approve_suspend_after_vendor.approve",
       "outcome_events": {
         "approved": [
           "PLATFORM.CONNECTOR_REAPPROVED",
@@ -3041,7 +3041,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "nexus.enable_a_connector_for_tenant_units.decide",
+      "permission": "nexus.enable_connector_tenant_units.approve",
       "outcome_events": {
         "approved": [
           "NEXUS.CONNECTOR_ENABLED"
@@ -3066,7 +3066,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "nexus.change_a_connection_s_scopes.decide",
+      "permission": "nexus.change_connection_scopes.approve",
       "outcome_events": {
         "approved": [
           "NEXUS.SCOPE_CHANGED"
@@ -3091,7 +3091,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "nexus.register_an_inbound_source_or_endpoint.decide",
+      "permission": "nexus.register_inbound_source_endpoint.approve",
       "outcome_events": {
         "approved": [
           "NEXUS.INBOUND_SOURCE_REGISTERED"
@@ -3117,7 +3117,7 @@
       "class": "GUARDED",
       "class_note": "quarantine release; malware never released",
       "approver_scope": "tenant",
-      "permission": "nexus.release_or_discard_a_quarantined_item_never_malware.decide",
+      "permission": "nexus.discard_quarantined_item_malware.release",
       "outcome_events": {
         "approved": [
           "NEXUS.QUARANTINE_RELEASED",
@@ -3143,7 +3143,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "nexus.resolve_a_dead_letter_item.decide",
+      "permission": "nexus.resolve_dead_letter_item.approve",
       "outcome_events": {
         "approved": [
           "NEXUS.DEAD_LETTER_RESOLVED"
@@ -3169,7 +3169,7 @@
       "class": "SELF_ATTESTED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "nexus.archive_a_connection.decide",
+      "permission": "nexus.archive_connection.approve",
       "outcome_events": {
         "approved": [
           "NEXUS.CONNECTOR_ARCHIVED",
@@ -3195,7 +3195,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "nexus.approve_a_fallback_provider_pairing_for_a_jurisdiction_a.decide",
+      "permission": "nexus.fallback_provider_pairing_jurisdiction.approve",
       "outcome_events": {
         "approved": [
           "PLATFORM.FALLBACK_APPROVED"
@@ -3221,7 +3221,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "access.create_or_change_a_unit_that_sets_a_jurisdiction_or_data.decide",
+      "permission": "access.change_unit_that_sets.create",
       "outcome_events": {
         "approved": [
           "ADMIN.UNIT_CREATED",
@@ -3272,7 +3272,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "access.add_a_protected_permission_to_a_role.decide",
+      "permission": "access.add_protected_permission_role.approve",
       "outcome_events": {
         "approved": [
           "ADMIN.PROTECTED_PERMISSION_APPROVED"
@@ -3298,7 +3298,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "access.assign_or_change_a_person_s_role_and_scopes.decide",
+      "permission": "access.change_person_role_scopes.assign",
       "outcome_events": {
         "approved": [
           "ADMIN.ROLE_ASSIGNED",
@@ -3325,7 +3325,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "access.verify_a_professional_credential_or_a_competence_e_g_hin.decide",
+      "permission": "access.verify_professional_credential_compete.approve",
       "outcome_events": {
         "approved": [
           "ADMIN.CREDENTIAL_VERIFIED",
@@ -3352,7 +3352,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "with reason and step-up",
       "approver_scope": "tenant",
-      "permission": "access.activate_just_in_time_elevation.decide",
+      "permission": "access.just_in_time_elevation.activate",
       "outcome_events": {
         "approved": [
           "ADMIN.ELEVATION_ACTIVATED",
@@ -3404,7 +3404,7 @@
       "class": "GUARDED",
       "class_note": "no one recertifies their own access",
       "approver_scope": "tenant",
-      "permission": "access.recertify_access.decide",
+      "permission": "access.recertify_access.certify",
       "outcome_events": {
         "approved": [
           "ADMIN.ACCESS_RECERTIFIED",
@@ -3483,7 +3483,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "access.platform_break_glass_access_to_a_tenant.decide",
+      "permission": "access.platform_break_glas_acces_tenant.approve",
       "outcome_events": {
         "approved": [
           "PLATFORM.BREAK_GLASS_APPROVED",
@@ -3509,7 +3509,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "access.publish_a_permission_catalogue_template_or_separation_of.decide",
+      "permission": "access.publish_permission_catalogue_template.approve",
       "outcome_events": {
         "approved": [
           "PLATFORM.CATALOGUE_PUBLISHED"
@@ -3534,7 +3534,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "access.approve_an_external_user.decide",
+      "permission": "access.external_user.approve",
       "outcome_events": {
         "approved": [
           "ADMIN.EXTERNAL_USER_APPROVED"
@@ -3559,7 +3559,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "access.relocate_a_person_s_identity_record_to_another_region.decide",
+      "permission": "access.relocate_person_identity_another.record",
       "outcome_events": {
         "approved": [
           "ADMIN.USER_RELOCATED"
@@ -3584,7 +3584,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "comms.publish_a_platform_system_notice_template_version_for_a_.decide",
+      "permission": "comms.publish_platform_system_notice_templat.approve",
       "outcome_events": {
         "approved": [
           "PLATFORM.TEMPLATE_PUBLISHED"
@@ -3609,7 +3609,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "comms.adapt_a_template_s_wording_for_a_tenant_within_allowed_f.decide",
+      "permission": "comms.adapt_template_wording_tenant.approve",
       "outcome_events": {
         "approved": [
           "COMMS.TEMPLATE_ADAPTED"
@@ -3634,7 +3634,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "consent recorded with evidence",
       "approver_scope": "tenant",
-      "permission": "comms.record_a_client_s_channel_consent_with_evidence.decide",
+      "permission": "comms.client_channel_consent_evidence.record",
       "outcome_events": {
         "approved": [
           "COMMS.CONSENT_RECORDED"
@@ -3660,7 +3660,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "own number, with step-up",
       "approver_scope": "tenant",
-      "permission": "comms.register_a_personal_number_for_sms_or_voice_escalation.decide",
+      "permission": "comms.register_personal_number_sms.approve",
       "outcome_events": {
         "approved": [
           "COMMS.CONTACT_REGISTERED",
@@ -3686,7 +3686,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "comms.resolve_a_routing_failure.decide",
+      "permission": "comms.resolve_routing_failure.approve",
       "outcome_events": {
         "approved": [
           "COMMS.ROUTING_FAILURE_RESOLVED"
@@ -3711,7 +3711,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "storage.approve_or_change_a_pack_s_primary_or_recovery_location.decide",
+      "permission": "storage.change_pack_primary_recovery.approve",
       "outcome_events": {
         "approved": [
           "PLATFORM.LOCATION_APPROVED"
@@ -3736,7 +3736,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "storage.connect_bring_your_own_storage.decide",
+      "permission": "storage.connect_bring_your_own_storage.approve",
       "outcome_events": {
         "approved": [
           "STORAGE.BYOS_CONNECTED"
@@ -3761,7 +3761,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "storage.enable_a_customer_managed_key_acknowledging_that_revocat.decide",
+      "permission": "storage.enable_customer_managed_key_acknowledg.approve",
       "outcome_events": {
         "approved": [
           "STORAGE.CMK_ENABLED"
@@ -3786,7 +3786,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "confirmation of receipt by the tenant's signatory",
       "approver_scope": "tenant",
-      "permission": "storage.confirm_receipt_of_the_exit_export.decide",
+      "permission": "storage.receipt_exit.confirm",
       "outcome_events": {
         "approved": [
           "STORAGE.EXIT_EXPORT_CONFIRMED"
@@ -3811,7 +3811,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "storage.destroy_a_tenant_key_at_exit.decide",
+      "permission": "storage.tenant_key_at_exit.destroy",
       "outcome_events": {
         "approved": [
           "STORAGE.TENANT_KEY_DESTROYED"
@@ -3836,7 +3836,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "storage.approve_a_bulk_disposal_batch.decide",
+      "permission": "storage.bulk_disposal_batch.approve",
       "outcome_events": {
         "approved": [
           "STORAGE.BULK_DISPOSAL_APPROVED"
@@ -3862,7 +3862,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "storage.invoke_region_failover.decide",
+      "permission": "storage.invoke_region_failover.approve",
       "outcome_events": {
         "approved": [
           "PLATFORM.FAILOVER_INVOKED",
@@ -3888,7 +3888,7 @@
       "class": "SELF_ATTESTED",
       "class_note": "request; executed only under client-granted support access",
       "approver_scope": "tenant",
-      "permission": "storage.request_a_single_tenant_restore.decide",
+      "permission": "storage.request_single_tenant_restore.approve",
       "outcome_events": {
         "approved": [
           "STORAGE.TENANT_RESTORE_APPROVED"
@@ -3913,7 +3913,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "platform",
-      "permission": "storage.release_the_dedicated_or_sovereign_edition_for_a_client.decide",
+      "permission": "storage.dedicated_sovereign_edition_client.release",
       "outcome_events": {
         "approved": [
           "PLATFORM.EDITION_RELEASED"
@@ -3940,7 +3940,7 @@
       "class": "DUAL",
       "class_note": "content requests via G-11-09",
       "approver_scope": "tenant",
-      "permission": "migrate.grant_operator_access_approve_each_content_request.decide",
+      "permission": "migrate.operator_acces_each_content.grant",
       "outcome_events": {
         "approved": [
           "MIGRATE.OPERATOR_ACCESS_GRANTED",
@@ -3968,7 +3968,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "migrate.approve_mapping_template_approve_tag_samples.decide",
+      "permission": "migrate.mapping_template_samples.tag",
       "outcome_events": {
         "approved": [
           "MIGRATE.MAPPING_APPROVED",
@@ -3994,7 +3994,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "migrate.exclude_a_batch_of_records.decide",
+      "permission": "migrate.exclude_batch_records.record",
       "outcome_events": {
         "approved": [
           "MIGRATE.EXCLUSION_APPROVED"
@@ -4017,7 +4017,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "migrate.clear_a_document_from_privileged_pending_review.decide",
+      "permission": "migrate.clear_document_from_privileged.approve",
       "outcome_events": {
         "approved": [],
         "rejected": "MIGRATE.G_14_04_REJECTED",
@@ -4042,7 +4042,7 @@
       "class": "GUARDED",
       "class_note": "decided by the conflicts reviewer, never the requesting or responsible partner",
       "approver_scope": "tenant",
-      "permission": "migrate.approve_or_reverse_a_client_merge_resolve_a_conflict_hit.decide",
+      "permission": "migrate.reverse_client_resolve_conflict.merge",
       "outcome_events": {
         "approved": [
           "MIGRATE.CLIENT_MERGE_APPROVED",
@@ -4069,7 +4069,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "migrate.sign_off_client_money_reconciliation.decide",
+      "permission": "migrate.off_client_money_reconciliation.sign",
       "outcome_events": {
         "approved": [
           "MIGRATE.MONEY_RECONCILIATION_SIGNED"
@@ -4094,7 +4094,7 @@
       "class": "GUARDED",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "migrate.classify_a_quarantined_record_s_jurisdiction.decide",
+      "permission": "migrate.quarantined_jurisdiction.record",
       "outcome_events": {
         "approved": [
           "MIGRATE.QUARANTINE_RESOLVED"
@@ -4177,7 +4177,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "migrate.decide_fix_forward_or_rollback_for_a_live_defect.decide",
+      "permission": "migrate.decide_fix_forward_live_defect.rollback",
       "outcome_events": {
         "approved": [
           "MIGRATE.DEFECT_ESCALATED",
@@ -4204,7 +4204,7 @@
       "class": "DUAL",
       "class_note": null,
       "approver_scope": "tenant",
-      "permission": "migrate.destroy_migration_staging.decide",
+      "permission": "migrate.migration_staging.destroy",
       "outcome_events": {
         "approved": [
           "MIGRATE.STAGING_DESTROYED",

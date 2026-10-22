@@ -2,8 +2,8 @@
   "_meta": {
     "version": "1.0.1-chairman-rulings",
     "adopted_on": "2026-10-22",
-    "chairman_q3": "Location Compliance Owner + Legal Department Reviewer published; ClientBridge R1 applied in specs — layered Jurisdiction Pack fields pending Raja Sekhar T",
-    "pending_jurisdiction_pack": "Layered country/state/municipal/industry pack content — does not block 25 Oct templates"
+    "chairman_q3": "Location Compliance Owner + Legal Department Reviewer published; ClientBridge R1 applied in specs \u2014 layered Jurisdiction Pack fields pending Raja Sekhar T",
+    "pending_jurisdiction_pack": "Layered country/state/municipal/industry pack content \u2014 does not block 25 Oct templates"
   },
   "role_templates": [
     {
@@ -12,8 +12,8 @@
       "scope": "tenant",
       "permissions": [
         "matter.open.approve",
-        "matter.approve_closing.decide",
-        "matter.approve_reopening.decide",
+        "matter.closing.approve",
+        "matter.reopening.open",
         "engine.review.approve"
       ]
     },
@@ -23,8 +23,8 @@
       "scope": "tenant",
       "permissions": [
         "engine.review.approve",
-        "document.approve_a_production_set.decide",
-        "engine.hr_tier_3_approval.decide"
+        "document.production_set.approve",
+        "engine.gate_03_05.approve"
       ]
     },
     {
@@ -36,10 +36,10 @@
         "clientbridge.per_location_obligation_matrix"
       ],
       "permissions": [
-        "clientbridge.decide_an_attested_location_obligation_met_or_not.decide",
-        "clientbridge.issue_a_structured_request_to_a_client_or_location_owner.decide",
-        "clientbridge.approve_reuse_of_location_evidence_for_another_location.decide",
-        "regradar.assign_or_reassign_an_obligation_owner_and_backup.decide"
+        "clientbridge.decide_attested_location_obligation.attest",
+        "clientbridge.issue_structured_request_client.approve",
+        "clientbridge.reuse_location_evidence_another.approve",
+        "regradar.reassign_obligation_owner_backup.assign"
       ]
     },
     {
@@ -47,10 +47,10 @@
       "label": "Compliance Officer",
       "scope": "tenant",
       "permissions": [
-        "regradar.decide_a_screening_match.decide",
-        "regradar.release_a_blocked_or_frozen_matter_or_decline_the_engage.decide",
-        "regradar.assign_or_reassign_an_obligation_owner_and_backup.decide",
-        "ledger.grant_external_auditor_access.decide"
+        "regradar.decide_screening_match.approve",
+        "regradar.blocked_frozen_matter_engagement.decline",
+        "regradar.reassign_obligation_owner_backup.assign",
+        "ledger.external_auditor_access.grant"
       ]
     },
     {
@@ -58,9 +58,9 @@
       "label": "Finance Controller",
       "scope": "tenant",
       "permissions": [
-        "billguard.approve_a_pre_bill_and_issue_the_invoice.decide",
-        "billguard.sign_off_the_monthly_three_way_reconciliation.decide",
-        "billguard.close_a_financial_period.decide"
+        "billguard.pre_bill_issue_invoice.approve",
+        "billguard.off_monthly_three_way_reconciliation.sign",
+        "billguard.financial_period.close"
       ]
     },
     {
@@ -68,8 +68,8 @@
       "label": "Jurexio Platform Registry Admin",
       "scope": "platform",
       "permissions": [
-        "ledger.add_change_or_deprecate_an_event_type_in_the_registry.decide",
-        "access.publish_a_permission_catalogue_template_or_separation_of.decide"
+        "ledger.add_change_deprecate_event.approve",
+        "access.publish_permission_catalogue_template.approve"
       ]
     }
   ]
