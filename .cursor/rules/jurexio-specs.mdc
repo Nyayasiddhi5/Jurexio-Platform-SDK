@@ -4,7 +4,7 @@ globs: ["**/*.ts","**/*.tsx","**/*.py","**/*.sql","**/*.json"]
 alwaysApply: false
 ---
 - The behaviour of each module is defined in `jurexio-specs/specs/Mxx-*.md`. Read the module's spec before writing or changing its code; read only the modules involved.
-- Use `jurexio-specs/registry/*.json` for gate IDs, event names, permission IDs, interface-contract fields and platform constants. Never invent a gate, event or permission name: if one is missing, add it to the registry as `proposed-v0` and flag it for the CTO.
+- Use `jurexio-specs/registry/*.json` (adopted v1) for gate IDs, event names, permission IDs, interface-contract fields and platform constants. Never invent names in application code. If the registry is missing an entry, propose a registry amendment (CTO review + `npm run registry:validate`).
 - Every gate must record approved, rejected and withdrawn outcomes with a mandatory rejection reason, and enforce its class (GUARDED, DUAL, SELF_ATTESTED).
 - Agents never act: AI code may only produce drafts or suggestions that a human approves. Never add an automatic send, approve, file, pay or delete path for AI output.
 - Access checks go through the central access decision (CommandCentre); never re-implement access rules inside a module.

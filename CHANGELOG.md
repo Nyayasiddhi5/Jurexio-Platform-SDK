@@ -2,6 +2,12 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-REGISTRY-COMPLIANCE-CLOSEOUT-001 (2026-10-22)
+
+- Expanded `jurexio-specs/registry/validate.py` (gate outcomes, FLAG-012, aliases, role templates, no placeholders).
+- Platform registry API: `/api/jrx/platform/registry/*` + `jrx-module-registry-service.ts`; compliance vitest in CI.
+- Adopted authority text in registry `_meta`, spec pack README, and Cursor rules.
+
 ### Added — JRX-REGISTRY-V1-ADOPTION-001 (2026-10-22)
 
 - Adopted Event registry v1 and Permission catalogue v1 (`1.0.0-adopted`): all events `critical` boolean, 144 gate permission renames, alias policy to 2027-10-26, FLAG-012 eighteen events in `_meta`.
