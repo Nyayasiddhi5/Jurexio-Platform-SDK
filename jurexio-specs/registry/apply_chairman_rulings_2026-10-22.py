@@ -43,8 +43,8 @@ FLAG_012_CRITICAL = {
 CHAIRMAN_META = {
     "chairman_rulings_applied": "2026-10-22",
     "mail_subject": "Rulings on your questions and conflicts: Event registry v1 and Permission catalogue v1",
-    "event_count_authoritative": 759,
-    "consolidation_pass_2": "ClientBridge R1 — repo pending full rebuilt zip; PRECONDITIONS_MET added per Q1",
+    "event_count_authoritative": 760,
+    "consolidation_pass_2": "Jurexio_SDK_Spec_Pack_1c7c.zip (759) + PRECONDITIONS_MET per Chairman Q1",
     "q1_flag_012": "18 canonical lifecycle events; IT_DIRECTOR_REJECTED dropped; PRECONDITIONS_MET added",
     "q2_alias_window_days": 90,
     "q2_alias_anchor": "sprint_1_go_live",

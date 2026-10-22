@@ -10,7 +10,7 @@
  * Where the data lives:
  *   - cam_actions_*  → nv_cam_actions table (status pending/resolved)
  *   - audit_*        → audit_log / nv_audit_log if present, else synthesised
- *                      from `e2e` reports + IronLedger hash chain
+ *                      from `e2e` reports + Jurexio Ledger hash chain
  *   - e2e_*          → file artefacts under `docs/canonical/`
  *   - security_*     → output of last `runDependencyAudit` / SAST / HoundDog
  *   - canonical_doc_*→ static artefact pointers
@@ -220,7 +220,7 @@ async function buildSourceManifest(): Promise<Record<string, IsoEvidenceRow[]>> 
     // ── Audit / runtime (live counts where possible) ──────────────
     audit_log_recent: [
       row('audit_log_recent',
-        liveOk(live.auditLogRows, n => `${n} audit log row(s) persisted in nv_audit_log (append-only, hash-chained via IronLedger)`, 'Recent audit log — append-only, hash-chained via IronLedger'),
+        liveOk(live.auditLogRows, n => `${n} audit log row(s) persisted in nv_audit_log (append-only, hash-chained via Jurexio Ledger)`, 'Recent audit log — append-only, hash-chained via Jurexio Ledger'),
         '/api/jrx/admin/audit/log?limit=10'),
     ],
     audit_pii_redaction: [
@@ -256,8 +256,8 @@ async function buildSourceManifest(): Promise<Record<string, IsoEvidenceRow[]>> 
         liveOk(live.agentsRegistered, n => `${n} agent(s) registered in nv_agents — per-agent execution traces persisted`, 'Per-agent execution traces persisted — orchestration scoreboard surfaces drift'),
         '/api/jrx/orchestration/scoreboard'),
     ],
-    ironledger_hash_chain: [
-      row('ironledger_hash_chain', 'IronLedger append-only hash chain — every audit row signed with prev-hash linkage', '/api/jrx/ironledger/verify'),
+    jurexio_ledger_hash_chain: [
+      row('jurexio_ledger_hash_chain', 'Jurexio Ledger append-only hash chain — every audit row signed with prev-hash linkage', '/api/jrx/ledger/verify'),
     ],
 
     // ── Canonical docs ────────────────────────────────────────────

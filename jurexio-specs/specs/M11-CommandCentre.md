@@ -60,6 +60,16 @@ India and the United States (all states) are the only live jurisdictions in v1.0
 - **CB-DES-08:** seeing personal names in-app is the named permission `identity.name.view`; court, export, client and audit views always show designations.
 - **BQ-10, BQ-11, BQ-12 (accepted):** Permission catalogue v1 with gate classes before Sprint 1; the Chairman names two security officers; approver templates per client type (law firm, corporate, PSU, ministry) with minimums of one executive approver plus the IT Director.
 
+### Consolidation v1.2 (ClientBridge R1 amendments, 21 Oct 2026)
+
+Applies the cross-module amendments from M08 ClientBridge R1.
+
+- **Full jurisdiction stack per unit:** every office, plant, branch or site unit carries its complete stack (country, state or province, municipal or local body) plus applicability attributes (industry, headcount, establishment type, activities). Children inherit and may override. RegRadar uses these to map obligations to each location.
+- **New role template, Location Compliance Owner (Shared domain, internal):** sees and acts only for their own location in ClientBridge (obligations, evidence requests, uploads, attestations). Holds no legal-advice, matter or other-location visibility. Typically site managers, plant heads or local HR.
+- **New role template, Legal Department Reviewer (Legal domain):** decides attested location obligations (M08 G-08-08) and evidence reuse (G-08-09); cannot decide an obligation they attested.
+- **External and stakeholder users:** ClientBridge's access paths (M08 D2) use this module's sponsorship, expiry, MFA and step-up; client-side administrators may only request colleagues (G-11-13 approves).
+- **Language:** each user's interface language comes from the Jurisdiction Pack's declared languages; ClientBridge's multilingual interface is an exception to Engine R2 for client and stakeholder users only.
+
 ## Section 1 — Module identity
 
 | Field | Value |
@@ -188,9 +198,9 @@ The tenant is the security boundary. Beneath it sits a tree of typed units; any 
 
 | Domain | Templates |
 | --- | --- |
-| Legal | Partner, Senior Counsel, Associate, Paralegal, Docketing Staff, Conflicts Reviewer, Employment Counsel, Records Officer, Intake Partner, General Counsel, Knowledge Owner, Compliance Lawyer |
+| Legal | Partner, Senior Counsel, Associate, Paralegal, Docketing Staff, Conflicts Reviewer, Employment Counsel, Records Officer, Intake Partner, General Counsel, Knowledge Owner, Compliance Lawyer, Legal Department Reviewer |
 | HR | HR Director / CHRO, HR Business Partner, HR Viewer |
-| Shared | Compliance Officer, Data Protection Officer, Tenant Security Administrator, Unit Administrator, IT Director, Finance Owner, Risk Owner, Board Approver, CEO Approver, Credential Verifier, Authorised Signatory |
+| Shared | Compliance Officer, Data Protection Officer, Tenant Security Administrator, Unit Administrator, IT Director, Finance Owner, Risk Owner, Board Approver, CEO Approver, Credential Verifier, Authorised Signatory, Location Compliance Owner |
 | External (always expiring) | Client Contact, Co-counsel, Expert, External Auditor |
 
 Tenants copy templates into custom roles and adjust within the guardrails. Trust levels appear only as a label for sorting.

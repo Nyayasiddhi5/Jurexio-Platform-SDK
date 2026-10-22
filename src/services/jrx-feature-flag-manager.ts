@@ -205,8 +205,8 @@ const DEFAULT_FLAGS: FeatureFlag[] = [
 
   // ── Security ──────────────────────────────────────────────────────────────
   {
-    key: 'nv_pii_vault',
-    displayName: 'PII Vault Encryption',
+    key: 'jrx_pii_vault',
+    displayName: 'Jurexio PII Vault Encryption',
     description: 'Automatic PII encryption with 30-min auto-expiry',
     type: 'killswitch', enabled: true, environments: ['all'], platforms: ['all'], jurisdictions: ['all'],
     rollout: { type: 'all' }, killSwitchArmed: true,

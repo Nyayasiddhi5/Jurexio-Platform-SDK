@@ -294,9 +294,9 @@ router.get('/iso/export', async (req: Request, res: Response): Promise<void> => 
     const filename = `jurexio-compliance-${filenameJur}${filenameFw}-${generatedAt.slice(0, 10)}.pdf`;
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-    res.setHeader('X-Jrx-IronLedger-Hash', ledgerHash);
-    res.setHeader('X-Jrx-IronLedger-Prev', ledgerPrev);
-    res.setHeader('X-Jrx-IronLedger-Generated-At', ledgerCreatedAt);
+    res.setHeader('X-Jrx-Jurexio Ledger-Hash', ledgerHash);
+    res.setHeader('X-Jrx-Jurexio Ledger-Prev', ledgerPrev);
+    res.setHeader('X-Jrx-Jurexio Ledger-Generated-At', ledgerCreatedAt);
 
     const doc = new PDFDocument({
       size: 'A4',
@@ -403,7 +403,7 @@ router.get('/iso/export', async (req: Request, res: Response): Promise<void> => 
       doc.fontSize(10).fillColor('#15803D').text('No PARTIAL or FAIL controls in the selected scope.');
     }
 
-    // IronLedger footer (final page).
+    // Jurexio Ledger footer (final page).
     doc.addPage();
     doc.fontSize(14).fillColor('#0F172A').text('Tamper-evidence — Jurexio Ledger receipt');
     doc.moveDown(0.4);

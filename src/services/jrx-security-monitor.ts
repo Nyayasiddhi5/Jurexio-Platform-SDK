@@ -270,7 +270,7 @@ export async function enforceCapabilityBoundary(
   }
 }
 
-// ── 4. Security Event Logger → IronLedger hash chain ─────────────────────────
+// ── 4. Security Event Logger → Jurexio Ledger hash chain ─────────────────────────
 export async function logSecurityEvent(evt: SecurityEvent): Promise<void> {
   try {
     const jwtSecret = process.env.JRX_JWT_SECRET ?? 'default-secret-do-not-use';

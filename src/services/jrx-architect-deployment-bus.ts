@@ -6,7 +6,7 @@
  * events. The architect deploy route (`jrx-architect-routes.ts`) calls
  * `nvArchitectDeploymentBus.publish(...)` after the row is persisted to
  * `sdk_workflows`; downstream subscribers consume the event to materialize
- * agents, register routing rules, write IronLedger entries, etc.
+ * agents, register routing rules, write Jurexio Ledger entries, etc.
  *
  * The bus itself ships with a single built-in subscriber that logs the
  * event so the deploy path *always* fires a real, observable side-effect

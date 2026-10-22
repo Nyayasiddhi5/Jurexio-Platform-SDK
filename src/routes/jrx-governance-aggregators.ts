@@ -92,7 +92,7 @@ router.get('/hitl/queue', authenticateToken, gate, async (req: Request, res: Res
 });
 
 // ─── 2a. Orchestration lineage (path-param) ─────────────────────────────────
-// Returns the IronLedger hash-chain shape expected by client/src/pages/
+// Returns the Jurexio Ledger hash-chain shape expected by client/src/pages/
 // orchestration/LineagePage.tsx ({ success, requestId, chainLength,
 // auditChain, summary }). Data is sourced from the CANONICAL live hash-chained
 // ledger `nv_schema.nv_audit_logs` (NV-AUDIT-SURFACE-001 — the same table

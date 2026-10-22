@@ -135,7 +135,7 @@ import jwt from 'jsonwebtoken';
 
 const logger = createLogger('orchestration-routes');
 
-// ── T-01: IronLedger audit-on-completion (Phase C / JRX_F_AUDIT_WIRE) ─────────
+// ── T-01: Jurexio Ledger audit-on-completion (Phase C / JRX_F_AUDIT_WIRE) ─────────
 // Defaults OFF.  When ON, computes input/output SHA-256 hashes plus structured
 // fields and emits a hash-chained audit log entry on /orchestrate completion,
 // without blocking the response.  The Step 13 hash inside the safety pipeline
@@ -192,7 +192,7 @@ function emitOrchestrationAudit(args: {
         strict: false,
       });
 
-      logger.info('[Orch:T-01] orchestrate.complete IronLedger entry persisted', {
+      logger.info('[Orch:T-01] orchestrate.complete Jurexio Ledger entry persisted', {
         ...entry,
         auditId: persisted.id,
         recordHash: persisted.recordHash,
@@ -1334,7 +1334,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
           fallbackCostUsd: queenResult.metadata.totalCost,
         });
 
-        // T-01: IronLedger audit-on-completion (gated, non-blocking) — now
+        // T-01: Jurexio Ledger audit-on-completion (gated, non-blocking) — now
         // also emitted for the multi-agent branch.
         emitOrchestrationAudit({
           requestId,
@@ -2265,7 +2265,7 @@ router.post('/orchestrate', dualSdkOrJwt, partnerIndiaScopeMiddleware, consentGa
       fallbackModel: result.model,
     });
 
-    // T-01: IronLedger audit-on-completion (gated, non-blocking).
+    // T-01: Jurexio Ledger audit-on-completion (gated, non-blocking).
     emitOrchestrationAudit({
       requestId,
       userId,

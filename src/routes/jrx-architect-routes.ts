@@ -226,7 +226,7 @@ export function createArchitectRouter(): Router {
       });
 
       // Side-effect: publish the deployment event so downstream provisioning
-      // subscribers (agent materializer, routing-rules writer, IronLedger
+      // subscribers (agent materializer, routing-rules writer, Jurexio Ledger
       // recorder) can react. The bus ships with a built-in logging
       // subscriber so the side-effect is always observable even before any
       // domain subscriber is wired (see jrx-architect-deployment-bus.ts).

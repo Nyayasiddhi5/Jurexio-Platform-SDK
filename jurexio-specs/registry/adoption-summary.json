@@ -1,7 +1,7 @@
 {
-  "events_total": 759,
-  "critical_true": 116,
-  "critical_false": 642,
+  "events_total": 760,
+  "critical_true": 115,
+  "critical_false": 644,
   "permissions_total": 165,
   "permission_renames": {
     "mattercore.g_01_02.decide": "matter.decline_an_intake.decide",

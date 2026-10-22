@@ -6,7 +6,7 @@
  *
  * To enable a feature, set the corresponding env var to '1' or 'true'.
  *
- * JRX_F_AUDIT_WIRE       T-01  Append IronLedger audit row on /orchestrate completion
+ * JRX_F_AUDIT_WIRE       T-01  Append Jurexio Ledger audit row on /orchestrate completion
  * JRX_F_HITL_REGISTRY    T-03/T-04/T-05  Registry-driven HITL thresholds + reviewer routing + auto-approve audit
  * JRX_F_PII_JCN          T-06b Append jurisdiction-scoped PII regexes to safety pipeline Step 1
  * JRX_F_SECURITY_MONITOR T-08  Mount jrx-security-monitor middleware on /api/jrx/*

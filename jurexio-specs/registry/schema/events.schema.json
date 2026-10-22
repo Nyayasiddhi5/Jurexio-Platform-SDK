@@ -3,80 +3,39 @@
   "$id": "jurexio/events.schema.json",
   "title": "Jurexio event registry",
   "type": "object",
-  "required": [
-    "_meta",
-    "events"
-  ],
+  "required": ["_meta", "events"],
   "properties": {
     "_meta": {
       "type": "object",
-      "required": [
-        "version",
-        "generated"
-      ],
+      "required": ["version", "generated"],
       "properties": {
-        "version": {
-          "type": "string"
-        },
-        "generated": {
-          "type": "string"
-        }
+        "version": { "type": "string" },
+        "generated": { "type": "string" }
       }
     },
     "events": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "name",
-          "domain",
-          "source"
-        ],
+        "required": ["name", "domain", "source"],
         "properties": {
           "name": {
             "type": "string",
             "pattern": "^[A-Z]+\\.[A-Z0-9_]+$"
           },
-          "domain": {
-            "type": "string",
-            "pattern": "^[A-Z]+$"
-          },
-          "owner_module": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
+          "domain": { "type": "string", "pattern": "^[A-Z]+$" },
+          "owner_module": { "type": ["string", "null"] },
           "referenced_in": {
             "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "items": { "type": "string" }
           },
           "source": {
-            "enum": [
-              "spec",
-              "generated-gate-outcome",
-              "legacy-alias"
-            ]
+            "enum": ["spec", "generated-gate-outcome", "legacy-alias"]
           },
-          "critical": {
-            "type": "boolean"
-          },
-          "maps_to": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "alias_sunset": {
-            "type": "string",
-            "format": "date"
-          },
-          "alias_window_days": {
-            "type": "integer",
-            "minimum": 1
-          }
+          "critical": { "type": "boolean" },
+          "maps_to": { "type": ["string", "null"] },
+          "alias_sunset": { "type": "string", "format": "date" },
+          "alias_window_days": { "type": "integer", "minimum": 1 }
         },
         "additionalProperties": false
       }

@@ -13,6 +13,15 @@
 
 Claude Docs remain source of truth; re-export into this tree — do not edit specs for product truth without Doc update.
 
+## Re-import rebuilt pack (consolidation pass 2)
+
+```bash
+bash scripts/jrx-import-spec-pack.sh /path/to/Jurexio_SDK_Spec_Pack.zip
+# Runs: copy registries + specs → adopt_registry_v1.py → apply_chairman_rulings → validate.py
+```
+
+Latest import: **Jurexio_SDK_Spec_Pack_1c7c.zip** (759 seed events + `REGRADAR.OBLIGATION_MAPPED_TO_LOCATION`; Chairman Q1 adds `MIGRATE.PRECONDITIONS_MET` → **760** adopted rows).
+
 ## Validation
 
 ```bash

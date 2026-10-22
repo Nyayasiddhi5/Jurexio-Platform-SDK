@@ -16,7 +16,7 @@
 | **Q4** Model providers | [JRX-MODEL-PROVIDER-TERMS-AP-SOUTH-US.md](./JRX-MODEL-PROVIDER-TERMS-AP-SOUTH-US.md) + DPA table |
 | **Q5** PDD | Sprint 1 M09/M11 blocked only on P0 engineering (registries, renames, bus annex, access API) |
 | **Q6** Sprint sequence | Documented in [JRX-SPRINT-SEQUENCE-CHAIRMAN-2026-10-22.md](./JRX-SPRINT-SEQUENCE-CHAIRMAN-2026-10-22.md) |
-| **C-04** 759 events | **759** rows after `PRECONDITIONS_MET` (rebuilt zip to sync M07/M11/M03 prose when uploaded) |
+| **C-04** 759 + Q1 | **1c7c pack imported** (759) + **`MIGRATE.PRECONDITIONS_MET`** + **`REGRADAR.OBLIGATION_MAPPED_TO_LOCATION`** → **760** adopted events |
 | **C-05** G-07-02 | **GUARDED** in `gates.json`; [CTO-GATE-CLASS-CONFIRMATION.md](../../jurexio-specs/registry/CTO-GATE-CLASS-CONFIRMATION.md) |
 | **C-08** One act / record | Documented in event bus annex + `_meta.canonical_event_rule` |
 | **C-10** Access | `POST /api/jrx/platform/access/evaluate` — deny without matter policy when `resourceId` present |

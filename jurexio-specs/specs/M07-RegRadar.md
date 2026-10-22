@@ -54,6 +54,21 @@ Oct 16, 2026 · @Suresh Singh
 - **BQ-26 (accepted, P0):** the initial hold threshold errs towards holding; the CTO and Compliance Officer set it, and every threshold change is a security-relevant configuration change needing dual approval.
 - **BQ-24 and BQ-25 (open):** India and US source lists, and designated compliance lawyers per jurisdiction and practice area, remain owed.
 
+### Consolidation v1.2 (ClientBridge R1 amendments, 21 Oct 2026)
+
+Applies the cross-module amendments from M08 ClientBridge R1 (multinational corporate HR and Legal departments, location compliance).
+
+- **Layered Jurisdiction Packs:** Lane B obligations are sourced per layer: country → state or province → municipal or local body → industry or establishment type. Examples: India central labour codes, state shops-and-establishments acts, municipal trade licences; US federal law, state employment law, city ordinances (e.g. local minimum-wage or paid-leave rules). Labour and employment, IT, environmental, company and contract obligations all use the same layering.
+- **Per-location applicability:** each obligation is mapped to each location (CommandCentre unit) by its jurisdiction layers and attributes: industry, headcount, establishment type and activities. The same law can apply to one plant and not another; the mapping rule and its inputs are recorded with every obligation.
+- **Declared coverage per layer:** each pack publishes its coverage for each layer; central and state layers first, municipal coverage only for cities where clients have locations. Obligations outside declared coverage show as Not assessed, never as Met.
+- **Location evidence and attestations through ClientBridge:** evidence requests go to the location's Location Compliance Owner (M08 D4, D5); attestations arrive labelled "Attested"; a legal-department reviewer decides each one (M08 G-08-08), with the attester excluded. That decision is RegRadar's record: `REGRADAR.OBLIGATION_STATUS_DECIDED`.
+- **Evidence is location-bound:** evidence counts only for the location it was submitted for unless the legal department approves reuse (M08 G-08-09).
+- **All-locations view:** the legal department sees status per obligation per location in the status vocabulary, with evidence and decision trail.
+
+**Added event:** `REGRADAR.OBLIGATION_STATUS_DECIDED` (critical class), plus `REGRADAR.OBLIGATION_MAPPED_TO_LOCATION`.
+
+**Pack work for Raja Sekhar T:** layered pack structure, applicability attributes per obligation type, and the municipal coverage plan for the first multinational pilot's cities (M08 OQ-08-04).
+
 ## Section 1 — Module identity
 
 | Field | Value |

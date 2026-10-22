@@ -3,8 +3,8 @@
     "version": "1.0.1-chairman-rulings",
     "generated": "2026-10-21",
     "naming": "DOMAIN.EVENT_NAME; generated gate outcomes follow DOMAIN.G_NN_NN_REJECTED / _WITHDRAWN (proposed convention)",
-    "critical": "Set on every event (boolean); see critical_events_v1.json seed.",
-    "authority": "Event registry v1 (CTO adopted 2026-10-22). Authoritative for all module emits.",
+    "critical": "null = to be set by the CTO in Event registry v1 using each spec's 'Critical-class events' list",
+    "authority": "Proposed seed; Event registry v1 (CTO) is authoritative",
     "adopted_on": "2026-10-22",
     "adopted_by": "CTO Event registry v1",
     "gate_outcome_naming": "DOMAIN.G_NN_NN_REJECTED / DOMAIN.G_NN_NN_WITHDRAWN (adopted)",
@@ -38,8 +38,8 @@
     "chairman": {
       "chairman_rulings_applied": "2026-10-22",
       "mail_subject": "Rulings on your questions and conflicts: Event registry v1 and Permission catalogue v1",
-      "event_count_authoritative": 759,
-      "consolidation_pass_2": "ClientBridge R1 \u2014 repo pending full rebuilt zip; PRECONDITIONS_MET added per Q1",
+      "event_count_authoritative": 760,
+      "consolidation_pass_2": "Jurexio_SDK_Spec_Pack_1c7c.zip (759) + PRECONDITIONS_MET per Chairman Q1",
       "q1_flag_012": "18 canonical lifecycle events; IT_DIRECTOR_REJECTED dropped; PRECONDITIONS_MET added",
       "q2_alias_window_days": 90,
       "q2_alias_anchor": "sprint_1_go_live",
@@ -4552,10 +4552,22 @@
       "maps_to": null
     },
     {
+      "name": "REGRADAR.OBLIGATION_MAPPED_TO_LOCATION",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": false,
+      "maps_to": null
+    },
+    {
       "name": "REGRADAR.OBLIGATION_STATUS_DECIDED",
       "domain": "REGRADAR",
       "owner_module": "M07",
       "referenced_in": [
+        "M07",
         "M08"
       ],
       "source": "spec",

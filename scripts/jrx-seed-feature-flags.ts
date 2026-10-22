@@ -26,7 +26,7 @@ const FEATURE_FLAGS = [
   { flag_key: 'nv_digital_twin',         is_enabled: true,  description: 'Digital twin simulation' },
   { flag_key: 'nv_multimodal',           is_enabled: true,  description: 'Multimodal (vision + audio) processing' },
   { flag_key: 'nv_hallucination_check',  is_enabled: true,  description: 'Hallucination detection on all responses' },
-  { flag_key: 'nv_pii_vault',            is_enabled: true,  description: 'PII vault encryption storage' },
+  { flag_key: 'jrx_pii_vault',           is_enabled: true,  description: 'Jurexio PII vault encryption storage' },
   { flag_key: 'nv_rag_search',           is_enabled: true,  description: 'RAG semantic search on documents' },
   { flag_key: 'nv_social_memory',        is_enabled: true,  description: 'Cross-session social memory' },
   { flag_key: 'nv_cost_analytics',       is_enabled: true,  description: 'Per-request cost analytics' },

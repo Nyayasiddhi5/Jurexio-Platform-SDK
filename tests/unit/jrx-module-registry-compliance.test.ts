@@ -27,8 +27,8 @@ describe('Jurexio module registry v1 compliance', () => {
     expect(doc._meta.version.includes('adopted') || doc._meta.version.includes('chairman')).toBe(
       true,
     );
-    expect(doc.events).toHaveLength(759);
-    expect(doc._meta.chairman?.event_count_authoritative).toBe(759);
+    expect(doc.events).toHaveLength(760);
+    expect(doc._meta.chairman?.event_count_authoritative).toBe(760);
     expect(doc.events.every((e) => typeof e.critical === 'boolean')).toBe(true);
   });
 

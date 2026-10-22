@@ -111,7 +111,7 @@ export async function resolveReviewer(agentId: string | undefined, orgId: string
 }
 
 /**
- * T-05 — IronLedger event for auto-approved executions.  Closes the SOC2 CC7.1
+ * T-05 — Jurexio Ledger event for auto-approved executions.  Closes the SOC2 CC7.1
  * gap where bypassed audit trail meant auto-approvals were undetectable.  Logs
  * a structured audit record (hash-chained via existing infra) and never throws.
  */
@@ -135,7 +135,7 @@ export function auditAutoApprove(args: {
         timestamp: new Date().toISOString(),
       };
       const hash = createHash('sha256').update(JSON.stringify(payload)).digest('hex');
-      logger.info('[HITL:T-05] hitl.auto_approved IronLedger event', { ...payload, auditHash: hash });
+      logger.info('[HITL:T-05] hitl.auto_approved Jurexio Ledger event', { ...payload, auditHash: hash });
     } catch { /* never throw */ }
   });
 }
@@ -340,7 +340,7 @@ class HitlWorkflowService extends EventEmitter {
       this.startEscalationTimer(execution, workflow);
     }
 
-    // T-05: SOC2 CC7.1 — log every auto-approval to IronLedger (gated, non-blocking).
+    // T-05: SOC2 CC7.1 — log every auto-approval to Jurexio Ledger (gated, non-blocking).
     if (shouldAutoApprove && isJrxFeatureOn('hitlRegistry')) {
       auditAutoApprove({
         agentId: ctxAgentId,

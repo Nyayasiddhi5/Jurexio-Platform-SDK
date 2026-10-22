@@ -98,7 +98,7 @@ function dpdpaChecklist(): EvidenceChecklistItem[] {
     {
       controlId: 'DPDPA-§8(6)',
       title: 'Personal data breach notification workflow',
-      description: 'Breach notice drafts, CAM queue entries, and IronLedger hash-chain events.',
+      description: 'Breach notice drafts, CAM queue entries, and Jurexio Ledger hash-chain events.',
       automationLevel: 'hybrid',
       evidenceSource: './jrx-breach-notice-service + hitl_workflow_executions',
       collectionEndpoint: '/api/jrx/compliance/breach',

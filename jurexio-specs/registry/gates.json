@@ -3,7 +3,7 @@
     "version": "1.0.0-adopted",
     "generated": "2026-10-21",
     "source": "Jurexio module specifications (Claude Docs), v1.1 platform rules",
-    "authority": "Permission gates register v1 (CTO adopted 2026-10-22). Authoritative.",
+    "authority": "Proposed seed for CTO Event registry v1 and Permission catalogue v1; not authoritative until adopted",
     "class_definitions": {
       "GUARDED": "the requester can never approve",
       "DUAL": "two distinct people",

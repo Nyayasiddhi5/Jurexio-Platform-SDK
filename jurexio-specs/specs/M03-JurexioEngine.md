@@ -91,6 +91,11 @@ Proposed new identifiers above are for CTO confirmation (OQ-03-01).
 - **BQ-07 (accepted):** state-level reviewer match for filings, pleadings, state-law advice and deadline calculations, encoded per state pack.
 - **BQ-08 (P0, launch-critical):** the CTO confirms at least one approved model per live region (ap-south-1, us-east-1), including Hindi content capability, on zero-retention and no-training terms. Without one in ap-south-1 there is no India AI launch; Jurexio's own Hindi SLM trained on the India corpus (M04 D7) runs as a parallel track.
 
+### Consolidation v1.2 (ClientBridge amendments, 21 Oct 2026)
+
+- **R2 exception for ClientBridge (M08 D7):** the English-interface rule stays for professional users. ClientBridge's client and stakeholder interface is multilingual: every Jurisdiction Pack declares its languages, and they go live with their jurisdiction (v1.0: English, Hindi, Spanish). Client-facing content in any language is approved only by a verified language-competent reviewer for that language, extending R2's Hindi rule to every language.
+- **Client-facing summaries (M08 R2):** plain-language summaries and reply drafts for clients follow G-03-01 with the C-14 approver narrowing, a mandatory plain-language check that nothing material was dropped, and LOW-confidence content rewritten before approval. No live client-facing AI chat in v1.0.
+
 ## Section 1 — Module identity
 
 | Field | Value |

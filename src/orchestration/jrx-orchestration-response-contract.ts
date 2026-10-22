@@ -240,7 +240,7 @@ export interface UnifiedOrchestrationContract {
   qualityEnvelope: QualityEnvelopeSnapshot;
   /** Partner-stable trust badge (not orchestration topology). */
   riskBadge: 'GREEN' | 'YELLOW' | 'RED';
-  /** Deterministic content+request fingerprint for NSP audit UX (not IronLedger full chain). */
+  /** Deterministic content+request fingerprint for NSP audit UX (not Jurexio Ledger full chain). */
   auditHash: string;
   trust: {
     grounded: boolean;
