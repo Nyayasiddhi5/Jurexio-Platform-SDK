@@ -50,6 +50,7 @@ jobs:
             tests/unit/jrx-mcp-connector-stub.test.ts \
             tests/unit/jrx-public-api-alias.test.ts \
             tests/unit/jrx-jrx-api-prefix-alias.test.ts \
+            tests/unit/jrx-module-registry-compliance.test.ts \
             packages/client-sdk/tests/unit/api-path-prefix.test.ts
 
       - name: Dependency audit (report high+, fail critical)

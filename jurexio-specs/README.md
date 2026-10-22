@@ -15,7 +15,7 @@ Exported 21 Oct 2026 for use in the Jurexio SDK repository (Cursor). © Jurexio 
 ## Authority — read before using
 
 1. **The Claude Docs are the source of truth.** These Markdown files are exports. Change the Doc, then re-export; never edit the Markdown here.
-2. **`gates.json`, `events.json` and `permissions.json` are a proposed v0 seed.** They become authoritative only when the CTO adopts them as Event registry v1 and Permission catalogue v1 (P0, PDD Review Log). Until then, treat names as provisional and keep `status: proposed-v0`.
+2. **`gates.json`, `events.json` and `permissions.json` are adopted v1** (`_meta.version`: `1.0.0-adopted`, `status: adopted`). Do not add `proposed-v0` rows without a CTO registry change request. Validate after every edit: `npm run registry:validate`.
 3. **`interface-contracts.json` is frozen for v1.0** (BillGuard and ClientBridge): additive changes only; breaking changes need CTO approval and every consuming module owner's sign-off.
 4. **`constants.json` holds locked platform constants.** Changing one is a Chairman-level decision recorded in the specs first.
 
@@ -59,6 +59,6 @@ The [Module Register](specs/MODULE-REGISTER.md) holds names, renames and design 
 ## Known limits
 
 - Diagrams in the Docs are not included in the Markdown; each spec marks where one appears and links to the Doc.
-- Event `critical` flags are `null`: the CTO sets them in Event registry v1 from each spec's "Critical-class events" list.
-- The gate classes for G-09-06, G-09-08, G-09-09, G-14-06, G-14-07 and G-07-02 were assigned from register descriptions and need CTO confirmation.
+- Event `critical` flags are set (boolean) on all 758 events; FLAG-012 eighteen events listed in `events._meta.flag_012_core_events`.
+- Gate classes for G-09-06, G-09-08, G-09-09, G-14-06, G-14-07 and G-07-02 are confirmed in `registry/CTO-GATE-CLASS-CONFIRMATION.md`.
 - Cross-module amendments from ClientBridge R1 (layered packs, per-location obligations, Location Compliance Owner role) are not yet applied in M07, M11 or the packs; they are queued for the next consolidation pass.

@@ -2,9 +2,9 @@
   "_meta": {
     "version": "1.0.0-adopted",
     "generated": "2026-10-21",
-    "naming": "module.object.action; gate-derived permissions use module.g_nn_nn.decide until the CTO names them",
+    "naming": "module.action or gate-derived slug.decide (no g_nn placeholders).",
     "protected": "Protected permissions need dual approval to add to a role (M11 D2) and step-up to use (M11 D4)",
-    "authority": "Proposed seed; Permission catalogue v1 (CTO) is authoritative",
+    "authority": "Permission catalogue v1 (CTO adopted 2026-10-22). Authoritative.",
     "adopted_on": "2026-10-22",
     "adopted_by": "CTO Permission catalogue v1",
     "permission_renames_from_gate_placeholders": 144
