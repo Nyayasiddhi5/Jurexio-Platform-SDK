@@ -205,7 +205,7 @@ router.get('/control/:id', controlDrilldown);
 // ── GET /api/jrx/compliance/iso/export ──────────────────────────────────────
 // Auditor-grade PDF artefact (Task #310). Mirrors /iso payload shape but
 // includes per-control evidence (last 10) for PARTIAL/FAIL controls and
-// stamps an IronLedger hash for tamper-evidence.
+// stamps a Jurexio Ledger hash for tamper-evidence.
 router.get('/iso/export', async (req: Request, res: Response): Promise<void> => {
   try {
     const jurisdiction = parseJurisdiction(req.query.jurisdiction);
@@ -248,7 +248,7 @@ router.get('/iso/export', async (req: Request, res: Response): Promise<void> => 
     const evidenceByControl = new Map<string, IsoEvidenceRow[]>();
     for (const e of evidenceList) evidenceByControl.set(e.controlId, e.rows);
 
-    // ── Tamper-evident hash via IronLedger audit chain ────────────────────
+    // ── Tamper-evident hash via Jurexio Ledger audit chain ──────────────
     const generatedAt = new Date().toISOString();
     const contentDigest = createHash('sha256')
       .update(
@@ -405,13 +405,13 @@ router.get('/iso/export', async (req: Request, res: Response): Promise<void> => 
 
     // IronLedger footer (final page).
     doc.addPage();
-    doc.fontSize(14).fillColor('#0F172A').text('Tamper-evidence — IronLedger receipt');
+    doc.fontSize(14).fillColor('#0F172A').text('Tamper-evidence — Jurexio Ledger receipt');
     doc.moveDown(0.4);
     doc
       .fontSize(9)
       .fillColor('#475569')
       .text(
-        'This artefact is bound to an entry in the Jurexio IronLedger SHA-256 hash chain. ' +
+        'This artefact is bound to an entry in the Jurexio Ledger SHA-256 hash chain. ' +
           'Re-running the export will produce a new chained record with a different recordHash. ' +
           'Auditors can verify the chain via /api/jrx/audit/chain.',
       );
@@ -420,9 +420,9 @@ router.get('/iso/export', async (req: Request, res: Response): Promise<void> => 
       ['Jurisdiction', jurisdiction],
       ['Framework filter', onlyFramework ?? 'all'],
       ['Generated at', generatedAt],
-      ['IronLedger record id', ledgerId || '(unavailable — chain write failed; content digest only)'],
-      ['IronLedger record hash', ledgerHash],
-      ['IronLedger previous hash', ledgerPrev || '(none)'],
+      ['Jurexio Ledger record id', ledgerId || '(unavailable — chain write failed; content digest only)'],
+      ['Jurexio Ledger record hash', ledgerHash],
+      ['Jurexio Ledger previous hash', ledgerPrev || '(none)'],
       ['Content SHA-256 digest', contentDigest],
     ];
     for (const [k, v] of kv) {
