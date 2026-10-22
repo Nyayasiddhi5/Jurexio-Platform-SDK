@@ -1,0 +1,334 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-10-21",
+    "source": "Locked decisions across the fourteen module specifications and the PDD Review Log v1.1 rulings",
+    "note": "Values here are locked platform constants. Changing one is a Chairman-level decision recorded in the specs first."
+  },
+  "jurisdictions": {
+    "live": [
+      {
+        "code": "IN",
+        "name": "India",
+        "scope": "all states and union territories",
+        "languages_live": [
+          "en",
+          "hi"
+        ]
+      },
+      {
+        "code": "US",
+        "name": "United States",
+        "scope": "all states",
+        "languages_live": [
+          "en",
+          "es"
+        ]
+      }
+    ],
+    "built_inactive": [
+      {
+        "code": "GB",
+        "name": "United Kingdom",
+        "languages": [
+          "en",
+          "cy"
+        ]
+      },
+      {
+        "code": "EU",
+        "name": "European Union",
+        "languages": "per member-state pack"
+      },
+      {
+        "code": "SG",
+        "name": "Singapore",
+        "languages": [
+          "en",
+          "zh",
+          "ms",
+          "ta"
+        ]
+      },
+      {
+        "code": "GCC",
+        "name": "Gulf Cooperation Council",
+        "languages": [
+          "ar",
+          "en"
+        ],
+        "note": "country-level packs"
+      }
+    ],
+    "activation": "Inactive packs go live only after counsel validation and Chairman activation (G-03-10, platform.jurisdiction.activate)",
+    "codes": "ISO 3166 plus forum codes",
+    "pack_layers": [
+      "country",
+      "state_or_province",
+      "municipal_or_local_body",
+      "industry_or_establishment_type"
+    ]
+  },
+  "gate_classes": {
+    "GUARDED": "the requester can never approve",
+    "DUAL": "two distinct people",
+    "SELF_ATTESTED": "an act on one's own record, with reason and evidence, logged and sampled",
+    "RETIRED": "no longer used"
+  },
+  "gate_outcomes": [
+    "pending",
+    "approved",
+    "rejected",
+    "withdrawn"
+  ],
+  "rejection_reason_required": true,
+  "status_vocabulary": [
+    "Met",
+    "Due",
+    "At risk",
+    "Overdue",
+    "Not assessed"
+  ],
+  "confidence_bands": [
+    {
+      "band": "HIGH",
+      "min": 0.8,
+      "max": 1.0,
+      "token": "emerald",
+      "hex": "#1C7A4F"
+    },
+    {
+      "band": "MEDIUM",
+      "min": 0.6,
+      "max": 0.7999,
+      "token": "gold",
+      "hex": "#D4A017"
+    },
+    {
+      "band": "LOW",
+      "min": 0.0,
+      "max": 0.5999,
+      "token": "indigo",
+      "hex": "#1A1446",
+      "human_review_mandatory": true
+    }
+  ],
+  "ai_badge": {
+    "background": "#1A1446",
+    "text": "#D4A017",
+    "label": "AI",
+    "rule": "mandatory on every AI-drafted or AI-suggested item"
+  },
+  "brand_palette": {
+    "royal_blue": "#0A2A66",
+    "gold": "#D4A017",
+    "white": "#FFFFFF",
+    "deep_indigo": "#1A1446",
+    "emerald": "#1C7A4F",
+    "never_use": [
+      "#FF0000",
+      "#000000 heavy fills"
+    ]
+  },
+  "output_context": [
+    "LEGAL_WORKFLOW",
+    "HR_WORKFLOW",
+    "SYSTEM_REPORT"
+  ],
+  "hr_unknown_type_default_tier": 3,
+  "citation_verdicts": [
+    {
+      "verdict": "VERIFIED",
+      "effect": "may proceed"
+    },
+    {
+      "verdict": "NOT_FOUND",
+      "effect": "hard block",
+      "condition": "only inside declared coverage"
+    },
+    {
+      "verdict": "QUOTE_MISMATCH",
+      "effect": "hard block on that quotation"
+    },
+    {
+      "verdict": "UNVERIFIABLE",
+      "effect": "reviewer must open the source",
+      "condition": "outside declared coverage"
+    },
+    {
+      "verdict": "NEGATIVE_TREATMENT",
+      "effect": "reviewer must open and acknowledge"
+    }
+  ],
+  "matter_lifecycle": [
+    "INTAKE",
+    "ACTIVE",
+    "CLOSING",
+    "CLOSED",
+    "ARCHIVED",
+    "DECLINED"
+  ],
+  "matter_types": [
+    "LITIGATION",
+    "ARBITRATION",
+    "ADVISORY",
+    "TRANSACTIONAL",
+    "REGULATORY",
+    "COMPLIANCE",
+    "HR_EMPLOYMENT"
+  ],
+  "matter_reference_format": "JRX-[JCN]-[TYPE]-[YYYYMM]-[NNNNN]",
+  "document_states": [
+    "DRAFT",
+    "FINAL",
+    "EXECUTED",
+    "FILED",
+    "RECEIVED"
+  ],
+  "classification_levels": [
+    "PRIVILEGED",
+    "CONFIDENTIAL",
+    "INTERNAL",
+    "PUBLIC"
+  ],
+  "classification_rule": "AI may raise, never lower; only credential-verified lawyers lower",
+  "deadline_states": [
+    "UNCONFIRMED",
+    "CONFIRMED",
+    "CONFLICT",
+    "RECONFIRM_REQUIRED",
+    "CLOSED_FILED",
+    "CLOSED_EXTENDED",
+    "CLOSED_NOT_APPLICABLE",
+    "CLOSED_IN_ERROR",
+    "MISSED"
+  ],
+  "deadline_alert_ladder": [
+    "T-30",
+    "T-14",
+    "T-7",
+    "T-3",
+    "T-1",
+    "T-0"
+  ],
+  "deadline_ack_required_from": "T-7",
+  "migration_lifecycle": [
+    "DRAFT",
+    "CONNECTED",
+    "STAGING",
+    "MAPPING",
+    "VALIDATING",
+    "DRY_RUN",
+    "PARALLEL_RUN",
+    "AWAITING_APPROVAL",
+    "LIVE",
+    "CLOSED",
+    "ROLLED_BACK",
+    "CANCELLED"
+  ],
+  "message_classes": [
+    "ACTION_PROMPT",
+    "SECURITY_ACCESS",
+    "CLIENT_COMMUNICATION",
+    "OPERATIONAL"
+  ],
+  "message_priorities": [
+    "CRITICAL",
+    "HIGH",
+    "STANDARD"
+  ],
+  "recovery_tiers": [
+    {
+      "tier": 0,
+      "services": [
+        "ledger",
+        "access_decision",
+        "deadline_alert_scheduler",
+        "identity"
+      ],
+      "rpo": "none for sealed events and alerts",
+      "rto": "1h"
+    },
+    {
+      "tier": 1,
+      "services": [
+        "matters",
+        "documents",
+        "deadlines",
+        "engine_review_queue",
+        "obligations"
+      ],
+      "rpo": "15m",
+      "rto": "4h"
+    },
+    {
+      "tier": 2,
+      "services": [
+        "search_indexes",
+        "analytics",
+        "caches"
+      ],
+      "rpo": "24h",
+      "rto": "24h"
+    }
+  ],
+  "recovery_note": "Internal targets until proven by drills; never quoted to clients before drill evidence",
+  "deployment_editions": [
+    "JUREXIO_CLOUD",
+    "DEDICATED",
+    "SOVEREIGN_ON_PREM"
+  ],
+  "key_hierarchy": [
+    "jurisdiction_root",
+    "tenant_key_per_region",
+    "subject_or_purpose_key"
+  ],
+  "connector_lifecycle": [
+    "PROPOSED",
+    "APPROVED",
+    "ENABLED",
+    "SUSPENDED",
+    "ARCHIVED"
+  ],
+  "billguard_tenant_modes": [
+    "LAW_FIRM",
+    "IN_HOUSE",
+    "PUBLIC_SECTOR"
+  ],
+  "cost_code_sets": [
+    "UTBMS",
+    "PACK_OR_FIRM_CODES",
+    "COST_CENTRE"
+  ],
+  "clientbridge_modes": [
+    "EXTERNAL_CLIENT",
+    "INTERNAL_STAKEHOLDER"
+  ],
+  "jurexio_pay_editions": [
+    {
+      "stage": 1,
+      "scope": "US fee payments",
+      "provider": "Stripe Connect, payouts direct to firm"
+    },
+    {
+      "stage": 2,
+      "scope": "India fee payments with UPI",
+      "provider": "RBI-authorised payment aggregator"
+    },
+    {
+      "stage": 3,
+      "scope": "Trust payments and trust accounting",
+      "condition": "counsel sign-off per state"
+    }
+  ],
+  "locked_principles": [
+    "Agents can never act; they draft only",
+    "HTIL review on every output affecting a matter, client or third party",
+    "In-region inference only; no cross-region fallback",
+    "Controls are not settings; tenants may only tighten",
+    "No standing Jurexio access to tenant content",
+    "Your work never trains our models",
+    "Every action logged to Jurexio Ledger"
+  ],
+  "agent_count_wording": "148+ specialised agents and a Queen orchestration layer"
+}

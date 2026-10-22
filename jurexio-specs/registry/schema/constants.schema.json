@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "jurexio/constants.schema.json",
+  "title": "Jurexio platform constants",
+  "type": "object",
+  "required": [
+    "_meta",
+    "jurisdictions",
+    "gate_classes",
+    "status_vocabulary",
+    "confidence_bands",
+    "ai_badge",
+    "locked_principles"
+  ],
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "required": [
+        "version",
+        "generated"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "generated": {
+          "type": "string"
+        }
+      }
+    },
+    "status_vocabulary": {
+      "const": [
+        "Met",
+        "Due",
+        "At risk",
+        "Overdue",
+        "Not assessed"
+      ]
+    },
+    "confidence_bands": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "jurisdictions": {
+      "type": "object",
+      "required": [
+        "live",
+        "built_inactive"
+      ],
+      "properties": {
+        "live": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "code"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

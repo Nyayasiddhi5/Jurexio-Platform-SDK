@@ -1,0 +1,7701 @@
+{
+  "_meta": {
+    "version": "0.1.0-proposed",
+    "generated": "2026-10-21",
+    "naming": "DOMAIN.EVENT_NAME; generated gate outcomes follow DOMAIN.G_NN_NN_REJECTED / _WITHDRAWN (proposed convention)",
+    "critical": "null = to be set by the CTO in Event registry v1 using each spec's 'Critical-class events' list",
+    "authority": "Proposed seed; Event registry v1 (CTO) is authoritative"
+  },
+  "events": [
+    {
+      "name": "ADMIN.ACCESS_RECERTIFIED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.ACCESS_REMOVED_UNCONFIRMED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.ACCESS_REVOKED_EMERGENCY",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.COMPETENCE_VERIFIED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.CONFIG_CHANGED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.CREDENTIAL_VERIFIED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.ELEVATION_ACTIVATED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.ELEVATION_ENDED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.EXTERNAL_USER_APPROVED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.PROTECTED_PERMISSION_APPROVED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.ROLE_ASSIGNED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.ROLE_REMOVED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.ROLE_VERSIONED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.SUPPORT_ACCESS_ENDED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.SUPPORT_ACCESS_GRANTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.UNIT_CHANGED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.UNIT_CREATED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.USER_DEPROVISIONED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.USER_RELOCATED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.WORK_REASSIGNED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "AUTH.ACCESS_DENIED",
+      "domain": "AUTH",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "AUTH.MFA_ENROLLED",
+      "domain": "AUTH",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "AUTH.SESSION_ENDED",
+      "domain": "AUTH",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "AUTH.SIGNED_IN",
+      "domain": "AUTH",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "AUTH.SIGN_IN_FAILED",
+      "domain": "AUTH",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "AUTH.STEP_UP_COMPLETED",
+      "domain": "AUTH",
+      "owner_module": "M11",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.BUDGET_APPROVED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.BUDGET_OVERRUN_DECIDED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.BUDGET_THRESHOLD_REACHED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.CLIENT_MONEY_APPLIED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.COST_REF_DEFAULTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.CREDIT_NOTE_ISSUED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.DISBURSEMENT_REQUESTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.DISPUTE_RECEIVED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.DISPUTE_RESOLVED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.EXPORT_GENERATED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.EXPORT_RECONCILED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.GUIDELINE_CONFIRMED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.INVOICE_DETAIL_TRANSFERRED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.INVOICE_ISSUED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.MATTER_RATE_SET",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.OC_INVOICE_APPROVED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.OC_INVOICE_RECEIVED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.OC_LINE_DECIDED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.OC_LINE_FLAGGED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.OC_OUTCOME_SENT",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.PERIOD_CLOSED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.PREBILL_CHECK_FAILED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.PREBILL_CREATED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.RATE_CARD_PUBLISHED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.RECEIPT_MATCHED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.RECEIPT_RECORDED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.RECONCILIATION_EXCEPTION",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.RECONCILIATION_SIGNED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.REFUND_RECORDED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.REMINDER_ESCALATED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.REMINDER_SENT",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.TIME_ENTRY_CHANGED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.TIME_ENTRY_CONFIRMED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.TIME_SUGGESTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.WRITE_DOWN_APPROVED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.WRITE_OFF_APPROVED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.WRITE_OFF_REVERSED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.WRITE_UP_APPROVED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [
+        "M06"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.ACCESS_EXPIRED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.ACCOUNT_SUSPENDED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.ATTESTATION_SUBMITTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.COLLEAGUE_APPROVED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.CONSENT_GIVEN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.DISPUTE_RAISED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.EVIDENCE_REUSE_APPROVED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.INSTRUCTION_GIVEN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.INSTRUCTION_RECORDED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.ITEM_PUBLISHED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.ITEM_UNPUBLISHED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.ITEM_VIEWED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.LANGUAGE_SELECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.MATTER_ENABLED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.MESSAGE_RECEIVED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.MESSAGE_SENT",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.PAYMENT_CHANGE_REQUEST_FLAGGED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.PAYMENT_DETAILS_CHANGED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.REQUEST_ISSUED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.REVOCATION_RECORDED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.SIGNED_IN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.STEP_UP_COMPLETED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.SUMMARY_PUBLISHED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.TRANSLATION_APPROVED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.UPLOAD_RECEIVED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.USER_INVITED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.ACKNOWLEDGED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.BLOCKED_BY_RULE",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.CHANNEL_FAILED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.CLIENT_MESSAGE",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "legacy-alias",
+      "critical": null,
+      "maps_to": "COMMS.CLIENT_MESSAGE_SENT"
+    },
+    {
+      "name": "COMMS.CLIENT_MESSAGE_SENT",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.CLIENT_REPLY_RECEIVED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.CONSENT_RECORDED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.CONSENT_WITHDRAWN",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.CONTACT_REGISTERED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.DELIVERED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.DELIVERY_FAILED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "legacy-alias",
+      "critical": null,
+      "maps_to": "COMMS.CHANNEL_FAILED"
+    },
+    {
+      "name": "COMMS.ESCALATED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.NOTIFICATION_RAISED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.NOTIFICATION_SENT",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "legacy-alias",
+      "critical": null,
+      "maps_to": "COMMS.SENT"
+    },
+    {
+      "name": "COMMS.READ",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.RECIPIENTS_RESOLVED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.ROUTING_FAILURE",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.ROUTING_FAILURE_RESOLVED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.SENT",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.TEMPLATE_ADAPTED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.VOICE_OPT_IN",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.ACKNOWLEDGED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.ALERT_SENT",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.CALENDAR_DETAIL_ENABLED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.CLASH_DETECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.CLIENT_NOTIFICATION_DECIDED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.CLOSED_FILED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.CLOSED_IN_ERROR",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.CLOSED_NOT_APPLICABLE",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.CONFIRMED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.CONFLICT_DETECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.CONFLICT_RESOLVED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.CREATED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "legacy-alias",
+      "critical": null,
+      "maps_to": "DEADLINE.PROPOSED"
+    },
+    {
+      "name": "DEADLINE.ESCALATED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.EXTENDED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "legacy-alias",
+      "critical": null,
+      "maps_to": "DEADLINE.EXTENSION_RECORDED"
+    },
+    {
+      "name": "DEADLINE.EXTENSION_RECORDED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.INCIDENT_RESOLVED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.INSURER_DECISION_RECORDED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.MISSED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.MOVED_EARLIER",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.MOVED_LATER",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.PROPOSAL_REJECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.PROPOSED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.RECONFIRMED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.RECONFIRM_REQUIRED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.RULESET_PUBLISHED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.SOURCE_STALE",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.T3_ALERT",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "legacy-alias",
+      "critical": null,
+      "maps_to": "DEADLINE.ALERT_SENT"
+    },
+    {
+      "name": "DEADLINE.TASK_CLOSED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.TASK_CREATED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.TASK_SUGGESTION_ACCEPTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [
+        "M05"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.AUTO_FILED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.CLASSIFICATION_LOWERED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02",
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.CLASSIFICATION_RAISED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.CLASSIFIED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.CLIENT_SHARED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.DUPLICATE_DETECTED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.EXECUTED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.FILED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.FILING_PACKAGE_APPROVED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.FILING_RECEIPT_CAPTURED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.INTAKE_RECEIVED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.INTEGRITY_FAILED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.INTEGRITY_VERIFIED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.MARKED_FINAL",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.MATTER_CONFIRMED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.PRIVILEGED_RELEASE_APPROVED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.PRIVILEGE_TAGGED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "legacy-alias",
+      "critical": null,
+      "maps_to": "DOCUMENT.CLASSIFIED"
+    },
+    {
+      "name": "DOCUMENT.PRODUCTION_APPROVED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.PRODUCTION_SEALED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.RECEIVED_LOCKED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.REDACTION_APPROVED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.RELEASED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.RELEASE_CHECKED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.REOPENED_TO_DRAFT",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.SIGNATURE_COMPLETED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.SIGNATURE_ELIGIBILITY_CHECKED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.SIGNATURE_SENT",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.SIGNED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "legacy-alias",
+      "critical": null,
+      "maps_to": "DOCUMENT.SIGNATURE_COMPLETED"
+    },
+    {
+      "name": "DOCUMENT.SIGNING_PROVIDER_APPROVED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.STAMP_DUTY_RECORDED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.TAG_SAMPLE_APPROVED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.UPLOAD",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "legacy-alias",
+      "critical": null,
+      "maps_to": "DOCUMENT.UPLOADED"
+    },
+    {
+      "name": "DOCUMENT.UPLOADED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.VERSION_CREATED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [
+        "M02"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.AGENT_REINSTATED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.AGENT_STEP_COMPLETED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.AGENT_SUSPENDED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.BUDGET_THRESHOLD",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.BUFFER_ERROR",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.BUFFER_TIMEOUT",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.CITATIONS_VERIFIED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.CITATION_SOURCE_ATTACHED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.CO_APPROVAL_RECORDED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.FEDERATED_EXECUTION",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.GATE_FAILED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.GATE_PASSED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.HR_TIER1_APPROVED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.HR_TIER2_APPROVED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.HR_TIER3_COUNSEL_APPROVED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.HR_TIER3_RELEASED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.JURISDICTION_ACTIVATED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.KILLSWITCH_ACTIVATED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.KILLSWITCH_REINSTATED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.LEAKAGE_HELD",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.MODEL_REGISTERED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.MODEL_RETIRED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.OUTPUT_HELD",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.OUTPUT_RECLASSIFIED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.OUTPUT_RELEASED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.REQUEST_INITIATED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.REVIEWER_NOTIFIED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.REVIEW_APPROVED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.REVIEW_APPROVED_ANNOTATED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.REVIEW_ESCALATED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.REVIEW_NOT_COMPLETED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.REVIEW_OPENED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.REVIEW_REJECTED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.SDK_KEY_ROTATED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.SLA_BREACHED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.SLA_EXTENDED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.SOURCE_FLAGGED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.SYSTEM_REPORT_SAMPLED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [
+        "M03"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.ANCHOR_FAILED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.ANCHOR_RECEIPT_RECORDED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.AUDITOR_ACCESS_EXPIRED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.AUDITOR_ACCESS_GRANTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.AUDIT_TRAIL_VIEWED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.BREAK_GLASS_APPROVED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.BREAK_GLASS_CLOSED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.BREAK_GLASS_REQUESTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.CHAIN_BREAK_ACKNOWLEDGED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.CHAIN_BREAK_DETECTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.CHAIN_GENESIS_CREATED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.CHAIN_REANCHORED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.CHAIN_VERIFIED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.CLIENT_TRAIL_DISABLED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.CLIENT_TRAIL_ENABLED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.CONTENT_HASH_MISMATCH",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.CONTENT_VERIFIED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.ERASURE_APPROVED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.ERASURE_COMPLETED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.ERASURE_DEFERRED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.ERASURE_REQUESTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.EVENT_TYPE_DEPRECATED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.EVENT_TYPE_REGISTERED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.EVIDENCE_FEED_EMITTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.EXPORT_CERTIFIED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.EXPORT_DISCLOSURE_APPROVED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.EXPORT_DISCLOSURE_REJECTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.EXPORT_REQUESTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.EXPORT_RETIMESTAMPED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.EXPORT_SEALED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.FEDERATED_QUERY_EXECUTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.FEDERATED_QUERY_REFUSED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.HOLD_APPLIED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.HOLD_RELEASED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.IDENTITY_RESOLVED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.IMPORT_SEGMENT_CREATED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.IMPORT_SEGMENT_SIGNED_OFF",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.INCIDENT_CLOSED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.PAYLOAD_DISPOSED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.REGISTRY_CHANGE_APPROVED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.REGISTRY_EVENT_REJECTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.RETENTION_DISPOSAL_APPROVED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.RETENTION_EXPIRY_PROPOSED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.SUBJECT_KEY_SHREDDED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [
+        "M09"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.ANONYMISATION_CONFIRMED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.CITATION_VERIFIED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.DOCUMENT_INGESTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.ENRICHMENT_CORRECTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.ENRICHMENT_PUBLISHED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.ERROR_REPORTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.INDEX_ACCESSED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.KNOWLEDGE_FLAGGED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.KNOWLEDGE_PROMOTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.KNOWLEDGE_PROPOSED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.KNOWLEDGE_RECERTIFIED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.KNOWLEDGE_WITHDRAWN",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.PROVISION_VERSIONED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.REUSE_BLOCKED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.TREATMENT_PROPOSED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.TREATMENT_REJECTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.TREATMENT_VERIFIED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.AI_TERMS_CHANGED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.ARCHIVED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.CLOSED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.CLOSING_INITIATED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.CLOSING_LETTER_APPROVED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.CONFLICT_CHECK_RUN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.CONFLICT_HIT_DECIDED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.CONFLICT_RECHECK_TRIGGERED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.ENGAGEMENT_RECORDED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.ENTITY_LINK_CONFIRMED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.HOME_JURISDICTION_CONFIRMED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.INTAKE_CREATED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.INTAKE_DECLINED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.LINKED_SPLIT",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.OPENED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01",
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.PARTY_CREATED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.PARTY_MERGED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.PARTY_MERGE_REVERSED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.REOPENED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.ROLE_ADDED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.SPECIAL_DATA_READ",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.SPECIAL_DATA_RECORDED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.SPECIAL_DATA_SHREDDED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.TEAM_CHANGED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.TRANSFER_APPROVED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.TRANSFER_COMPLETED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.WAIVER_APPROVED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.WALL_ACCESS_BLOCKED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.WALL_CREATED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.WALL_EXTENDED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.WALL_LIFTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.WALL_NARROWED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.WALL_NOTICE_APPROVED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [
+        "M01"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.BOARD_APPROVED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.CEO_CONFIRMED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.CLIENT_MERGE_APPROVED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.CLIENT_MERGE_REVERSED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.CONFLICT_RESOLVED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.CONNECTOR_ARCHIVED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.CONTENT_ACCESS_APPROVED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.CONTENT_ACCESS_DENIED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.COUNT_RECONCILED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.CREDENTIALS_DESTROYED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.CUTOVER_EXECUTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.DECOMMISSION_CERTIFIED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.DEFECT_DISPOSITION_RECORDED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.DEFECT_ESCALATED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.DISCREPANCY_RESOLVED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.DRY_RUN_FAILED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.DRY_RUN_PASSED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.EXCLUSION_APPROVED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.EXTRACTION_COMPLETED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.IT_DIRECTOR_APPROVED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.IT_DIRECTOR_REJECTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.LEGACY_FROZEN",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.MAPPING_APPROVED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.MONEY_RECONCILIATION_SIGNED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.OPERATOR_ACCESS_EXPIRED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.OPERATOR_ACCESS_GRANTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.PRIVILEGE_CLEARED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M02",
+        "M14"
+      ],
+      "source": "legacy-alias",
+      "critical": null,
+      "maps_to": "DOCUMENT.CLASSIFICATION_LOWERED"
+    },
+    {
+      "name": "MIGRATE.PROJECT_CANCELLED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.PROJECT_CLOSED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.PROJECT_CREATED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.QUARANTINE_RESOLVED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.REPATRIATION_LOGGED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.RESIDENCY_WRITE_BLOCKED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.ROLLBACK_APPROVED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.ROLLBACK_EXECUTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.ROLLFORWARD_EXPORTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.SOURCE_CONNECTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.SOURCE_EXPORT_SEALED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.STAGING_DESTROYED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.STATE_CHANGED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.STREAM_CREATED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.SYNC_COMPLETED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.TAG_SAMPLE_APPROVED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.CIRCUIT_OPENED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.CONNECTOR_ARCHIVED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.CONNECTOR_ENABLED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.CONNECTOR_SUSPENDED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.CONNECTOR_SYNC",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "legacy-alias",
+      "critical": null,
+      "maps_to": "NEXUS.HANDED_OFF"
+    },
+    {
+      "name": "NEXUS.CREDENTIALS_DESTROYED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.CREDENTIAL_ROTATED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.DEAD_LETTERED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.DEAD_LETTER_RESOLVED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.EGRESS_BLOCKED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.FALLBACK_USED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.HANDED_OFF",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.INBOUND_QUARANTINED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.INBOUND_RECEIVED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.INBOUND_SOURCE_REGISTERED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.INBOUND_VERIFIED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.QUARANTINE_DISCARDED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.QUARANTINE_RELEASED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.SCOPE_CHANGED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.WEBHOOK_RECEIVED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "legacy-alias",
+      "critical": null,
+      "maps_to": "NEXUS.INBOUND_RECEIVED"
+    },
+    {
+      "name": "PLATFORM.BREAK_GLASS_APPROVED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.BREAK_GLASS_CLOSED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.CATALOGUE_PUBLISHED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.CONNECTOR_APPROVED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.CONNECTOR_REAPPROVED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.CONNECTOR_SUSPENDED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.CORPUS_REPLICATED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.CORPUS_SOURCE_APPROVED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.CORPUS_SOURCE_REMOVED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.COVERAGE_PUBLISHED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.DATASET_APPROVED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M04"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.EDITION_RELEASED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.FAILBACK_COMPLETED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.FAILOVER_INVOKED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.FALLBACK_APPROVED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M10"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.LOCATION_APPROVED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.PACK_PUBLISHED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M11"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "PLATFORM.TEMPLATE_PUBLISHED",
+      "domain": "PLATFORM",
+      "owner_module": "platform",
+      "referenced_in": [
+        "M12"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.ALERT_ACKNOWLEDGED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.ALERT_ESCALATED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.ALERT_RAISED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.CHANGE_CONFIRMED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.CHANGE_DETECTED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.CHECK_REFRESHED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.CLIENT_ALERT_APPROVED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.ENGAGEMENT_DECLINED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.FREEZE_RELEASED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.IMPACT_CONFIRMED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.IMPACT_EDITED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.IMPACT_PROPOSED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.IMPACT_REJECTED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.ITEM_ATTESTED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.LIST_VERSION_SEALED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.MATCH_CLEARED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.MATCH_CONFIRMED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.MATCH_INFO_REQUESTED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.MATTER_FROZEN",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.OBLIGATION_CLOSED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.OBLIGATION_STATUS_DECIDED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M08"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.OWNER_ASSIGNED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.RATING_CONFIRMED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.SCREENING_RUN",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.SOURCE_ADDED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.SOURCE_REMOVED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.SOURCE_RETRIEVAL_FAILED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.STATUS_CHANGED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [
+        "M07"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.BACKUP_COMPLETED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.BULK_DISPOSAL_APPROVED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.BYOS_CONNECTED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.CMK_ENABLED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.CMK_REVOKED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.DISPOSAL_CERTIFIED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13",
+        "M14"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.DRILL_COMPLETED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.EXIT_EXPORT_CONFIRMED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.KEY_DESTROYED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.KEY_ROTATED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.OBJECT_STORED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.RESTORE_ITEM_QUARANTINED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.RESTORE_VERIFIED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.TENANT_KEY_DESTROYED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.TENANT_RESTORE_APPROVED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.WRITE_BLOCKED_RESIDENCY",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [
+        "M13"
+      ],
+      "source": "spec",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_01_REJECTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_01_WITHDRAWN",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_02_REJECTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_02_WITHDRAWN",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_03_REJECTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_03_WITHDRAWN",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_04_REJECTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_04_WITHDRAWN",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_05_REJECTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_05_WITHDRAWN",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_06_REJECTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_06_WITHDRAWN",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_07_REJECTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_07_WITHDRAWN",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_08_REJECTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_08_WITHDRAWN",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_09_REJECTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_09_WITHDRAWN",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_10_REJECTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_10_WITHDRAWN",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_11_REJECTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_11_WITHDRAWN",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_12_REJECTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_12_WITHDRAWN",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_13_REJECTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_13_WITHDRAWN",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_14_REJECTED",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ADMIN.G_11_14_WITHDRAWN",
+      "domain": "ADMIN",
+      "owner_module": "M11",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_01_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_01_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_02_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_02_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_03_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_03_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_04_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_04_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_05_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_05_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_06_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_06_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_07_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_07_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_08_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_08_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_09_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_09_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_10_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_10_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_11_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_11_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_12_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_12_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_13_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_13_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_14_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_14_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_15_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_15_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_16_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_16_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_17_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_17_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_18_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_18_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_19_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_19_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_20_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_20_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_21_REJECTED",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "BILL.G_06_21_WITHDRAWN",
+      "domain": "BILL",
+      "owner_module": "M06",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_01_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_01_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_02_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_02_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_03_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_03_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_04_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_04_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_05_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_05_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_06_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_06_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_07_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_07_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_08_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_08_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_09_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_09_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_10_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_10_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_11_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_11_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_12_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_12_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_13_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_13_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_14_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_14_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_15_REJECTED",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "CLIENT.G_08_15_WITHDRAWN",
+      "domain": "CLIENT",
+      "owner_module": "M08",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.G_12_01_REJECTED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.G_12_01_WITHDRAWN",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.G_12_02_REJECTED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.G_12_02_WITHDRAWN",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.G_12_03_REJECTED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.G_12_03_WITHDRAWN",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.G_12_04_REJECTED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.G_12_04_WITHDRAWN",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.G_12_05_REJECTED",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "COMMS.G_12_05_WITHDRAWN",
+      "domain": "COMMS",
+      "owner_module": "M12",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_01_REJECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_01_WITHDRAWN",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_02_REJECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_02_WITHDRAWN",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_03_REJECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_03_WITHDRAWN",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_04_REJECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_04_WITHDRAWN",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_05_REJECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_05_WITHDRAWN",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_06_REJECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_06_WITHDRAWN",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_07_REJECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_07_WITHDRAWN",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_08_REJECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_08_WITHDRAWN",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_09_REJECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_09_WITHDRAWN",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_10_REJECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_10_WITHDRAWN",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_11_REJECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_11_WITHDRAWN",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_12_REJECTED",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DEADLINE.G_05_12_WITHDRAWN",
+      "domain": "DEADLINE",
+      "owner_module": "M05",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_01_REJECTED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_01_WITHDRAWN",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_02_REJECTED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_02_WITHDRAWN",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_03_REJECTED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_03_WITHDRAWN",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_04_REJECTED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_04_WITHDRAWN",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_05_REJECTED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_05_WITHDRAWN",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_06_REJECTED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_06_WITHDRAWN",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_07_REJECTED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_07_WITHDRAWN",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_08_REJECTED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_08_WITHDRAWN",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_09_REJECTED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_09_WITHDRAWN",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_10_REJECTED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_10_WITHDRAWN",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_11_REJECTED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_11_WITHDRAWN",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_12_REJECTED",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "DOCUMENT.G_02_12_WITHDRAWN",
+      "domain": "DOCUMENT",
+      "owner_module": "M02",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_01_REJECTED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_01_WITHDRAWN",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_02_REJECTED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_02_WITHDRAWN",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_03_REJECTED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_03_WITHDRAWN",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_04_REJECTED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_04_WITHDRAWN",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_05_REJECTED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_05_WITHDRAWN",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_06_REJECTED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_06_WITHDRAWN",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_07_REJECTED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_07_WITHDRAWN",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_08_REJECTED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_08_WITHDRAWN",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_09_REJECTED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_09_WITHDRAWN",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_10_REJECTED",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "ENGINE.G_03_10_WITHDRAWN",
+      "domain": "ENGINE",
+      "owner_module": "M03",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_01_REJECTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_01_WITHDRAWN",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_02_REJECTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_02_WITHDRAWN",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_03_REJECTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_03_WITHDRAWN",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_04_REJECTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_04_WITHDRAWN",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_05_REJECTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_05_WITHDRAWN",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_06_REJECTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_06_WITHDRAWN",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_07_REJECTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_07_WITHDRAWN",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_08_REJECTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_08_WITHDRAWN",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_09_REJECTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_09_WITHDRAWN",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_10_REJECTED",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEDGER.G_09_10_WITHDRAWN",
+      "domain": "LEDGER",
+      "owner_module": "M09",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_01_REJECTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_01_WITHDRAWN",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_02_REJECTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_02_WITHDRAWN",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_03_REJECTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_03_WITHDRAWN",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_04_REJECTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_04_WITHDRAWN",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_05_REJECTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_05_WITHDRAWN",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_06_REJECTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_06_WITHDRAWN",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_07_REJECTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_07_WITHDRAWN",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_08_REJECTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_08_WITHDRAWN",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_09_REJECTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_09_WITHDRAWN",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_10_REJECTED",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "LEXGRAPH.G_04_10_WITHDRAWN",
+      "domain": "LEXGRAPH",
+      "owner_module": "M04",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_01_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_01_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_02_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_02_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_03_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_03_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_04_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_04_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_05_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_05_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_06_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_06_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_07_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_07_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_08_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_08_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_09_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_09_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_10_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_10_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_11_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_11_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_12_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_12_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_13_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_13_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_14_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_14_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_15_REJECTED",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MATTER.G_01_15_WITHDRAWN",
+      "domain": "MATTER",
+      "owner_module": "M01",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_01_REJECTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_01_WITHDRAWN",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_02_REJECTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_02_WITHDRAWN",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_03_REJECTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_03_WITHDRAWN",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_04_REJECTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_04_WITHDRAWN",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_05_REJECTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_05_WITHDRAWN",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_06_REJECTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_06_WITHDRAWN",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_07_REJECTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_07_WITHDRAWN",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_08_REJECTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_08_WITHDRAWN",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_09_REJECTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_09_WITHDRAWN",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_10_REJECTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_10_WITHDRAWN",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_11_REJECTED",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "MIGRATE.G_14_11_WITHDRAWN",
+      "domain": "MIGRATE",
+      "owner_module": "M14",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_01_REJECTED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_01_WITHDRAWN",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_02_REJECTED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_02_WITHDRAWN",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_03_REJECTED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_03_WITHDRAWN",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_04_REJECTED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_04_WITHDRAWN",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_05_REJECTED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_05_WITHDRAWN",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_06_REJECTED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_06_WITHDRAWN",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_07_REJECTED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_07_WITHDRAWN",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_08_REJECTED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_08_WITHDRAWN",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_09_REJECTED",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "NEXUS.G_10_09_WITHDRAWN",
+      "domain": "NEXUS",
+      "owner_module": "M10",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_01_REJECTED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_01_WITHDRAWN",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_02_REJECTED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_02_WITHDRAWN",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_03_REJECTED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_03_WITHDRAWN",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_04_REJECTED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_04_WITHDRAWN",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_05_REJECTED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_05_WITHDRAWN",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_06_REJECTED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_06_WITHDRAWN",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_07_REJECTED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_07_WITHDRAWN",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_08_REJECTED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_08_WITHDRAWN",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_09_REJECTED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_09_WITHDRAWN",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_10_REJECTED",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "REGRADAR.G_07_10_WITHDRAWN",
+      "domain": "REGRADAR",
+      "owner_module": "M07",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_01_REJECTED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_01_WITHDRAWN",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_02_REJECTED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_02_WITHDRAWN",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_03_REJECTED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_03_WITHDRAWN",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_04_REJECTED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_04_WITHDRAWN",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_05_REJECTED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_05_WITHDRAWN",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_06_REJECTED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_06_WITHDRAWN",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_07_REJECTED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_07_WITHDRAWN",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_08_REJECTED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_08_WITHDRAWN",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_09_REJECTED",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    },
+    {
+      "name": "STORAGE.G_13_09_WITHDRAWN",
+      "domain": "STORAGE",
+      "owner_module": "M13",
+      "referenced_in": [],
+      "source": "generated-gate-outcome",
+      "critical": null,
+      "maps_to": null
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "jurexio/gates.schema.json",
+  "title": "Jurexio gate register",
+  "type": "object",
+  "required": [
+    "_meta",
+    "gates"
+  ],
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "required": [
+        "version",
+        "generated"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "generated": {
+          "type": "string"
+        }
+      }
+    },
+    "gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "module",
+          "decision",
+          "class",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^G-\\d{2}-\\d{2}$"
+          },
+          "module": {
+            "type": "string",
+            "pattern": "^M\\d{2}$"
+          },
+          "module_name": {
+            "type": "string"
+          },
+          "decision": {
+            "type": "string"
+          },
+          "gate_type_text": {
+            "type": "string"
+          },
+          "approver_text": {
+            "type": "string"
+          },
+          "approver_scope": {
+            "enum": [
+              "tenant",
+              "platform"
+            ]
+          },
+          "class": {
+            "enum": [
+              "GUARDED",
+              "DUAL",
+              "SELF_ATTESTED",
+              "RETIRED"
+            ]
+          },
+          "class_note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "permission": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[a-z]+(\\.[a-z0-9_]+)+$"
+          },
+          "protected": {
+            "type": "boolean"
+          },
+          "step_up_required": {
+            "type": "boolean"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Z]+\\.[A-Z0-9_]+$"
+            }
+          },
+          "outcome_events": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "approved": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Z]+\\.[A-Z0-9_]+$"
+                }
+              },
+              "rejected": {
+                "type": "string",
+                "pattern": "^[A-Z]+\\.[A-Z0-9_]+$"
+              },
+              "withdrawn": {
+                "type": "string",
+                "pattern": "^[A-Z]+\\.[A-Z0-9_]+$"
+              }
+            }
+          },
+          "replaced_by": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "proposed-v0",
+              "adopted",
+              "retired"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

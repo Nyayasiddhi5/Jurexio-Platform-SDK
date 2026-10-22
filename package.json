@@ -76,6 +76,7 @@
     "registry:build-aliases": "npx tsx scripts/jrx-build-agent-id-aliases-v5.1.0.ts",
     "registry:seed-bar-council": "npx tsx scripts/jrx-seed-bar-council-config.ts",
     "registry:verify-v5.1.0": "npx tsx scripts/jrx-verify-registry-v5.1.0.ts",
+    "registry:validate": "python3 jurexio-specs/registry/validate.py",
     "build:postman": "tsx scripts/jrx-build-postman-collection.ts",
     "smoke:nsp-nspm-nym": "PLATFORMS_FILTER=NSP,NSPM,NYM bash scripts/jrx-smoke-bash.sh",
     "smoke:sme-legal-chat": "tsx scripts/jrx-smoke-sme-legal-chat.ts",

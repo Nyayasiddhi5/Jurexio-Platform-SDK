@@ -1,0 +1,177 @@
+{
+  "_meta": {
+    "version": "1.0.0-frozen-v1",
+    "generated": "2026-10-21",
+    "change_policy": "Frozen for v1.0. Additive changes only; breaking changes need CTO approval and sign-off from every consuming module's owner.",
+    "source": "M06 Section 4 (frozen interface contract); M08 Section 4 (interface contract)"
+  },
+  "contracts": [
+    {
+      "id": "billguard.v1",
+      "module": "M06",
+      "entries": [
+        {
+          "fields": [
+            "matter_cost_ref"
+          ],
+          "meaning": "Matter ID plus code from the tenant's code set (UTBMS, pack or firm code, cost centre); defaults to the matter code when missing, with `cost_ref_defaulted = true`",
+          "producer": "BillGuard",
+          "consumers": [
+            "Jurexio Engine (every call)",
+            "MatterCore"
+          ]
+        },
+        {
+          "fields": [
+            "billing_arrangement"
+          ],
+          "meaning": "Hourly, fixed fee, capped, value, contingency (where lawful), no-bill",
+          "producer": "BillGuard (set at matter opening)",
+          "consumers": [
+            "MatterCore opening gate (condition 6)"
+          ]
+        },
+        {
+          "fields": [
+            "ai_billing_policy"
+          ],
+          "meaning": "Bill, discount or do not bill AI-assisted work, per firm, client or matter",
+          "producer": "BillGuard",
+          "consumers": [
+            "Jurexio Engine (attribute on outputs)",
+            "BillGuard pre-bill"
+          ]
+        },
+        {
+          "fields": [
+            "client_money_balance"
+          ],
+          "meaning": "Per-matter balance from the connected ledger, with `last_reconciled_period`",
+          "producer": "BillGuard",
+          "consumers": [
+            "MatterCore closing pre-condition 2",
+            "DataMigrate cutover",
+            "ClientBridge (client view)"
+          ]
+        },
+        {
+          "fields": [
+            "final_bill_status"
+          ],
+          "meaning": "None, issued, written off with approval",
+          "producer": "BillGuard",
+          "consumers": [
+            "MatterCore closing pre-condition 3"
+          ]
+        },
+        {
+          "fields": [
+            "invoice_record"
+          ],
+          "meaning": "Number, entity, dates, amounts, tax fields, status (issued, part-paid, paid, disputed, credited, written off), sealed hash",
+          "producer": "BillGuard",
+          "consumers": [
+            "ClientBridge",
+            "DocVault",
+            "PulseComms"
+          ]
+        },
+        {
+          "fields": [
+            "invoice_dispute"
+          ],
+          "meaning": "Dispute flag, reason, raised-by, raised-at",
+          "producer": "ClientBridge",
+          "consumers": [
+            "BillGuard (pauses reminders)"
+          ]
+        },
+        {
+          "fields": [
+            "rate_card_version",
+            "guideline_version"
+          ],
+          "meaning": "Version IDs used for each entry and pre-bill",
+          "producer": "BillGuard",
+          "consumers": [
+            "Ledger",
+            "audit",
+            "ClientBridge (client-facing rates where shared)"
+          ]
+        },
+        {
+          "fields": [
+            "budget_status"
+          ],
+          "meaning": "Per matter and phase: amount, used, threshold state in the status vocabulary",
+          "producer": "BillGuard",
+          "consumers": [
+            "ClientBridge (where shared)",
+            "MatterCore overview"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clientbridge.v1",
+      "module": "M08",
+      "entries": [
+        {
+          "fields": [
+            "client_response"
+          ],
+          "meaning": "Request ID, type, response (approve, reject, question, attest), responder, authority basis, exact version hash, language version, step-up session, time",
+          "producer": "ClientBridge (M08)",
+          "consumers": [
+            "MatterCore",
+            "Engine",
+            "PulseComms",
+            "BillGuard",
+            "RegRadar"
+          ]
+        },
+        {
+          "fields": [
+            "client_revocation"
+          ],
+          "meaning": "Original response ID, revoker, reason, time",
+          "producer": "ClientBridge (M08)",
+          "consumers": [
+            "Same as above"
+          ]
+        },
+        {
+          "fields": [
+            "invoice_dispute"
+          ],
+          "meaning": "Invoice, lines, reason, raised-by, raised-at",
+          "producer": "ClientBridge (M08)",
+          "consumers": [
+            "BillGuard (pauses reminders)"
+          ]
+        },
+        {
+          "fields": [
+            "location_attestation"
+          ],
+          "meaning": "Location, obligation, evidence links, attester, time; status \"Attested\"",
+          "producer": "ClientBridge (M08)",
+          "consumers": [
+            "RegRadar"
+          ]
+        },
+        {
+          "fields": [
+            "publication_record"
+          ],
+          "meaning": "Item, contact, published-by, from and to times",
+          "producer": "ClientBridge (M08)",
+          "consumers": [
+            "Ledger",
+            "MatterCore timeline"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4221 @@
+{
+  "_meta": {
+    "version": "0.1.0-proposed",
+    "generated": "2026-10-21",
+    "source": "Jurexio module specifications (Claude Docs), v1.1 platform rules",
+    "authority": "Proposed seed for CTO Event registry v1 and Permission catalogue v1; not authoritative until adopted",
+    "class_definitions": {
+      "GUARDED": "the requester can never approve",
+      "DUAL": "two distinct people",
+      "SELF_ATTESTED": "an act on one's own record, with reason and evidence, logged and sampled",
+      "RETIRED": "no longer used; see replaced_by"
+    }
+  },
+  "gates": [
+    {
+      "id": "G-01-01",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Open a matter",
+      "gate_type_text": "Single approver, all six conditions green",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "MATTER.OPENED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "matter.open.approve",
+      "outcome_events": {
+        "approved": [
+          "MATTER.OPENED"
+        ],
+        "rejected": "MATTER.G_01_01_REJECTED",
+        "withdrawn": "MATTER.G_01_01_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-01-02",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Decline an intake",
+      "gate_type_text": "Single approver",
+      "approver_text": "Intake Partner",
+      "events": [
+        "MATTER.INTAKE_DECLINED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "mattercore.g_01_02.decide",
+      "outcome_events": {
+        "approved": [
+          "MATTER.INTAKE_DECLINED"
+        ],
+        "rejected": "MATTER.G_01_02_REJECTED",
+        "withdrawn": "MATTER.G_01_02_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-01-03",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Classify a conflict hit",
+      "gate_type_text": "Single approver",
+      "approver_text": "Conflicts reviewer",
+      "events": [
+        "MATTER.CONFLICT_HIT_DECIDED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "mattercore.g_01_03.decide",
+      "outcome_events": {
+        "approved": [
+          "MATTER.CONFLICT_HIT_DECIDED"
+        ],
+        "rejected": "MATTER.G_01_03_REJECTED",
+        "withdrawn": "MATTER.G_01_03_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-01-04",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Approve a conflict waiver",
+      "gate_type_text": "Dual distinct, consent attached",
+      "approver_text": "Responsible Partner and conflicts reviewer",
+      "events": [
+        "MATTER.WAIVER_APPROVED"
+      ],
+      "class": "DUAL",
+      "class_note": "requester excluded",
+      "approver_scope": "tenant",
+      "permission": "matter.waiver.approve",
+      "outcome_events": {
+        "approved": [
+          "MATTER.WAIVER_APPROVED"
+        ],
+        "rejected": "MATTER.G_01_04_REJECTED",
+        "withdrawn": "MATTER.G_01_04_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-01-05",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Confirm the home jurisdiction",
+      "gate_type_text": "Single approver",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "MATTER.HOME_JURISDICTION_CONFIRMED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "mattercore.g_01_05.decide",
+      "outcome_events": {
+        "approved": [
+          "MATTER.HOME_JURISDICTION_CONFIRMED"
+        ],
+        "rejected": "MATTER.G_01_05_REJECTED",
+        "withdrawn": "MATTER.G_01_05_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-01-06",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Approve a home-jurisdiction transfer or linked split",
+      "gate_type_text": "Three distinct approvers",
+      "approver_text": "Responsible Partner, Data Protection Officer, Compliance Officer",
+      "events": [
+        "MATTER.TRANSFER_APPROVED",
+        "MATTER.LINKED_SPLIT"
+      ],
+      "class": "DUAL",
+      "class_note": "three distinct",
+      "approver_scope": "tenant",
+      "permission": "matter.transfer.approve",
+      "outcome_events": {
+        "approved": [
+          "MATTER.TRANSFER_APPROVED",
+          "MATTER.LINKED_SPLIT"
+        ],
+        "rejected": "MATTER.G_01_06_REJECTED",
+        "withdrawn": "MATTER.G_01_06_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-01-07",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Create or extend an ethical wall",
+      "gate_type_text": "Single approver",
+      "approver_text": "Conflicts reviewer",
+      "events": [
+        "MATTER.WALL_CREATED",
+        "MATTER.WALL_EXTENDED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "mattercore.g_01_07.decide",
+      "outcome_events": {
+        "approved": [
+          "MATTER.WALL_CREATED",
+          "MATTER.WALL_EXTENDED"
+        ],
+        "rejected": "MATTER.G_01_07_REJECTED",
+        "withdrawn": "MATTER.G_01_07_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-01-08",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Lift or narrow an ethical wall",
+      "gate_type_text": "Dual distinct, reason required",
+      "approver_text": "Conflicts reviewer and responsible Partner",
+      "events": [
+        "MATTER.WALL_LIFTED",
+        "MATTER.WALL_NARROWED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "matter.wall.lift",
+      "outcome_events": {
+        "approved": [
+          "MATTER.WALL_LIFTED",
+          "MATTER.WALL_NARROWED"
+        ],
+        "rejected": "MATTER.G_01_08_REJECTED",
+        "withdrawn": "MATTER.G_01_08_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-01-09",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Approve a notice to a former client about a wall",
+      "gate_type_text": "Single approver (Engine G-03-01)",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "MATTER.WALL_NOTICE_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "mattercore.g_01_09.decide",
+      "outcome_events": {
+        "approved": [
+          "MATTER.WALL_NOTICE_APPROVED"
+        ],
+        "rejected": "MATTER.G_01_09_REJECTED",
+        "withdrawn": "MATTER.G_01_09_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-01-10",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Record protected-characteristic data",
+      "gate_type_text": "Single approver, legal basis required",
+      "approver_text": "Named lawyer on the matter",
+      "events": [
+        "MATTER.SPECIAL_DATA_RECORDED"
+      ],
+      "class": "GUARDED",
+      "class_note": "recorded entry confirmed by the Responsible Partner",
+      "approver_scope": "tenant",
+      "permission": "mattercore.g_01_10.decide",
+      "outcome_events": {
+        "approved": [
+          "MATTER.SPECIAL_DATA_RECORDED"
+        ],
+        "rejected": "MATTER.G_01_10_REJECTED",
+        "withdrawn": "MATTER.G_01_10_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-01-11",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Merge or un-merge party records",
+      "gate_type_text": "Single approver",
+      "approver_text": "Conflicts reviewer",
+      "events": [
+        "MATTER.PARTY_MERGED",
+        "MATTER.PARTY_MERGE_REVERSED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "mattercore.g_01_11.decide",
+      "outcome_events": {
+        "approved": [
+          "MATTER.PARTY_MERGED",
+          "MATTER.PARTY_MERGE_REVERSED"
+        ],
+        "rejected": "MATTER.G_01_11_REJECTED",
+        "withdrawn": "MATTER.G_01_11_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-01-12",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Accept an AI-suggested related-entity link",
+      "gate_type_text": "Single approver",
+      "approver_text": "Conflicts reviewer",
+      "events": [
+        "MATTER.ENTITY_LINK_CONFIRMED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "mattercore.g_01_12.decide",
+      "outcome_events": {
+        "approved": [
+          "MATTER.ENTITY_LINK_CONFIRMED"
+        ],
+        "rejected": "MATTER.G_01_12_REJECTED",
+        "withdrawn": "MATTER.G_01_12_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-01-13",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Approve closing",
+      "gate_type_text": "Single approver, seven pre-conditions met",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "MATTER.CLOSED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "mattercore.g_01_13.decide",
+      "outcome_events": {
+        "approved": [
+          "MATTER.CLOSED"
+        ],
+        "rejected": "MATTER.G_01_13_REJECTED",
+        "withdrawn": "MATTER.G_01_13_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-01-14",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Approve reopening",
+      "gate_type_text": "Single approver, conflicts and screening re-run",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "MATTER.REOPENED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "mattercore.g_01_14.decide",
+      "outcome_events": {
+        "approved": [
+          "MATTER.REOPENED"
+        ],
+        "rejected": "MATTER.G_01_14_REJECTED",
+        "withdrawn": "MATTER.G_01_14_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-01-15",
+      "module": "M01",
+      "module_name": "MatterCore",
+      "decision": "Approve the closing letter",
+      "gate_type_text": "Single approver (Engine G-03-01)",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "MATTER.CLOSING_LETTER_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "mattercore.g_01_15.decide",
+      "outcome_events": {
+        "approved": [
+          "MATTER.CLOSING_LETTER_APPROVED"
+        ],
+        "rejected": "MATTER.G_01_15_REJECTED",
+        "withdrawn": "MATTER.G_01_15_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-02-01",
+      "module": "M02",
+      "module_name": "DocVault",
+      "decision": "Lower a classification, including clearing privileged pending review",
+      "gate_type_text": "Single approver, reason required",
+      "approver_text": "Credential-verified lawyer",
+      "events": [
+        "DOCUMENT.CLASSIFICATION_LOWERED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "document.classification.lower",
+      "outcome_events": {
+        "approved": [
+          "DOCUMENT.CLASSIFICATION_LOWERED"
+        ],
+        "rejected": "DOCUMENT.G_02_01_REJECTED",
+        "withdrawn": "DOCUMENT.G_02_01_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-02-02",
+      "module": "M02",
+      "module_name": "DocVault",
+      "decision": "Mark Final, or reopen Final to Draft",
+      "gate_type_text": "Single approver, reason required to reopen",
+      "approver_text": "Lawyer on the matter",
+      "events": [
+        "DOCUMENT.MARKED_FINAL",
+        "DOCUMENT.REOPENED_TO_DRAFT"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "docvault.g_02_02.decide",
+      "outcome_events": {
+        "approved": [
+          "DOCUMENT.MARKED_FINAL",
+          "DOCUMENT.REOPENED_TO_DRAFT"
+        ],
+        "rejected": "DOCUMENT.G_02_02_REJECTED",
+        "withdrawn": "DOCUMENT.G_02_02_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-02-03",
+      "module": "M02",
+      "module_name": "DocVault",
+      "decision": "Release a privileged document",
+      "gate_type_text": "Single approver",
+      "approver_text": "Lawyer on the matter",
+      "events": [
+        "DOCUMENT.PRIVILEGED_RELEASE_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "document.privileged.release",
+      "outcome_events": {
+        "approved": [
+          "DOCUMENT.PRIVILEGED_RELEASE_APPROVED"
+        ],
+        "rejected": "DOCUMENT.G_02_03_REJECTED",
+        "withdrawn": "DOCUMENT.G_02_03_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-02-04",
+      "module": "M02",
+      "module_name": "DocVault",
+      "decision": "Approve a production set",
+      "gate_type_text": "Single approver",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "DOCUMENT.PRODUCTION_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "docvault.g_02_04.decide",
+      "outcome_events": {
+        "approved": [
+          "DOCUMENT.PRODUCTION_APPROVED"
+        ],
+        "rejected": "DOCUMENT.G_02_04_REJECTED",
+        "withdrawn": "DOCUMENT.G_02_04_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-02-05",
+      "module": "M02",
+      "module_name": "DocVault",
+      "decision": "Approve a redacted copy",
+      "gate_type_text": "Single approver",
+      "approver_text": "Lawyer on the matter",
+      "events": [
+        "DOCUMENT.REDACTION_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "docvault.g_02_05.decide",
+      "outcome_events": {
+        "approved": [
+          "DOCUMENT.REDACTION_APPROVED"
+        ],
+        "rejected": "DOCUMENT.G_02_05_REJECTED",
+        "withdrawn": "DOCUMENT.G_02_05_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-02-06",
+      "module": "M02",
+      "module_name": "DocVault",
+      "decision": "Send a document for e-signature",
+      "gate_type_text": "Single approver, eligibility check passed",
+      "approver_text": "Lawyer on the matter",
+      "events": [
+        "DOCUMENT.SIGNATURE_SENT"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "docvault.g_02_06.decide",
+      "outcome_events": {
+        "approved": [
+          "DOCUMENT.SIGNATURE_SENT"
+        ],
+        "rejected": "DOCUMENT.G_02_06_REJECTED",
+        "withdrawn": "DOCUMENT.G_02_06_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-02-07",
+      "module": "M02",
+      "module_name": "DocVault",
+      "decision": "Record stamp-duty handling",
+      "gate_type_text": "Single approver",
+      "approver_text": "Lawyer on the matter",
+      "events": [
+        "DOCUMENT.STAMP_DUTY_RECORDED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "docvault.g_02_07.decide",
+      "outcome_events": {
+        "approved": [
+          "DOCUMENT.STAMP_DUTY_RECORDED"
+        ],
+        "rejected": "DOCUMENT.G_02_07_REJECTED",
+        "withdrawn": "DOCUMENT.G_02_07_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-02-08",
+      "module": "M02",
+      "module_name": "DocVault",
+      "decision": "Sign off a filing package",
+      "gate_type_text": "Single approver",
+      "approver_text": "Lawyer of record",
+      "events": [
+        "DOCUMENT.FILING_PACKAGE_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": "assembler cannot sign off",
+      "approver_scope": "tenant",
+      "permission": "document.filing.approve",
+      "outcome_events": {
+        "approved": [
+          "DOCUMENT.FILING_PACKAGE_APPROVED"
+        ],
+        "rejected": "DOCUMENT.G_02_08_REJECTED",
+        "withdrawn": "DOCUMENT.G_02_08_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-02-09",
+      "module": "M02",
+      "module_name": "DocVault",
+      "decision": "Confirm the matter for an intake item",
+      "gate_type_text": "Single approver",
+      "approver_text": "Sender, owner or docketing staff on the matter team",
+      "events": [
+        "DOCUMENT.MATTER_CONFIRMED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "docvault.g_02_09.decide",
+      "outcome_events": {
+        "approved": [
+          "DOCUMENT.MATTER_CONFIRMED"
+        ],
+        "rejected": "DOCUMENT.G_02_09_REJECTED",
+        "withdrawn": "DOCUMENT.G_02_09_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-02-10",
+      "module": "M02",
+      "module_name": "DocVault",
+      "decision": "Approve a sampled tag batch",
+      "gate_type_text": "Single approver",
+      "approver_text": "Designated lawyer",
+      "events": [
+        "DOCUMENT.TAG_SAMPLE_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "docvault.g_02_10.decide",
+      "outcome_events": {
+        "approved": [
+          "DOCUMENT.TAG_SAMPLE_APPROVED"
+        ],
+        "rejected": "DOCUMENT.G_02_10_REJECTED",
+        "withdrawn": "DOCUMENT.G_02_10_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-02-11",
+      "module": "M02",
+      "module_name": "DocVault",
+      "decision": "Share a document with the client through ClientBridge",
+      "gate_type_text": "Single approver",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "DOCUMENT.CLIENT_SHARED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "docvault.g_02_11.decide",
+      "outcome_events": {
+        "approved": [
+          "DOCUMENT.CLIENT_SHARED"
+        ],
+        "rejected": "DOCUMENT.G_02_11_REJECTED",
+        "withdrawn": "DOCUMENT.G_02_11_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-02-12",
+      "module": "M02",
+      "module_name": "DocVault",
+      "decision": "Approve a signing provider for a jurisdiction",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurexio CTO and Jurexio Compliance",
+      "events": [
+        "DOCUMENT.SIGNING_PROVIDER_APPROVED"
+      ],
+      "class": "DUAL",
+      "class_note": "Jurexio CTO and Jurexio Compliance",
+      "approver_scope": "platform",
+      "permission": "docvault.g_02_12.decide",
+      "outcome_events": {
+        "approved": [
+          "DOCUMENT.SIGNING_PROVIDER_APPROVED"
+        ],
+        "rejected": "DOCUMENT.G_02_12_REJECTED",
+        "withdrawn": "DOCUMENT.G_02_12_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-03-01",
+      "module": "M03",
+      "module_name": "Jurexio Engine",
+      "decision": "Approve, edit, reject or escalate a legal output",
+      "gate_type_text": "Single approver",
+      "approver_text": "Credential-verified, jurisdiction-matched reviewer holding \\`engine.review.approve\\`",
+      "events": [
+        "ENGINE.REVIEW_APPROVED",
+        "ENGINE.REVIEW_APPROVED_ANNOTATED",
+        "ENGINE.REVIEW_REJECTED",
+        "ENGINE.REVIEW_ESCALATED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "engine.review.approve",
+      "outcome_events": {
+        "approved": [
+          "ENGINE.REVIEW_APPROVED",
+          "ENGINE.REVIEW_APPROVED_ANNOTATED",
+          "ENGINE.REVIEW_REJECTED",
+          "ENGINE.REVIEW_ESCALATED"
+        ],
+        "rejected": "ENGINE.G_03_01_REJECTED",
+        "withdrawn": "ENGINE.G_03_01_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-03-02",
+      "module": "M03",
+      "module_name": "Jurexio Engine",
+      "decision": "Cross-jurisdiction co-approval",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Non-matching reviewer and matching reviewer",
+      "events": [
+        "ENGINE.CO_APPROVAL_RECORDED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "engine.g_03_02.decide",
+      "outcome_events": {
+        "approved": [
+          "ENGINE.CO_APPROVAL_RECORDED"
+        ],
+        "rejected": "ENGINE.G_03_02_REJECTED",
+        "withdrawn": "ENGINE.G_03_02_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-03-03",
+      "module": "M03",
+      "module_name": "Jurexio Engine",
+      "decision": "HR Tier 1 approval",
+      "gate_type_text": "Single approver",
+      "approver_text": "HR Director",
+      "events": [
+        "ENGINE.HR_TIER1_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "engine.g_03_03.decide",
+      "outcome_events": {
+        "approved": [
+          "ENGINE.HR_TIER1_APPROVED"
+        ],
+        "rejected": "ENGINE.G_03_03_REJECTED",
+        "withdrawn": "ENGINE.G_03_03_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-03-04",
+      "module": "M03",
+      "module_name": "Jurexio Engine",
+      "decision": "HR Tier 2 approval",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "HR Director and employment counsel",
+      "events": [
+        "ENGINE.HR_TIER2_APPROVED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "engine.g_03_04.decide",
+      "outcome_events": {
+        "approved": [
+          "ENGINE.HR_TIER2_APPROVED"
+        ],
+        "rejected": "ENGINE.G_03_04_REJECTED",
+        "withdrawn": "ENGINE.G_03_04_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-03-05",
+      "module": "M03",
+      "module_name": "Jurexio Engine",
+      "decision": "HR Tier 3 approval",
+      "gate_type_text": "Sequential, separate sessions",
+      "approver_text": "Employment counsel, then HR Director",
+      "events": [
+        "ENGINE.HR_TIER3_COUNSEL_APPROVED",
+        "ENGINE.HR_TIER3_RELEASED"
+      ],
+      "class": "DUAL",
+      "class_note": "sequential, separate sessions",
+      "approver_scope": "tenant",
+      "permission": "engine.g_03_05.decide",
+      "outcome_events": {
+        "approved": [
+          "ENGINE.HR_TIER3_COUNSEL_APPROVED",
+          "ENGINE.HR_TIER3_RELEASED"
+        ],
+        "rejected": "ENGINE.G_03_05_REJECTED",
+        "withdrawn": "ENGINE.G_03_05_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-03-06",
+      "module": "M03",
+      "module_name": "Jurexio Engine",
+      "decision": "Extend a review SLA within the deadline cap",
+      "gate_type_text": "Single approver",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "ENGINE.SLA_EXTENDED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "engine.g_03_06.decide",
+      "outcome_events": {
+        "approved": [
+          "ENGINE.SLA_EXTENDED"
+        ],
+        "rejected": "ENGINE.G_03_06_REJECTED",
+        "withdrawn": "ENGINE.G_03_06_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-03-07",
+      "module": "M03",
+      "module_name": "Jurexio Engine",
+      "decision": "Reinstate AI after a kill-switch",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Two holders of \\`engine.killswitch.reinstate\\`",
+      "events": [
+        "ENGINE.KILLSWITCH_REINSTATED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "engine.killswitch.reinstate",
+      "outcome_events": {
+        "approved": [
+          "ENGINE.KILLSWITCH_REINSTATED"
+        ],
+        "rejected": "ENGINE.G_03_07_REJECTED",
+        "withdrawn": "ENGINE.G_03_07_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-03-08",
+      "module": "M03",
+      "module_name": "Jurexio Engine",
+      "decision": "Suspend (quality) or reinstate an agent",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurexio CTO and Jurexio Compliance",
+      "events": [
+        "ENGINE.AGENT_SUSPENDED",
+        "ENGINE.AGENT_REINSTATED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "engine.g_03_08.decide",
+      "outcome_events": {
+        "approved": [
+          "ENGINE.AGENT_SUSPENDED",
+          "ENGINE.AGENT_REINSTATED"
+        ],
+        "rejected": "ENGINE.G_03_08_REJECTED",
+        "withdrawn": "ENGINE.G_03_08_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-03-09",
+      "module": "M03",
+      "module_name": "Jurexio Engine",
+      "decision": "Add or retire a model in a jurisdiction's registry",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurexio CTO and Jurexio Compliance",
+      "events": [
+        "ENGINE.MODEL_REGISTERED",
+        "ENGINE.MODEL_RETIRED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "engine.g_03_09.decide",
+      "outcome_events": {
+        "approved": [
+          "ENGINE.MODEL_REGISTERED",
+          "ENGINE.MODEL_RETIRED"
+        ],
+        "rejected": "ENGINE.G_03_09_REJECTED",
+        "withdrawn": "ENGINE.G_03_09_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-03-10",
+      "module": "M03",
+      "module_name": "Jurexio Engine",
+      "decision": "Activate a jurisdiction",
+      "gate_type_text": "Single approver",
+      "approver_text": "Chairman",
+      "events": [
+        "ENGINE.JURISDICTION_ACTIVATED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "platform.jurisdiction.activate",
+      "outcome_events": {
+        "approved": [
+          "ENGINE.JURISDICTION_ACTIVATED"
+        ],
+        "rejected": "ENGINE.G_03_10_REJECTED",
+        "withdrawn": "ENGINE.G_03_10_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-04-01",
+      "module": "M04",
+      "module_name": "LexGraph",
+      "decision": "Publish or change a country's declared coverage",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurexio content lead and counsel reviewer for that jurisdiction",
+      "events": [
+        "PLATFORM.COVERAGE_PUBLISHED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "lexgraph.g_04_01.decide",
+      "outcome_events": {
+        "approved": [
+          "PLATFORM.COVERAGE_PUBLISHED"
+        ],
+        "rejected": "LEXGRAPH.G_04_01_REJECTED",
+        "withdrawn": "LEXGRAPH.G_04_01_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-04-02",
+      "module": "M04",
+      "module_name": "LexGraph",
+      "decision": "Add or remove a corpus source, recording its AI-use and training rights",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurexio content lead and Jurexio Compliance",
+      "events": [
+        "PLATFORM.CORPUS_SOURCE_APPROVED",
+        "PLATFORM.CORPUS_SOURCE_REMOVED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "lexgraph.g_04_02.decide",
+      "outcome_events": {
+        "approved": [
+          "PLATFORM.CORPUS_SOURCE_APPROVED",
+          "PLATFORM.CORPUS_SOURCE_REMOVED"
+        ],
+        "rejected": "LEXGRAPH.G_04_02_REJECTED",
+        "withdrawn": "LEXGRAPH.G_04_02_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-04-03",
+      "module": "M04",
+      "module_name": "LexGraph",
+      "decision": "Verify or reject an AI-proposed treatment link",
+      "gate_type_text": "Single approver",
+      "approver_text": "Content reviewer qualified in that jurisdiction",
+      "events": [
+        "LEXGRAPH.TREATMENT_VERIFIED",
+        "LEXGRAPH.TREATMENT_REJECTED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "lexgraph.g_04_03.decide",
+      "outcome_events": {
+        "approved": [
+          "LEXGRAPH.TREATMENT_VERIFIED",
+          "LEXGRAPH.TREATMENT_REJECTED"
+        ],
+        "rejected": "LEXGRAPH.G_04_03_REJECTED",
+        "withdrawn": "LEXGRAPH.G_04_03_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-04-04",
+      "module": "M04",
+      "module_name": "LexGraph",
+      "decision": "Publish a provision version or commencement status",
+      "gate_type_text": "Single approver",
+      "approver_text": "Content reviewer qualified in that jurisdiction",
+      "events": [
+        "LEXGRAPH.PROVISION_VERSIONED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "lexgraph.g_04_04.decide",
+      "outcome_events": {
+        "approved": [
+          "LEXGRAPH.PROVISION_VERSIONED"
+        ],
+        "rejected": "LEXGRAPH.G_04_04_REJECTED",
+        "withdrawn": "LEXGRAPH.G_04_04_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-04-05",
+      "module": "M04",
+      "module_name": "LexGraph",
+      "decision": "Approve a training dataset version",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurexio CTO and Jurexio Compliance",
+      "events": [
+        "PLATFORM.DATASET_APPROVED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "lexgraph.g_04_05.decide",
+      "outcome_events": {
+        "approved": [
+          "PLATFORM.DATASET_APPROVED"
+        ],
+        "rejected": "LEXGRAPH.G_04_05_REJECTED",
+        "withdrawn": "LEXGRAPH.G_04_05_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-04-06",
+      "module": "M04",
+      "module_name": "LexGraph",
+      "decision": "Confirm anonymisation of a promoted item",
+      "gate_type_text": "Proposer confirms each redaction; knowledge owner re-checks at G-04-07",
+      "approver_text": "Proposing lawyer",
+      "events": [
+        "LEXGRAPH.ANONYMISATION_CONFIRMED"
+      ],
+      "class": "GUARDED",
+      "class_note": "proposer confirms; knowledge owner re-checks every redaction at G-04-07",
+      "approver_scope": "tenant",
+      "permission": "lexgraph.g_04_06.decide",
+      "outcome_events": {
+        "approved": [
+          "LEXGRAPH.ANONYMISATION_CONFIRMED"
+        ],
+        "rejected": "LEXGRAPH.G_04_06_REJECTED",
+        "withdrawn": "LEXGRAPH.G_04_06_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-04-07",
+      "module": "M04",
+      "module_name": "LexGraph",
+      "decision": "Approve promotion of an item",
+      "gate_type_text": "Single approver; dual distinct for walled-matter content",
+      "approver_text": "Knowledge owner; plus conflicts reviewer",
+      "events": [
+        "LEXGRAPH.KNOWLEDGE_PROMOTED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "lexgraph.g_04_07.decide",
+      "outcome_events": {
+        "approved": [
+          "LEXGRAPH.KNOWLEDGE_PROMOTED"
+        ],
+        "rejected": "LEXGRAPH.G_04_07_REJECTED",
+        "withdrawn": "LEXGRAPH.G_04_07_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-04-08",
+      "module": "M04",
+      "module_name": "LexGraph",
+      "decision": "Withdraw or re-certify an item",
+      "gate_type_text": "Single approver",
+      "approver_text": "Knowledge owner",
+      "events": [
+        "LEXGRAPH.KNOWLEDGE_WITHDRAWN",
+        "LEXGRAPH.KNOWLEDGE_RECERTIFIED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "lexgraph.g_04_08.decide",
+      "outcome_events": {
+        "approved": [
+          "LEXGRAPH.KNOWLEDGE_WITHDRAWN",
+          "LEXGRAPH.KNOWLEDGE_RECERTIFIED"
+        ],
+        "rejected": "LEXGRAPH.G_04_08_REJECTED",
+        "withdrawn": "LEXGRAPH.G_04_08_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-04-09",
+      "module": "M04",
+      "module_name": "LexGraph",
+      "decision": "Correct enrichment after an error report",
+      "gate_type_text": "Single approver",
+      "approver_text": "Content reviewer",
+      "events": [
+        "LEXGRAPH.ENRICHMENT_CORRECTED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "lexgraph.g_04_09.decide",
+      "outcome_events": {
+        "approved": [
+          "LEXGRAPH.ENRICHMENT_CORRECTED"
+        ],
+        "rejected": "LEXGRAPH.G_04_09_REJECTED",
+        "withdrawn": "LEXGRAPH.G_04_09_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-04-10",
+      "module": "M04",
+      "module_name": "LexGraph",
+      "decision": "Approve replication of a corpus or public-law model to another region",
+      "gate_type_text": "Single approver, licence check required",
+      "approver_text": "Jurexio Compliance",
+      "events": [
+        "PLATFORM.CORPUS_REPLICATED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "lexgraph.g_04_10.decide",
+      "outcome_events": {
+        "approved": [
+          "PLATFORM.CORPUS_REPLICATED"
+        ],
+        "rejected": "LEXGRAPH.G_04_10_REJECTED",
+        "withdrawn": "LEXGRAPH.G_04_10_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-05-01",
+      "module": "M05",
+      "module_name": "DeadlineGuard",
+      "decision": "Confirm a proposed deadline (trigger and computation)",
+      "gate_type_text": "Single approver",
+      "approver_text": "State-matched reviewer (Engine D2)",
+      "events": [
+        "DEADLINE.CONFIRMED",
+        "DEADLINE.PROPOSAL_REJECTED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "deadlineguard.g_05_01.decide",
+      "outcome_events": {
+        "approved": [
+          "DEADLINE.CONFIRMED",
+          "DEADLINE.PROPOSAL_REJECTED"
+        ],
+        "rejected": "DEADLINE.G_05_01_REJECTED",
+        "withdrawn": "DEADLINE.G_05_01_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-05-02",
+      "module": "M05",
+      "module_name": "DeadlineGuard",
+      "decision": "Resolve a source conflict",
+      "gate_type_text": "Single approver",
+      "approver_text": "State-matched reviewer",
+      "events": [
+        "DEADLINE.CONFLICT_RESOLVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "deadlineguard.g_05_02.decide",
+      "outcome_events": {
+        "approved": [
+          "DEADLINE.CONFLICT_RESOLVED"
+        ],
+        "rejected": "DEADLINE.G_05_02_REJECTED",
+        "withdrawn": "DEADLINE.G_05_02_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-05-03",
+      "module": "M05",
+      "module_name": "DeadlineGuard",
+      "decision": "Move later, mark not applicable, or close as created in error",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Owner and responsible Partner",
+      "events": [
+        "DEADLINE.MOVED_LATER",
+        "DEADLINE.CLOSED_NOT_APPLICABLE",
+        "DEADLINE.CLOSED_IN_ERROR"
+      ],
+      "class": "DUAL",
+      "class_note": "the owner may be the requester; the Partner is the second person",
+      "approver_scope": "tenant",
+      "permission": "deadlineguard.g_05_03.decide",
+      "outcome_events": {
+        "approved": [
+          "DEADLINE.MOVED_LATER",
+          "DEADLINE.CLOSED_NOT_APPLICABLE",
+          "DEADLINE.CLOSED_IN_ERROR"
+        ],
+        "rejected": "DEADLINE.G_05_03_REJECTED",
+        "withdrawn": "DEADLINE.G_05_03_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-05-04",
+      "module": "M05",
+      "module_name": "DeadlineGuard",
+      "decision": "Record an extension",
+      "gate_type_text": "Dual distinct, evidence required",
+      "approver_text": "Owner and responsible Partner",
+      "events": [
+        "DEADLINE.EXTENSION_RECORDED"
+      ],
+      "class": "DUAL",
+      "class_note": "the owner may be the requester; the Partner is the second person",
+      "approver_scope": "tenant",
+      "permission": "deadlineguard.g_05_04.decide",
+      "outcome_events": {
+        "approved": [
+          "DEADLINE.EXTENSION_RECORDED"
+        ],
+        "rejected": "DEADLINE.G_05_04_REJECTED",
+        "withdrawn": "DEADLINE.G_05_04_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-05-05",
+      "module": "M05",
+      "module_name": "DeadlineGuard",
+      "decision": "Close as filed",
+      "gate_type_text": "Single approver, evidence required",
+      "approver_text": "Owner",
+      "events": [
+        "DEADLINE.CLOSED_FILED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": "close as filed, with evidence",
+      "approver_scope": "tenant",
+      "permission": "deadlineguard.g_05_05.decide",
+      "outcome_events": {
+        "approved": [
+          "DEADLINE.CLOSED_FILED"
+        ],
+        "rejected": "DEADLINE.G_05_05_REJECTED",
+        "withdrawn": "DEADLINE.G_05_05_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-05-06",
+      "module": "M05",
+      "module_name": "DeadlineGuard",
+      "decision": "Re-confirm after a rule change",
+      "gate_type_text": "Single approver",
+      "approver_text": "State-matched reviewer",
+      "events": [
+        "DEADLINE.RECONFIRMED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "deadlineguard.g_05_06.decide",
+      "outcome_events": {
+        "approved": [
+          "DEADLINE.RECONFIRMED"
+        ],
+        "rejected": "DEADLINE.G_05_06_REJECTED",
+        "withdrawn": "DEADLINE.G_05_06_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-05-07",
+      "module": "M05",
+      "module_name": "DeadlineGuard",
+      "decision": "Resolve a missed-deadline incident",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Responsible Partner and General Counsel or managing partner",
+      "events": [
+        "DEADLINE.INCIDENT_RESOLVED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "deadlineguard.g_05_07.decide",
+      "outcome_events": {
+        "approved": [
+          "DEADLINE.INCIDENT_RESOLVED"
+        ],
+        "rejected": "DEADLINE.G_05_07_REJECTED",
+        "withdrawn": "DEADLINE.G_05_07_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-05-08",
+      "module": "M05",
+      "module_name": "DeadlineGuard",
+      "decision": "Decide whether to notify the professional-liability insurer",
+      "gate_type_text": "Single approver",
+      "approver_text": "Designated risk owner",
+      "events": [
+        "DEADLINE.INSURER_DECISION_RECORDED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "deadlineguard.g_05_08.decide",
+      "outcome_events": {
+        "approved": [
+          "DEADLINE.INSURER_DECISION_RECORDED"
+        ],
+        "rejected": "DEADLINE.G_05_08_REJECTED",
+        "withdrawn": "DEADLINE.G_05_08_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-05-09",
+      "module": "M05",
+      "module_name": "DeadlineGuard",
+      "decision": "Accept an AI-suggested checklist item",
+      "gate_type_text": "Single approver",
+      "approver_text": "Task owner",
+      "events": [
+        "DEADLINE.TASK_SUGGESTION_ACCEPTED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": "accept a suggestion on one's own task",
+      "approver_scope": "tenant",
+      "permission": "deadlineguard.g_05_09.decide",
+      "outcome_events": {
+        "approved": [
+          "DEADLINE.TASK_SUGGESTION_ACCEPTED"
+        ],
+        "rejected": "DEADLINE.G_05_09_REJECTED",
+        "withdrawn": "DEADLINE.G_05_09_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-05-10",
+      "module": "M05",
+      "module_name": "DeadlineGuard",
+      "decision": "Enable client names in calendar events for a matter",
+      "gate_type_text": "Single approver",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "DEADLINE.CALENDAR_DETAIL_ENABLED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "deadlineguard.g_05_10.decide",
+      "outcome_events": {
+        "approved": [
+          "DEADLINE.CALENDAR_DETAIL_ENABLED"
+        ],
+        "rejected": "DEADLINE.G_05_10_REJECTED",
+        "withdrawn": "DEADLINE.G_05_10_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-05-11",
+      "module": "M05",
+      "module_name": "DeadlineGuard",
+      "decision": "Publish a new version of a forum rule set",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurisdiction Pack owner and counsel reviewer",
+      "events": [
+        "DEADLINE.RULESET_PUBLISHED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "deadlineguard.g_05_11.decide",
+      "outcome_events": {
+        "approved": [
+          "DEADLINE.RULESET_PUBLISHED"
+        ],
+        "rejected": "DEADLINE.G_05_11_REJECTED",
+        "withdrawn": "DEADLINE.G_05_11_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-05-12",
+      "module": "M05",
+      "module_name": "DeadlineGuard",
+      "decision": "Decide whether to notify the client after a missed deadline, including a decision not to notify",
+      "gate_type_text": "Dual distinct, reason required",
+      "approver_text": "Responsible Partner and General Counsel or managing partner",
+      "events": [
+        "DEADLINE.CLIENT_NOTIFICATION_DECIDED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "deadlineguard.g_05_12.decide",
+      "outcome_events": {
+        "approved": [
+          "DEADLINE.CLIENT_NOTIFICATION_DECIDED"
+        ],
+        "rejected": "DEADLINE.G_05_12_REJECTED",
+        "withdrawn": "DEADLINE.G_05_12_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-01",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Confirm a time entry (including from an AI suggestion)",
+      "gate_type_text": "SELF-ATTESTED",
+      "approver_text": "Timekeeper",
+      "events": [
+        "BILL.TIME_ENTRY_CONFIRMED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_01.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.TIME_ENTRY_CONFIRMED"
+        ],
+        "rejected": "BILL.G_06_01_REJECTED",
+        "withdrawn": "BILL.G_06_01_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-02",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Approve a pre-bill and issue the invoice",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Responsible Partner (preparer excluded)",
+      "events": [
+        "BILL.INVOICE_ISSUED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_02.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.INVOICE_ISSUED"
+        ],
+        "rejected": "BILL.G_06_02_REJECTED",
+        "withdrawn": "BILL.G_06_02_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-03",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Approve a write-down",
+      "gate_type_text": "GUARDED; DUAL above threshold",
+      "approver_text": "Responsible Partner; plus finance owner",
+      "events": [
+        "BILL.WRITE_DOWN_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": "GUARDED; DUAL above threshold",
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_03.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.WRITE_DOWN_APPROVED"
+        ],
+        "rejected": "BILL.G_06_03_REJECTED",
+        "withdrawn": "BILL.G_06_03_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-04",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Approve a write-up under the engagement",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "BILL.WRITE_UP_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_04.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.WRITE_UP_APPROVED"
+        ],
+        "rejected": "BILL.G_06_04_REJECTED",
+        "withdrawn": "BILL.G_06_04_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-05",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Issue a credit note or discount",
+      "gate_type_text": "GUARDED; DUAL above threshold",
+      "approver_text": "Responsible Partner; plus finance owner",
+      "events": [
+        "BILL.CREDIT_NOTE_ISSUED"
+      ],
+      "class": "GUARDED",
+      "class_note": "GUARDED; DUAL above threshold",
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_05.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.CREDIT_NOTE_ISSUED"
+        ],
+        "rejected": "BILL.G_06_05_REJECTED",
+        "withdrawn": "BILL.G_06_05_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-06",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Write off a receivable",
+      "gate_type_text": "DUAL, requester excluded",
+      "approver_text": "Responsible Partner and finance owner",
+      "events": [
+        "BILL.WRITE_OFF_APPROVED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_06.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.WRITE_OFF_APPROVED"
+        ],
+        "rejected": "BILL.G_06_06_REJECTED",
+        "withdrawn": "BILL.G_06_06_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-07",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Reverse a write-off",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Finance owner",
+      "events": [
+        "BILL.WRITE_OFF_REVERSED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_07.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.WRITE_OFF_REVERSED"
+        ],
+        "rejected": "BILL.G_06_07_REJECTED",
+        "withdrawn": "BILL.G_06_07_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-08",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Publish a firm-wide rate card version",
+      "gate_type_text": "DUAL",
+      "approver_text": "Managing partner and finance owner",
+      "events": [
+        "BILL.RATE_CARD_PUBLISHED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_08.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.RATE_CARD_PUBLISHED"
+        ],
+        "rejected": "BILL.G_06_08_REJECTED",
+        "withdrawn": "BILL.G_06_08_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-09",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Set a matter-specific rate",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "BILL.MATTER_RATE_SET"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_09.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.MATTER_RATE_SET"
+        ],
+        "rejected": "BILL.G_06_09_REJECTED",
+        "withdrawn": "BILL.G_06_09_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-10",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Confirm structured billing-guideline rules",
+      "gate_type_text": "GUARDED (uploader excluded)",
+      "approver_text": "Billing-guideline owner",
+      "events": [
+        "BILL.GUIDELINE_CONFIRMED"
+      ],
+      "class": "GUARDED",
+      "class_note": "GUARDED (uploader excluded)",
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_10.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.GUIDELINE_CONFIRMED"
+        ],
+        "rejected": "BILL.G_06_10_REJECTED",
+        "withdrawn": "BILL.G_06_10_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-11",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Set or revise a budget; decide an overrun",
+      "gate_type_text": "GUARDED; DUAL for public-sector re-sanction",
+      "approver_text": "Responsible Partner or budget holder; plus sanctioning authority",
+      "events": [
+        "BILL.BUDGET_APPROVED",
+        "BILL.BUDGET_OVERRUN_DECIDED"
+      ],
+      "class": "GUARDED",
+      "class_note": "GUARDED; DUAL for public-sector re-sanction",
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_11.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.BUDGET_APPROVED",
+          "BILL.BUDGET_OVERRUN_DECIDED"
+        ],
+        "rejected": "BILL.G_06_11_REJECTED",
+        "withdrawn": "BILL.G_06_11_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-12",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Decide an outside-counsel invoice line",
+      "gate_type_text": "GUARDED",
+      "approver_text": "In-house matter owner or invoice reviewer",
+      "events": [
+        "BILL.OC_LINE_DECIDED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_12.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.OC_LINE_DECIDED"
+        ],
+        "rejected": "BILL.G_06_12_REJECTED",
+        "withdrawn": "BILL.G_06_12_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-13",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Approve an outside-counsel invoice for payment",
+      "gate_type_text": "GUARDED; DUAL above threshold",
+      "approver_text": "Per tenant approval chain",
+      "events": [
+        "BILL.OC_INVOICE_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": "GUARDED; DUAL above threshold",
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_13.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.OC_INVOICE_APPROVED"
+        ],
+        "rejected": "BILL.G_06_13_REJECTED",
+        "withdrawn": "BILL.G_06_13_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-14",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Record and classify a receipt (office or client money)",
+      "gate_type_text": "SELF-ATTESTED, sampled",
+      "approver_text": "Finance officer",
+      "events": [
+        "BILL.RECEIPT_RECORDED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_14.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.RECEIPT_RECORDED"
+        ],
+        "rejected": "BILL.G_06_14_REJECTED",
+        "withdrawn": "BILL.G_06_14_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-15",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Apply client money to a fee invoice",
+      "gate_type_text": "DUAL, client authority attached",
+      "approver_text": "Responsible Partner and finance owner",
+      "events": [
+        "BILL.CLIENT_MONEY_APPLIED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_15.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.CLIENT_MONEY_APPLIED"
+        ],
+        "rejected": "BILL.G_06_15_REJECTED",
+        "withdrawn": "BILL.G_06_15_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-16",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Request a disbursement from client money",
+      "gate_type_text": "DUAL",
+      "approver_text": "Responsible Partner and finance owner",
+      "events": [
+        "BILL.DISBURSEMENT_REQUESTED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_16.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.DISBURSEMENT_REQUESTED"
+        ],
+        "rejected": "BILL.G_06_16_REJECTED",
+        "withdrawn": "BILL.G_06_16_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-17",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Sign off the monthly three-way reconciliation",
+      "gate_type_text": "DUAL",
+      "approver_text": "Finance owner and a partner",
+      "events": [
+        "BILL.RECONCILIATION_SIGNED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_17.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.RECONCILIATION_SIGNED"
+        ],
+        "rejected": "BILL.G_06_17_REJECTED",
+        "withdrawn": "BILL.G_06_17_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-18",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Send an escalated reminder or demand",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "BILL.REMINDER_ESCALATED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_18.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.REMINDER_ESCALATED"
+        ],
+        "rejected": "BILL.G_06_18_REJECTED",
+        "withdrawn": "BILL.G_06_18_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-19",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Record a refund",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Finance owner",
+      "events": [
+        "BILL.REFUND_RECORDED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_19.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.REFUND_RECORDED"
+        ],
+        "rejected": "BILL.G_06_19_REJECTED",
+        "withdrawn": "BILL.G_06_19_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-20",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Close a financial period",
+      "gate_type_text": "DUAL",
+      "approver_text": "Finance owner and managing partner",
+      "events": [
+        "BILL.PERIOD_CLOSED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_20.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.PERIOD_CLOSED"
+        ],
+        "rejected": "BILL.G_06_20_REJECTED",
+        "withdrawn": "BILL.G_06_20_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-06-21",
+      "module": "M06",
+      "module_name": "BillGuard",
+      "decision": "Move full invoice detail across jurisdictions",
+      "gate_type_text": "DUAL, legal basis required",
+      "approver_text": "Responsible Partner and DPO",
+      "events": [
+        "BILL.INVOICE_DETAIL_TRANSFERRED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "billguard.g_06_21.decide",
+      "outcome_events": {
+        "approved": [
+          "BILL.INVOICE_DETAIL_TRANSFERRED"
+        ],
+        "rejected": "BILL.G_06_21_REJECTED",
+        "withdrawn": "BILL.G_06_21_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-07-01",
+      "module": "M07",
+      "module_name": "RegRadar",
+      "decision": "Confirm, edit or reject an impact proposal",
+      "gate_type_text": "Single approver",
+      "approver_text": "Jurisdiction-matched compliance lawyer",
+      "events": [
+        "REGRADAR.IMPACT_CONFIRMED",
+        "REGRADAR.IMPACT_EDITED",
+        "REGRADAR.IMPACT_REJECTED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "regradar.g_07_01.decide",
+      "outcome_events": {
+        "approved": [
+          "REGRADAR.IMPACT_CONFIRMED",
+          "REGRADAR.IMPACT_EDITED",
+          "REGRADAR.IMPACT_REJECTED"
+        ],
+        "rejected": "REGRADAR.G_07_01_REJECTED",
+        "withdrawn": "REGRADAR.G_07_01_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-07-02",
+      "module": "M07",
+      "module_name": "RegRadar",
+      "decision": "Assign or reassign an obligation owner and backup",
+      "gate_type_text": "Single approver",
+      "approver_text": "Confirming lawyer; Compliance Officer for reassignment",
+      "events": [
+        "REGRADAR.OWNER_ASSIGNED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "regradar.g_07_02.decide",
+      "outcome_events": {
+        "approved": [
+          "REGRADAR.OWNER_ASSIGNED"
+        ],
+        "rejected": "REGRADAR.G_07_02_REJECTED",
+        "withdrawn": "REGRADAR.G_07_02_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-07-03",
+      "module": "M07",
+      "module_name": "RegRadar",
+      "decision": "Close an obligation or alert with its outcome",
+      "gate_type_text": "Single approver",
+      "approver_text": "Owner",
+      "events": [
+        "REGRADAR.OBLIGATION_CLOSED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": "closure with outcome and evidence",
+      "approver_scope": "tenant",
+      "permission": "regradar.g_07_03.decide",
+      "outcome_events": {
+        "approved": [
+          "REGRADAR.OBLIGATION_CLOSED"
+        ],
+        "rejected": "REGRADAR.G_07_03_REJECTED",
+        "withdrawn": "REGRADAR.G_07_03_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-07-04",
+      "module": "M07",
+      "module_name": "RegRadar",
+      "decision": "Attest a Lane A item",
+      "gate_type_text": "Single approver",
+      "approver_text": "Named attester (designation recorded)",
+      "events": [
+        "REGRADAR.ITEM_ATTESTED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": "labelled \"Attested\", sampled by Compliance",
+      "approver_scope": "tenant",
+      "permission": "regradar.g_07_04.decide",
+      "outcome_events": {
+        "approved": [
+          "REGRADAR.ITEM_ATTESTED"
+        ],
+        "rejected": "REGRADAR.G_07_04_REJECTED",
+        "withdrawn": "REGRADAR.G_07_04_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-07-05",
+      "module": "M07",
+      "module_name": "RegRadar",
+      "decision": "Decide a screening match",
+      "gate_type_text": "Single approver",
+      "approver_text": "Compliance Officer",
+      "events": [
+        "REGRADAR.MATCH_CONFIRMED",
+        "REGRADAR.MATCH_CLEARED",
+        "REGRADAR.MATCH_INFO_REQUESTED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "regradar.g_07_05.decide",
+      "outcome_events": {
+        "approved": [
+          "REGRADAR.MATCH_CONFIRMED",
+          "REGRADAR.MATCH_CLEARED",
+          "REGRADAR.MATCH_INFO_REQUESTED"
+        ],
+        "rejected": "REGRADAR.G_07_05_REJECTED",
+        "withdrawn": "REGRADAR.G_07_05_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-07-06",
+      "module": "M07",
+      "module_name": "RegRadar",
+      "decision": "Release a blocked or frozen matter, or decline the engagement",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Responsible Partner and Compliance Officer",
+      "events": [
+        "REGRADAR.FREEZE_RELEASED",
+        "REGRADAR.ENGAGEMENT_DECLINED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "regradar.g_07_06.decide",
+      "outcome_events": {
+        "approved": [
+          "REGRADAR.FREEZE_RELEASED",
+          "REGRADAR.ENGAGEMENT_DECLINED"
+        ],
+        "rejected": "REGRADAR.G_07_06_REJECTED",
+        "withdrawn": "REGRADAR.G_07_06_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-07-07",
+      "module": "M07",
+      "module_name": "RegRadar",
+      "decision": "Approve a client alert",
+      "gate_type_text": "Single approver (Jurexio Engine G-03-01)",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "REGRADAR.CLIENT_ALERT_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "regradar.g_07_07.decide",
+      "outcome_events": {
+        "approved": [
+          "REGRADAR.CLIENT_ALERT_APPROVED"
+        ],
+        "rejected": "REGRADAR.G_07_07_REJECTED",
+        "withdrawn": "REGRADAR.G_07_07_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-07-08",
+      "module": "M07",
+      "module_name": "RegRadar",
+      "decision": "Confirm an AI-proposed risk rating",
+      "gate_type_text": "Single approver",
+      "approver_text": "Compliance lawyer",
+      "events": [
+        "REGRADAR.RATING_CONFIRMED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "regradar.g_07_08.decide",
+      "outcome_events": {
+        "approved": [
+          "REGRADAR.RATING_CONFIRMED"
+        ],
+        "rejected": "REGRADAR.G_07_08_REJECTED",
+        "withdrawn": "REGRADAR.G_07_08_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-07-09",
+      "module": "M07",
+      "module_name": "RegRadar",
+      "decision": "Add or remove a monitored source or sanctions list",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurisdiction Pack owner and Compliance Officer",
+      "events": [
+        "REGRADAR.SOURCE_ADDED",
+        "REGRADAR.SOURCE_REMOVED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "regradar.g_07_09.decide",
+      "outcome_events": {
+        "approved": [
+          "REGRADAR.SOURCE_ADDED",
+          "REGRADAR.SOURCE_REMOVED"
+        ],
+        "rejected": "REGRADAR.G_07_09_REJECTED",
+        "withdrawn": "REGRADAR.G_07_09_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-07-10",
+      "module": "M07",
+      "module_name": "RegRadar",
+      "decision": "Confirm a change against its official publication where this cannot be done automatically",
+      "gate_type_text": "Single approver",
+      "approver_text": "Compliance lawyer",
+      "events": [
+        "REGRADAR.CHANGE_CONFIRMED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "regradar.g_07_10.decide",
+      "outcome_events": {
+        "approved": [
+          "REGRADAR.CHANGE_CONFIRMED"
+        ],
+        "rejected": "REGRADAR.G_07_10_REJECTED",
+        "withdrawn": "REGRADAR.G_07_10_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-01",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Enable a matter for a client contact",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "CLIENT.MATTER_ENABLED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_01.decide",
+      "outcome_events": {
+        "approved": [
+          "CLIENT.MATTER_ENABLED"
+        ],
+        "rejected": "CLIENT.G_08_01_REJECTED",
+        "withdrawn": "CLIENT.G_08_01_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-02",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Publish a status, date or update item, or set a standing publication rule",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "CLIENT.ITEM_PUBLISHED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_02.decide",
+      "outcome_events": {
+        "approved": [
+          "CLIENT.ITEM_PUBLISHED"
+        ],
+        "rejected": "CLIENT.G_08_02_REJECTED",
+        "withdrawn": "CLIENT.G_08_02_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-03",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Approve a plain-language summary for a client",
+      "gate_type_text": "GUARDED (requester excluded)",
+      "approver_text": "Responsible or designated partner, through Engine G-03-01",
+      "events": [
+        "CLIENT.SUMMARY_PUBLISHED"
+      ],
+      "class": "GUARDED",
+      "class_note": "GUARDED (requester excluded)",
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_03.decide",
+      "outcome_events": {
+        "approved": [
+          "CLIENT.SUMMARY_PUBLISHED"
+        ],
+        "rejected": "CLIENT.G_08_03_REJECTED",
+        "withdrawn": "CLIENT.G_08_03_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-04",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Approve a colleague requested by a client admin",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Responsible Partner, then CommandCentre G-11-13",
+      "events": [
+        "CLIENT.COLLEAGUE_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_04.decide",
+      "outcome_events": {
+        "approved": [
+          "CLIENT.COLLEAGUE_APPROVED"
+        ],
+        "rejected": "CLIENT.G_08_04_REJECTED",
+        "withdrawn": "CLIENT.G_08_04_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-05",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Issue a structured request to a client or location owner",
+      "gate_type_text": "GUARDED for consents with legal effect",
+      "approver_text": "Responsible Partner, or legal department reviewer for location requests",
+      "events": [
+        "CLIENT.REQUEST_ISSUED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_05.decide",
+      "outcome_events": {
+        "approved": [
+          "CLIENT.REQUEST_ISSUED"
+        ],
+        "rejected": "CLIENT.G_08_05_REJECTED",
+        "withdrawn": "CLIENT.G_08_05_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-06",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Respond to a request (instruct, approve, consent, attest)",
+      "gate_type_text": "SELF-ATTESTED, step-up, authority checked",
+      "approver_text": "The authorised client contact or location owner",
+      "events": [
+        "CLIENT.INSTRUCTION_GIVEN",
+        "CLIENT.CONSENT_GIVEN",
+        "CLIENT.ATTESTATION_SUBMITTED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_06.decide",
+      "outcome_events": {
+        "approved": [
+          "CLIENT.INSTRUCTION_GIVEN",
+          "CLIENT.CONSENT_GIVEN",
+          "CLIENT.ATTESTATION_SUBMITTED"
+        ],
+        "rejected": "CLIENT.G_08_06_REJECTED",
+        "withdrawn": "CLIENT.G_08_06_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-07",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Revoke an instruction or consent",
+      "gate_type_text": "SELF-ATTESTED, step-up",
+      "approver_text": "The authorised client contact",
+      "events": [
+        "CLIENT.REVOCATION_RECORDED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_07.decide",
+      "outcome_events": {
+        "approved": [
+          "CLIENT.REVOCATION_RECORDED"
+        ],
+        "rejected": "CLIENT.G_08_07_REJECTED",
+        "withdrawn": "CLIENT.G_08_07_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-08",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Decide an attested location obligation (Met or not)",
+      "gate_type_text": "GUARDED (attester excluded)",
+      "approver_text": "Legal department reviewer",
+      "events": [
+        "REGRADAR.OBLIGATION_STATUS_DECIDED"
+      ],
+      "class": "GUARDED",
+      "class_note": "GUARDED (attester excluded)",
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_08.decide",
+      "outcome_events": {
+        "approved": [
+          "REGRADAR.OBLIGATION_STATUS_DECIDED"
+        ],
+        "rejected": "CLIENT.G_08_08_REJECTED",
+        "withdrawn": "CLIENT.G_08_08_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-09",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Approve reuse of location evidence for another location",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Legal department reviewer",
+      "events": [
+        "CLIENT.EVIDENCE_REUSE_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_09.decide",
+      "outcome_events": {
+        "approved": [
+          "CLIENT.EVIDENCE_REUSE_APPROVED"
+        ],
+        "rejected": "CLIENT.G_08_09_REJECTED",
+        "withdrawn": "CLIENT.G_08_09_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-10",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Convert a client message into a formal instruction record",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Lawyer on the matter",
+      "events": [
+        "CLIENT.INSTRUCTION_RECORDED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_10.decide",
+      "outcome_events": {
+        "approved": [
+          "CLIENT.INSTRUCTION_RECORDED"
+        ],
+        "rejected": "CLIENT.G_08_10_REJECTED",
+        "withdrawn": "CLIENT.G_08_10_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-11",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Send an AI-drafted reply",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Lawyer on the matter, through Engine G-03-01",
+      "events": [
+        "CLIENT.MESSAGE_SENT"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_11.decide",
+      "outcome_events": {
+        "approved": [
+          "CLIENT.MESSAGE_SENT"
+        ],
+        "rejected": "CLIENT.G_08_11_REJECTED",
+        "withdrawn": "CLIENT.G_08_11_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-12",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Approve client-facing content in another language",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Verified language-competent reviewer",
+      "events": [
+        "CLIENT.TRANSLATION_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_12.decide",
+      "outcome_events": {
+        "approved": [
+          "CLIENT.TRANSLATION_APPROVED"
+        ],
+        "rejected": "CLIENT.G_08_12_REJECTED",
+        "withdrawn": "CLIENT.G_08_12_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-13",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Change the firm's verified payment details",
+      "gate_type_text": "DUAL",
+      "approver_text": "Finance owner and managing partner",
+      "events": [
+        "CLIENT.PAYMENT_DETAILS_CHANGED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_13.decide",
+      "outcome_events": {
+        "approved": [
+          "CLIENT.PAYMENT_DETAILS_CHANGED"
+        ],
+        "rejected": "CLIENT.G_08_13_REJECTED",
+        "withdrawn": "CLIENT.G_08_13_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-14",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Unpublish an item",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "CLIENT.ITEM_UNPUBLISHED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_14.decide",
+      "outcome_events": {
+        "approved": [
+          "CLIENT.ITEM_UNPUBLISHED"
+        ],
+        "rejected": "CLIENT.G_08_14_REJECTED",
+        "withdrawn": "CLIENT.G_08_14_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-08-15",
+      "module": "M08",
+      "module_name": "ClientBridge",
+      "decision": "Suspend a client account on a security concern",
+      "gate_type_text": "GUARDED",
+      "approver_text": "Tenant security administrator",
+      "events": [
+        "CLIENT.ACCOUNT_SUSPENDED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "clientbridge.g_08_15.decide",
+      "outcome_events": {
+        "approved": [
+          "CLIENT.ACCOUNT_SUSPENDED"
+        ],
+        "rejected": "CLIENT.G_08_15_REJECTED",
+        "withdrawn": "CLIENT.G_08_15_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-09-01",
+      "module": "M09",
+      "module_name": "Jurexio Ledger",
+      "decision": "Apply or release a litigation / regulatory hold",
+      "gate_type_text": "Single approver",
+      "approver_text": "Responsible Partner or Compliance Officer",
+      "events": [
+        "LEDGER.HOLD_APPLIED",
+        "LEDGER.HOLD_RELEASED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "ledger.hold.apply",
+      "outcome_events": {
+        "approved": [
+          "LEDGER.HOLD_APPLIED",
+          "LEDGER.HOLD_RELEASED"
+        ],
+        "rejected": "LEDGER.G_09_01_REJECTED",
+        "withdrawn": "LEDGER.G_09_01_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-09-02",
+      "module": "M09",
+      "module_name": "Jurexio Ledger",
+      "decision": "Disclosure review of an evidence package",
+      "gate_type_text": "Single approver",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "LEDGER.EXPORT_DISCLOSURE_APPROVED",
+        "LEDGER.EXPORT_DISCLOSURE_REJECTED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "ledger.g_09_02.decide",
+      "outcome_events": {
+        "approved": [
+          "LEDGER.EXPORT_DISCLOSURE_APPROVED",
+          "LEDGER.EXPORT_DISCLOSURE_REJECTED"
+        ],
+        "rejected": "LEDGER.G_09_02_REJECTED",
+        "withdrawn": "LEDGER.G_09_02_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-09-03",
+      "module": "M09",
+      "module_name": "Jurexio Ledger",
+      "decision": "Certification of an evidence package",
+      "gate_type_text": "Two distinct signatories (India); one qualified certifier (US)",
+      "approver_text": "India: person in charge of the system + expert. US: qualified custodian, eligible roles defined per state Jurisdiction Pack (OQ-09-08)",
+      "events": [
+        "LEDGER.EXPORT_CERTIFIED",
+        "LEDGER.EXPORT_SEALED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "ledger.export.certify",
+      "outcome_events": {
+        "approved": [
+          "LEDGER.EXPORT_CERTIFIED",
+          "LEDGER.EXPORT_SEALED"
+        ],
+        "rejected": "LEDGER.G_09_03_REJECTED",
+        "withdrawn": "LEDGER.G_09_03_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-09-04",
+      "module": "M09",
+      "module_name": "Jurexio Ledger",
+      "decision": "Execute erasure by crypto-shredding",
+      "gate_type_text": "Single approver",
+      "approver_text": "Data Protection Officer or Compliance Officer",
+      "events": [
+        "LEDGER.ERASURE_APPROVED",
+        "LEDGER.SUBJECT_KEY_SHREDDED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "ledger.erasure.approve",
+      "outcome_events": {
+        "approved": [
+          "LEDGER.ERASURE_APPROVED",
+          "LEDGER.SUBJECT_KEY_SHREDDED"
+        ],
+        "rejected": "LEDGER.G_09_04_REJECTED",
+        "withdrawn": "LEDGER.G_09_04_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-09-05",
+      "module": "M09",
+      "module_name": "Jurexio Ledger",
+      "decision": "Dispose of payloads at retention expiry",
+      "gate_type_text": "Single approver",
+      "approver_text": "Compliance Officer",
+      "events": [
+        "LEDGER.RETENTION_DISPOSAL_APPROVED",
+        "LEDGER.PAYLOAD_DISPOSED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "ledger.g_09_05.decide",
+      "outcome_events": {
+        "approved": [
+          "LEDGER.RETENTION_DISPOSAL_APPROVED",
+          "LEDGER.PAYLOAD_DISPOSED"
+        ],
+        "rejected": "LEDGER.G_09_05_REJECTED",
+        "withdrawn": "LEDGER.G_09_05_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-09-06",
+      "module": "M09",
+      "module_name": "Jurexio Ledger",
+      "decision": "Accept an imported-history segment",
+      "gate_type_text": "Dual sequential",
+      "approver_text": "IT Director, then Compliance Officer",
+      "events": [
+        "LEDGER.IMPORT_SEGMENT_SIGNED_OFF"
+      ],
+      "class": "DUAL",
+      "class_note": "sequential",
+      "approver_scope": "tenant",
+      "permission": "ledger.g_09_06.decide",
+      "outcome_events": {
+        "approved": [
+          "LEDGER.IMPORT_SEGMENT_SIGNED_OFF"
+        ],
+        "rejected": "LEDGER.G_09_06_REJECTED",
+        "withdrawn": "LEDGER.G_09_06_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-09-07",
+      "module": "M09",
+      "module_name": "Jurexio Ledger",
+      "decision": "Disposition of a chain-break incident",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Tenant Compliance Officer and tenant IT Director (Jurexio only under client-granted support access, G-11-09)",
+      "events": [
+        "LEDGER.CHAIN_BREAK_ACKNOWLEDGED",
+        "LEDGER.INCIDENT_CLOSED"
+      ],
+      "class": "DUAL",
+      "class_note": "tenant Compliance Officer and tenant IT Director",
+      "approver_scope": "platform",
+      "permission": "ledger.g_09_07.decide",
+      "outcome_events": {
+        "approved": [
+          "LEDGER.CHAIN_BREAK_ACKNOWLEDGED",
+          "LEDGER.INCIDENT_CLOSED"
+        ],
+        "rejected": "LEDGER.G_09_07_REJECTED",
+        "withdrawn": "LEDGER.G_09_07_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-09-08",
+      "module": "M09",
+      "module_name": "Jurexio Ledger",
+      "decision": "Enable or disable a client's audit trail",
+      "gate_type_text": "Single approver",
+      "approver_text": "Responsible Partner",
+      "events": [
+        "LEDGER.CLIENT_TRAIL_ENABLED",
+        "LEDGER.CLIENT_TRAIL_DISABLED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "ledger.g_09_08.decide",
+      "outcome_events": {
+        "approved": [
+          "LEDGER.CLIENT_TRAIL_ENABLED",
+          "LEDGER.CLIENT_TRAIL_DISABLED"
+        ],
+        "rejected": "LEDGER.G_09_08_REJECTED",
+        "withdrawn": "LEDGER.G_09_08_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-09-09",
+      "module": "M09",
+      "module_name": "Jurexio Ledger",
+      "decision": "Grant external auditor access",
+      "gate_type_text": "Single approver",
+      "approver_text": "Compliance Officer",
+      "events": [
+        "LEDGER.AUDITOR_ACCESS_GRANTED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "ledger.g_09_09.decide",
+      "outcome_events": {
+        "approved": [
+          "LEDGER.AUDITOR_ACCESS_GRANTED"
+        ],
+        "rejected": "LEDGER.G_09_09_REJECTED",
+        "withdrawn": "LEDGER.G_09_09_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-09-10",
+      "module": "M09",
+      "module_name": "Jurexio Ledger",
+      "decision": "Add, change or deprecate an event type in the registry",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurexio CTO and Jurexio Compliance",
+      "events": [
+        "LEDGER.REGISTRY_CHANGE_APPROVED",
+        "LEDGER.EVENT_TYPE_REGISTERED",
+        "LEDGER.EVENT_TYPE_DEPRECATED"
+      ],
+      "class": "DUAL",
+      "class_note": "Jurexio CTO and Jurexio Compliance",
+      "approver_scope": "platform",
+      "permission": "ledger.g_09_10.decide",
+      "outcome_events": {
+        "approved": [
+          "LEDGER.REGISTRY_CHANGE_APPROVED",
+          "LEDGER.EVENT_TYPE_REGISTERED",
+          "LEDGER.EVENT_TYPE_DEPRECATED"
+        ],
+        "rejected": "LEDGER.G_09_10_REJECTED",
+        "withdrawn": "LEDGER.G_09_10_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-09-11",
+      "module": "M09",
+      "module_name": "Jurexio Ledger",
+      "decision": "Break-glass database access (retired)",
+      "gate_type_text": "Retired",
+      "approver_text": "See G-11-11",
+      "events": [],
+      "class": "RETIRED",
+      "class_note": "Replaced by CommandCentre G-11-11 (C-08)",
+      "replaced_by": "G-11-11",
+      "approver_scope": "platform",
+      "permission": null,
+      "outcome_events": null,
+      "status": "retired",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-10-01",
+      "module": "M10",
+      "module_name": "NexusConnect",
+      "decision": "Approve a connector for a jurisdiction, including its data-flow declaration and event subscriptions",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurexio CTO and Jurexio Compliance",
+      "events": [
+        "PLATFORM.CONNECTOR_APPROVED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "nexusconnect.g_10_01.decide",
+      "outcome_events": {
+        "approved": [
+          "PLATFORM.CONNECTOR_APPROVED"
+        ],
+        "rejected": "NEXUS.G_10_01_REJECTED",
+        "withdrawn": "NEXUS.G_10_01_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-10-02",
+      "module": "M10",
+      "module_name": "NexusConnect",
+      "decision": "Re-approve or suspend after a vendor change",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurexio CTO and Jurexio Compliance",
+      "events": [
+        "PLATFORM.CONNECTOR_REAPPROVED",
+        "PLATFORM.CONNECTOR_SUSPENDED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "nexusconnect.g_10_02.decide",
+      "outcome_events": {
+        "approved": [
+          "PLATFORM.CONNECTOR_REAPPROVED",
+          "PLATFORM.CONNECTOR_SUSPENDED"
+        ],
+        "rejected": "NEXUS.G_10_02_REJECTED",
+        "withdrawn": "NEXUS.G_10_02_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-10-03",
+      "module": "M10",
+      "module_name": "NexusConnect",
+      "decision": "Enable a connector for tenant units",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Tenant security administrator and DPO",
+      "events": [
+        "NEXUS.CONNECTOR_ENABLED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "nexusconnect.g_10_03.decide",
+      "outcome_events": {
+        "approved": [
+          "NEXUS.CONNECTOR_ENABLED"
+        ],
+        "rejected": "NEXUS.G_10_03_REJECTED",
+        "withdrawn": "NEXUS.G_10_03_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-10-04",
+      "module": "M10",
+      "module_name": "NexusConnect",
+      "decision": "Change a connection's scopes",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Tenant security administrator and DPO",
+      "events": [
+        "NEXUS.SCOPE_CHANGED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "nexusconnect.g_10_04.decide",
+      "outcome_events": {
+        "approved": [
+          "NEXUS.SCOPE_CHANGED"
+        ],
+        "rejected": "NEXUS.G_10_04_REJECTED",
+        "withdrawn": "NEXUS.G_10_04_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-10-05",
+      "module": "M10",
+      "module_name": "NexusConnect",
+      "decision": "Register an inbound source or endpoint",
+      "gate_type_text": "Single approver",
+      "approver_text": "Tenant security administrator",
+      "events": [
+        "NEXUS.INBOUND_SOURCE_REGISTERED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "nexusconnect.g_10_05.decide",
+      "outcome_events": {
+        "approved": [
+          "NEXUS.INBOUND_SOURCE_REGISTERED"
+        ],
+        "rejected": "NEXUS.G_10_05_REJECTED",
+        "withdrawn": "NEXUS.G_10_05_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-10-06",
+      "module": "M10",
+      "module_name": "NexusConnect",
+      "decision": "Release or discard a quarantined item (never malware)",
+      "gate_type_text": "Single approver",
+      "approver_text": "Tenant security administrator",
+      "events": [
+        "NEXUS.QUARANTINE_RELEASED",
+        "NEXUS.QUARANTINE_DISCARDED"
+      ],
+      "class": "GUARDED",
+      "class_note": "quarantine release; malware never released",
+      "approver_scope": "tenant",
+      "permission": "nexusconnect.g_10_06.decide",
+      "outcome_events": {
+        "approved": [
+          "NEXUS.QUARANTINE_RELEASED",
+          "NEXUS.QUARANTINE_DISCARDED"
+        ],
+        "rejected": "NEXUS.G_10_06_REJECTED",
+        "withdrawn": "NEXUS.G_10_06_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-10-07",
+      "module": "M10",
+      "module_name": "NexusConnect",
+      "decision": "Resolve a dead-letter item",
+      "gate_type_text": "Single approver",
+      "approver_text": "Named connector owner",
+      "events": [
+        "NEXUS.DEAD_LETTER_RESOLVED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "nexusconnect.g_10_07.decide",
+      "outcome_events": {
+        "approved": [
+          "NEXUS.DEAD_LETTER_RESOLVED"
+        ],
+        "rejected": "NEXUS.G_10_07_REJECTED",
+        "withdrawn": "NEXUS.G_10_07_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-10-08",
+      "module": "M10",
+      "module_name": "NexusConnect",
+      "decision": "Archive a connection",
+      "gate_type_text": "Single approver",
+      "approver_text": "Tenant security administrator",
+      "events": [
+        "NEXUS.CONNECTOR_ARCHIVED",
+        "NEXUS.CREDENTIALS_DESTROYED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "nexusconnect.g_10_08.decide",
+      "outcome_events": {
+        "approved": [
+          "NEXUS.CONNECTOR_ARCHIVED",
+          "NEXUS.CREDENTIALS_DESTROYED"
+        ],
+        "rejected": "NEXUS.G_10_08_REJECTED",
+        "withdrawn": "NEXUS.G_10_08_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-10-09",
+      "module": "M10",
+      "module_name": "NexusConnect",
+      "decision": "Approve a fallback provider pairing for a jurisdiction and purpose",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurexio CTO and Jurexio Compliance",
+      "events": [
+        "PLATFORM.FALLBACK_APPROVED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "nexusconnect.g_10_09.decide",
+      "outcome_events": {
+        "approved": [
+          "PLATFORM.FALLBACK_APPROVED"
+        ],
+        "rejected": "NEXUS.G_10_09_REJECTED",
+        "withdrawn": "NEXUS.G_10_09_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-11-01",
+      "module": "M11",
+      "module_name": "CommandCentre",
+      "decision": "Create or change a unit that sets a jurisdiction or data region",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Tenant security administrator and Data Protection Officer",
+      "events": [
+        "ADMIN.UNIT_CREATED",
+        "ADMIN.UNIT_CHANGED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "commandcentre.g_11_01.decide",
+      "outcome_events": {
+        "approved": [
+          "ADMIN.UNIT_CREATED",
+          "ADMIN.UNIT_CHANGED"
+        ],
+        "rejected": "ADMIN.G_11_01_REJECTED",
+        "withdrawn": "ADMIN.G_11_01_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-11-02",
+      "module": "M11",
+      "module_name": "CommandCentre",
+      "decision": "Create or change a custom role (no protected permissions)",
+      "gate_type_text": "Single approver, within own scope",
+      "approver_text": "Tenant security administrator or unit administrator",
+      "events": [
+        "ADMIN.ROLE_VERSIONED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "access.role.manage",
+      "outcome_events": {
+        "approved": [
+          "ADMIN.ROLE_VERSIONED"
+        ],
+        "rejected": "ADMIN.G_11_02_REJECTED",
+        "withdrawn": "ADMIN.G_11_02_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-11-03",
+      "module": "M11",
+      "module_name": "CommandCentre",
+      "decision": "Add a protected permission to a role",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Tenant security administrator and Compliance Officer",
+      "events": [
+        "ADMIN.PROTECTED_PERMISSION_APPROVED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "commandcentre.g_11_03.decide",
+      "outcome_events": {
+        "approved": [
+          "ADMIN.PROTECTED_PERMISSION_APPROVED"
+        ],
+        "rejected": "ADMIN.G_11_03_REJECTED",
+        "withdrawn": "ADMIN.G_11_03_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-11-04",
+      "module": "M11",
+      "module_name": "CommandCentre",
+      "decision": "Assign or change a person's role and scopes",
+      "gate_type_text": "Single approver, within own scope",
+      "approver_text": "Unit administrator or unit head",
+      "events": [
+        "ADMIN.ROLE_ASSIGNED",
+        "ADMIN.ROLE_REMOVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "commandcentre.g_11_04.decide",
+      "outcome_events": {
+        "approved": [
+          "ADMIN.ROLE_ASSIGNED",
+          "ADMIN.ROLE_REMOVED"
+        ],
+        "rejected": "ADMIN.G_11_04_REJECTED",
+        "withdrawn": "ADMIN.G_11_04_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-11-05",
+      "module": "M11",
+      "module_name": "CommandCentre",
+      "decision": "Verify a professional credential or a competence (e.g. Hindi)",
+      "gate_type_text": "Single approver",
+      "approver_text": "Designated credential verifier",
+      "events": [
+        "ADMIN.CREDENTIAL_VERIFIED",
+        "ADMIN.COMPETENCE_VERIFIED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "commandcentre.g_11_05.decide",
+      "outcome_events": {
+        "approved": [
+          "ADMIN.CREDENTIAL_VERIFIED",
+          "ADMIN.COMPETENCE_VERIFIED"
+        ],
+        "rejected": "ADMIN.G_11_05_REJECTED",
+        "withdrawn": "ADMIN.G_11_05_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-11-06",
+      "module": "M11",
+      "module_name": "CommandCentre",
+      "decision": "Activate just-in-time elevation",
+      "gate_type_text": "Self with reason and step-up; tenant may require an approver",
+      "approver_text": "Holder of the eligible role",
+      "events": [
+        "ADMIN.ELEVATION_ACTIVATED",
+        "ADMIN.ELEVATION_ENDED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": "with reason and step-up",
+      "approver_scope": "tenant",
+      "permission": "commandcentre.g_11_06.decide",
+      "outcome_events": {
+        "approved": [
+          "ADMIN.ELEVATION_ACTIVATED",
+          "ADMIN.ELEVATION_ENDED"
+        ],
+        "rejected": "ADMIN.G_11_06_REJECTED",
+        "withdrawn": "ADMIN.G_11_06_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-11-07",
+      "module": "M11",
+      "module_name": "CommandCentre",
+      "decision": "Revoke a person's access in an emergency",
+      "gate_type_text": "Single approver with step-up",
+      "approver_text": "Tenant security administrator",
+      "events": [
+        "ADMIN.ACCESS_REVOKED_EMERGENCY"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "access.revoke.emergency",
+      "outcome_events": {
+        "approved": [
+          "ADMIN.ACCESS_REVOKED_EMERGENCY"
+        ],
+        "rejected": "ADMIN.G_11_07_REJECTED",
+        "withdrawn": "ADMIN.G_11_07_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-11-08",
+      "module": "M11",
+      "module_name": "CommandCentre",
+      "decision": "Recertify access",
+      "gate_type_text": "Single approver",
+      "approver_text": "Unit head",
+      "events": [
+        "ADMIN.ACCESS_RECERTIFIED",
+        "ADMIN.ACCESS_REMOVED_UNCONFIRMED"
+      ],
+      "class": "GUARDED",
+      "class_note": "no one recertifies their own access",
+      "approver_scope": "tenant",
+      "permission": "commandcentre.g_11_08.decide",
+      "outcome_events": {
+        "approved": [
+          "ADMIN.ACCESS_RECERTIFIED",
+          "ADMIN.ACCESS_REMOVED_UNCONFIRMED"
+        ],
+        "rejected": "ADMIN.G_11_08_REJECTED",
+        "withdrawn": "ADMIN.G_11_08_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-11-09",
+      "module": "M11",
+      "module_name": "CommandCentre",
+      "decision": "Grant Jurexio support access (content access needs a second approver)",
+      "gate_type_text": "Single approver; dual for content",
+      "approver_text": "Tenant security administrator; plus DPO or Compliance Officer for content",
+      "events": [
+        "ADMIN.SUPPORT_ACCESS_GRANTED",
+        "ADMIN.SUPPORT_ACCESS_ENDED"
+      ],
+      "class": "GUARDED",
+      "class_note": "content access needs a second approver",
+      "approver_scope": "tenant",
+      "permission": "access.support.grant",
+      "outcome_events": {
+        "approved": [
+          "ADMIN.SUPPORT_ACCESS_GRANTED",
+          "ADMIN.SUPPORT_ACCESS_ENDED"
+        ],
+        "rejected": "ADMIN.G_11_09_REJECTED",
+        "withdrawn": "ADMIN.G_11_09_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-11-10",
+      "module": "M11",
+      "module_name": "CommandCentre",
+      "decision": "Change a security-relevant setting (identity provider, session policy, device or network rule, pack use for a unit)",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Tenant security administrator and Compliance Officer",
+      "events": [
+        "ADMIN.CONFIG_CHANGED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "access.policy.change",
+      "outcome_events": {
+        "approved": [
+          "ADMIN.CONFIG_CHANGED"
+        ],
+        "rejected": "ADMIN.G_11_10_REJECTED",
+        "withdrawn": "ADMIN.G_11_10_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-11-11",
+      "module": "M11",
+      "module_name": "CommandCentre",
+      "decision": "Platform break-glass access to a tenant",
+      "gate_type_text": "Dual distinct in Jurexio, with tenant notice",
+      "approver_text": "Two Jurexio security officers",
+      "events": [
+        "PLATFORM.BREAK_GLASS_APPROVED",
+        "PLATFORM.BREAK_GLASS_CLOSED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "commandcentre.g_11_11.decide",
+      "outcome_events": {
+        "approved": [
+          "PLATFORM.BREAK_GLASS_APPROVED",
+          "PLATFORM.BREAK_GLASS_CLOSED"
+        ],
+        "rejected": "ADMIN.G_11_11_REJECTED",
+        "withdrawn": "ADMIN.G_11_11_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-11-12",
+      "module": "M11",
+      "module_name": "CommandCentre",
+      "decision": "Publish a permission catalogue, template or separation-of-duties version",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurexio CTO and Jurexio Compliance",
+      "events": [
+        "PLATFORM.CATALOGUE_PUBLISHED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "commandcentre.g_11_12.decide",
+      "outcome_events": {
+        "approved": [
+          "PLATFORM.CATALOGUE_PUBLISHED"
+        ],
+        "rejected": "ADMIN.G_11_12_REJECTED",
+        "withdrawn": "ADMIN.G_11_12_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-11-13",
+      "module": "M11",
+      "module_name": "CommandCentre",
+      "decision": "Approve an external user",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Internal sponsor and unit administrator",
+      "events": [
+        "ADMIN.EXTERNAL_USER_APPROVED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "commandcentre.g_11_13.decide",
+      "outcome_events": {
+        "approved": [
+          "ADMIN.EXTERNAL_USER_APPROVED"
+        ],
+        "rejected": "ADMIN.G_11_13_REJECTED",
+        "withdrawn": "ADMIN.G_11_13_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-11-14",
+      "module": "M11",
+      "module_name": "CommandCentre",
+      "decision": "Relocate a person's identity record to another region",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Unit head and Data Protection Officer",
+      "events": [
+        "ADMIN.USER_RELOCATED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "commandcentre.g_11_14.decide",
+      "outcome_events": {
+        "approved": [
+          "ADMIN.USER_RELOCATED"
+        ],
+        "rejected": "ADMIN.G_11_14_REJECTED",
+        "withdrawn": "ADMIN.G_11_14_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-12-01",
+      "module": "M12",
+      "module_name": "PulseComms",
+      "decision": "Publish a platform system-notice template version for a jurisdiction and language",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurexio Compliance and a qualified language reviewer",
+      "events": [
+        "PLATFORM.TEMPLATE_PUBLISHED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "pulsecomms.g_12_01.decide",
+      "outcome_events": {
+        "approved": [
+          "PLATFORM.TEMPLATE_PUBLISHED"
+        ],
+        "rejected": "COMMS.G_12_01_REJECTED",
+        "withdrawn": "COMMS.G_12_01_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-12-02",
+      "module": "M12",
+      "module_name": "PulseComms",
+      "decision": "Adapt a template's wording for a tenant, within allowed fields",
+      "gate_type_text": "Single approver",
+      "approver_text": "Tenant Compliance Officer",
+      "events": [
+        "COMMS.TEMPLATE_ADAPTED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "pulsecomms.g_12_02.decide",
+      "outcome_events": {
+        "approved": [
+          "COMMS.TEMPLATE_ADAPTED"
+        ],
+        "rejected": "COMMS.G_12_02_REJECTED",
+        "withdrawn": "COMMS.G_12_02_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-12-03",
+      "module": "M12",
+      "module_name": "PulseComms",
+      "decision": "Record a client's channel consent, with evidence",
+      "gate_type_text": "Single approver",
+      "approver_text": "Matter team member",
+      "events": [
+        "COMMS.CONSENT_RECORDED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": "consent recorded with evidence",
+      "approver_scope": "tenant",
+      "permission": "pulsecomms.g_12_03.decide",
+      "outcome_events": {
+        "approved": [
+          "COMMS.CONSENT_RECORDED"
+        ],
+        "rejected": "COMMS.G_12_03_REJECTED",
+        "withdrawn": "COMMS.G_12_03_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-12-04",
+      "module": "M12",
+      "module_name": "PulseComms",
+      "decision": "Register a personal number for SMS or voice escalation",
+      "gate_type_text": "Self, with step-up",
+      "approver_text": "The user",
+      "events": [
+        "COMMS.CONTACT_REGISTERED",
+        "COMMS.VOICE_OPT_IN"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": "own number, with step-up",
+      "approver_scope": "tenant",
+      "permission": "pulsecomms.g_12_04.decide",
+      "outcome_events": {
+        "approved": [
+          "COMMS.CONTACT_REGISTERED",
+          "COMMS.VOICE_OPT_IN"
+        ],
+        "rejected": "COMMS.G_12_04_REJECTED",
+        "withdrawn": "COMMS.G_12_04_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-12-05",
+      "module": "M12",
+      "module_name": "PulseComms",
+      "decision": "Resolve a routing failure",
+      "gate_type_text": "Single approver",
+      "approver_text": "Compliance Officer or unit administrator",
+      "events": [
+        "COMMS.ROUTING_FAILURE_RESOLVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "pulsecomms.g_12_05.decide",
+      "outcome_events": {
+        "approved": [
+          "COMMS.ROUTING_FAILURE_RESOLVED"
+        ],
+        "rejected": "COMMS.G_12_05_REJECTED",
+        "withdrawn": "COMMS.G_12_05_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-13-01",
+      "module": "M13",
+      "module_name": "CloudVault",
+      "decision": "Approve or change a pack's primary or recovery location",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Jurexio CTO and Jurexio Compliance",
+      "events": [
+        "PLATFORM.LOCATION_APPROVED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "cloudvault.g_13_01.decide",
+      "outcome_events": {
+        "approved": [
+          "PLATFORM.LOCATION_APPROVED"
+        ],
+        "rejected": "STORAGE.G_13_01_REJECTED",
+        "withdrawn": "STORAGE.G_13_01_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-13-02",
+      "module": "M13",
+      "module_name": "CloudVault",
+      "decision": "Connect bring-your-own-storage",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Tenant security administrator and Data Protection Officer",
+      "events": [
+        "STORAGE.BYOS_CONNECTED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "cloudvault.g_13_02.decide",
+      "outcome_events": {
+        "approved": [
+          "STORAGE.BYOS_CONNECTED"
+        ],
+        "rejected": "STORAGE.G_13_02_REJECTED",
+        "withdrawn": "STORAGE.G_13_02_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-13-03",
+      "module": "M13",
+      "module_name": "CloudVault",
+      "decision": "Enable a customer-managed key, acknowledging that revocation stops service",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Tenant security administrator and Compliance Officer",
+      "events": [
+        "STORAGE.CMK_ENABLED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "cloudvault.g_13_03.decide",
+      "outcome_events": {
+        "approved": [
+          "STORAGE.CMK_ENABLED"
+        ],
+        "rejected": "STORAGE.G_13_03_REJECTED",
+        "withdrawn": "STORAGE.G_13_03_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-13-04",
+      "module": "M13",
+      "module_name": "CloudVault",
+      "decision": "Confirm receipt of the exit export",
+      "gate_type_text": "Single approver",
+      "approver_text": "Tenant authorised signatory",
+      "events": [
+        "STORAGE.EXIT_EXPORT_CONFIRMED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": "confirmation of receipt by the tenant's signatory",
+      "approver_scope": "tenant",
+      "permission": "cloudvault.g_13_04.decide",
+      "outcome_events": {
+        "approved": [
+          "STORAGE.EXIT_EXPORT_CONFIRMED"
+        ],
+        "rejected": "STORAGE.G_13_04_REJECTED",
+        "withdrawn": "STORAGE.G_13_04_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-13-05",
+      "module": "M13",
+      "module_name": "CloudVault",
+      "decision": "Destroy a tenant key at exit",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Tenant authorised signatory and Jurexio security officer",
+      "events": [
+        "STORAGE.TENANT_KEY_DESTROYED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "cloudvault.g_13_05.decide",
+      "outcome_events": {
+        "approved": [
+          "STORAGE.TENANT_KEY_DESTROYED"
+        ],
+        "rejected": "STORAGE.G_13_05_REJECTED",
+        "withdrawn": "STORAGE.G_13_05_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-13-06",
+      "module": "M13",
+      "module_name": "CloudVault",
+      "decision": "Approve a bulk disposal batch",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Compliance Officer and Data Protection Officer",
+      "events": [
+        "STORAGE.BULK_DISPOSAL_APPROVED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "cloudvault.g_13_06.decide",
+      "outcome_events": {
+        "approved": [
+          "STORAGE.BULK_DISPOSAL_APPROVED"
+        ],
+        "rejected": "STORAGE.G_13_06_REJECTED",
+        "withdrawn": "STORAGE.G_13_06_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-13-07",
+      "module": "M13",
+      "module_name": "CloudVault",
+      "decision": "Invoke region failover",
+      "gate_type_text": "Dual distinct, tenant notice",
+      "approver_text": "Jurexio CTO and Jurexio security officer",
+      "events": [
+        "PLATFORM.FAILOVER_INVOKED",
+        "PLATFORM.FAILBACK_COMPLETED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "cloudvault.g_13_07.decide",
+      "outcome_events": {
+        "approved": [
+          "PLATFORM.FAILOVER_INVOKED",
+          "PLATFORM.FAILBACK_COMPLETED"
+        ],
+        "rejected": "STORAGE.G_13_07_REJECTED",
+        "withdrawn": "STORAGE.G_13_07_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-13-08",
+      "module": "M13",
+      "module_name": "CloudVault",
+      "decision": "Request a single-tenant restore",
+      "gate_type_text": "Single approver; executed under client-granted support access",
+      "approver_text": "Tenant security administrator",
+      "events": [
+        "STORAGE.TENANT_RESTORE_APPROVED"
+      ],
+      "class": "SELF_ATTESTED",
+      "class_note": "request; executed only under client-granted support access",
+      "approver_scope": "tenant",
+      "permission": "cloudvault.g_13_08.decide",
+      "outcome_events": {
+        "approved": [
+          "STORAGE.TENANT_RESTORE_APPROVED"
+        ],
+        "rejected": "STORAGE.G_13_08_REJECTED",
+        "withdrawn": "STORAGE.G_13_08_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-13-09",
+      "module": "M13",
+      "module_name": "CloudVault",
+      "decision": "Release the Dedicated or Sovereign edition for a client",
+      "gate_type_text": "Dual distinct, after release tests",
+      "approver_text": "Jurexio CTO and Jurexio Compliance",
+      "events": [
+        "PLATFORM.EDITION_RELEASED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "platform",
+      "permission": "cloudvault.g_13_09.decide",
+      "outcome_events": {
+        "approved": [
+          "PLATFORM.EDITION_RELEASED"
+        ],
+        "rejected": "STORAGE.G_13_09_REJECTED",
+        "withdrawn": "STORAGE.G_13_09_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-14-01",
+      "module": "M14",
+      "module_name": "DataMigrate",
+      "decision": "Grant operator access; approve each content request",
+      "gate_type_text": "Single approver",
+      "approver_text": "Client IT Director",
+      "events": [
+        "MIGRATE.OPERATOR_ACCESS_GRANTED",
+        "MIGRATE.CONTENT_ACCESS_APPROVED",
+        "MIGRATE.CONTENT_ACCESS_DENIED"
+      ],
+      "class": "DUAL",
+      "class_note": "content requests via G-11-09",
+      "approver_scope": "tenant",
+      "permission": "datamigrate.g_14_01.decide",
+      "outcome_events": {
+        "approved": [
+          "MIGRATE.OPERATOR_ACCESS_GRANTED",
+          "MIGRATE.CONTENT_ACCESS_APPROVED",
+          "MIGRATE.CONTENT_ACCESS_DENIED"
+        ],
+        "rejected": "MIGRATE.G_14_01_REJECTED",
+        "withdrawn": "MIGRATE.G_14_01_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-14-02",
+      "module": "M14",
+      "module_name": "DataMigrate",
+      "decision": "Approve mapping template; approve tag samples",
+      "gate_type_text": "Single approver",
+      "approver_text": "Client IT Director (mappings); designated lawyer (document and contract tags)",
+      "events": [
+        "MIGRATE.MAPPING_APPROVED",
+        "MIGRATE.TAG_SAMPLE_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "datamigrate.g_14_02.decide",
+      "outcome_events": {
+        "approved": [
+          "MIGRATE.MAPPING_APPROVED",
+          "MIGRATE.TAG_SAMPLE_APPROVED"
+        ],
+        "rejected": "MIGRATE.G_14_02_REJECTED",
+        "withdrawn": "MIGRATE.G_14_02_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-14-03",
+      "module": "M14",
+      "module_name": "DataMigrate",
+      "decision": "Exclude a batch of records",
+      "gate_type_text": "Single approver",
+      "approver_text": "Responsible Partner or IT Director",
+      "events": [
+        "MIGRATE.EXCLUSION_APPROVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "datamigrate.g_14_03.decide",
+      "outcome_events": {
+        "approved": [
+          "MIGRATE.EXCLUSION_APPROVED"
+        ],
+        "rejected": "MIGRATE.G_14_03_REJECTED",
+        "withdrawn": "MIGRATE.G_14_03_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-14-04",
+      "module": "M14",
+      "module_name": "DataMigrate",
+      "decision": "Clear a document from privileged pending review",
+      "gate_type_text": "Single approver, per document",
+      "approver_text": "Credential-verified lawyer",
+      "events": [],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "datamigrate.g_14_04.decide",
+      "outcome_events": {
+        "approved": [],
+        "rejected": "MIGRATE.G_14_04_REJECTED",
+        "withdrawn": "MIGRATE.G_14_04_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-14-05",
+      "module": "M14",
+      "module_name": "DataMigrate",
+      "decision": "Approve or reverse a client merge; resolve a conflict hit",
+      "gate_type_text": "Single approver",
+      "approver_text": "General Counsel or Compliance Officer (merges); responsible Partner or General Counsel (conflicts)",
+      "events": [
+        "MIGRATE.CLIENT_MERGE_APPROVED",
+        "MIGRATE.CLIENT_MERGE_REVERSED",
+        "MIGRATE.CONFLICT_RESOLVED"
+      ],
+      "class": "GUARDED",
+      "class_note": "decided by the conflicts reviewer, never the requesting or responsible partner",
+      "approver_scope": "tenant",
+      "permission": "datamigrate.g_14_05.decide",
+      "outcome_events": {
+        "approved": [
+          "MIGRATE.CLIENT_MERGE_APPROVED",
+          "MIGRATE.CLIENT_MERGE_REVERSED",
+          "MIGRATE.CONFLICT_RESOLVED"
+        ],
+        "rejected": "MIGRATE.G_14_05_REJECTED",
+        "withdrawn": "MIGRATE.G_14_05_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-14-06",
+      "module": "M14",
+      "module_name": "DataMigrate",
+      "decision": "Sign off client-money reconciliation",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "Finance owner and responsible Partner",
+      "events": [
+        "MIGRATE.MONEY_RECONCILIATION_SIGNED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "datamigrate.g_14_06.decide",
+      "outcome_events": {
+        "approved": [
+          "MIGRATE.MONEY_RECONCILIATION_SIGNED"
+        ],
+        "rejected": "MIGRATE.G_14_06_REJECTED",
+        "withdrawn": "MIGRATE.G_14_06_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-14-07",
+      "module": "M14",
+      "module_name": "DataMigrate",
+      "decision": "Classify a quarantined record's jurisdiction",
+      "gate_type_text": "Single approver",
+      "approver_text": "Compliance Officer",
+      "events": [
+        "MIGRATE.QUARANTINE_RESOLVED"
+      ],
+      "class": "GUARDED",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "datamigrate.g_14_07.decide",
+      "outcome_events": {
+        "approved": [
+          "MIGRATE.QUARANTINE_RESOLVED"
+        ],
+        "rejected": "MIGRATE.G_14_07_REJECTED",
+        "withdrawn": "MIGRATE.G_14_07_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-14-08",
+      "module": "M14",
+      "module_name": "DataMigrate",
+      "decision": "Approve cutover",
+      "gate_type_text": "Sequential: IT Director, Board, CEO",
+      "approver_text": "Named approvers per the migration plan",
+      "events": [
+        "MIGRATE.IT_DIRECTOR_APPROVED",
+        "MIGRATE.IT_DIRECTOR_REJECTED",
+        "MIGRATE.BOARD_APPROVED",
+        "MIGRATE.CEO_CONFIRMED"
+      ],
+      "class": "DUAL",
+      "class_note": "sequential",
+      "approver_scope": "tenant",
+      "permission": "migrate.cutover.approve",
+      "outcome_events": {
+        "approved": [
+          "MIGRATE.IT_DIRECTOR_APPROVED",
+          "MIGRATE.IT_DIRECTOR_REJECTED",
+          "MIGRATE.BOARD_APPROVED",
+          "MIGRATE.CEO_CONFIRMED"
+        ],
+        "rejected": "MIGRATE.G_14_08_REJECTED",
+        "withdrawn": "MIGRATE.G_14_08_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-14-09",
+      "module": "M14",
+      "module_name": "DataMigrate",
+      "decision": "Roll back after cutover",
+      "gate_type_text": "Sequential: IT Director, Board",
+      "approver_text": "Named approvers",
+      "events": [
+        "MIGRATE.ROLLBACK_APPROVED",
+        "MIGRATE.ROLLBACK_EXECUTED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "migrate.rollback.approve",
+      "outcome_events": {
+        "approved": [
+          "MIGRATE.ROLLBACK_APPROVED",
+          "MIGRATE.ROLLBACK_EXECUTED"
+        ],
+        "rejected": "MIGRATE.G_14_09_REJECTED",
+        "withdrawn": "MIGRATE.G_14_09_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": true,
+      "step_up_required": true
+    },
+    {
+      "id": "G-14-10",
+      "module": "M14",
+      "module_name": "DataMigrate",
+      "decision": "Decide fix-forward or rollback for a LIVE defect",
+      "gate_type_text": "Dual distinct",
+      "approver_text": "IT Director and Compliance Officer",
+      "events": [
+        "MIGRATE.DEFECT_ESCALATED",
+        "MIGRATE.DEFECT_DISPOSITION_RECORDED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "datamigrate.g_14_10.decide",
+      "outcome_events": {
+        "approved": [
+          "MIGRATE.DEFECT_ESCALATED",
+          "MIGRATE.DEFECT_DISPOSITION_RECORDED"
+        ],
+        "rejected": "MIGRATE.G_14_10_REJECTED",
+        "withdrawn": "MIGRATE.G_14_10_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    },
+    {
+      "id": "G-14-11",
+      "module": "M14",
+      "module_name": "DataMigrate",
+      "decision": "Destroy migration staging",
+      "gate_type_text": "Dual distinct, certificate required; holds always win",
+      "approver_text": "IT Director and Compliance Officer",
+      "events": [
+        "MIGRATE.STAGING_DESTROYED",
+        "STORAGE.DISPOSAL_CERTIFIED"
+      ],
+      "class": "DUAL",
+      "class_note": null,
+      "approver_scope": "tenant",
+      "permission": "datamigrate.g_14_11.decide",
+      "outcome_events": {
+        "approved": [
+          "MIGRATE.STAGING_DESTROYED",
+          "STORAGE.DISPOSAL_CERTIFIED"
+        ],
+        "rejected": "MIGRATE.G_14_11_REJECTED",
+        "withdrawn": "MIGRATE.G_14_11_WITHDRAWN"
+      },
+      "status": "proposed-v0",
+      "protected": false,
+      "step_up_required": false
+    }
+  ]
+}

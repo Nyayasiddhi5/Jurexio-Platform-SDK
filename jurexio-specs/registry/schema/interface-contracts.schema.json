@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "jurexio/interface-contracts.schema.json",
+  "title": "Jurexio frozen interface contracts",
+  "type": "object",
+  "required": [
+    "_meta",
+    "contracts"
+  ],
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "required": [
+        "version",
+        "generated"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "generated": {
+          "type": "string"
+        }
+      }
+    },
+    "contracts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "module",
+          "entries"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "module": {
+            "type": "string"
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "fields",
+                "meaning",
+                "producer",
+                "consumers"
+              ],
+              "properties": {
+                "fields": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z_]+$"
+                  }
+                },
+                "meaning": {
+                  "type": "string"
+                },
+                "producer": {
+                  "type": "string"
+                },
+                "consumers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    }
+  }
+}

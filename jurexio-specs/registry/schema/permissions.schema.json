@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "jurexio/permissions.schema.json",
+  "title": "Jurexio permission catalogue (seed)",
+  "type": "object",
+  "required": [
+    "_meta",
+    "permissions"
+  ],
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "required": [
+        "version",
+        "generated"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "generated": {
+          "type": "string"
+        }
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "module",
+          "scope",
+          "protected",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z]+(\\.[a-z0-9_]+)+$"
+          },
+          "module": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "gates": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^G-\\d{2}-\\d{2}$"
+            }
+          },
+          "scope": {
+            "enum": [
+              "tenant",
+              "platform"
+            ]
+          },
+          "protected": {
+            "type": "boolean"
+          },
+          "step_up_required": {
+            "type": "boolean"
+          },
+          "status": {
+            "enum": [
+              "proposed-v0",
+              "adopted"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

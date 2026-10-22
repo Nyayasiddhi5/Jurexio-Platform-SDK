@@ -2,6 +2,12 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-SPEC-PACK-IMPORT-001 (2026-10-22)
+
+- Imported Jurexio module spec pack at `jurexio-specs/` (14 specs, gates/events/permissions registries, validate.py).
+- CI and `npm run registry:validate` run JSON Schema + cross-reference checks.
+- Runbook: `documents/working/JRX-SPEC-PACK-REPO-IMPORT.md`.
+
 ### Security — JRX-P1-GLOBAL-STANDARDS-001 (2026-10-22)
 
 - CI: full `npm run guardrail`, build, vitest, and `npm audit --audit-level=high` on PR/main (`.github/workflows/jrx-ci.yml`).
