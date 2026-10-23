@@ -6,6 +6,7 @@
 
 | Timestamp | Status | Owner | Area | Summary | Evidence |
 |-----------|--------|-------|------|---------|----------|
+| 2026-10-23T07:30:00Z | DONE | Cursor Agent | JRX-PLATFORM-LAYOUT-WAVES-001 | Waves 0–3: jurexio-sdk/governance/enterprise layout, PRODUCT-BOUNDARIES, workspace file, Docker/CI paths; build + vitest OK. | `feat/jrx-platform-uniform-waves`; `JRX-PLATFORM-LAYOUT-WAVES-CLOSEOUT-2026-10-23.md` |
 | 2026-10-23T02:40:00Z | DONE | Cursor Agent | JRX-SPRINT1-FOUNDATION-001 | Sprint 1 slice: M11 access policy v1, M09 synthetic ledger ingest API, dual-region IaC skeleton; branch feat/jrx-sprint1-foundation. | `jrx-access-policy-service.ts`; `jrx-ledger-ingest-service.ts`; vitest 7/7; `JRX-SPRINT1-KICKOFF-2026-10-23.md` |
 | 2026-10-22T15:05:00Z | DONE | Cursor Agent | JRX-CH3-CHAIRMAN-FINAL-CLOSE-001 | CH-3 auto-approved: 144 permission catalogue renames; proposals closed; Q4 CTO engineering sign-off; final Chairman closure status doc. | `apply_ch3_permission_catalogue.py`; `JRX-CHAIRMAN-FINAL-CLOSURE-STATUS-2026-10-22.md`; `npm run registry:validate` OK |
 | 2026-10-22T14:15:00Z | DONE | Cursor Agent | JRX-SPEC-PACK-1C7C-IMPORT-001 | Import consolidation pass 2 pack (759+760 events), specs M03/M07/M11 R1; import script; C-02 src IronLedger→Jurexio Ledger + jrx_pii_vault flag. | `scripts/jrx-import-spec-pack.sh`; `npm run registry:validate` OK |

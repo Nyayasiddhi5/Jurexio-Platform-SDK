@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   getSyntheticLedgerIngestCount,
   ingestJrxLedgerEvent,
-} from '../../src/services/jrx-ledger-ingest-service.js';
+} from '../../jurexio-sdk/src/services/jrx-ledger-ingest-service.js';
 
 describe('JRX ledger ingest (synthetic)', () => {
   it('rejects non-synthetic real tenant', () => {

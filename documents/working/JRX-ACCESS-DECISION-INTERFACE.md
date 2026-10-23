@@ -19,9 +19,11 @@
 | `resourceId` | No | Matter, document, or unit ID |
 | `context` | No | Matter state, jurisdiction, wall tokens (future) |
 
-### Response (current stub)
+### Response (Sprint 1 v1)
 
-- HTTP 200 with `decision: "deny"`, `code: "ACCESS_POLICY_NOT_WIRED"` until policy engine ships.
+- HTTP 200 with `decision`, `code`, `message`, optional `gateClass`.
+- Deny codes include `PERMISSION_UNKNOWN`, `MATTER_POLICY_REQUIRED`, `STEP_UP_REQUIRED`, `SOD_*`, `ROLE_ASSIGNMENTS_NOT_WIRED`, `PERMISSION_NOT_HELD`.
+- Allow when `context.heldPermissions` includes the permission and gate/SoD checks pass.
 - HTTP 400 if `permission` or `subjectId` missing.
 
 ## Decision algorithm (target Sprint 1)
@@ -37,4 +39,4 @@
 - `jurexio-specs/registry/permissions.json` @ 1.0.0-adopted  
 - `jurexio-specs/registry/role-templates.json`  
 - `jurexio-specs/registry/separation-of-duties.json`  
-- Implementation stub: `src/routes/jrx-platform-access-routes.ts`
+- Implementation: `src/services/jrx-access-policy-service.ts`, `src/routes/jrx-platform-access-routes.ts`

@@ -5,8 +5,8 @@ RUN apk add --no-cache python3 make g++ bash git aws-cli && corepack enable
 FROM base AS deps
 COPY package.json package-lock.json ./
 # file:packages/* symlinks need package roots present at install time.
-COPY packages/docparse/package.json packages/docparse/package-lock.json packages/docparse/
-COPY packages/docparse-sdk/package.json packages/docparse-sdk/package-lock.json packages/docparse-sdk/
+COPY jurexio-sdk/packages/docparse/package.json jurexio-sdk/packages/docparse/package-lock.json jurexio-sdk/packages/docparse/
+COPY jurexio-sdk/packages/docparse-sdk/package.json jurexio-sdk/packages/docparse-sdk/package-lock.json jurexio-sdk/packages/docparse-sdk/
 # Use install (not ci) — lockfile is missing optional platform shims
 # (msgpackr-extract native binaries) that npm ci refuses to backfill.
 RUN npm install --legacy-peer-deps --no-audit --no-fund
@@ -27,17 +27,17 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 # Built dist/ for file: workspace deps (see builder docparse*:build).
-COPY --from=builder /app/packages/docparse ./packages/docparse
-COPY --from=builder /app/packages/docparse-sdk ./packages/docparse-sdk
+COPY --from=builder /app/jurexio-sdk/packages/docparse ./jurexio-sdk/packages/docparse
+COPY --from=builder /app/jurexio-sdk/packages/docparse-sdk ./jurexio-sdk/packages/docparse-sdk
 # --include=dev is required because NODE_ENV=production above causes npm to
 # silently skip devDependencies (we need tsx, which is a devDep, at runtime).
 RUN npm install --legacy-peer-deps --include=dev --no-audit --no-fund && npm cache clean --force
 
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/src ./src
-COPY --from=builder /app/server ./server
-COPY --from=builder /app/shared ./shared
-COPY --from=builder /app/scripts ./scripts
+COPY --from=builder /app/jurexio-sdk/src ./jurexio-sdk/src
+COPY --from=builder /app/jurexio-sdk/server ./jurexio-sdk/server
+COPY --from=builder /app/jurexio-sdk/shared ./jurexio-sdk/shared
+COPY --from=builder /app/jurexio-sdk/scripts ./jurexio-sdk/scripts
 COPY --from=builder /app/k8s ./k8s
 # NYV-OPS-DOCKERFILE-CONFIG-001 (2026-04-30): config/agent-registries/*.json
 # is required by JurisdictionPromptResolver — startup hard-fails without
@@ -45,7 +45,7 @@ COPY --from=builder /app/k8s ./k8s
 # previous image silently ran on stale config baked into the older layer;
 # a fresh rebuild now correctly fails fast unless this directory is in
 # the production stage.
-COPY --from=builder /app/config ./config
+COPY --from=builder /app/jurexio-sdk/config ./jurexio-sdk/config
 # task-365 (2026-05-13): RDS root CA bundle for verify-full TLS to AWS RDS.
 # nv-pg-ssl.ts hard-fails at boot if /app/certs/rds-global-bundle.pem is
 # missing (unless NYV_PG_SSL_VERIFY=false). The .dockerignore negation

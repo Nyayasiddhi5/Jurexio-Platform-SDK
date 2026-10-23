@@ -23,9 +23,9 @@ export default defineConfig({
     'import.meta.env.VITE_NV_VERSION': JSON.stringify(NV_VERSION),
   },
   plugins: [react()],
-  root: './client',
+  root: './jurexio-governance/client',
   base: '/',
-  // Vite's `root` is ./client/, so PostCSS would normally search ./client/ first
+  // Vite's `root` is ./jurexio-governance/client/, so PostCSS would normally search that tree first
   // and miss the project-root config — that quietly leaves @tailwind directives
   // unprocessed and yields a CSS bundle with zero utilities. Pin it explicitly.
   css: {
@@ -33,8 +33,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './client/src'),
-      '@shared': path.resolve(__dirname, './shared'),
+      '@': path.resolve(__dirname, './jurexio-governance/client/src'),
+      '@shared': path.resolve(__dirname, './jurexio-sdk/shared'),
     },
   },
   server: {

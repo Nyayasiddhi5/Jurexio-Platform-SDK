@@ -1,0 +1,9 @@
+{
+  "name": "@jurexio/enterprise-app",
+  "version": "0.0.0-scaffold",
+  "private": true,
+  "description": "Jurexio Enterprise — future application (not implemented)",
+  "scripts": {
+    "status": "node -e \"console.log('Jurexio Enterprise: scaffold only. Implement after product GO.')\""
+  }
+}

@@ -5,13 +5,13 @@ import { describe, expect, it } from 'vitest';
 import {
   lookupJrxRegistryEvent,
   validateJrxCanonicalEventName,
-} from '../../src/services/jrx-module-registry-service.js';
+} from '../../jurexio-sdk/src/services/jrx-module-registry-service.js';
 
-const registryDir = path.resolve(process.cwd(), 'jurexio-specs/registry');
+const registryDir = path.resolve(process.cwd(), 'jurexio-sdk/jurexio-specs/registry');
 
 describe('Jurexio module registry v1 compliance', () => {
   it('validate.py passes (schema + adoption invariants)', () => {
-    const out = execSync('python3 jurexio-specs/registry/validate.py', {
+    const out = execSync('python3 jurexio-sdk/jurexio-specs/registry/validate.py', {
       encoding: 'utf8',
     }).trim();
     expect(out).toBe('OK');

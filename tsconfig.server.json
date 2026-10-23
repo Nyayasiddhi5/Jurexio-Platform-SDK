@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist/server",
-    "rootDir": ".",
+    "rootDir": "./jurexio-sdk",
     "noEmit": false,
     "noEmitOnError": true,
     "declaration": false,
@@ -15,6 +15,6 @@
     "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": false
   },
-  "include": ["src/**/*", "shared/**/*", "server/**/*"],
-  "exclude": ["node_modules", "dist", "client", "tests", "**/*.test.ts", "**/*.spec.ts", "src/__tests__/**"]
+  "include": ["jurexio-sdk/src/**/*", "jurexio-sdk/shared/**/*", "jurexio-sdk/server/**/*"],
+  "exclude": ["node_modules", "dist", "jurexio-governance/client", "tests", "**/*.test.ts", "**/*.spec.ts", "jurexio-sdk/src/__tests__/**"]
 }

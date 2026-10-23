@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { evaluateJrxAccessDecision } from '../../src/services/jrx-access-policy-service.js';
+import { evaluateJrxAccessDecision } from '../../jurexio-sdk/src/services/jrx-access-policy-service.js';
 
 describe('JRX access policy v1', () => {
   it('denies unknown permission', () => {

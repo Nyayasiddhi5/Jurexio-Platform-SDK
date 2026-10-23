@@ -2,6 +2,12 @@
 
 ## [1.0.0] — Unreleased
 
+### Changed — JRX-PLATFORM-LAYOUT-WAVES-001 (2026-10-23)
+
+- Monorepo layout: `jurexio-sdk/` (gateway, packages, specs, infra, scripts), `jurexio-governance/client/`, `jurexio-enterprise/` scaffold.
+- Root `jurexio-platform` workspaces; `Jurexio-Platform.code-workspace`; `PRODUCT-BOUNDARIES.md`; `JRX-WORKSPACE-PATHS.md`.
+- UI product strings: Jurexio Governance / Jurexio SDK; Docker and CI path updates.
+
 ### Added — JRX-SPRINT1-FOUNDATION-001 (2026-10-23)
 
 - M11: `evaluateJrxAccessDecision` (catalogue, GUARDED/DUAL, step-up, SoD pairs); access evaluate route upgraded from stub.

@@ -24,7 +24,7 @@ jobs:
       - name: Jurexio module registries (validate.py)
         run: |
           pip install jsonschema
-          python3 jurexio-specs/registry/validate.py
+          python3 jurexio-sdk/jurexio-specs/registry/validate.py
 
       - uses: actions/setup-node@v4
         with:

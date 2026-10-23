@@ -14,9 +14,9 @@ RUN npm install --no-audit --no-fund --legacy-peer-deps
 
 # 2) Copy the bits the build actually needs
 COPY vite.config.ts tsconfig.json* postcss.config.* tailwind.config.* ./
-COPY client/   ./client/
-COPY shared/   ./shared/
-COPY src/      ./src/
+COPY jurexio-governance/client/   ./jurexio-governance/client/
+COPY jurexio-sdk/shared/   ./jurexio-sdk/shared/
+COPY jurexio-sdk/src/      ./jurexio-sdk/src/
 
 # 3) Build → dist/public per vite.config.ts (outDir: '../dist/public')
 RUN npx vite build

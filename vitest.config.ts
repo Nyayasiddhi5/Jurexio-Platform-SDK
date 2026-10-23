@@ -13,17 +13,17 @@ export default defineConfig({
     include: [
       'tests/**/*.test.ts',
       'tests/**/*.test.tsx',
-      'src/**/*.test.ts',
+      'jurexio-sdk/src/**/*.test.ts',
     ],
     exclude: [
       'node_modules',
       'dist',
-      'client',
+      'jurexio-governance/client',
       // NYV-NS-022 (2026-05-05): intelligent-router has its own node:test
       // suite (run separately via `tsx --test`), incompatible with vitest's
       // describe/it API. Excluding it from vitest avoids "No test suite
       // found" noise without losing coverage.
-      'src/services/intelligent-router/__tests__/**',
+      'jurexio-sdk/src/services/intelligent-router/__tests__/**',
     ],
     coverage: {
       provider: 'v8',
@@ -32,12 +32,12 @@ export default defineConfig({
       exclude: [
         'node_modules/**',
         'dist/**',
-        'client/**',
+        'jurexio-governance/client/**',
         'tests/**',
         '**/*.test.ts',
         '**/*.spec.ts',
-        'src/db/migrations/**',
-        'scripts/**',
+        'jurexio-sdk/src/db/migrations/**',
+        'jurexio-sdk/scripts/**',
       ],
       thresholds: {
         branches: 70,
@@ -53,13 +53,13 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@nyv/docparse': path.resolve('./packages/docparse/dist/index.js'),
+      '@nyv/docparse': path.resolve('./jurexio-sdk/packages/docparse/dist/index.js'),
       // `@/` is exclusively used by client React pages (verified — zero
       // hits in tests/ or src/). Map it to `client/src` so the sidebar
       // regression sweep can resolve `@/components/*` and `@/lib/*`
       // imports the same way Vite does in the browser.
-      '@': path.resolve('./client/src'),
-      '@shared': path.resolve('./shared'),
+      '@': path.resolve('./jurexio-governance/client/src'),
+      '@shared': path.resolve('./jurexio-sdk/shared'),
     },
   },
 });
