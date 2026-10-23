@@ -1,11 +1,11 @@
 /**
- * M11 CommandCentre — central access-decision stub (Sprint 1).
+ * M11 CommandCentre — central access-decision API (Sprint 1 v1).
  * Mounted at: POST /api/jrx/platform/access/evaluate
- * Deny by default until policy engine is wired to MatterCore context.
  */
 import { Router, Request, Response } from 'express';
 import { sdkGatewayAuth } from '../middleware/jrx-sdk-gateway.js';
 import { createLogger } from '../utils/logger.js';
+import { evaluateJrxAccessDecision } from '../services/jrx-access-policy-service.js';
 
 const router = Router();
 const logger = createLogger('./jrx-platform-access');
@@ -18,6 +18,7 @@ router.post('/evaluate', (req: Request, res: Response): void => {
   const subjectId = String(body?.subjectId ?? body?.subject_id ?? '').trim();
   const resourceId = String(body?.resourceId ?? body?.resource_id ?? '').trim();
   const matterPolicy = body?.matterPolicy ?? body?.matter_policy;
+  const context = (body?.context ?? body?.ctx) as Record<string, unknown> | undefined;
 
   if (!permission || !subjectId) {
     res.status(400).json({
@@ -28,33 +29,39 @@ router.post('/evaluate', (req: Request, res: Response): void => {
     return;
   }
 
-  logger.info('access evaluate stub (deny default)', {
-    permission_len: permission.length,
-    subject_len: subjectId.length,
-    resource_len: resourceId.length,
+  const result = evaluateJrxAccessDecision({
+    permission,
+    subjectId,
+    resourceId: resourceId || undefined,
+    matterPolicy,
+    context: context
+      ? {
+          heldPermissions: Array.isArray(context.heldPermissions)
+            ? (context.heldPermissions as string[])
+            : undefined,
+          stepUpVerified: context.stepUpVerified === true,
+          requesterId:
+            context.requesterId !== undefined ? String(context.requesterId) : undefined,
+          dualApproverIds: Array.isArray(context.dualApproverIds)
+            ? (context.dualApproverIds as string[])
+            : undefined,
+        }
+      : undefined,
   });
 
-  if (resourceId && (matterPolicy === undefined || matterPolicy === null)) {
-    res.status(200).json({
-      success: true,
-      decision: 'deny',
-      code: 'MATTER_POLICY_REQUIRED',
-      message:
-        'Chairman C-10: deny when no MatterCore policy exists for the resource (interim until M01 feeds policy).',
-      evaluated_at: new Date().toISOString(),
-      permission,
-      subjectId,
-      resourceId,
-    });
-    return;
-  }
+  logger.info('access evaluate', {
+    decision: result.decision,
+    code: result.code,
+    permission_len: permission.length,
+    subject_len: subjectId.length,
+  });
 
   res.status(200).json({
     success: true,
-    decision: 'deny',
-    code: 'ACCESS_POLICY_NOT_WIRED',
-    message:
-      'CommandCentre access policy engine is not yet wired; deny by default per M11 R1.',
+    decision: result.decision,
+    code: result.code,
+    message: result.message,
+    gateClass: result.gateClass ?? null,
     evaluated_at: new Date().toISOString(),
     permission,
     subjectId,

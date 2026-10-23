@@ -173,6 +173,20 @@ Open **`Jurexio-Platform-SDK.code-workspace`** (repo root) — not the Jurexio m
 
 ---
 
+## Dual-region Ledger (C-07 — Sprint 1)
+
+Chairman ruling: provision **ap-south-1** and **us-east-1** Ledger PostgreSQL stacks in Sprint 1; **no real client matter data** until both exist.
+
+| Layer | Sprint 1 state |
+| --- | --- |
+| **Gateway ingest** | `POST /api/jrx/platform/ledger/ingest` — **synthetic only** (`synthetic: true` or `tenantId` `syn-*`) until stacks + SSM URLs are live |
+| **IaC skeleton** | `infra/terraform/envs/ledger-dual-region/` (variables + commented RDS module stubs) |
+| **Operator apply** | Same as other stacks — AWS creds on workstation; separate state per region |
+
+After dual-stack smoke: set SSM `/jurexio/prod/ledger/<region>/database_url`, flip `synthetic_only` guard in Terraform output checklist, redeploy gateway.
+
+---
+
 ## Evidence after smoke
 
 Log in `Project-Tracker.md`: deploy id, instance id, `/api/jrx/health` HTTP code, `guardrail:jrx-brands` PASS. No secret values in tracker.

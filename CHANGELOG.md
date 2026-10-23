@@ -2,6 +2,13 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-SPRINT1-FOUNDATION-001 (2026-10-23)
+
+- M11: `evaluateJrxAccessDecision` (catalogue, GUARDED/DUAL, step-up, SoD pairs); access evaluate route upgraded from stub.
+- M09: registry-validated `POST /api/jrx/platform/ledger/ingest` with synthetic-only guard (C-07).
+- Infra: `infra/terraform/envs/ledger-dual-region/` skeleton; runbook dual-region Ledger section.
+- Tests: `jrx-access-policy.test.ts`, `jrx-ledger-ingest.test.ts`.
+
 ### Changed — JRX-CH3-CHAIRMAN-FINAL-CLOSE-001 (2026-10-22)
 
 - CH-3 permission catalogue auto-approved (manual review waived): `apply_ch3_permission_catalogue.py` renames 144 gate permissions to `module.object.action`; updates gates, role templates, SoD; `npm run registry:ch3-catalogue`.

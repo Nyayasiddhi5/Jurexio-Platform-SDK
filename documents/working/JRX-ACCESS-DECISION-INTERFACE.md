@@ -1,6 +1,6 @@
 # Access-decision interface — CommandCentre (M11)
 
-**Status:** v1 spec + deny-default stub — 25 Oct 2026  
+**Status:** Sprint 1 v1 policy engine — 23 Oct 2026  
 **Host:** CommandCentre (M11)  
 **Policy data:** MatterCore (M01) and ClientBridge (M08) supply matter state, walls, and location context
 
