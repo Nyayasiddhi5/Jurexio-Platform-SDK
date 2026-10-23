@@ -2,7 +2,7 @@
 
 | Environment | Path |
 | --- | --- |
-| **Mac (operator)** | `~/Desktop/cursor-workspace/Jurexio-Platform` |
+| **Mac (operator)** | `~/Desktop/cursor-workspace/Jurexio-Platform-sdk` (or `Jurexio-Platform` — same repo) |
 | **Cursor Cloud Agent** | `/workspace` |
 | **GitHub** | `https://github.com/Jurexio-Inc/Jurexio-SDK.git` |
 
