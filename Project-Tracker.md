@@ -6,6 +6,7 @@
 
 | Timestamp | Status | Owner | Area | Summary | Evidence |
 |-----------|--------|-------|------|---------|----------|
+| 2026-10-30T18:55:00Z | DONE | Cursor Agent | JRX-CLOUD-AGENT-LOCAL-001 | Document Cloud Agent local runtime: Postgres 5432, Redis 6379, gateway :5010, console :5000. | `AGENTS.md` §8; `GET /api/jrx/health/full/live` 200; legal-chat session create 200; console `/console/login` 200 |
 | 2026-10-20T17:05:00Z | DONE | Cursor Agent | JRX-PARTNER-SMOKE-SCRIPTS-001 | Restore partner smoke shell scripts referenced by `package.json` (SSM EC2 + local HTTPS); ops doc in `JRX-FRONTEND-INTEGRATION.md`. | `scripts/jrx-partner-smoke.sh`; public health probe 200 |
 | 2026-10-20T16:35:00Z | DONE | Cursor Agent | JRX-P0-SDK-READY-001 | P0 audit closeout: `@jurexio/client-sdk@5.0.0`, universal/legal chat SDK APIs, CORS+auth docs, JRX web quickstart proxy paths; guardrail + client-sdk build. | PR `feat/jrx-p0-sdk-ready`; `npm run guardrail:jrx-brands`; `packages/client-sdk` tsc |
 | 2026-10-18T17:50:00Z | DONE | Cursor Agent | JRX-RDS-SEQUENCE-GRANTS-001 | Runbook + provision script echo: post–greenfield `db:push` `GRANT USAGE, SELECT ON ALL SEQUENCES` for `jurexio_app` on `public`, `jrx_schema`, `nv_schema`; default-privileges note for future sequences. | PR #9 `docs/jrx-rds-sequence-grants`; `npm run guardrail:jrx-brands` PASS |

@@ -122,6 +122,31 @@ Rules:
 - Bumping a major dependency (Node, Next, Drizzle, Vite, etc.) → log
   under `### Tooling` in `CHANGELOG.md`.
 
+## 8. Cloud Agent local runtime
+
+The saved Cloud Agent environment starts local Postgres 16, Redis 7, the
+gateway, and the Vite console. Do not treat a missing `npm run dev` as a
+missing product.
+
+| Surface | How it is started | Check |
+|---|---|---|
+| Postgres | cluster `main` on `127.0.0.1:5432`, database and role `jurexio` | `pg_isready -q` |
+| Redis | `127.0.0.1:6379` | `redis-cli ping` |
+| Gateway | `npx tsx src/index.ts` with `JRX_PORT_GATEWAY=5010` | `GET http://127.0.0.1:5010/api/jrx/health/full/live` |
+| Console | `npx vite --host 0.0.0.0 --port 5000` with `NYV_PORT_GATEWAY=5010` | `http://127.0.0.1:5000/console/login` |
+
+- `npm run dev` calls `scripts/jrx-start-dev.sh`, which is not in this tree.
+  `infra:jurexio:up` is not a `package.json` script. Use the processes above.
+- The gateway reads `JRX_PORT_GATEWAY` (default 5000) and `DATABASE_URL`.
+  `.env.jurexio.local.example` sets `NYV_PORT_GATEWAY` and Docker ports
+  `5433` / `6380`. Local system Postgres/Redis use `5432` / `6379`.
+- Set `JRX_PG_SSL_VERIFY=false` for this local Postgres. `sslmode=disable`
+  is already on the local URL.
+- `GET /api/jrx/health` stays unhealthy until `OPENAI_API_KEY` or
+  `OPENROUTER_API_KEY` is set. Liveness, Swagger HTML, the console, and
+  authenticated legal-chat session create do not need an LLM key.
+- Do not pull production SDK keys from SSM or EC2 for this local runtime.
+
 ---
 
 If you are reading this and about to make a change, the next thing you
