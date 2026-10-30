@@ -2,6 +2,10 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-CLOUD-AGENT-LOCAL-001 (2026-10-30)
+
+- `AGENTS.md` §8: Cloud Agent local ports and the env names the gateway actually reads (`JRX_PORT_GATEWAY`, `DATABASE_URL`, `JRX_PG_SSL_VERIFY`). `npm run dev` still points at a script that is not in the tree.
+
 ### Fixed — JRX-PARTNER-SMOKE-SCRIPTS-001 (2026-10-20)
 
 - Added `scripts/jrx-partner-smoke.sh`, `scripts/jrx-demo-probe-ec2.sh`, `scripts/jrx-live-sdk-matrix.sh` for `partner:smoke:*`, `demo:probe:ec2`, and `sdk:matrix:ec2` npm targets (JRX EC2 only; no secret logging).
