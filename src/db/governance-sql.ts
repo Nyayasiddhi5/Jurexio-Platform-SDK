@@ -1,8 +1,5 @@
 import { sql, type SQL } from 'drizzle-orm';
-import {
-  governancePgSchemasForRead,
-  resolveGovernancePgSchemaName,
-} from '../../shared/pg-governance-namespace.js';
+import { resolveGovernancePgSchemaName } from '../../shared/pg-governance-namespace.js';
 
 /** Qualified `schema.table` for raw SQL fragments (validated identifiers only). */
 export function qualifiedGovernanceTable(tableName: string): string {
@@ -20,30 +17,35 @@ export function governanceProtocolRegistryRef(): SQL {
   return sql.raw(qualifiedGovernanceTable('protocol_registry'));
 }
 
-/** Dual-read: first schema in cutover list that has a matching row. */
+/**
+ * Idempotency lookup against the active governance schema only.
+ *
+ * Callers insert into that schema when this returns null. Probing the legacy
+ * `nv_schema` as well was incorrect: a missing legacy schema threw out of
+ * manifest boot, and production startup rethrows that error before `listen`.
+ * A row that existed only in `nv_schema` also counted as already registered,
+ * so the insert was skipped and the active `jrx_schema` registry stayed empty.
+ */
 export async function governanceSelectOneIdByColumn(
   execute: (query: SQL) => Promise<{ rows?: Array<Record<string, unknown>> }>,
   tableName: string,
   columnName: string,
   value: string,
 ): Promise<string | null> {
-  for (const schema of governancePgSchemasForRead()) {
-    if (!/^[a-z_][a-z0-9_]*$/i.test(schema) || !/^[a-z_][a-z0-9_]*$/i.test(tableName)) {
-      continue;
-    }
-    if (!/^[a-z_][a-z0-9_]*$/i.test(columnName)) {
-      continue;
-    }
-    const ref = sql.raw(`${schema}.${tableName}`);
-    const col = sql.raw(columnName);
-    const result = await execute(
-      sql`SELECT id FROM ${ref} WHERE ${col} = ${value} LIMIT 1`,
-    );
-    const row = result.rows?.[0];
-    const id = row?.id;
-    if (typeof id === 'string' && id.length > 0) {
-      return id;
-    }
+  const schema = resolveGovernancePgSchemaName();
+  if (!/^[a-z_][a-z0-9_]*$/i.test(schema) || !/^[a-z_][a-z0-9_]*$/i.test(tableName)) {
+    return null;
   }
+  if (!/^[a-z_][a-z0-9_]*$/i.test(columnName)) {
+    return null;
+  }
+  const ref = sql.raw(`${schema}.${tableName}`);
+  const col = sql.raw(columnName);
+  const result = await execute(
+    sql`SELECT id FROM ${ref} WHERE ${col} = ${value} LIMIT 1`,
+  );
+  const row = result.rows?.[0];
+  const id = row?.id;
+  if (typeof id === 'string' && id.length > 0) return id;
   return null;
 }

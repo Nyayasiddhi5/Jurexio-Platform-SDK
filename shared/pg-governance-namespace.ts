@@ -22,7 +22,11 @@ export const governancePgSchema = pgSchema(resolveGovernancePgSchemaName());
 /** Back-compat Drizzle handle (name is historical; schema is env-driven). */
 export const nvSchema = governancePgSchema;
 
-/** Schemas to probe on read during cutover (primary first). */
+/**
+ * Schemas to probe on read during cutover (primary first).
+ * Do not use this for insert idempotency: a legacy hit must not suppress
+ * a write to the active schema, and a missing legacy schema must not fail boot.
+ */
 export function governancePgSchemasForRead(): string[] {
   const primary = resolveGovernancePgSchemaName();
   if (primary === LEGACY_GOVERNANCE_PG_SCHEMA) {
