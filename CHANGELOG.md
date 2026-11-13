@@ -2,6 +2,12 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-SDK-CHAT-TESTS-001 (2026-11-13)
+
+- `@jurexio/client-sdk` unit tests for `LegalChatApi` and `UniversalChatApi`: session ids are percent-encoded, `baseUrl` is an origin (trailing slash stripped, `apiPathPrefix` is not prepended), requests send both `X-API-Key` and `Authorization: Bearer`, and multipart upload omits the JSON content-type.
+- `verifyWebhookSignature`: timestamps outside the 5-minute replay window are rejected, numeric millisecond timestamps are rejected, and `maxSkewSeconds: 0` skips the window.
+- Package entry: remove duplicate `JrxClient` and `JrxHttpClient` export specifiers so Vitest 4 can load `src/index.ts`. Exported names are unchanged. SDK version stays 5.0.0.
+
 ### Fixed — JRX-PARTNER-SMOKE-SCRIPTS-001 (2026-10-20)
 
 - Added `scripts/jrx-partner-smoke.sh`, `scripts/jrx-demo-probe-ec2.sh`, `scripts/jrx-live-sdk-matrix.sh` for `partner:smoke:*`, `demo:probe:ec2`, and `sdk:matrix:ec2` npm targets (JRX EC2 only; no secret logging).

@@ -44,4 +44,61 @@ describe('verifyWebhookSignature', () => {
       verifyWebhookSignature({ rawBody, signature: hex, timestamp, secret }),
     ).toBe(true);
   });
+
+  it('rejects a timestamp outside the 5 minute replay window', () => {
+    const stale = new Date(Date.now() - 6 * 60 * 1000).toISOString();
+    const staleSignature =
+      'sha256=' +
+      createHmac('sha256', secret).update(`${stale}.${rawBody}`).digest('hex');
+    expect(
+      verifyWebhookSignature({
+        rawBody,
+        signature: staleSignature,
+        timestamp: stale,
+        secret,
+      }),
+    ).toBe(false);
+  });
+
+  it('rejects a numeric millisecond timestamp', () => {
+    const numeric = String(Date.now());
+    const numericSignature =
+      'sha256=' +
+      createHmac('sha256', secret).update(`${numeric}.${rawBody}`).digest('hex');
+    expect(
+      verifyWebhookSignature({
+        rawBody,
+        signature: numericSignature,
+        timestamp: numeric,
+        secret,
+      }),
+    ).toBe(false);
+  });
+
+  it('skips the replay window when maxSkewSeconds is 0', () => {
+    const dayOld = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const dayOldSignature =
+      'sha256=' +
+      createHmac('sha256', secret).update(`${dayOld}.${rawBody}`).digest('hex');
+    expect(
+      verifyWebhookSignature({
+        rawBody,
+        signature: dayOldSignature,
+        timestamp: dayOld,
+        secret,
+        maxSkewSeconds: 0,
+      }),
+    ).toBe(true);
+  });
+
+  it('rejects a missing secret', () => {
+    expect(
+      verifyWebhookSignature({
+        rawBody,
+        signature,
+        timestamp,
+        secret: '',
+      }),
+    ).toBe(false);
+  });
 });

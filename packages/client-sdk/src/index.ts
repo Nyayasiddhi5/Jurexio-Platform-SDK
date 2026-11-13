@@ -34,8 +34,8 @@
  * VERSION: 5.0.0
  */
 
-export { JrxClient, JrxClient as JrxClient, JrxClient as JurexioClient } from './JrxClient.js';
-export type { JrxHttpClient, JrxHttpClient as JrxHttpClient } from './JrxClient.js';
+export { JrxClient, JrxClient as JurexioClient } from './JrxClient.js';
+export type { JrxHttpClient } from './JrxClient.js';
 export { JrxStreamReader } from './JrxStreamReader.js';
 
 export { PatternsApi } from './api/PatternsApi.js';

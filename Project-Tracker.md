@@ -6,6 +6,7 @@
 
 | Timestamp | Status | Owner | Area | Summary | Evidence |
 |-----------|--------|-------|------|---------|----------|
+| 2026-11-13T10:25:00Z | DONE | Cursor Agent | JRX-SDK-CHAT-TESTS-001 | Unit-cover LegalChatApi and UniversalChatApi (encoded session ids, origin-only base URL, both key headers, multipart upload) and webhook replay skew. Drop duplicate package-entry export specifiers so Vitest can load the SDK entry. Version stays 5.0.0. | packages/client-sdk npm test: 77 passed |
 | 2026-10-20T17:05:00Z | DONE | Cursor Agent | JRX-PARTNER-SMOKE-SCRIPTS-001 | Restore partner smoke shell scripts referenced by `package.json` (SSM EC2 + local HTTPS); ops doc in `JRX-FRONTEND-INTEGRATION.md`. | `scripts/jrx-partner-smoke.sh`; public health probe 200 |
 | 2026-10-20T16:35:00Z | DONE | Cursor Agent | JRX-P0-SDK-READY-001 | P0 audit closeout: `@jurexio/client-sdk@5.0.0`, universal/legal chat SDK APIs, CORS+auth docs, JRX web quickstart proxy paths; guardrail + client-sdk build. | PR `feat/jrx-p0-sdk-ready`; `npm run guardrail:jrx-brands`; `packages/client-sdk` tsc |
 | 2026-10-18T17:50:00Z | DONE | Cursor Agent | JRX-RDS-SEQUENCE-GRANTS-001 | Runbook + provision script echo: post–greenfield `db:push` `GRANT USAGE, SELECT ON ALL SEQUENCES` for `jurexio_app` on `public`, `jrx_schema`, `nv_schema`; default-privileges note for future sequences. | PR #9 `docs/jrx-rds-sequence-grants`; `npm run guardrail:jrx-brands` PASS |
