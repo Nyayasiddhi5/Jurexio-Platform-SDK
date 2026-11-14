@@ -25,6 +25,28 @@ import { createLogger } from '../utils/logger.js';
 const logger = createLogger('./jrx-memory-routes');
 const router = Router();
 
+function callerIdentity(req: {
+  user?: {
+    id?: string;
+    userId?: string;
+    role?: string;
+    organizationId?: number | string | null;
+  };
+}): { userId: string; role: string; orgId?: string } {
+  const user = req.user ?? {};
+  const userId = String(user.id ?? user.userId ?? '');
+  const role = user.role ?? '';
+  const rawOrg = user.organizationId;
+  const orgId = rawOrg != null && String(rawOrg) !== '' ? String(rawOrg) : undefined;
+  return { userId, role, orgId };
+}
+
+/** Client orgId is accepted only when it is the caller's own organization. */
+function orgMismatch(requested: string | undefined, callerOrg: string | undefined): boolean {
+  if (requested == null || requested === '') return false;
+  return requested !== callerOrg;
+}
+
 // ────────────────────────────────────────────────────────────────────────────
 // Validation Schemas
 // ────────────────────────────────────────────────────────────────────────────
@@ -85,14 +107,17 @@ const AgentPublishBodySchema = z.object({
  */
 router.post('/remember', authenticateToken, async (req, res, next) => {
   try {
-    const user = (req as any).user;
+    const caller = callerIdentity(req as any);
     const body = RememberBodySchema.parse(req.body);
+    if (orgMismatch(body.orgId, caller.orgId)) {
+      res.status(403).json({ error: 'FORBIDDEN', message: 'orgId does not match the authenticated organization.' });
+      return;
+    }
 
     const entry = await nvMemoryManager.remember({
-      userId: user.id ?? user.userId,
-      content: body.content ?? '',
-      type: body.type ?? 'fact',
       ...body,
+      userId: caller.userId,
+      orgId: body.orgId,
     });
 
     res.status(201).json({
@@ -108,6 +133,7 @@ router.post('/remember', authenticateToken, async (req, res, next) => {
   } catch (err: any) {
     if (err instanceof z.ZodError) {
       res.status(400).json({ error: 'VALIDATION_ERROR', details: err.errors });
+      return;
     }
     next(err);
   }
@@ -119,12 +145,17 @@ router.post('/remember', authenticateToken, async (req, res, next) => {
  */
 router.post('/recall', authenticateToken, async (req, res, next) => {
   try {
-    const user = (req as any).user;
+    const caller = callerIdentity(req as any);
     const body = RecallBodySchema.parse(req.body);
+    if (orgMismatch(body.orgId, caller.orgId)) {
+      res.status(403).json({ error: 'FORBIDDEN', message: 'orgId does not match the authenticated organization.' });
+      return;
+    }
 
     const memories = await nvMemoryManager.recall({
       ...body,
-      userId: body.userId ?? user.id ?? user.userId,
+      userId: caller.userId,
+      orgId: body.orgId,
     });
 
     res.json({
@@ -135,6 +166,7 @@ router.post('/recall', authenticateToken, async (req, res, next) => {
   } catch (err: any) {
     if (err instanceof z.ZodError) {
       res.status(400).json({ error: 'VALIDATION_ERROR', details: err.errors });
+      return;
     }
     next(err);
   }
@@ -147,20 +179,20 @@ router.post('/recall', authenticateToken, async (req, res, next) => {
  */
 router.delete('/flush/:userId', authenticateToken, async (req, res, next) => {
   try {
-    const requester = (req as any).user;
+    const requester = callerIdentity(req as any);
     const { userId } = req.params;
 
-    const isSelf  = (requester.id ?? requester.userId) === userId;
-    const isAdmin = ['admin', 'super_admin'].includes(requester.role ?? '');
+    const isSelf  = requester.userId === userId;
+    const isAdmin = ['admin', 'super_admin'].includes(requester.role);
 
     if (!isSelf && !isAdmin) {
       res.status(403).json({ error: 'FORBIDDEN', message: 'You can only flush your own memories.' });
+      return;
     }
 
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     const result = await nvMemoryManager.flushUser(userId);
 
-    logger.info('[MemoryRoutes] DPDPA flush executed', { userId, by: requester.id, result });
+    logger.info('[MemoryRoutes] DPDPA flush executed', { userId, by: requester.userId, result });
 
     res.json({
       success: true,
@@ -191,17 +223,17 @@ router.get('/stats', authenticateToken, (_req, res, next) => {
  */
 router.get('/export/:userId', authenticateToken, async (req, res, next) => {
   try {
-    const requester = (req as any).user;
+    const requester = callerIdentity(req as any);
     const { userId } = req.params;
 
-    const isSelf  = (requester.id ?? requester.userId) === userId;
-    const isAdmin = ['admin', 'super_admin', 'developer'].includes(requester.role ?? '');
+    const isSelf  = requester.userId === userId;
+    const isAdmin = ['admin', 'super_admin', 'developer'].includes(requester.role);
 
     if (!isSelf && !isAdmin) {
       res.status(403).json({ error: 'FORBIDDEN' });
+      return;
     }
 
-    // @ts-expect-error NV-TS230 legacy typing gap (TS2345)
     const memories = await nvMemoryManager.export(userId);
     res.json({ success: true, count: memories.length, memories });
   } catch (err: any) {
@@ -215,14 +247,16 @@ router.get('/export/:userId', authenticateToken, async (req, res, next) => {
  */
 router.post('/import', authenticateToken, async (req, res, next) => {
   try {
-    const requester = (req as any).user;
-    if (!['admin', 'super_admin', 'developer'].includes(requester.role ?? '')) {
+    const requester = callerIdentity(req as any);
+    if (!['admin', 'super_admin', 'developer'].includes(requester.role)) {
       res.status(403).json({ error: 'FORBIDDEN', message: 'Memory import requires admin role.' });
+      return;
     }
 
     const { entries } = req.body;
     if (!Array.isArray(entries)) {
       res.status(400).json({ error: 'VALIDATION_ERROR', message: 'entries must be an array' });
+      return;
     }
 
     const count = await nvMemoryManager.import(entries);
@@ -238,11 +272,12 @@ router.post('/import', authenticateToken, async (req, res, next) => {
  */
 router.post('/agent/publish', authenticateToken, async (req, res, next) => {
   try {
+    const caller = callerIdentity(req as any);
     const body = AgentPublishBodySchema.parse(req.body);
 
     const publishEntries = body.entries.map(e => ({
       ...e,
-      userId: e.userId ?? body.agentId,
+      userId: caller.userId,
       content: e.content ?? '',
       type: e.type ?? 'fact',
       tier: (e.tier ?? 'session') as 'session' | 'longterm' | 'social',
@@ -267,6 +302,7 @@ router.post('/agent/publish', authenticateToken, async (req, res, next) => {
   } catch (err: any) {
     if (err instanceof z.ZodError) {
       res.status(400).json({ error: 'VALIDATION_ERROR', details: err.errors });
+      return;
     }
     next(err);
   }

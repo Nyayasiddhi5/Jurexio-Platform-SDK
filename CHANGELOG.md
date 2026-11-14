@@ -2,6 +2,11 @@
 
 ## [1.0.0] — Unreleased
 
+### Security — JRX-MEMORY-AUTHZ-001 (2026-11-14)
+
+- `/api/jrx/memory` flush, export, and import stopped after a 403/400 was sent, so any authenticated caller could still erase another user's memories or import entries. Those handlers now return.
+- Recall and remember bind `userId` to the authenticated caller. A body `userId` or foreign `orgId` can no longer read or write another user's store. Agent publish stores entries under the caller, not a client-supplied user id.
+
 ### Fixed — JRX-PARTNER-SMOKE-SCRIPTS-001 (2026-10-20)
 
 - Added `scripts/jrx-partner-smoke.sh`, `scripts/jrx-demo-probe-ec2.sh`, `scripts/jrx-live-sdk-matrix.sh` for `partner:smoke:*`, `demo:probe:ec2`, and `sdk:matrix:ec2` npm targets (JRX EC2 only; no secret logging).
