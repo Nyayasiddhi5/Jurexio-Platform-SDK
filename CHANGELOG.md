@@ -2,6 +2,10 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-SDK-HTTP-TESTS-001 (2026-11-14)
+
+- `@jurexio/client-sdk` unit tests for the shared HTTP client: error envelopes (`message` over `error`, empty message kept, non-JSON status line, trace id), `data` unwrapping including `0` and `null`, DELETE/PATCH, `getBytes` filename and failure mapping, default vs optional auth headers, `healthCheck` jurisdiction, and orchestrate/callAgent jurisdiction defaults. A 30ms timeout aborts the request.
+
 ### Added — JRX-SDK-CHAT-TESTS-001 (2026-11-13)
 
 - `@jurexio/client-sdk` unit tests for `LegalChatApi` and `UniversalChatApi`: session ids are percent-encoded, `baseUrl` is an origin (trailing slash stripped, `apiPathPrefix` is not prepended), requests send both `X-API-Key` and `Authorization: Bearer`, and multipart upload omits the JSON content-type.

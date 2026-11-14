@@ -6,6 +6,7 @@
 
 | Timestamp | Status | Owner | Area | Summary | Evidence |
 |-----------|--------|-------|------|---------|----------|
+| 2026-11-14T10:10:00Z | DONE | Cursor Agent | JRX-SDK-HTTP-TESTS-001 | Unit-cover the shared SDK HTTP client: error envelopes, data unwrapping, binary download filenames, auth headers, healthCheck jurisdiction, and orchestrate jurisdiction defaults. | packages/client-sdk npm test: 91 passed |
 | 2026-11-13T10:25:00Z | DONE | Cursor Agent | JRX-SDK-CHAT-TESTS-001 | Unit-cover LegalChatApi and UniversalChatApi (encoded session ids, origin-only base URL, both key headers, multipart upload) and webhook replay skew. Drop duplicate package-entry export specifiers so Vitest can load the SDK entry. Version stays 5.0.0. | packages/client-sdk npm test: 77 passed |
 | 2026-10-20T17:05:00Z | DONE | Cursor Agent | JRX-PARTNER-SMOKE-SCRIPTS-001 | Restore partner smoke shell scripts referenced by `package.json` (SSM EC2 + local HTTPS); ops doc in `JRX-FRONTEND-INTEGRATION.md`. | `scripts/jrx-partner-smoke.sh`; public health probe 200 |
 | 2026-10-20T16:35:00Z | DONE | Cursor Agent | JRX-P0-SDK-READY-001 | P0 audit closeout: `@jurexio/client-sdk@5.0.0`, universal/legal chat SDK APIs, CORS+auth docs, JRX web quickstart proxy paths; guardrail + client-sdk build. | PR `feat/jrx-p0-sdk-ready`; `npm run guardrail:jrx-brands`; `packages/client-sdk` tsc |
