@@ -766,6 +766,13 @@ export class NvConsentService {
     return result.rows || [];
   }
 
+  async findConsentById(id: string): Promise<{ id: string; user_id: string } | null> {
+    const result = await db.execute(sql`SELECT id, user_id FROM nv_schema.ai_consents WHERE id = ${id} LIMIT 1`);
+    const row = result.rows?.[0] as { id?: unknown; user_id?: unknown } | undefined;
+    if (row?.id == null) return null;
+    return { id: String(row.id), user_id: String(row.user_id ?? '') };
+  }
+
   async revokeConsent(id: string): Promise<any> {
     const result = await db.execute(sql`UPDATE nv_schema.ai_consents SET granted = false, revoked_at = NOW() WHERE id = ${id} RETURNING *`);
     return result.rows?.[0] || null;

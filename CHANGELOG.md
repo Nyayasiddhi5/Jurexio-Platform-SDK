@@ -2,6 +2,11 @@
 
 ## [1.0.0] — Unreleased
 
+### Security — JRX-CONSENT-INCIDENT-AUTHZ-001 (2026-11-15)
+
+- `GET/DELETE /api/jrx/consent/:id` and `POST /api/jrx/consent/check` (and the `/api/jrx/orchestration` aliases) now bind the subject to the authenticated caller. A different user id is accepted only for `admin`, `super_admin`, `superadmin`, or the internal `service` account. A cross-user check no longer reaches `checkConsent`, so it cannot mint a CAM breach row for someone else.
+- `GET /api/jrx/incidents` and `PUT /api/jrx/incidents/:id/resolve` require a platform operator. Incident reports attribute `reportedBy` to the caller unless an operator sets it.
+
 ### Fixed — JRX-PARTNER-SMOKE-SCRIPTS-001 (2026-10-20)
 
 - Added `scripts/jrx-partner-smoke.sh`, `scripts/jrx-demo-probe-ec2.sh`, `scripts/jrx-live-sdk-matrix.sh` for `partner:smoke:*`, `demo:probe:ec2`, and `sdk:matrix:ec2` npm targets (JRX EC2 only; no secret logging).

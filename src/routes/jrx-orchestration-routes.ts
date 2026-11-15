@@ -1,6 +1,11 @@
 // JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 import { Router, Request, Response } from 'express';
 import { authenticateToken, requireRole } from '../middleware/auth.js';
+import {
+  consentCallerFromRequest,
+  isPlatformOperator,
+  resolveConsentSubject,
+} from '../authz/consent-subject.js';
 import { dualSdkOrJwt } from '../middleware/jrx-dual-auth.js';
 import { partnerIndiaScopeMiddleware } from '../middleware/jrx-partner-india-scope.js';
 import {
@@ -3935,8 +3940,14 @@ router.get('/compliance/evidence', authenticateToken, async (req: Request, res: 
 
 router.post('/consent', authenticateToken, async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id || req.body.userId;
-    if (!userId) return void sendApiError(res, 'BAD_REQUEST', { overrideMessage: 'userId is required' });
+    const requestedUserId = typeof req.body.userId === 'string' ? req.body.userId : undefined;
+    const subject = resolveConsentSubject(consentCallerFromRequest(req), requestedUserId);
+    if (!subject.ok) {
+      return void sendApiError(res, subject.status === 401 ? 'UNAUTHORIZED' : 'FORBIDDEN', {
+        overrideMessage: subject.status === 401 ? 'Authentication required' : 'You can only record your own consent.',
+      });
+    }
+    const userId = subject.subjectUserId;
     // Accept both single {consentType,granted} and bulk {purposes:[...]} shapes.
     // For the bulk shape we record one row per purpose with granted=true (the
     // act of submitting them is the grant). Flat shape requires both fields.
@@ -3973,7 +3984,13 @@ router.post('/consent', authenticateToken, async (req: Request, res: Response) =
 
 router.get('/consent/:userId', authenticateToken, async (req: Request, res: Response) => {
   try {
-    const result = await nvConsentService.getUserConsents((req.params.userId as string));
+    const subject = resolveConsentSubject(consentCallerFromRequest(req), req.params.userId as string);
+    if (!subject.ok) {
+      return void sendApiError(res, subject.status === 401 ? 'UNAUTHORIZED' : 'FORBIDDEN', {
+        overrideMessage: subject.status === 401 ? 'Authentication required' : 'You can only read your own consent.',
+      });
+    }
+    const result = await nvConsentService.getUserConsents(subject.subjectUserId);
     res.json({ success: true, data: result });
   } catch (error: any) {
     safeError(res, error, 500);
@@ -3982,7 +3999,15 @@ router.get('/consent/:userId', authenticateToken, async (req: Request, res: Resp
 
 router.delete('/consent/:id', authenticateToken, async (req: Request, res: Response) => {
   try {
-    const result = await nvConsentService.revokeConsent((req.params.id as string));
+    const caller = consentCallerFromRequest(req);
+    if (!caller) return void sendApiError(res, 'UNAUTHORIZED');
+    const existing = await nvConsentService.findConsentById(req.params.id as string);
+    if (!existing) return void sendApiError(res, 'NOT_FOUND', { overrideMessage: 'Consent record not found' });
+    const subject = resolveConsentSubject(caller, existing.user_id);
+    if (!subject.ok) {
+      return void sendApiError(res, 'FORBIDDEN', { overrideMessage: 'You can only revoke your own consent.' });
+    }
+    const result = await nvConsentService.revokeConsent(existing.id);
     res.json({ success: true, data: result });
   } catch (error: any) {
     safeError(res, error, 500);
@@ -4001,7 +4026,13 @@ router.post('/consent/check', authenticateToken, async (req: Request, res: Respo
     if (typeof consentType !== 'string' || consentType.length === 0) {
       return void sendApiError(res, 'BAD_REQUEST', { overrideMessage: 'consentType (or purpose) is required' });
     }
-    const granted = await nvConsentService.checkConsent(userId, consentType);
+    const subject = resolveConsentSubject(consentCallerFromRequest(req), userId);
+    if (!subject.ok) {
+      return void sendApiError(res, subject.status === 401 ? 'UNAUTHORIZED' : 'FORBIDDEN', {
+        overrideMessage: subject.status === 401 ? 'Authentication required' : 'You can only check your own consent.',
+      });
+    }
+    const granted = await nvConsentService.checkConsent(subject.subjectUserId, consentType);
     res.json({ success: true, data: { granted } });
   } catch (error: any) {
     safeError(res, error, 500);
@@ -4026,10 +4057,16 @@ router.post('/incidents', authenticateToken, async (req: Request, res: Response)
     if (typeof title !== 'string' || title.length === 0) {
       return void sendApiError(res, 'BAD_REQUEST', { overrideMessage: 'title (or summary) is required' });
     }
+    const caller = consentCallerFromRequest(req);
+    if (!caller) return void sendApiError(res, 'UNAUTHORIZED');
+    const reportedByBody = req.body.reportedBy;
+    const reportedBy = isPlatformOperator(caller.role) && typeof reportedByBody === 'string' && reportedByBody.length > 0
+      ? reportedByBody
+      : caller.id;
     const result = await nvIncidentService.reportIncident({
       incidentType, severity, title, description,
       tenantId: req.body.tenantId,
-      reportedBy: req.body.reportedBy ?? req.user?.id ?? req.user?.userId,
+      reportedBy,
       affectedRequestIds: req.body.affectedRequestIds,
     });
     res.status(201).json({ success: true, data: result });
@@ -4040,6 +4077,11 @@ router.post('/incidents', authenticateToken, async (req: Request, res: Response)
 
 router.get('/incidents', authenticateToken, async (req: Request, res: Response) => {
   try {
+    const caller = consentCallerFromRequest(req);
+    if (!caller) return void sendApiError(res, 'UNAUTHORIZED');
+    if (!isPlatformOperator(caller.role)) {
+      return void sendApiError(res, 'FORBIDDEN', { overrideMessage: 'Incident list is restricted to platform operators.' });
+    }
     const result = await nvIncidentService.getIncidents(req.query.tenantId as string, req.query.status as string);
     res.json({ success: true, data: result });
   } catch (error: any) {
@@ -4049,8 +4091,13 @@ router.get('/incidents', authenticateToken, async (req: Request, res: Response) 
 
 router.put('/incidents/:id/resolve', authenticateToken, async (req: Request, res: Response) => {
   try {
+    const caller = consentCallerFromRequest(req);
+    if (!caller) return void sendApiError(res, 'UNAUTHORIZED');
+    if (!isPlatformOperator(caller.role)) {
+      return void sendApiError(res, 'FORBIDDEN', { overrideMessage: 'Only platform operators can resolve incidents.' });
+    }
     const { resolution, rootCause, resolvedBy } = req.body;
-    const result = await nvIncidentService.resolveIncident((req.params.id as string), resolution, rootCause, resolvedBy);
+    const result = await nvIncidentService.resolveIncident((req.params.id as string), resolution, rootCause, resolvedBy ?? caller.id);
     res.json({ success: true, data: result });
   } catch (error: any) {
     safeError(res, error, 500);
