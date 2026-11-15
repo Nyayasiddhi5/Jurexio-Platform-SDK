@@ -2,6 +2,10 @@
 
 ## [1.0.0] — Unreleased
 
+### Added — JRX-LEGAL-CHAT-RBAC-TESTS-001 (2026-11-15)
+
+- Unit tests for `requireLegalChatAccess`, `requireSuperadmin`, and `isSuperadmin`: superadmin and native SME bypass the allocation lookup even when the database is down; `admin` and `org_admin` are denied unless an active unrevoked `sme_allocations` row exists; non-numeric user ids never hit the database; a missing pool is 503 and a lookup error is 500 without leaking the database message.
+
 ### Added — JRX-SDK-HTTP-TESTS-001 (2026-11-14)
 
 - `@jurexio/client-sdk` unit tests for the shared HTTP client: error envelopes (`message` over `error`, empty message kept, non-JSON status line, trace id), `data` unwrapping including `0` and `null`, DELETE/PATCH, `getBytes` filename and failure mapping, default vs optional auth headers, `healthCheck` jurisdiction, and orchestrate/callAgent jurisdiction defaults. A 30ms timeout aborts the request.
