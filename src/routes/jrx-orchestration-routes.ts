@@ -1,6 +1,11 @@
 // JRX-NS-021 (2026-05-05): pre-existing strict-null cluster (gateway runs via tsx).
 import { Router, Request, Response } from 'express';
 import { authenticateToken, requireRole } from '../middleware/auth.js';
+import {
+  bindOrchestrationMemoryUser,
+  memoryCallerFromUser,
+  resolveOrchestrationMemorySubject,
+} from '../authz/orchestration-memory-subject.js';
 import { dualSdkOrJwt } from '../middleware/jrx-dual-auth.js';
 import { partnerIndiaScopeMiddleware } from '../middleware/jrx-partner-india-scope.js';
 import {
@@ -4194,11 +4199,34 @@ router.put('/custom-agents/:id', authenticateToken, requireRole('developer', 'or
   }
 });
 
+function orchestrationMemoryBody(req: Request): Record<string, unknown> {
+  const body = req.body;
+  if (body && typeof body === 'object' && !Array.isArray(body)) {
+    return body as Record<string, unknown>;
+  }
+  return {};
+}
+
+function rejectMemorySubject(res: Response, status: 401 | 403, action: 'store' | 'read' | 'clear'): void {
+  const message = status === 401
+    ? 'Authentication required'
+    : action === 'store'
+      ? 'You can only store your own memory.'
+      : action === 'read'
+        ? 'You can only read your own memory.'
+        : 'You can only clear your own memory.';
+  sendApiError(res, status === 401 ? 'UNAUTHORIZED' : 'FORBIDDEN', { overrideMessage: message });
+}
+
 router.post('/memory/store', authenticateToken, async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id || req.body.userId;
-    if (!userId) return void sendApiError(res, 'BAD_REQUEST', { overrideMessage: 'userId is required' });
-    const result = await nvMemoryService.store({ userId, ...req.body });
+    const body = orchestrationMemoryBody(req);
+    const subject = resolveOrchestrationMemorySubject(memoryCallerFromUser(req.user), body.userId);
+    if (!subject.ok) {
+      rejectMemorySubject(res, subject.status, 'store');
+      return;
+    }
+    const result = await nvMemoryService.store(bindOrchestrationMemoryUser(body, subject.userId) as any);
     res.json({ success: true, data: result });
   } catch (error: any) {
     safeError(res, error, 500);
@@ -4207,9 +4235,13 @@ router.post('/memory/store', authenticateToken, async (req: Request, res: Respon
 
 router.post('/memory/retrieve', authenticateToken, async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id || req.body.userId;
-    if (!userId) return void sendApiError(res, 'BAD_REQUEST', { overrideMessage: 'userId is required' });
-    const result = await nvMemoryService.retrieve({ userId, ...req.body });
+    const body = orchestrationMemoryBody(req);
+    const subject = resolveOrchestrationMemorySubject(memoryCallerFromUser(req.user), body.userId);
+    if (!subject.ok) {
+      rejectMemorySubject(res, subject.status, 'read');
+      return;
+    }
+    const result = await nvMemoryService.retrieve(bindOrchestrationMemoryUser(body, subject.userId) as any);
     res.json({ success: true, data: result });
   } catch (error: any) {
     safeError(res, error, 500);
@@ -4218,8 +4250,14 @@ router.post('/memory/retrieve', authenticateToken, async (req: Request, res: Res
 
 router.delete('/memory/clear', authenticateToken, async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id || req.body.userId;
-    const result = await nvMemoryService.clear(userId, req.body.scope);
+    const body = orchestrationMemoryBody(req);
+    const subject = resolveOrchestrationMemorySubject(memoryCallerFromUser(req.user), body.userId);
+    if (!subject.ok) {
+      rejectMemorySubject(res, subject.status, 'clear');
+      return;
+    }
+    const scope = typeof body.scope === 'string' ? body.scope : undefined;
+    const result = await nvMemoryService.clear(subject.userId, scope);
     res.json({ success: true, data: { cleared: result } });
   } catch (error: any) {
     safeError(res, error, 500);

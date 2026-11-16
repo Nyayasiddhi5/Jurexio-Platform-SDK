@@ -6,6 +6,7 @@
 
 | Timestamp | Status | Owner | Area | Summary | Evidence |
 |-----------|--------|-------|------|---------|----------|
+| 2026-11-16T11:20:00Z | DONE | Cursor Agent | JRX-ORCH-MEMORY-SUBJECT-001 | Orchestration memory store/retrieve spread `req.body` over the caller id, so any signed-in user could read or write another user's `nv_schema.memory_entries`. Bind the subject to the caller; operators may name another principal. | `tests/unit/orchestration-memory-subject.test.ts` |
 | 2026-10-20T17:05:00Z | DONE | Cursor Agent | JRX-PARTNER-SMOKE-SCRIPTS-001 | Restore partner smoke shell scripts referenced by `package.json` (SSM EC2 + local HTTPS); ops doc in `JRX-FRONTEND-INTEGRATION.md`. | `scripts/jrx-partner-smoke.sh`; public health probe 200 |
 | 2026-10-20T16:35:00Z | DONE | Cursor Agent | JRX-P0-SDK-READY-001 | P0 audit closeout: `@jurexio/client-sdk@5.0.0`, universal/legal chat SDK APIs, CORS+auth docs, JRX web quickstart proxy paths; guardrail + client-sdk build. | PR `feat/jrx-p0-sdk-ready`; `npm run guardrail:jrx-brands`; `packages/client-sdk` tsc |
 | 2026-10-18T17:50:00Z | DONE | Cursor Agent | JRX-RDS-SEQUENCE-GRANTS-001 | Runbook + provision script echo: post–greenfield `db:push` `GRANT USAGE, SELECT ON ALL SEQUENCES` for `jurexio_app` on `public`, `jrx_schema`, `nv_schema`; default-privileges note for future sequences. | PR #9 `docs/jrx-rds-sequence-grants`; `npm run guardrail:jrx-brands` PASS |

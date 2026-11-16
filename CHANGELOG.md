@@ -2,6 +2,10 @@
 
 ## [1.0.0] — Unreleased
 
+### Security — JRX-ORCH-MEMORY-SUBJECT-001 (2026-11-16)
+
+- `POST /api/jrx/memory/store`, `POST /api/jrx/memory/retrieve`, and `DELETE /api/jrx/memory/clear` (and the `/api/jrx/orchestration` aliases) computed the caller id and then spread `req.body` over it. A body `userId` replaced the authenticated principal, so any signed-in caller could read or write another user's `nv_schema.memory_entries`, and a store could evict that user's rows. The subject is now the caller. A different user id is accepted only for `admin`, `super_admin`, `superadmin`, or the internal `service` account, and it is applied after the body spread.
+
 ### Fixed — JRX-PARTNER-SMOKE-SCRIPTS-001 (2026-10-20)
 
 - Added `scripts/jrx-partner-smoke.sh`, `scripts/jrx-demo-probe-ec2.sh`, `scripts/jrx-live-sdk-matrix.sh` for `partner:smoke:*`, `demo:probe:ec2`, and `sdk:matrix:ec2` npm targets (JRX EC2 only; no secret logging).
