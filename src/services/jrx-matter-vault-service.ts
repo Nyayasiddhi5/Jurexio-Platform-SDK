@@ -13,6 +13,7 @@ import {
   parseIntelligenceDepth,
   type NvIntelligenceDepth,
 } from '../config/jrx-intelligence-depth.js';
+import { matterVaultVisibleToCaller, normalizeMatterVaultOrgId } from './jrx-matter-vault-acl.js';
 
 const logger = createLogger('./jrx-matter-vault');
 
@@ -73,7 +74,8 @@ export interface CreateMatterVaultInput {
   matterRef?: string;
   description?: string;
   jurisdiction?: string;
-  orgId?: string;
+  /** JWT and SDK auth carry organizationId as a number; the column is varchar. */
+  orgId?: string | number | null;
   userId?: string;
   defaultDepth?: string;
 }
@@ -97,9 +99,8 @@ export interface RunPlaybookInput {
 
 const vaults = new Map<string, MatterVault>();
 
-function aclOk(vault: MatterVault, orgId?: string): boolean {
-  if (!orgId || !vault.orgId) return true;
-  return vault.orgId === orgId;
+function aclOk(vault: MatterVault, orgId?: string | number | null): boolean {
+  return matterVaultVisibleToCaller(vault.orgId, orgId);
 }
 
 function rowToVault(row: {
@@ -123,7 +124,7 @@ function rowToVault(row: {
     matterRef: row.matterRef ?? undefined,
     description: row.description ?? undefined,
     jurisdiction: row.jurisdiction,
-    orgId: row.organizationId ?? undefined,
+    orgId: normalizeMatterVaultOrgId(row.organizationId),
     userId: row.userId ?? undefined,
     status: (row.status as MatterVaultStatus) || 'draft',
     defaultDepth: parseIntelligenceDepth(row.defaultDepth ?? p.defaultDepth, 'detailed'),
@@ -269,23 +270,18 @@ async function loadVaultFromDb(vaultId: string): Promise<MatterVault | undefined
 }
 
 async function listVaultsFromDb(orgId?: string): Promise<MatterVault[]> {
+  // A missing caller org must not fall through to "every row". Unscoped
+  // vaults (NULL organization_id) are not shared across tenants.
+  if (!orgId) return [];
   try {
     const { db } = await import('../db/index.js');
     if (!db) return [];
     const { sql } = await import('drizzle-orm');
-    const result = orgId
-      ? await db.execute(sql`
+    const result = await db.execute(sql`
           SELECT vault_id, organization_id, user_id, name, matter_ref, description,
                  jurisdiction, status, default_depth, payload, created_at, updated_at
           FROM nv_schema.nv_matter_vaults
-          WHERE organization_id IS NULL OR organization_id = ${orgId}
-          ORDER BY updated_at DESC
-          LIMIT 200
-        `)
-      : await db.execute(sql`
-          SELECT vault_id, organization_id, user_id, name, matter_ref, description,
-                 jurisdiction, status, default_depth, payload, created_at, updated_at
-          FROM nv_schema.nv_matter_vaults
+          WHERE organization_id = ${orgId}
           ORDER BY updated_at DESC
           LIMIT 200
         `);
@@ -322,18 +318,19 @@ function touch(v: MatterVault, patch: Partial<MatterVault>): MatterVault {
   return next;
 }
 
-export async function listMatterVaults(orgId?: string): Promise<MatterVault[]> {
-  const fromDb = await listVaultsFromDb(orgId);
+export async function listMatterVaults(orgId?: string | number | null): Promise<MatterVault[]> {
+  const org = normalizeMatterVaultOrgId(orgId);
+  const fromDb = await listVaultsFromDb(org);
   for (const v of fromDb) vaults.set(v.vaultId, v);
   const all = [...vaults.values()]
-    .filter((v) => aclOk(v, orgId))
+    .filter((v) => aclOk(v, org))
     .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
   return all;
 }
 
 export async function getMatterVault(
   vaultId: string,
-  orgId?: string,
+  orgId?: string | number | null,
 ): Promise<MatterVault | undefined> {
   let vault = vaults.get(vaultId);
   if (!vault) vault = await loadVaultFromDb(vaultId);
@@ -354,7 +351,7 @@ export async function createMatterVault(input: CreateMatterVaultInput): Promise<
     matterRef: input.matterRef?.trim() || undefined,
     description: input.description?.trim() || undefined,
     jurisdiction: (input.jurisdiction ?? 'IN').toUpperCase(),
-    orgId: input.orgId,
+    orgId: normalizeMatterVaultOrgId(input.orgId),
     userId: input.userId,
     status: 'draft',
     defaultDepth: parseIntelligenceDepth(input.defaultDepth, 'detailed'),
@@ -446,7 +443,7 @@ export async function uploadMatterVaultBatch(
 export async function runMatterVaultPlaybook(
   vaultId: string,
   input: RunPlaybookInput,
-  orgId?: string,
+  orgId?: string | number | null,
 ): Promise<MatterVault> {
   const vault = await getMatterVault(vaultId, orgId);
   if (!vault) throw new Error('Matter vault not found');
